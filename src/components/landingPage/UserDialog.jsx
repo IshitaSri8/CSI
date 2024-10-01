@@ -37,14 +37,14 @@ const UserDialog = forwardRef(({ onSuccess }, ref) => {
 
   const footer = (
     <div>
-      <Button label="Submit" onClick={handleSubmit} className="p-button-success" />
-      <Button label="Cancel" onClick={closeDialog} className="p-button-secondary" />
+      <Button label="Submit" onClick={handleSubmit} className="bg-theme" raised />
+      <Button label="Cancel" onClick={closeDialog} className="p-button-secondary" raised />
     </div>
   );
 
   const customHeader = (
     <div className="flex justify-content-between align-items-center">
-      <h3 className="m-0" style={{ color: "#166c7d", fontWeight: "bold" }}>Get in Touch</h3>
+      <h3 className="text-theme text-xl m-0 font-bold">Get in Touch</h3>
       {/* <Button icon="pi pi-times" onClick={closeDialog} className="p-button-rounded p-button-text" /> */}
     </div>
   );
@@ -58,7 +58,7 @@ const UserDialog = forwardRef(({ onSuccess }, ref) => {
         footer={footer}
         onHide={closeDialog}
       >
-        <div className="p-field">
+        <div className="p-field mb-3">
           <label htmlFor="name">Name</label>
           <InputText
             id="name"
@@ -68,7 +68,7 @@ const UserDialog = forwardRef(({ onSuccess }, ref) => {
             className="w-full"
           />
         </div>
-        <div className="p-field">
+        <div className="p-field mb-3">
           <label htmlFor="email">Email</label>
           <InputText
             id="email"
