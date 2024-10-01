@@ -13,7 +13,7 @@ import { Divider } from "primereact/divider";
 import CSIVideo from "../components/landingPage/CSIVideo";
 import { useNavigate } from "react-router-dom";
 import Questions from "../components/landingPage/Questions";
-import Chatbot from "../components/Chatbot/Chatbot";
+import Chatbot from "../components/landingPage/Chatbot";
 
 // Main LandingScreen component
 const LandingScreen = () => {
@@ -111,7 +111,7 @@ const LandingScreen = () => {
         />
       </div>
       {/* <Divider /> */}
-
+      <Chatbot />
       {/* Card Section */}
       <div
         ref={csiStepsRef} // Set the ref here
@@ -126,7 +126,6 @@ const LandingScreen = () => {
             />
           ))} */}
         <CSISteps />
-        <Chatbot/>
       </div>
 
       <div className="flex sec-theme">
