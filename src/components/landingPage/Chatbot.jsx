@@ -225,22 +225,16 @@ const Chatbot = () => {
 
   return (
     <div>
-      <div style={{ position: "fixed", bottom: 20, right: 20 }}>
+      <div
+        style={{
+          position: "fixed",
+          bottom: 20,
+          right: 20,
+          zIndex: 1000,
+          fontSize: "2rem",
+        }}
+      >
         <MyChatBot settings={settings} flow={flow} styles={styles} />
-        <button
-          onClick={() => setIsChatOpen(false)}
-          style={{
-            position: "absolute",
-            top: 10,
-            right: 10,
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: "red",
-          }}
-        >
-          ✖️
-        </button>
       </div>
     </div>
   );
