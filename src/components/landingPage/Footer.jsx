@@ -62,7 +62,7 @@ const Footer = () => {
         </h3>
         <div className="flex align-items-start justify-content-start flex-column gap-3 ">
           <div className="flex align-items-center justify-content-start flex-row gap-3 w-full">
-            <i className="pi pi-image text-3xl"></i>
+            <i className="pi pi-arrow-right text-orange-600 text-lg"></i>
             <div className="flex align-items-start justify-content-start flex-column gap-1">
               <h1 className="text-base p-0 m-0 text-left font-light">
                 Exciting times ahead for Ayodhya!
@@ -73,7 +73,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex align-items-center justify-content-start flex-row gap-3 w-full">
-            <i className="pi pi-image text-3xl"></i>
+            <i className="pi pi-arrow-right text-orange-600 text-lg"></i>
             <div className="flex align-items-start justify-content-start flex-column gap-1">
               <h1 className="text-base p-0 m-0 text-left font-light">
                 Going Live in Uttarakhand soon!

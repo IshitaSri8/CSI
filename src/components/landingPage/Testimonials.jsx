@@ -30,7 +30,7 @@ const testimonials = [
       "Founder, CEO at BDB-D&A Platform with DataOps/MLOps/AI/GenAI/Viz",
     testimonial:
       "This is interesting - Never heard of such kind of initiative in the past. With the kind of attention and growth Ayodhya will see in next decade, the success of this initiative is Mandatory. Indian Tech is matured enough to give unique contribution in this project. All the best Saurabh Rai & team.",
-    image: Vishal,
+    image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
   },
   {
     name: "Manvendra Pratap Singh",

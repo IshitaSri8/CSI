@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./Chatbot.module.css";
 import clsx from "clsx";
 import TextArea from "./components/TextArea";
-import Request from "./assets/request.svg";
+import Request from "../../assets/Chatbot/request.svg";
  
 const Chatbot = () => {
   const [active, setActive] = useState(false);
