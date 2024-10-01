@@ -1,0 +1,20 @@
+.card-animation {
+  transition: transform 0.5s ease;
+}
+
+.caraousel-indicator {
+  color: var(--theme-primary-color);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateX(-100%); /* Start from the left */
+  animation: fadeIn 1s forwards; /* Keep the animation forwards */
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateX(0); /* Move to its original position */
+  }
+}

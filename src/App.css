@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+* {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 12px;
+}
+
+body {
+  background-color: #fcfcfc;
+  overflow-x: hidden;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.text-theme {
+  color: #1f8297;
+}
+
+.bg-theme {
+  background-color: var(--theme-primary-color);
+}
+
+.sec-theme {
+  background-color: var(--theme-secondary);
+}
+
+.text {
+  color: var(--text-color);
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+  background-color: var(--theme-primary-color);
+}
+
+.p-carousel {
+  width: 50%;
+}
+
+.indicator .p-carousel .p-carousel-indicators .p-carousel-indicator {
+  border-radius: 50%;
+}
+
+.p-panel .p-panel-header{
+  background: var(--theme-secondary);
+}
+
+.p-panel .p-panel-header .p-panel-title {
+  font-size: 1.25rem;
+  color: var(--text-color-theme);
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: #ffffff;
+  border-color:var(--text-color-theme);
+  color:var(--text-color-theme);
+}
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  color: #000;
+  text-decoration: none;
+}
