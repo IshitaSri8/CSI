@@ -1,0 +1,133 @@
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  } */
+  .main {
+    display: flex;
+    z-index: 2;
+    position: fixed;
+    cursor: pointer;
+    bottom: 3vh;
+    right: 3vh;
+    height: 6vh;
+    width: 6vh;
+    border-radius: 50%;
+    /* background: rgba(255, 225, 255, 1); */
+    background-color: grey;
+    outline-offset: 3px;
+    outline-color: whitesmoke;
+    outline-color: orangered;
+    outline-color: orange;
+    outline-style: solid;
+    animation: continous 1s infinite;
+  }
+  .requestDemo {
+    display: flex;
+    position: relative;
+    height: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+   
+  @keyframes continous {
+    0% {
+      outline-width: 4px;
+      outline-offset: 0;
+    }
+    100% {
+      outline-offset: 8px;
+      outline-width: 0;
+      outline-color: transparent;
+    }
+  }
+  .focus {
+    background: rgba(209, 203, 203, 0.583);
+    cursor: default;
+    outline: none;
+    border-radius: 5px;
+    animation: onFocus 0.4s linear forwards;
+  }
+  .focus .requestDemo,
+  .focus .talkBubble {
+    display: none;
+  }
+  @keyframes vanish {
+    0% {
+      height: 85%;
+    }
+    100% {
+      height: 0;
+    }
+  }
+  @keyframes onFocus {
+    50% {
+      width: 40vh;
+      height: 5vh;
+    }
+    100% {
+      height: 50vh;
+      width: 40vh;
+    }
+  }
+   
+  .container {
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+  }
+   
+  .talkBubble {
+    display: inline-block;
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    text-wrap: nowrap;
+    /* color: white; */
+    font-weight: 600;
+    right: 120%;
+    bottom: 2vh;
+    transform: rotate(15deg) scale(0);
+    background-color: orange;
+    padding: 8px;
+    border-radius: 5px;
+    transform-origin: right bottom;
+    animation: popup 10s linear 5;
+  }
+  @keyframes popup {
+    0%,
+    48% {
+      transform: rotate(15deg) scale(0);
+    }
+    2%,
+    45% {
+      transform: rotate(-5deg) scale(1);
+    }
+    4%,
+    44% {
+      transform: rotate(0deg) scale(1);
+    }
+  }
+   
+  .triRight.btmRight:after {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: auto;
+    right: -10px;
+    bottom: 0px;
+    border-radius: 0px;
+    border: 8px solid;
+    border-color: transparent transparent lightcoral lightcoral;
+  }
+   
+  rect {
+    stroke-width: 2px;
+    stroke-linecap: round;
+    fill: transparent;
+  }

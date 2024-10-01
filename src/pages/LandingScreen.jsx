@@ -13,6 +13,7 @@ import { Divider } from "primereact/divider";
 import CSIVideo from "../components/landingPage/CSIVideo";
 import { useNavigate } from "react-router-dom";
 import Questions from "../components/landingPage/Questions";
+import Chatbot from "../components/Chatbot/Chatbot";
 
 // Main LandingScreen component
 const LandingScreen = () => {
@@ -125,6 +126,7 @@ const LandingScreen = () => {
             />
           ))} */}
         <CSISteps />
+        <Chatbot/>
       </div>
 
       <div className="flex sec-theme">
