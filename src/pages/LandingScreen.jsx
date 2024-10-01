@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Menubar } from "primereact/menubar";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
@@ -14,6 +14,7 @@ import CSIVideo from "../components/landingPage/CSIVideo";
 import { useNavigate } from "react-router-dom";
 import Questions from "../components/landingPage/Questions";
 import Chatbot from "../components/landingPage/Chatbot";
+import UserDialog from "../components/landingPage/UserDialog";
 
 // Main LandingScreen component
 const LandingScreen = () => {
@@ -21,6 +22,20 @@ const LandingScreen = () => {
 
   // Create a reference for the target div
   const csiStepsRef = useRef(null);
+
+  const userDialogRef = useRef(null);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const handleGetInTouchClick = () => {
+    if (userDialogRef.current) {
+      userDialogRef.current.openDialog();
+    }
+  };
+
+  // Callback to set the success message from the dialog component
+  const handleSuccess = (message) => {
+    setSuccessMessage(message);
+  };
 
   const itemRenderer = (item) => (
     <a className="flex align-items-center p-menuitem-link">
@@ -151,7 +166,7 @@ const LandingScreen = () => {
         />
       </div>
 
-      <div className="flex bg-theme px-5">
+      <div className="flex bg-theme text-white px-5">
         <Questions
           question="What factors are considered in the CSI?"
           point1={[
@@ -194,13 +209,22 @@ const LandingScreen = () => {
             team.
           </p>
           <div className="flex justify-content-center">
-            <Button
-              label="Get in Touch"
-              className="w-12rem mb-3 mt-3 bg-theme"
-              raised
-            />
+            {successMessage ? (
+              <div className="text-green-400 font-semibold text-xl text-center mb-2">
+                {successMessage}
+              </div>
+            ) : (
+              <Button
+                label="Get in Touch"
+                className="w-12rem mb-3 mt-3 bg-theme"
+                onClick={handleGetInTouchClick}
+              />
+            )}
           </div>
         </div>
+
+        {/* Pass handleSuccess as a prop to UserDialog */}
+        <UserDialog ref={userDialogRef} onSuccess={handleSuccess} />
       </div>
 
       <div className="flex">

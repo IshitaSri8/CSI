@@ -22,21 +22,21 @@ const Questions = ({ question, point1, point2, point3 }) => {
                     <ul>
                         {point1 && point1.length > 0 && (
                             <li className="mb-4 text-xl">
-                                 <span className="font-bold text-4xl">01. </span>
+                                 <span className="font-bold text-400 text-4xl">01. </span>
                                  <hr className="my-2" />
                                  {point1[0]}
                                  </li>
                         )}
                         {point2 && point2.length > 0 && (
                             <li className="mb-4 text-xl">
-                                 <span className="font-bold text-4xl">02. </span>
+                                 <span className="font-bold text-400 text-4xl">02. </span>
                                  <hr className="my-2" />
                                  {point2[0]}
                                  </li>
                         )}
                         {point3 && point3.length > 0 && (
                              <li className="mb-4 text-xl">
-                             <span className="font-bold text-4xl">03. </span>
+                             <span className="font-bold text-400 text-4xl">03. </span>
                              <hr className="my-2" />
                              {point3[0]}
                          </li>
