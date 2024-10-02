@@ -11,6 +11,7 @@ import UserDialog from "./components/landingPage/UserDialog";
 import AboutUs from "./pages/AboutUs";
 import OurWork from "./pages/OurWork";
 import Government from "./pages/Government";
+import CityReportCard from "./pages/CityReportCard";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/aboutus" element={<AboutUs/>} />
         <Route path="/ourwork" element={<OurWork/>} />
         <Route path="/government" element={<Government/>} />
+        <Route path="/reportcard" element={<CityReportCard/>} />
       </Routes>
 
   );

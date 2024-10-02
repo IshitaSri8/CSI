@@ -1,25 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/KnowYourCity/Footer";
-import { ParetoChart } from "./GraphVisuals";
-import sum_img from "./assets/plus.png";
-import equal_img from "./assets/equal.png";
-import esg from "./assets/ESG_ESG.png";
-import renewable from "./assets/renewable-energy.png";
-import air from "./assets/air.png";
-import water from "./assets/water.png";
-import earth from "./assets/earth.png";
-import climate from "./assets/climate.png";
-import n from "./assets/n-letter.png";
-import s from "./assets/s-letter.png";
-import a from "./assets/a.png";
-import home from "./assets/home.png";
-import health from "./assets/healthcare.png";
-import transport from "./assets/transport.png";
-import cultue from "./assets/culture.png";
-import gov from "./assets/governance.png";
-import rights from "./assets/human-rights.png";
-import corruption from "./assets/corruption.png";
+import { ParetoChart } from "../components/GraphVisuals";
+import sum_img from "../assets/City report card/plus.png";
+import equal_img from "../assets/City report card/equal.png";
+import esg from "../assets/City report card/ESG_ESG.png";
+import renewable from "../assets/City report card/renewable-energy.png";
+import air from "../assets/City report card/air.png";
+import water from "../assets/City report card/water.png";
+import earth from "../assets/City report card/earth.png";
+import climate from "../assets/City report card/climate.png";
+import n from "../assets/City report card/n-letter.png";
+import s from "../assets/City report card/s-letter.png";
+import a from "../assets/City report card/a.png";
+import home from "../assets/City report card/home.png";
+import health from "../assets/City report card/healthcare.png";
+import transport from "../assets/City report card/transport.png";
+import cultue from "../assets/City report card/culture.png";
+import gov from "../assets/City report card/governance.png";
+import rights from "../assets/City report card/human-rights.png";
+import corruption from "../assets/City report card/corruption.png";
+import { Card } from "primereact/card";
 
 const CityReportCard = () => {
   const [selectedCategory, setSelectedCategory] = useState("Environment");
@@ -94,154 +94,172 @@ const CityReportCard = () => {
     navigate("/csi/sdg");
   };
 
-  const handleEClick = () => {
-    navigate("/csi/report-map-page");
-  };
-
   return (
-    <div className="admin-main">
-      <div className="admin-sub-container">
-        <div className="admin-left">
-          <div className="row-1">
-            <div className="row-1-cols">
-              <div className="indicator">
-                <div className="name-container">
-                  <div
-                    className={`indicator-name ${activeTab === "E" ? "tab-active" : ""}`}
-                    onClick={() => handleTabClick("E")}
-                  >
-                    <img src={n} style={{ height: "2vw", width: "2vw" }} alt="nature" />
-                    <h1>Nature</h1>
-                    <span
-                      style={{
-                        backgroundColor: "#00A269",
-                        borderRadius: "100%",
-                        fontSize: "0.8vw",
-                        fontWeight: "700",
-                        padding: "0.4vw 0.5vw",
-                        color: "white",
-                      }}
-                    >
-                      80
-                    </span>
-                  </div>
-                  <div
-                    className={`indicator-name ${activeTab === "S" ? "tab-active" : ""}`}
-                    onClick={() => handleTabClick("S")}
-                  >
-                    <img src={s} style={{ height: "2vw", width: "2vw" }} alt="society" />
-                    <h1>Society</h1>
-                    <span
-                      style={{
-                        backgroundColor: "#00A269",
-                        borderRadius: "100%",
-                        fontSize: "0.8vw",
-                        fontWeight: "700",
-                        padding: "0.4vw 0.5vw",
-                        color: "white",
-                      }}
-                    >
-                      60
-                    </span>
-                  </div>
-                  <div
-                    className={`indicator-name ${activeTab === "G" ? "tab-active" : ""}`}
-                    onClick={() => handleTabClick("G")}
-                  >
-                    <img src={a} style={{ height: "2vw", width: "2vw" }}  alt="administration"/>
-                    <h1>Administration</h1>
-                    <span
-                      style={{
-                        backgroundColor: "#00A269",
-                        borderRadius: "100%",
-                        fontSize: "0.8vw",
-                        fontWeight: "700",
-                        padding: "0.4vw 0.5vw",
-                        color: "white",
-                      }}
-                    >
-                      70
-                    </span>
-                  </div>
-                </div>
-                <div className="content">
-                  {activeTab === "E" && indicators.E.map((indicator, index) => (
-                    <div key={index} className="indicator-box">
-                      <img src={indicator.icon} style={{ height: "2.5vw", width: "2.5vw" }} />
-                      <span>{indicator.text}</span>
-                    </div>
-                  ))}
-                  {activeTab === "S" && indicators.S.map((indicator, index) => (
-                    <div key={index} className="indicator-box">
-                      <img src={indicator.icon} style={{ height: "3vw", width: "3vw" }} />
-                      <span>{indicator.text}</span>
-                    </div>
-                  ))}
-                  {activeTab === "G" && indicators.G.map((indicator, index) => (
-                    <div key={index} className="indicator-box">
-                      <img src={indicator.icon} style={{ height: "3vw", width: "3vw" }} />
-                      <span>{indicator.text}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+    <div className="flex flex-column gap-3 p-8 mt-5">
+      {/* First Row: Indicator Tabs */}
+      <div className="flex gap-4">
+        {/* Nature Tab */}
+        <Card className="w-full cursor-pointer">
+          <div
+            className={`flex gap-6 align-items-center ${
+              activeTab === "E" ? "surface-border" : ""
+            }`}
+            onClick={() => handleTabClick("E")}
+          >
+            <img src={n} className="h-4rem w-4rem" alt="nature" />
+            <h1 className="text-2xl">Nature</h1>
+            <span className="bg-green-500 text-white border-round px-2 py-1 text-xl font-bold">
+              80
+            </span>
           </div>
+        </Card>
 
-          <div className="row-2-top">
-            <div className="row-2">
-              <ParetoChart
-                title={categories[selectedCategory].title}
-                categories={[
-                  "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-                ]}
-                data={categories[selectedCategory].data}
-                height="160"
-                width="400"
-                xtitle=""
-                ytitle=""
-              />
-            </div>
-            <div className="admin-total-score" onClick={handleTotalScoreClick}>
-              <div className="Summary">
-                <img src={n} className="letter" alt="E" />
-                <img src={sum_img} className="operator" alt="+" />
-                <img src={s} className="letter" alt="S" />
-                <img src={sum_img} className="operator" alt="+" />
-                <img src={a} className="letter" alt="G" />
-                <img src={equal_img} className="operator" alt="=" />
-                <img src={esg} className="esg" alt="ESG" style={{ height: "4vw", width: "4vw" }} />
-              </div>
-              <h1>Overall Score</h1>
-              <h2>70</h2>
-              <p>Click to View Individual Scores</p>
-            </div>
+        {/* Society Tab */}
+        <Card className="w-full cursor-pointer">
+          <div
+            className={`flex gap-6 align-items-center ${
+              activeTab === "S" ? "surface-border" : ""
+            }`}
+            onClick={() => handleTabClick("S")}
+          >
+            <img src={s} className="h-4rem w-4rem" alt="society" />
+            <h1 className="text-2xl">Society</h1>
+            <span className="bg-green-500 text-white border-round px-2 py-1 text-xl font-bold">
+              60
+            </span>
           </div>
-        </div>
-        <div className="admin-right">
-          <div className="improvement">
-            <h1><span>Summary</span></h1>
-            <ul>
-              <li>
-                The score 70 is combined output of all the indicators falling under SDG 11. This score indicates the actual picture of City Ayodhya and also the areas where improvements are required.
-              </li>
-              <li>
-                CSI serves as a benchmarking tool, allowing cities to compare their sustainability performance with peers regionally and globally, fostering healthy competition and knowledge exchange.
-              </li>
-              <li>
-                CSI promotes integrated and balanced urban development strategies.
-              </li>
-            </ul>
-            <h1><span>Areas of Improvement</span></h1>
-            <ul>
-              <li>Air Quality</li>
-              <li>Green space</li>
-              <li>Land Use</li>
-            </ul>
+        </Card>
+
+        {/* Administration Tab */}
+        <Card className="w-full cursor-pointer">
+          <div
+            className={`flex gap-6 align-items-center ${
+              activeTab === "G" ? "surface-border" : ""
+            }`}
+            onClick={() => handleTabClick("G")}
+          >
+            <img src={a} className="h-4rem w-4rem" alt="administration" />
+            <h1 className="text-2xl">Administration</h1>
+            <span className="bg-green-500 text-white border-round px-2 py-1 text-xl font-bold">
+              70
+            </span>
           </div>
-        </div>
+        </Card>
       </div>
-      <Footer />
+
+      {/* Second Row: Indicator Content */}
+      <div className="flex">
+        <Card className="w-full">
+          <div className="flex flex-wrap gap-6 justify-content-center">
+            {" "}
+            {/* Flex container to align icons */}
+            {activeTab === "E" &&
+              indicators.E.map((indicator, index) => (
+                <div
+                  key={index}
+                  className="flex flex-column align-items-center"
+                >
+                  {" "}
+                  {/* Align items in a column */}
+                  <img
+                    src={indicator.icon}
+                    className="h-3rem w-3rem mb-1" // Margin bottom for spacing
+                    alt="icon"
+                  />
+                  <span className="text-center">{indicator.text}</span>{" "}
+                  {/* Centered text below icon */}
+                </div>
+              ))}
+            {activeTab === "S" &&
+              indicators.S.map((indicator, index) => (
+                <div
+                  key={index}
+                  className="flex flex-column align-items-center"
+                >
+                  {" "}
+                  {/* Align items in a column */}
+                  <img
+                    src={indicator.icon}
+                    className="h-3rem w-3rem mb-1" // Margin bottom for spacing
+                    alt="icon"
+                  />
+                  <span className="text-center">{indicator.text}</span>{" "}
+                  {/* Centered text below icon */}
+                </div>
+              ))}
+            {activeTab === "G" &&
+              indicators.G.map((indicator, index) => (
+                <div
+                  key={index}
+                  className="flex flex-column align-items-center"
+                >
+                  {" "}
+                  {/* Align items in a column */}
+                  <img
+                    src={indicator.icon}
+                    className="h-3rem w-3rem mb-1" // Margin bottom for spacing
+                    alt="icon"
+                  />
+                  <span className="text-center">{indicator.text}</span>{" "}
+                  {/* Centered text below icon */}
+                </div>
+              ))}
+          </div>
+        </Card>
+      </div>
+
+      {/* Third Row: Two-Column Layout */}
+      <div className="flex gap-4">
+        {/* First Column: ParetoChart */}
+        <Card className="w-6">
+          <div className="surface-border p-4">
+            <ParetoChart
+              title={categories[selectedCategory].title}
+              categories={[
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+              ]}
+              data={categories[selectedCategory].data}
+              height="160"
+              width="400"
+              xtitle=""
+              ytitle=""
+            />
+          </div>
+        </Card>
+
+        {/* Second Column: Total CSI Score */}
+        <Card className="w-6 flex flex-column justify-content-between align-items-center">
+          <div
+            className="surface-border text-center p-5 mt-5 cursor-pointer"
+            onClick={handleTotalScoreClick}
+          >
+            <div className="flex justify-content-center gap-2 align-items-center">
+              <img src={n} className="h-3rem" alt="nature" />
+              <img src={sum_img} className="h-2rem" alt="plus" />
+              <img src={s} className="h-3rem" alt="society" />
+              <img src={sum_img} className="h-2rem" alt="plus" />
+              <img src={a} className="h-3rem" alt="admin" />
+              <img src={equal_img} className="h-2rem" alt="equals" />
+              <img src={esg} className="h-5rem" alt="esg" />
+            </div>
+            <h1 className="text-xl font-bold">Total CSI Score</h1>
+            <span className="bg-green-500 text-white border-round px-2 py-1 text-sm font-bold">
+              70
+            </span>
+          </div>
+        </Card>
+      </div>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ApexCharts from "react-apexcharts";
+//import ApexCharts from "react-apexcharts";
 import CanvasJSReact from "@canvasjs/react-charts";
 //import { color } from "framer-motion";
-import "./Admin.css";
+//import "./Admin.css";
 //const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -379,133 +379,133 @@ export const PieChart = ({ title, labels, series, height }) => {
     </div>
   );
 };
-export const LineChart = ({
-  title,
-  group,
-  categories,
-  series,
-  height,
-  width,
-  xtitle,
-  ytitle,
-}) => {
-  return (
-    <div className="chart-container z-index-low">
-      <ApexCharts
-        className="chart"
-        options={{
-          chart: {
-            type: "line",
-            height: height,
-            group: group,
-            toolbar: {
-              show: true,
-            },
-          },
-          title: {
-            text: title,
-            align: "center",
-            offsetY: 10,
-            offsetX: -60,
-            style: {
-              fontSize: "0.7vw",
-            },
-          },
-          xaxis: {
-            tickPlacement: "on",
-            type: "category",
-            categories: categories,
-            title: {
-              text: xtitle,
-              style: {
-                fontSize: "0.5vw",
-                fontWeight: 800,
-              },
-              offsetY: 10,
-            },
-            labels: {
-              style: {
-                fontSize: "0.5vw", // Adjust the font size of categories
-              },
-            },
-          },
-          yaxis: {
-            title: {
-              text: ytitle,
-              style: {
-                fontSize: "0.5vw",
-                fontWeight: 800,
-              },
-            },
-          },
-          colors,
-          stroke: {
-            width: 1,
-          },
-        }}
-        series={series}
-        type="line"
-        height={height}
-        width={width}
-      />
-    </div>
-  );
-};
+// export const LineChart = ({
+//   title,
+//   group,
+//   categories,
+//   series,
+//   height,
+//   width,
+//   xtitle,
+//   ytitle,
+// }) => {
+//   return (
+//     <div className="chart-container z-index-low">
+//       <ApexCharts
+//         className="chart"
+//         options={{
+//           chart: {
+//             type: "line",
+//             height: height,
+//             group: group,
+//             toolbar: {
+//               show: true,
+//             },
+//           },
+//           title: {
+//             text: title,
+//             align: "center",
+//             offsetY: 10,
+//             offsetX: -60,
+//             style: {
+//               fontSize: "0.7vw",
+//             },
+//           },
+//           xaxis: {
+//             tickPlacement: "on",
+//             type: "category",
+//             categories: categories,
+//             title: {
+//               text: xtitle,
+//               style: {
+//                 fontSize: "0.5vw",
+//                 fontWeight: 800,
+//               },
+//               offsetY: 10,
+//             },
+//             labels: {
+//               style: {
+//                 fontSize: "0.5vw", // Adjust the font size of categories
+//               },
+//             },
+//           },
+//           yaxis: {
+//             title: {
+//               text: ytitle,
+//               style: {
+//                 fontSize: "0.5vw",
+//                 fontWeight: 800,
+//               },
+//             },
+//           },
+//           colors,
+//           stroke: {
+//             width: 1,
+//           },
+//         }}
+//         series={series}
+//         type="line"
+//         height={height}
+//         width={width}
+//       />
+//     </div>
+//   );
+// };
 
 // Function to render an area chart
-export const AreaChart = ({
-  title,
-  categories,
-  series,
-  height,
-  width,
-  xtitle,
-  ytitle,
-}) => {
-  return (
-    <div className="chart-container z-index-low">
-      <ApexCharts
-        className="chart"
-        options={{
-          chart: {
-            type: "area",
-            height: height,
-            group: "same",
-            toolbar: {
-              show: true,
-            },
-          },
-          title: {
-            text: title,
-            align: "center",
-            offsetY: 20,
-            style: {
-              fontSize: "1vw",
-            },
-          },
-          xaxis: {
-            tickPlacement: "on",
-            type: "category",
-            categories: categories,
-            title: {
-              text: xtitle,
-            },
-          },
-          yaxis: {
-            title: {
-              text: ytitle,
-            },
-          },
-          colors, // Include the colors array here
-        }}
-        series={series}
-        type="area"
-        height={height}
-        width={width}
-      />
-    </div>
-  );
-};
+// export const AreaChart = ({
+//   title,
+//   categories,
+//   series,
+//   height,
+//   width,
+//   xtitle,
+//   ytitle,
+// }) => {
+//   return (
+//     <div className="chart-container z-index-low">
+//       <ApexCharts
+//         className="chart"
+//         options={{
+//           chart: {
+//             type: "area",
+//             height: height,
+//             group: "same",
+//             toolbar: {
+//               show: true,
+//             },
+//           },
+//           title: {
+//             text: title,
+//             align: "center",
+//             offsetY: 20,
+//             style: {
+//               fontSize: "1vw",
+//             },
+//           },
+//           xaxis: {
+//             tickPlacement: "on",
+//             type: "category",
+//             categories: categories,
+//             title: {
+//               text: xtitle,
+//             },
+//           },
+//           yaxis: {
+//             title: {
+//               text: ytitle,
+//             },
+//           },
+//           colors, // Include the colors array here
+//         }}
+//         series={series}
+//         type="area"
+//         height={height}
+//         width={width}
+//       />
+//     </div>
+//   );
+// };
 export const CustomBarChart = ({
   title,
   categories,

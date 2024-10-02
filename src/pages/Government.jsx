@@ -15,10 +15,10 @@ const Government = () => {
         <div className="flex flex-column gap-1 mt-5 align-items-center">
           <h1 className="text-4xl">CSI for Government</h1>
           <Button
-            label="Official Login"
-            // icon="pi pi-globe"
+            label="City Report Card"
+            icon="pi pi-receipt"
             className="bg-theme w-12rem mb-3"
-            // onClick={() => navigate("/kyc")}
+             onClick={() => navigate("/reportcard")}
             raised
           />
         </div>

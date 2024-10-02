@@ -14,13 +14,6 @@ const OurWork = () => {
       <div style={{ paddingTop: "5rem" }}>
         <div className="flex flex-column gap-1 mt-5 align-items-center">
           <h1 className="text-4xl">CSI for Ayodhya</h1>
-          <Button
-            label="Our Work"
-            // icon="pi pi-globe"
-            className="bg-theme w-12rem mb-3"
-            // onClick={() => navigate("/kyc")}
-            raised
-          />
         </div>
       </div>
     </div>
