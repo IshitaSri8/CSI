@@ -18,3 +18,81 @@
     transform: translateX(0); /* Move to its original position */
   }
 }
+.rcb-toggle-icon {
+  background-image: url("../../assets/Chatbot/Chatbot.svg") !important;
+  height: 3rem !important;
+  width: 3rem !important;
+}
+
+.rcb-toggle-button {
+  height: 4rem !important;
+  width: 4rem !important;
+  background-image: linear-gradient(to right, #f26721, #f7a47a) !important;
+}
+.rcb-badge {
+  padding: 0.4rem 0.6rem !important;
+  font-size: 0.7rem !important;
+  background-color: #166c7d !important;
+}
+.rcb-chat-tooltip.rcb-tooltip-show {
+  right: 80px !important;
+  bottom: 28px !important;
+  padding: 0.3rem 1rem !important;
+  font-family: "DM Sans" !important;
+  background-image: linear-gradient(to right, #f26721, #f7a47a);
+}
+.rcb-chat-tooltip-tail {
+  right: -5px !important;
+  border-color: transparent transparent transparent #f7a47a !important;
+}
+.rcb-chat-header {
+  align-items: center;
+  font-family: "DM Sans" !important;
+}
+.rcb-notification-icon-on,
+.rcb-notification-icon-off,
+.rcb-close-chat-icon {
+  height: 1rem !important;
+  margin: 0 0.5rem !important;
+  width: 1rem !important;
+}
+.rcb-chat-footer-container {
+  visibility: hidden !important;
+  height: 0;
+  padding: 0 !important;
+}
+.rcb-chat-window {
+  height: 30rem !important;
+  width: 20rem !important;
+  border-radius: 5px !important;
+  font-size: 1rem !important;
+  padding: 0 !important;
+}
+.rcb-chat-header-container {
+  padding: 0.5rem !important;
+}
+.rcb-chat-input {
+  padding: 0.5rem 0.5rem !important;
+}
+.rcb-chat-input-textarea {
+  font-size: 1rem !important;
+  min-height: 1.5rem !important;
+}
+.rcb-send-button {
+  height: 2.8rem !important;
+  width: 3rem !important;
+}
+.rcb-bot-message,
+.rcb-user-message {
+  font-size: 1rem !important;
+  padding: 0.5rem 1rem !important;
+  margin: 0.5rem !important;
+  min-height: 1rem !important;
+  border-radius: 10px !important;
+  font-family: "DM Sans" !important;
+}
+.rcb-options {
+  font-size: 1rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 10px !important;
+}
