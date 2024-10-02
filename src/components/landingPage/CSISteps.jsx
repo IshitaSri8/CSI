@@ -14,25 +14,25 @@ const CardItem = ({ number, title, content }) => {
   }, [number, title, content]);
 
   return (
-    <div className="flex w-full h-25rem card-animation">
+    <div className="flex w-full h-auto card-animation">
       <Card
-        className="flex justify-content-center align-items-center w-full card-bg"
+        className="flex justify-content-center w-full card-bg h-auto"
         style={{
           background: "linear-gradient(to left, #1F8297, #166C7D, #003940)",
         }}
       >
-        <div className="flex flex-column justify-content-between align-items-center w-full h-full">
+        <div className="flex flex-column justify-content-between w-full h-auto">
           <h3
             className={`text-4xl font-bold text-white m-0 p-0 w-full text-right ${fadeInClass}`}
             style={{ marginTop: -10 }}
           >
             {number}
           </h3>
-          <h3 className={`text-2xl font-semibold text-white ${fadeInClass}`}>
+          <h3 className={`text-xl font-semibold text-white text-left ${fadeInClass}`}>
             {title}
           </h3>
           <p
-            className={`text-base text-white ${fadeInClass}`}
+            className={`text-sm text-white text-left ${fadeInClass}`}
             style={{ textAlign: "center" }}
           >
             {content}
@@ -78,7 +78,7 @@ const CSISteps = () => {
   return (
     <div className="flex align-items-center justify-content-center flex-column gap-3 px-5">
       {/* Heading */}
-      <h1 className="text-3xl text-theme">
+      <h1 className="text-4xl text-theme">
         " Understanding the City Sustainability Index in Simple Steps "
       </h1>
 
@@ -93,7 +93,7 @@ const CSISteps = () => {
         <Divider
           type="solid"
           layout="vertical"
-          className="w-0.0625rem h-20rem surface-100 ml-5 mr-5"
+          className="w-0.0625rem h-20rem surface-100 ml-8 mr-8"
         />
 
         {/* Steps */}

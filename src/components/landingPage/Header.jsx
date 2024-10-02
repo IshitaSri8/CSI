@@ -44,6 +44,8 @@ const Header = () => {
       label: "CSI for Government",
       icon: "pi pi-envelope",
       template: itemRenderer,
+      path: "/government",
+      command: () => navigate("/government"),
     },
     {
       label: "About Us",
@@ -62,7 +64,7 @@ const Header = () => {
   ];
 
   const start = (
-    <img className="mr-auto w-4 h-2" src={Arahas} alt="Arahas Logo" />
+    <img className="mr-auto w-3" src={Arahas} alt="Arahas Logo" />
   );
 
   const end = (

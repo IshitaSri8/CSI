@@ -52,11 +52,11 @@ const testimonials = [
 // Template for individual testimonial cards
 const testimonialTemplate = (testimonial) => {
   return (
-    <Card
-      className="mb-4"
-      style={{ backgroundColor: "#E9F3F5", borderRadius: "1.5rem" }}
+    <div
+      className="mb-4 mx-5"
+      style={{ backgroundColor: "#fff" }}
     >
-      <div className=" flex h-15rem flex-column justify-content-between align-item-center">
+      <div className=" flex h-20rem flex-column justify-content-between align-item-center">
         {" "}
         {/* Testimonial Row */}
         <div className="flex flex-column justify-content-center align-items-center">
@@ -100,13 +100,13 @@ const testimonialTemplate = (testimonial) => {
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 };
 
 const Testimonials = () => {
   return (
-    <div className="flex w-full align-items-center justify-content-center gap-6 px-5">
+    <div className="flex w-full align-items-center justify-content-center gap-8 px-5">
       {/* Row with heading and carousel */}
       {/* Heading Column */}
       <div className="flex justify-content-start">
@@ -116,12 +116,12 @@ const Testimonials = () => {
             alt=""
             style={{ width: "50px", height: "50px" }}
           />
-          <h1 className="text-4xl mb-5">Testimonials about our work</h1>
+          <h1 className="text-5xl font-semibold mb-5">Testimonials about our work</h1>
         </div>
       </div>
 
       {/* Carousel Column */}
-
+<Card style={{width: "35rem", borderRadius: "2rem"}}>
       <Carousel
         value={testimonials}
         itemTemplate={testimonialTemplate}
@@ -130,6 +130,7 @@ const Testimonials = () => {
         circular
         autoplayInterval={10000}
       />
+      </Card>
     </div>
   );
 };

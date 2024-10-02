@@ -55,6 +55,10 @@ body {
   color: #1f8297;
 }
 
+.text-sec-theme {
+  color: #3E4141;
+}
+
 .bg-theme {
   background-color: var(--theme-primary-color);
 }
@@ -72,7 +76,7 @@ body {
 }
 
 .p-carousel {
-  width: 40%;
+  width: 100%;
 }
 
 .indicator .p-carousel .p-carousel-indicators .p-carousel-indicator {
@@ -101,9 +105,17 @@ body {
 .text-active {
   /* color: #007ad9; Active color */
   /*color: #007bff;  Highlight color */
-  background-color: #E9F3F5;
+  /* background-color: #E9F3F5; */
   font-weight: bold;
   border-bottom: 2px solid #166c7d; /* Bottom border to show as active */
+}
+
+.p-carousel .p-carousel-content .p-carousel-prev:enabled:hover, .p-carousel .p-carousel-content .p-carousel-next:enabled:hover {
+  color: var(--theme-primary-color);
+}
+
+.p-carousel .p-carousel-content .p-carousel-prev, .p-carousel .p-carousel-content .p-carousel-next{
+  color: var(--theme-primary-color);
 }
 
 

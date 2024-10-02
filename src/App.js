@@ -10,6 +10,7 @@ import KnowYourCity from "./pages/KnowYourCity";
 import UserDialog from "./components/landingPage/UserDialog";
 import AboutUs from "./pages/AboutUs";
 import OurWork from "./pages/OurWork";
+import Government from "./pages/Government";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/kyc" element={<KnowYourCity/>} />
         <Route path="/aboutus" element={<AboutUs/>} />
         <Route path="/ourwork" element={<OurWork/>} />
+        <Route path="/government" element={<Government/>} />
       </Routes>
 
   );

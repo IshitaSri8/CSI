@@ -14,6 +14,7 @@ import Questions from "../components/landingPage/Questions";
 import Chatbot from "../components/landingPage/Chatbot";
 import UserDialog from "../components/landingPage/UserDialog";
 import Header from "../components/landingPage/Header";
+import Parameters from "../components/landingPage/Parameters";
 
 // Main LandingScreen component
 const LandingScreen = () => {
@@ -60,7 +61,7 @@ const LandingScreen = () => {
           <h2 className="text-4xl text-theme m-0 p-0">
             City Sustainability Index
           </h2>
-          <h2 className="text-4xl m-0 p-0">
+          <h2 className="text-4xl text-sec-theme m-0 p-0">
             Measuring and Boosting Urban Sustainability
           </h2>
           <p className="text-xl" style={{ color: "#8AA4A7" }}>
@@ -89,7 +90,7 @@ const LandingScreen = () => {
         {/* Card Section */}
         <div
           ref={csiStepsRef} // Set the ref here
-          className="flex justify-content-center my-4 gap-6 flex-nowrap w-full overflow-auto pl-5 pr-5"
+          className="flex justify-content-center gap-6 flex-nowrap w-full overflow-auto pl-5 pr-5 h-screen"
         >
           {/* {cardData.map((card, index) => (
             <CardItem
@@ -102,15 +103,15 @@ const LandingScreen = () => {
           <CSISteps />
         </div>
 
-        <div className="flex sec-theme">
+        <div className="flex sec-theme h-screen">
           <CSIVideo />
         </div>
 
-        <div className="flex my-4">
-          <Testimonials />
+        <div className="flex h-screen justify-content-center gap-6 flex-nowrap w-full overflow-auto pl-5 pr-5">
+          <Parameters />
         </div>
 
-        <div className="flex sec-theme p-5">
+        <div className="flex bg-theme text-white h-screen">
           <Questions
             question="What is the City Sustainability Index (CSI)?"
             point1={[
@@ -125,7 +126,7 @@ const LandingScreen = () => {
           />
         </div>
 
-        <div className="flex bg-theme text-white p-5">
+        <div className="flex sec-theme h-screen">
           <Questions
             question="What factors are considered in the CSI?"
             point1={[
@@ -140,7 +141,7 @@ const LandingScreen = () => {
           />
         </div>
 
-        <div className="flex sec-theme p-5">
+        <div className="flex bg-theme text-white h-screen">
           <Questions
             question="How does CSI benefit cities?"
             point1={[
@@ -153,6 +154,9 @@ const LandingScreen = () => {
               "The City Sustainability Index (CSI) is a comprehensive framework for measuring and evaluating the sustainability of cities across various dimensions such as environmental, social, and economic factors.",
             ]}
           />
+        </div>
+        <div className="flex sec-theme p-8">
+          <Testimonials />
         </div>
 
         <div
