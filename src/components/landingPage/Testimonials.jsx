@@ -5,7 +5,7 @@ import { loremIpsum } from "lorem-ipsum";
 import Vishal from "../../assets/vishal.png";
 import quotation from "../../assets/quotation-mark.png";
 import "./Landing.css";
-import image from "../../assets/image.png";
+import media from "../../assets/Media.jpg";
 import Sonika from "../../assets/Sonika.png";
 
 const text = loremIpsum({
@@ -33,20 +33,21 @@ const testimonials = [
     image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
   },
   {
-    name: "Manvendra Pratap Singh",
-    position: "Sustainability Learner and Practitioner",
-    testimonial:
-      "Great news where an Indian company is taking sustainability index to it's real meaningful approach. Love to see the indicators used for indexing. Kudos to ARAHAS TECHNOLOGIES",
-    image: image,
+    name: "Inder Negi",
+    position: "National Secretary - Indian International Trade Development Organization (IITDO)",
+    testimonial:"Great work, great going. That's the need of the hour. Love to see the indicators used for indexing. I am sure this development of Vedic sustainability city index will be an example to replicate in other such holy cities too. 100 Percent it's a real exciting time ahead for Ayodhya.",
+      //"Great news where an Indian company is taking sustainability index to it's real meaningful approach. Love to see the indicators used for indexing. Kudos to ARAHAS TECHNOLOGIES",
+    image: media,
   },
   {
     name: "Sonika Seth",
     position: "Managing Director at P J Networks Pvt Ltd",
     testimonial:
-      "As someone who strongly believes in the power of sustainable urban development, I am thrilled to hear about the Vedic Sustainable City Index for Ayodhya. The way you are leveraging AI algorithms and geospatial analytics to cover all aspects of sustainability - environmental, societal, economic, and governance, is commendable. Also, your goal to transform Ayodhya into a city that embodies the United Nations Sustainable Development Goals speaks volumes about your vision. I am eager to see Ayodhya setting an example for cities across the globe by demonstrating how sustainable development principles can keep pace with modern technology to create a resilient urban environment.",
+      "As someone who strongly believes in the power of sustainable urban development, I am thrilled to hear about the Vedic Sustainable City Index for Ayodhya. The way you are leveraging AI algorithms and geospatial analytics to cover all aspects of sustainability - environmental, societal, economic, and governance, is commendable. Also, your goal to transform Ayodhya into a city that embodies the United Nations Sustainable Development Goals speaks volumes about your vision.",
     image: Sonika,
   },
 ];
+//I am eager to see Ayodhya setting an example for cities across the globe by demonstrating how sustainable development principles can keep pace with modern technology to create a resilient urban environment.
 
 // Template for individual testimonial cards
 const testimonialTemplate = (testimonial) => {
@@ -55,12 +56,12 @@ const testimonialTemplate = (testimonial) => {
       className="mb-4"
       style={{ backgroundColor: "#E9F3F5", borderRadius: "1.5rem" }}
     >
-      <div className=" flex h-18rem  flex-column justify-content-between align-item-center">
+      <div className=" flex h-15rem flex-column justify-content-between align-item-center">
         {" "}
         {/* Testimonial Row */}
         <div className="flex flex-column justify-content-center align-items-center">
           <p
-            className="text-base text-left font-regular"
+            className="text-left font-regular"
             style={{ color: "#101828" }}
           >
             "{testimonial.testimonial}"
