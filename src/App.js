@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Citizen from "./pages/Citizen";
 import KnowYourCity from "./pages/KnowYourCity";
 import UserDialog from "./components/landingPage/UserDialog";
+import AboutUs from "./pages/AboutUs";
+import OurWork from "./pages/OurWork";
 
 function App() {
   return (
@@ -19,7 +21,8 @@ function App() {
         <Route path="/" element={<LandingScreen />} />
         <Route path="/citizens" element={<Citizen />} />
         <Route path="/kyc" element={<KnowYourCity/>} />
-        <Route path="/dialog" element={<UserDialog/>} />
+        <Route path="/aboutus" element={<AboutUs/>} />
+        <Route path="/ourwork" element={<OurWork/>} />
       </Routes>
 
   );
