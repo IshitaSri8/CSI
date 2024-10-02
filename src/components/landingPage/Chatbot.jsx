@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MyChatBot from "react-chatbotify";
-import chatIcon from "../../assets/chat.svg";
-
+import chatIcon from "../../assets/Chatbot/Chatbot.svg";
+import "./Landing.css";
 const Chatbot = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [form, setForm] = useState({});
@@ -32,6 +32,7 @@ const Chatbot = () => {
     },
     chatHistory: {
       storageKey: "concepts_settings",
+      disabled: true,
     },
   };
 
@@ -91,7 +92,6 @@ const Chatbot = () => {
 
       const data = await response.json();
       if (Array.isArray(data)) {
-        console.log(data);
         setCities(data);
       } else {
         console.error("Unexpected response format for cities:", data);
@@ -102,7 +102,8 @@ const Chatbot = () => {
   };
 
   useEffect(() => {
-    fetchStates(); // Fetch states when component mounts
+    fetchStates();
+    fetchCities(); // Fetch states when component mounts
   }, []);
 
   const flow = {
@@ -152,8 +153,10 @@ const Chatbot = () => {
           (state) => state.name === params.userInput
         );
         if (selectedState) {
+          fetchCities(selectedState.iso2);
+
           setForm({ ...form, state: selectedState.name });
-          fetchCities(selectedState.iso2); // Fetch cities for the selected state
+          // Fetch cities for the selected state
         }
       },
       path: async (params) => {
@@ -164,6 +167,7 @@ const Chatbot = () => {
       message: "Which city are you in?",
       options: cities.map((city) => city.name), // Display cities if available
       function: (params) => {
+        console.log(cities);
         setForm({ ...form, city: params.userInput });
       },
       path: async (params) => {
