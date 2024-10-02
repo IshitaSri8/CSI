@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import MyChatBot from "react-chatbotify";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import chatIcon from "../../assets/Chatbot/Chatbot.svg";
-import "./Landing.css";
+import "../landingPage/Landing.css";
+
 const Chatbot = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [form, setForm] = useState({});
   const [states, setStates] = useState([]); // Ensure states is initialized as an empty array
   const [cities, setCities] = useState([]);
 
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const settings = {
     isOpen: true,
     tooltip: {
       mode: "CLOSE",
-      text: "Hey, How Can I help You Today?",
+      text: "New User? Register Here!",
     },
     botBubble: { showAvatar: false },
     general: {
@@ -66,7 +70,6 @@ const Chatbot = () => {
       );
       const data = await response.json();
 
-      // Ensure data is an array before setting it
       if (Array.isArray(data)) {
         setStates(data);
       } else {
@@ -103,7 +106,6 @@ const Chatbot = () => {
 
   useEffect(() => {
     fetchStates();
-    fetchCities(); // Fetch states when component mounts
   }, []);
 
   const flow = {
@@ -156,74 +158,35 @@ const Chatbot = () => {
           fetchCities(selectedState.iso2);
 
           setForm({ ...form, state: selectedState.name });
-          // Fetch cities for the selected state
         }
       },
-      path: async (params) => {
-        return "ask_city";
-      },
+      path: async (params) => "ask_city",
     },
     ask_city: {
       message: "Which city are you in?",
       options: cities.map((city) => city.name), // Display cities if available
       function: (params) => {
-        console.log(cities);
         setForm({ ...form, city: params.userInput });
       },
-      path: async (params) => {
-        return "ask_questions"; // Proceed to questions after selecting a city
-      },
+      path: async (params) => "kyc",
     },
-    ask_questions: {
-      message: "What do you want to know about CSI?",
-      options: [
-        "What is the CSI Score of my City?",
-        "What is CSI?",
-        "What are the benefits of CSI?",
-        "Can you provide me with some recent statistics?",
-        "How is the CSI score calculated?",
-        "What actions can I take to improve my city's CSI score?",
-      ],
+    kyc: {
+      message: "Want to know more about your city?",
+      options: ["Yes", "No"],
       function: (params) => {
-        const userQuestion = params.userInput;
-        let responseMessage;
-
-        switch (userQuestion) {
-          case "What is the CSI Score of my City?":
-            responseMessage = "The CSI Score of your city is 56.";
-            break;
-          case "What is CSI?":
-            responseMessage =
-              "The City Sustainability Index (CSI) is a framework that assesses the environmental, social, and economic sustainability of cities. It helps in understanding urban health and guiding policy decisions.";
-            break;
-          case "What are the benefits of CSI?":
-            responseMessage =
-              "The benefits of CSI include informed decision-making for urban planning, enhanced citizen engagement, and improved quality of life through better resource management and environmental protection.";
-            break;
-          case "Can you provide me with some recent statistics?":
-            responseMessage =
-              "Sure! Recent statistics show that cities with higher CSI scores have better waste management systems and lower pollution levels.";
-            break;
-          case "How is the CSI score calculated?":
-            responseMessage =
-              "The CSI score is calculated based on various indicators including air quality, water quality, waste management, and citizen engagement.";
-            break;
-          case "What actions can I take to improve my city's CSI score?":
-            responseMessage =
-              "You can improve your city's CSI score by participating in local environmental initiatives, promoting recycling, and supporting sustainable policies.";
-            break;
-          default:
-            responseMessage = "I'm sorry, I didn't understand that question.";
+        if (params.userInput.toLowerCase() === "yes") {
+          navigate("/kyc"); // Redirect to KYC page if user says Yes
         }
-
-        params.injectMessage(responseMessage); // Send the response message
-        return "thank_you"; // Proceed to thank you message after answering
+      },
+      path: (params) => {
+        if (params.userInput.toLowerCase() === "no") {
+          return "thank_you"; // Proceed to Thank You message if No
+        }
       },
     },
     thank_you: {
-      message:
-        "Thank you for providing your details! How can I assist you further?",
-      path: "start", // Reset flow or redirect as needed
+      message: "Thank you for providing your details.",
+      path: "start", // Reset the flow if needed
     },
   };
 

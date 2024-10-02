@@ -2,6 +2,8 @@ import { Button } from "primereact/button";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/landingPage/Header";
+import FAQChatbot from "../components/landingPage/FAQChatbot";
+import Chatbot from "../components/Citizen/Chatbot";
 
 const Citizen = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -11,18 +13,18 @@ const Citizen = () => {
       <Header />
 
       {/* Add top padding to avoid overlap with fixed header */}
-      <div style={{ paddingTop: "5rem" }}>
-      <div className="flex flex-column gap-1 mt-5 align-items-center">
-        <h1 className="text-4xl">CSI for citizens</h1>
-        <Button
-          label="Know Your City"
-          icon="pi pi-globe"
-          className="bg-theme w-12rem mb-3"
-          onClick={() => navigate("/kyc")}
-          raised
-        />
+      <div>
+        <div className="flex flex-column gap-1 mt-8 align-items-center p-4">
+          <h1 className="text-4xl text-theme">
+            City Sustainability Index for Citizens
+          </h1>
+          <div className="flex align-items-start justify-content-start w-full">
+            <h1> Features</h1>
+          </div>
+
+          <Chatbot />
+        </div>
       </div>
-    </div>
     </div>
   );
 };

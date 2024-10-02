@@ -64,7 +64,7 @@ const Header = () => {
   ];
 
   const start = (
-    <img className="mr-auto w-3" src={Arahas} alt="Arahas Logo" />
+    <img className="mr-auto w-3 ml-1" src={Arahas} alt="Arahas Logo" />
   );
 
   const end = (
@@ -76,8 +76,13 @@ const Header = () => {
       model={items}
       start={start}
       end={end}
-      className="flex p-shadow-3 bg-white gap-8"
-      style={{ position: "fixed", top: 0, width: "100%", zIndex: 1000 }}
+      className="flex p-shadow-3 gap-8 opacity-90 sec-theme align-items-center"
+      style={{
+        position: "fixed",
+        top: 0,
+        width: "100%",
+        zIndex: 1000,
+      }}
     />
   );
 };

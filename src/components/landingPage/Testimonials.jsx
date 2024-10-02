@@ -30,13 +30,16 @@ const testimonials = [
       "Founder, CEO at BDB-D&A Platform with DataOps/MLOps/AI/GenAI/Viz",
     testimonial:
       "This is interesting - Never heard of such kind of initiative in the past. With the kind of attention and growth Ayodhya will see in next decade, the success of this initiative is Mandatory. Indian Tech is matured enough to give unique contribution in this project. All the best Saurabh Rai & team.",
-    image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    image:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
   },
   {
     name: "Inder Negi",
-    position: "National Secretary - Indian International Trade Development Organization (IITDO)",
-    testimonial:"Great work, great going. That's the need of the hour. Love to see the indicators used for indexing. I am sure this development of Vedic sustainability city index will be an example to replicate in other such holy cities too. 100 Percent it's a real exciting time ahead for Ayodhya.",
-      //"Great news where an Indian company is taking sustainability index to it's real meaningful approach. Love to see the indicators used for indexing. Kudos to ARAHAS TECHNOLOGIES",
+    position:
+      "National Secretary - Indian International Trade Development Organization (IITDO)",
+    testimonial:
+      "Great work, great going. That's the need of the hour. Love to see the indicators used for indexing. I am sure this development of Vedic sustainability city index will be an example to replicate in other such holy cities too. 100 Percent it's a real exciting time ahead for Ayodhya.",
+    //"Great news where an Indian company is taking sustainability index to it's real meaningful approach. Love to see the indicators used for indexing. Kudos to ARAHAS TECHNOLOGIES",
     image: media,
   },
   {
@@ -52,18 +55,12 @@ const testimonials = [
 // Template for individual testimonial cards
 const testimonialTemplate = (testimonial) => {
   return (
-    <div
-      className="mb-4 mx-5"
-      style={{ backgroundColor: "#fff" }}
-    >
+    <div className="mb-4 mx-5" style={{ backgroundColor: "#fff" }}>
       <div className=" flex h-20rem flex-column justify-content-between align-item-center">
         {" "}
         {/* Testimonial Row */}
         <div className="flex flex-column justify-content-center align-items-center">
-          <p
-            className="text-left font-regular"
-            style={{ color: "#101828" }}
-          >
+          <p className="text-left font-regular" style={{ color: "#101828" }}>
             "{testimonial.testimonial}"
           </p>
         </div>
@@ -116,20 +113,22 @@ const Testimonials = () => {
             alt=""
             style={{ width: "50px", height: "50px" }}
           />
-          <h1 className="text-5xl font-semibold mb-5">Testimonials about our work</h1>
+          <h1 className="text-5xl font-semibold mb-5">
+            Testimonials about our work
+          </h1>
         </div>
       </div>
 
       {/* Carousel Column */}
-<Card style={{width: "35rem", borderRadius: "2rem"}}>
-      <Carousel
-        value={testimonials}
-        itemTemplate={testimonialTemplate}
-        numVisible={1}
-        numScroll={1}
-        circular
-        autoplayInterval={10000}
-      />
+      <Card style={{ width: "35rem", borderRadius: "2rem" }}>
+        <Carousel
+          value={testimonials}
+          itemTemplate={testimonialTemplate}
+          numVisible={1}
+          numScroll={1}
+          circular
+          autoplayInterval={10000}
+        />
       </Card>
     </div>
   );
