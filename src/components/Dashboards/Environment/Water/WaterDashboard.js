@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Panel } from "primereact/panel";
 import { Card } from "primereact/card";
 import { Knob } from "primereact/knob"; // Import Knob from PrimeReact
-import { BarChart, DonutChart, GroupedBarChart } from "../../GraphVisuals";
+import { BarChart, DonutChart, GroupedBarChart } from "../../../GraphVisuals";
 
 const WaterDashboard = () => {
   const [barchartdata, setBarchartdata] = useState([]);
@@ -12,11 +12,11 @@ const WaterDashboard = () => {
   }, []);
 
   return (
-    <div className="m-1rem w-full bg-green-100">
+    <div className="w-full p-8">
       <Panel>
-        <div className="w-full flex align-items-center justify-content-between flex-row gap-1">
+        <div className="w-full flex align-items-center justify-content-between flex-row gap-1 mb-6">
           <Card title="Water Production (MLD)">
-            <div className=" flex align-items-center justify-content-between flex-row w-14rem h-9rem m-1">
+            <div className=" flex align-items-center justify-content-between flex-row w-full h-9rem m-1">
               <DonutChart
                 labels={["Dams", "Natural Resources"]}
                 series={[12, 36]}
@@ -25,7 +25,7 @@ const WaterDashboard = () => {
             </div>
           </Card>
           <Card title="Water Supply">
-            <div className="flex align-items-center justify-content-between flex-row  h-9rem w-full  m-1">
+            <div className="flex align-items-center justify-content-between flex-row h-9rem w-full m-1">
               <div className="flex align-items-center justify-content-between flex-column mt-2 ">
                 <div className="flex align-items-center justify-content-between flex-column p-2 m-1">
                   <h1 className="text-xl m-0 p-0 text-green-600">900 MLD</h1>
@@ -71,7 +71,7 @@ const WaterDashboard = () => {
         </div>
         <div className="w-full flex align-items-center justify-content-between flex-row mt-2 gap-2">
           <Card title="Water Treatment">
-            <div className="flex align-items-center justify-content-between flex-row  h-9rem w-full  m-1">
+            <div className="flex align-items-center justify-content-between flex-row h-9rem w-full m-1">
               <div className="flex align-items-center justify-content-between flex-column mt-2">
                 <div className="flex align-items-center justify-content-between flex-column p-3 m-1">
                   <h1 className="text-xl m-0 p-0 text-green-600">10</h1>
@@ -93,7 +93,7 @@ const WaterDashboard = () => {
             </div>
           </Card>
           <Card title="Water Usage Management">
-            <div className="flex align-items-center justify-content-between flex-row  h-9rem w-full  m-1">
+            <div className="flex align-items-center justify-content-between flex-row h-9rem w-full m-1">
               <div className="flex align-items-center justify-content-center p-3 m-1 flex-column">
                 <Knob value={63.8} readOnly size={130} strokeWidth={5} />
                 <p className="text-xs font-bold text-center m-0 p-0">

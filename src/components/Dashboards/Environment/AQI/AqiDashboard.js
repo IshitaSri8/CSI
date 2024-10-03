@@ -7,19 +7,16 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { ProgressSpinner } from "primereact/progressspinner";
 import "../../Dash.css";
-import good from "../../DashBoards/DashImages/good.png";
-import moderate from "../../DashBoards/DashImages/moderate.png";
-import poor from "../../DashBoards/DashImages/poor.png";
-import very_poor from "../../DashBoards/DashImages/very_poor.png";
-import severe from "../../DashBoards/DashImages/severe.png";
-import AqiReport from "./AqiReport";
-import AQIChart from "./AQIChart";
-import PollutantChart from "../Temperature/PollutantChart";
-import { CustomBarChart, DonutChart } from "../../GraphVisuals";
-import FileUploadPopup from "../../upload-popup/FileUploadPopup";
+import good from "assets/dashboard/good.png";
+import moderate from "assets/dashboard/moderate.png";
+import poor from "assets/dashboard/poor.png";
+import very_poor from "assets/dashboard/very_poor.png";
+import severe from "assets/dashboard/severe.png";
+import PollutantChart from "./PollutantChart";
 import { Button } from "primereact/button";
 import { Panel } from "primereact/panel";
-import TableSkeleton from "../../ui/skeletons/TableSkeleton";
+import TableSkeleton from "../../skeletons/TableSkeleton";
+import AQIChart from "./AQIChart";
 import AqiMap from "./AqiMap";
 
 // Define the helper functions here
@@ -334,9 +331,10 @@ const AqiDashboard = ({
     "Liver/Spleen/Blood Impact",
   ];
   const NO2Impactseries = [1090, 815, 345, 245];
+
   return (
-    <div className="aqi-dashboard flex gap-1 flex-column w-full">
-      {show && (
+     <div className="flex flex-column gap-3 w-full p-8">
+      {/* {show && ( */}
         <Panel toggleable header="Filter By">
           <div className="flex flex-column align-items-end w-full gap-3">
             <div className="flex align-items-center justify-content-between w-full gap-3">
@@ -396,17 +394,16 @@ const AqiDashboard = ({
             />
           </div>
         </Panel>
-      )}
-      <Card className="flex flex-row flex-wrap md:flex-nowrap align-items-end w-full gap-3 mt-2">
+      {/* )} */}
+      <div className="flex flex-row flex-wrap md:flex-nowrap align-items-end w-full gap-6 mt-2">
         {selectedLocation && (
-          <Card title="Air Quality Index" className="text-xs h-17rem">
+         <div>
+           <Card title="Air Quality Index" className="h-20rem w-25rem">
             <div className="flex align-items-center justify-content-around flex-row flex-wrap md:flex-nowrap">
-              <div>
                 <div className="flex align-items-center justify-content-center flex-column">
                   <h1 className="text-3xl">
                     {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
                   </h1>
-
                   {aqiImage && (
                     <img
                       src={aqiImage}
@@ -421,12 +418,12 @@ const AqiDashboard = ({
                     {aqiStatus.status || "No Status"}
                   </h1>
                 </div>
-              </div>
             </div>
           </Card>
+          </div>
         )}
         <div className="ml-1 mr-1">
-          <Card>
+          <Card className="h-20rem w-28rem">
             {loading ? (
               <div className="w-22rem h-15rem">
                 <TableSkeleton />
@@ -488,7 +485,7 @@ const AqiDashboard = ({
             )}
           </Card>
         </div>
-        <Card>
+        <Card className="h-20rem w-full">
           {/* <AqiReport
               selectedLocation={selectedLocation}
               startDate={startDate}
@@ -497,7 +494,7 @@ const AqiDashboard = ({
             /> */}
           <AqiMap averageAQI={aqiValue} selectedLocation={selectedLocation} />
         </Card>
-      </Card>
+      </div>
 
       <Card className="w-full">
         <AQIChart
@@ -515,22 +512,23 @@ const AqiDashboard = ({
         />
       </Card>
 
-      <Card className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-1">
-        <Card>
-          <PollutantChart
-            envirolocation={envirolocation}
-            envirodate={envirodate}
-            envirotime={envirotime}
-            pollutantData={enviropm25}
-            selectedLocation={selectedLocation}
-            pollutantName="PM2.5"
-            baseChartColor="#FF5722"
-            drilldownChartColor="#FFC107"
-            height={200}
-            width={500}
-            safeLimit={60}
-          />
-        </Card>
+      <Card>
+        <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
+          <Card>
+            <PollutantChart
+              envirolocation={envirolocation}
+              envirodate={envirodate}
+              envirotime={envirotime}
+              pollutantData={enviropm25}
+              selectedLocation={selectedLocation}
+              pollutantName="PM2.5"
+              baseChartColor="#FF5722"
+              drilldownChartColor="#FFC107"
+              height={200}
+              width={500}
+              safeLimit={60}
+            />
+          </Card>
         <Card>
           <PollutantChart
             envirolocation={envirolocation}
@@ -546,8 +544,10 @@ const AqiDashboard = ({
             safeLimit={100}
           />
         </Card>
+          </div>
       </Card>
-      <Card className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-1">
+      <Card >
+         <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
         <Card>
           <PollutantChart
             envirolocation={envirolocation}
@@ -578,6 +578,7 @@ const AqiDashboard = ({
             safeLimit={80}
           />
         </Card>
+        </div>
       </Card>
 
       {/* {show && (

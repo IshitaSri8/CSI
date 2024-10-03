@@ -1,13 +1,13 @@
 import React from "react";
 import { Panel } from "primereact/panel";
-import { DonutChart } from "../../GraphVisuals";
+import { DonutChart } from "../../../GraphVisuals";
 import "./Land.css";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { Card } from "primereact/card";
-import LandIcon from "../../assets/waste/land.png";
-import AreaIcon from "../../assets/waste/measurement.png";
-import Above from "../../assets/waste/above.png";
-import Below from "../../assets/waste/below.png";
+import LandIcon from "assets/waste/land.png";
+import AreaIcon from "assets/waste/measurement.png";
+import Above from "assets/waste/above.png";
+import Below from "assets/waste/below.png";
 import { width } from "@mui/system";
 //import Tree from "react-d3-tree";
 
@@ -194,8 +194,8 @@ const Land = () => {
   };
 
   return (
-    <div className="flex flex-column gap-2 align-items-center w-full">
-      <div className="flex flex-column gap-3 w-full">
+    <div className="flex flex-column gap-4 align-items-center w-full p-8">
+      <div className="flex flex-column gap-4 w-full">
         <div className="flex gap-3">
           <Card className="flex-1 border-round bg-white">
             <div className="flex align-items-center gap-3">
@@ -297,7 +297,7 @@ const Land = () => {
       </Panel>
 
       <Panel className="w-full">
-        <div className="flex flex-row gap-2 flex-wrap md:flex-nowrap">
+        <div className="flex flex-row gap-4 flex-wrap md:flex-nowrap">
           <Card className="w-full">
             <CanvasJSChart
               options={areaChartOptions}

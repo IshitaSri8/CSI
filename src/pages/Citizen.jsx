@@ -18,8 +18,8 @@ const Citizen = () => {
           <h1 className="text-4xl text-theme">
             City Sustainability Index for Citizens
           </h1>
-          <div className="flex align-items-start justify-content-start w-full">
-            <h1> Features</h1>
+          <div className="flex align-items-center justify-content-center w-full">
+            <h1 className="text-4xl"> Features</h1>
           </div>
 
           <Chatbot />

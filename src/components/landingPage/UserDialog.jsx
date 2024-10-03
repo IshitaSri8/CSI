@@ -8,7 +8,6 @@ const UserDialog = forwardRef(({ onSuccess }, ref) => {
   const [visible, setVisible] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
-  // Expose openDialog method to parent component
   useImperativeHandle(ref, () => ({
     openDialog() {
       setVisible(true);
@@ -54,7 +53,7 @@ const UserDialog = forwardRef(({ onSuccess }, ref) => {
       <Dialog
         header={customHeader}
         visible={visible}
-        style={{ width: "30vw" }}
+        style={{ width: "25vw" }}
         footer={footer}
         onHide={closeDialog}
       >

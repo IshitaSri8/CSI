@@ -7,8 +7,8 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 // import { ProgressSpinner } from "primereact/progressspinner";
 import "../../Dash.css";
-import sunny from "../../DashBoards/DashImages/sunny.png";
-import warm from "../../DashBoards/DashImages/warm.png";
+import sunny from "../../../../assets/dashboard/sunny.png";
+import warm from "../../../../assets/dashboard/warm.png";
 // import very_poor from "../../DashBoards/DashImages/very_poor.png";
 // import AqiReport from "../AQI/AqiReport";
 // import AQIChart from "../AQI/AQIChart";
@@ -17,7 +17,7 @@ import warm from "../../DashBoards/DashImages/warm.png";
 // import FileUploadPopup from "../../upload-popup/FileUploadPopup";
 import { Button } from "primereact/button";
 import { Panel } from "primereact/panel";
-import TableSkeleton from "../../ui/skeletons/TableSkeleton";
+import TableSkeleton from "../../skeletons/TableSkeleton";
 import TempMap from "./TempMap";
 import Temperature from "./Temperature";
 
@@ -277,9 +277,9 @@ const TempDashboard = ({
     return parseFloat(data.deviationPercentage) > 2 ? "red-row" : "";
   };
   return (
-    <div className="aqi-dashboard flex gap-1 flex-column">
-      <>
-        {show && (
+    <div className="flex flex-column gap-3 w-full p-8">
+      
+        {/* {show && ( */}
           <Panel toggleable header="Filter By">
             <div className="flex flex-column align-items-end w-full gap-3">
               <div className="flex align-items-center justify-content-between w-full gap-3">
@@ -339,14 +339,14 @@ const TempDashboard = ({
               />
             </div>
           </Panel>
-        )}
+        {/* )} */}
         <Panel>
-          <div className="flex flex-row align-items-end w-full gap-3 mt-2">
+          <div className="flex flex-row align-items-end w-full gap-4 mt-2">
             {selectedLocation && (
               <div>
-                <Card title="Temperature" className="text-xs h-17rem">
-                  <div className="flex align-items-center justify-content-around flex-row">
-                    <div>
+                <Card title="Temperature" className="h-20rem w-25rem">
+                  <div className="flex align-items-center justify-content-around flex-row flex-wrap md:flex-nowrap">
+                    
                       <div className="flex align-items-center justify-content-center flex-column">
                         <h1 className="text-sm">
                           {tempValue !== null
@@ -358,7 +358,7 @@ const TempDashboard = ({
                           <img
                             src={aqiImage}
                             alt={aqiStatusText}
-                            style={{ width: "100%" }}
+                            style={{ width: "50%" }}
                           />
                         )}
                         {/* <h1
@@ -368,13 +368,13 @@ const TempDashboard = ({
                           {tempStatus.status || "No Status"}
                         </h1> */}
                       </div>
-                    </div>
+                    
                   </div>
                 </Card>
               </div>
             )}
             <div className="ml-1 mr-1">
-              <Card>
+              <Card className="h-20rem w-28rem">
                 {loading ? (
                   <div className="w-24rem h-15rem">
                     <TableSkeleton />
@@ -436,7 +436,7 @@ const TempDashboard = ({
                 )}
               </Card>
             </div>
-            <Card>
+            <Card className="h-20rem w-full">
               {/* <AqiReport
               selectedLocation={selectedLocation}
               startDate={startDate}
@@ -451,8 +451,8 @@ const TempDashboard = ({
           </div>
         </Panel>
         <Panel>
-          <div className="flex align-items-center justify-content-between flex-row ">
-            <Card>
+          <div className="flex align-items-center justify-content-between flex-row">
+            <Card className="w-full">
               <Temperature
                 enviroDate={envirodate}
                 envirotime={envirotime}
@@ -464,8 +464,7 @@ const TempDashboard = ({
             </Card>
           </div>
         </Panel>
-        <Panel>
-          <div className="flex align-items-center justify-content-between flex-row mt-2">
+       
             {/* <div className="w-100 flex align-items-center justify-content-center flex-row gap-1">
               <Card className="h-15rem w-17rem">
                 <PollutantChart
@@ -528,8 +527,7 @@ const TempDashboard = ({
                 />
               </Card>
             </div> */}
-          </div>
-        </Panel>
+          
         {/* {show && (
             <>
               <div className="flex align-items-center justify-content-start flex-row mt-2">
@@ -556,7 +554,7 @@ const TempDashboard = ({
               </div>
             </>
           )} */}
-      </>
+      
     </div>
   );
 };

@@ -25,7 +25,7 @@ const CSIVideo = () => {
           width: "18rem",
           height: "6rem",
           borderRadius: "1rem",
-          transform: "translate(50%, 10%)",
+          transform: "translate(50%, 40%)",
         }}
       >
         <div style={{ marginTop: -20 }}>
@@ -44,7 +44,7 @@ const CSIVideo = () => {
           width: "18rem",
           borderRadius: "1rem",
           height: "8rem",
-          transform: "translate(-50%, -10%)",
+          transform: "translate(-50%, -20%)",
         }}
       >
         <div style={{ marginTop: -20 }}>

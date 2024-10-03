@@ -131,57 +131,66 @@ const RainDashboard = () => {
   }, [selectedYear, rainData]);
 
   return (
-    <div className="overflow-y-hidden">
-      <Card className="mb-3 h-10rem ">
-        <div className="flex align-items-center justify-content-center flex-row gap-2">
-          <Card className="h-8rem w-17rem m-0">
-            <div className="flex align-items-center justify-content-center flex-column">
-              <h1 style={{ color: "#00a269" }} className="text-2xl">
-                {totalRainfall} mm
-              </h1>
-              <h1 className="text-xs m-0 p-0">Total Actual Rainfall</h1>
-            </div>
-          </Card>
-          <Card className="h-8rem w-17rem m-0">
-            <div className="flex align-items-center justify-content-center flex-column">
-              <h1 style={{ color: "#0073e6" }} className="text-2xl">
-                {totalExpectedRainfall} mm
-              </h1>
-              <h1 className="text-xs m-0 p-0">Total Expected Rainfall</h1>
-            </div>
-          </Card>
-          <Card className="h-8rem w-17rem m-0">
-            <div className="flex align-items-center justify-content-center flex-column">
-              <h1 style={{ color: "#ff0000" }} className="text-2xl">
-                {deviationPercentage}%
-              </h1>
-              <h1 className="text-xs m-0 p-0">Deviation from Expected</h1>
-            </div>
-          </Card>
-          <Card className="h-8rem w-17rem m-0">
-            <div className="flex align-items-center justify-content-center flex-column">
-              <h1 style={{ color: "#ff9800" }} className="text-2xl">
-                {maxRainfall} mm
-              </h1>
-              <h1 className="text-xs m-0 p-0">
-                Maximum Rainfall in {maxRainfallYear} (July)
-              </h1>
-            </div>
-          </Card>
-        </div>
-      </Card>
-      <Panel className="h-15rem !important">
-        <RainTrend
-          rainYears={rainYears}
-          yearAverageRainActual={yearAverageRainActual}
-          yearAverageRainExpected={yearAverageRainExpected}
-          selectedYear={selectedYear}
-          setSelectedYear={setSelectedYear}
-          monthRainActual={monthRainActual}
-          monthRainExpected={monthRainExpected}
-        />
-      </Panel>
-    </div>
+    <div className="overflow-y-hidden p-6 gap-4">
+    <Card className="mb-6">
+      <div className="flex align-items-center justify-content-center flex-wrap gap-6">
+        {/* Total Actual Rainfall */}
+        <Card className="h-10rem w-18rem">
+          <div className="flex align-items-center justify-content-center flex-column">
+            <h1 style={{ color: "#00a269" }} className="text-2xl">
+              {totalRainfall} mm
+            </h1>
+            <h1 className="text-xs m-0 p-0">Total Actual Rainfall</h1>
+          </div>
+        </Card>
+  
+        {/* Total Expected Rainfall */}
+        <Card className="h-10rem w-18rem">
+          <div className="flex align-items-center justify-content-center flex-column">
+            <h1 style={{ color: "#0073e6" }} className="text-2xl">
+              {totalExpectedRainfall} mm
+            </h1>
+            <h1 className="text-xs m-0 p-0">Total Expected Rainfall</h1>
+          </div>
+        </Card>
+  
+        {/* Deviation Percentage */}
+        <Card className="h-10rem w-18rem">
+          <div className="flex align-items-center justify-content-center flex-column">
+            <h1 style={{ color: "#ff0000" }} className="text-2xl">
+              {deviationPercentage}%
+            </h1>
+            <h1 className="text-xs m-0 p-0">Deviation from Expected</h1>
+          </div>
+        </Card>
+  
+        {/* Maximum Rainfall */}
+        <Card className="h-10rem w-18rem">
+          <div className="flex align-items-center justify-content-center flex-column">
+            <h1 style={{ color: "#ff9800" }} className="text-2xl">
+              {maxRainfall} mm
+            </h1>
+            <h1 className="text-xs m-0 p-0">
+              Maximum Rainfall in {maxRainfallYear} (July)
+            </h1>
+          </div>
+        </Card>
+      </div>
+    </Card>
+  
+    <Panel className="h-16rem">
+      <RainTrend
+        rainYears={rainYears}
+        yearAverageRainActual={yearAverageRainActual}
+        yearAverageRainExpected={yearAverageRainExpected}
+        selectedYear={selectedYear}
+        setSelectedYear={setSelectedYear}
+        monthRainActual={monthRainActual}
+        monthRainExpected={monthRainExpected}
+      />
+    </Panel>
+  </div>
+  
   );
 };
 

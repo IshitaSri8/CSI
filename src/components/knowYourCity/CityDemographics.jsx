@@ -1,14 +1,14 @@
 import React from "react";
 import { Card } from "primereact/card";
 import "primeflex/primeflex.css";
-import monuments from "../../assets/KYC/monuments.png";
-import hospital from "../../assets/KYC/hospital.png";
-import tents from "../../assets/KYC/tent.png";
-import hotels from "../../assets/KYC/hotel.png";
-import dharamshala from "../../assets/KYC/shelter.png";
-import slum from "../../assets/KYC/slums.png";
-import socio from "../../assets/KYC/socio.png";
-import education from "../../assets/KYC/education.png";
+import monuments from "assets/KYC/monuments.png";
+import hospital from "assets/KYC/hospital.png";
+import tents from "assets/KYC/tent.png";
+import hotels from "assets/KYC/hotel.png";
+import dharamshala from "assets/KYC/shelter.png";
+import slum from "assets/KYC/slums.png";
+import socio from "assets/KYC/socio.png";
+import education from "assets/KYC/education.png";
 
 const CityDemographics = () => {
   const data = {

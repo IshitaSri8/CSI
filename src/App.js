@@ -12,6 +12,12 @@ import AboutUs from "./pages/AboutUs";
 import OurWork from "./pages/OurWork";
 import Government from "./pages/Government";
 import CityReportCard from "./pages/CityReportCard";
+import AqiDashboard from "../src/components/Dashboards/Environment/AQI/AqiDashboard";
+import TempDashboard from "../src/components/Dashboards/Environment/Temperature/TempDashboard";
+import RainDashboard from "../src/components/Dashboards/Environment/Rain/RainDashboard";
+import WaterDashboard from "../src/components/Dashboards/Environment/Water/WaterDashboard";
+import LandDashboard from "../src/components/Dashboards/Environment/Land/LandDashboard";
+import WasteDashboard from "../src/components/Dashboards/Environment/Waste/WasteDashboard";
 
 function App() {
   return (
@@ -27,6 +33,12 @@ function App() {
         <Route path="/ourwork" element={<OurWork/>} />
         <Route path="/government" element={<Government/>} />
         <Route path="/reportcard" element={<CityReportCard/>} />
+        <Route path="/aqi" element={<AqiDashboard/>} />
+        <Route path="/temperature" element={<TempDashboard/>} />
+        <Route path="/rain" element={<RainDashboard/>} />
+        <Route path="/land" element={<LandDashboard/>} />
+        <Route path="/waste" element={<WasteDashboard/>} />
+        <Route path="/water" element={<WaterDashboard/>} />
       </Routes>
 
   );

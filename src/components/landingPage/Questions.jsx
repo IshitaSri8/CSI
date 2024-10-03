@@ -1,51 +1,46 @@
-import React from 'react';
+import React from "react";
 
-const Questions = ({ question, point1, point2, point3 }) => {
-    return (
-        <div className="p-6 flex gap-7">
-            {/* First Column with Fixed Question */}
-            <div className="flex-1">
-                <p className="text-5xl font-semibold">{question}</p>
-            </div>
+const Questions = ({ question, points, textTheme }) => {
+  const textClass = textTheme === "white" ? "text-300" : "text-500";
+  return (
+    <div className="p-8 m-4 flex gap-7">
+      {/* First Column with Fixed Question */}
+      <div className="flex-1">
+        <p className="text-7xl font-semibold">{question}</p>
+      </div>
 
-            {/* Second Column with Scrollable Answers */}
-            <div className="flex-1 overflow-hidden" style={{ position: 'relative', paddingLeft: '20px' }}>
-                <div
-                    className="p-2"
-                    style={{
-                        maxHeight: '20rem',
-                        overflowY: 'auto', // Allow vertical scrolling
-                        scrollbarWidth: 'none', // For Firefox
-                        msOverflowStyle: 'none', // For Internet Explorer and Edge
-                    }}
-                >
-                    <ul>
-                        {point1 && point1.length > 0 && (
-                            <li className="mb-4 text-xl">
-                                 <span className="font-bold text-400 text-4xl">01. </span>
-                                 <hr className="my-2" />
-                                 {point1[0]}
-                                 </li>
-                        )}
-                        {point2 && point2.length > 0 && (
-                            <li className="mb-4 text-xl">
-                                 <span className="font-bold text-400 text-4xl">02. </span>
-                                 <hr className="my-2" />
-                                 {point2[0]}
-                                 </li>
-                        )}
-                        {point3 && point3.length > 0 && (
-                             <li className="mb-4 text-xl">
-                             <span className="font-bold text-400 text-4xl">03. </span>
-                             <hr className="my-2" />
-                             {point3[0]}
-                         </li>
-                        )}
-                    </ul>
-                </div>
-            </div>
+      {/* Second Column with Scrollable Answers */}
+      <div
+        className="flex-1 overflow-hidden"
+        style={{ position: "relative", paddingLeft: "20px" }}
+      >
+        <div
+          className="p-5 mt-3"
+          style={{
+            maxHeight: "30rem",
+            overflowY: "auto", // Allow vertical scrolling
+            scrollbarWidth: "none", // For Firefox
+            msOverflowStyle: "none", // For Internet Explorer and Edge
+          }}
+        >
+          <ul>
+            {points &&
+              points.length > 0 &&
+              points.map((point, index) => (
+                <li key={index} className="mb-4 text-4xl">
+                  <span className={`font-bold ${textClass} text-5xl`}>
+                    {`${index + 1}. `}
+                  </span>
+                  {/* <hr className="my-2" /> */}
+                  <p className="text-2xl font-semibold">{point.subheading}</p>
+                  <p>{point.content}</p> {/* Main point content */}
+                </li>
+              ))}
+          </ul>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Questions;

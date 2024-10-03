@@ -95,9 +95,11 @@ const Footer = () => {
           <div className="flex align-items-center justify-content-start flex-row gap-3">
             <i className="pi pi-map-marker text-orange-600 text-xl"></i>
             <h1 className="text-base p-0 m-0 text-left font-light">
-              10<sup>th</sup> Level, DLF Plaza Tower, DLF City Phase-I,
-              <br />
-              Gurugram-122002, Haryana, India
+              <span>
+                10<sup>th </sup>Level, DLF Plaza Tower, DLF City Phase-I,
+                <br />
+                Gurugram-122002, Haryana, India
+              </span>
             </h1>
           </div>
           <div className="flex align-items-center justify-content-start flex-row gap-3">
