@@ -74,7 +74,7 @@ const LandingScreen = () => {
           <Button
             label="Explore More"
             icon="pi pi-globe"
-            className="bg-theme w-11rem mb-3"
+            className="bg-theme mb-3"
             onClick={scrollToCSISteps} // Add onClick handler
           />
 

@@ -60,8 +60,8 @@ const Citizen = () => {
           <h1 className="text-4xl text-theme">
             City Sustainability Index for Citizens
           </h1>
-          <div className="flex align-items-center justify-content-center w-full flex-row gap-4">
-            <h1> Already a registered citizen?</h1>
+          <div className="flex align-items-center justify-content-center w-full flex-row gap-1">
+            <h1 className="text-lg"> Already a registered citizen?</h1>
             <Button
               label="Sign in"
               className="bg-theme"
