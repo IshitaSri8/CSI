@@ -3,6 +3,7 @@ import MyChatBot from "react-chatbotify";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import chatIcon from "../../assets/Chatbot/Chatbot.svg";
 import "../landingPage/Landing.css";
+import axios from "axios";
 
 const Chatbot = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -11,6 +12,23 @@ const Chatbot = () => {
   const [cities, setCities] = useState([]);
 
   const navigate = useNavigate(); // Initialize useNavigate
+  const submitFormData = async (formData) => {
+    try {
+      const response = await axios.post(
+        "https://api-csi.arahas.com/new/register", // Updated route
+        formData, // Correctly pass the form data
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.status === 201) {
+        console("User Registration Successful");
+      }
+    } catch (error) {
+      console.error("Error submitting form data:", error);
+    }
+  };
 
   const settings = {
     isOpen: true,
@@ -150,12 +168,12 @@ const Chatbot = () => {
     ask_state: {
       message: "Which state are you in?",
       options: states.map((state) => state.name), // Display states as options
-      function: (params) => {
+      function: async (params) => {
         const selectedState = states.find(
           (state) => state.name === params.userInput
         );
         if (selectedState) {
-          fetchCities(selectedState.iso2);
+          await fetchCities(selectedState.iso2);
 
           setForm({ ...form, state: selectedState.name });
         }
@@ -173,7 +191,9 @@ const Chatbot = () => {
     kyc: {
       message: "Want to know more about your city?",
       options: ["Yes", "No"],
-      function: (params) => {
+      function: async (params) => {
+        console.log(form);
+        await submitFormData(form);
         if (params.userInput.toLowerCase() === "yes") {
           navigate("/kyc"); // Redirect to KYC page if user says Yes
         }

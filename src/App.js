@@ -13,22 +13,23 @@ import OurWork from "./pages/OurWork";
 import Government from "./pages/Government";
 import CityReportCard from "./pages/CityReportCard";
 
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+
 function App() {
   return (
     // <div className="App">
     //   <LandingScreen />
     // </div>
-  
-      <Routes>
-        <Route path="/" element={<LandingScreen />} />
-        <Route path="/citizens" element={<Citizen />} />
-        <Route path="/kyc" element={<KnowYourCity/>} />
-        <Route path="/aboutus" element={<AboutUs/>} />
-        <Route path="/ourwork" element={<OurWork/>} />
-        <Route path="/government" element={<Government/>} />
-        <Route path="/reportcard" element={<CityReportCard/>} />
-      </Routes>
 
+    <Routes>
+      <Route path="/" element={<LandingScreen />} />
+      <Route path="/citizens" element={<Citizen />} />
+      <Route path="/kyc" element={<KnowYourCity />} />
+      <Route path="/aboutus" element={<AboutUs />} />
+      <Route path="/ourwork" element={<OurWork />} />
+      <Route path="/government" element={<Government />} />
+      <Route path="/reportcard" element={<CityReportCard />} />
+    </Routes>
   );
 }
 
