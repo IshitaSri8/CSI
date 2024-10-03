@@ -12,6 +12,12 @@ import AboutUs from "./pages/AboutUs";
 import OurWork from "./pages/OurWork";
 import Government from "./pages/Government";
 import CityReportCard from "./pages/CityReportCard";
+import AqiDashboard from "../src/components/Dashboards/Environment/AQI/AqiDashboard";
+import TempDashboard from "../src/components/Dashboards/Environment/Temperature/TempDashboard";
+import RainDashboard from "../src/components/Dashboards/Environment/Rain/RainDashboard";
+import WaterDashboard from "../src/components/Dashboards/Environment/Water/WaterDashboard";
+import LandDashboard from "../src/components/Dashboards/Environment/Land/LandDashboard";
+import WasteDashboard from "../src/components/Dashboards/Environment/Waste/WasteDashboard";
 
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 

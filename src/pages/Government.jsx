@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/landingPage/Header";
+import Header from "components/landingPage/Header";
 
 const Government = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -19,6 +19,48 @@ const Government = () => {
             icon="pi pi-receipt"
             className="bg-theme w-12rem mb-3"
              onClick={() => navigate("/reportcard")}
+            raised
+          />
+          <Button
+            label="AQI"
+            icon="pi pi-receipt"
+            className="bg-theme w-12rem mb-3"
+             onClick={() => navigate("/aqi")}
+            raised
+          />
+          <Button
+            label="Temperature"
+            icon="pi pi-receipt"
+            className="bg-theme w-12rem mb-3"
+             onClick={() => navigate("/temperature")}
+            raised
+          />
+          <Button
+            label="Land"
+            icon="pi pi-receipt"
+            className="bg-theme w-12rem mb-3"
+             onClick={() => navigate("/land")}
+            raised
+          />
+          <Button
+            label="Rain"
+            icon="pi pi-receipt"
+            className="bg-theme w-12rem mb-3"
+             onClick={() => navigate("/rain")}
+            raised
+          />
+          <Button
+            label="Water"
+            icon="pi pi-receipt"
+            className="bg-theme w-12rem mb-3"
+             onClick={() => navigate("/water")}
+            raised
+          />
+          <Button
+            label="Waste"
+            icon="pi pi-receipt"
+            className="bg-theme w-12rem mb-3"
+             onClick={() => navigate("/waste")}
             raised
           />
         </div>

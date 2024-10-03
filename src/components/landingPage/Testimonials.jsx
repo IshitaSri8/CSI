@@ -2,11 +2,11 @@ import React from "react";
 import { Carousel } from "primereact/carousel";
 import { Card } from "primereact/card";
 import { loremIpsum } from "lorem-ipsum";
-import Vishal from "../../assets/vishal.png";
-import quotation from "../../assets/quotation-mark.png";
+import Vishal from "assets/vishal.png";
+import quotation from "assets/quotation-mark.png";
 import "./Landing.css";
-import media from "../../assets/Media.jpg";
-import Sonika from "../../assets/Sonika.png";
+import media from "assets/Media.jpg";
+import Sonika from "assets/Sonika.png";
 
 const text = loremIpsum({
   count: 6, // Number of sentences or paragraphs

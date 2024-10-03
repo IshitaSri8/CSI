@@ -434,8 +434,6 @@ const Temperature = ({
 
   return (
     <div>
-      <div>
-        <div>
           {chartData.length > 0 && (
             <>
               <TemperatureTrend
@@ -463,8 +461,6 @@ const Temperature = ({
             </>
           )}
         </div>
-      </div>
-    </div>
   );
 };
 

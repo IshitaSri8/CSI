@@ -11,15 +11,15 @@ import { Style, Fill, Stroke, Icon } from "ol/style";
 import { Feature } from "ol";
 import Point from "ol/geom/Point";
 import Overlay from "ol/Overlay";
-import airport from "assets/aqi/airport.webp";
-import railway from "assets/aqi/railway.avif";
-import school from "assets/aqi/tiny-school.jpg";
-import temple from "assets/aqi/ram.jpg";
-import Shahadat from "assets/aqi/shahadat.jpeg";
-import AQI from "assets/aqi/AQI.png";
+import airport from "../../assets/airport.webp";
+import railway from "../../assets/railway.avif";
+import school from "../../assets/tiny-school.jpg";
+import temple from "../../../components/KnowYourCity/KnowImages/ram.jpg";
+import Shahadat from "../../assets/shahadat.jpeg";
+import AQI from "../../assets/AQI.png";
 import ADABoundary from "../Maps/ADA_Boundary.json";
 
-const TempMap = ({ averageTemp, selectedLocation }) => {
+const AqiMap = ({ averageAQI, selectedLocation }) => {
   const mapRef = useRef();
 
   const getAqiIconColor = (aqi) => {
@@ -51,7 +51,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
       attribution: false,
       view: new View({
         center: fromLonLat([82.144132, 26.783869]),
-        zoom: 11,
+        zoom: 10,
       }),
     });
 
@@ -115,16 +115,16 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
 
     const markerSource = new VectorSource();
     if (filteredMarker) {
-      const temp = averageTemp; // Directly use the averageAQI for the selected location
-      const iconColor = getAqiIconColor(temp);
-      const backgroundColor = getAqiBackgroundColor(temp);
+      const aqi = averageAQI; // Directly use the averageAQI for the selected location
+      const iconColor = getAqiIconColor(aqi);
+      const backgroundColor = getAqiBackgroundColor(aqi);
 
       const feature = new Feature({
         geometry: new Point(
           fromLonLat([filteredMarker.lon, filteredMarker.lat])
         ),
         name: filteredMarker.default_message,
-        temp,
+        aqi,
         backgroundColor,
         location: filteredMarker.location,
       });
@@ -178,7 +178,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
         overlay.setPosition(coordinate);
 
         const name = feature.get("name") || "";
-        const temp = feature.get("temp") || "";
+        const aqi = feature.get("aqi") || "";
         const backgroundColor = feature.get("backgroundColor") || "";
         const location = feature.get("location") || "";
 
@@ -210,7 +210,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
                 : ""
             }
             <p><strong>${location}</strong></p>
-            <p><strong>AQI Level:</strong> ${temp} °C</p>
+            <p><strong>AQI Level:</strong> ${aqi}</p>
           </div>
         `;
 
@@ -226,7 +226,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
       map.setTarget(null);
       document.body.removeChild(overlayContainerElement);
     };
-  }, [averageTemp]);
+  }, [averageAQI]);
 
   return (
     <div className="w-full">
@@ -242,4 +242,4 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
   );
 };
 
-export default TempMap;
+export default AqiMap;

@@ -11,12 +11,12 @@ import { Style, Fill, Stroke, Icon } from "ol/style";
 import { Feature } from "ol";
 import Point from "ol/geom/Point";
 import Overlay from "ol/Overlay";
-import airport from "../../assets/airport.webp";
-import railway from "../../assets/railway.avif";
-import school from "../../assets/tiny-school.jpg";
-import temple from "../../../components/KnowYourCity/KnowImages/ram.jpg";
-import Shahadat from "../../assets/shahadat.jpeg";
-import AQI from "../../assets/AQI.png";
+import airport from "assets/aqi/airport.webp";
+import railway from "assets/aqi/railway.avif";
+import school from "assets/aqi/tiny-school.jpg";
+import temple from "assets/aqi/ram.jpg";
+import Shahadat from "assets/aqi/shahadat.jpeg";
+import AQI from "assets/aqi/AQI.png";
 import ADABoundary from "../Maps/ADA_Boundary.json";
 
 const AqiMap = ({ averageAQI, selectedLocation }) => {
