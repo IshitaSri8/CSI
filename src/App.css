@@ -141,7 +141,7 @@ body {
 }
 .p-dialog .p-dialog-header-icons {
   padding: 0.1rem 0.5rem !important;
-
+}
 .p-card-content {
   display: flex;
   align-items: center;
@@ -149,8 +149,7 @@ body {
 
   padding: 0;
 }
- 
+
 .p-card-body {
   padding: 0;
-
 }
