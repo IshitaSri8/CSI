@@ -28,7 +28,7 @@ const CSIVideo = () => {
           transform: "translate(50%, 40%)",
         }}
       >
-        <div style={{ marginTop: -20 }}>
+        <div style={{ marginTop: -30 }}>
           <h1 className="text-xl font-semibold text-white text-center">
             City Sustainability Index (CSI)
           </h1>
@@ -47,7 +47,7 @@ const CSIVideo = () => {
           transform: "translate(-50%, -20%)",
         }}
       >
-        <div style={{ marginTop: -20 }}>
+        <div style={{ marginTop: -30 }}>
           <p className="text-center">
             A groundbreaking tool designed to help governments, businesses, and
             citizens create smarter, more sustainable cities.
