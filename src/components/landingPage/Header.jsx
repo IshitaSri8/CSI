@@ -57,15 +57,19 @@ const Header = () => {
       label: "About Us",
       icon: "pi pi-info-circle",
       template: itemRenderer,
-      path: "/aboutus",
-      command: () => navigate("/aboutus"),
+      // path: "/aboutus",
+      command: () => {
+        window.location.href = "https://arahas.com/"; // External redirect
+      },
     },
     {
       label: "Our Work",
       icon: "pi pi-envelope",
       template: itemRenderer,
-      path: "/ourwork",
-      command: () => navigate("/ourwork"),
+      // path: "/ourwork",
+      command: () => {
+        window.location.href = "https://ayodhya.arahas.com/"; // External redirect
+      },
     },
   ];
 
