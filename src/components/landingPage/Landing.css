@@ -102,3 +102,6 @@
   padding: 0.5rem 1rem !important;
   border-radius: 10px !important;
 }
+.react-tel-input .form-control {
+  width: 100% !important;
+}

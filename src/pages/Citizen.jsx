@@ -5,6 +5,8 @@ import Header from "../components/landingPage/Header";
 import axios from "axios";
 import { Dialog } from "primereact/dialog";
 import Chatbot from "../components/Citizen/Chatbot";
+import signin_ani from "../assets/animations/signin.json";
+import Lottie from "lottie-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 
@@ -71,30 +73,45 @@ const Citizen = () => {
 
           {/* Dialog for entering phone number and OTP */}
           <Dialog
-            header="Sign In"
             visible={visible}
-            style={{ width: "50vw" }}
+            style={{ width: "50rem", textAlign: "center" }}
             onHide={() => setVisible(false)}
           >
-            <div>
+            <div className="flex align-items-center justify-content-center flex-row gap-4 ">
+              <Lottie
+                animationData={signin_ani}
+                loop={true}
+                className="h-15rem w-20rem m-0 p-0 "
+              />
               {/* Phone input using react-phone-input-2 */}
-              <PhoneInput
-                placeholder="Enter Phone Number"
-                value={phone}
-                onChange={setPhone} // Directly use the setter function
-                country="in" // Set default country to India
-                className="phone-input"
-                style={{ marginBottom: "1rem", width: "100%" }} // Style for the input
-              />
-              <input
-                type="text"
-                placeholder="Enter OTP (Sample: 1234)"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                style={{ marginBottom: "1rem", width: "100%", padding: "8px" }}
-              />
-              <Button label="Submit" onClick={checkPhoneNumber} />
-              {message && <p>{message}</p>}
+              <div className="flex align-items-center justify-content-center flex-column">
+                <h1 className="text-2xl mb-4 m-0 p-0 text-theme">Sign In</h1>
+                <PhoneInput
+                  placeholder="Enter Phone Number"
+                  value={phone}
+                  onChange={setPhone} // Directly use the setter function
+                  country="in" // Set default country to India
+                  className="phone-input"
+                  style={{ margin: "1rem ", width: "100%" }} // Style for the input
+                />
+                <input
+                  type="text"
+                  placeholder="Enter OTP (Sample: 1234)"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  style={{
+                    marginBottom: "1rem",
+                    width: "100%",
+                    padding: "8px",
+                  }}
+                />
+                <Button
+                  label="Submit"
+                  onClick={checkPhoneNumber}
+                  className="bg-theme"
+                />
+                {message && <p>{message}</p>}
+              </div>
             </div>
           </Dialog>
 

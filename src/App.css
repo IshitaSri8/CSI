@@ -135,3 +135,9 @@ body {
 .text-grey {
   color: #4b95a4;
 }
+.p-dialog .p-dialog-header {
+  padding: 0 !important;
+}
+.p-dialog .p-dialog-header-icons {
+  padding: 0.1rem 0.5rem !important;
+}
