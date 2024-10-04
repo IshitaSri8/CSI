@@ -68,18 +68,28 @@ const Header = () => {
       template: itemRenderer,
       // path: "/ourwork",
       command: () => {
-        window.location.href = "https://ayodhya.arahas.com/"; // External redirect
+        window.location.href = "https://csi.arahas.com/csi"; // External redirect
       },
     },
+    {
+      label: "Resources",
+      icon: "pi pi-receipt",
+      template: itemRenderer,
+      // path: "/ourwork",
+    },
   ];
+
+  // Conditionally render the Sign in button only for '/citizens' and '/government'
+  const showSignInButton =
+    location.pathname === "/citizens" || location.pathname === "/government";
 
   const start = (
     <img className="mr-auto w-3 ml-1" src={Arahas} alt="Arahas Logo" />
   );
 
-  const end = (
+  const end = showSignInButton ? (
     <Button label="Sign in" icon="pi pi-user" className="bg-theme p-ml-auto" />
-  );
+  ) : null; // Show button only for specific routes
 
   return (
     <Menubar
