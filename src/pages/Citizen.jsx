@@ -1,5 +1,6 @@
 import { Button } from "primereact/button";
 import React, { useState } from "react";
+import { Card } from "primereact/card";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/landingPage/Header";
 import axios from "axios";
@@ -9,6 +10,9 @@ import signin_ani from "../assets/animations/signin.json";
 import Lottie from "lottie-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
+import { MuiOtpInput } from "mui-one-time-password-input";
+import "../components/Citizen/Citizen.css";
+import citizen_bg_img from "../assets/Citizen/citizen_bg.png";
 
 const Citizen = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -19,9 +23,12 @@ const Citizen = () => {
 
   const checkPhoneNumber = async () => {
     try {
-      console.log(phone);
+      // Remove the country code (first two characters)
+      const formattedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
+
+      console.log(formattedPhone); // Log the formatted phone number without country code
       const response = await axios.post("http://localhost:8009/check/phone", {
-        phone,
+        phone: formattedPhone, // Send formatted phone without country code
       });
       console.log(response);
       setMessage(response.data.message);
@@ -50,7 +57,20 @@ const Citizen = () => {
       }
     }
   };
-
+  const CardImageLeft = ({
+    cardTitle,
+    cardBody,
+    cardBackgroundImage,
+    cardImage,
+  }) => {
+    <Card className="w-full">
+      <div className="flex align-items-center justify-content-center flex-row">
+        <div className="card1 flex align-items-center justify-content-center">
+          <img src></img>
+        </div>
+      </div>
+    </Card>;
+  };
   return (
     <div className="flex flex-column w-full">
       {/* Header */}
@@ -58,17 +78,25 @@ const Citizen = () => {
 
       {/* Add top padding to avoid overlap with fixed header */}
       <div>
-        <div className="flex flex-column gap-1 mt-8 align-items-center p-4">
-          <h1 className="text-4xl text-theme">
-            City Sustainability Index for Citizens
-          </h1>
-          <div className="flex align-items-center justify-content-center w-full flex-row gap-1">
-            <h1 className="text-lg"> Already a registered citizen?</h1>
-            <Button
-              label="Sign in"
-              className="bg-theme"
-              onClick={() => setVisible(true)}
-            />
+        <div className="flex flex-column gap-1 align-items-center justify-content-end citizen_bg bg-no-repeat w-full h-screen">
+          <div
+            className="border-round-xl m-0 mb-5 p-0"
+            style={{
+              backgroundColor: "rgba(247, 164, 122, 0.7)",
+              width: "65rem",
+            }}
+          >
+            <h1 className="text-5xl text-third-theme text-center">
+              Explore Your City’s Sustainability Performance With Arahas’s CSI
+            </h1>
+            <div className="flex align-items-center justify-content-center w-full flex-row gap-1">
+              <h1 className="text-lg"> Already a registered citizen?</h1>
+              <Button
+                label="Sign in"
+                className="bg-theme"
+                onClick={() => setVisible(true)}
+              />
+            </div>
           </div>
 
           {/* Dialog for entering phone number and OTP */}
@@ -81,7 +109,8 @@ const Citizen = () => {
               <Lottie
                 animationData={signin_ani}
                 loop={true}
-                className="h-15rem w-20rem m-0 p-0 "
+                className="h-15rem m-0 p-0"
+                style={{ width: "50rem" }}
               />
               {/* Phone input using react-phone-input-2 */}
               <div className="flex align-items-center justify-content-center flex-column">
@@ -91,20 +120,20 @@ const Citizen = () => {
                   value={phone}
                   onChange={setPhone} // Directly use the setter function
                   country="in" // Set default country to India
-                  className="phone-input"
+                  className="phone-input font-semibold"
                   style={{ margin: "1rem ", width: "100%" }} // Style for the input
                 />
-                <input
-                  type="text"
-                  placeholder="Enter OTP (Sample: 1234)"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  style={{
-                    marginBottom: "1rem",
-                    width: "100%",
-                    padding: "8px",
-                  }}
-                />
+
+                <div className="w-full">
+                  <p className=".text-sec-theme text-base font-semibold text-left mt-2 m-0  p-0">
+                    Enter OTP
+                  </p>
+                  <MuiOtpInput
+                    value={otp}
+                    onChange={(newValue) => setOtp(newValue)}
+                    className="pt-2 mb-4" // Receive value directly
+                  />
+                </div>
                 <Button
                   label="Submit"
                   onClick={checkPhoneNumber}

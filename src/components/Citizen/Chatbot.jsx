@@ -31,7 +31,7 @@ const Chatbot = () => {
   };
 
   const settings = {
-    isOpen: true,
+    isOpen: false,
     tooltip: {
       mode: "CLOSE",
       text: "New User? Register Here!",

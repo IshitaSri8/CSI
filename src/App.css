@@ -57,6 +57,9 @@ body {
 .text-sec-theme {
   color: #3e4141;
 }
+.text-third-theme {
+  color: #00403c;
+}
 
 .bg-theme {
   background-color: var(--theme-primary-color);

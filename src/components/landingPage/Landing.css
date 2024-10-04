@@ -39,11 +39,11 @@
   bottom: 28px !important;
   padding: 0.3rem 1rem !important;
   font-family: "DM Sans" !important;
-  background-image: linear-gradient(to right, #f26721, #f7a47a);
+  background-image: linear-gradient(to right, #f26721, #f26721);
 }
 .rcb-chat-tooltip-tail {
   right: -5px !important;
-  border-color: transparent transparent transparent #f7a47a !important;
+  border-color: transparent transparent transparent #f26721 !important;
 }
 .rcb-chat-header {
   align-items: center;
