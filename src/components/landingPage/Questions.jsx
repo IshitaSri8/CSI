@@ -6,7 +6,7 @@ const Questions = ({ question, points, textTheme }) => {
     <div className="p-8 m-4 flex gap-7">
       {/* First Column with Fixed Question */}
       <div className="flex-1">
-        <p className="text-7xl font-semibold">{question}</p>
+        <p className="text-6xl font-semibold">{question}</p>
       </div>
 
       {/* Second Column with Scrollable Answers */}

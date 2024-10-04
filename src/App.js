@@ -35,6 +35,12 @@ function App() {
       <Route path="/ourwork" element={<OurWork />} />
       <Route path="/government" element={<Government />} />
       <Route path="/reportcard" element={<CityReportCard />} />
+      <Route path="/aqi" element={<AqiDashboard />} />
+      <Route path="/temperature" element={<TempDashboard />} />
+      <Route path="/land" element={<LandDashboard />} />
+      <Route path="/rain" element={<RainDashboard />} />
+      <Route path="/waste" element={<WasteDashboard />} />
+      <Route path="/water" element={<WaterDashboard />} />
     </Routes>
   );
 }
