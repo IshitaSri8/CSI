@@ -142,14 +142,14 @@ body {
 .p-dialog .p-dialog-header-icons {
   padding: 0.1rem 0.5rem !important;
 }
-.p-card-content {
+
+/* .p-card-content {
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 0;
 }
 
 .p-card-body {
   padding: 0;
-}
+} */

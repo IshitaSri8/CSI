@@ -14,14 +14,14 @@ const CardItem = ({ number, title, content }) => {
   }, [number, title, content]);
 
   return (
-    <div className="flex w-full h-auto card-animation">
+    <div className="flex w-full h-full card-animation">
       <Card
-        className="flex justify-content-center w-full card-bg h-auto"
+        className="flex justify-content-center w-full card-bg"
         style={{
           background: "linear-gradient(to left, #1F8297, #166C7D, #003940)",
         }}
       >
-        <div className="flex flex-column justify-content-between w-full h-auto">
+        <div className="flex flex-column justify-content-between w-full">
           <h3
             className={`text-4xl font-bold text-white m-0 p-0 w-full text-right ${fadeInClass}`}
             style={{ marginTop: -10 }}
