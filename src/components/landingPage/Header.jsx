@@ -12,17 +12,23 @@ const Header = () => {
   const isActive = (path) => location.pathname === path;
 
   const itemRenderer = (item) => (
-    <a
-      className={`flex align-items-center p-menuitem-link  ${
-        isActive(item.path) ? "text-active" : "text-theme"
-      }`}
+    <div
+      className={`flex align-items-center p-menuitem-link }`}
       onClick={item.command}
     >
-      <span className={`${item.icon} text-theme`} />
-      <span className="mx-2 text-theme font-semibold text-lg">
+      <span
+        className={`${item.icon}  ${
+          isActive(item.path) ? "icon-active" : "text-theme"
+        }`}
+      />
+      <h1
+        className={`ml-2 mr-3 my-3 text-xl p-0 ${
+          isActive(item.path) ? "text-active" : "text-grey"
+        }`}
+      >
         {item.label}
-      </span>
-    </a>
+      </h1>
+    </div>
   );
 
   const items = [
@@ -76,7 +82,7 @@ const Header = () => {
       model={items}
       start={start}
       end={end}
-      className="flex p-shadow-3 gap-8 opacity-90 sec-theme align-items-center"
+      className="flex sec-theme align-items-center "
       style={{
         position: "fixed",
         top: 0,

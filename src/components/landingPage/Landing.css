@@ -47,7 +47,7 @@
 }
 .rcb-chat-header {
   align-items: center;
-  font-family: "DM Sans" !important;
+  font-family: "Montserrat" !important;
 }
 .rcb-notification-icon-on,
 .rcb-notification-icon-off,
@@ -67,6 +67,7 @@
   border-radius: 5px !important;
   font-size: 1rem !important;
   padding: 0 !important;
+  background-color: white !important;
 }
 .rcb-chat-header-container {
   padding: 0.5rem !important;
@@ -89,7 +90,12 @@
   margin: 0.5rem !important;
   min-height: 1rem !important;
   border-radius: 10px !important;
-  font-family: "DM Sans" !important;
+  font-family: "Montserrat" !important;
+  border: 1px solid #166c7d !important;
+}
+.rcb-user-message {
+  background-color: #e9f3f5 !important;
+  color: #166c7d !important;
 }
 .rcb-options {
   font-size: 1rem !important;

@@ -105,8 +105,15 @@ body {
   /* color: #007ad9; Active color */
   /*color: #007bff;  Highlight color */
   /* background-color: #E9F3F5; */
+  /* font-weight: bold; */
+  text-decoration: none;
+  border-bottom: 2px solid #166c7d;
+  color: #166c7d; /* Bottom border to show as active */
+}
+.icon-active {
   font-weight: bold;
-  border-bottom: 2px solid #166c7d; /* Bottom border to show as active */
+  text-decoration: none;
+  color: #166c7d;
 }
 
 .p-carousel .p-carousel-content .p-carousel-prev:enabled:hover,
@@ -117,4 +124,14 @@ body {
 .p-carousel .p-carousel-content .p-carousel-prev,
 .p-carousel .p-carousel-content .p-carousel-next {
   color: var(--theme-primary-color);
+}
+.p-menubar
+  .p-menubar-root-list
+  > .p-menuitem
+  > .p-menuitem-content
+  .p-menuitem-link {
+  padding: 0 0.5rem !important;
+}
+.text-grey {
+  color: #4b95a4;
 }
