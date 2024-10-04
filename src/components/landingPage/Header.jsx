@@ -22,7 +22,7 @@ const Header = () => {
         }`}
       />
       <h1
-        className={`ml-2 mr-3 my-3 text-xl p-0 ${
+        className={`ml-2 mr-4 my-3 text-lg p-0 ${
           isActive(item.path) ? "text-active" : "text-grey"
         }`}
       >

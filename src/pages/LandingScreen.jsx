@@ -181,7 +181,7 @@ const LandingScreen = () => {
         <div className="flex bg-theme text-white h-screen">
           <Questions
             textTheme="white"
-            question="How can cities leverage City Sustainability Index (CSI) to enhance their sustainability efforts?"
+            question="How can cities leverage CSI to enhance their sustainability efforts?"
             points={[
               {
                 subheading: "Pinpoint areas for improvement",
