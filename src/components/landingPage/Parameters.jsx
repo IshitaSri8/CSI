@@ -1,4 +1,3 @@
-import { Card } from "primereact/card";
 import React from "react";
 import "primeicons/primeicons.css"; // Import PrimeIcons
 import Nature from "assets/Nature Illustration.svg";

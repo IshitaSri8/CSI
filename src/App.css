@@ -57,6 +57,7 @@ body {
 .text-sec-theme {
   color: #3e4141;
 }
+
 .text-third-theme {
   color: #00403c;
 }
@@ -136,15 +137,16 @@ body {
   padding: 0 0.5rem !important;
 }
 
-.text-grey {
+.text-disabled {
   color: #4b95a4;
 }
-.p-dialog .p-dialog-header {
+
+/* .p-dialog .p-dialog-header {
   padding: 0 !important;
 }
 .p-dialog .p-dialog-header-icons {
   padding: 0.1rem 0.5rem !important;
-}
+} */
 
 /* .p-card-content {
   display: flex;

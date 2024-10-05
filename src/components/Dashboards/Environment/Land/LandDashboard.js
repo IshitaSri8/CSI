@@ -62,8 +62,8 @@ const Land = () => {
     data: [
       {
         type: "area",
-        lineColor: "#00A269",
-        color: "#a2ffde",
+        lineColor: "#166c7d",
+        color: "#B9D2D8",
         dataPoints: [
           { label: "Residential", y: 52.5 },
           { label: "Transportation", y: 14.1 },
@@ -161,7 +161,7 @@ const Land = () => {
       {
         type: "bar",
         name: "Positive Values",
-        color: "#00A269",
+        color: "#E9F3F5",
         indexLabel: `{y}`,
         indexLabelFontSize: 8,
         indexLabelPlacement: "inside",
@@ -177,7 +177,7 @@ const Land = () => {
       {
         type: "bar",
         name: "Negative Values",
-        color: "#A9F3E0",
+        color: "#166c7d",
         indexLabel: `{y}`,
         indexLabelFontSize: 8,
         indexLabelPlacement: "inside",

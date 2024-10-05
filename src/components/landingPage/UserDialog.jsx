@@ -53,7 +53,7 @@ const UserDialog = forwardRef(({ onSuccess }, ref) => {
       <Dialog
         header={customHeader}
         visible={visible}
-        style={{ width: "25vw" }}
+        style={{ width: "25vw"}}
         footer={footer}
         onHide={closeDialog}
       >
