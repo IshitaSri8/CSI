@@ -84,7 +84,10 @@ const Citizen = () => {
             Explore Your City’s Sustainability Performance With Arahas
           </h1>
           <div className="flex align-items-center justify-content-center w-full flex-row">
-            <p className="text-lg text-white mr-2"> Already a registered citizen?</p>
+            <p className="text-lg text-white mr-2">
+              {" "}
+              Already a registered citizen?
+            </p>
             <Button
               label="Sign in"
               className="bg-theme"
@@ -167,7 +170,7 @@ const Citizen = () => {
                 transform: "translate(-70%, -50%)",
               }}
             />
-             <img
+            <img
               src={Screen}
               alt="Small"
               style={{
@@ -286,7 +289,7 @@ const Citizen = () => {
                 transform: "translate(-50%, -50%)",
               }}
             />
-             <img
+            <img
               src={Screen}
               alt="Small"
               style={{
@@ -324,7 +327,7 @@ const Citizen = () => {
                 transform: "translate(-50%, -50%)",
               }}
             />
-             <img
+            <img
               src={Screen}
               alt="Small"
               style={{
