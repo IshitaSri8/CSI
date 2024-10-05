@@ -141,6 +141,10 @@ body {
   color: #4b95a4;
 }
 
+.p-sidebar .p-sidebar-content {
+  padding: 0;
+}
+
 /* .p-dialog .p-dialog-header {
   padding: 0 !important;
 }

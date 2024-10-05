@@ -64,15 +64,17 @@ const Waste = () => {
     { title: "Population", value: 722580, icon: PopulationIcon },
   ];
   const colors = [
-    "#00A269",
-    "rgb(184, 184, 184)",
-    "#A9F3E0",
-    "grey",
-    "#1abc9c",
-    "#FFC300",
-    "#C70039",
-    "#581845",
-    "#9b59b6",
+    "#26575D",
+    "#1F8297",
+    "#4D7479",
+    "#4C9BAC",
+    "#98C6CF",
+    "#0F4B57",
+    "#166c7d",
+    "#5B98A4",
+    "#8AB5BE",
+    "#B9D2D8",
+    "#E9F3F5",
   ];
 
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;

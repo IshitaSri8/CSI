@@ -7,22 +7,21 @@ import CanvasJSReact from "@canvasjs/react-charts";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
+  "#26575D",
+  "#1F8297",
+  "#4D7479",
+  "#4C9BAC",
+  "#98C6CF",
+  "#F7A47A",
+  "#47B881",
+  "#FFDD82",
+  "#F64C4C",
   "#0F4B57",
   "#166c7d",
   "#5B98A4",
   "#8AB5BE",
   "#B9D2D8",
   "#E9F3F5",
-  "#557C56",
-  "#90D26D",
-  "#6A9C89",
-  "#B5C18E",
-  "#41B3A2",
-  "#BDE8CA",
-  "#C4DAD2",
-  "#9CDBA6",
-  "#95D2B3",
-  "#729762",
 ];
 export const DonutChart = ({ title, labels, series, height, width }) => {
   const options = {

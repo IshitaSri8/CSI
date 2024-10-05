@@ -20,6 +20,16 @@ import LandDashboard from "../src/components/Dashboards/Environment/Land/LandDas
 import WasteDashboard from "../src/components/Dashboards/Environment/Waste/WasteDashboard";
 
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import CitySidebar from "pages/CitySidebar";
+
+
+// Layout component that includes CitySidebar
+const SidebarLayout = ({ children }) => (
+  <div className="layout-container">
+    <CitySidebar />
+    <div className="content-container">{children}</div>
+  </div>
+);
 
 function App() {
   return (
@@ -34,13 +44,72 @@ function App() {
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/ourwork" element={<OurWork />} />
       <Route path="/government" element={<Government />} />
-      <Route path="/reportcard" element={<CityReportCard />} />
-      <Route path="/aqi" element={<AqiDashboard />} />
-      <Route path="/temperature" element={<TempDashboard />} />
-      <Route path="/land" element={<LandDashboard />} />
-      <Route path="/rain" element={<RainDashboard />} />
-      <Route path="/waste" element={<WasteDashboard />} />
-      <Route path="/water" element={<WaterDashboard />} />
+      {/* Routes with Sidebar */}
+      <Route
+        path="/kyc"
+        element={
+          <SidebarLayout>
+            <KnowYourCity />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/reportcard"
+        element={
+          <SidebarLayout>
+            <CityReportCard />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/aqi"
+        element={
+          <SidebarLayout>
+            <AqiDashboard />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/temperature"
+        element={
+          <SidebarLayout>
+            <TempDashboard />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/land"
+        element={
+          <SidebarLayout>
+            <LandDashboard />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/rain"
+        element={
+          <SidebarLayout>
+            <RainDashboard />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/waste"
+        element={
+          <SidebarLayout>
+            <WasteDashboard />
+          </SidebarLayout>
+        }
+      />
+      <Route
+        path="/water"
+        element={
+          <SidebarLayout>
+            <WaterDashboard />
+          </SidebarLayout>
+        }
+      />
+   
     </Routes>
   );
 }
