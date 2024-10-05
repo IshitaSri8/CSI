@@ -82,7 +82,8 @@ const Citizen = () => {
           <div
             className="border-round-xl m-0 mb-5 p-0"
             style={{
-              backgroundColor: "rgba(247, 164, 122, 0.7)",
+              background:
+                "linear-gradient(to right, rgba(242, 103, 33, 0.8), rgba(247, 164, 122, 0.8))",
               width: "65rem",
             }}
           >
