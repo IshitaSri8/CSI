@@ -28,7 +28,7 @@ import Healthcare from "components/Dashboards/Healthcare";
 const SidebarLayout = ({ children }) => (
   <div className="layout-container">
     <CitySidebar />
-    <div className="content-container">{children}</div>
+    {/* <div className="content-container">{children}</div> */}
   </div>
 );
 
@@ -41,7 +41,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingScreen />} />
       <Route path="/citizens" element={<Citizen />} />
-      <Route path="/kyc" element={<KnowYourCity />} />
+      {/* <Route path="/kyc" element={<KnowYourCity />} /> */}
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/ourwork" element={<OurWork />} />
       <Route path="/government" element={<Government />} />
