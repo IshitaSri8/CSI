@@ -321,7 +321,7 @@ const CityReportCard = () => {
       </div>
       <div className="flex">
         <div
-          className="flex flex-column p-2 border-round-lg"
+          className="flex flex-column p-2 border-round-2xl"
           style={{ flex: "70%" }}
         >
           <CanvasJSReact.CanvasJSChart options={options} />

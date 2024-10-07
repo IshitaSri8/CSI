@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Dialog } from "primereact/dialog";
-import axios from "axios";
 import signin_ani from "assets/animations/signin.json";
 import Lottie from "lottie-react";
 import { useNavigate } from "react-router-dom";
@@ -12,32 +11,16 @@ const GovernmentDialog = ({ visible, onHide }) => {
   const [password, setPassword] = useState(""); // Password input state
   const [message, setMessage] = useState(""); // Message to display
 
+   const defaultUsername = "admin"; 
+   const defaultPassword = "csi@arahas2024";
+
   const handleSignIn = async () => {
-    try {
-      const response = await axios.post(
-        "https://api-csi.arahas.com/login", // Replace with your login API endpoint
-        {
-          username,
-          password,
-        }
-      );
-
-      // Log the response from the API
-      console.log(response);
-      setMessage(response.data.message);
-
-      // Check if login is successful
-      if (response.data.success) {
-        navigate("/kyc"); // Navigate to the KYC page upon successful login
-      } else {
-        setMessage("Invalid username or password. Please try again.");
-      }
-    } catch (error) {
-      if (error.response) {
-        setMessage(error.response.data.message);
-      } else {
-        setMessage("Error during login. Please try again.");
-      }
+    // Check if the entered username and password match the hardcoded credentials
+    if (username === defaultUsername && password === defaultPassword) {
+      setMessage("Login successful!");
+      navigate("/kyc"); // Navigate to the KYC page upon successful login
+    } else {
+      setMessage("Invalid username or password. Please try again.");
     }
   };
 
@@ -66,7 +49,7 @@ const GovernmentDialog = ({ visible, onHide }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)} // Update state with input value
             className="p-inputtext w-full mb-3"
-            style={{  width: "100%", padding: "0.5rem", fontSize: "1rem" }}
+            style={{ width: "100%", padding: "0.5rem", fontSize: "1rem" }}
           />
 
           {/* Password input */}
@@ -76,15 +59,11 @@ const GovernmentDialog = ({ visible, onHide }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)} // Update state with input value
             className="p-inputtext w-full mb-3"
-            style={{  width: "100%", padding: "0.5rem", fontSize: "1rem" }}
+            style={{ width: "100%", padding: "0.5rem", fontSize: "1rem" }}
           />
 
           {/* Submit Button */}
-          <Button
-            label="Submit"
-            onClick={handleSignIn}
-            className="bg-theme"
-          />
+          <Button label="Submit" onClick={handleSignIn} className="bg-theme" />
 
           {/* Display message */}
           {message && <p>{message}</p>}

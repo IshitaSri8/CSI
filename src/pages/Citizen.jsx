@@ -28,7 +28,7 @@ const Citizen = () => {
               "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
             width: "70rem",
             position: "absolute",
-            top: "70%",
+            top: "65%",
             left: "50%",
             transform: "translate(-50%, 160%)",
           }}
