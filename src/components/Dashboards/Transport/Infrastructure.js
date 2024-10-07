@@ -185,8 +185,8 @@ const Infrastructure = () => {
             <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
               <h1 className=" m-0 p-0 text-xs">Roadways Condition</h1>
               <h1
-                className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-green-500 border-circle"
-                style={{ backgroundColor: "#ECFFE6" }}
+                className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
+                style={{ backgroundColor: "#E9F3F5" }}
               >
                 8
               </h1>
@@ -196,28 +196,28 @@ const Infrastructure = () => {
               style={{ height: "4rem", width: "4rem" }}
               alt="air"
             /> */}
-            {/* <div className="border-circle border-2 border-solid border-green-500"> */}
+            {/* <div className="border-circle border-2 border-solid border-theme"> */}
             <DirectionsCarIcon
               style={{
                 height: "3rem",
                 width: "3rem",
-                color: "#00a269",
+                color: "#1f8297",
                 // padding: "0.2rem",
               }}
             />
             {/* </div> */}
           </div>
           <div className="flex align-items-start justify-content-start flex-row w-full ">
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
           </div>
           <div className="flex align-items-start justify-content-between flex-row w-full ">
             <div className="flex align-items-start justify-content-start flex-row">
@@ -226,7 +226,7 @@ const Infrastructure = () => {
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               ></img>
-              <p className="text-green-500 text-xs p-0 m-0">
+              <p className="text-theme text-xs p-0 m-0">
                 20% increase in last one year.
               </p>
             </div>
@@ -243,7 +243,7 @@ const Infrastructure = () => {
               }
             >
               <InfoIcon
-                style={{ height: "1.2rem", width: "1.2rem", color: "#00a269" }}
+                style={{ height: "1.2rem", width: "1.2rem", color: "#1f8297" }}
               />
             </CustomTooltip>
           </div>
@@ -253,8 +253,8 @@ const Infrastructure = () => {
             <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
               <h1 className=" m-0 p-0 text-xs">Railways Condition</h1>
               <h1
-                className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-green-500 border-circle"
-                style={{ backgroundColor: "#ECFFE6" }}
+                className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
+                style={{ backgroundColor: "#E9F3F5" }}
               >
                 7
               </h1>
@@ -264,28 +264,28 @@ const Infrastructure = () => {
               style={{ height: "2rem", width: "2rem" }}
               alt="air"
             /> */}
-            {/* <div className="border-circle border-2 border-solid border-green-500"> */}
+            {/* <div className="border-circle border-2 border-solid border-theme"> */}
             <TrainIcon
               style={{
                 height: "3rem",
                 width: "3rem",
-                color: "#00a269",
+                color: "#1f8297",
                 // padding: "0.2rem",
               }}
             />
             {/* </div> */}
           </div>
           <div className="flex align-items-start justify-content-start flex-row w-full ">
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
           </div>
  
           <div className="flex align-items-start justify-content-between flex-row w-full ">
@@ -322,34 +322,34 @@ const Infrastructure = () => {
             <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
               <h1 className=" m-0 p-0 text-xs">Airways Condition</h1>
               <h1
-                className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-green-500 border-circle"
-                style={{ backgroundColor: "#ECFFE6" }}
+                className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
+                style={{ backgroundColor: "#E9F3F5" }}
               >
                 9
               </h1>
             </div>
-            {/* <div className="border-circle border-2 border-solid border-green-500"> */}
+            {/* <div className="border-circle border-2 border-solid border-theme"> */}
             <FlightIcon
               style={{
                 height: "3rem",
                 width: "3rem",
-                color: "#00a269",
+                color: "#1f8297",
                 // padding: "0.2rem",
               }}
             />
             {/* </div> */}
           </div>
           <div className="flex align-items-start justify-content-start flex-row w-full ">
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
           </div>
  
           <div className="flex align-items-start justify-content-between flex-row w-full ">
@@ -359,7 +359,7 @@ const Infrastructure = () => {
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               ></img>
-              <p className="text-green-500 text-xs p-0 m-0">
+              <p className="text-theme text-xs p-0 m-0">
                 10% increase in last one year.
               </p>
             </div>
@@ -376,7 +376,7 @@ const Infrastructure = () => {
               }
             >
               <InfoIcon
-                style={{ height: "1.2rem", width: "1.2rem", color: "#00a269" }}
+                style={{ height: "1.2rem", width: "1.2rem", color: "#1f8297" }}
               />
             </CustomTooltip>
           </div>
@@ -386,34 +386,34 @@ const Infrastructure = () => {
             <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
               <h1 className=" m-0 p-0 text-xs">Waterways Condition</h1>
               <h1
-                className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-green-500 border-circle"
-                style={{ backgroundColor: "#ECFFE6" }}
+                className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
+                style={{ backgroundColor: "#E9F3F5" }}
               >
                 6
               </h1>
             </div>
-            {/* <div className="border-circle border-2 border-solid border-green-500"> */}
+            {/* <div className="border-circle border-2 border-solid border-theme"> */}
             <DirectionsBoatIcon
               style={{
                 height: "3rem",
                 width: "3rem",
-                color: "#00a269",
+                color: "#1f8297",
                 // padding: "0.2rem",
               }}
             />
             {/* // </div> */}
           </div>
           <div className="flex align-items-start justify-content-start flex-row w-full ">
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star-fill" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
-            <i className="pi pi-star" style={{ color: "#00a269" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
+            <i className="pi pi-star" style={{ color: "#1f8297" }} />
           </div>
           <div className="flex align-items-start justify-content-between flex-row w-full ">
             <div className="flex align-items-start justify-content-start flex-row">
@@ -422,7 +422,7 @@ const Infrastructure = () => {
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               ></img>
-              <p className="text-green-500 text-xs p-0 m-0">
+              <p className="text-theme text-xs p-0 m-0">
                 10% increase in last one year.
               </p>
             </div>
@@ -439,7 +439,7 @@ const Infrastructure = () => {
               }
             >
               <InfoIcon
-                style={{ height: "1.2rem", width: "1.2rem", color: "#00a269" }}
+                style={{ height: "1.2rem", width: "1.2rem", color: "#1f8297" }}
               />
             </CustomTooltip>
           </div>

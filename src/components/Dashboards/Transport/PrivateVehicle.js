@@ -145,7 +145,7 @@ const PrivateVehicle = () => {
                   style={{
                     height: "1.2rem",
                     width: "1.2rem",
-                    color: "#00a269",
+                    color: "#1f8297",
                   }}
                 />
               </CustomTooltip>
@@ -186,7 +186,7 @@ const PrivateVehicle = () => {
                   style={{
                     height: "1.2rem",
                     width: "1.2rem",
-                    color: "#00a269",
+                    color: "#1f8297",
                   }}
                 />
               </CustomTooltip>

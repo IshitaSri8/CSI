@@ -117,7 +117,7 @@ const Renewable = () => {
       <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
         <Card className="w-full">
           <div className="flex align-items-center justify-content-center flex-column">
-            <h1 className="text-2xl text-green-500 text-bold m-0 p-0">38 %</h1>
+            <h1 className="text-2xl text-theme text-bold m-0 p-0">38 %</h1>
             <h1 className="text-xs text-semibold mt-3 p-0">
               Public Transport Using Renewable Energy
             </h1>
@@ -132,7 +132,7 @@ const Renewable = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-green-500 text-xs p-0 m-0">
+                <p className="text-theme text-xs p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
@@ -146,7 +146,7 @@ const Renewable = () => {
         </Card>
         <Card className="w-full">
           <div className="flex align-items-center justify-content-center flex-column">
-            <h1 className="text-2xl text-green-500 text-bold m-0 p-0">
+            <h1 className="text-2xl text-theme text-bold m-0 p-0">
               {" "}
               2579890 Litres
             </h1>
@@ -164,7 +164,7 @@ const Renewable = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-green-500 text-xs p-0 m-0">
+                <p className="text-theme text-xs p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
@@ -179,7 +179,7 @@ const Renewable = () => {
 
         <Card className="w-full">
           <div className="flex align-items-center justify-content-center flex-column">
-            <h1 className="text-2xl text-green-500 text-bold m-0 p-0">22</h1>
+            <h1 className="text-2xl text-theme text-bold m-0 p-0">22</h1>
             <h1 className="text-xs text-semibold mt-3 p-0">
               No. of Renewable Energy Projects
             </h1>
@@ -194,7 +194,7 @@ const Renewable = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-green-500 text-xs p-0 m-0">
+                <p className="text-theme text-xs p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
@@ -209,7 +209,7 @@ const Renewable = () => {
                 }
               >
                 <InfoIcon
-                  style={{ height: "1.2rem", width: "1.2rem", color: "green" }}
+                  style={{ height: "1.2rem", width: "1.2rem", color: "#1f8297" }}
                 />
               </CustomTooltip>
             </div>

@@ -182,7 +182,7 @@ const Healthcare = () => {
         <div className="flex align-items-center justify-content-center flex-row w-full gap-1">
           <Card className="w-full ">
             <div className="flex align-items-center justify-content-center flex-column gap-2 text-center w-full">
-              <h1 className="text-green-500 text-xl font-bold text-center p-0 m-0">
+              <h1 className="text-theme text-xl font-bold text-center p-0 m-0">
                 800
               </h1>
               <h1 className=" m-0 p-0 text-xs text-center">
@@ -190,7 +190,7 @@ const Healthcare = () => {
               </h1>
             </div>
             <div className="flex align-items-center justify-content-center flex-column gap-2 text-center w-full">
-              <h1 className="text-green-500 text-xl font-bold text-center p-0 m-0">
+              <h1 className="text-theme text-xl font-bold text-center p-0 m-0">
                 1987
               </h1>
               <h1 className=" m-0 p-0 text-xs text-center">
@@ -198,7 +198,7 @@ const Healthcare = () => {
               </h1>
             </div>
             <div className="flex align-items-center justify-content-center flex-column gap-2 text-center w-full">
-              <h1 className="text-green-500 text-xl font-bold text-center p-0 m-0">
+              <h1 className="text-theme text-xl font-bold text-center p-0 m-0">
                 200
               </h1>
               <h1 className=" m-0 p-0 text-xs text-center">

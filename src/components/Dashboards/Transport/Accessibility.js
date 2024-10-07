@@ -94,7 +94,7 @@ const Accessibility = () => {
               <div className="flex w-full m-0 p-0 align-items-start justify-content-start flex-column">
                 <h1 className="m-0 text-xs">{card.label}</h1>
                 <h1
-                  className="text-xl text-green-500 ml-0 mb-0"
+                  className="text-xl text-theme ml-0 mb-0"
                 >
                   {card.value}%
                 </h1>
@@ -106,7 +106,7 @@ const Accessibility = () => {
                   style={{
                     height: "3rem",
                     width: "3rem",
-                    color: "#00a269",
+                    color: "#1f8297",
                   }}
                 />
               </div>
