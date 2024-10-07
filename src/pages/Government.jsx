@@ -2,16 +2,16 @@ import { Button } from "primereact/button";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "components/landingPage/Header";
-import "../components/Citizen/Citizen.css";
 import Laptop from "../assets/laptop.png";
 import { Tag } from "primereact/tag";
-import Card1 from "../assets/card1.png";
-import Card2 from "../assets/card2.png";
-import Card3 from "../assets/card3.png";
 import Screen from "../assets/screen.png";
 import SpaIcon from "@mui/icons-material/Spa";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
+import kyc from "../assets/kyc.png";
+import crc from "../assets/crc.png";
+import indicator from "../assets/indicator.png";
+import government from "../assets/government.png";
 
 const Government = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -19,7 +19,8 @@ const Government = () => {
     <div className="flex flex-column w-full">
       {/* Header */}
       <Header />
-      <div className="flex flex-column gap-1 align-items-center justify-content-end citizen_bg bg-no-repeat w-full h-screen">
+      <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
+      <img src={government} alt="citizen" className="w-screen "/>
         <div
           className="border-round-xl m-0 mb-5 p-0"
           style={{
@@ -27,6 +28,10 @@ const Government = () => {
             background:
             "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
             width: "65rem",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, 160%)",
           }}
         >
           <h1 className="text-4xl text-white font-medium text-center">
@@ -41,7 +46,7 @@ const Government = () => {
           {/* Image Column */}
           <div style={{ flex: "60%", position: "relative" }}>
             <img
-              src={Card1}
+              src={kyc}
               alt="Main"
               style={{
                 width: "100%",
@@ -134,7 +139,7 @@ const Government = () => {
 
           <div style={{ flex: "60%", position: "relative" }}>
             <img
-              src={Card2}
+              src={crc}
               alt="Main"
               style={{
                 width: "100%",
@@ -172,7 +177,7 @@ const Government = () => {
           {/* Image Column */}
           <div style={{ flex: "60%", position: "relative" }}>
             <img
-              src={Card3}
+              src={indicator}
               alt="Main"
               style={{
                 width: "100%",

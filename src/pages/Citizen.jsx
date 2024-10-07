@@ -10,7 +10,6 @@ import Lottie from "lottie-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 import { MuiOtpInput } from "mui-one-time-password-input";
-import "../components/Citizen/Citizen.css";
 import Laptop from "../assets/laptop.png";
 import { Tag } from "primereact/tag";
 import Card1 from "../assets/card1.png";
@@ -20,6 +19,7 @@ import Screen from "../assets/screen.png";
 import SpaIcon from "@mui/icons-material/Spa";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
+import citizen from "../assets/citizen_bg.jpg";
 
 const Citizen = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -66,11 +66,12 @@ const Citizen = () => {
   };
 
   return (
-    <div className="flex flex-column w-full">
+    <div className="flex flex-column w-full overflow-x-hidden">
       {/* Header */}
       <Header />
 
-      <div className="flex flex-column gap-1 align-items-center justify-content-end citizen_bg bg-no-repeat h-screen">
+      <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
+        <img src={citizen} alt="citizen" className="w-screen "/>
         <div
           className="border-round-xl m-0 mb-5 p-0"
           style={{
@@ -78,6 +79,10 @@ const Citizen = () => {
             background:
               "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
             width: "65rem",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, 160%)",
           }}
         >
           <h1 className="text-5xl text-white text-center font-medium">

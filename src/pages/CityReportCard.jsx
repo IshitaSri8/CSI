@@ -1,73 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { ParetoChart } from "../components/GraphVisuals";
-import sum_img from "../assets/City report card/plus.png";
-import equal_img from "../assets/City report card/equal.png";
-import esg from "../assets/City report card/ESG_ESG.png";
-import renewable from "../assets/City report card/renewable-energy.png";
-import air from "../assets/City report card/air.png";
-import water from "../assets/City report card/water.png";
-import earth from "../assets/City report card/earth.png";
-import climate from "../assets/City report card/climate.png";
-import n from "../assets/City report card/n-letter.png";
-import s from "../assets/City report card/s-letter.png";
-import a from "../assets/City report card/a.png";
-import home from "../assets/City report card/home.png";
-import health from "../assets/City report card/healthcare.png";
-import transport from "../assets/City report card/transport.png";
-import cultue from "../assets/City report card/culture.png";
-import gov from "../assets/City report card/governance.png";
-import rights from "../assets/City report card/human-rights.png";
-import corruption from "../assets/City report card/corruption.png";
+import React, { useState } from "react";
 import { Card } from "primereact/card";
+import nature from "../assets/Report/Nature.svg";
+import admin from "../assets/Report/Admin.svg";
+import society from "../assets/Report/Society.svg";
+import overall from "../assets/Report/Overall score.svg";
+import CanvasJSReact from "@canvasjs/react-charts";
 
 const CityReportCard = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Environment");
-  const navigate = useNavigate();
-  const videoRef = useRef(null);
-  const [activeTab, setActiveTab] = useState("E");
-
-  useEffect(() => {
-    switch (activeTab) {
-      case "E":
-        setSelectedCategory("Environment");
-        break;
-      case "S":
-        setSelectedCategory("Social");
-        break;
-      case "G":
-        setSelectedCategory("Governance");
-        break;
-      default:
-        setSelectedCategory("Environment");
-        break;
-    }
-  }, [activeTab]);
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
-
-  const indicators = {
-    E: [
-      { text: "Air Quality", icon: air },
-      { text: "Water Conservation & Preservation", icon: water },
-      { text: "Earth", icon: earth },
-      { text: "Fire and Energy", icon: renewable },
-      { text: "Climate Quality", icon: climate },
-    ],
-    S: [
-      { text: "Housing", icon: home },
-      { text: "Healthcare", icon: health },
-      { text: "Transport", icon: transport },
-      { text: "Cultural preservation", icon: cultue },
-    ],
-    G: [
-      { text: "Government Schemes", icon: gov },
-      { text: "Anti-Corruption", icon: corruption },
-      { text: "Citizen Rights (Human Rights)", icon: rights },
-    ],
-  };
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const categories = {
     Environment: {
@@ -84,181 +24,313 @@ const CityReportCard = () => {
     },
   };
 
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5;
-    }
-  }, []);
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-  const handleTotalScoreClick = () => {
-    navigate("/csi/sdg");
+  // const calculateCumulativeScores = (data) => {
+  //   let cumulative = 0;
+  //   return data.map((value) => {
+  //     cumulative += value;
+  //     return cumulative;
+  //   });
+  // };
+  // // Assuming you have the scores for each category
+  // const environmentScores = categories.Environment.data;
+  // const socialScores = categories.Social.data;
+  // const governanceScores = categories.Governance.data;
+
+  // // Calculate cumulative scores for Pareto chart
+  // const overallScores = environmentScores.map(
+  //   (val, index) => val + socialScores[index] + governanceScores[index]
+  // );
+  // const cumulativeScores = calculateCumulativeScores(overallScores);
+
+  const options = {
+    animationEnabled: true,
+    title: {
+      text: "City Sustainability Metrics",
+      fontFamily: "Montserrat",
+      fontWeight: 800,
+      fontSize: 15,
+      padding: { bottom: 20 },
+    },
+    axisY: {
+      title: "Score",
+      gridThickness: 0,
+      labelFontSize: 12,
+    },
+    axisX: {
+      interval: 1,
+      labelFontSize: 10,
+      // labelFontFamily: "Montserrat",
+    },
+    height: 400,
+    width: 800,
+    dataPointWidth: 12,
+    data: [
+      {
+        type: "column",
+        name: "Environment",
+        color: "#26575D",
+        showInLegend: true,
+        dataPoints: categories.Environment.data.map((val, index) => ({
+          label: months[index],
+          y: val,
+        })),
+        dataPointWidth: 10,
+      },
+      {
+        type: "column",
+        name: "Social",
+        color: "#FFDD82",
+        showInLegend: true,
+        dataPoints: categories.Social.data.map((val, index) => ({
+          label: months[index],
+          y: val,
+        })),
+      },
+      {
+        type: "column",
+        name: "Governance",
+        color: "#1F8297",
+        showInLegend: true,
+        dataPoints: categories.Governance.data.map((val, index) => ({
+          label: months[index],
+          y: val,
+        })),
+      },
+      // {
+      //   type: "line",
+      //   name: "Cumulative Score",
+      //   showInLegend: true,
+      //   dataPoints: cumulativeScores.map((val, index) => ({
+      //     label: months[index],
+      //     y: val,
+      //   })),
+      //   lineColor: "#FF0000",
+      //   markerType: "circle",
+      //   markerSize: 5,
+      // },
+    ],
   };
 
   return (
-    <div className="flex flex-column gap-3 p-8 mt-5">
-      {/* First Row: Indicator Tabs */}
-      <div className="flex gap-4">
-        {/* Nature Tab */}
-        <Card className="w-full cursor-pointer">
-          <div
-            className={`flex gap-6 align-items-center ${
-              activeTab === "E" ? "surface-border" : ""
-            }`}
-            onClick={() => handleTabClick("E")}
-          >
-            <img src={n} className="h-4rem w-4rem" alt="nature" />
-            <h1 className="text-2xl">Nature</h1>
-            <span className="bg-green-500 text-white border-round px-2 py-1 text-xl font-bold">
-              80
-            </span>
-          </div>
-        </Card>
-
-        {/* Society Tab */}
-        <Card className="w-full cursor-pointer">
-          <div
-            className={`flex gap-6 align-items-center ${
-              activeTab === "S" ? "surface-border" : ""
-            }`}
-            onClick={() => handleTabClick("S")}
-          >
-            <img src={s} className="h-4rem w-4rem" alt="society" />
-            <h1 className="text-2xl">Society</h1>
-            <span className="bg-green-500 text-white border-round px-2 py-1 text-xl font-bold">
-              60
-            </span>
-          </div>
-        </Card>
-
-        {/* Administration Tab */}
-        <Card className="w-full cursor-pointer">
-          <div
-            className={`flex gap-6 align-items-center ${
-              activeTab === "G" ? "surface-border" : ""
-            }`}
-            onClick={() => handleTabClick("G")}
-          >
-            <img src={a} className="h-4rem w-4rem" alt="administration" />
-            <h1 className="text-2xl">Administration</h1>
-            <span className="bg-green-500 text-white border-round px-2 py-1 text-xl font-bold">
-              70
-            </span>
-          </div>
-        </Card>
-      </div>
-
-      {/* Second Row: Indicator Content */}
-      <div className="flex">
-        <Card className="w-full">
-          <div className="flex flex-wrap gap-6 justify-content-center">
-            {" "}
-            {/* Flex container to align icons */}
-            {activeTab === "E" &&
-              indicators.E.map((indicator, index) => (
-                <div
-                  key={index}
-                  className="flex flex-column align-items-center"
-                >
-                  {" "}
-                  {/* Align items in a column */}
-                  <img
-                    src={indicator.icon}
-                    className="h-3rem w-3rem mb-1" // Margin bottom for spacing
-                    alt="icon"
-                  />
-                  <span className="text-center">{indicator.text}</span>{" "}
-                  {/* Centered text below icon */}
+    <div className="flex flex-column p-5 gap-4 sec-theme">
+      <div className="flex justify-content-around">
+        {/* First Card */}
+        <Card
+          className="flex align-items-center justify-content-between p-2 w-22rem h-12rem"
+          onMouseEnter={() => setHoveredIndex(0)}
+          onMouseLeave={() => setHoveredIndex(null)}
+          style={{ background: hoveredIndex === 0 ? "#A2DBBF" : "#ffffff" }}
+        >
+          {hoveredIndex === 0 ? (
+            <ul className="list-none p-0 m-0">
+              <li className="mb-2 text-lg font-semibold text-900">
+                Air Quality
+              </li>
+              <li className="mb-2 text-lg font-semibold text-900">
+                Water Conservation & Preservation
+              </li>
+              <li className="mb-2 text-lg font-semibold text-900">
+                Fire & Energy
+              </li>
+              <li className="mb-2 text-lg font-semibold text-900">Earth</li>
+              <li className="text-lg font-semibold text-900">
+                Climate Quality
+              </li>
+            </ul>
+          ) : (
+            <div>
+              <div className="flex gap-8">
+                <div className="flex flex-column align-items-start">
+                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+                    Nature
+                  </h2>
+                  <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
                 </div>
-              ))}
-            {activeTab === "S" &&
-              indicators.S.map((indicator, index) => (
-                <div
-                  key={index}
-                  className="flex flex-column align-items-center"
-                >
-                  {" "}
-                  {/* Align items in a column */}
-                  <img
-                    src={indicator.icon}
-                    className="h-3rem w-3rem mb-1" // Margin bottom for spacing
-                    alt="icon"
-                  />
-                  <span className="text-center">{indicator.text}</span>{" "}
-                  {/* Centered text below icon */}
+                <div className="flex align-items-start justify-content-end ml-7">
+                  <img src={nature} alt="nature" className="w-5rem" />
                 </div>
-              ))}
-            {activeTab === "G" &&
-              indicators.G.map((indicator, index) => (
-                <div
-                  key={index}
-                  className="flex flex-column align-items-center"
-                >
-                  {" "}
-                  {/* Align items in a column */}
-                  <img
-                    src={indicator.icon}
-                    className="h-3rem w-3rem mb-1" // Margin bottom for spacing
-                    alt="icon"
-                  />
-                  <span className="text-center">{indicator.text}</span>{" "}
-                  {/* Centered text below icon */}
-                </div>
-              ))}
-          </div>
-        </Card>
-      </div>
-
-      {/* Third Row: Two-Column Layout */}
-      <div className="flex gap-4">
-        {/* First Column: ParetoChart */}
-        <Card className="w-6">
-          <div className="surface-border p-4">
-            <ParetoChart
-              title={categories[selectedCategory].title}
-              categories={[
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec",
-              ]}
-              data={categories[selectedCategory].data}
-              height="160"
-              width="400"
-              xtitle=""
-              ytitle=""
-            />
-          </div>
-        </Card>
-
-        {/* Second Column: Total CSI Score */}
-        <Card className="w-6 flex flex-column justify-content-between align-items-center">
-          <div
-            className="surface-border text-center p-5 mt-5 cursor-pointer"
-            onClick={handleTotalScoreClick}
-          >
-            <div className="flex justify-content-center gap-2 align-items-center">
-              <img src={n} className="h-3rem" alt="nature" />
-              <img src={sum_img} className="h-2rem" alt="plus" />
-              <img src={s} className="h-3rem" alt="society" />
-              <img src={sum_img} className="h-2rem" alt="plus" />
-              <img src={a} className="h-3rem" alt="admin" />
-              <img src={equal_img} className="h-2rem" alt="equals" />
-              <img src={esg} className="h-5rem" alt="esg" />
+              </div>
+              <div>
+                <p className="text-sm">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+              </div>
             </div>
-            <h1 className="text-xl font-bold">Total CSI Score</h1>
-            <span className="bg-green-500 text-white border-round px-2 py-1 text-sm font-bold">
-              70
-            </span>
-          </div>
+          )}
         </Card>
+
+        {/* Second Card */}
+        <Card
+          className="flex align-items-center justify-content-between p-2 w-22rem h-12rem"
+          onMouseEnter={() => setHoveredIndex(1)}
+          onMouseLeave={() => setHoveredIndex(null)}
+          style={{ background: hoveredIndex === 1 ? "#FFDD82" : "#ffffff" }}
+        >
+          {hoveredIndex === 1 ? (
+            <ul className="list-none p-0 m-0">
+              <li className="mb-2 text-lg font-semibold text-900">Housing</li>
+              <li className="mb-2 text-lg font-semibold text-900">
+                Healthcare
+              </li>
+              <li className="mb-2 text-lg font-semibold text-900">Transport</li>
+              <li className="mb-2 text-lg font-semibold text-900">
+                Cultural presentation
+              </li>
+            </ul>
+          ) : (
+            <div>
+              <div className="flex gap-8">
+                <div className="flex flex-column align-items-start">
+                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+                    Society
+                  </h2>
+                  <p className="text-4xl font-bold text-theme mb-0 mt-1">70</p>
+                </div>
+                <div className="flex align-items-start justify-content-end ml-7">
+                  <img src={society} alt="society" className="w-5rem" />
+                </div>
+              </div>
+              <div>
+                <p className="text-sm">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+              </div>
+            </div>
+          )}
+        </Card>
+
+        {/* Third Card */}
+        <Card
+          className="flex align-items-center justify-content-between p-2 w-22rem h-12rem"
+          onMouseEnter={() => setHoveredIndex(2)}
+          onMouseLeave={() => setHoveredIndex(null)}
+          style={{ background: hoveredIndex === 2 ? "#BAD8DF" : "#ffffff" }}
+        >
+          {hoveredIndex === 2 ? (
+            <ul className="list-none p-0 m-0">
+              <li className="mb-2 text-lg font-semibold text-900">
+                Government Schemes
+              </li>
+              <li className="mb-2 text-lg font-semibold text-900">
+                Anti-corruption
+              </li>
+              <li className="mb-2 text-lg font-semibold text-900">
+                Human Rights
+              </li>
+            </ul>
+          ) : (
+            <div>
+              <div className="flex gap-6">
+                <div className="flex flex-column align-items-start">
+                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+                    Administration
+                  </h2>
+                  <p className="text-4xl font-bold text-theme mb-0 mt-1">60</p>
+                </div>
+                <div className="flex align-items-start justify-content-end">
+                  <img src={admin} alt="Admin" className="w-5rem" />
+                </div>
+              </div>
+              <div>
+                <p className="text-sm">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+              </div>
+            </div>
+          )}
+        </Card>
+
+        {/* Fourth Card */}
+        <Card
+          className="flex align-items-center justify-content-between p-2 w-22rem h-12rem"
+          onMouseEnter={() => setHoveredIndex(3)}
+          onMouseLeave={() => setHoveredIndex(null)}
+          style={{ background: hoveredIndex === 3 ? "#F7A47A" : "#ffffff" }}
+        >
+          {hoveredIndex === 3 ? (
+            <div className="flex justify-content-center gap-2 align-items-center">
+              <img src={nature} className="h-5rem" alt="nature" />
+              <p>+</p>
+              <img src={society} className="h-5rem" alt="society" />
+              <p>+</p>
+              <img src={admin} className="h-5rem" alt="admin" />
+            </div>
+          ) : (
+            <div>
+              <div className="flex">
+                <div className="flex flex-column align-items-start">
+                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+                    Overall Score
+                  </h2>
+                  <p className="text-4xl font-bold text-theme mt-1 mb-0">70</p>
+                </div>
+                <div className="flex align-items-start justify-content-end ml-6">
+                  <img src={overall} alt="Overall Score" className="w-5rem" />
+                </div>
+              </div>
+              <div>
+                <p className="text-sm">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+              </div>
+            </div>
+          )}
+        </Card>
+      </div>
+      <div className="flex">
+        <div
+          className="flex flex-column p-5 border-round-lg"
+          style={{ flex: "70%" }}
+        >
+          <CanvasJSReact.CanvasJSChart options={options} />
+        </div>
+        <div className="flex flex-column p-5" style={{ flex: "30%" }}>
+          <p className="text-xl font-medium mt-0 mb-1">Summary</p>
+          <div className="flex border-round bg-white px-3 mb-2">
+            <p>
+              The score 70 is combined output of all the indicators falling
+              under SDG 11. This score indicates the actual picture of City
+              Ayodhya and also the areas where improvements are required.
+            </p>
+          </div>
+          <div className="flex border-round bg-white px-3 mb-2">
+            <p>
+              CSI serves as a benchmarking tool, allowing cities to compare
+              their sustainability performance with peers regionally and
+              globally, fostering healthy competition and knowledge exchange.
+            </p>
+          </div>
+          <div className="flex border-round bg-white px-3">
+            <p>
+              CSI promotes integrated and balanced urban development strategies.
+            </p>
+          </div>
+          <p className="text-xl font-medium mb-1">Areas of improvement</p>
+          <div className="flex border-round bg-white px-3">
+            <p>
+              Air Quality
+              <br />
+              Green Space
+              <br />
+              Land use
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
