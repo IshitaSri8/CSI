@@ -83,7 +83,7 @@ const CityReportCard = () => {
       // labelFontFamily: "Montserrat",
     },
     height: 400,
-    width: 800,
+    width: 750,
     dataPointWidth: 12,
     data: [
       {
@@ -134,10 +134,10 @@ const CityReportCard = () => {
 
   return (
     <div className="flex flex-column p-5 gap-4 sec-theme">
-      <div className="flex justify-content-around">
+      <div className="flex justify-content-around gap-4">
         {/* First Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-22rem h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem"
           onMouseEnter={() => setHoveredIndex(0)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 0 ? "#A2DBBF" : "#ffffff" }}
@@ -168,7 +168,7 @@ const CityReportCard = () => {
                   </h2>
                   <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
                 </div>
-                <div className="flex align-items-start justify-content-end ml-7">
+                <div className="flex align-items-start justify-content-end ml-5">
                   <img src={nature} alt="nature" className="w-5rem" />
                 </div>
               </div>
@@ -183,7 +183,7 @@ const CityReportCard = () => {
 
         {/* Second Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-22rem h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem"
           onMouseEnter={() => setHoveredIndex(1)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 1 ? "#FFDD82" : "#ffffff" }}
@@ -211,7 +211,7 @@ const CityReportCard = () => {
                   </h2>
                   <p className="text-4xl font-bold text-theme mb-0 mt-1">70</p>
                 </div>
-                <div className="flex align-items-start justify-content-end ml-7">
+                <div className="flex align-items-start justify-content-end ml-5">
                   <img src={society} alt="society" className="w-5rem" />
                 </div>
               </div>
@@ -226,7 +226,7 @@ const CityReportCard = () => {
 
         {/* Third Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-22rem h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem"
           onMouseEnter={() => setHoveredIndex(2)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 2 ? "#BAD8DF" : "#ffffff" }}
@@ -255,7 +255,7 @@ const CityReportCard = () => {
             </p>
           ) : (
             <div>
-              <div className="flex gap-6">
+              <div className="flex gap-3">
                 <div className="flex flex-column align-items-start">
                   <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
                     Administration
@@ -277,7 +277,7 @@ const CityReportCard = () => {
 
         {/* Fourth Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-22rem h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem"
           onMouseEnter={() => setHoveredIndex(3)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 3 ? "#F7A47A" : "#ffffff" }}
@@ -299,7 +299,7 @@ const CityReportCard = () => {
                   </h2>
                   <p className="text-4xl font-bold text-theme mt-1 mb-0">70</p>
                 </div>
-                <div className="flex align-items-start justify-content-end ml-6">
+                <div className="flex align-items-start justify-content-end ml-3">
                   <img src={overall} alt="Overall Score" className="w-5rem" />
                 </div>
               </div>

@@ -18,31 +18,34 @@ import LandMain from "components/Dashboards/Environment/Land/LandMain";
 import WaterMain from "components/Dashboards/Environment/Water/WaterMain";
 import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
 import HeaderLogout from "components/HeaderLogout";
+import KnowYourCity from "./KnowYourCity";
+import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
+import Healthcare from "components/Dashboards/Healthcare";
 
 const CitySidebar = () => {
   const [activeTab, setActiveTab] = useState(""); // State for active tab
-  const [aqiValue, setAqiValue] = useState(null);
-  const [pm25Value, setPM25Value] = useState(null);
-  const [pm10Value, setPM10Value] = useState(null);
-  const [tempValue, setTempValue] = useState(null);
-  const [humidityValue, setHumidityValue] = useState(null);
+  //   const [aqiValue, setAqiValue] = useState(null);
+  //   const [pm25Value, setPM25Value] = useState(null);
+  //   const [pm10Value, setPM10Value] = useState(null);
+  //   const [tempValue, setTempValue] = useState(null);
+  //   const [humidityValue, setHumidityValue] = useState(null);
   const [visible, setVisible] = useState(false);
   const [activeSections, setActiveSections] = useState({
     environment: false,
     knowYourCity: false,
     cityReportCard: false,
-    social: false,
+    society: false,
   });
 
-  const handleAqiData = (data) => {
-    setAqiValue(data.aqiValue);
-    setPM25Value(data.pm25Value);
-    setPM10Value(data.pm10Value);
-  };
-  const handleTempData = (data) => {
-    setTempValue(data.tempValue);
-    setHumidityValue(data.humidityValue);
-  };
+  //   const handleAqiData = (data) => {
+  //     setAqiValue(data.aqiValue);
+  //     setPM25Value(data.pm25Value);
+  //     setPM10Value(data.pm10Value);
+  //   };
+  //   const handleTempData = (data) => {
+  //     setTempValue(data.tempValue);
+  //     setHumidityValue(data.humidityValue);
+  //   };
   const toggleSection = (section) => {
     setActiveSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
@@ -87,7 +90,12 @@ const CitySidebar = () => {
           <Button
             icon="pi pi-globe"
             onClick={() => handleTabClick("environment")}
-            style={{ backgroundColor: "#166c7d" }}
+            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+          />
+          <Button
+            icon="pi pi-users"
+            onClick={() => handleTabClick("society")}
+            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           {/* Bottom-right toggle button */}
           <Button
@@ -139,6 +147,7 @@ const CitySidebar = () => {
                 <Ripple />
               </div>
             </li>
+            {/* City Report Card */}
             <li>
               <div
                 style={getTabStyle("cityReportCard")}
@@ -244,6 +253,52 @@ const CitySidebar = () => {
                 </ul>
               )}
             </li>
+            {/* Society Section */}
+            <li>
+              <div
+                onClick={() => {
+                  toggleSection("society");
+                  handleTabClick("society");
+                }}
+                style={getTabStyle("society")}
+                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+              >
+                <i className="pi pi-users mr-2 text-xl text-white"></i>
+                <span className="font-medium text-white">Society</span>
+                <i
+                  className={`pi pi-chevron-${
+                    activeSections.society ? "up" : "down"
+                  } ml-auto text-white`}
+                ></i>
+                <Ripple />
+              </div>
+              {activeSections.society && (
+                <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
+                  <li>
+                    <div
+                      style={getTabStyle("transport")}
+                      onClick={() => handleTabClick("transport")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                    >
+                      <i className="pi pi-cloud mr-2 text-xl text-white"></i>
+                      <span className="font-medium text-white">Transport</span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      style={getTabStyle("healthcare")}
+                      onClick={() => handleTabClick("healthcare")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                    >
+                      <i className="pi pi-sun mr-2 text-xl text-white"></i>
+                      <span className="font-medium text-white">Healthcare</span>
+                      <Ripple />
+                    </div>
+                  </li>
+                </ul>
+              )}
+            </li>
           </ul>
 
           {/* Bottom-right toggle button for the full sidebar */}
@@ -262,7 +317,7 @@ const CitySidebar = () => {
 
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "6rem" }}>
-        {activeTab === "kyc" && <CityDemographics />}
+        {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCard />}
         {activeTab === "aqi" && <AQI />}
         {activeTab === "temperature" && <TempMain />}
@@ -270,6 +325,8 @@ const CitySidebar = () => {
         {activeTab === "rain" && <RainMain />}
         {activeTab === "water" && <WaterMain />}
         {activeTab === "waste" && <WasteMain />}
+        {activeTab === "transport" && <TransportDashboard />}
+        {activeTab === "healthcare" && <Healthcare />}
       </div>
     </div>
   );
