@@ -1,16 +1,19 @@
 import { Card } from "primereact/card";
-import { ProgressBar } from "primereact/progressbar";
+import { ProgressBar } from 'primereact/progressbar';
 import React from "react";
 // import Road from "../../assets/road.png";
 // import Rail from "../../assets/rail.png";
 // import Air from "../../assets/air.png";
 // import Water from "../../assets/water.png";
-
 import Air from "@mui/icons-material/Flight";
 import Water from "@mui/icons-material/DirectionsBoat";
 import Rail from "@mui/icons-material/Train";
 import Road from "@mui/icons-material/DirectionsCar";
-
+import increase from "assets/increase.png";
+import decrease from "assets/decrease.png";
+import InfoIcon from "@mui/icons-material/Info";
+import CustomTooltip from "./CustomTooltip";
+ 
 import CanvasJSReact from "@canvasjs/react-charts";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -21,16 +24,15 @@ const Accessibility = () => {
 
   const Doughnut = ({ title, labels, series, height }) => {
     const colors = [
-      "#557C56",
-      "#90D26D",
-      "#6A9C89",
-      "#B5C18E",
-      "#41B3A2",
-      "#BDE8CA",
-      "#C4DAD2",
-      "#9CDBA6",
-      "#95D2B3",
-      "#729762",
+      "#26575D",
+      "#1F8297",
+      "#4D7479",
+      "#4C9BAC",
+      "#98C6CF",
+      "#F7A47A",
+      "#47B881",
+      "#FFDD82",
+      "#F64C4C",
     ];
 
     const options = {
@@ -40,7 +42,7 @@ const Accessibility = () => {
         fontSize: 12,
         fontFamily: "Arial",
         fontWeight: "bold",
-        padding: { bottom: 20 },
+        padding: {bottom: 20}
       },
       data: [
         {
@@ -91,18 +93,20 @@ const Accessibility = () => {
               {/* Left Column: Content */}
               <div className="flex w-full m-0 p-0 align-items-start justify-content-start flex-column">
                 <h1 className="m-0 text-xs">{card.label}</h1>
-                <h1 className="text-xl text-green-500 ml-0 mb-0">
+                <h1
+                  className="text-xl text-theme ml-0 mb-0"
+                >
                   {card.value}%
                 </h1>
               </div>
 
               {/* Right Column: Icon */}
               <div className="col-4 flex align-items-start justify-content-end">
-                <card.icon
+              <card.icon
                   style={{
                     height: "3rem",
                     width: "3rem",
-                    color: "#00a269",
+                    color: "#1f8297",
                   }}
                 />
               </div>
@@ -112,18 +116,46 @@ const Accessibility = () => {
                 value={card.value}
                 showValue={false}
                 style={{
-                  height: "0.4rem", // Adjust the height
-                  backgroundColor: "#d4edda", // Background color of the progress bar
+                  height: '0.4rem', // Adjust the height
+                  backgroundColor: '#d4edda', // Background color of the progress bar
                   //borderRadius: '0.5rem', // Rounded corners
                 }}
                 className="w-full" // Make sure it takes full width of its container
               />
             </div>
+            <div className="flex align-items-start justify-content-between flex-row w-full ">
+            <div className="flex align-items-start justify-content-start flex-row">
+              <img
+                src={decrease}
+                style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
+                alt="increase"
+              ></img>
+              <p className="text-red-400 text-xs p-0 m-0">
+                10% decrease in last one year.
+              </p>
+            </div>
+            <CustomTooltip
+              content={
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-xs">
+                    Accessibility In Current Year: 60%
+                  </p>
+                  <p className="m-0 text-xs">
+                    Accessibilty In Previous Year: 70%
+                  </p>
+                </div>
+              }
+            >
+              <InfoIcon
+                style={{ height: "1.2rem", width: "1.2rem", color: "red" }}
+              />
+            </CustomTooltip>
+          </div>
           </Card>
         ))}
       </div>
 
-      <div className="flex align-items-center justify-content-between flex-row gap-3 mt-3">
+      <div className="flex align-items-center justify-content-between flex-row gap-2 mt-3">
         {/* Doughnut Chart for overall transport usage */}
         <Card className="w-full p-0">
           <Doughnut

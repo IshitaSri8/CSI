@@ -20,6 +20,7 @@ import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
 import HeaderLogout from "components/HeaderLogout";
 
 const CitySidebar = () => {
+<<<<<<< HEAD
   const [visible, setVisible] = useState(false); // Sidebar visibility
   const [activeSections, setActiveSections] = useState({
     cityReportCard: false,
@@ -31,6 +32,15 @@ const CitySidebar = () => {
   const [pm10Value, setPM10Value] = useState(null);
   const [tempValue, setTempValue] = useState(null);
   const [humidityValue, setHumidityValue] = useState(null);
+=======
+    const [visible, setVisible] = useState(false);
+    const [activeSections, setActiveSections] = useState({
+        environment: false,
+        knowYourCity: false,
+        cityReportCard: false,
+        social: false,
+    });
+>>>>>>> b1311c0ff98518bcbf8ec1416b3e0c3c6c47c3db
 
   const handleAqiData = (data) => {
     setAqiValue(data.aqiValue);

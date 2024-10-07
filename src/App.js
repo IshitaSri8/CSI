@@ -21,6 +21,8 @@ import WasteDashboard from "../src/components/Dashboards/Environment/Waste/Waste
 
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import CitySidebar from "pages/CitySidebar";
+import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
+import Healthcare from "components/Dashboards/Healthcare";
 
 // Layout component that includes CitySidebar
 const SidebarLayout = ({ children }) => (

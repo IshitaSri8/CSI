@@ -1,20 +1,21 @@
 import React from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { Card } from "primereact/card";
+import CustomTooltip from "./CustomTooltip"; // Adjust path as needed
+import InfoIcon from "@mui/icons-material/Info";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
-  "#557C56",
-  "#90D26D",
-  "#6A9C89",
-  "#B5C18E",
-  "#41B3A2",
-  "#BDE8CA",
-  "#C4DAD2",
-  "#9CDBA6",
-  "#95D2B3",
-  "#729762",
+  "#26575D",
+  "#1F8297",
+  "#4D7479",
+  "#4C9BAC",
+  "#98C6CF",
+  "#F7A47A",
+  "#47B881",
+  "#FFDD82",
+  "#F64C4C",
 ];
 
 const cleanlinessOptions = {
@@ -29,15 +30,16 @@ const cleanlinessOptions = {
       padding: { bottom: 20 },
     },
     axisY: {
-      //  title: "Rating (0–10)",
+    //  title: "Rating (0–10)",
       includeZero: true,
       maximum: 10,
       gridThickness: 0,
       labelFontSize: 10,
     },
     axisX: {
-      //  title: "Transport Modes",
+    //  title: "Transport Modes",
       labelFontSize: 10,
+
     },
     height: 200,
     width: 300,
@@ -65,13 +67,13 @@ const cleanlinessOptions = {
       padding: { bottom: 20 },
     },
     axisY: {
-      //  title: "Frequency (Number of Activities)",
+    //  title: "Frequency (Number of Activities)",
       includeZero: true,
       gridThickness: 0,
       labelFontSize: 10,
     },
     axisX: {
-      //  title: "Months",
+    //  title: "Months",
       labelFontSize: 10,
     },
     height: 200,
@@ -108,7 +110,7 @@ const cleanlinessOptions = {
       padding: { bottom: 20 },
     },
     axisY: {
-      //  title: "Adherence Percentage (%)",
+    //  title: "Adherence Percentage (%)",
       includeZero: true,
       gridThickness: 0,
       labelFontSize: 10,
@@ -137,20 +139,21 @@ const Cleanliness = () => {
   return (
     <>
       {/* Row for Cleanliness Rating and Frequency of Maintenance */}
-      <div className="flex align-items-center justify-content-between flex-row gap-2 mt-3">
+      <div className="flex align-items-center justify-content-between flex-row gap-3">
         {/* 1. Cleanliness Rating */}
         <Card className="w-full h-15rem p-0">
           {/* <h1 className="m-0 p-1 text-lg">Cleanliness Rating for Transport Modes</h1> */}
-          <CanvasJSChart
-            options={cleanlinessOptions.cleanlinessRatingOptions}
-          />
+          <CanvasJSChart options={cleanlinessOptions.cleanlinessRatingOptions} />
         </Card>
 
         {/* 2. Frequency of Maintenance Activities */}
         <Card className="w-full h-15rem p-0">
-          <CanvasJSChart
-            options={cleanlinessOptions.maintenanceFrequencyOptions}
-          />
+          <CanvasJSChart options={cleanlinessOptions.maintenanceFrequencyOptions} />
+          {/* <div className="flex align-items-start justify-content-between flex-row w-full">
+            <CustomTooltip content={<CanvasJSChart options={cleanlinessOptions.maintenanceFrequencyOptions} />}>
+              <InfoIcon style={{ height: "1.2rem", width: "1.2rem", color: "#00a269" }} />
+            </CustomTooltip>
+          </div> */}
         </Card>
 
         {/* 3. Cleanliness Adherence Percentage */}
