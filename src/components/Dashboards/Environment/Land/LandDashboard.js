@@ -272,12 +272,13 @@ const LandDashboard = () => {
       </div>
 
       <Panel className="w-full">
-        <div className="flex flex-row gap-2 flex-wrap md:flex-nowrap">
+        <div className="flex flex-row gap-8 flex-wrap md:flex-nowrap px-8">
           <DonutChart
             title="Green Area Cover Distribution"
             labels={donutChartLabels}
             series={donutChartSeries}
-            height={230}
+            height={240}
+            width={300}
           />
 
           <DonutChart
@@ -285,6 +286,7 @@ const LandDashboard = () => {
             labels={AboveLabels}
             series={AboveSeries}
             height={240}
+            width={300}
           />
 
           <DonutChart
@@ -292,6 +294,7 @@ const LandDashboard = () => {
             labels={BelowLabels}
             series={BelowSeries}
             height={240}
+            width={300}
           />
         </div>
       </Panel>

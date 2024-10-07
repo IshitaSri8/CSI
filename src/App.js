@@ -45,6 +45,7 @@ function App() {
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/ourwork" element={<OurWork />} />
       <Route path="/government" element={<Government />} />
+      <Route path="/report-card" element={<CityReportCard />} />
       {/* Routes with Sidebar */}
       <Route
         path="/kyc"

@@ -18,6 +18,10 @@ import LandMain from "components/Dashboards/Environment/Land/LandMain";
 import WaterMain from "components/Dashboards/Environment/Water/WaterMain";
 import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
 import HeaderLogout from "components/HeaderLogout";
+import KnowYourCity from "./KnowYourCity";
+import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
+import Healthcare from "components/Dashboards/Healthcare";
+import { Tooltip } from "primereact/tooltip";
 
 const CitySidebar = () => {
   const [activeTab, setActiveTab] = useState(""); // State for active tab
@@ -34,15 +38,15 @@ const CitySidebar = () => {
     social: false,
   });
 
-  const handleAqiData = (data) => {
-    setAqiValue(data.aqiValue);
-    setPM25Value(data.pm25Value);
-    setPM10Value(data.pm10Value);
-  };
-  const handleTempData = (data) => {
-    setTempValue(data.tempValue);
-    setHumidityValue(data.humidityValue);
-  };
+  //   const handleAqiData = (data) => {
+  //     setAqiValue(data.aqiValue);
+  //     setPM25Value(data.pm25Value);
+  //     setPM10Value(data.pm10Value);
+  //   };
+  //   const handleTempData = (data) => {
+  //     setTempValue(data.tempValue);
+  //     setHumidityValue(data.humidityValue);
+  //   };
   const toggleSection = (section) => {
     setActiveSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
@@ -59,14 +63,14 @@ const CitySidebar = () => {
 
   return (
     <div className="">
-      <HeaderLogout />
+      {/* <HeaderLogout /> */}
       {/* Display icons in the collapsed sidebar */}
       {!visible && (
         <div
           style={{
             width: "6rem", // Adjust the width for the collapsed sidebar
             backgroundColor: "#003940",
-            height: "100vh",
+            height: "100%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -77,27 +81,52 @@ const CitySidebar = () => {
           <Button
             icon="pi pi-search"
             onClick={() => handleTabClick("kyc")}
+            tooltip="Know your city"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           <Button
             icon="pi pi-file"
             onClick={() => handleTabClick("cityReportCard")}
+            tooltip="City Report Card"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           <Button
             icon="pi pi-globe"
             onClick={() => handleTabClick("environment")}
-            style={{ backgroundColor: "#166c7d" }}
+            tooltip="Environment"
+            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
-          {/* Bottom-right toggle button */}
           <Button
-            icon="pi pi-angle-double-right"
+            icon="pi pi-users"
+            onClick={() => handleTabClick("society")}
+            tooltip="Society"
+            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+          />
+
+          <Button
+            icon="pi pi-sign-out"
             onClick={() => setVisible(true)}
             style={{
               backgroundColor: "#166c7d",
               position: "fixed",
+              bottom: "5rem",
+              left: "1.5rem",
+            }}
+            tooltip="Logout"
+          />
+
+          {/* Bottom-right toggle button */}
+          <i
+            className="pi pi-angle-double-right"
+            onClick={() => setVisible(true)}
+            style={{
+              color: "white",
+              position: "fixed",
               bottom: "20px",
-              left: "1rem",
+              left: "4rem",
+              fontSize: "1rem",
+              cursor: "pointer",
+              //   border: "1px solid white",
             }}
           />
         </div>
@@ -136,9 +165,11 @@ const CitySidebar = () => {
               >
                 <i className="pi pi-compass mr-2 text-xl text-white"></i>
                 <span className="font-medium text-white">Know Your City</span>
+
                 <Ripple />
               </div>
             </li>
+            {/* City Report Card */}
             <li>
               <div
                 style={getTabStyle("cityReportCard")}
@@ -244,17 +275,65 @@ const CitySidebar = () => {
                 </ul>
               )}
             </li>
+            {/* Society Section */}
+            <li>
+              <div
+                onClick={() => {
+                  toggleSection("society");
+                  handleTabClick("society");
+                }}
+                style={getTabStyle("society")}
+                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+              >
+                <i className="pi pi-users mr-2 text-xl text-white"></i>
+                <span className="font-medium text-white">Society</span>
+                <i
+                  className={`pi pi-chevron-${
+                    activeSections.society ? "up" : "down"
+                  } ml-auto text-white`}
+                ></i>
+                <Ripple />
+              </div>
+              {activeSections.society && (
+                <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
+                  <li>
+                    <div
+                      style={getTabStyle("transport")}
+                      onClick={() => handleTabClick("transport")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                    >
+                      <i className="pi pi-cloud mr-2 text-xl text-white"></i>
+                      <span className="font-medium text-white">Transport</span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      style={getTabStyle("healthcare")}
+                      onClick={() => handleTabClick("healthcare")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                    >
+                      <i className="pi pi-sun mr-2 text-xl text-white"></i>
+                      <span className="font-medium text-white">Healthcare</span>
+                      <Ripple />
+                    </div>
+                  </li>
+                </ul>
+              )}
+            </li>
           </ul>
 
           {/* Bottom-right toggle button for the full sidebar */}
-          <Button
-            icon="pi pi-angle-double-left"
+          <i
+            className="pi pi-angle-double-left"
             onClick={() => setVisible(false)}
             style={{
-              backgroundColor: "#166c7d",
+              color: "white",
+              cursor: "pointer",
+              fontSize: "1rem",
               position: "fixed",
               bottom: "20px",
-              left: "15rem",
+              left: "17rem",
             }}
           />
         </div>
@@ -262,7 +341,7 @@ const CitySidebar = () => {
 
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "6rem" }}>
-        {activeTab === "kyc" && <CityDemographics />}
+        {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCard />}
         {activeTab === "aqi" && <AQI />}
         {activeTab === "temperature" && <TempMain />}
@@ -270,6 +349,8 @@ const CitySidebar = () => {
         {activeTab === "rain" && <RainMain />}
         {activeTab === "water" && <WaterMain />}
         {activeTab === "waste" && <WasteMain />}
+        {activeTab === "transport" && <TransportDashboard />}
+        {activeTab === "healthcare" && <Healthcare />}
       </div>
     </div>
   );
