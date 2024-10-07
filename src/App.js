@@ -21,6 +21,8 @@ import WasteDashboard from "../src/components/Dashboards/Environment/Waste/Waste
 
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import CitySidebar from "pages/CitySidebar";
+import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
+import Healthcare from "components/Dashboards/Healthcare";
 
 
 // Layout component that includes CitySidebar
@@ -106,6 +108,22 @@ function App() {
         element={
           <SidebarLayout>
             <WaterDashboard />
+          </SidebarLayout>
+        }
+      />
+       <Route
+        path="/transport"
+        element={
+          <SidebarLayout>
+            <TransportDashboard />
+          </SidebarLayout>
+        }
+      />
+       <Route
+        path="/healthcare"
+        element={
+          <SidebarLayout>
+            <Healthcare />
           </SidebarLayout>
         }
       />

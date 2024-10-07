@@ -3,25 +3,22 @@ import { Card } from "primereact/card";
 import { Panel } from "primereact/panel";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
-import increase from "./TransportUtils/Images/increase.png";
-import decrease from "./TransportUtils/Images/decrease.png";
-import { PieChart } from "../../GraphVisuals";
+import increase from "../../../assets/increase.png";
 import CanvasJSReact from "@canvasjs/react-charts";
-import TransportTrend from "./TransportTrend";
+import BusTrend from "./BusTrend";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Renewable = () => {
   const Doughnut = ({ title, labels, series, height }) => {
     const colors = [
-      "#557C56",
-      "#90D26D",
-      "#6A9C89",
-      "#B5C18E",
-      "#41B3A2",
-      "#BDE8CA",
-      "#C4DAD2",
-      "#9CDBA6",
-      "#95D2B3",
-      "#729762",
+      "#26575D",
+      "#1F8297",
+      "#4D7479",
+      "#4C9BAC",
+      "#98C6CF",
+      "#F7A47A",
+      "#47B881",
+      "#FFDD82",
+      "#F64C4C",
     ];
 
     const options = {
@@ -229,7 +226,7 @@ const Renewable = () => {
           />
         </Card> */}
         <Panel className="w-full">
-          <TransportTrend
+          <BusTrend
             totalBusesData={totalBusesData}
             electricBusesData={electricBusesData}
             height={200}

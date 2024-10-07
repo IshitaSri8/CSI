@@ -1,12 +1,8 @@
 import { Card } from "primereact/card";
 import React from "react";
-import { Doughnut, GroupedBarChart } from "../../GraphVisuals";
-import road from "./TransportUtils/Images/road.png";
-import rail from "./TransportUtils/Images/train.png";
-import air from "./TransportUtils/Images/air.png";
-import increase from "./TransportUtils/Images/increase.png";
-import decrease from "./TransportUtils/Images/decrease.png";
-import water from "./TransportUtils/Images/ship.png";
+
+import increase from "../../../assets/increase.png";
+
 import CanvasJSReact from "@canvasjs/react-charts";
 import "primeicons/primeicons.css";
 import TrainIcon from "@mui/icons-material/Train";
@@ -46,7 +42,7 @@ const options = {
   data: [
     {
       type: "bar",
-      color: "#557C56",
+      color: "#26575D",
       name: "Roadways",
 
       showInLegend: false,
@@ -64,7 +60,7 @@ const options = {
     {
       type: "bar",
       name: "Railways",
-      color: "#90D26D",
+      color: "#4D7479",
       indexLabel: "Railways: {y} Times Higher",
       indexLabelPlacement: "inside",
       indexLabelFontColor: "white",
@@ -79,7 +75,7 @@ const options = {
     {
       type: "bar",
       name: "Airways",
-      color: "#6A9C89",
+      color: "#1F8297",
       showInLegend: false,
       indexLabelPlacement: "outside",
       indexLabelFontColor: "green",
@@ -93,7 +89,7 @@ const options = {
     },
     {
       type: "bar",
-      color: "#95D2B3",
+      color: "#4C9BAC",
       name: "Waterways",
       showInLegend: false,
       indexLabelFontSize: 10,

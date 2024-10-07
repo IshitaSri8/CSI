@@ -1,9 +1,9 @@
 import React from "react";
-import TransportTrend from "./TransportTrend";
+import BusTrend from "./BusTrend";
 import { Panel } from "primereact/panel";
 import { Card } from "primereact/card";
-import { BarChart, DonutChart } from "../../GraphVisuals";
-import StackedBarChart from "./TransportUtils/StackedBarChart";
+import { BarChart } from "../GraphVisuals";
+import StackedBarChart from "./StackedBarChart";
 import "primereact/resources/themes/saga-blue/theme.css"; // PrimeReact theme
 import "primereact/resources/primereact.min.css"; // Core PrimeReact styles
 import "primeflex/primeflex.css"; // PrimeFlex CSS
@@ -14,16 +14,15 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Doughnut = ({ title, labels, series, height }) => {
   const colors = [
-    "#557C56",
-    "#90D26D",
-    "#6A9C89",
-    "#B5C18E",
-    "#41B3A2",
-    "#BDE8CA",
-    "#C4DAD2",
-    "#9CDBA6",
-    "#95D2B3",
-    "#729762",
+    "#26575D",
+    "#1F8297",
+    "#4D7479",
+    "#4C9BAC",
+    "#98C6CF",
+    "#F7A47A",
+    "#47B881",
+    "#FFDD82",
+    "#F64C4C",
   ];
 
   const options = {
@@ -118,7 +117,7 @@ const BusDashboard = () => {
   return (
     <div className="flex gap-1 flex-column">
       <Panel>
-        <div className="flex flex-row w-full gap-3">
+        <div className="flex flex-row w-full gap-4">
           <Card>
             <CustomTooltip
               content={
@@ -130,10 +129,10 @@ const BusDashboard = () => {
                 />
               }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
                 <p className="m-0 text-2xl text-green-500 font-bold">303</p>
                 <p className="m-1 mt-3 text-xs font-semibold">
-                  Total Running Buses
+                  Total Running buses
                 </p>
               </div>
             </CustomTooltip>
@@ -148,7 +147,7 @@ const BusDashboard = () => {
                 </div>
               }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
                 <p className="m-0 text-2xl text-green-500 font-bold">0.11</p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
                   Average availability on a day (seats / person)
@@ -165,7 +164,7 @@ const BusDashboard = () => {
                 </div>
               }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
                 <p className="m-0 text-2xl text-green-500 font-bold">5.69 %</p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
                   Percentage that goes under maintenance checks
@@ -184,7 +183,7 @@ const BusDashboard = () => {
                 />
               }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
                 <p className="m-0 text-2xl text-green-500 font-bold">
                   1,72,997
                 </p>
@@ -203,7 +202,7 @@ const BusDashboard = () => {
                 </div>
               }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
                 <p className="m-0 text-2xl text-green-500 font-bold">55.33 %</p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
                   Percentage availability of Traffic surveillance
@@ -214,7 +213,7 @@ const BusDashboard = () => {
         </div>
       </Panel>
       <Panel>
-        <TransportTrend
+        <BusTrend
           totalBusesData={totalBusesData}
           electricBusesData={electricBusesData}
         />
@@ -249,4 +248,3 @@ const BusDashboard = () => {
   );
 };
 export default BusDashboard;
-

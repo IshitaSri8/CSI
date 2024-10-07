@@ -281,58 +281,6 @@ const Government = () => {
           </div>
         </div>
       </div>
-
-      <div className="flex flex-column gap-1 mt-5 align-items-center">
-        <Button
-          label="City Report Card"
-          icon="pi pi-receipt"
-          className="bg-theme w-12rem mb-3"
-          onClick={() => navigate("/reportcard")}
-          raised
-        />
-        <Button
-          label="AQI"
-          icon="pi pi-receipt"
-          className="bg-theme w-12rem mb-3"
-          onClick={() => navigate("/aqi")}
-          raised
-        />
-        <Button
-          label="Temperature"
-          icon="pi pi-receipt"
-          className="bg-theme w-12rem mb-3"
-          onClick={() => navigate("/temperature")}
-          raised
-        />
-        <Button
-          label="Land"
-          icon="pi pi-receipt"
-          className="bg-theme w-12rem mb-3"
-          onClick={() => navigate("/land")}
-          raised
-        />
-        <Button
-          label="Rain"
-          icon="pi pi-receipt"
-          className="bg-theme w-12rem mb-3"
-          onClick={() => navigate("/rain")}
-          raised
-        />
-        <Button
-          label="Water"
-          icon="pi pi-receipt"
-          className="bg-theme w-12rem mb-3"
-          onClick={() => navigate("/water")}
-          raised
-        />
-        <Button
-          label="Waste"
-          icon="pi pi-receipt"
-          className="bg-theme w-12rem mb-3"
-          onClick={() => navigate("/waste")}
-          raised
-        />
-      </div>
     </div>
   );
 };

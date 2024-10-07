@@ -12,6 +12,7 @@ const CitySidebar = () => {
         environment: false,
         knowYourCity: false,
         cityReportCard: false,
+        social: false,
     });
 
     const toggleSection = (section) => {
@@ -164,6 +165,40 @@ const CitySidebar = () => {
                                     className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
                                         <i className="pi pi-sparkles mr-2"></i>
                                         <span className="font-medium">Water</span>
+                                        <Ripple />
+                                    </Link>
+                                </li>
+                            </ul>
+                        )}
+                    </li>
+
+                     {/* Social Section */}
+                     <li>
+                        <a onClick={() => toggleSection("social")} 
+                         style={{ backgroundColor: '#1F8297'}} 
+                        className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                            <i className="pi pi-file mr-2 "></i>
+                            <span className="font-medium ">Social</span>
+                            <i className={`pi pi-chevron-${activeSections.social ? "up" : "down"} ml-auto `}></i>
+                            <Ripple />
+                        </a>
+                        {activeSections.social && (
+                            <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
+                                <li>
+                                    <Link to="/transport" 
+                                    style={{ backgroundColor: '#69ABB9'}} 
+                                    className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                        <i className="pi pi-table mr-2"></i>
+                                        <span className="font-medium">Transport</span>
+                                        <Ripple />
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/healthcare" 
+                                    style={{ backgroundColor: '#69ABB9'}} 
+                                    className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                        <i className="pi pi-pencil mr-2"></i>
+                                        <span className="font-medium">Healthcare</span>
                                         <Ripple />
                                     </Link>
                                 </li>

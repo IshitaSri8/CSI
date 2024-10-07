@@ -7,6 +7,11 @@ import Water from "@mui/icons-material/DirectionsBoat";
 import Rail from "@mui/icons-material/Train";
 import Road from "@mui/icons-material/DirectionsCar";
 
+import InfoIcon from "@mui/icons-material/Info";
+import CustomTooltip from "./CustomTooltip";
+import increase from "assets/increase.png";
+import decrease from "assets/decrease.png";
+ 
 const Frequency = () => {
   const categories = ["Roadways", "Railways", "Airways", "Waterways"];
   const waitseries = [[70, 80, 60, 50]];
@@ -28,7 +33,9 @@ const Frequency = () => {
               {/* Left Column: Content */}
               <div className="flex w-full m-0 p-0 align-items-start justify-content-start flex-column">
                 <h1 className="m-0 text-xs">{card.label}</h1>
-                <h1 className="text-xl text-green-500 ml-0 mb-0 ">
+                <h1
+                  className="text-xl text-green-500 ml-0 mb-0 "
+                >
                   {card.value}
                 </h1>
               </div>
@@ -44,10 +51,38 @@ const Frequency = () => {
                 />
               </div>
             </div>
+            <div className="flex align-items-start justify-content-between flex-row w-full ">
+            <div className="flex align-items-start justify-content-start flex-row">
+              <img
+                src={increase}
+                style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
+                alt="increase"
+              ></img>
+              <p className="text-green-500 text-xs p-0 m-0">
+                10% increase in last one year.
+              </p>
+            </div>
+            <CustomTooltip
+              content={
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-xs">
+                    Frequency In Current Year: 70%
+                  </p>
+                  <p className="m-0 text-xs">
+                    Frequency In Previous Year: 60%
+                  </p>
+                </div>
+              }
+            >
+              <InfoIcon
+                style={{ height: "1.2rem", width: "1.2rem", color: "#00a269" }}
+              />
+            </CustomTooltip>
+          </div>
           </Card>
         ))}
       </div>
-      <div className="flex align-items-center justify-content-between gap-1 mt-2">
+      <div className="flex align-items-center justify-content-between gap-2 mt-2">
         <Card className="w-full">
           <BarChart
             categories={categories}

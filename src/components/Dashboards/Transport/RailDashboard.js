@@ -1,9 +1,9 @@
 import React from "react";
-import TransportTrend from "./TransportTrend";
+import RailTrend from "./RailTrend";
 import { Panel } from "primereact/panel";
 import { Card } from "primereact/card";
-import { BarChart, DonutChart } from "../../GraphVisuals";
-import StackedBarChart from "./TransportUtils/StackedBarChart";
+import { BarChart } from "../GraphVisuals";
+import StackedBarChart from "./StackedBarChart";
 import "primereact/resources/themes/saga-blue/theme.css"; // PrimeReact theme
 import "primereact/resources/primereact.min.css"; // Core PrimeReact styles
 import "primeflex/primeflex.css"; // PrimeFlex CSS
@@ -14,16 +14,15 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Doughnut = ({ title, labels, series, height }) => {
   const colors = [
-    "#557C56",
-    "#90D26D",
-    "#6A9C89",
-    "#B5C18E",
-    "#41B3A2",
-    "#BDE8CA",
-    "#C4DAD2",
-    "#9CDBA6",
-    "#95D2B3",
-    "#729762",
+    "#26575D",
+    "#1F8297",
+    "#4D7479",
+    "#4C9BAC",
+    "#98C6CF",
+    "#F7A47A",
+    "#47B881",
+    "#FFDD82",
+    "#F64C4C",
   ];
 
   const options = {
@@ -68,7 +67,7 @@ const Doughnut = ({ title, labels, series, height }) => {
 };
 
 const RailDashboard = () => {
-  const totalBusesData = [
+  const totalTrainsData = [
     { year: 2014, count: 1500 },
     { year: 2015, count: 1550 },
     { year: 2016, count: 1400 },
@@ -81,7 +80,7 @@ const RailDashboard = () => {
     { year: 2023, count: 1950 },
   ];
 
-  const electricBusesData = [
+  const electricTrainsData = [
     { year: 2014, count: 100 },
     { year: 2015, count: 130 },
     { year: 2016, count: 140 },
@@ -109,8 +108,8 @@ const RailDashboard = () => {
   const series = [60, 35, 5];
   const years = deathData.map((item) => item.year);
   const deaths = deathData.map((item) => item.deaths);
-  const trainLabels = ["Passenger", "Goods"];
-  const trainSeries = [12, 26];
+  const trainlabels = ["Passenger", "Goods"];
+  const trainSeries = [217, 195];
 
   const passengerLabels = ["Cash", "Contactless"];
   const passengerSeries = [74657, 98340];
@@ -118,22 +117,22 @@ const RailDashboard = () => {
   return (
     <div className="flex gap-1 flex-column">
       <Panel>
-        <div className="flex flex-row w-full gap-3">
+        <div className="flex flex-row w-full gap-4">
           <Card>
             <CustomTooltip
               content={
                 <Doughnut
-                  title="Total Running Trains"
-                  labels={trainLabels}
+                  title="Total Running trains"
+                  labels={trainlabels}
                   series={trainSeries}
                   height={150}
                 />
               }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
-                <p className="m-0 text-2xl text-green-500 font-bold">38</p>
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
+                <p className="m-0 text-2xl text-green-500 font-bold">412</p>
                 <p className="m-1 mt-3 text-xs font-semibold">
-                  Total Running Trains
+                  Total Running trains
                 </p>
               </div>
             </CustomTooltip>
@@ -142,16 +141,14 @@ const RailDashboard = () => {
             <CustomTooltip
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
-                  <p className="m-0 text-xs">Total Trains on any day : 13</p>
-                  <p className="m-0 text-xs">
-                    Average capacity of a Train : 1000
-                  </p>
+                  <p className="m-0 text-xs">Total trains on any day : 562</p>
+                  <p className="m-0 text-xs">Average capacity of a train: 60</p>
                   <p className="m-0 text-xs">Total population : 298706</p>
                 </div>
               }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
-                <p className="m-0 text-2xl text-green-500 font-bold">0.0435</p>
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
+                <p className="m-0 text-2xl text-green-500 font-bold">0.11</p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
                   Average availability on a day (seats / person)
                 </p>
@@ -162,13 +159,13 @@ const RailDashboard = () => {
             <CustomTooltip
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
-                  <p className="m-0 text-xs">Maintained Trains : 18</p>
-                  <p className="m-0 text-xs">Total buses : 38</p>
+                  <p className="m-0 text-xs">Maintained trains : 32</p>
+                  <p className="m-0 text-xs">Total trains : 562</p>
                 </div>
               }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
-                <p className="m-0 text-2xl text-green-500 font-bold">47.36 %</p>
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
+                <p className="m-0 text-2xl text-green-500 font-bold">5.69 %</p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
                   Percentage that goes under maintenance checks
                 </p>
@@ -186,43 +183,36 @@ const RailDashboard = () => {
                 />
               }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
                 <p className="m-0 text-2xl text-green-500 font-bold">
-                  2,997 kms
+                  1,72,997
                 </p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
-                  Total Track Length
+                  Total passenger Count
                 </p>
               </div>
             </CustomTooltip>
           </Card>
           <Card>
             <CustomTooltip
-            //   content={
-            //     <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
-            //       <p className="m-0 text-xs">Total signals with CCTVs : 990</p>
-            //       <p className="m-0 text-xs">Total signals: 1789 </p>
-            //     </div>
-            //   }
+              content={
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column">
+                  <p className="m-0 text-xs">Total signals with CCTVs : 990</p>
+                  <p className="m-0 text-xs">Total signals: 1789 </p>
+                </div>
+              }
             >
-              <div className="flex align-items-center justiy-content-center flex-column w-11rem">
-                <p className="m-0 text-2xl text-green-500 font-bold">
-                  68 minutes
-                </p>
+              <div className="flex align-items-center justiy-content-center flex-column w-10rem">
+                <p className="m-0 text-2xl text-green-500 font-bold">55.33 %</p>
                 <p className=" mt-3 text-xs  font-semibold text-center">
-                  Average Passenger waiting time
+                  Percentage availability of Traffic surveillance
                 </p>
               </div>
             </CustomTooltip>
           </Card>
         </div>
       </Panel>
-      <Panel>
-        <TransportTrend
-          totalBusesData={totalBusesData}
-          electricBusesData={electricBusesData}
-        />
-      </Panel>
+
       <Panel>
         <div className="flex fle-row gap-1 ">
           <Card className="w-full h-17rem">
@@ -248,6 +238,13 @@ const RailDashboard = () => {
             />
           </Card>
         </div>
+      </Panel>
+
+      <Panel>
+        <RailTrend
+          totalTrainsData={totalTrainsData}
+          electricTrainsData={electricTrainsData}
+        />
       </Panel>
     </div>
   );
