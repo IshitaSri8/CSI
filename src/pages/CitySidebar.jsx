@@ -23,7 +23,7 @@ import TransportDashboard from "components/Dashboards/Transport/TransportDashboa
 import Healthcare from "components/Dashboards/Healthcare";
 
 const CitySidebar = () => {
-  const [activeTab, setActiveTab] = useState(""); // State for active tab
+  const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
   //   const [aqiValue, setAqiValue] = useState(null);
   //   const [pm25Value, setPM25Value] = useState(null);
   //   const [pm10Value, setPM10Value] = useState(null);
@@ -62,7 +62,7 @@ const CitySidebar = () => {
 
   return (
     <div className="">
-      <HeaderLogout />
+      {/* <HeaderLogout /> */}
       {/* Display icons in the collapsed sidebar */}
       {!visible && (
         <div
