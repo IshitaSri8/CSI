@@ -96,29 +96,27 @@ h1 {
 }
 
 .shade-1 {
-  background-color: #FFFED3; /* Beige */
+  background-color: #fffed3; /* Beige */
 }
 
 .shade-2 {
-  background-color: #F5E7B2; /* Beige */
+  background-color: #f5e7b2; /* Beige */
 }
 
 .shade-3 {
-  background-color: #F9D689; /* Orange */
+  background-color: #f9d689; /* Orange */
 }
 
 .shade-4 {
-  background-color: #E9C46A; /* Orange */
+  background-color: #e9c46a; /* Orange */
 }
 
 .shade-5 {
-  background-color: #F4A261; /* Red */
-
+  background-color: #f4a261; /* Red */
 }
 
 .shade-6 {
-  background-color: #E76F51; /* Red */
- 
+  background-color: #e76f51; /* Red */
 }
 .btn-container {
   display: flex;
@@ -132,7 +130,7 @@ h1 {
   flex-wrap: wrap;
 }
 
-.chart-position{
+.chart-position {
   width: 100%;
 }
 
@@ -143,3 +141,6 @@ h1 {
   .canvasjs-chart-toolbar{
     position: relative !important;
   } */
+.p-tabview .p-tabview-nav {
+  border: 0 !important;
+}

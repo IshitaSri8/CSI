@@ -5,9 +5,8 @@ import { Knob } from "primereact/knob"; // Import Knob from PrimeReact
 import { DonutChart } from "../../../GraphVisuals";
 
 const WaterDashboard = () => {
-
   return (
-    <div className="w-full p-8">
+    <div className="w-full">
       <Panel>
         <div className="w-full flex align-items-center justify-content-between flex-row gap-5 mb-6">
           <Card title="Water Production (MLD)" className="flex w-full">
@@ -31,9 +30,7 @@ const WaterDashboard = () => {
                 </div>
                 <div className="flex align-items-center justify-content-between flex-row p-2 m-1 ">
                   <div>
-                    <h1 className="text-xl m-0 p-0 text-theme">
-                      1123 MLD{" "}
-                    </h1>
+                    <h1 className="text-xl m-0 p-0 text-theme">1123 MLD </h1>
                     <p className="text-xs font-bold">
                       Actual Consumption Level
                     </p>
@@ -41,8 +38,14 @@ const WaterDashboard = () => {
                 </div>
               </div>
               <div className="flex align-items-center justify-content-center p-2 m-1 flex-column">
-                <Knob value={79.58} readOnly size={130} strokeWidth={5}
-                valueColor="#166c7d" rangeColor="#E9F3F5" />
+                <Knob
+                  value={79.58}
+                  readOnly
+                  size={130}
+                  strokeWidth={5}
+                  valueColor="#166c7d"
+                  rangeColor="#E9F3F5"
+                />
                 <p className="text-xs font-bold text-center m-0 p-0">
                   Households with Water Connections vs. Total Households
                 </p>
@@ -58,10 +61,8 @@ const WaterDashboard = () => {
                 </p>
               </div>
               <div className="flex align-items-center justify-content-between flex-column p-2">
-                
-                  <h1 className="text-xl m-0 p-0 text-theme">144 </h1>
-                  <p className="text-xs font-bold">No. of sites with RWHS</p>
-                
+                <h1 className="text-xl m-0 p-0 text-theme">144 </h1>
+                <p className="text-xs font-bold">No. of sites with RWHS</p>
               </div>
             </div>
           </Card>
@@ -82,7 +83,14 @@ const WaterDashboard = () => {
                 </div>
               </div>
               <div className="flex align-items-center justify-content-center p-3 m-1 flex-column">
-                <Knob value={83.04} readOnly size={130} strokeWidth={5} valueColor="#166c7d" rangeColor="#E9F3F5"/>
+                <Knob
+                  value={83.04}
+                  readOnly
+                  size={130}
+                  strokeWidth={5}
+                  valueColor="#166c7d"
+                  rangeColor="#E9F3F5"
+                />
                 <p className="text-xs font-bold text-center m-0 p-0">
                   Treated Resued Water Vs Total Reused Water
                 </p>
@@ -92,13 +100,27 @@ const WaterDashboard = () => {
           <Card title="Water Usage Management">
             <div className="flex align-items-center justify-content-between flex-row w-full m-1">
               <div className="flex align-items-center justify-content-center p-3 m-1 flex-column">
-                <Knob value={63.8} readOnly size={130} strokeWidth={5} valueColor="#166c7d" rangeColor="#E9F3F5" />
+                <Knob
+                  value={63.8}
+                  readOnly
+                  size={130}
+                  strokeWidth={5}
+                  valueColor="#166c7d"
+                  rangeColor="#E9F3F5"
+                />
                 <p className="text-xs font-bold text-center m-0 p-0">
                   Houses with Connections but no water meter (%)
                 </p>
               </div>
               <div className="flex align-items-center justify-content-center p-3 m-1 flex-column">
-                <Knob value={37.8} readOnly size={130} strokeWidth={5} valueColor="#166c7d" rangeColor="#E9F3F5" />
+                <Knob
+                  value={37.8}
+                  readOnly
+                  size={130}
+                  strokeWidth={5}
+                  valueColor="#166c7d"
+                  rangeColor="#E9F3F5"
+                />
                 <p className="text-xs font-bold text-center m-0 p-0">
                   % of Total Bill Generated being paid
                 </p>

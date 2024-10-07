@@ -61,7 +61,9 @@ body {
 .text-third-theme {
   color: #00403c;
 }
-
+.text-grey {
+  color: #b5c0d0;
+}
 .bg-theme {
   background-color: var(--theme-primary-color);
 }

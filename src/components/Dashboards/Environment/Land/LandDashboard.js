@@ -13,7 +13,7 @@ import { width } from "@mui/system";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const Land = () => {
+const LandDashboard = () => {
   const donutChartLabels = [
     "Agriculture",
     "Open Land",
@@ -194,7 +194,7 @@ const Land = () => {
   };
 
   return (
-    <div className="flex flex-column gap-4 align-items-center w-full p-8">
+    <div className="flex flex-column gap-4 align-items-center w-full ">
       <div className="flex flex-column gap-4 w-full">
         <div className="flex gap-3">
           <Card className="flex-1 border-round bg-white">
@@ -317,4 +317,4 @@ const Land = () => {
   );
 };
 
-export default Land;
+export default LandDashboard;

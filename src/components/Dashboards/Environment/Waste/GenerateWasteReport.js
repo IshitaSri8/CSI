@@ -4,7 +4,7 @@ import { Calendar } from "primereact/calendar";
 import axios from "axios";
 // import ReportPrint from "./ReportPrint"; // Import the ReportPrint component
 import Lottie from "lottie-react";
-import report_ani from "../../animations/Report_ani.json";
+import report_ani from "../../../../assets/animations/Report_ani.json";
 import { Button } from "primereact/button";
 import WasteReportPrint from "./WasteReportPrint";
 

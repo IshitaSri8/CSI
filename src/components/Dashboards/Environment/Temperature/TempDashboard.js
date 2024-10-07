@@ -277,195 +277,192 @@ const TempDashboard = ({
     return parseFloat(data.deviationPercentage) > 2 ? "red-row" : "";
   };
   return (
-    <div className="flex flex-column gap-3 w-full p-8">
-      
-        {/* {show && ( */}
-          <Panel toggleable header="Filter By">
-            <div className="flex flex-column align-items-end w-full gap-3">
-              <div className="flex align-items-center justify-content-between w-full gap-3">
-                <div className="flex flex-column">
-                  <label htmlFor="location" className="font-semibold">
-                    Location
-                  </label>
-                  <Dropdown
-                    value={selectedLocation}
-                    options={locations}
-                    optionLabel="label"
-                    optionValue="value"
-                    onChange={(e) => setSelectedLocation(e.value)}
-                    placeholder="Select Location"
-                  />
-                </div>
-                <div className="w-full">
-                  <div className="p-field text-sm flex flex-column">
-                    <label htmlFor="start-date" className="font-semibold">
-                      Start Date
-                    </label>
-                    <Calendar
-                      id="start-date"
-                      value={startDate}
-                      onChange={handleStartDateChange}
-                      showIcon
-                      dateFormat="dd-mm-yy"
-                      placeholder="Select a start date"
-                      minDate={new Date("2024-01-01")} // Set the minimum selectable date
-                      maxDate={endDate} // Ensure the start date does not go beyond the end date
-                    />
-                  </div>
-                </div>
-                <div className="w-full">
-                  <div className="p-field text-sm flex flex-column">
-                    <label htmlFor="end-date" className="font-semibold">
-                      End Date{" "}
-                    </label>
-                    <Calendar
-                      id="end-date"
-                      value={endDate}
-                      onChange={handleEndDateChange}
-                      showIcon
-                      dateFormat="dd-mm-yy"
-                      placeholder="Select an end date"
-                      minDate={startDate} // Ensure the end date does not go before the start date
-                      maxDate={new Date("2024-08-13")} // Set the maximum selectable date
-                    />
-                  </div>
-                </div>
-              </div>
-              <Button
-                severity="success"
-                label="Filter"
-                icon="pi pi-search"
-                onClick={handleSearch}
+    <div className="flex flex-column gap-3 w-full">
+      {/* {show && ( */}
+      <Panel toggleable header="Filter By">
+        <div className="flex flex-column align-items-end w-full gap-3">
+          <div className="flex align-items-center justify-content-between w-full gap-3">
+            <div className="flex flex-column">
+              <label htmlFor="location" className="font-semibold">
+                Location
+              </label>
+              <Dropdown
+                value={selectedLocation}
+                options={locations}
+                optionLabel="label"
+                optionValue="value"
+                onChange={(e) => setSelectedLocation(e.value)}
+                placeholder="Select Location"
               />
             </div>
-          </Panel>
-        {/* )} */}
-        <Panel>
-          <div className="flex flex-row align-items-end w-full gap-4 mt-2">
-            {selectedLocation && (
-              <div>
-                <Card title="Temperature" className="h-20rem w-25rem">
-                  <div className="flex align-items-center justify-content-around flex-row flex-wrap md:flex-nowrap">
-                    
-                      <div className="flex align-items-center justify-content-center flex-column">
-                        <h1 className="text-sm">
-                          {tempValue !== null
-                            ? `${tempValue} °C`
-                            : "No Data Found."}
-                        </h1>
+            <div className="w-full">
+              <div className="p-field text-sm flex flex-column">
+                <label htmlFor="start-date" className="font-semibold">
+                  Start Date
+                </label>
+                <Calendar
+                  id="start-date"
+                  value={startDate}
+                  onChange={handleStartDateChange}
+                  showIcon
+                  dateFormat="dd-mm-yy"
+                  placeholder="Select a start date"
+                  minDate={new Date("2024-01-01")} // Set the minimum selectable date
+                  maxDate={endDate} // Ensure the start date does not go beyond the end date
+                />
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="p-field text-sm flex flex-column">
+                <label htmlFor="end-date" className="font-semibold">
+                  End Date{" "}
+                </label>
+                <Calendar
+                  id="end-date"
+                  value={endDate}
+                  onChange={handleEndDateChange}
+                  showIcon
+                  dateFormat="dd-mm-yy"
+                  placeholder="Select an end date"
+                  minDate={startDate} // Ensure the end date does not go before the start date
+                  maxDate={new Date("2024-08-13")} // Set the maximum selectable date
+                />
+              </div>
+            </div>
+          </div>
+          <Button
+            className="bg-cyan-800"
+            label="Filter"
+            icon="pi pi-search"
+            onClick={handleSearch}
+          />
+        </div>
+      </Panel>
+      {/* )} */}
+      <Panel>
+        <div className="flex flex-row align-items-end w-full gap-4 mt-2">
+          {selectedLocation && (
+            <div>
+              <Card title="Temperature" className="h-20rem w-25rem">
+                <div className="flex align-items-center justify-content-around flex-row flex-wrap md:flex-nowrap">
+                  <div className="flex align-items-center justify-content-center flex-column">
+                    <h1 className="text-sm">
+                      {tempValue !== null
+                        ? `${tempValue} °C`
+                        : "No Data Found."}
+                    </h1>
 
-                        {aqiImage && (
-                          <img
-                            src={aqiImage}
-                            alt={aqiStatusText}
-                            style={{ width: "50%" }}
-                          />
-                        )}
-                        {/* <h1
+                    {aqiImage && (
+                      <img
+                        src={aqiImage}
+                        alt={aqiStatusText}
+                        style={{ width: "50%" }}
+                      />
+                    )}
+                    {/* <h1
                           className={`border-round-xs p-1 text-xs text-white w-6rem`}
                           style={{ backgroundColor: tempStatus.color }}
                         >
                           {tempStatus.status || "No Status"}
                         </h1> */}
-                      </div>
-                    
                   </div>
-                </Card>
-              </div>
-            )}
-            <div className="ml-1 mr-1">
-              <Card className="h-20rem w-28rem">
-                {loading ? (
-                  <div className="w-24rem h-15rem">
-                    <TableSkeleton />
-                  </div>
-                ) : (
-                  <DataTable
-                    value={dataTableData}
-                    rowClassName={rowClassName}
-                    scrollable
-                    scrollHeight="15rem"
-                    style={{
-                      width: "24rem",
-                      height: "15rem",
-                      textAlign: "center",
-                    }}
-                    emptyMessage="No Outliear Days Found."
-                  >
-                    <Column
-                      field="date"
-                      header="Date"
-                      className="text-xs"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#00a269",
-                        color: "white",
-                      }}
-                    ></Column>
-                    <Column
-                      field="time"
-                      header="Time"
-                      className="text-xs"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#00a269",
-                        color: "white",
-                      }}
-                    />
-                    <Column
-                      field="temp"
-                      header="Temperature > 40°C"
-                      className="text-xs"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#00a269",
-                        color: "white",
-                      }}
-                    ></Column>
-                    <Column
-                      field="deviationPercentage"
-                      header="Outlier %"
-                      className="text-xs"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#00a269",
-                        color: "white",
-                      }}
-                    ></Column>
-                  </DataTable>
-                )}
+                </div>
               </Card>
             </div>
-            <Card className="h-20rem w-full">
-              {/* <AqiReport
+          )}
+          <div className="ml-1 mr-1">
+            <Card className="h-20rem w-28rem">
+              {loading ? (
+                <div className="w-24rem h-15rem">
+                  <TableSkeleton />
+                </div>
+              ) : (
+                <DataTable
+                  value={dataTableData}
+                  rowClassName={rowClassName}
+                  scrollable
+                  scrollHeight="15rem"
+                  style={{
+                    width: "26rem",
+                    height: "17rem",
+                    textAlign: "center",
+                  }}
+                  emptyMessage="No Outliear Days Found."
+                >
+                  <Column
+                    field="date"
+                    header="Date"
+                    className="text-xs"
+                    headerStyle={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#166c7d",
+                      color: "white",
+                    }}
+                  ></Column>
+                  <Column
+                    field="time"
+                    header="Time"
+                    className="text-xs"
+                    headerStyle={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#166c7d",
+                      color: "white",
+                    }}
+                  />
+                  <Column
+                    field="temp"
+                    header="Temperature > 40°C"
+                    className="text-xs"
+                    headerStyle={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#166c7d",
+                      color: "white",
+                    }}
+                  ></Column>
+                  <Column
+                    field="deviationPercentage"
+                    header="Outlier %"
+                    className="text-xs"
+                    headerStyle={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#166c7d",
+                      color: "white",
+                    }}
+                  ></Column>
+                </DataTable>
+              )}
+            </Card>
+          </div>
+          <Card className="h-20rem w-full">
+            {/* <AqiReport
               selectedLocation={selectedLocation}
               startDate={startDate}
               endDate={endDate}
               averageAQI={aqiValue}
             /> */}
-              <TempMap
-                averageTemp={tempValue}
-                selectedLocation={selectedLocation}
-              />
-            </Card>
-          </div>
-        </Panel>
-        <Panel>
-          <div className="flex align-items-center justify-content-between flex-row">
-            <Card className="w-full">
-              <Temperature
-                enviroDate={envirodate}
-                envirotime={envirotime}
-                temperature={temperature}
-                humidity={humidity}
-                enviroco2={enviroco2}
-                startDate={startDate}
-              />
-            </Card>
-          </div>
-        </Panel>
-       
-            {/* <div className="w-100 flex align-items-center justify-content-center flex-row gap-1">
+            <TempMap
+              averageTemp={tempValue}
+              selectedLocation={selectedLocation}
+            />
+          </Card>
+        </div>
+      </Panel>
+      <Panel>
+        <div className="flex align-items-center justify-content-between flex-row">
+          <Card className="w-full">
+            <Temperature
+              enviroDate={envirodate}
+              envirotime={envirotime}
+              temperature={temperature}
+              humidity={humidity}
+              enviroco2={enviroco2}
+              startDate={startDate}
+            />
+          </Card>
+        </div>
+      </Panel>
+
+      {/* <div className="w-100 flex align-items-center justify-content-center flex-row gap-1">
               <Card className="h-15rem w-17rem">
                 <PollutantChart
                   envirolocation={envirolocation}
@@ -527,8 +524,8 @@ const TempDashboard = ({
                 />
               </Card>
             </div> */}
-          
-        {/* {show && (
+
+      {/* {show && (
             <>
               <div className="flex align-items-center justify-content-start flex-row mt-2">
                 <Card className="h-15rem w-6">
@@ -554,7 +551,6 @@ const TempDashboard = ({
               </div>
             </>
           )} */}
-      
     </div>
   );
 };

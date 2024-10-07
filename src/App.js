@@ -24,7 +24,6 @@ import CitySidebar from "pages/CitySidebar";
 import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Healthcare";
 
-
 // Layout component that includes CitySidebar
 const SidebarLayout = ({ children }) => (
   <div className="layout-container">
@@ -55,79 +54,7 @@ function App() {
           </SidebarLayout>
         }
       />
-      <Route
-        path="/reportcard"
-        element={
-          <SidebarLayout>
-            <CityReportCard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/aqi"
-        element={
-          <SidebarLayout>
-            <AqiDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/temperature"
-        element={
-          <SidebarLayout>
-            <TempDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/land"
-        element={
-          <SidebarLayout>
-            <LandDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/rain"
-        element={
-          <SidebarLayout>
-            <RainDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/waste"
-        element={
-          <SidebarLayout>
-            <WasteDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/water"
-        element={
-          <SidebarLayout>
-            <WaterDashboard />
-          </SidebarLayout>
-        }
-      />
-       <Route
-        path="/transport"
-        element={
-          <SidebarLayout>
-            <TransportDashboard />
-          </SidebarLayout>
-        }
-      />
-       <Route
-        path="/healthcare"
-        element={
-          <SidebarLayout>
-            <Healthcare />
-          </SidebarLayout>
-        }
-      />
-   
+      <Route path="/admin" element={<CitySidebar />} />
     </Routes>
   );
 }

@@ -4,7 +4,7 @@ import { Calendar } from "primereact/calendar";
 import axios from "axios";
 // import ReportPrint from "./ReportPrint"; // Import the ReportPrint component
 import Lottie from "lottie-react";
-import report_ani from "../../animations/Report_ani.json";
+import report_ani from "../../../../assets/animations/Report_ani.json";
 import AQIReportPrint from "./AQIReportPrint";
 import { Button } from "primereact/button";
 import { Panel } from "primereact/panel";
@@ -207,10 +207,9 @@ const GenerateAqiReport = () => {
         </div>
         {allFieldsSelected && (
           <Button
-            severity="success"
             label="Generate Report"
             icon="pi pi-file-pdf"
-            className="w-max"
+            className="w-max bg-cyan-800"
             onClick={toggleReportModal}
           />
         )}
@@ -220,7 +219,7 @@ const GenerateAqiReport = () => {
             disabled
             label="Generate Report"
             icon="pi pi-file-pdf"
-            className="w-max"
+            className="w-max bg-cyan-700"
           />
         )}
       </div>

@@ -4,7 +4,7 @@ import { Calendar } from "primereact/calendar";
 import axios from "axios";
 // import ReportPrint from "./ReportPrint"; // Import the ReportPrint component
 import Lottie from "lottie-react";
-import report_ani from "../../animations/Report_ani.json";
+import report_ani from "../../../../assets/animations/Report_ani.json";
 import { Button } from "primereact/button";
 import RainReportPrint from "./RainReportPrint";
 
@@ -25,10 +25,9 @@ const GenerateRainReport = () => {
 
       <div className="flex flex-column align-items-center w-full gap-3">
         <Button
-          severity="success"
           label="Generate Report"
           icon="pi pi-file-pdf"
-          className="w-max"
+          className="w-max bg-cyan-800"
           onClick={toggleReportModal}
         />
       </div>

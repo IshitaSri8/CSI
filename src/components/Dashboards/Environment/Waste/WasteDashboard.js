@@ -16,7 +16,7 @@ import PopulationIcon from "assets/waste/population.png";
 import ConstructedIcon from "assets/waste/building.png";
 import UnderConstructedIcon from "assets/waste/under-construction.png";
 
-const Waste = () => {
+const WasteDashboard = () => {
   const solidWasteData = [
     { label: "SW-Collection(TPD)", y: 181 },
     { label: "SW-Generated(TPD)", y: 181 },
@@ -192,7 +192,7 @@ const Waste = () => {
   };
 
   return (
-    <div className="report-container p-8">
+    <div className="report-container">
       <Panel className="panel w-full">
         <div className="flex flex-wrap gap-3 w-full justify-content-center">
           {cardData.slice(0, 7).map((card, index) => (
@@ -315,4 +315,4 @@ const Waste = () => {
   );
 };
 
-export default Waste;
+export default WasteDashboard;
