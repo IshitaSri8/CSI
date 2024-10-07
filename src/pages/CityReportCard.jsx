@@ -95,7 +95,7 @@ const CityReportCard = () => {
   };
 
   return (
-    <div className="flex flex-column gap-3 p-8 mt-5">
+    <div className="flex flex-column gap-3 p-8">
       {/* First Row: Indicator Tabs */}
       <div className="flex gap-4">
         {/* Nature Tab */}

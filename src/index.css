@@ -1,6 +1,6 @@
 :root {
   --theme-primary-color: #166c7d;
-  --theme-secondary: #E9F3F5;
+  --theme-secondary: #e9f3f5;
   --theme-primary-light: #fffdff;
   --theme-grey: #f1f3f6;
   --theme-dark-grey: #d2d2d2;
@@ -8,7 +8,7 @@
   --theme-black: #374151;
   --theme-white: #ffffff;
   --text-color-theme: #166c7d;
-  --text-color: #4C4C4C;
+  --text-color: #4c4c4c;
   --border-radius: 5px;
   --box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
@@ -29,4 +29,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+@media print {
+  .print-container {
+    padding: 0.5rem;
+  }
 }

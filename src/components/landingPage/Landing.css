@@ -105,3 +105,21 @@
 .react-tel-input .form-control {
   width: 100% !important;
 }
+.p-sidebar-left .p-sidebar {
+  background-color: #003940;
+  color: white;
+}
+.p-sidebar .p-sidebar-content::-webkit-scrollbar {
+  width: 0.5vw;
+  height: 0.8vw;
+  background-color: #b5c0d0;
+}
+.p-sidebar .p-sidebar-header .p-sidebar-close,
+.p-sidebar .p-sidebar-header .p-sidebar-icon {
+  visibility: hidden;
+  font-size: 0 !important;
+}
+.p-sidebar .p-sidebar-header .p-sidebar-close,
+.p-sidebar .p-sidebar-header {
+  height: 0rem !important;
+}

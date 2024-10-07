@@ -34,9 +34,12 @@ const Citizen = () => {
       const formattedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
 
       console.log(formattedPhone); // Log the formatted phone number without country code
-      const response = await axios.post("http://localhost:8009/check/phone", {
-        phone: formattedPhone, // Send formatted phone without country code
-      });
+      const response = await axios.post(
+        "https://api-csi.arahas.com/check/phone",
+        {
+          phone: formattedPhone, // Send formatted phone without country code
+        }
+      );
       console.log(response);
       setMessage(response.data.message);
 

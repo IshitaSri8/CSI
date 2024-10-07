@@ -69,13 +69,13 @@ export default function AQIReportPrint({
     <Dialog
       header=""
       visible={visible}
-      style={{ width: "90vw" }}
+      // style={{ width: "99rem" }}
       onHide={toggleModalVisibility}
     >
       <div ref={contentRef}>
         <div className="w-full print-container">
           <div className="flex flex-column gap-2 align-items-center w-full">
-            <h1 style={{ color: "#00a269" }} className="m-0 p-0 text-center">
+            <h1 style={{ color: "#166c7d" }} className="m-0 p-0 text-center">
               City Sustainability Index 2024
             </h1>
             <h4 className="m-0 p-0">{selectedLocation}</h4>

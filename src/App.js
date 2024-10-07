@@ -22,7 +22,6 @@ import WasteDashboard from "../src/components/Dashboards/Environment/Waste/Waste
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import CitySidebar from "pages/CitySidebar";
 
-
 // Layout component that includes CitySidebar
 const SidebarLayout = ({ children }) => (
   <div className="layout-container">
@@ -53,63 +52,7 @@ function App() {
           </SidebarLayout>
         }
       />
-      <Route
-        path="/reportcard"
-        element={
-          <SidebarLayout>
-            <CityReportCard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/aqi"
-        element={
-          <SidebarLayout>
-            <AqiDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/temperature"
-        element={
-          <SidebarLayout>
-            <TempDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/land"
-        element={
-          <SidebarLayout>
-            <LandDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/rain"
-        element={
-          <SidebarLayout>
-            <RainDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/waste"
-        element={
-          <SidebarLayout>
-            <WasteDashboard />
-          </SidebarLayout>
-        }
-      />
-      <Route
-        path="/water"
-        element={
-          <SidebarLayout>
-            <WaterDashboard />
-          </SidebarLayout>
-        }
-      />
-   
+      <Route path="/admin" element={<CitySidebar />} />
     </Routes>
   );
 }
