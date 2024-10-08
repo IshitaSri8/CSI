@@ -4,7 +4,6 @@ import { Ripple } from "primereact/ripple";
 import { Button } from "primereact/button";
 import "../components/landingPage/Landing.css";
 
-import CityReportCard from "../pages/CityReportCard";
 import AQI from "components/Dashboards/Environment/AQI/AQI";
 import TempMain from "components/Dashboards/Environment/Temperature/TempMain";
 import RainMain from "components/Dashboards/Environment/Rain/RainMain";
@@ -15,6 +14,8 @@ import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
 import KnowYourCity from "../pages/KnowYourCity";
 import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Healthcare";
+import CityReportCardCitizen from "pages/CityReportCardCitizen";
+import CityReportCardGov from "pages/CityReportCardGov";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -321,8 +322,7 @@ const GovernmentSidebar = () => {
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "6rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
-        {activeTab === "cityReportCard" && <CityReportCard />}
-
+        {activeTab === "cityReportCard" && <CityReportCardGov />}
         {activeTab === "aqi" && <AQI />}
         {activeTab === "temperature" && <TempMain />}
         {activeTab === "rain" && <RainMain />}

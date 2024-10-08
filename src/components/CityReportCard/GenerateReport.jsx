@@ -14,18 +14,20 @@ const GenerateReport = () => {
   };
 
   return (
-    <div className="p-fluid align-items-center flex justify-content-center flex-column">
+    <div
+      className="flex flex-column w-full align-items-center justify-content-center"
+      style={{ width: "50rem", height: "100%" }}
+    >
       <Lottie
         animationData={report_ani}
         style={{ height: "20rem", width: "20rem" }}
       />
 
-      <div className="flex flex-column align-items-center w-full gap-3">
+      <div>
         <Button
-          severity="success"
+          className="bg-cyan-800"
           label="Generate Report"
           icon="pi pi-file-pdf"
-          className="w-max"
           onClick={toggleReportModal}
         />
       </div>

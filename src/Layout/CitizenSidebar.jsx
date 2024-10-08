@@ -3,8 +3,6 @@ import { Sidebar } from "primereact/sidebar";
 import { Ripple } from "primereact/ripple";
 import { Button } from "primereact/button";
 import "../components/landingPage/Landing.css";
-
-import CityReportCard from "../pages/CityReportCard";
 import AQI from "components/Dashboards/Environment/AQI/AQI";
 import TempMain from "components/Dashboards/Environment/Temperature/TempMain";
 import RainMain from "components/Dashboards/Environment/Rain/RainMain";
@@ -15,6 +13,7 @@ import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
 import KnowYourCity from "../pages/KnowYourCity";
 import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Healthcare";
+import CityReportCardCitizen from "pages/CityReportCardCitizen";
 
 const CitizenSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -58,22 +57,35 @@ const CitizenSidebar = () => {
             icon="pi pi-search"
             onClick={() => handleTabClick("kyc")}
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+            tooltip="Know Your City"
           />
           <Button
             icon="pi pi-file"
             onClick={() => handleTabClick("cityReportCard")}
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+            tooltip="City Report Card"
           />
-
           {/* Bottom-right toggle button */}
           <Button
-            icon="pi pi-angle-double-right"
+            icon="pi pi-sign-out"
             onClick={() => setVisible(true)}
             style={{
               backgroundColor: "#166c7d",
               position: "fixed",
+              bottom: "5rem",
+              left: "2rem",
+            }}
+            tooltip="Logout"
+          />
+          {/* Bottom-right toggle button */}
+          <i
+            className="pi pi-angle-double-right text-white"
+            onClick={() => setVisible(true)}
+            style={{
+              position: "fixed",
               bottom: "20px",
-              left: "1rem",
+              left: "4rem",
+              cursor: "pointer",
             }}
           />
         </div>
@@ -130,14 +142,15 @@ const CitizenSidebar = () => {
           </ul>
 
           {/* Bottom-right toggle button for the full sidebar */}
-          <Button
-            icon="pi pi-angle-double-left"
+
+          <i
+            className="pi pi-angle-double-left text-white"
             onClick={() => setVisible(false)}
             style={{
-              backgroundColor: "#166c7d",
               position: "fixed",
               bottom: "20px",
-              left: "15rem",
+              left: "17rem",
+              cursor: "pointer",
             }}
           />
         </div>
@@ -146,7 +159,7 @@ const CitizenSidebar = () => {
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "6rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
-        {activeTab === "cityReportCard" && <CityReportCard />}
+        {activeTab === "cityReportCard" && <CityReportCardCitizen />}
       </div>
     </div>
   );

@@ -186,7 +186,7 @@ const Chatbot = () => {
       function: (params) => {
         setForm({ ...form, city: params.userInput });
       },
-      path: async (params) => "kyc",
+      path: async (params) => "c-kyc",
     },
     kyc: {
       message: "Want to know more about your city?",
@@ -195,7 +195,7 @@ const Chatbot = () => {
         console.log(form);
         await submitFormData(form);
         if (params.userInput.toLowerCase() === "yes") {
-          navigate("/kyc"); // Redirect to KYC page if user says Yes
+          navigate("/c-kyc"); // Redirect to KYC page if user says Yes
         }
       },
       path: (params) => {

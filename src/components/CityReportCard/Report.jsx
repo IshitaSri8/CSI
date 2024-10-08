@@ -208,6 +208,8 @@ const CityReportCard = () => {
         </Card>
 
         {/* Second Card */}
+        {/* <Card
+          className="flex align-items-center justify-content-between  w-full h-12rem"
         <Card
           className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(1)}
@@ -232,8 +234,24 @@ const CityReportCard = () => {
               Community Engagement & Holistic Well-Being
             </p>
           ) : (
+            // <div>
+            //   <div className="flex flex-row align-items-start justify-content-between">
+            //     <div className="flex flex-column align-items-start justify-content-between">
+            //       <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+            //         Society
+            //       </h2>
+            //       <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
+            //     </div>
+            //     <div className="flex align-items-start justify-content-end ml-5">
+            //       <img src={society} alt="nature" className="w-4rem" />
+            //     </div>
+            //   </div>
+            //   <div>
+            //     <p className="text-sm">Empowering change, enriching lives.</p>
+            //   </div>
+            // </div>
             <div>
-              <div className="flex flex-row align-items-start justify-content-between">
+              <div className="flex flex-row align-items-start justify-content-between gap-8">
                 <div className="flex flex-column align-items-start justify-content-between">
                   <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
                     Society
@@ -249,8 +267,52 @@ const CityReportCard = () => {
               </div>
             </div>
           )}
+        </Card> */}
+        <Card
+          className="flex align-items-center justify-content-between w-full h-12rem"
+          onMouseEnter={() => setHoveredIndex(1)}
+          onMouseLeave={() => setHoveredIndex(null)}
+          style={{ background: hoveredIndex === 1 ? "#FFDD82" : "#ffffff" }}
+        >
+          {hoveredIndex === 1 ? (
+            <p className="font-semibold text-xs text-900 text-left">
+              <img src={Housing} alt="nature" className="w-1rem mr-2" />
+              City Planning
+              <br />
+              <img src={Healthcare} alt="nature" className="w-1rem mr-2" />
+              Basic Services
+              <br />
+              <i className="pi pi-briefcase w-1rem mr-2" />
+              Employment Opportunities
+              <br />
+              <img src={Cultural} alt="nature" className="w-1rem mr-2" />
+              Cultural Preservation
+              <br />
+              <i className="pi pi-users w-1rem mr-1 " />
+              Community Engagement & Holistic Well-Being
+            </p>
+          ) : (
+            <div className="flex align-items-center justify-content-center flex-column w-full">
+              <div className="flex flex-row align-items-start justify-content-between w-full gap-8">
+                <div className="flex flex-column align-items-startjustify-content-between">
+                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+                    Society
+                  </h2>
+                  <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
+                </div>
+                <div className="flex align-items-start justify-content-end">
+                  <img src={society} alt="Admin" className="w-4rem" />
+                </div>
+              </div>
+              <div className="w-full">
+                <p className="text-sm">
+                  Empowering sustainable change, enriching diverse lives.
+                  <br />
+                </p>
+              </div>
+            </div>
+          )}
         </Card>
-
         {/* Third Card */}
         <Card
           className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"

@@ -395,10 +395,13 @@ const AqiDashboard = ({
         </div>
       </Panel>
       {/* )} */}
-      <div className="flex flex-row flex-wrap md:flex-nowrap align-items-end w-full gap-6 mt-2">
+      <div className="flex flex-row flex-wrap md:flex-nowrap align-items-end w-full gap-2 mt-2">
         {selectedLocation && (
           <div>
-            <Card title="Air Quality Index" className="h-20rem w-25rem">
+            <Card
+              title="Air Quality Index"
+              className="h-20rem w-30rem text-center"
+            >
               <div className="flex align-items-center justify-content-around flex-row flex-wrap md:flex-nowrap">
                 <div className="flex align-items-center justify-content-center flex-column">
                   <h1 className="text-3xl">
@@ -423,7 +426,7 @@ const AqiDashboard = ({
           </div>
         )}
         <div className="ml-1 mr-1">
-          <Card className="h-20rem w-30rem">
+          <Card className="h-20rem" style={{ width: "32.5rem" }}>
             {loading ? (
               <div className="w-22rem h-15rem">
                 <TableSkeleton />
@@ -435,7 +438,7 @@ const AqiDashboard = ({
                 scrollable
                 scrollHeight="15rem"
                 style={{
-                  width: "28rem",
+                  width: "31rem",
                   height: "17rem",
                   textAlign: "center",
                 }}
@@ -485,7 +488,7 @@ const AqiDashboard = ({
             )}
           </Card>
         </div>
-        <Card className="h-20rem w-full">
+        <Card className="h-20rem w-35rem">
           {/* <AqiReport
               selectedLocation={selectedLocation}
               startDate={startDate}
