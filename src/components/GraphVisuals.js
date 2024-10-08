@@ -34,11 +34,13 @@ export const DonutChart = ({ title, labels, series, height, width }) => {
     },
     data: [
       {
+        indexLabelPlacement: "inside",
         type: "doughnut",
         startAngle: 60,
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
         showInLegend: false,
         indexLabelFontSize: 8,
+
         color: colors,
         indexLabel: "{label} - #percent%",
         dataPoints: series.map((value, index) => ({
@@ -69,21 +71,26 @@ export const Doughnut = ({ title, labels, series, height }) => {
       fontFamily: "Montserrat",
       fontWeight: "500",
     },
+    labels: labels,
+
     data: [
       {
         type: "doughnut",
         startAngle: 20,
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-        showInLegend: false,
+        showInLegend: true,
         color: colors,
-
+        indexLabelPlacement: "inside",
         // indexLabel: "{label} - #percent%",
-        indexLabelFontSize: 7,
+        indexLabelFontSize: 0,
+        indexLabelFontColor: "white",
         indexLabelFontFamily: "Montserrat",
         indexLabelFontWeight: 500,
+
         dataPoints: series.map((value, index) => ({
           y: value,
           label: labels[index],
+          legendText: labels[index],
           color: colors[index % colors.length],
         })),
       },
@@ -265,6 +272,7 @@ export const ParetoChart = ({
       title: ytitle,
       gridThickness: 0,
     },
+
     data: [
       {
         type: "column",

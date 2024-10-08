@@ -9,7 +9,9 @@ const KnowYourCity = () => {
 
   return (
     <div className="p-2">
-      <h1 className="text-center text-theme text-3xl">Know your city</h1>
+      <h1 className="text-theme text-3xl text-left w-full justify-content-start">
+        Know your city
+      </h1>
       <TabView
         activeIndex={activeTab}
         onTabChange={(e) => setActiveTab(e.index)}

@@ -24,7 +24,7 @@ import Healthcare from "components/Dashboards/Healthcare";
 import { Tooltip } from "primereact/tooltip";
 
 const CitySidebar = () => {
-  const [activeTab, setActiveTab] = useState(""); // State for active tab
+  const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
   const [aqiValue, setAqiValue] = useState(null);
   const [pm25Value, setPM25Value] = useState(null);
   const [pm10Value, setPM10Value] = useState(null);

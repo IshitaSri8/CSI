@@ -114,7 +114,7 @@ const Testimonials = () => {
             style={{ width: "50px", height: "50px" }}
           />
           <h1 className="text-5xl font-semibold mb-5">
-            Testimonials about our work
+            What People Say About Our Work
           </h1>
         </div>
       </div>
