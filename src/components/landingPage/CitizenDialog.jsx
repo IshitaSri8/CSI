@@ -41,7 +41,7 @@ const CitizenDialog = ({ visible, onHide }) => {
         // User is registered, ask for OTP
         if (otp === "1234") {
           // Sample OTP check
-          navigate("/kyc"); // Navigate to KYC page
+          navigate("/c-kyc"); // Navigate to KYC page
         } else {
           setMessage("Invalid OTP. Please try again.");
         }

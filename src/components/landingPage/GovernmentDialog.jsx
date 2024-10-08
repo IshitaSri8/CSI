@@ -18,7 +18,7 @@ const GovernmentDialog = ({ visible, onHide }) => {
     // Check if the entered username and password match the hardcoded credentials
     if (username === defaultUsername && password === defaultPassword) {
       setMessage("Login successful!");
-      navigate("/kyc"); // Navigate to the KYC page upon successful login
+      navigate("/g-kyc"); // Navigate to the KYC page upon successful login
     } else {
       setMessage("Invalid username or password. Please try again.");
     }

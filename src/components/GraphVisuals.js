@@ -28,26 +28,38 @@ export const DonutChart = ({ title, labels, series, height, width }) => {
     animationEnabled: true,
     title: {
       text: title,
-      fontSize: 12,
-      fontFamily: "DM Sans",
-      fontWeight: "800",
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "600",
     },
+    dataPointWidth: 12,
     data: [
       {
         type: "doughnut",
+        innerRadius: "70%", // Increase this value to decrease the thickness
+        radius: "75%",
         startAngle: 60,
+        showInLegend: true,
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-        showInLegend: false,
-        indexLabelFontSize: 8,
+        indexLabelPlacement: "inside",
+        indexLabelFontColor: "transparent",
         color: colors,
-        indexLabel: "{label} - #percent%",
+        legendText: "{label}- #percent%",
         dataPoints: series.map((value, index) => ({
           y: value,
           label: labels[index],
           color: colors[index % colors.length],
+          indexLabel: null,
         })),
       },
     ],
+    legend: {
+      horizontalAlign: "right",
+      verticalAlign: "center",
+      fontFamily: "Montserrat",
+      fontWeight: "normal",
+      fontSize: 12,
+    },
   };
 
   return (
@@ -57,47 +69,6 @@ export const DonutChart = ({ title, labels, series, height, width }) => {
         width: width,
         height: height,
       }}
-    />
-  );
-};
-export const Doughnut = ({ title, labels, series, height }) => {
-  const options = {
-    animationEnabled: true,
-    title: {
-      text: title,
-      fontSize: 12,
-      fontFamily: "DM Sans",
-      fontWeight: "800",
-    },
-    data: [
-      {
-        type: "doughnut",
-        startAngle: 20,
-        toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-        showInLegend: false,
-        color: colors,
-        indexLabel: "{label} - #percent%",
-        indexLabelFontSize: 9,
-        indexLabelFontFamily: "DM Sans",
-        indexLabelFontWeight: 700,
-        dataPoints: series.map((value, index) => ({
-          y: value,
-          label: labels[index],
-          color: colors[index % colors.length],
-        })),
-      },
-    ],
-    legend: {
-      fontSize: 10,
-      horizontalAlign: "center",
-      verticalAlign: "bottom",
-    },
-  };
-
-  return (
-    <CanvasJSChart
-      options={options}
-      containerProps={{ height: height, width: "100%" }}
     />
   );
 };

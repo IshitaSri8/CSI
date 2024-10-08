@@ -5,10 +5,12 @@
   --theme-grey: #f1f3f6;
   --theme-dark-grey: #d2d2d2;
   --grey-secondary: #fafafa;
-  --theme-black: #374151;
+  --theme-black: #3e4141;
   --theme-white: #ffffff;
   --text-color-theme: #166c7d;
+  --text-theme: #1f8297;
   --text-color: #4c4c4c;
+  --text-secondary:#00403c;
   --border-radius: 5px;
   --box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
-import { Panel } from "primereact/panel";
+
 import CityDemographics from "../components/knowYourCity/CityDemographics";
 import CityProgress from "../components/knowYourCity/CityProgress";
 

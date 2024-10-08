@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 12px;
@@ -51,19 +51,15 @@ body {
 }
 
 .text-theme {
-  color: #1f8297;
+  color: var(--text-theme);
 }
 
 .text-sec-theme {
-  color: #3e4141;
+  color: var(--text-black);
 }
 
 .text-third-theme {
-  color: #00403c;
-}
-
-.disabled {
-  color: #a9a9a9;
+  color: var(--text-secondary);
 }
 
 .bg-theme {

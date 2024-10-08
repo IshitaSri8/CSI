@@ -1,7 +1,5 @@
-import { Button } from "primereact/button";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import Header from "components/landingPage/Header";
+import Header from "Layout/Header";
 import Laptop from "../assets/laptop.png";
 import { Tag } from "primereact/tag";
 import Screen from "../assets/screen.png";
@@ -14,19 +12,18 @@ import indicator from "../assets/indicator.png";
 import government from "../assets/government.png";
 
 const Government = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
   return (
     <div className="flex flex-column w-full">
       {/* Header */}
       <Header />
       <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
-      <img src={government} alt="citizen" className="w-screen "/>
+        <img src={government} alt="citizen" className="w-screen " />
         <div
           className="border-round-xl m-0 mb-5 p-0"
           style={{
             // backgroundColor: "rgba(247, 164, 122, 0.7)",
             background:
-            "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
+              "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
             width: "65rem",
             position: "absolute",
             top: "50%",

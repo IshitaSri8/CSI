@@ -82,7 +82,7 @@ const CityReportCard = () => {
     axisY: {
       title: "Score",
       gridThickness: 0,
-      labelFontSize: 12,
+      labelFontSize: 10,
     },
     axisX: {
       interval: 1,
@@ -90,7 +90,7 @@ const CityReportCard = () => {
       // labelFontFamily: "Montserrat",
     },
     height: 400,
-    width: 750,
+    width: 720,
     dataPointWidth: 12,
     data: [
       {
@@ -144,7 +144,7 @@ const CityReportCard = () => {
       <div className="flex justify-content-around gap-4">
         {/* First Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(0)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 0 ? "#A2DBBF" : "#ffffff" }}
@@ -190,7 +190,7 @@ const CityReportCard = () => {
 
         {/* Second Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(1)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 1 ? "#FFDD82" : "#ffffff" }}
@@ -233,7 +233,7 @@ const CityReportCard = () => {
 
         {/* Third Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(2)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 2 ? "#BAD8DF" : "#ffffff" }}
@@ -284,7 +284,7 @@ const CityReportCard = () => {
 
         {/* Fourth Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-20rem h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(3)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 3 ? "#F7A47A" : "#ffffff" }}
@@ -324,9 +324,11 @@ const CityReportCard = () => {
           className="flex flex-column p-2 border-round-2xl"
           style={{ flex: "70%" }}
         >
+          <Card className="border-round-xl">
           <CanvasJSReact.CanvasJSChart options={options} />
+          </Card>
         </div>
-        <div className="flex flex-column pl-6" style={{ flex: "30%" }}>
+        <div className="flex flex-column pl-4" style={{ flex: "30%" }}>
           <p className="text-xl font-medium mt-0 mb-1">Summary</p>
           <div className="flex border-round bg-white px-3 mb-2">
             <p>

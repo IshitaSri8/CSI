@@ -1,6 +1,6 @@
 import { Card } from "primereact/card";
 import React from "react";
-import { Doughnut, ParetoChart } from "../../GraphVisuals";
+import { DonutChart, ParetoChart } from "../../GraphVisuals";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
 import increase from "../../../assets/increase.png";
@@ -130,10 +130,10 @@ const PrivateVehicle = () => {
                   8% increase in last one year.
                 </p>
               </div> */}
-              {/* Tooltip with Doughnut Chart */}
+              {/* Tooltip with DonutChart Chart */}
               <CustomTooltip
                 content={
-                  <Doughnut
+                  <DonutChart
                     title="Breakdown of private vehicles per transport mode"
                     labels={categories}
                     series={privateSeries}

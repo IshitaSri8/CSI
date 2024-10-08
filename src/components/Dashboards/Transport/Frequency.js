@@ -1,6 +1,6 @@
 import { Card } from "primereact/card";
 import React from "react";
-import { Doughnut, BarChart } from "../../GraphVisuals";
+import { DonutChart, BarChart } from "../../GraphVisuals";
 
 import Air from "@mui/icons-material/Flight";
 import Water from "@mui/icons-material/DirectionsBoat";
@@ -93,7 +93,7 @@ const Frequency = () => {
           />
         </Card>
         <Card className="w-full">
-          <Doughnut
+          <DonutChart
             labels={categories}
             series={frequencyseries}
             height={200}
