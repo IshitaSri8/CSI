@@ -8,8 +8,10 @@ const CityReportCard = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="p-5">
-      <h1 className="text-center text-theme text-2xl">City Report Card</h1>
+    <div className="p-2">
+      <h1 className="text-left text-theme text-2xl m-0 p-0">
+        City Report Card
+      </h1>
       <TabView
         activeIndex={activeTab}
         onTabChange={(e) => setActiveTab(e.index)}

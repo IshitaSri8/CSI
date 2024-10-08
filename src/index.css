@@ -37,3 +37,9 @@ code {
     padding: 0.5rem;
   }
 }
+.canvasjs-chart-credit {
+  display: none !important;
+}
+.hoverClass .p-tooltip-text {
+  background-color: red !important;
+}

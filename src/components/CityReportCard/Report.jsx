@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card } from "primereact/card";
 import nature from "assets/Report/Nature.svg";
@@ -77,7 +76,7 @@ const CityReportCard = () => {
       fontFamily: "Montserrat",
       fontWeight: 800,
       fontSize: 15,
-      padding: { bottom: 20 },
+      padding: { bottom: 10 },
     },
     axisY: {
       title: "Score",
@@ -95,7 +94,7 @@ const CityReportCard = () => {
     data: [
       {
         type: "column",
-        name: "Environment",
+        name: "Nature",
         color: "#26575D",
         showInLegend: true,
         dataPoints: categories.Environment.data.map((val, index) => ({
@@ -116,7 +115,7 @@ const CityReportCard = () => {
       },
       {
         type: "column",
-        name: "Governance",
+        name: "Adminstration",
         color: "#1F8297",
         showInLegend: true,
         dataPoints: categories.Governance.data.map((val, index) => ({
@@ -140,7 +139,7 @@ const CityReportCard = () => {
   };
 
   return (
-    <div className="flex flex-column p-5 gap-4 sec-theme">
+    <div className="flex flex-column p-4 gap-4 sec-theme">
       <div className="flex justify-content-around gap-4">
         {/* First Card */}
         <Card

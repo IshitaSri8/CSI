@@ -8,8 +8,8 @@ const KnowYourCity = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="p-5">
-      <h1 className="text-center text-theme text-5xl">Know your city</h1>
+    <div className="p-2">
+      <h1 className="text-center text-theme text-3xl">Know your city</h1>
       <TabView
         activeIndex={activeTab}
         onTabChange={(e) => setActiveTab(e.index)}

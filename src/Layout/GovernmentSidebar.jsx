@@ -18,28 +18,14 @@ import Healthcare from "components/Dashboards/Healthcare";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
-  //   const [aqiValue, setAqiValue] = useState(null);
-  //   const [pm25Value, setPM25Value] = useState(null);
-  //   const [pm10Value, setPM10Value] = useState(null);
-  //   const [tempValue, setTempValue] = useState(null);
-  //   const [humidityValue, setHumidityValue] = useState(null);
   const [visible, setVisible] = useState(false);
   const [activeSections, setActiveSections] = useState({
     environment: false,
     knowYourCity: false,
     cityReportCard: false,
-    society: false,
+    social: false,
   });
 
-  //   const handleAqiData = (data) => {
-  //     setAqiValue(data.aqiValue);
-  //     setPM25Value(data.pm25Value);
-  //     setPM10Value(data.pm10Value);
-  //   };
-  //   const handleTempData = (data) => {
-  //     setTempValue(data.tempValue);
-  //     setHumidityValue(data.humidityValue);
-  //   };
   const toggleSection = (section) => {
     setActiveSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
@@ -63,7 +49,7 @@ const GovernmentSidebar = () => {
           style={{
             width: "6rem", // Adjust the width for the collapsed sidebar
             backgroundColor: "#003940",
-            height: "100vh",
+            height: "100%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -74,32 +60,52 @@ const GovernmentSidebar = () => {
           <Button
             icon="pi pi-search"
             onClick={() => handleTabClick("kyc")}
+            tooltip="Know your city"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           <Button
             icon="pi pi-file"
             onClick={() => handleTabClick("cityReportCard")}
+            tooltip="City Report Card"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           <Button
             icon="pi pi-globe"
             onClick={() => handleTabClick("environment")}
+            tooltip="Environment"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           <Button
             icon="pi pi-users"
             onClick={() => handleTabClick("society")}
+            tooltip="Society"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
-          {/* Bottom-right toggle button */}
+
           <Button
-            icon="pi pi-angle-double-right"
+            icon="pi pi-sign-out"
             onClick={() => setVisible(true)}
             style={{
               backgroundColor: "#166c7d",
               position: "fixed",
+              bottom: "5rem",
+              left: "1.5rem",
+            }}
+            tooltip="Logout"
+          />
+
+          {/* Bottom-right toggle button */}
+          <i
+            className="pi pi-angle-double-right"
+            onClick={() => setVisible(true)}
+            style={{
+              color: "white",
+              position: "fixed",
               bottom: "20px",
-              left: "1rem",
+              left: "4rem",
+              fontSize: "1rem",
+              cursor: "pointer",
+              //   border: "1px solid white",
             }}
           />
         </div>
@@ -138,6 +144,7 @@ const GovernmentSidebar = () => {
               >
                 <i className="pi pi-compass mr-2 text-xl text-white"></i>
                 <span className="font-medium text-white">Know Your City</span>
+
                 <Ripple />
               </div>
             </li>
@@ -296,14 +303,16 @@ const GovernmentSidebar = () => {
           </ul>
 
           {/* Bottom-right toggle button for the full sidebar */}
-          <Button
-            icon="pi pi-angle-double-left"
+          <i
+            className="pi pi-angle-double-left"
             onClick={() => setVisible(false)}
             style={{
-              backgroundColor: "#166c7d",
+              color: "white",
+              cursor: "pointer",
+              fontSize: "1rem",
               position: "fixed",
               bottom: "20px",
-              left: "15rem",
+              left: "17rem",
             }}
           />
         </div>
