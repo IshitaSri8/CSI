@@ -1,26 +1,21 @@
 import React, { useRef, useState } from "react";
 import { Button } from "primereact/button";
-import { Card } from "primereact/card";
+
 import "primeflex/primeflex.css";
 import MySvgImage from "../assets/Landing_page.svg";
 import CSISteps from "../components/landingPage/CSISteps";
 import Testimonials from "../components/landingPage/Testimonials";
 import Footer from "../components/landingPage/Footer";
-import FAQ from "../components/landingPage/FAQ";
-import { Divider } from "primereact/divider";
 import CSIVideo from "../components/landingPage/CSIVideo";
-import { useNavigate } from "react-router-dom";
 import Questions from "../components/landingPage/Questions";
-import Chatbot from "../components/Citizen/Chatbot";
+
 import UserDialog from "../components/landingPage/UserDialog";
-import Header from "../components/landingPage/Header";
+import Header from "../Layout/Header";
 import Parameters from "../components/landingPage/Parameters";
 import FAQChatbot from "../components/landingPage/FAQChatbot";
 
 // Main LandingScreen component
 const LandingScreen = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
-
   // Create a reference for the target div
   const csiStepsRef = useRef(null);
 

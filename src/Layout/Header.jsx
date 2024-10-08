@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Menubar } from "primereact/menubar";
 import { Button } from "primereact/button";
-import Arahas from "../../assets/arahas_logo.png";
+import Arahas from "assets/arahas_logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import CitizenDialog from "./CitizenDialog";
-import GovernmentDialog from "./GovernmentDialog";
+import CitizenDialog from "../components/landingPage/CitizenDialog";
+import GovernmentDialog from "../components/landingPage/GovernmentDialog";
 
 const Header = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -22,16 +22,16 @@ const Header = () => {
     >
       <span
         className={`${item.icon}  ${
-          isActive(item.path) ? "icon-active" : "disabled"
+          isActive(item.path) ? "icon-active" : "text-600"
         }`}
       />
-      <h1
-        className={`ml-2 mr-4 my-3 text-lg p-0 ${
-          isActive(item.path) ? "text-active" : "disabled"
+      <p
+        className={`ml-2 mr-4 my-2 text-lg font-medium p-0 ${
+          isActive(item.path) ? "text-active" : "text-600"
         }`}
       >
         {item.label}
-      </h1>
+      </p>
     </div>
   );
 
@@ -79,7 +79,15 @@ const Header = () => {
       label: "Resources",
       icon: "pi pi-receipt",
       template: itemRenderer,
-      // path: "/ourwork",
+      command: () => {
+        const link = document.createElement("a");
+        link.href = "/sample.pdf";
+        link.download = "sample.pdf"; // Force download
+        link.click();
+      },
+      // command: () => {
+      //   window.open("/example.pptx", "_blank"); // Opens the PPT file in a new tab
+      // },
     },
   ];
 

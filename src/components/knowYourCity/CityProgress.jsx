@@ -1,11 +1,7 @@
 import React from "react";
 import { Card } from "primereact/card";
-import CanvasJSReact from "@canvasjs/react-charts";
 import "primeflex/primeflex.css";
-
-// Importing the CanvasJS library
-const CanvasJS = CanvasJSReact.CanvasJS;
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+import { DonutChart } from "components/GraphVisuals";
 
 const CityProgress = () => {
   const wasteGenerationData = {
@@ -30,39 +26,6 @@ const CityProgress = () => {
       "Others",
     ],
     series: [15343985, 2541529, 144440, 4675, 2100829],
-  };
-
-  // Function to create a DonutChart
-  const renderDonutChart = (data) => {
-    const options = {
-      animationEnabled: true,
-      title: {
-        text: data.title,
-        fontSize: 12,
-        fontFamily: "DM Sans",
-        fontWeight: "800",
-      },
-      height: 200,
-      width: 300,
-      data: [
-        {
-          type: "doughnut",
-          startAngle: 60,
-
-          toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-          showInLegend: false,
-          indexLabelFontSize: 8,
-          // color: colors,
-          indexLabel: "{label} - #percent%",
-          dataPoints: data.labels.map((label, index) => ({
-            y: data.series[index],
-            label: label,
-          })),
-        },
-      ],
-    };
-
-    return <CanvasJSChart options={options} />;
   };
 
   const cardData = [
@@ -100,28 +63,16 @@ const CityProgress = () => {
 
   return (
     <div className="flex flex-column p-5 gap-4">
-      {/* First Row: Cards */}
       <div className="flex gap-4 flex-wrap">
-        {cardData.map((card, index) => (
-          <Card
-            key={index}
-            title={card.title}
-            className="mb-4 h-8rem"
-            style={{
-              backgroundColor: "white",
-              border: "2px solid #166C7D",
-              color: "black",
-              flex: "1 1 calc(33.33% - 1rem)",
-            }} // Adjust to fit three cards in one row
-          >
-            {card.content.map((item, idx) => (
-              <p style={{ marginTop: -10 }} key={idx}>
-                {item}
-              </p>
-            ))}
-            <p style={{ marginTop: -10 }}>Source: {card.source}</p>
-          </Card>
-        ))}
+        <Card>
+          <p>Garbage Free City</p>
+          <p>
+          Ministry of Housing and Urban Affairs
+          </p>
+          <p>
+          Ministry of Housing and Urban Affairs
+          </p>
+        </Card>
       </div>
 
       {/* Third Row: Donut Charts */}
@@ -134,7 +85,7 @@ const CityProgress = () => {
             color: "black",
           }}
         >
-          {renderDonutChart(wasteGenerationData)}
+          {DonutChart(wasteGenerationData)}
           <p>Source: Ayodhya Industrial Dept 2020</p>
         </Card>
 
@@ -147,7 +98,7 @@ const CityProgress = () => {
             flex: "1 1 calc(33.33% - 1rem)",
           }}
         >
-          {renderDonutChart(solidWasteProcessedData)}
+          {DonutChart(solidWasteProcessedData)}
           <p>Source: Swachh Bharat Mission</p>
         </Card>
 
@@ -160,7 +111,7 @@ const CityProgress = () => {
             flex: "1 1 calc(33.33% - 1rem)",
           }}
         >
-          {renderDonutChart(electricityConsumptionData)}
+          {DonutChart(electricityConsumptionData)}
           <p>Source: Vidyut Vibhag Ayodhya</p>
         </Card>
       </div>

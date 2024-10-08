@@ -7,27 +7,30 @@ import LandingScreen from "./pages/LandingScreen";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Citizen from "./pages/Citizen";
 import KnowYourCity from "./pages/KnowYourCity";
-import UserDialog from "./components/landingPage/UserDialog";
-import AboutUs from "./pages/AboutUs";
-import OurWork from "./pages/OurWork";
 import Government from "./pages/Government";
 import CityReportCard from "./pages/CityReportCard";
-import AqiDashboard from "../src/components/Dashboards/Environment/AQI/AqiDashboard";
-import TempDashboard from "../src/components/Dashboards/Environment/Temperature/TempDashboard";
-import RainDashboard from "../src/components/Dashboards/Environment/Rain/RainDashboard";
-import WaterDashboard from "../src/components/Dashboards/Environment/Water/WaterDashboard";
-import LandDashboard from "../src/components/Dashboards/Environment/Land/LandDashboard";
-import WasteDashboard from "../src/components/Dashboards/Environment/Waste/WasteDashboard";
-
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import CitySidebar from "pages/CitySidebar";
-import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
-import Healthcare from "components/Dashboards/Healthcare";
+import GovernmentSidebar from "Layout/GovernmentSidebar";
+import CityProgress from "components/knowYourCity/CityProgress";
+import CitizenSidebar from "Layout/CitizenSidebar";
+// import AqiDashboard from "../src/components/Dashboards/Environment/AQI/AqiDashboard";
+// import TempDashboard from "../src/components/Dashboards/Environment/Temperature/TempDashboard";
+// import RainDashboard from "../src/components/Dashboards/Environment/Rain/RainDashboard";
+// import WaterDashboard from "../src/components/Dashboards/Environment/Water/WaterDashboard";
+// import LandDashboard from "../src/components/Dashboards/Environment/Land/LandDashboard";
+// import WasteDashboard from "../src/components/Dashboards/Environment/Waste/WasteDashboard";
 
 // Layout component that includes CitySidebar
-const SidebarLayout = ({ children }) => (
+const CitizenSidebarLayout = ({ children }) => (
   <div className="layout-container">
-    <CitySidebar />
+    <CitizenSidebar />
+    {/* <div className="content-container">{children}</div> */}
+  </div>
+);
+
+const GovernmentSidebarLayout = ({ children }) => (
+  <div className="layout-container">
+    <GovernmentSidebar />
     {/* <div className="content-container">{children}</div> */}
   </div>
 );
@@ -42,20 +45,31 @@ function App() {
       <Route path="/" element={<LandingScreen />} />
       <Route path="/citizens" element={<Citizen />} />
       {/* <Route path="/kyc" element={<KnowYourCity />} /> */}
-      <Route path="/aboutus" element={<AboutUs />} />
-      <Route path="/ourwork" element={<OurWork />} />
+      {/* <Route path="/aboutus" element={<AboutUs />} />
+      <Route path="/ourwork" element={<OurWork />} /> */}
       <Route path="/government" element={<Government />} />
       <Route path="/report-card" element={<CityReportCard />} />
+
+      <Route path="/city" element={<CityProgress />} />
+
       {/* Routes with Sidebar */}
       <Route
-        path="/kyc"
+        path="/g-kyc"
         element={
-          <SidebarLayout>
+          <GovernmentSidebarLayout>
             <KnowYourCity />
-          </SidebarLayout>
+          </GovernmentSidebarLayout>
         }
       />
-      <Route path="/admin" element={<CitySidebar />} />
+
+      <Route
+        path="/c-kyc"
+        element={
+          <CitizenSidebarLayout>
+            <KnowYourCity />
+          </CitizenSidebarLayout>
+        }
+      />
     </Routes>
   );
 }

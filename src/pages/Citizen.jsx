@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/landingPage/Header";
+import Header from "../Layout/Header";
 import Chatbot from "../components/Citizen/Chatbot";
 import Laptop from "../assets/laptop.png";
 import { Tag } from "primereact/tag";
@@ -19,7 +19,7 @@ const Citizen = () => {
       <Header />
 
       <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
-        <img src={citizen} alt="citizen" className="w-screen " />
+        <img src={citizen} alt="citizen" className="w-screen" />
         <div
           className="border-round-xl m-0 mb-5 p-0"
           style={{

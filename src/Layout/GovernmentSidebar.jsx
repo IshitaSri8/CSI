@@ -3,26 +3,20 @@ import { Sidebar } from "primereact/sidebar";
 import { Ripple } from "primereact/ripple";
 import { Button } from "primereact/button";
 import "../components/landingPage/Landing.css";
-import CityDemographics from "components/knowYourCity/CityDemographics";
-import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
-import TempDashboard from "components/Dashboards/Environment/Temperature/TempDashboard";
-import LandDashboard from "components/Dashboards/Environment/Land/LandDashboard";
-import RainDashboard from "components/Dashboards/Environment/Rain/RainDashboard";
-import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboard";
-import Waste from "components/Dashboards/Environment/Waste/WasteDashboard";
-import CityReportCard from "./CityReportCard";
+
+import CityReportCard from "../pages/CityReportCard";
 import AQI from "components/Dashboards/Environment/AQI/AQI";
 import TempMain from "components/Dashboards/Environment/Temperature/TempMain";
 import RainMain from "components/Dashboards/Environment/Rain/RainMain";
 import LandMain from "components/Dashboards/Environment/Land/LandMain";
 import WaterMain from "components/Dashboards/Environment/Water/WaterMain";
 import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
-import HeaderLogout from "components/HeaderLogout";
-import KnowYourCity from "./KnowYourCity";
+// import HeaderLogout from "components/HeaderLogout";
+import KnowYourCity from "../pages/KnowYourCity";
 import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Healthcare";
-import { Tooltip } from "primereact/tooltip";
 
+<<<<<<< HEAD:src/pages/CitySidebar.jsx
 const CitySidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
   const [aqiValue, setAqiValue] = useState(null);
@@ -30,6 +24,10 @@ const CitySidebar = () => {
   const [pm10Value, setPM10Value] = useState(null);
   const [tempValue, setTempValue] = useState(null);
   const [humidityValue, setHumidityValue] = useState(null);
+=======
+const GovernmentSidebar = () => {
+  const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
+>>>>>>> 223d1167b80b3bec77870aa0440a99874eadf60d:src/Layout/GovernmentSidebar.jsx
   const [visible, setVisible] = useState(false);
   const [activeSections, setActiveSections] = useState({
     environment: false,
@@ -38,15 +36,6 @@ const CitySidebar = () => {
     social: false,
   });
 
-  //   const handleAqiData = (data) => {
-  //     setAqiValue(data.aqiValue);
-  //     setPM25Value(data.pm25Value);
-  //     setPM10Value(data.pm10Value);
-  //   };
-  //   const handleTempData = (data) => {
-  //     setTempValue(data.tempValue);
-  //     setHumidityValue(data.humidityValue);
-  //   };
   const toggleSection = (section) => {
     setActiveSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
@@ -343,17 +332,25 @@ const CitySidebar = () => {
       <div className="content" style={{ marginLeft: "6rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCard />}
-        {activeTab === "aqi" && <AQI />}
-        {activeTab === "temperature" && <TempMain />}
-        {activeTab === "land" && <LandMain />}
-        {activeTab === "rain" && <RainMain />}
-        {activeTab === "water" && <WaterMain />}
-        {activeTab === "waste" && <WasteMain />}
-        {activeTab === "transport" && <TransportDashboard />}
-        {activeTab === "healthcare" && <Healthcare />}
+        {activeTab === "environment" && (
+          <>
+            {activeTab === "aqi" && <AQI />}
+            {activeTab === "temperature" && <TempMain />}
+            {activeTab === "rain" && <RainMain />}
+            {activeTab === "land" && <LandMain />}
+            {activeTab === "water" && <WaterMain />}
+            {activeTab === "waste" && <WasteMain />}
+          </>
+        )}
+        {activeTab === "society" && (
+          <>
+            {activeTab === "transport" && <TransportDashboard />}
+            {activeTab === "healthcare" && <Healthcare />}
+          </>
+        )}
       </div>
     </div>
   );
 };
 
-export default CitySidebar;
+export default GovernmentSidebar;

@@ -1,7 +1,5 @@
-import { Button } from "primereact/button";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import Header from "components/landingPage/Header";
+import Header from "Layout/Header";
 import Laptop from "../assets/laptop.png";
 import { Tag } from "primereact/tag";
 import Screen from "../assets/screen.png";
@@ -14,7 +12,6 @@ import indicator from "../assets/indicator.png";
 import government from "../assets/government.png";
 
 const Government = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
   return (
     <div className="flex flex-column w-full">
       {/* Header */}
