@@ -11,6 +11,9 @@ import SpaIcon from "@mui/icons-material/Spa";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import citizen from "../assets/citizen_bg.jpg";
+import report_ss from "assets/report_ss.png";
+import trend_ss from "assets/trend_ss.png";
+import kyc_ss from "assets/kyc_ss.png";
 
 const Citizen = () => {
   return (
@@ -79,10 +82,11 @@ const Citizen = () => {
               }}
             />
             <img
-              src={Screen}
+              src={kyc_ss}
               alt="Small"
               style={{
                 width: "30rem",
+                height: "19rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
@@ -197,10 +201,11 @@ const Citizen = () => {
               }}
             />
             <img
-              src={Screen}
+              src={report_ss}
               alt="Small"
               style={{
                 width: "30rem",
+                height: "19rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
@@ -235,10 +240,11 @@ const Citizen = () => {
               }}
             />
             <img
-              src={Screen}
+              src={trend_ss}
               alt="Small"
               style={{
                 width: "30rem",
+                height: "19rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",

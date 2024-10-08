@@ -10,7 +10,10 @@ import kyc from "../assets/kyc.png";
 import crc from "../assets/crc.png";
 import indicator from "../assets/indicator.png";
 import government from "../assets/government.png";
-
+import report_ss from "assets/report_ss.png";
+import trend_ss from "assets/trend_ss.png";
+import kyc_ss from "assets/kyc_ss.png";
+import indicator_ss from "assets/aqi_ss.png";
 const Government = () => {
   return (
     <div className="flex flex-column w-full">
@@ -63,11 +66,12 @@ const Government = () => {
               }}
             />
             <img
-              src={Screen}
+              src={kyc_ss}
               alt="Small"
               style={{
                 width: "30rem",
                 position: "absolute",
+                height: "19rem",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-75%, -55%)",
@@ -157,11 +161,12 @@ const Government = () => {
               }}
             />
             <img
-              src={Screen}
+              src={report_ss}
               alt="Small"
               style={{
                 width: "30rem",
                 position: "absolute",
+                height: "19rem",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -55%)",
@@ -195,11 +200,12 @@ const Government = () => {
               }}
             />
             <img
-              src={Screen}
+              src={indicator_ss}
               alt="Small"
               style={{
                 width: "30rem",
                 position: "absolute",
+                height: "19rem",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -55%)",

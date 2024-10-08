@@ -8,8 +8,8 @@ const KnowYourCity = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="p-2">
-      <h1 className="text-theme text-3xl text-left w-full justify-content-start">
+    <div className="px-2">
+      <h1 className="text-theme text-2xl text-left w-full justify-content-start m-0 p-3">
         Know your city
       </h1>
       <TabView

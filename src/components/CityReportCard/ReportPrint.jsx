@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { useReactToPrint } from "react-to-print";
@@ -10,9 +10,18 @@ import Recommendations from "./Recommendations";
 export default function ReportPrint({ visible, toggleModalVisibility }) {
   const contentRef = useRef(null);
 
+  // Set up the print function using react-to-print
   const handlePrint = useReactToPrint({
     content: () => contentRef.current,
-    bodyClass: "p-2",
+    pageStyle: `
+      @media print {
+        @page { margin: 20mm; }
+      }
+      body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+      .print-container { padding: 20px; }
+      .text-theme { color: #007bff; }
+      .text-900 { color: #333; }
+    `,
   });
 
   const handleExport = async () => {
@@ -70,7 +79,7 @@ export default function ReportPrint({ visible, toggleModalVisibility }) {
             <Report />
           </div>
           <div className="w-full">
-          <h1 className="m-0 p-0 text-900 mb-4 text-2xl"> Recommendations </h1>
+            <h1 className="m-0 p-0 text-900 mb-4 text-2xl">Recommendations</h1>
             <Recommendations />
           </div>
         </div>
@@ -80,14 +89,14 @@ export default function ReportPrint({ visible, toggleModalVisibility }) {
           label="Print"
           icon="pi pi-print"
           size="small"
-          className="p-button-secondary mr-2"
-          onClick={handlePrint}
+          className="bg-cyan-700 mr-2"
+          onClick={handlePrint} // Call the print function from react-to-print
         />
         <Button
           label="Export as PDF"
           icon="pi pi-file-export"
           size="small"
-          className="p-button-success"
+          className="bg-cyan-800"
           onClick={handleExport}
         />
       </div>
