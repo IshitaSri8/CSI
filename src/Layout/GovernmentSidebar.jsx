@@ -16,18 +16,8 @@ import KnowYourCity from "../pages/KnowYourCity";
 import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Healthcare";
 
-<<<<<<< HEAD:src/pages/CitySidebar.jsx
-const CitySidebar = () => {
-  const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
-  const [aqiValue, setAqiValue] = useState(null);
-  const [pm25Value, setPM25Value] = useState(null);
-  const [pm10Value, setPM10Value] = useState(null);
-  const [tempValue, setTempValue] = useState(null);
-  const [humidityValue, setHumidityValue] = useState(null);
-=======
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
->>>>>>> 223d1167b80b3bec77870aa0440a99874eadf60d:src/Layout/GovernmentSidebar.jsx
   const [visible, setVisible] = useState(false);
   const [activeSections, setActiveSections] = useState({
     environment: false,

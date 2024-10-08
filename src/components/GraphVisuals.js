@@ -42,14 +42,8 @@ export const DonutChart = ({ title, labels, series, height, width }) => {
         startAngle: 60,
         showInLegend: true,
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-<<<<<<< HEAD
-        showInLegend: false,
-        indexLabelFontSize: 8,
 
-=======
-        indexLabelPlacement: "inside",
         indexLabelFontColor: "transparent",
->>>>>>> 223d1167b80b3bec77870aa0440a99874eadf60d
         color: colors,
         legendText: "{label}- #percent%",
         dataPoints: series.map((value, index) => ({
