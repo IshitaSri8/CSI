@@ -10,6 +10,13 @@ import Climate from "assets/Report/Climate quality.svg";
 import Water from "assets/Report/Water Management.svg";
 import Fire from "assets/Report/Fire & energy.svg";
 import CanvasJSReact from "@canvasjs/react-charts";
+import transport from "assets/Report/transport.svg";
+import Healthcare from "assets/Report/Healthcare.svg";
+import Housing from "assets/Report/Housing.svg";
+import Cultural from "assets/Report/Cultural preservation.svg";
+import AntiCorruption from "assets/Report/Anti corruption.svg";
+import GovtPol from "assets/Report/Government policies.svg";
+import HumanRights from "assets/Report/Human Rights.svg";
 
 const CityReportCard = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -189,16 +196,16 @@ const CityReportCard = () => {
         >
           {hoveredIndex === 1 ? (
             <p className="font-semibold text-sm text-900">
-              <img src={AirQuality} alt="nature" className="w-1.5rem mr-3" />
+              <img src={Housing} alt="nature" className="w-1.5rem mr-2" />
               Housing
               <br />
-              <img src={Water} alt="nature" className="w-1.5rem mr-3" />
+              <img src={Healthcare} alt="nature" className="w-1.5rem mr-2" />
               Healthcare
               <br />
-              <img src={Fire} alt="nature" className="w-1.5rem mr-3" />
+              <img src={transport} alt="nature" className="w-1.5rem mr-2" />
               Transport
               <br />
-              <img src={Earth} alt="nature" className="w-1.5rem mr-3" />
+              <img src={Cultural} alt="nature" className="w-1.5rem mr-2" />
               Cultural presentation
             </p>
           ) : (
@@ -243,13 +250,13 @@ const CityReportCard = () => {
             //   </li>
             // </ul>
             <p className="font-semibold text-sm text-900">
-              <img src={AirQuality} alt="nature" className="w-1.5rem mr-3" />
+              <img src={GovtPol} alt="nature" className="w-1.5rem mr-3" />
               Government Schemes
               <br />
-              <img src={Water} alt="nature" className="w-1.5rem mr-3" />
+              <img src={AntiCorruption} alt="nature" className="w-1.5rem mr-3" />
               Anti-corruption
               <br />
-              <img src={Fire} alt="nature" className="w-1.5rem mr-3" />
+              <img src={HumanRights} alt="nature" className="w-1.5rem mr-3" />
               Human Rights
             </p>
           ) : (
@@ -313,7 +320,7 @@ const CityReportCard = () => {
       </div>
       <div className="flex">
         <div
-          className="flex flex-column p-2 border-round-lg"
+          className="flex flex-column p-2 border-round-2xl"
           style={{ flex: "70%" }}
         >
           <CanvasJSReact.CanvasJSChart options={options} />

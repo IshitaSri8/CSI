@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Menubar } from "primereact/menubar";
 import { Button } from "primereact/button";
 import Arahas from "../../assets/arahas_logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
+import CitizenDialog from "./CitizenDialog";
+import GovernmentDialog from "./GovernmentDialog";
 
 const Header = () => {
   const navigate = useNavigate(); // Initialize useNavigate
   const location = useLocation(); // Get the current route
+  const [citizenDialogVisible, setCitizenDialogVisible] = useState(false);
+  const [governmentDialogVisible, setGovernmentDialogVisible] = useState(false);
 
   // Function to check if the menu item is active
   const isActive = (path) => location.pathname === path;
@@ -18,12 +22,12 @@ const Header = () => {
     >
       <span
         className={`${item.icon}  ${
-          isActive(item.path) ? "icon-active" : "text-theme"
+          isActive(item.path) ? "icon-active" : "disabled"
         }`}
       />
       <h1
         className={`ml-2 mr-4 my-3 text-lg p-0 ${
-          isActive(item.path) ? "text-active" : "text-grey"
+          isActive(item.path) ? "text-active" : "disabled"
         }`}
       >
         {item.label}
@@ -83,27 +87,55 @@ const Header = () => {
   const showSignInButton =
     location.pathname === "/citizens" || location.pathname === "/government";
 
+  // Handle the "Sign in" button click based on the path
+  const handleSignInClick = () => {
+    if (location.pathname === "/citizens") {
+      setCitizenDialogVisible(true);
+    } else if (location.pathname === "/government") {
+      setGovernmentDialogVisible(true);
+    }
+  };
+
   const start = (
     <img className="mr-auto w-3 ml-1" src={Arahas} alt="Arahas Logo" />
   );
 
   const end = showSignInButton ? (
-    <Button label="Sign in" icon="pi pi-user" className="bg-theme p-ml-auto" />
+    <Button
+      label="Sign in"
+      icon="pi pi-user"
+      className="bg-theme p-ml-auto"
+      onClick={handleSignInClick}
+    />
   ) : null; // Show button only for specific routes
 
   return (
-    <Menubar
-      model={items}
-      start={start}
-      end={end}
-      className="flex sec-theme align-items-center "
-      style={{
-        position: "fixed",
-        top: 0,
-        width: "100%",
-        zIndex: 1000,
-      }}
-    />
+    <>
+      <Menubar
+        model={items}
+        start={start}
+        end={end}
+        className="flex sec-theme align-items-center "
+        style={{
+          position: "fixed",
+          top: 0,
+          width: "100%",
+          zIndex: 1000,
+        }}
+      />
+
+      {/* Citizen Sign-In Dialog */}
+      <CitizenDialog
+        visible={citizenDialogVisible}
+        onHide={() => setCitizenDialogVisible(false)}
+      />
+
+      {/* Government Sign-In Dialog */}
+      <GovernmentDialog
+        visible={governmentDialogVisible}
+        onHide={() => setGovernmentDialogVisible(false)}
+      />
+    </>
   );
 };
 

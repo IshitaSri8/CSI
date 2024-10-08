@@ -29,7 +29,7 @@ export const DonutChart = ({ title, labels, series, height, width }) => {
     title: {
       text: title,
       fontSize: 12,
-      fontFamily: "DM Sans",
+      fontFamily: "Montserrat",
       fontWeight: "800",
     },
     data: [
@@ -65,9 +65,9 @@ export const Doughnut = ({ title, labels, series, height }) => {
     animationEnabled: true,
     title: {
       text: title,
-      fontSize: 12,
-      fontFamily: "DM Sans",
-      fontWeight: "800",
+      fontSize: 10,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
     },
     data: [
       {
@@ -76,10 +76,11 @@ export const Doughnut = ({ title, labels, series, height }) => {
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
         showInLegend: false,
         color: colors,
-        indexLabel: "{label} - #percent%",
-        indexLabelFontSize: 9,
-        indexLabelFontFamily: "DM Sans",
-        indexLabelFontWeight: 700,
+
+        // indexLabel: "{label} - #percent%",
+        indexLabelFontSize: 7,
+        indexLabelFontFamily: "Montserrat",
+        indexLabelFontWeight: 500,
         dataPoints: series.map((value, index) => ({
           y: value,
           label: labels[index],
@@ -121,7 +122,7 @@ export const GroupedBarChart = ({
         title: {
           text: title,
           fontSize: 12,
-          fontFamily: "DM Sans",
+          fontFamily: "Montserrat",
           fontWeight: titleOptions.fontWeight || "bold",
           color: titleOptions.color || "#333",
           horizontalAlign: titleOptions.align || "center",
@@ -254,7 +255,7 @@ export const ParetoChart = ({
       text: title,
       fontSize: 13,
       fontWeight: "800",
-      fontFamily: "DM Sans",
+      fontFamily: "Montserrat",
     },
     axisX: {
       title: xtitle,
@@ -351,7 +352,6 @@ export const PieChart = ({ title, labels, series, height }) => {
     <div className="z-index-low">
       <CanvasJSChart
         options={{
-          height: height,
           animationEnabled: true,
           title: {
             text: title,
@@ -367,7 +367,7 @@ export const PieChart = ({ title, labels, series, height }) => {
               type: "pie",
               startAngle: 75,
               toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-              showInLegend: true,
+              showInLegend: false,
               legendText: "{label}",
               indexLabelFontSize: 8,
               indexLabelFontWeight: "bold",
@@ -380,6 +380,7 @@ export const PieChart = ({ title, labels, series, height }) => {
             },
           ],
         }}
+        containerProps={{ height: height, width: "100%" }}
       />
     </div>
   );
@@ -524,7 +525,7 @@ export const CustomBarChart = ({
     title: {
       text: title,
       fontSize: 12,
-      fontFamily: "DM Sans",
+      fontFamily: "Montserrat",
       fontWeight: "800",
     },
     axisX: {
