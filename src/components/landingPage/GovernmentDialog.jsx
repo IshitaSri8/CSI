@@ -12,7 +12,7 @@ const GovernmentDialog = ({ visible, onHide }) => {
   const [message, setMessage] = useState(""); // Message to display
 
    const defaultUsername = "admin"; 
-   const defaultPassword = "csi@arahas2024";
+   const defaultPassword = "2024";
 
   const handleSignIn = async () => {
     // Check if the entered username and password match the hardcoded credentials

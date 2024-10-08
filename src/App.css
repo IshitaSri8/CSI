@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 * {
-  font-family: "Montserrat", sans-serif !important;
+  font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 12px;
 }
 
 body {
-  background-color: #fcfcfc;
+  background-color: #f3f5f5;
   overflow-x: hidden;
 }
 
@@ -74,6 +74,10 @@ body {
   color: var(--text-color);
 }
 
+.text-primary {
+  color: var(--text-primary);
+}
+
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
   background-color: var(--theme-primary-color);
 }
@@ -96,11 +100,11 @@ body {
 }
 
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  background: #ffffff;
   border-color: var(--text-color-theme);
   color: var(--text-color-theme);
 }
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  background-color: transparent;
   color: #000;
   text-decoration: none;
 }
@@ -145,6 +149,11 @@ body {
   padding: 0;
 }
 
+.p-tabview .p-tabview-panels,
+.p-tabview-nav {
+  background: transparent;
+}
+
 /* .p-dialog .p-dialog-header {
   padding: 0 !important;
 }
@@ -162,3 +171,7 @@ body {
 .p-card-body {
   padding: 0;
 } */
+
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}

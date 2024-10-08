@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import "primereact/resources/themes/saga-orange/theme.css"; // Theme
+import "primereact/resources/themes/lara-light-teal/theme.css"; // Theme
 import "primereact/resources/primereact.min.css"; // Core CSS
-import "primeicons/primeicons.css"; // PrimeIcons
+import "primeicons/primeicons.css";
 import LandingScreen from "./pages/LandingScreen";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Citizen from "./pages/Citizen";
