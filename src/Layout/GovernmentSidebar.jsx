@@ -187,7 +187,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("aqi")}
                       onClick={() => handleTabClick("aqi")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
                     >
                       <i className="pi pi-cloud mr-2 text-xl text-white"></i>
                       <span className="font-medium text-white">AQI</span>
@@ -198,7 +198,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("temperature")}
                       onClick={() => handleTabClick("temperature")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
                     >
                       <i className="pi pi-sun mr-2 text-xl text-white"></i>
                       <span className="font-medium text-white">
@@ -211,7 +211,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("rain")}
                       onClick={() => handleTabClick("rain")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
                     >
                       <i className="pi pi-cloud mr-2 text-xl text-white"></i>
                       <span className="font-medium text-white">Rainfall</span>
@@ -222,7 +222,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("land")}
                       onClick={() => handleTabClick("land")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
                     >
                       <i className="pi pi-map mr-2 text-xl text-white"></i>
                       <span className="font-medium text-white">Land</span>
@@ -234,7 +234,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("water")}
                       onClick={() => handleTabClick("water")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
                     >
                       <i className="pi pi-cloud mr-2 text-xl text-white"></i>
                       <span className="font-medium text-white">Water</span>
@@ -245,7 +245,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("waste")}
                       onClick={() => handleTabClick("waste")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
                     >
                       <i className="pi pi-cloud mr-2 text-xl text-white"></i>
                       <span className="font-medium text-white">Waste</span>
@@ -280,7 +280,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("transport")}
                       onClick={() => handleTabClick("transport")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
                     >
                       <i className="pi pi-cloud mr-2 text-xl text-white"></i>
                       <span className="font-medium text-white">Transport</span>
@@ -291,7 +291,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("healthcare")}
                       onClick={() => handleTabClick("healthcare")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
                     >
                       <i className="pi pi-sun mr-2 text-xl text-white"></i>
                       <span className="font-medium text-white">Healthcare</span>

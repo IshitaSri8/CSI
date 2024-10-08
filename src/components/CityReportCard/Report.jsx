@@ -163,7 +163,7 @@ const CityReportCard = () => {
       <div className="flex justify-content-around gap-1">
         {/* First Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-full h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(0)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 0 ? "#A2DBBF" : "#ffffff" }}
@@ -179,7 +179,7 @@ const CityReportCard = () => {
               <img src={Fire} alt="nature" className="w-1.5rem mr-3" />
               Fire & Energy
               <br />
-              <img src={Earth} alt="nature" className="w-1.5rem mr-3" />
+              <img src={Earth} alt="nature" className="w-1.2rem mr-3" />
               Earth
               <br />
               <img src={Climate} alt="nature" className="w-1.5rem mr-3" />
@@ -210,6 +210,8 @@ const CityReportCard = () => {
         {/* Second Card */}
         {/* <Card
           className="flex align-items-center justify-content-between  w-full h-12rem"
+        <Card
+          className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(1)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 1 ? "#FFDD82" : "#ffffff" }}
@@ -313,7 +315,7 @@ const CityReportCard = () => {
         </Card>
         {/* Third Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-full h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(2)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 2 ? "#BAD8DF" : "#ffffff" }}
@@ -331,6 +333,8 @@ const CityReportCard = () => {
             //   </li>
             // </ul>
             <p className="font-semibold text-sm text-900">
+              <img src={GovtPol} alt="nature" className="w-1.2rem mr-3" />
+              Government Schemes
               <img src={GovtPol} alt="nature" className="w-1.5rem mr-3" />
               Transparency and Accountability
               <br />
@@ -368,7 +372,7 @@ const CityReportCard = () => {
 
         {/* Fourth Card */}
         <Card
-          className="flex align-items-center justify-content-between p-2 w-full h-12rem"
+          className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(3)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 3 ? "#F7A47A" : "#ffffff" }}

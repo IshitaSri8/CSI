@@ -6,7 +6,7 @@ import geo_area from "assets/KYC/geographical.png";
 import { Divider } from "primereact/divider";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Doughnut, PieChart } from "components/GraphVisuals";
+import { DonutChart, PieChart } from "components/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
 import "./KYC.css";
 
@@ -16,7 +16,7 @@ const CityDemographics = () => {
       <div className="flex align-items-center justify-content-center flex-row gap-4 w-full">
         {/* Geographical Overview Card */}
         <div
-          className="w-full shadow-2 p-3 border-round h-17rem bg-demographics"
+          className="w-full shadow-2 p-3 border-round h-auto bg-demographics"
           // style={{
           //   background: " linear-gradient(to left , #1F8297, #166C7D, #003940)",
           // }}
@@ -129,7 +129,7 @@ const CityDemographics = () => {
                   </p>
                 </div>
               </div>
-              <img src={waves} className="p-0" />
+              <img src={waves} className="p-0" alt="waves" />
               <div className="flex align-items-center justify-content-center flex-column mb-1">
                 <h1 className="p-1 m-0 text-xl text-white">4,65,206</h1>
                 <p className="p-1 m-0 text-white text-sm">Current Population</p>
@@ -137,7 +137,7 @@ const CityDemographics = () => {
             </div>{" "}
             <div className="flex align-items-center justify-content-center p-2 m-2 h-12rem  gap-2  flex-row  h-5rem bg-white border-round w-12rem">
               <div style={{ width: "11rem" }}>
-                <Doughnut
+                <DonutChart
                   title={"Sex Ratio"}
                   labels={["Male", "Female"]}
                   series={[1000, 980]}

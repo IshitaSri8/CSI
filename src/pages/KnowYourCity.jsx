@@ -3,6 +3,7 @@ import { TabView, TabPanel } from "primereact/tabview";
 
 import CityDemographics from "../components/knowYourCity/CityDemographics";
 import CityProgress from "../components/knowYourCity/CityProgress";
+import { Card } from "primereact/card";
 
 const KnowYourCity = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -16,7 +17,7 @@ const KnowYourCity = () => {
         activeIndex={activeTab}
         onTabChange={(e) => setActiveTab(e.index)}
       >
-        <TabPanel header="City Demographics" className="text-black">
+        <TabPanel header="City Demographics">
           <CityDemographics />
         </TabPanel>
         <TabPanel header="City Progress">
