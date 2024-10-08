@@ -24,15 +24,19 @@ const CityReportCard = () => {
   const categories = {
     Environment: {
       title: "Nature Metrics",
-      data: [10, 80, 30, 3, 50, 78, 70, 60, 90, 80, 110, 90],
+      data: [60, 40, 30, 70, 55, 65, 45, 50, 40, 75, 80, 60],
     },
     Social: {
       title: "Society Metrics",
-      data: [15, 5, 25, 45, 55, 95, 75, 85, 105, 87, 115, 65],
+      data: [68, 81, 58, 44, 72, 37, 50, 68, 87, 48, 52, 40],
     },
     Governance: {
       title: "Administration Metrics",
-      data: [20, 10, 80, 50, 60, 70, 76, 40, 10, 110, 180, 130],
+      data: [40, 53, 82, 65, 69, 53, 32, 51, 82, 31, 53, 73],
+    },
+    Overall: {
+      title: "Overall Score",
+      data: [56, 58, 57, 60, 65, 52, 42, 56, 70, 51, 62, 58],
     },
   };
 
@@ -88,6 +92,12 @@ const CityReportCard = () => {
       labelFontSize: 10,
       // labelFontFamily: "Montserrat",
     },
+
+    toolTip: {
+      shared: true,
+      cornerRadius: 4,
+    },
+
     height: 400,
     width: 720,
     dataPointWidth: 12,
@@ -105,7 +115,7 @@ const CityReportCard = () => {
       },
       {
         type: "column",
-        name: "Social",
+        name: "Society",
         color: "#FFDD82",
         showInLegend: true,
         dataPoints: categories.Social.data.map((val, index) => ({
@@ -115,10 +125,20 @@ const CityReportCard = () => {
       },
       {
         type: "column",
-        name: "Adminstration",
+        name: "Administration",
         color: "#1F8297",
         showInLegend: true,
         dataPoints: categories.Governance.data.map((val, index) => ({
+          label: months[index],
+          y: val,
+        })),
+      },
+      {
+        type: "line",
+        name: "Overall Score",
+        color: "red",
+        showInLegend: true,
+        dataPoints: categories.Overall.data.map((val, index) => ({
           label: months[index],
           y: val,
         })),
@@ -139,8 +159,8 @@ const CityReportCard = () => {
   };
 
   return (
-    <div className="flex flex-column p-4 gap-4 sec-theme">
-      <div className="flex justify-content-around gap-4">
+    <div className="flex flex-column p-4 gap-2 sec-theme">
+      <div className="flex justify-content-around gap-1">
         {/* First Card */}
         <Card
           className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
@@ -167,20 +187,20 @@ const CityReportCard = () => {
             </p>
           ) : (
             <div>
-              <div className="flex gap-8">
-                <div className="flex flex-column align-items-start">
+              <div className="flex flex-row align-items-start justify-content-between">
+                <div className="flex flex-column align-items-start justify-content-between">
                   <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
                     Nature
                   </h2>
                   <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
                 </div>
                 <div className="flex align-items-start justify-content-end ml-5">
-                  <img src={nature} alt="nature" className="w-5rem" />
+                  <img src={nature} alt="nature" className="w-4rem" />
                 </div>
               </div>
               <div>
                 <p className="text-sm">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  Sustaining our planets for future generations.
                 </p>
               </div>
             </div>
@@ -195,36 +215,37 @@ const CityReportCard = () => {
           style={{ background: hoveredIndex === 1 ? "#FFDD82" : "#ffffff" }}
         >
           {hoveredIndex === 1 ? (
-            <p className="font-semibold text-sm text-900">
-              <img src={Housing} alt="nature" className="w-1.5rem mr-2" />
-              Housing
+            <p className="font-semibold text-xs text-900 text-left">
+              <img src={Housing} alt="nature" className="w-1rem mr-2" />
+              City Planning
               <br />
-              <img src={Healthcare} alt="nature" className="w-1.5rem mr-2" />
-              Healthcare
+              <img src={Healthcare} alt="nature" className="w-1rem mr-2" />
+              Basic Services
               <br />
-              <img src={transport} alt="nature" className="w-1.5rem mr-2" />
-              Transport
+              <i className="pi pi-briefcase w-1rem mr-2" />
+              Employment Opportunities
               <br />
-              <img src={Cultural} alt="nature" className="w-1.5rem mr-2" />
-              Cultural presentation
+              <img src={Cultural} alt="nature" className="w-1rem mr-2" />
+              Cultural Preservation
+              <br />
+              <i className="pi pi-users w-1rem mr-1 " />
+              Community Engagement & Holistic Well-Being
             </p>
           ) : (
             <div>
-              <div className="flex gap-8">
-                <div className="flex flex-column align-items-start">
+              <div className="flex flex-row align-items-start justify-content-between">
+                <div className="flex flex-column align-items-start justify-content-between">
                   <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
                     Society
                   </h2>
-                  <p className="text-4xl font-bold text-theme mb-0 mt-1">70</p>
+                  <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
                 </div>
                 <div className="flex align-items-start justify-content-end ml-5">
-                  <img src={society} alt="society" className="w-5rem" />
+                  <img src={society} alt="nature" className="w-4rem" />
                 </div>
               </div>
               <div>
-                <p className="text-sm">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </p>
+                <p className="text-sm">Empowering change, enriching lives.</p>
               </div>
             </div>
           )}
@@ -252,29 +273,35 @@ const CityReportCard = () => {
             <p className="font-semibold text-sm text-900">
               <img src={GovtPol} alt="nature" className="w-1.2rem mr-3" />
               Government Schemes
+              <img src={GovtPol} alt="nature" className="w-1.5rem mr-3" />
+              Transparency and Accountability
               <br />
-              <img src={AntiCorruption} alt="nature" className="w-1.5rem mr-3" />
-              Anti-corruption
+              <img
+                src={AntiCorruption}
+                alt="nature"
+                className="w-1.5rem mr-3"
+              />
+              Ethical Leadership
               <br />
               <img src={HumanRights} alt="nature" className="w-1.5rem mr-3" />
-              Human Rights
+              Disaster Management
             </p>
           ) : (
             <div>
-              <div className="flex gap-3">
-                <div className="flex flex-column align-items-start">
+              <div className="flex flex-row align-items-start justify-content-between">
+                <div className="flex flex-column align-items-startjustify-content-between">
                   <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
                     Administration
                   </h2>
                   <p className="text-4xl font-bold text-theme mb-0 mt-1">60</p>
                 </div>
                 <div className="flex align-items-start justify-content-end">
-                  <img src={admin} alt="Admin" className="w-5rem" />
+                  <img src={admin} alt="Admin" className="w-4rem" />
                 </div>
               </div>
               <div>
                 <p className="text-sm">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  Empowering responsible administration for lasting impact.
                 </p>
               </div>
             </div>
@@ -298,7 +325,7 @@ const CityReportCard = () => {
             </div>
           ) : (
             <div>
-              <div className="flex">
+              <div className="flex flex-row align-items-start justify-content-between">
                 <div className="flex flex-column align-items-start">
                   <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
                     Overall Score
@@ -306,7 +333,7 @@ const CityReportCard = () => {
                   <p className="text-4xl font-bold text-theme mt-1 mb-0">70</p>
                 </div>
                 <div className="flex align-items-start justify-content-end ml-3">
-                  <img src={overall} alt="Overall Score" className="w-5rem" />
+                  <img src={overall} alt="Overall Score" className="w-4rem" />
                 </div>
               </div>
               <div>
@@ -324,7 +351,7 @@ const CityReportCard = () => {
           style={{ flex: "70%" }}
         >
           <Card className="border-round-xl">
-          <CanvasJSReact.CanvasJSChart options={options} />
+            <CanvasJSReact.CanvasJSChart options={options} />
           </Card>
         </div>
         <div className="flex flex-column pl-4" style={{ flex: "30%" }}>

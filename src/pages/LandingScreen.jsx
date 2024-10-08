@@ -119,7 +119,7 @@ const LandingScreen = () => {
               {
                 subheading: "Integration of ESG factors",
                 content:
-                  "The index incorporates three core dimensions—Environmental, Social, and Governance (ESG)—which are critical to determining the overall sustainability of a city.",
+                  "The index incorporates three core dimensions—Nature, Society, and Administration (NSA) —which are critical to determining the overall sustainability of a city.",
               },
               {
                 subheading: "Benchmarking performance",
@@ -181,7 +181,7 @@ const LandingScreen = () => {
               {
                 subheading: "Pinpoint areas for improvement",
                 content:
-                  "Cities can utilize the CSI platform to identify specific gaps in their sustainability performance across the environmental, social, and governance (ESG) dimensions, allowing for precise interventions.",
+                  "Cities can utilize the CSI platform to identify specific gaps in their sustainability performance across the nature, society, and administration (NSA) dimensions, allowing for precise interventions.",
               },
               {
                 subheading: "Gain in-depth insights",

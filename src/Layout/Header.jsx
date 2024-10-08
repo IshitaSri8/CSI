@@ -44,7 +44,7 @@ const Header = () => {
       command: () => navigate("/"),
     },
     {
-      label: "CSI for citizens",
+      label: "CSI for Citizens",
       icon: "pi pi-cog",
       template: itemRenderer,
       path: "/citizens",
@@ -72,7 +72,7 @@ const Header = () => {
       template: itemRenderer,
       // path: "/ourwork",
       command: () => {
-        window.location.href = "https://csi.arahas.com/csi"; // External redirect
+        window.location.href = "https://ayodhya.arahas.com/"; // External redirect
       },
     },
     {

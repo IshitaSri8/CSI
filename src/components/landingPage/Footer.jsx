@@ -105,7 +105,7 @@ const Footer = () => {
           <div className="flex align-items-center justify-content-start flex-row gap-3">
             <i className="pi pi-envelope text-orange-600 text-xl"></i>
             <h1 className="text-base p-0 m-0 text-left font-light">
-              business@arahas.com
+              contact@arahas.com
             </h1>
           </div>
           <div className="flex align-items-center justify-content-start flex-row gap-3">

@@ -110,10 +110,11 @@ const Government = () => {
               <p className="text-white text-xl mb-1">
                 Gain a comprehensive view of the city’s performance with
                 detailed city report. This report card allows officials to track
-                overall and dimension-specific performance via following:
+                overall and dimension-specific performance via Nature, Society
+                and Administration.
               </p>
               <br />
-              <Tag
+              {/* <Tag
                 className="mr-2 p-2"
                 style={{ backgroundColor: "#A1C4CB", color: "#00403C" }}
                 icon="pi pi-microsoft"
@@ -130,7 +131,7 @@ const Government = () => {
                 style={{ backgroundColor: "#A1C4CB", color: "#00403C" }}
                 icon="pi pi-file"
                 value="Report"
-              ></Tag>
+              ></Tag> */}
             </div>
           </div>
 

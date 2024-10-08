@@ -7,7 +7,7 @@ const CSIVideo = () => {
     <div className="relative w-full h-auto flex justify-content-center align-items-center px-10 m-6">
       {/* Video Section */}
       <video
-        src="https://arahas-website.s3.ap-south-1.amazonaws.com/Arahas+CSI+(2).mp4"
+        src="https://res.cloudinary.com/dsuflgnfi/video/upload/v1727949657/video/ebvtch3zeba4rcsywsrk.mp4"
         controls
         style={{
           width: "60%",

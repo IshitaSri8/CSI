@@ -9,7 +9,7 @@ const Parameters = () => {
     <div className="flex align-items-center justify-content-center flex-column px-8 gap-6">
       {/* Heading */}
       <h1 className="text-4xl text-theme text-center">
-        Parameters of City Sustainability Index
+        Dimensions of City Sustainability Index
       </h1>
 
       <div className="flex align-items-center justify-content-center flex-row gap-4 w-full px-8">
@@ -50,9 +50,7 @@ const Parameters = () => {
         >
           <div className="flex flex-column align-items-left justify-content-start ">
             <img src={Admin} alt="Admin" className="w-full" />
-            <h3 className="mx-6 text-3xl mb-0 text-900">
-              Administration
-            </h3>
+            <h3 className="mx-6 text-3xl mb-0 text-900">Administration</h3>
             <p className="mx-6 mb-5">
               Aspects under Administration look at how society polices itself,
               focusing on internal controls and methods to preserve compliance

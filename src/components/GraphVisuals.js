@@ -36,13 +36,14 @@ export const DonutChart = ({ title, labels, series, height, width, bgColor }) =>
     dataPointWidth: 12,
     data: [
       {
+        indexLabelPlacement: "inside",
         type: "doughnut",
         innerRadius: "70%", // Increase this value to decrease the thickness
         radius: "75%",
         startAngle: 60,
         showInLegend: true,
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-        indexLabelPlacement: "inside",
+
         indexLabelFontColor: "transparent",
         color: colors,
         legendText: "{label}- #percent%",
@@ -70,6 +71,53 @@ export const DonutChart = ({ title, labels, series, height, width, bgColor }) =>
         height: height,
         bgColor: bgColor,
       }}
+    />
+  );
+};
+export const Doughnut = ({ title, labels, series, height }) => {
+  const options = {
+    animationEnabled: true,
+    title: {
+      text: title,
+      fontSize: 10,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+    },
+    labels: labels,
+
+    data: [
+      {
+        type: "doughnut",
+        startAngle: 20,
+        toolTipContent: "<b>{label}</b>: {y} (#percent%)",
+        showInLegend: true,
+        color: colors,
+        indexLabelPlacement: "inside",
+        // indexLabel: "{label} - #percent%",
+        indexLabelFontSize: 0,
+        indexLabelFontColor: "white",
+        indexLabelFontFamily: "Montserrat",
+        indexLabelFontWeight: 500,
+
+        dataPoints: series.map((value, index) => ({
+          y: value,
+          label: labels[index],
+          legendText: labels[index],
+          color: colors[index % colors.length],
+        })),
+      },
+    ],
+    legend: {
+      fontSize: 10,
+      horizontalAlign: "center",
+      verticalAlign: "bottom",
+    },
+  };
+
+  return (
+    <CanvasJSChart
+      options={options}
+      containerProps={{ height: height, width: "100%" }}
     />
   );
 };
@@ -236,6 +284,7 @@ export const ParetoChart = ({
       title: ytitle,
       gridThickness: 0,
     },
+
     data: [
       {
         type: "column",

@@ -126,10 +126,12 @@ const Citizen = () => {
               <p className="text-white text-xl mb-1">
                 View your city's sustainability performance with an
                 easy-to-understand report card. This section breaks down the
-                overall CSI score into three dimensions—
+                overall CSI score into three dimensions— Nature, Society, and
+                Administration providing clarity on the city’s strengths and
+                areas needing improvement.
               </p>
-              <br />
-              <Tag
+
+              {/* <Tag
                 className="mr-2 p-2"
                 style={{ backgroundColor: "#5B98A4", color: "#00403C" }}
               >
@@ -167,12 +169,9 @@ const Citizen = () => {
                   }}
                 />
                 Administration
-              </Tag>
+              </Tag> */}
               <br />
-              <p className="text-white text-xl">
-                providing clarity on the city’s strengths and areas needing
-                improvement.
-              </p>
+              <p className="text-white text-xl"></p>
             </div>
           </div>
 
