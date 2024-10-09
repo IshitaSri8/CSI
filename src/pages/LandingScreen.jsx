@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Button } from "primereact/button";
 
 import "primeflex/primeflex.css";
-import MySvgImage from "../assets/Landing_page.svg";
+import MySvgImage from "../assets/Landing Page revised illustration 1.svg";
 import CSISteps from "../components/landingPage/CSISteps";
 import Testimonials from "../components/landingPage/Testimonials";
 import Footer from "../components/landingPage/Footer";
@@ -78,7 +78,7 @@ const LandingScreen = () => {
             className=""
             src={MySvgImage}
             alt="Landing Illustration"
-            style={{ width: "60rem" }}
+            style={{ width: "80rem" }}
           />
         </div>
         {/* <Divider /> */}
