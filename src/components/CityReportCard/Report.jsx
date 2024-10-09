@@ -22,7 +22,6 @@ import transparency from "assets/Report/Transparency and accountability.svg";
 import community from "assets/Report/Community engagement and holistic wellbeing.svg";
 import disaster from "assets/Report/disaster management.svg";
 import ethical from "assets/Report/ethical leadership.svg";
-import { Height } from "@mui/icons-material";
 
 const CityReportCard = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);

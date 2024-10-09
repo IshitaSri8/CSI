@@ -31,7 +31,7 @@ const CitizenSidebar = () => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab); // Set the clicked tab as active
-    setVisible(true); // Show the sidebar when a tab is clicked
+    setVisible(false); // Show the sidebar when a tab is clicked
   };
 
   const getTabStyle = (tab) => ({
