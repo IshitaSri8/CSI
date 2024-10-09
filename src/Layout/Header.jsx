@@ -35,6 +35,14 @@ const Header = () => {
     </div>
   );
 
+  // Function to download documents
+  const downloadDocument = (fileName) => {
+    const link = document.createElement("a");
+    link.href = `/${fileName}`;
+    link.download = fileName; // Force download
+    link.click();
+  };
+
   const items = [
     {
       label: "Home",
@@ -61,7 +69,6 @@ const Header = () => {
       label: "About Us",
       icon: "pi pi-info-circle",
       template: itemRenderer,
-      // path: "/aboutus",
       command: () => {
         window.location.href = "https://arahas.com/"; // External redirect
       },
@@ -70,7 +77,6 @@ const Header = () => {
       label: "Our Work",
       icon: "pi pi-envelope",
       template: itemRenderer,
-      // path: "/ourwork",
       command: () => {
         window.location.href = "https://ayodhya.arahas.com/"; // External redirect
       },
@@ -79,15 +85,13 @@ const Header = () => {
       label: "Resources",
       icon: "pi pi-receipt",
       template: itemRenderer,
-      // command: () => {
-      //   const link = document.createElement("a");
-      //   link.href = "/CSI_Presentation_Report.pptx";
-      //   link.download = "CSI_Presentation_Report.pptx"; // Force download
-      //   link.click();
-      // },
-      command: () => {
-        window.open("/CSI_Presentation_Report.pptx", "_blank"); // Opens the PPT file in a new tab
-      },
+      items: [
+        {
+          label: "CSI Presentation Report",
+          icon: "pi pi-file",
+          command: () => downloadDocument("CSI_Presentation_Report.pptx"),
+        },
+      ],
     },
   ];
 

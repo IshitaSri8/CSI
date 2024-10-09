@@ -162,7 +162,7 @@ const CityReportCard = () => {
   };
 
   return (
-    <div className="flex flex-column p-2 gap-3 sec-theme">
+    <div className="flex flex-column p-2 gap-3 sec-theme w-full">
       <div className="flex justify-content-around gap-3">
         {/* First Card */}
         <Card
@@ -425,7 +425,7 @@ const CityReportCard = () => {
           <Card className="border-round-xl h-full">
             <CanvasJSReact.CanvasJSChart
               options={options}
-              containerProps={{ Height: 300, width: "100%" }}
+              containerProps={{ height: 300, width: "100%" }}
             />
           </Card>
         </div>

@@ -75,10 +75,10 @@ const LandingScreen = () => {
 
           {/* Landing SVG Image */}
           <img
-            className=""
+            className="w-full"
             src={MySvgImage}
             alt="Landing Illustration"
-            style={{ width: "80rem" }}
+            // style={{ width: "80rem" }}
           />
         </div>
         {/* <Divider /> */}
