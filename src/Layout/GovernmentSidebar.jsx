@@ -87,13 +87,13 @@ const GovernmentSidebar = () => {
           />
           <Button
             icon={<Sprout size={18} />}
-            onClick={() => handleTabClick("environment")}
-            tooltip="Environment"
+            onClick={() => setVisible(true)}
+            tooltip="Nature"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           <Button
             icon={<Users size={18} />}
-            onClick={() => handleTabClick("society")}
+            onClick={() => setVisible(true)}
             tooltip="Society"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
@@ -181,8 +181,9 @@ const GovernmentSidebar = () => {
             <li>
               <div
                 onClick={() => {
+                  setVisible(true)
                   toggleSection("environment");
-                  handleTabClick("environment");
+                  // handleTabClick("environment");
                 }}
                 style={getTabStyle("environment")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
@@ -288,7 +289,8 @@ const GovernmentSidebar = () => {
               <div
                 onClick={() => {
                   toggleSection("society");
-                  handleTabClick("society");
+                //  handleTabClick("society");
+                setVisible(true)
                 }}
                 style={getTabStyle("society")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"

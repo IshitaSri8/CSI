@@ -407,9 +407,26 @@ const CityDemographics = () => {
                 </Tooltip>
               </div>
               <div className="flex align-items-center justify-content-center flex-column bg-cyan-700 p-2 shadow-3 border-round w-full">
-                <i className="pi pi-info-circle text-white text-right w-full text-xs"></i>
+                <i className="pi pi-info-circle text-white text-right w-full text-xs market"></i>
                 <h1 className="text-white p-1 m-0 text-2xl">1</h1>
                 <p className="text-white p-1 m-0 text-sm">A.P.M.C. Markets</p>
+                <Tooltip
+                  target=".market"
+                  position="top"
+                  style={{ backgroundColor: "white !important" }}
+                  tooltipOptions={{
+                    className: "hoverClass",
+                    showDelay: 500,
+                    hideDelay: 101300,
+                  }}
+                >
+                  <div className="flex align-items-start justify-content-start gap-4 surface-500 p-2">
+                    <ul>
+                      <li>Area: 39.30 acre</li>
+                      <li>Quantity (in Quintal): 2616387</li>
+                    </ul>
+                  </div>
+                </Tooltip>
               </div>
             </div>
           </div>
