@@ -3,8 +3,8 @@ import { Menubar } from "primereact/menubar";
 import { Button } from "primereact/button";
 import Arahas from "assets/arahas_logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import CitizenDialog from "../components/landingPage/CitizenDialog";
-import GovernmentDialog from "../components/landingPage/GovernmentDialog";
+import CitizenDialog from "./CitizenDialog";
+import GovernmentDialog from "./GovernmentDialog";
 
 const Header = () => {
   const navigate = useNavigate(); // Initialize useNavigate
