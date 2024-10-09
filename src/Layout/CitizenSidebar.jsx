@@ -15,6 +15,7 @@ import TransportDashboard from "components/Dashboards/Transport/TransportDashboa
 import Healthcare from "components/Dashboards/Healthcare";
 import CityReportCardCitizen from "pages/CityReportCardCitizen";
 import Arahas from "assets/arahas_logo.png";
+import { Building, FileChartPie, LogOut } from "lucide-react";
 
 const CitizenSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -54,22 +55,22 @@ const CitizenSidebar = () => {
             position: "fixed", // For positioning the toggle button at the bottom
           }}
         >
-             <img src={Arahas} alt="Arahas" className="w-5rem mb-4"/>
+          <img src={Arahas} alt="Arahas" className="w-5rem mb-4" />
           <Button
-            icon="pi pi-search"
+            icon={<Building size={18} />}
             onClick={() => handleTabClick("kyc")}
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
             tooltip="Know Your City"
           />
           <Button
-            icon="pi pi-file"
+            icon={<FileChartPie size={18} />}
             onClick={() => handleTabClick("cityReportCard")}
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
             tooltip="City Report Card"
           />
 
           <Button
-            icon="pi pi-sign-out"
+            icon={<LogOut size={18} />}
             onClick={() => setVisible(true)}
             style={{
               backgroundColor: "#166c7d",
@@ -116,7 +117,7 @@ const CitizenSidebar = () => {
             position: "relative", // For positioning the toggle button
           }}
         >
-            <img src={Arahas} alt="Arahas" className="w-7rem mb-4"/>
+          <img src={Arahas} alt="Arahas" className="w-7rem mb-4" />
           <ul className="list-none p-0 m-0" style={{ textDecoration: "none" }}>
             {/* Know Your City Section */}
             <li>
@@ -125,7 +126,7 @@ const CitizenSidebar = () => {
                 onClick={() => handleTabClick("kyc")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <i className="pi pi-compass mr-2 text-xl text-white"></i>
+                <Building className="text-white mr-2" />
                 <span className="font-medium text-white">Know Your City</span>
                 <Ripple />
               </div>
@@ -137,26 +138,13 @@ const CitizenSidebar = () => {
                 onClick={() => handleTabClick("cityReportCard")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <i className="pi pi-file mr-2 text-xl text-white"></i>
+                <FileChartPie className="text-white mr-2" />
                 <span className="font-medium text-white">City Report Card</span>
                 <Ripple />
               </div>
             </li>
           </ul>
 
-          <Button
-            // icon="pi pi-sign-out"
-            onClick={() => setVisible(true)}
-            style={{
-              backgroundColor: "#166c7d",
-              position: "fixed",
-              bottom: "2rem",
-              left: "3rem",
-            //   width: "10rem",
-            }}
-          >
-            Logout
-          </Button>
           {/* Bottom-right toggle button for the full sidebar */}
           <i
             className="pi pi-angle-double-left text-white"

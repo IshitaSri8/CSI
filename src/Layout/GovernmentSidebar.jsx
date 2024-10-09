@@ -16,6 +16,21 @@ import TransportDashboard from "components/Dashboards/Transport/TransportDashboa
 import Healthcare from "components/Dashboards/Healthcare";
 import CityReportCardCitizen from "pages/CityReportCardCitizen";
 import CityReportCardGov from "pages/CityReportCardGov";
+import {
+  Building,
+  Bus,
+  CloudHail,
+  Droplet,
+  FileChartPie,
+  HeartPulse,
+  LandPlot,
+  LogOut,
+  Sprout,
+  ThermometerSun,
+  Trash,
+  Users,
+  Wind,
+} from "lucide-react";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -59,32 +74,32 @@ const GovernmentSidebar = () => {
           }}
         >
           <Button
-            icon="pi pi-search"
+            icon={<Building size={18} />}
             onClick={() => handleTabClick("kyc")}
             tooltip="Know your city"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           <Button
-            icon="pi pi-file"
+            icon={<FileChartPie size={18} />}
             onClick={() => handleTabClick("cityReportCard")}
             tooltip="City Report Card"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           <Button
-            icon="pi pi-globe"
+            icon={<Sprout size={18} />}
             onClick={() => handleTabClick("environment")}
             tooltip="Environment"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
           <Button
-            icon="pi pi-users"
+            icon={<Users size={18} />}
             onClick={() => handleTabClick("society")}
             tooltip="Society"
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
           />
 
           <Button
-            icon="pi pi-sign-out"
+            icon={<LogOut size={18} />}
             onClick={() => setVisible(true)}
             style={{
               backgroundColor: "#166c7d",
@@ -143,7 +158,7 @@ const GovernmentSidebar = () => {
                 onClick={() => handleTabClick("kyc")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <i className="pi pi-compass mr-2 text-xl text-white"></i>
+                <Building className="text-white mr-2" />
                 <span className="font-medium text-white">Know Your City</span>
 
                 <Ripple />
@@ -156,7 +171,7 @@ const GovernmentSidebar = () => {
                 onClick={() => handleTabClick("cityReportCard")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <i className="pi pi-file mr-2 text-xl text-white"></i>
+                <FileChartPie className="text-white mr-2" />
                 <span className="font-medium text-white">City Report Card</span>
                 <Ripple />
               </div>
@@ -172,8 +187,8 @@ const GovernmentSidebar = () => {
                 style={getTabStyle("environment")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <i className="pi pi-globe mr-2 text-xl text-white"></i>
-                <span className="font-medium text-white">Environment</span>
+                <Sprout className="text-white mr-2" />
+                <span className="font-medium text-white">Nature</span>
                 <i
                   className={`pi pi-chevron-${
                     activeSections.environment ? "up" : "down"
@@ -187,9 +202,10 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("aqi")}
                       onClick={() => handleTabClick("aqi")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2  border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors ml-4"
                     >
-                      <i className="pi pi-cloud mr-2 text-xl text-white"></i>
+                      {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
+                      <Wind className="text-white mr-2" size={20} />
                       <span className="font-medium text-white">AQI</span>
                       <Ripple />
                     </div>
@@ -198,9 +214,9 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("temperature")}
                       onClick={() => handleTabClick("temperature")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <i className="pi pi-sun mr-2 text-xl text-white"></i>
+                      <ThermometerSun className="text-white mr-2" size={20} />
                       <span className="font-medium text-white">
                         Temperature
                       </span>
@@ -211,9 +227,9 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("rain")}
                       onClick={() => handleTabClick("rain")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <i className="pi pi-cloud mr-2 text-xl text-white"></i>
+                      <CloudHail className="text-white mr-2" size={20} />
                       <span className="font-medium text-white">Rainfall</span>
                       <Ripple />
                     </div>
@@ -222,9 +238,10 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("land")}
                       onClick={() => handleTabClick("land")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <i className="pi pi-map mr-2 text-xl text-white"></i>
+                      <LandPlot className="text-white mr-1" size={20} />
+                      {/* <i className="pi pi-map mr-2 text-xl text-white"></i> */}
                       <span className="font-medium text-white">Land</span>
                       <Ripple />
                     </div>
@@ -234,9 +251,10 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("water")}
                       onClick={() => handleTabClick("water")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <i className="pi pi-cloud mr-2 text-xl text-white"></i>
+                      <Droplet className="text-white mr-2" size={20} />
+                      {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
                       <span className="font-medium text-white">Water</span>
                       <Ripple />
                     </div>
@@ -245,9 +263,9 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("waste")}
                       onClick={() => handleTabClick("waste")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <i className="pi pi-cloud mr-2 text-xl text-white"></i>
+                      <Trash className="text-white mr-2" size={20} />
                       <span className="font-medium text-white">Waste</span>
                       <Ripple />
                     </div>
@@ -263,9 +281,9 @@ const GovernmentSidebar = () => {
                   handleTabClick("society");
                 }}
                 style={getTabStyle("society")}
-                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
               >
-                <i className="pi pi-users mr-2 text-xl text-white"></i>
+                <Users className="text-white mr-2" />
                 <span className="font-medium text-white">Society</span>
                 <i
                   className={`pi pi-chevron-${
@@ -280,9 +298,9 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("transport")}
                       onClick={() => handleTabClick("transport")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <i className="pi pi-cloud mr-2 text-xl text-white"></i>
+                      <Bus className="text-white mr-2" />
                       <span className="font-medium text-white">Transport</span>
                       <Ripple />
                     </div>
@@ -291,9 +309,9 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("healthcare")}
                       onClick={() => handleTabClick("healthcare")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <i className="pi pi-sun mr-2 text-xl text-white"></i>
+                      <HeartPulse className="text-white mr-2" />
                       <span className="font-medium text-white">Healthcare</span>
                       <Ripple />
                     </div>
