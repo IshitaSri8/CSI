@@ -9,7 +9,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { Doughnut, PieChart } from "components/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
 import "./KYC.css";
-import { Building2, Trash } from "lucide-react";
+import { Building2, FerrisWheel, PartyPopper, Trash } from "lucide-react";
 
 const CityDemographics = () => {
   return (
@@ -204,9 +204,25 @@ const CityDemographics = () => {
             </div>
             <div className="flex align-items-center justify-content-center flex-column gap-3 m-2">
               <div className="flex align-items-center justify-content-center flex-column bg-cyan-700 p-2 shadow-3 border-round w-full">
-                <i className="pi pi-info-circle text-white text-right w-full text-xs"></i>
+                <i className="pi pi-info-circle text-white text-right w-full text-xs cursor-pointer sewage"></i>
                 <h1 className="text-white p-1 m-0 text-2xl">1</h1>
                 <p className="text-white p-1 m-0">Sewage Treatment Plants</p>
+                <Tooltip
+                  target=".sewage"
+                  position="right"
+                  style={{ backgroundColor: "white !important" }}
+                  tooltipOptions={{
+                    className: "hoverClass",
+                    showDelay: 500,
+                    hideDelay: 101300,
+                  }}
+                >
+                  <div className="flex align-items-start justify-content-start gap-4 surface-500  p-2">
+                    <ul>
+                      <li>Capacity : 12MLD</li>
+                    </ul>
+                  </div>
+                </Tooltip>
               </div>
               <div className="flex align-items-center justify-content-center flex-column bg-cyan-700 p-2 shadow-3 border-round w-full">
                 <i className="pi pi-info-circle text-white text-right w-full text-xs"></i>
@@ -409,7 +425,7 @@ const CityDemographics = () => {
           >
             <div className="flex align-items-center justify-content-between ">
               <h1 className="m-0 p-0 text-white">Culture & Attractions</h1>
-              <i className="pi pi-building-columns text-white"></i>
+              <PartyPopper size={15} className="text-white" />
             </div>
             <div className="flex align-items-center justify-content-center m-2">
               <div className="flex align-items-center justify-content-center flex-column gap-3 w-full">
