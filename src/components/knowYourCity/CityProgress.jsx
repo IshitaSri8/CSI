@@ -13,7 +13,7 @@ const CityProgress = () => {
     height: 150,
     width: 250,
     bgColor: "transparent",
-    fontColor: "text-white",
+    fontColor: "white",
   };
 
   const solidWasteProcessedData = {
@@ -23,6 +23,7 @@ const CityProgress = () => {
     height: 150,
     width: 250,
     bgColor: "transparent",
+    fontColor: "white",
   };
 
   const electricityConsumptionData = {
@@ -38,50 +39,52 @@ const CityProgress = () => {
     height: 150,
     width: 250,
     bgColor: "transparent",
+    fontColor: "white",
   };
 
   return (
-    <div className="flex gap-2">
-      <div className="flex flex-column gap-2 w-full">
+    <div className="flex gap-3">
+      <div className="flex flex-column gap-3 w-full">
         <div
           className="flex flex-column border-round-2xl w-full h-auto p-2"
           style={{
             background: "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
           }}
         >
+          <div className="flex justify-content-between w-full p-2">
+          <div className="flex flex-column align-items-center p-2 w-full">
           <p
-            className="text-xl font-medium mt-1 ml-4"
+            className="text-xl font-medium mt-1"
             style={{ color: "#fff" }}
           >
             Water Management
           </p>
-          <div className="flex justify-content-between">
-            <img src={water} alt="overall" className="w-3 ml-8" />
-            <div className="flex flex-column gap-2">
+            <img src={water} alt="overall" className="w-6" />
+            </div>
+            <div className="flex flex-column w-full gap-2 align-items-center justify-content-center">
               <div
                 className="border-round-2xl mb-2 w-full shadow p-2"
                 style={{
                   backgroundColor: "rgba(255, 255, 255, 0.2)",
-                  marginTop: -20,
                 }}
               >
                 <div className="flex flex-column">
-                  <div className="flex gap-4">
+                  <div className="flex justify-content-between">
                     <p
                       className="text-xl font-medium mt-1"
                       style={{ color: "#fff" }}
                     >
                       State Category Rank
                     </p>
-                    <div className="flex flex-column justify-content-end">
+                    <div className="flex flex-column">
                       <p
                         className="m-0 text-center text-4xl"
-                        style={{ color: "#F26721" }}
+                        style={{ color: "#FFDD82" }}
                       >
                         21
                       </p>
                       <p
-                        className="mt-1 text-sm"
+                        className="mt-0 text-sm"
                         style={{ color: "var(--text-tertiary-2)" }}
                       >
                         out of 67
@@ -100,10 +103,10 @@ const CityProgress = () => {
                 </div>
               </div>
               <div
-                className="border-round-2xl w-full p-2 mb-2"
+                className="border-round-2xl w-full p-2"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
-                <div className="flex gap-6">
+                <div className="flex justify-content-between">
                   <p
                     className="text-xl font-medium mt-1"
                     style={{ color: "#fff" }}
@@ -114,7 +117,7 @@ const CityProgress = () => {
                   <div className="flex gap-1">
                     <p
                       className="m-0 text-center text-4xl"
-                      style={{ color: "#F26721" }}
+                      style={{ color: "#FFDD82" }}
                     >
                       39.5
                     </p>
@@ -139,26 +142,26 @@ const CityProgress = () => {
             </div>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <div
-            className="border-round-2xl w-full p-2"
+            className="border-round-2xl w-full p-3"
             style={{
               background:
                 "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
             }}
           >
-            <p className="text-xl font-medium mt-1" style={{ color: "#fff" }}>
+            <p className="text-xl font-medium mt-1 text-center" style={{ color: "#fff" }}>
               Housing
             </p>
             <div
-              className="p-2 border-round-2xl"
+              className="p-4 border-round-2xl"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
               <div className="flex gap-4">
                 <div className="flex flex-column justify-content-end">
                   <p
                     className="m-0 text-center text-4xl"
-                    style={{ color: "#F26721" }}
+                    style={{ color: "#FFDD82" }}
                   >
                     262
                   </p>
@@ -186,13 +189,13 @@ const CityProgress = () => {
                 Source:
               </p>
               <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
-                Ministry of Housing and Urban Affairs
+                Ministry of Housing & Urban Affairs
               </p>
             </div>
           </div>
 
           <div
-            className="border-round-2xl w-full p-2"
+            className="border-round-2xl w-full p-4"
             style={{
               background:
                 "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
@@ -224,7 +227,7 @@ const CityProgress = () => {
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
               <div className="flex flex-column p-2">
-                <div className="flex gap-4">
+                <div className="flex justify-content-between">
                   <p
                     className="text-xl font-medium mt-1"
                     style={{ color: "#fff" }}
@@ -232,12 +235,12 @@ const CityProgress = () => {
                     Garbage Free City
                   </p>
                   <div className="flex flex-column justify-content-end">
-                    <p
+                    {/* <p
                       className="m-0 text-center text-4xl"
-                      style={{ color: "#F26721" }}
-                    >
-                      <i className="pi pi-star"/>
-                    </p>
+                      style={{ color: "#FFDD82", marginTop: -20 }}
+                    > */}
+                      <i className="pi pi-star mt-1 ml-3" style={{ color: "#FFDD82" }}/>
+                    {/* </p> */}
                     <p
                       className="mt-1 text-sm"
                       style={{ color: "var(--text-tertiary-2)" }}
@@ -257,7 +260,8 @@ const CityProgress = () => {
                 </p>
               </div>
             </div>
-            <p
+           <div className="flex flex-column align-items-center">
+           <p
               className="text-xl font-medium m-0 text-center"
               style={{ color: "#fff" }}
             >
@@ -266,9 +270,9 @@ const CityProgress = () => {
             <img
               src={waste}
               alt="overall"
-              className="w-5 ml-8"
-              style={{ marginTop: -10 }}
+              className="w-4 mt-2"
             />
+           </div>
             <div
               className="border-round-2xl w-full p-2"
               style={{
@@ -293,7 +297,7 @@ const CityProgress = () => {
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
               <div className="flex flex-column">
-                <div className="flex gap-4">
+                <div className="flex justify-content-between">
                   <p
                     className="text-xl font-medium mt-1"
                     style={{ color: "#fff" }}
@@ -303,7 +307,7 @@ const CityProgress = () => {
                   <div className="flex flex-column justify-content-end">
                     <p
                       className="m-0 text-center text-4xl"
-                      style={{ color: "#F26721" }}
+                      style={{ color: "#FFDD82" }}
                     >
                       389
                     </p>
@@ -348,7 +352,7 @@ const CityProgress = () => {
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
               <div className="flex flex-column">
-                <div className="flex justify-content-around">
+                <div className="flex justify-content-between">
                   <p
                     className="text-xl font-medium mt-1"
                     style={{ color: "#fff" }}
@@ -364,8 +368,8 @@ const CityProgress = () => {
                 </div>
                 <div className="flex flex-column justify-content-end">
                   <p
-                    className="m-0 text-center text-4xl"
-                    style={{ color: "#F26721" }}
+                    className="m-0 text-center text-3xl"
+                    style={{ color: "#FFDD82" }}
                   >
                     100%
                   </p>

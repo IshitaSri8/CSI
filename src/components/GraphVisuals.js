@@ -7,14 +7,12 @@ import CanvasJSReact from "@canvasjs/react-charts";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
-  "#26575D",
-  "#1F8297",
-  "#4D7479",
-  "#4C9BAC",
-  "#98C6CF",
-  "#F7A47A",
-  "#47B881",
   "#FFDD82",
+  "#98C6CF",
+  "#47B881",
+  "#F7A47A",
+  "#1F8297",
+  "#F7A47A",
   "#F64C4C",
   "#0F4B57",
   "#166c7d",
@@ -23,15 +21,23 @@ const colors = [
   "#B9D2D8",
   "#E9F3F5",
 ];
-export const DonutChart = ({ title, labels, series, height, width, bgColor, fontColor }) => {
+export const DonutChart = ({
+  title,
+  labels,
+  series,
+  height,
+  width,
+  bgColor,
+  fontColor,
+}) => {
   const options = {
     animationEnabled: true,
     title: {
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "600",
-      color: fontColor,
+      fontWeight: "500",
+      fontColor: fontColor,
     },
     backgroundColor: bgColor,
     dataPointWidth: 12,
@@ -61,6 +67,7 @@ export const DonutChart = ({ title, labels, series, height, width, bgColor, font
       fontFamily: "Montserrat",
       fontWeight: "normal",
       fontSize: 10,
+      fontColor: fontColor,
     },
   };
 
@@ -76,7 +83,7 @@ export const DonutChart = ({ title, labels, series, height, width, bgColor, font
     />
   );
 };
-export const Doughnut = ({ title, labels, series, height }) => {
+export const Doughnut = ({ title, labels, series, height, width, bgColor }) => {
   const options = {
     animationEnabled: true,
     title: {
@@ -86,7 +93,7 @@ export const Doughnut = ({ title, labels, series, height }) => {
       fontWeight: "500",
     },
     labels: labels,
-
+    backgroundColor: bgColor,
     data: [
       {
         type: "doughnut",
@@ -119,7 +126,7 @@ export const Doughnut = ({ title, labels, series, height }) => {
   return (
     <CanvasJSChart
       options={options}
-      containerProps={{ height: height, width: "100%" }}
+      containerProps={{ height: height, width: width, bgColor: bgColor }}
     />
   );
 };

@@ -14,6 +14,7 @@ import KnowYourCity from "../pages/KnowYourCity";
 import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Healthcare";
 import CityReportCardCitizen from "pages/CityReportCardCitizen";
+import Arahas from "assets/arahas_logo.png";
 
 const CitizenSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -53,6 +54,7 @@ const CitizenSidebar = () => {
             position: "fixed", // For positioning the toggle button at the bottom
           }}
         >
+             <img src={Arahas} alt="Arahas" className="w-5rem mb-4"/>
           <Button
             icon="pi pi-search"
             onClick={() => handleTabClick("kyc")}
@@ -65,7 +67,7 @@ const CitizenSidebar = () => {
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
             tooltip="City Report Card"
           />
-          {/* Bottom-right toggle button */}
+
           <Button
             icon="pi pi-sign-out"
             onClick={() => setVisible(true)}
@@ -101,7 +103,7 @@ const CitizenSidebar = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              backgroundColor: "#003940",
+              backgroundColor: "#000",
             }}
           ></div>
         }
@@ -114,6 +116,7 @@ const CitizenSidebar = () => {
             position: "relative", // For positioning the toggle button
           }}
         >
+            <img src={Arahas} alt="Arahas" className="w-7rem mb-4"/>
           <ul className="list-none p-0 m-0" style={{ textDecoration: "none" }}>
             {/* Know Your City Section */}
             <li>
@@ -141,8 +144,20 @@ const CitizenSidebar = () => {
             </li>
           </ul>
 
+          <Button
+            // icon="pi pi-sign-out"
+            onClick={() => setVisible(true)}
+            style={{
+              backgroundColor: "#166c7d",
+              position: "fixed",
+              bottom: "2rem",
+              left: "3rem",
+            //   width: "10rem",
+            }}
+          >
+            Logout
+          </Button>
           {/* Bottom-right toggle button for the full sidebar */}
-
           <i
             className="pi pi-angle-double-left text-white"
             onClick={() => setVisible(false)}

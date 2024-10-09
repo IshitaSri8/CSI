@@ -17,6 +17,7 @@ import Cultural from "assets/Report/Cultural preservation.svg";
 import AntiCorruption from "assets/Report/Anti corruption.svg";
 import GovtPol from "assets/Report/Government policies.svg";
 import HumanRights from "assets/Report/Human Rights.svg";
+import { Divider } from "primereact/divider";
 
 const CityReportCard = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -98,7 +99,7 @@ const CityReportCard = () => {
       cornerRadius: 4,
     },
 
-    height: 400,
+    height: 260,
     width: 720,
     dataPointWidth: 12,
     data: [
@@ -159,32 +160,54 @@ const CityReportCard = () => {
   };
 
   return (
-    <div className="flex flex-column p-4 gap-2 sec-theme">
-      <div className="flex justify-content-around gap-1">
+    <div className="flex flex-column p-2 gap-3 sec-theme">
+      <div className="flex justify-content-around gap-3">
         {/* First Card */}
         <Card
+          pt={{
+            body: {
+              className: "w-full",
+            },
+          }}
           className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(0)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 0 ? "#A2DBBF" : "#ffffff" }}
         >
           {hoveredIndex === 0 ? (
-            <p className="font-semibold text-sm text-900">
-              <img src={AirQuality} alt="nature" className="w-1.5rem mr-3" />
-              Air Quality
-              <br />
-              <img src={Water} alt="nature" className="w-1.5rem mr-3" />
-              Water Conservation & Preservation
-              <br />
-              <img src={Fire} alt="nature" className="w-1.5rem mr-3" />
-              Fire & Energy
-              <br />
-              <img src={Earth} alt="nature" className="w-1.2rem mr-3" />
-              Earth
-              <br />
-              <img src={Climate} alt="nature" className="w-1.5rem mr-3" />
-              Climate Quality
-            </p>
+            <div className="flex justify-content-between w-full">
+              <div className="flex flex-column justify-content-start align-items-start w-full">
+                <div className="flex gap-1">
+                  <img src={AirQuality} alt="nature" className="w-1.5rem" />
+                  <p className="font-semibold text-xs text-900">Air Quality</p>
+                </div>
+                <div className="flex gap-1 align-items-center">
+                  <img src={Earth} alt="nature" className="w-1.2rem" />
+                  <p className="font-semibold text-xs text-900">Earth</p>
+                </div>
+                <div className="flex gap-1">
+                  <img src={Fire} alt="nature" className="w-1.5rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Fire & Energy
+                  </p>
+                </div>
+              </div>
+              <Divider layout="vertical" />
+              <div className="flex flex-column justify-content-start align-items-start w-full">
+                <div className="flex gap-1">
+                  <img src={Water} alt="nature" className="w-1.5rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Water Management
+                  </p>
+                </div>
+                <div className="flex gap-1">
+                  <img src={Climate} alt="nature" className="w-1.5rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Climate Quality
+                  </p>
+                </div>
+              </div>
+            </div>
           ) : (
             <div>
               <div className="flex flex-row align-items-start justify-content-between">
@@ -206,91 +229,59 @@ const CityReportCard = () => {
             </div>
           )}
         </Card>
-
         {/* Second Card */}
-        {/* <Card
-          className="flex align-items-center justify-content-between  w-full h-12rem"
         <Card
-          className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
+          pt={{
+            body: {
+              className: "w-full",
+            },
+          }}
+          className="flex align-items-center justify-content-between w-full h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(1)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 1 ? "#FFDD82" : "#ffffff" }}
         >
           {hoveredIndex === 1 ? (
-            <p className="font-semibold text-xs text-900 text-left">
-              <img src={Housing} alt="nature" className="w-1rem mr-2" />
-              City Planning
-              <br />
-              <img src={Healthcare} alt="nature" className="w-1rem mr-2" />
-              Basic Services
-              <br />
-              <i className="pi pi-briefcase w-1rem mr-2" />
-              Employment Opportunities
-              <br />
-              <img src={Cultural} alt="nature" className="w-1rem mr-2" />
-              Cultural Preservation
-              <br />
-              <i className="pi pi-users w-1rem mr-1 " />
-              Community Engagement & Holistic Well-Being
-            </p>
-          ) : (
-            // <div>
-            //   <div className="flex flex-row align-items-start justify-content-between">
-            //     <div className="flex flex-column align-items-start justify-content-between">
-            //       <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
-            //         Society
-            //       </h2>
-            //       <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
-            //     </div>
-            //     <div className="flex align-items-start justify-content-end ml-5">
-            //       <img src={society} alt="nature" className="w-4rem" />
-            //     </div>
-            //   </div>
-            //   <div>
-            //     <p className="text-sm">Empowering change, enriching lives.</p>
-            //   </div>
-            // </div>
-            <div>
-              <div className="flex flex-row align-items-start justify-content-between gap-8">
-                <div className="flex flex-column align-items-start justify-content-between">
-                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
-                    Society
-                  </h2>
-                  <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
+            <div className="flex justify-content-between w-full">
+              <div className="flex flex-column justify-content-start align-items-start w-full">
+                <div className="flex gap-1">
+                  <img src={Housing} alt="nature" className="w-1rem" />
+                  <p className="font-semibold text-xs text-900">
+                    City Planning
+                  </p>
                 </div>
-                <div className="flex align-items-start justify-content-end ml-5">
-                  <img src={society} alt="nature" className="w-4rem" />
+
+                <div className="flex gap-1">
+                  <img src={Healthcare} alt="nature" className="w-1rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Basic Services
+                  </p>
+                </div>
+
+                <div className="flex gap-1">
+                  <img src={Cultural} alt="nature" className="w-1rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Cultural Preservation
+                  </p>
                 </div>
               </div>
-              <div>
-                <p className="text-sm">Empowering change, enriching lives.</p>
+              <Divider layout="vertical" />
+              <div className="flex flex-column justify-content-center align-items-center w-full">
+                <div className="flex gap-1 align-items-center">
+                  <i className="pi pi-briefcase w-1rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Employment Opportunities
+                  </p>
+                </div>
+
+                <div className="flex gap-1 align-items-center ">
+                  <i className="pi pi-users w-1rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Community Engagement & Holistic Well-Being
+                  </p>
+                </div>
               </div>
             </div>
-          )}
-        </Card> */}
-        <Card
-          className="flex align-items-center justify-content-between w-full h-12rem"
-          onMouseEnter={() => setHoveredIndex(1)}
-          onMouseLeave={() => setHoveredIndex(null)}
-          style={{ background: hoveredIndex === 1 ? "#FFDD82" : "#ffffff" }}
-        >
-          {hoveredIndex === 1 ? (
-            <p className="font-semibold text-xs text-900 text-left">
-              <img src={Housing} alt="nature" className="w-1rem mr-2" />
-              City Planning
-              <br />
-              <img src={Healthcare} alt="nature" className="w-1rem mr-2" />
-              Basic Services
-              <br />
-              <i className="pi pi-briefcase w-1rem mr-2" />
-              Employment Opportunities
-              <br />
-              <img src={Cultural} alt="nature" className="w-1rem mr-2" />
-              Cultural Preservation
-              <br />
-              <i className="pi pi-users w-1rem mr-1 " />
-              Community Engagement & Holistic Well-Being
-            </p>
           ) : (
             <div className="flex align-items-center justify-content-center flex-column w-full">
               <div className="flex flex-row align-items-start justify-content-between w-full gap-8">
@@ -307,7 +298,6 @@ const CityReportCard = () => {
               <div className="w-full">
                 <p className="text-sm">
                   Empowering sustainable change, enriching diverse lives.
-                  <br />
                 </p>
               </div>
             </div>
@@ -315,6 +305,11 @@ const CityReportCard = () => {
         </Card>
         {/* Third Card */}
         <Card
+          pt={{
+            body: {
+              className: "w-full",
+            },
+          }}
           className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(2)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -332,22 +327,30 @@ const CityReportCard = () => {
             //     Human Rights
             //   </li>
             // </ul>
-            <p className="font-semibold text-sm text-900">
-              <img src={GovtPol} alt="nature" className="w-1.2rem mr-3" />
-              Government Schemes
-              <img src={GovtPol} alt="nature" className="w-1.5rem mr-3" />
-              Transparency and Accountability
-              <br />
-              <img
-                src={AntiCorruption}
-                alt="nature"
-                className="w-1.5rem mr-3"
-              />
-              Ethical Leadership
-              <br />
-              <img src={HumanRights} alt="nature" className="w-1.5rem mr-3" />
-              Disaster Management
-            </p>
+            <div className="flex justify-content-between w-full">
+              <div className="flex flex-column justify-content-start align-items-start w-full">
+                <div className="flex gap-1">
+                  <img src={GovtPol} alt="nature" className="w-1.5rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Transparency and Accountability
+                  </p>
+                </div>
+
+                <div className="flex gap-1">
+                  <img src={AntiCorruption} alt="nature" className="w-1.5rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Ethical Leadership
+                  </p>
+                </div>
+
+                <div className="flex gap-1">
+                  <img src={HumanRights} alt="nature" className="w-1.5rem" />
+                  <p className="font-semibold text-xs text-900">
+                    Disaster Management
+                  </p>
+                </div>
+              </div>
+            </div>
           ) : (
             <div>
               <div className="flex flex-row align-items-start justify-content-between">
@@ -372,13 +375,18 @@ const CityReportCard = () => {
 
         {/* Fourth Card */}
         <Card
+          pt={{
+            body: {
+              className: "w-full",
+            },
+          }}
           className="flex align-items-center justify-content-between p-2 w-full h-12rem border-round-xl"
           onMouseEnter={() => setHoveredIndex(3)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ background: hoveredIndex === 3 ? "#F7A47A" : "#ffffff" }}
         >
           {hoveredIndex === 3 ? (
-            <div className="flex justify-content-center gap-2 align-items-center">
+            <div className="flex justify-content-center gap-3 align-items-center">
               <img src={nature} className="h-5rem" alt="nature" />
               <p>+</p>
               <img src={society} className="h-5rem" alt="society" />
@@ -409,10 +417,10 @@ const CityReportCard = () => {
       </div>
       <div className="flex">
         <div
-          className="flex flex-column p-2 border-round-2xl"
+          className="flex flex-column border-round-2xl"
           style={{ flex: "70%" }}
         >
-          <Card className="border-round-xl">
+          <Card className="border-round-xl h-full">
             <CanvasJSReact.CanvasJSChart options={options} />
           </Card>
         </div>
@@ -439,13 +447,7 @@ const CityReportCard = () => {
           </div>
           <p className="text-xl font-medium mb-1">Areas of improvement</p>
           <div className="flex border-round bg-white px-3">
-            <p>
-              Air Quality
-              <br />
-              Green Space
-              <br />
-              Land use
-            </p>
+            <p>Air Quality Green Space Land use</p>
           </div>
         </div>
       </div>

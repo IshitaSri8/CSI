@@ -9,9 +9,9 @@ const KnowYourCity = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="px-2">
-      <h1 className="text-theme text-2xl text-left w-full justify-content-start m-0 p-3">
-        Know your city
+    <div className="p-3">
+      <h1 className="text-primary1 text-xl text-left text-medium w-full m-0 p-0 ml-3">
+        Know your City
       </h1>
       <TabView
         activeIndex={activeTab}
