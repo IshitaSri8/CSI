@@ -400,18 +400,18 @@ const AqiDashboard = ({
           <div>
             <Card
               title="Air Quality Index"
-              className="h-20rem w-30rem text-center"
+              className="h-20rem w-30rem text-center "
             >
               <div className="flex align-items-center justify-content-around flex-row flex-wrap md:flex-nowrap">
-                <div className="flex align-items-center justify-content-center flex-column">
-                  <h1 className="text-3xl">
+                <div className="flex align-items-center justify-content-center flex-column gap-4">
+                  <h1 className="text-3xl p-0 m-0">
                     {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
                   </h1>
                   {aqiImage && (
                     <img
                       src={aqiImage}
                       alt={aqiStatusText}
-                      style={{ width: "4rem", height: "6rem" }}
+                      style={{ width: "5rem", height: "8rem" }}
                     />
                   )}
                   <h1

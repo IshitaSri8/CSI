@@ -10,7 +10,7 @@ const CityReportCardCitizen = ({ show }) => {
   return (
     <div className="flex align-items-start jutify-content-center flex-column w-full p-2 ">
       <div className="w-full ">
-        <h1 className="text-primary1 text-xl text-left text-medium w-full justify-content-start m-0 p-0 ml-3">
+        <h1 className="text-primary1 text-xl text-left text-medium w-full justify-content-start m-0 p-2 ml-3">
           City Report Card
           {show}
         </h1>
