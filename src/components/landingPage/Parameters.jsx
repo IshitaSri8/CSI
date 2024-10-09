@@ -12,7 +12,7 @@ const Parameters = () => {
         Dimensions of City Sustainability Index
       </h1>
 
-      <div className="flex align-items-center justify-content-center flex-row gap-4 w-full px-8">
+      <div className="flex align-items-center justify-content-center flex-row gap-2 w-full ">
         <div
           className="sec-theme w-full h-full shadow-none mx-4"
           style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
@@ -21,10 +21,13 @@ const Parameters = () => {
             <img src={Nature} alt="Nature" className="w-full" />
             <h3 className="text-3xl mb-0 mx-6 text-900">Nature</h3>
             <p className="mx-6 mb-5">
-              Nature is the complex set of physical, geographic, biological,
-              social, cultural and political conditions that surround an
-              individual or organism that ultimately determines its form and the
-              nature of its survival.
+              Nature refers to the integrated environmental systems and
+              ecological conditions within a city that impact both the natural
+              surroundings and the quality of life for its inhabitants. It
+              encompasses key elements such as air quality, water conservation,
+              land use, biodiversity, and waste management, which together
+              determine the health, resilience, and sustainability of the urban
+              environment.
             </p>
           </div>
         </div>
@@ -37,9 +40,11 @@ const Parameters = () => {
             <img src={Society} alt="Society" className="w-full" />
             <h3 className="text-3xl mb-0 text-900 mx-6">Social</h3>
             <p className="mx-6 mb-5">
-              Social sustainability is a process for creating sustainable
-              successful places that promote wellbeing, by understanding what
-              people need from the places they live and work.
+              Society refers to the process of developing thriving and
+              sustainable environments that enhance well-being. This involves
+              understanding the needs of individuals in the spaces they inhabit
+              and work. Social sustainability merges the design of the physical
+              environment with the creation of a supportive social framework.
             </p>
           </div>
         </div>
@@ -52,9 +57,13 @@ const Parameters = () => {
             <img src={Admin} alt="Admin" className="w-full" />
             <h3 className="mx-6 text-3xl mb-0 text-900">Administration</h3>
             <p className="mx-6 mb-5">
-              Aspects under Administration look at how society polices itself,
-              focusing on internal controls and methods to preserve compliance
-              with legislation, best practices, and policies.
+              Administration refers to the governance mechanisms, institutional
+              frameworks, and systems of accountability that manage a city's
+              operations, ensure compliance with laws, and promote ethical and
+              effective public service. It focuses on the city's ability to
+              uphold transparency, foster ethical leadership, and manage risks,
+              ensuring the well-being of its citizens while driving sustainable
+              development.
             </p>
           </div>
         </div>

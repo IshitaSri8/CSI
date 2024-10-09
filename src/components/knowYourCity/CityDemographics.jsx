@@ -33,8 +33,8 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center flex-column p-3 shadow-3 border-round w-full "
                   style={{ backgroundColor: "rgba(14, 116, 144, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-xl font-semibold text-white">
-                    35.56 sq.km
+                  <h1 className="p-1 m-0 text-lg font-semibold text-white">
+                    133.67 sq.km
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">
                     Geographical Area
@@ -45,16 +45,16 @@ const CityDemographics = () => {
                   style={{ backgroundColor: "rgba(14, 116, 144, 0.2)" }}
                 >
                   <h1 className="p-1 m-0 text-2xl font-semibold text-white">
-                    4
+                    11
                   </h1>
-                  <p className="p-1 m-0 text-white text-sm">Zones</p>
+                  <p className="p-1 m-0 text-white text-sm">Blocks</p>
                 </div>
                 <div
                   className="flex align-items-center justify-content-center p-3 shadow-3 border-round flex-column"
                   style={{ backgroundColor: "rgba(14, 116, 144, 0.2)" }}
                 >
                   <h1 className="p-1 m-0 text-2xl font-semibold text-white">
-                    50
+                    60
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">Wards</p>
                 </div>
@@ -62,11 +62,27 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center p-3 shadow-3 border-round flex-column"
                   style={{ backgroundColor: "rgba(14, 116, 144, 0.2)" }}
                 >
-                  {/* <i className="pi pi-info-circle text-white w-full text-right"></i> */}
+                  <i className="pi pi-info-circle text-white w-full text-right highway"></i>
                   <h1 className="p-1 m-0 text-2xl font-semibold text-white">
                     1
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">Highways</p>
+                  <Tooltip
+                    target=".highway"
+                    position="right"
+                    style={{ backgroundColor: "white !important" }}
+                    tooltipOptions={{
+                      className: "hoverClass",
+                      showDelay: 500,
+                      hideDelay: 101300,
+                    }}
+                  >
+                    <div className="flex align-items-start justify-content-start gap-4 surface-500 p-2">
+                      <ul>
+                        <li>Lucknow Ayodhya Expressway (252 kms)</li>
+                      </ul>
+                    </div>
+                  </Tooltip>
                 </div>
               </div>
               <div className="flex align-items-center justif-content-center w-full gap-2">
@@ -88,7 +104,7 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center p-3 shadow-3 border-round flex-column w-full"
                   style={{ backgroundColor: "rgba(14, 116, 144, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-xl text-white">1311.6 Ha</h1>
+                  <h1 className="p-1 m-0 text-xl text-white">163.31 ha</h1>
                   <p className="p-1 m-0 text-white text-xs">
                     Parks & Open Spaces
                   </p>
@@ -96,7 +112,7 @@ const CityDemographics = () => {
               </div>
             </div>
             <div className="flex align-items-center justify-content-center shadow-3 border-round-xl">
-              <img src={geo_area} alt="area" className="h-13rem w-15rem" />
+              <img src={geo_area} alt="area" className="h-13rem w-14rem" />
             </div>
           </div>
         </div>
@@ -115,12 +131,12 @@ const CityDemographics = () => {
             <div className="flex align-items-center justify-content-between flex-column my-2 bg-cyan-700 border-round">
               <div className="flex align-items-center justify-content-between bg-white border-round-top">
                 <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
-                  <h1 className="p-1 m-0 text-lg text-cyan-800">3,93,209</h1>
+                  <h1 className="p-1 m-0 text-lg text-cyan-800">2,21,118</h1>
                   <p className="p-0 m-0 text-600 text-xs">Census Population</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
-                  <h1 className="p-1 m-0 text-lg text-cyan-800">55,890</h1>
+                  <h1 className="p-1 m-0 text-lg text-cyan-800">25,669</h1>
                   <p className="p-1 m-0 text-gray-600 text-xs">
                     Slum Population
                   </p>
@@ -144,30 +160,29 @@ const CityDemographics = () => {
             </div>
             {/* literacy-rate */}
             <div className="flex align-items-center justify-content-center flex-column gap-2">
-              <div className="flex align-items-center justify-content-center p-2 bg-white border-round w-full gap-2">
+              <div className="flex align-items-center justify-content-center p-2 bg-white border-round w-full gap-1">
                 <div
                   style={{
-                    width: "5rem",
-                    height: "5rem",
+                    width: "4rem",
+                    height: "4rem",
+                    marginTop: "0.5rem",
                   }}
                 >
                   <CircularProgressbar
                     value={73}
                     text="73%"
-                    className="flex align-items-center justify-content-center"
+                    className="m-0 p-0 "
                   />
                 </div>
-                <p className="p-2 m-0 text-600 text-sm text-center">
+                <p className="p-0 m-0 text-600 text-xs text-center">
                   Literacy Rate
                 </p>
               </div>
 
-              <div className="flex align-items-center justify-content-center p-2 flex-column bg-white border-round w-full">
-                <h1 className="p-1 m-0 text-lg text-cyan-800">24.61 Deaths</h1>
+              <div className="flex align-items-center justify-content-center p-3 flex-column bg-white border-round w-full">
+                <h1 className="p-0 m-0 text-lg text-cyan-800">980/sq.km</h1>
                 <p className="p-1 m-0 text-600 text-sm text-center">
-                  Infant Mortality Rate
-                  <br />
-                  (per 100 birth)
+                  Population Density
                 </p>
               </div>
             </div>

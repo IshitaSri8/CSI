@@ -85,7 +85,9 @@ body {
 .p-carousel {
   width: 100%;
 }
-
+.p-button.p-button-icon-only {
+  background-color: #166c7d;
+}
 .indicator .p-carousel .p-carousel-indicators .p-carousel-indicator {
   border-radius: 50%;
 }

@@ -126,7 +126,7 @@ const CitizenSidebar = () => {
                 onClick={() => handleTabClick("kyc")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <Building className="text-white mr-2" />
+                <Building className="text-white mr-2" size={20} />
                 <span className="font-medium text-white">Know Your City</span>
                 <Ripple />
               </div>
@@ -138,7 +138,7 @@ const CitizenSidebar = () => {
                 onClick={() => handleTabClick("cityReportCard")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <FileChartPie className="text-white mr-2" />
+                <FileChartPie className="text-white mr-2" size={20} />
                 <span className="font-medium text-white">City Report Card</span>
                 <Ripple />
               </div>

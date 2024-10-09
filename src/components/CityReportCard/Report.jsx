@@ -99,8 +99,8 @@ const CityReportCard = () => {
       cornerRadius: 4,
     },
 
-    height: 260,
-    width: 720,
+    height: 300,
+    width: 800,
     dataPointWidth: 12,
     data: [
       {
@@ -408,7 +408,7 @@ const CityReportCard = () => {
               </div>
               <div>
                 <p className="text-sm">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                  Shaping a Sustainable Future through NSA Dimensions.
                 </p>
               </div>
             </div>
@@ -428,26 +428,29 @@ const CityReportCard = () => {
           <p className="text-xl font-medium mt-0 mb-1">Summary</p>
           <div className="flex border-round bg-white px-3 mb-2">
             <p>
-              The score 70 is combined output of all the indicators falling
-              under SDG 11. This score indicates the actual picture of City
-              Ayodhya and also the areas where improvements are required.
+              While the city has made strides in waste management and urban
+              greening, air pollution and water conservation remain critical
+              challenges.
             </p>
           </div>
           <div className="flex border-round bg-white px-3 mb-2">
             <p>
-              CSI serves as a benchmarking tool, allowing cities to compare
-              their sustainability performance with peers regionally and
-              globally, fostering healthy competition and knowledge exchange.
+              The city has made considerable progress in enhancing cultural
+              heritage and public well-being, but there is room for improvement
+              in ensuring equitable access to services for all citizens.
             </p>
           </div>
           <div className="flex border-round bg-white px-3">
             <p>
-              CSI promotes integrated and balanced urban development strategies.
+              The city's governance is progressive, particularly in
+              environmental monitoring and data-driven decision-making. Yet,
+              efforts to increase administrative efficiency and public
+              participation must continue.
             </p>
           </div>
           <p className="text-xl font-medium mb-1">Areas of improvement</p>
           <div className="flex border-round bg-white px-3">
-            <p>Air Quality Green Space Land use</p>
+            <p>Air Quality, Green Space, and Land Use.</p>
           </div>
         </div>
       </div>

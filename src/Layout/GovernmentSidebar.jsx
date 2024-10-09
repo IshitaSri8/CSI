@@ -158,7 +158,7 @@ const GovernmentSidebar = () => {
                 onClick={() => handleTabClick("kyc")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <Building className="text-white mr-2" />
+                <Building className="text-white mr-2" size={20} />
                 <span className="font-medium text-white">Know Your City</span>
 
                 <Ripple />
@@ -171,7 +171,7 @@ const GovernmentSidebar = () => {
                 onClick={() => handleTabClick("cityReportCard")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <FileChartPie className="text-white mr-2" />
+                <FileChartPie className="text-white mr-2" size={20} />
                 <span className="font-medium text-white">City Report Card</span>
                 <Ripple />
               </div>
@@ -187,7 +187,7 @@ const GovernmentSidebar = () => {
                 style={getTabStyle("environment")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
-                <Sprout className="text-white mr-2" />
+                <Sprout className="text-white mr-2" size={20} />
                 <span className="font-medium text-white">Nature</span>
                 <i
                   className={`pi pi-chevron-${
@@ -205,8 +205,10 @@ const GovernmentSidebar = () => {
                       className="p-ripple flex align-items-center cursor-pointer p-2  border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors ml-4"
                     >
                       {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
-                      <Wind className="text-white mr-2" size={20} />
-                      <span className="font-medium text-white">AQI</span>
+                      <Wind className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        AQI
+                      </span>
                       <Ripple />
                     </div>
                   </li>
@@ -216,8 +218,8 @@ const GovernmentSidebar = () => {
                       onClick={() => handleTabClick("temperature")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <ThermometerSun className="text-white mr-2" size={20} />
-                      <span className="font-medium text-white">
+                      <ThermometerSun className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
                         Temperature
                       </span>
                       <Ripple />
@@ -229,8 +231,10 @@ const GovernmentSidebar = () => {
                       onClick={() => handleTabClick("rain")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <CloudHail className="text-white mr-2" size={20} />
-                      <span className="font-medium text-white">Rainfall</span>
+                      <CloudHail className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Rainfall
+                      </span>
                       <Ripple />
                     </div>
                   </li>
@@ -240,9 +244,11 @@ const GovernmentSidebar = () => {
                       onClick={() => handleTabClick("land")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <LandPlot className="text-white mr-1" size={20} />
+                      <LandPlot className="text-white mr-1" size={15} />
                       {/* <i className="pi pi-map mr-2 text-xl text-white"></i> */}
-                      <span className="font-medium text-white">Land</span>
+                      <span className="font-medium text-sm text-white">
+                        Land
+                      </span>
                       <Ripple />
                     </div>
                   </li>
@@ -253,9 +259,11 @@ const GovernmentSidebar = () => {
                       onClick={() => handleTabClick("water")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <Droplet className="text-white mr-2" size={20} />
+                      <Droplet className="text-white mr-2" size={15} />
                       {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
-                      <span className="font-medium text-white">Water</span>
+                      <span className="font-medium text-sm text-white">
+                        Water
+                      </span>
                       <Ripple />
                     </div>
                   </li>
@@ -265,8 +273,10 @@ const GovernmentSidebar = () => {
                       onClick={() => handleTabClick("waste")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <Trash className="text-white mr-2" size={20} />
-                      <span className="font-medium text-white">Waste</span>
+                      <Trash className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Waste
+                      </span>
                       <Ripple />
                     </div>
                   </li>
@@ -283,7 +293,7 @@ const GovernmentSidebar = () => {
                 style={getTabStyle("society")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
               >
-                <Users className="text-white mr-2" />
+                <Users className="text-white mr-2" size={20} />
                 <span className="font-medium text-white">Society</span>
                 <i
                   className={`pi pi-chevron-${
@@ -300,8 +310,10 @@ const GovernmentSidebar = () => {
                       onClick={() => handleTabClick("transport")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <Bus className="text-white mr-2" />
-                      <span className="font-medium text-white">Transport</span>
+                      <Bus className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Transport
+                      </span>
                       <Ripple />
                     </div>
                   </li>
@@ -311,8 +323,10 @@ const GovernmentSidebar = () => {
                       onClick={() => handleTabClick("healthcare")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <HeartPulse className="text-white mr-2" />
-                      <span className="font-medium text-white">Healthcare</span>
+                      <HeartPulse className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Healthcare
+                      </span>
                       <Ripple />
                     </div>
                   </li>
