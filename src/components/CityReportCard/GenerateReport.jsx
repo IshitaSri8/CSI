@@ -14,10 +14,7 @@ const GenerateReport = () => {
   };
 
   return (
-    <div
-      className="flex flex-column w-full align-items-center justify-content-center"
-      style={{ width: "50rem", height: "100%" }}
-    >
+    <div className="flex flex-column align-items-center justify-content-center">
       <Lottie
         animationData={report_ani}
         style={{ height: "20rem", width: "20rem" }}

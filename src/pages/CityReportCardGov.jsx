@@ -19,7 +19,7 @@ const CityReportCardGov = ({ show }) => {
       <TabView
         activeIndex={activeTab}
         onTabChange={(e) => setActiveTab(e.index)}
-        className=" bg-cyan-500"
+        className="w-full"
       >
         <TabPanel header="Performance" className="text-black">
           <Report />
@@ -27,10 +27,8 @@ const CityReportCardGov = ({ show }) => {
         <TabPanel header="Recommendations">
           <Recommendations />
         </TabPanel>
-        <TabPanel header="Report" className="text-black ">
-          <div className="w-full">
-            <GenerateReport />
-          </div>
+        <TabPanel header="Report">
+          <GenerateReport />
         </TabPanel>
       </TabView>
     </div>

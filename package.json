@@ -19,6 +19,8 @@
     "jspdf": "^2.5.2",
     "lorem-ipsum": "^2.0.8",
     "lottie-react": "^2.4.0",
+    "lucide": "^0.451.0",
+    "lucide-react": "^0.451.0",
     "mui-one-time-password-input": "^2.0.3",
     "mui-otp-input": "^0.0.1-alpha1.1",
     "ol": "^10.2.1",

@@ -9,6 +9,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { Doughnut, PieChart } from "components/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
 import "./KYC.css";
+import { Building2, Trash } from "lucide-react";
 
 const CityDemographics = () => {
   return (
@@ -22,16 +23,14 @@ const CityDemographics = () => {
           // }}
         >
           <div className="flex align-items-center justify-content-between w-full ">
-            <h1 className="m-0 p-0 text-white">
-              Geographical Overview
-            </h1>
+            <h1 className="m-0 p-0 text-white">Geographical Overview</h1>
             <i className="pi pi-map-marker text-white"></i>
           </div>
-          <div className="flex align-items-center justify-content-center gap-2">
+          <div className="flex align-items-center justify-content-center gap-2 p-2">
             <div className="flex align-items-center justify-content-center flex-column w-full gap-2">
               <div className="flex align-items-center justify-content-center w-full gap-2">
                 <div
-                  className="flex align-items-center justify-content-center flex-column p-3 shadow-3 border-round w-full"
+                  className="flex align-items-center justify-content-center flex-column p-3 shadow-3 border-round w-full "
                   style={{ backgroundColor: "rgba(14, 116, 144, 0.2)" }}
                 >
                   <h1 className="p-1 m-0 text-xl font-semibold text-white">
@@ -108,16 +107,14 @@ const CityDemographics = () => {
           }}
         >
           <div className="flex align-items-center justify-content-between">
-            <h1 className="m-0 p-0 text-white">
-              Population Insights
-            </h1>
+            <h1 className="m-0 p-0 text-white">Population Insights</h1>
             <i className="pi pi-users text-white"></i>
           </div>
-          <div className="flex align-items-center justify-content-between gap-3 ">
+          <div className="flex align-items-center justify-content-between gap-3 p-2">
             {/* waves */}
             <div className="flex align-items-center justify-content-between flex-column my-2 bg-cyan-700 border-round">
               <div className="flex align-items-center justify-content-between bg-white border-round-top">
-           <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
+                <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
                   <h1 className="p-1 m-0 text-lg text-cyan-800">3,93,209</h1>
                   <p className="p-0 m-0 text-600 text-xs">Census Population</p>
                 </div>
@@ -146,18 +143,27 @@ const CityDemographics = () => {
               />
             </div>
             {/* literacy-rate */}
-            <div className="flex align-items-center justify-content-between flex-column gap-2">
-              <div className="flex align-items-center justify-content-center p-2 bg-white border-round w-full gap-1">
-                <div style={{ width: "4rem", height: "4rem" }}>
-                  <CircularProgressbar value={73} text="73%" />
+            <div className="flex align-items-center justify-content-center flex-column gap-2">
+              <div className="flex align-items-center justify-content-center p-2 bg-white border-round w-full gap-2">
+                <div
+                  style={{
+                    width: "5rem",
+                    height: "5rem",
+                  }}
+                >
+                  <CircularProgressbar
+                    value={73}
+                    text="73%"
+                    className="flex align-items-center justify-content-center"
+                  />
                 </div>
-                <p className="p-2 m-0 text-600 text-sm text-senter">Literacy Rate</p>
+                <p className="p-2 m-0 text-600 text-sm text-center">
+                  Literacy Rate
+                </p>
               </div>
 
               <div className="flex align-items-center justify-content-center p-2 flex-column bg-white border-round w-full">
-                <h1 className="p-1 m-0 text-lg text-cyan-800">
-                  24.61 Deaths
-                </h1>
+                <h1 className="p-1 m-0 text-lg text-cyan-800">24.61 Deaths</h1>
                 <p className="p-1 m-0 text-600 text-sm text-center">
                   Infant Mortality Rate
                   <br />
@@ -178,25 +184,19 @@ const CityDemographics = () => {
             }}
           >
             <div className="flex align-items-center justify-content-between ">
-              <h1 className="m-0 p-0 text-white">
-                Civic Infrastructure
-              </h1>
-              <i className="pi pi-building-columns text-white"></i>
+              <h1 className="m-0 p-0 text-white">Civic Infrastructure</h1>
+              <Trash size={15} className="text-white" />
             </div>
             <div className="flex align-items-center justify-content-center flex-column gap-3 m-2">
               <div className="flex align-items-center justify-content-center flex-column bg-cyan-700 p-2 shadow-3 border-round w-full">
                 <i className="pi pi-info-circle text-white text-right w-full text-xs"></i>
                 <h1 className="text-white p-1 m-0 text-2xl">1</h1>
-                <p className="text-white p-1 m-0">
-                  Sewage Treatment Plants
-                </p>
+                <p className="text-white p-1 m-0">Sewage Treatment Plants</p>
               </div>
               <div className="flex align-items-center justify-content-center flex-column bg-cyan-700 p-2 shadow-3 border-round w-full">
                 <i className="pi pi-info-circle text-white text-right w-full text-xs"></i>
                 <h1 className="text-white p-1 m-0 text-2xl">0</h1>
-                <p className="text-white p-1 m-0">
-                  Landfills & Dumpsites
-                </p>
+                <p className="text-white p-1 m-0">Landfills & Dumpsites</p>
               </div>
             </div>
           </div>
@@ -212,7 +212,7 @@ const CityDemographics = () => {
           >
             <div className="flex align-items-center justify-content-between ">
               <h1 className="m-0 p-0 text-white">Public Utilities</h1>
-              <i className="pi pi-building-columns text-white"></i>
+              <Building2 className="text-white" size={15} />
             </div>
             <div className="flex align-items-center justify-content-center gap-2 m-2">
               <div className="flex align-items-center justify-content-center flex-column bg-cyan-700 p-2 shadow-3 border-round w-full">
@@ -393,9 +393,7 @@ const CityDemographics = () => {
             }}
           >
             <div className="flex align-items-center justify-content-between ">
-              <h1 className="m-0 p-0 text-white">
-                Culture & Attractions
-              </h1>
+              <h1 className="m-0 p-0 text-white">Culture & Attractions</h1>
               <i className="pi pi-building-columns text-white"></i>
             </div>
             <div className="flex align-items-center justify-content-center m-2">
