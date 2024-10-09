@@ -16,12 +16,7 @@ const Chatbot = () => {
     try {
       const response = await axios.post(
         "https://api-csi.arahas.com/new/register",
-        // "http://localhost:8009/new/register",
-
-        formData, // Correctly pass the form data
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        formData
       );
 
       if (response.status === 201) {
