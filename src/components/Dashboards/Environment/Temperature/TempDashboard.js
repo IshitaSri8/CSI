@@ -332,7 +332,7 @@ const TempDashboard = ({
           </div>
           <Button
             className="bg-cyan-800"
-            label="Filter"
+            label="Apply"
             icon="pi pi-search"
             onClick={handleSearch}
           />

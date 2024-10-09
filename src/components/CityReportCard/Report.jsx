@@ -22,6 +22,7 @@ import transparency from "assets/Report/Transparency and accountability.svg";
 import community from "assets/Report/Community engagement and holistic wellbeing.svg";
 import disaster from "assets/Report/disaster management.svg";
 import ethical from "assets/Report/ethical leadership.svg";
+import { Height } from "@mui/icons-material";
 
 const CityReportCard = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -102,9 +103,6 @@ const CityReportCard = () => {
       shared: true,
       cornerRadius: 4,
     },
-
-    height: 300,
-    width: 800,
     dataPointWidth: 12,
     data: [
       {
@@ -425,7 +423,7 @@ const CityReportCard = () => {
           style={{ flex: "70%" }}
         >
           <Card className="border-round-xl h-full">
-            <CanvasJSReact.CanvasJSChart options={options} />
+            <CanvasJSReact.CanvasJSChart options={options} containerProps={{height: 300, width: "100%"}}/>
           </Card>
         </div>
         <div className="flex flex-column pl-4" style={{ flex: "30%" }}>
