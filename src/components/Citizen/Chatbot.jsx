@@ -15,7 +15,9 @@ const Chatbot = () => {
   const submitFormData = async (formData) => {
     try {
       const response = await axios.post(
-        "https://api-csi.arahas.com/new/register", // Updated route
+        "https://api-csi.arahas.com/new/register",
+        // "http://localhost:8009/new/register",
+
         formData, // Correctly pass the form data
         {
           headers: { "Content-Type": "application/json" },
@@ -186,7 +188,7 @@ const Chatbot = () => {
       function: (params) => {
         setForm({ ...form, city: params.userInput });
       },
-      path: async (params) => "c-kyc",
+      path: "kyc",
     },
     kyc: {
       message: "Want to know more about your city?",
