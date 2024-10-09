@@ -13,6 +13,7 @@ const CityProgress = () => {
     height: 150,
     width: 250,
     bgColor: "transparent",
+    fontColor: "text-white",
   };
 
   const solidWasteProcessedData = {
@@ -59,7 +60,10 @@ const CityProgress = () => {
             <div className="flex flex-column gap-2">
               <div
                 className="border-round-2xl mb-2 w-full shadow p-2"
-                style={{ backgroundColor: "rgba(255, 255, 255, 0.2)", marginTop: -20 }}
+                style={{
+                  backgroundColor: "rgba(255, 255, 255, 0.2)",
+                  marginTop: -20,
+                }}
               >
                 <div className="flex flex-column">
                   <div className="flex gap-4">
@@ -77,8 +81,8 @@ const CityProgress = () => {
                         21
                       </p>
                       <p
-                        className="mt-1"
-                        style={{ color: "var(--text-tertiary)" }}
+                        className="mt-1 text-sm"
+                        style={{ color: "var(--text-tertiary-2)" }}
                       >
                         out of 67
                       </p>
@@ -86,7 +90,7 @@ const CityProgress = () => {
                   </div>
                   <p
                     className="m-0 text-sm"
-                    style={{ color: "var(--text-tertiary)" }}
+                    style={{ color: "var(--text-tertiary-2)" }}
                   >
                     Source:
                   </p>
@@ -115,8 +119,8 @@ const CityProgress = () => {
                       39.5
                     </p>
                     <p
-                      className="mt-3 ml-0"
-                      style={{ color: "var(--text-tertiary)" }}
+                      className="mt-3 ml-0 text-sm"
+                      style={{ color: "var(--text-tertiary-2)" }}
                     >
                       MLD
                     </p>
@@ -124,7 +128,7 @@ const CityProgress = () => {
                 </div>
                 <p
                   className="m-0 text-sm"
-                  style={{ color: "var(--text-tertiary)" }}
+                  style={{ color: "var(--text-tertiary-2)" }}
                 >
                   Source:
                 </p>
@@ -146,7 +150,10 @@ const CityProgress = () => {
             <p className="text-xl font-medium mt-1" style={{ color: "#fff" }}>
               Housing
             </p>
-            <div className="p-2 border-round-2xl" style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}>
+            <div
+              className="p-2 border-round-2xl"
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+            >
               <div className="flex gap-4">
                 <div className="flex flex-column justify-content-end">
                   <p
@@ -155,7 +162,7 @@ const CityProgress = () => {
                   >
                     262
                   </p>
-                  <p className="mt-1" style={{ color: "var(--text-tertiary)" }}>
+                  <p className="mt-1 text-sm" style={{ color: "var(--text-tertiary-2)" }}>
                     Houses allocated
                   </p>
                 </div>
@@ -167,14 +174,14 @@ const CityProgress = () => {
                   >
                     284
                   </p>
-                  <p className="mt-1" style={{ color: "var(--text-tertiary)" }}>
+                  <p className="mt-1 text-sm" style={{ color: "var(--text-tertiary-2)" }}>
                     Houses built
                   </p>
                 </div>
               </div>
               <p
                 className="m-0 text-sm mt-4"
-                style={{ color: "var(--text-tertiary)" }}
+                style={{ color: "var(--text-tertiary-2)" }}
               >
                 Source:
               </p>
@@ -194,7 +201,7 @@ const CityProgress = () => {
             {DonutChart(electricityConsumptionData)}
             <p
               className="m-0 text-sm"
-              style={{ color: "var(--text-tertiary)" }}
+              style={{ color: "var(--text-tertiary-2)" }}
             >
               Source:
             </p>
@@ -229,11 +236,11 @@ const CityProgress = () => {
                       className="m-0 text-center text-4xl"
                       style={{ color: "#F26721" }}
                     >
-                      star
+                      <i className="pi pi-star"/>
                     </p>
                     <p
-                      className="mt-1"
-                      style={{ color: "var(--text-tertiary)" }}
+                      className="mt-1 text-sm"
+                      style={{ color: "var(--text-tertiary-2)" }}
                     >
                       Rating
                     </p>
@@ -241,7 +248,7 @@ const CityProgress = () => {
                 </div>
                 <p
                   className="m-0 text-sm"
-                  style={{ color: "var(--text-tertiary)" }}
+                  style={{ color: "var(--text-tertiary-2)" }}
                 >
                   Source:
                 </p>
@@ -256,18 +263,22 @@ const CityProgress = () => {
             >
               Waste Management
             </p>
-            <img src={waste} alt="overall" className="w-5 ml-8" style={{marginTop: -10}} />
+            <img
+              src={waste}
+              alt="overall"
+              className="w-5 ml-8"
+              style={{ marginTop: -10 }}
+            />
             <div
               className="border-round-2xl w-full p-2"
               style={{
-                background:
-                  "rgba(255, 255, 255, 0.2)",
+                background: "rgba(255, 255, 255, 0.2)",
               }}
             >
               {DonutChart(wasteGenerationData)}
               <p
                 className="m-0 text-sm"
-                style={{ color: "var(--text-tertiary)" }}
+                style={{ color: "var(--text-tertiary-2)" }}
               >
                 Source:
               </p>
@@ -297,8 +308,8 @@ const CityProgress = () => {
                       389
                     </p>
                     <p
-                      className="mt-1"
-                      style={{ color: "var(--text-tertiary)" }}
+                      className="mt-1 text-sm"
+                      style={{ color: "var(--text-tertiary-2)" }}
                     >
                       Rank out of 1000
                     </p>
@@ -306,7 +317,7 @@ const CityProgress = () => {
                 </div>
                 <p
                   className="m-0 text-sm"
-                  style={{ color: "var(--text-tertiary)" }}
+                  style={{ color: "var(--text-tertiary-2)" }}
                 >
                   Source:
                 </p>
@@ -318,14 +329,13 @@ const CityProgress = () => {
             <div
               className="border-round-2xl w-full p-2"
               style={{
-                background:
-                  "rgba(255, 255, 255, 0.2)",
+                background: "rgba(255, 255, 255, 0.2)",
               }}
             >
               {DonutChart(solidWasteProcessedData)}
               <p
                 className="m-0 text-sm"
-                style={{ color: "var(--text-tertiary)" }}
+                style={{ color: "var(--text-tertiary-2)" }}
               >
                 Source:
               </p>
@@ -338,7 +348,7 @@ const CityProgress = () => {
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
               <div className="flex flex-column">
-                <div className="flex gap-8">
+                <div className="flex justify-content-around">
                   <p
                     className="text-xl font-medium mt-1"
                     style={{ color: "#fff" }}
@@ -346,7 +356,7 @@ const CityProgress = () => {
                     CT/PT
                   </p>
                   <p
-                    className="text-xl font-medium mt-1 text-right"
+                    className="text-xl font-medium mt-1"
                     style={{ color: "#fff" }}
                   >
                     62/62
@@ -359,13 +369,13 @@ const CityProgress = () => {
                   >
                     100%
                   </p>
-                  <p className="mt-1" style={{ color: "var(--text-tertiary)" }}>
+                  <p className="mt-1 text-sm text-center" style={{ color: "var(--text-tertiary-2)" }}>
                     Functional
                   </p>
                 </div>
                 <p
                   className="m-0 text-sm"
-                  style={{ color: "var(--text-tertiary)" }}
+                  style={{ color: "var(--text-tertiary-2)" }}
                 >
                   Source:
                 </p>

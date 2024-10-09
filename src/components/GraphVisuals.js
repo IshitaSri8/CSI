@@ -23,7 +23,7 @@ const colors = [
   "#B9D2D8",
   "#E9F3F5",
 ];
-export const DonutChart = ({ title, labels, series, height, width, bgColor }) => {
+export const DonutChart = ({ title, labels, series, height, width, bgColor, fontColor }) => {
   const options = {
     animationEnabled: true,
     title: {
@@ -31,6 +31,7 @@ export const DonutChart = ({ title, labels, series, height, width, bgColor }) =>
       fontSize: 14,
       fontFamily: "Montserrat",
       fontWeight: "600",
+      color: fontColor,
     },
     backgroundColor: bgColor,
     dataPointWidth: 12,
@@ -70,6 +71,7 @@ export const DonutChart = ({ title, labels, series, height, width, bgColor }) =>
         width: width,
         height: height,
         bgColor: bgColor,
+        fontColor: fontColor,
       }}
     />
   );

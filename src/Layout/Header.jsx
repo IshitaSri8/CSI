@@ -79,15 +79,15 @@ const Header = () => {
       label: "Resources",
       icon: "pi pi-receipt",
       template: itemRenderer,
-      command: () => {
-        const link = document.createElement("a");
-        link.href = "/sample.pdf";
-        link.download = "sample.pdf"; // Force download
-        link.click();
-      },
       // command: () => {
-      //   window.open("/example.pptx", "_blank"); // Opens the PPT file in a new tab
+      //   const link = document.createElement("a");
+      //   link.href = "/CSI_Presentation_Report.pptx";
+      //   link.download = "CSI_Presentation_Report.pptx"; // Force download
+      //   link.click();
       // },
+      command: () => {
+        window.open("/CSI_Presentation_Report.pptx", "_blank"); // Opens the PPT file in a new tab
+      },
     },
   ];
 
