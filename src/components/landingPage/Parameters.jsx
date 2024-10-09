@@ -38,7 +38,7 @@ const Parameters = () => {
         >
           <div className="flex flex-column align-items-left justify-content-start ">
             <img src={Society} alt="Society" className="w-full" />
-            <h3 className="text-3xl mb-0 text-900 mx-6">Social</h3>
+            <h3 className="text-3xl mb-0 text-900 mx-6">Society</h3>
             <p className="mx-6 mb-5">
               Society refers to the process of developing thriving and
               sustainable environments that enhance well-being. This involves
