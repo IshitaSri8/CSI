@@ -18,6 +18,10 @@ import AntiCorruption from "assets/Report/Anti corruption.svg";
 import GovtPol from "assets/Report/Government policies.svg";
 import HumanRights from "assets/Report/Human Rights.svg";
 import { Divider } from "primereact/divider";
+import transparency from "assets/Report/Transparency and accountability.svg";
+import community from "assets/Report/Community engagement and holistic wellbeing.svg";
+import disaster from "assets/Report/disaster management.svg";
+import ethical from "assets/Report/ethical leadership.svg";
 
 const CityReportCard = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -268,14 +272,14 @@ const CityReportCard = () => {
               <Divider layout="vertical" />
               <div className="flex flex-column justify-content-center align-items-center w-full">
                 <div className="flex gap-1 align-items-center">
-                  <i className="pi pi-briefcase w-1rem" />
+                <img src={community} alt="nature" className="w-1rem" />
                   <p className="font-semibold text-xs text-900">
                     Employment Opportunities
                   </p>
                 </div>
 
                 <div className="flex gap-1 align-items-center ">
-                  <i className="pi pi-users w-1rem" />
+                <img src={community} alt="nature" className="w-1rem" />
                   <p className="font-semibold text-xs text-900">
                     Community Engagement & Holistic Well-Being
                   </p>
@@ -330,21 +334,21 @@ const CityReportCard = () => {
             <div className="flex justify-content-between w-full">
               <div className="flex flex-column justify-content-start align-items-start w-full">
                 <div className="flex gap-1">
-                  <img src={GovtPol} alt="nature" className="w-1.5rem" />
+                  <img src={transparency} alt="nature" className="w-1.5rem" />
                   <p className="font-semibold text-xs text-900">
                     Transparency and Accountability
                   </p>
                 </div>
 
                 <div className="flex gap-1">
-                  <img src={AntiCorruption} alt="nature" className="w-1.5rem" />
+                  <img src={ethical} alt="nature" className="w-1.5rem" />
                   <p className="font-semibold text-xs text-900">
                     Ethical Leadership
                   </p>
                 </div>
 
                 <div className="flex gap-1">
-                  <img src={HumanRights} alt="nature" className="w-1.5rem" />
+                  <img src={disaster} alt="nature" className="w-1.5rem" />
                   <p className="font-semibold text-xs text-900">
                     Disaster Management
                   </p>
