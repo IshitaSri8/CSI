@@ -57,7 +57,7 @@ const BusTrend = ({ totalBusesData, electricBusesData }) => {
       fontWeight: "800",
     },
     axisX: {
-      labelFontColor: "#E9F3F5",
+    //  labelFontColor: "#E9F3F5",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
       valueFormatString: "YYYY", // Show only year
@@ -65,7 +65,7 @@ const BusTrend = ({ totalBusesData, electricBusesData }) => {
     axisY: {
       gridThickness: 0,
       includeZero: false,
-      labelFontColor: "#E9F3F5",
+    //  labelFontColor: "#E9F3F5",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
       lineThickness: 1,

@@ -85,14 +85,15 @@ const Accessibility = () => {
   ];
 
   return (
-    <>
-      <div className="flex align-items-center justify-content-between flex-row gap-2">
+    <div className="flex flex-column  gap-4">
+      <div className="flex align-items-center justify-content-between gap-4">
         {cardsData.map((card, index) => (
           <Card className="h-auto w-full p-0" key={index}>
-            <div className="flex w-full h-auto p-0 m-0">
+           <div className="flex flex-column gap-3">
+           <div className="flex w-full">
               {/* Left Column: Content */}
               <div className="flex w-full m-0 p-0 align-items-start justify-content-start flex-column">
-                <h1 className="m-0 text-xs">{card.label}</h1>
+                <h1 className="m-0">{card.label}</h1>
                 <h1
                   className="text-xl text-theme ml-0 mb-0"
                 >
@@ -111,7 +112,7 @@ const Accessibility = () => {
                 />
               </div>
             </div>
-            <div className="flex align-items-center justify-content-center w-full mt-2">
+            <div className="flex align-items-center justify-content-center w-full">
               <ProgressBar
                 value={card.value}
                 showValue={false}
@@ -123,7 +124,7 @@ const Accessibility = () => {
                 className="w-full" // Make sure it takes full width of its container
               />
             </div>
-            <div className="flex align-items-start justify-content-between flex-row w-full ">
+            <div className="flex align-items-start justify-content-between w-full">
             <div className="flex align-items-start justify-content-start flex-row">
               <img
                 src={decrease}
@@ -136,7 +137,7 @@ const Accessibility = () => {
             </div>
             <CustomTooltip
               content={
-                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                <div className="flex align-items-center justify-content-center gap-1 flex-column w-full">
                   <p className="m-0 text-xs">
                     Accessibility In Current Year: 60%
                   </p>
@@ -151,11 +152,12 @@ const Accessibility = () => {
               />
             </CustomTooltip>
           </div>
+           </div>
           </Card>
         ))}
       </div>
 
-      <div className="flex align-items-center justify-content-between flex-row gap-2 mt-3">
+      <div className="flex align-items-center justify-content-between gap-4">
         {/* Doughnut Chart for overall transport usage */}
         <Card className="w-full p-0">
           <Doughnut
@@ -170,7 +172,7 @@ const Accessibility = () => {
           <h1 className="m-0 p-1 text-lg">Heat Map</h1>
         </Card>
       </div>
-    </>
+    </div>
   );
 };
 

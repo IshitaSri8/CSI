@@ -8,25 +8,25 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 // Color palette for charts
 const colors = [
-    "#26575D",
-    "#1F8297",
-    "#4D7479",
-    "#4C9BAC",
-    "#98C6CF",
-    "#F7A47A",
-    "#47B881",
-    "#FFDD82",
-    "#F64C4C",
-//   "#557C56",
-//   "#90D26D",
-//   "#6A9C89",
-//   "#B5C18E",
-//   "#41B3A2",
-//   "#BDE8CA",
-//   "#C4DAD2",
-//   "#9CDBA6",
-//   "#95D2B3",
-//   "#729762",
+  "#26575D",
+  "#1F8297",
+  "#4D7479",
+  "#4C9BAC",
+  "#98C6CF",
+  "#F7A47A",
+  "#47B881",
+  "#FFDD82",
+  "#F64C4C",
+  //   "#557C56",
+  //   "#90D26D",
+  //   "#6A9C89",
+  //   "#B5C18E",
+  //   "#41B3A2",
+  //   "#BDE8CA",
+  //   "#C4DAD2",
+  //   "#9CDBA6",
+  //   "#95D2B3",
+  //   "#729762",
 ];
 
 // Doughnut Chart Component
@@ -177,27 +177,25 @@ const Healthcare = () => {
     "Cervical Cancer Screenings",
   ];
   return (
-    <div className="gap-1">
+    <div className="flex flex-column gap-3 p-5">
       <Panel>
-        <div className="flex align-items-center justify-content-center flex-row w-full gap-1">
+        <div className="flex align-items-center justify-content-center w-full gap-3">
           <Card className="w-full ">
-            <div className="flex align-items-center justify-content-center flex-column gap-2 text-center w-full">
+            <div className="flex align-items-center justify-content-center flex-column gap-4 text-center w-full">
               <h1 className="text-theme text-xl font-bold text-center p-0 m-0">
                 800
               </h1>
               <h1 className=" m-0 p-0 text-xs text-center">
                 Number of Registered Doctors (Certified)
               </h1>
-            </div>
-            <div className="flex align-items-center justify-content-center flex-column gap-2 text-center w-full">
+
               <h1 className="text-theme text-xl font-bold text-center p-0 m-0">
                 1987
               </h1>
               <h1 className=" m-0 p-0 text-xs text-center">
                 Number of Registered Health Workers
               </h1>
-            </div>
-            <div className="flex align-items-center justify-content-center flex-column gap-2 text-center w-full">
+
               <h1 className="text-theme text-xl font-bold text-center p-0 m-0">
                 200
               </h1>
@@ -207,10 +205,10 @@ const Healthcare = () => {
             </div>
           </Card>
           <Card className="w-full ">
-            <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
+            <div className="flex align-items-start justify-content-between  text-center w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
                 <h1 className=" m-0 p-0 text-xs">Healthcare Institutions</h1>
-                <div className="flex align-items-start justify-content-start flex-row gap-1 text-center w-full">
+                <div className="flex align-items-start justify-content-start gap-1 text-center w-full">
                   <DoughnutChart
                     title=""
                     labels={hospitalLabels}
@@ -222,12 +220,12 @@ const Healthcare = () => {
             </div>
           </Card>
           <Card className="w-full ">
-            <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
+            <div className="flex align-items-start justify-content-between  text-center w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
                 <h1 className=" m-0 p-0 text-xs">
                   Non-Government Institutions
                 </h1>
-                <div className="flex align-items-start justify-content-start flex-row gap-1 text-center w-full">
+                <div className="flex align-items-start justify-content-start gap-1 text-center w-full">
                   <DoughnutChart
                     title=""
                     labels={["Nursing Homes", "Private Hospitals"]}
@@ -242,7 +240,7 @@ const Healthcare = () => {
       </Panel>
 
       <Panel>
-        <div className="flex align-items-center justify-content-center flex-row gap-1 w-full">
+        <div className="flex align-items-center justify-content-center gap-3 w-full">
           <Card className="w-full">
             <BarChart
               title="Registered Patients per Year"
@@ -274,7 +272,7 @@ const Healthcare = () => {
         </div>
       </Panel>
       <Panel>
-        <div className="flex align-items-center justify-content-center flex-row gap-1 w-full">
+        <div className="flex align-items-center justify-content-center gap-3 w-full">
           <Card className="w-full">
             <DoughnutChart
               title="Health Insurance Per Capita"

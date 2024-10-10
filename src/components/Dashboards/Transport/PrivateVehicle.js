@@ -27,8 +27,9 @@ const PrivateVehicle = () => {
       fontSize: 12,
       padding: { bottom: 20 },
     },
-    height: 300,
-    width: 700,
+    height: 200,
+  
+    dataPointWidth: 24,
     axisX: {
       title: "",
       interval: 1,
@@ -107,15 +108,16 @@ const PrivateVehicle = () => {
 
   return (
     <>
-      <div className="flex align-items-center justify-content-between flex-row gap-3">
+      <div className="flex align-items-center justify-content-between gap-8 p-4">
         {/* Card 1: Number of Private Vehicles */}
         <div className="flex align-items-center justify-content-between flex-column gap-3">
-          <Card className="w-20rem h-10rem p-0 align-items-center justify-content-between">
-            <h1 className="m-0 p-0 text-xl">3000</h1>
+          <Card className="w-full ">
+            <div className="flex flex-column align-items-center justify-content-between gap-3 ">
+            <h1 className="m-0 p-0 text-xl text-center">3000</h1>
             <h1 className="m-0 text-xs text-center">
               Number of private vehicles contributing to public transport
             </h1>
-            <div className="flex align-items-center justify-content-center flex-row w-full">
+            <div className="flex align-items-center justify-content-center w-full">
               {/* <div className="flex align-items-start justify-content-start flex-row">
                 <img
                   src={increase}
@@ -150,11 +152,13 @@ const PrivateVehicle = () => {
                 />
               </CustomTooltip>
             </div>
+            </div>
           </Card>
 
           {/* Card 2: Transport Mode Usage by Percentage */}
-          <Card className="w-20rem h-10rem align-items-center justify-content-between p-0">
-            <div className="flex align-items-center justify-content-center flex-row w-full">
+          <Card className="w-full">
+          <div className="flex align-items-center justify-content-center gap-3 flex-column"> 
+            <div className="flex align-items-center justify-content-center">
               <img
                 src={increase}
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
@@ -162,8 +166,6 @@ const PrivateVehicle = () => {
               />
               <h1 className="m-0 text-xl">15%</h1>
             </div>
-
-            {/* <div className="flex align-items-center justify-content-center flex-row"> */}
               <h1 className="m-0 text-xs text-center">
                 Percentage increase in private vehicles contributing to public
                 transport
@@ -190,11 +192,11 @@ const PrivateVehicle = () => {
                   }}
                 />
               </CustomTooltip>
-            
+            </div>
           </Card>
         </div>
         {/* Card 3: Private-public partnerships */}
-        <Card className="w-full h-21rem p-0">
+        <Card className="w-full">
           {/* <ParetoChart
             title="Private-public partnerships over the last 5 years"
             categories={categories}

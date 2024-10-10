@@ -103,7 +103,7 @@ const LandingScreen = () => {
           <CSIVideo />
         </div>
 
-        <div className="flex h-screen justify-content-center flex-nowrap w-full overflow-auto px-5">
+        <div className="flex h-screen justify-content-center w-full overflow-auto p-5">
           <Parameters />
         </div>
 
