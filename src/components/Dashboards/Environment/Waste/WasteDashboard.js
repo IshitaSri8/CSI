@@ -268,7 +268,7 @@ const WasteDashboard = () => {
               categories={barChart1Categories}
               series={barChart1Data}
               height={240}
-              width={320}
+              
               title="Solid Waste Management"
               colors={colors.slice(0, 3)}
             />
@@ -279,7 +279,7 @@ const WasteDashboard = () => {
               categories={barChartCategories}
               series={barChartData}
               height={250}
-              width={290}
+              
               title="Open Defecation Free"
               colors={colors.slice(0, 4)}
             />
