@@ -179,7 +179,7 @@ const PollutantChart = ({
       )}
       <CanvasJSChart
         options={chartOptions}
-        containerProps={{ height: height, width: width }}
+        containerProps={{ height: height, width: "100%" }}
       />
     </div>
   );

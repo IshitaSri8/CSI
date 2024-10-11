@@ -183,32 +183,8 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
         const location = feature.get("location") || "";
 
         let popupHTML = `
+          
           <div>
-            ${
-              location === "Ayodhya - Civil line,Tiny tots"
-                ? `<img src="${school}" alt="School" style="width: 100%; height: 5vw;"/>`
-                : ""
-            }
-            ${
-              location === "Ayodhya - Shahadat Ganj"
-                ? `<img src="${Shahadat}" alt="Shahadat" style="width: 100%; height: 5vw;"/>`
-                : ""
-            }
-            ${
-              location === "Ayodhya-Bank colony"
-                ? `<img src="${railway}" alt="Railway" style="width: 100%; height: 5vw;"/>`
-                : ""
-            }
-            ${
-              location === " Ayodhya-near Airport"
-                ? `<img src="${airport}" alt="Airport" style="width: 100%; height: 6vw;"/>`
-                : ""
-            }
-            ${
-              location === "Ayodhya-Ranopali"
-                ? `<img src="${temple}" alt="Temple" style="width: 100%; height: 5vw;"/>`
-                : ""
-            }
             <p><strong>${location}</strong></p>
             <p><strong>AQI Level:</strong> ${aqi}</p>
           </div>
@@ -233,8 +209,7 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
       <div
         ref={mapRef}
         style={{
-          width: "30rem",
-          height: "15rem",
+          height: "12rem",
           overflow: "hidden",
         }}
       />

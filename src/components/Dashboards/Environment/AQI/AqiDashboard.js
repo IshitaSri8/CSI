@@ -18,11 +18,9 @@ import { Panel } from "primereact/panel";
 import TableSkeleton from "../../skeletons/TableSkeleton";
 import AQIChart from "./AQIChart";
 import AqiMap from "./AqiMap";
-
-// Define the helper functions here
-const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
-const formatTimeToHHMMSS = (time) =>
-  time.toISOString().split("T")[1].split(".")[0]; // Format time to 'HH:MM:SS'
+import { Dialog } from "primereact/dialog";
+import AQIRecommendations from "./AQIRecommendations";
+import AQIReportPrint from "./AQIReportPrint";
 
 const AqiDashboard = ({
   onDataChange,
@@ -62,9 +60,9 @@ const AqiDashboard = ({
   const [enviroNO2, setEnviroNO2] = useState([]);
   const [enviroco2, setEnviroco2] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedAction, setSelectedAction] = useState("");
-
+  const [filterVisible, setFilterVisible] = useState(false);
+  const [RecommendationVisible, setRecommendationsVisible] = useState(false);
+  const [ReportVisible, setReportVisible] = useState(false);
   const handleLocationChange = (e) => {
     if (show) {
       setSelectedLocation(e.value.code);
@@ -268,34 +266,39 @@ const AqiDashboard = ({
         color: "green",
         textColor: "white",
         image: good,
+        bg_color: "#BDE8CA",
       };
     } else if (aqi > 100 && aqi <= 200) {
       return {
         status: "Moderate",
-        color: "yellow",
+        color: "#FABC3F",
         textColor: "black",
         image: moderate,
+        bg_color: "#FFF4B5",
       };
     } else if (aqi > 200 && aqi <= 300) {
       return {
         status: "Poor",
-        color: "orange",
+        color: "#FF7D29",
         textColor: "black",
         image: poor,
+        bg_color: "#FFBF78",
       };
     } else if (aqi > 300 && aqi <= 400) {
       return {
         status: "Very Poor",
-        color: "red",
+        color: "#C7253E",
         textColor: "white",
         image: very_poor,
+        bg_color: "#FF8A8A",
       };
     } else if (aqi > 400) {
       return {
         status: "Severe",
-        color: "purple",
+        color: "#624E88",
         textColor: "white",
         image: severe,
+        bg_color: "#E5D9F2",
       };
     }
   };
@@ -333,10 +336,44 @@ const AqiDashboard = ({
   const NO2Impactseries = [1090, 815, 345, 245];
 
   return (
-    <div className="flex flex-column gap-3 w-full">
+    <div className="flex flex-column gap-3 w-full p-4">
       {/* {show && ( */}
-      <Panel toggleable header="Filter By">
-        <div className="flex flex-column align-items-end w-full gap-3">
+      {show && (
+        <div className="flex align-items-center justify-content-between">
+          <h1 className="m-0 p-0 text-2xl text-cyan-800">AQI Dashboard</h1>
+          <div className="flex align-ites-center justify-content-end flex-row gap-1">
+            <Button
+              label="Filters"
+              icon="pi pi-filter"
+              onClick={() => setFilterVisible(true)}
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+            />
+            <Button
+              label="Recommendations"
+              icon="pi pi-align-center"
+              onClick={() => setRecommendationsVisible(true)}
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+            />
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+            />
+          </div>
+        </div>
+      )}
+
+      <Dialog
+        header="Filter By"
+        visible={filterVisible}
+        style={{ width: "50vw" }}
+        onHide={() => {
+          if (!filterVisible) return;
+          setFilterVisible(false);
+        }}
+      >
+        <div className="flex flex-column align-items-end w-full gap-3 flex-row">
           <div className="flex align-items-center justify-content-between w-full gap-3">
             <div className="flex flex-column">
               <label htmlFor="location" className="font-semibold">
@@ -393,102 +430,129 @@ const AqiDashboard = ({
             onClick={handleSearch}
           />
         </div>
-      </Panel>
+      </Dialog>
       {/* )} */}
-      <div className="flex flex-row flex-wrap md:flex-nowrap align-items-end w-full gap-2 mt-2">
+      <Dialog
+        header="Recommendations"
+        visible={RecommendationVisible}
+        style={{ width: "70rem" }}
+        onHide={() => {
+          if (!RecommendationVisible) return;
+          setRecommendationsVisible(false);
+        }}
+      >
+        <AQIRecommendations aqi={aqiValue} pm25={pm25Value} pm10={pm10Value} />
+      </Dialog>
+      <Dialog
+        visible={ReportVisible}
+        style={{ width: "100rem" }}
+        onHide={() => {
+          if (!ReportVisible) return;
+          setReportVisible(false);
+        }}
+      >
+        <AQIReportPrint
+          show={false}
+          selectedLocation={selectedLocation}
+          startDate={startDate}
+          endDate={endDate}
+        />
+      </Dialog>
+      <div className="flex flex-row flex-wrap md:flex-nowrap align-items-end w-full gap-3 mt-2">
         {selectedLocation && (
-          <div>
-            <Card
-              title="Air Quality Index"
-              className="h-20rem w-30rem text-center "
-            >
-              <div className="flex align-items-center justify-content-around flex-row flex-wrap md:flex-nowrap">
-                <div className="flex align-items-center justify-content-center flex-column gap-4">
-                  <h1 className="text-3xl p-0 m-0">
-                    {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
-                  </h1>
-                  {aqiImage && (
-                    <img
-                      src={aqiImage}
-                      alt={aqiStatusText}
-                      style={{ width: "5rem", height: "8rem" }}
-                    />
-                  )}
-                  <h1
-                    className={`border-round-xs p-1 text-xs text-white w-6rem`}
-                    style={{ backgroundColor: aqiStatus.color }}
-                  >
-                    {aqiStatus.status || "No Status"}
-                  </h1>
-                </div>
+          <Card
+            title="Air Quality Index"
+            className="w-full"
+            style={{ backgroundColor: aqiStatus.bg_color }}
+          >
+            <div className="flex align-items-center justify-content-around flex-row w-full">
+              <div className="flex align-items-center justify-content-between flex-column gap-4 w-full">
+                <h1 className="text-5xl font-medium p-0 m-0">
+                  {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
+                </h1>
+
+                <h1
+                  className={`border-round-xs p-1 text-xs px-5 text-white text-base`}
+                  style={{ backgroundColor: aqiStatus.color }}
+                >
+                  {aqiStatus.status || "No Status"}
+                </h1>
               </div>
-            </Card>
-          </div>
-        )}
-        <div className="ml-1 mr-1">
-          <Card className="h-20rem" style={{ width: "32.5rem" }}>
-            {loading ? (
-              <div className="w-22rem h-15rem">
-                <TableSkeleton />
+              <div className="w-full flex justify-content-center align-items-center">
+                {aqiImage && (
+                  <img
+                    src={aqiImage}
+                    alt={aqiStatusText}
+                    style={{ width: "6rem", height: "10rem" }}
+                  />
+                )}
               </div>
-            ) : (
-              <DataTable
-                value={dataTableData}
-                rowClassName={rowClassName}
-                scrollable
-                scrollHeight="15rem"
-                style={{
-                  width: "31rem",
-                  height: "17rem",
-                  textAlign: "center",
-                }}
-                emptyMessage="No Outliear Days Found."
-              >
-                <Column
-                  field="date"
-                  header="Date"
-                  className="text-xs"
-                  headerStyle={{
-                    fontSize: "0.6rem",
-                    backgroundColor: "#166c7d",
-                    color: "white",
-                  }}
-                ></Column>
-                <Column
-                  field="time"
-                  header="Time"
-                  className="text-xs"
-                  headerStyle={{
-                    fontSize: "0.6rem",
-                    backgroundColor: "#166c7d",
-                    color: "white",
-                  }}
-                />
-                <Column
-                  field="aqi"
-                  header="AQI above 400"
-                  className="text-xs"
-                  headerStyle={{
-                    fontSize: "0.6rem",
-                    backgroundColor: "#166c7d",
-                    color: "white",
-                  }}
-                ></Column>
-                <Column
-                  field="deviationPercentage"
-                  header="Outlier %"
-                  className="text-xs"
-                  headerStyle={{
-                    fontSize: "0.6rem",
-                    backgroundColor: "#166c7d",
-                    color: "white",
-                  }}
-                ></Column>
-              </DataTable>
-            )}
+            </div>
           </Card>
-        </div>
-        <Card className="h-20rem w-35rem">
+        )}
+
+        <Card className="w-full">
+          {loading ? (
+            <div className="w-full">
+              <TableSkeleton />
+            </div>
+          ) : (
+            <DataTable
+              value={dataTableData}
+              rowClassName={rowClassName}
+              scrollable
+              scrollHeight="12rem"
+              style={{
+                textAlign: "center",
+              }}
+              emptyMessage="No Outliear Days Found."
+            >
+              <Column
+                field="aqi"
+                header="AQI"
+                className="text-sm font-semibold"
+                headerStyle={{
+                  fontSize: "0.6rem",
+                  backgroundColor: "#166c7d",
+                  color: "white",
+                }}
+              ></Column>
+              <Column
+                field="date"
+                header="Date"
+                className="text-xs"
+                headerStyle={{
+                  fontSize: "0.2rem",
+                  backgroundColor: "#166c7d",
+                  color: "white",
+                }}
+              ></Column>
+              <Column
+                field="time"
+                header="Time"
+                className="text-xs"
+                headerStyle={{
+                  fontSize: "0.6rem",
+                  backgroundColor: "#166c7d",
+                  color: "white",
+                }}
+              />
+
+              <Column
+                field="deviationPercentage"
+                header="Outlier %"
+                className="text-sm font-semibold"
+                headerStyle={{
+                  fontSize: "0.6rem",
+                  backgroundColor: "#166c7d",
+                  color: "white",
+                }}
+              ></Column>
+            </DataTable>
+          )}
+        </Card>
+
+        <Card className="w-full">
           {/* <AqiReport
               selectedLocation={selectedLocation}
               startDate={startDate}
@@ -515,74 +579,67 @@ const AqiDashboard = ({
         />
       </Card>
 
-      <Card>
-        <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
-          <Card>
-            <PollutantChart
-              envirolocation={envirolocation}
-              envirodate={envirodate}
-              envirotime={envirotime}
-              pollutantData={enviropm25}
-              selectedLocation={selectedLocation}
-              pollutantName="PM2.5"
-              baseChartColor="#FF5722"
-              drilldownChartColor="#FFC107"
-              height={200}
-              width={500}
-              safeLimit={60}
-            />
-          </Card>
-          <Card>
-            <PollutantChart
-              envirolocation={envirolocation}
-              envirodate={envirodate}
-              envirotime={envirotime}
-              pollutantData={enviropm10}
-              selectedLocation={selectedLocation}
-              pollutantName="PM10"
-              baseChartColor="#4DB6AC"
-              drilldownChartColor="#80CBC4"
-              height={200}
-              width={500}
-              safeLimit={100}
-            />
-          </Card>
-        </div>
-      </Card>
-      <Card>
-        <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
-          <Card>
-            <PollutantChart
-              envirolocation={envirolocation}
-              envirodate={envirodate}
-              envirotime={envirotime}
-              pollutantData={enviroNO2}
-              selectedLocation={selectedLocation}
-              pollutantName="NO2"
-              baseChartColor="#F44336"
-              drilldownChartColor="#E57373"
-              height={200}
-              width={500}
-              safeLimit={80}
-            />
-          </Card>
-          <Card>
-            <PollutantChart
-              envirolocation={envirolocation}
-              envirodate={envirodate}
-              envirotime={envirotime}
-              pollutantData={enviroso2}
-              selectedLocation={selectedLocation}
-              pollutantName="SO2"
-              baseChartColor="#FFEB3B"
-              drilldownChartColor="#FFF176"
-              height={200}
-              width={500}
-              safeLimit={80}
-            />
-          </Card>
-        </div>
-      </Card>
+      <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
+        <Card className="w-full">
+          <PollutantChart
+            envirolocation={envirolocation}
+            envirodate={envirodate}
+            envirotime={envirotime}
+            pollutantData={enviropm25}
+            selectedLocation={selectedLocation}
+            pollutantName="PM2.5"
+            baseChartColor="#F7A47A"
+            drilldownChartColor="#FFC107"
+            height={200}
+            safeLimit={60}
+          />
+        </Card>
+        <Card className="w-full">
+          <PollutantChart
+            envirolocation={envirolocation}
+            envirodate={envirodate}
+            envirotime={envirotime}
+            pollutantData={enviropm10}
+            selectedLocation={selectedLocation}
+            pollutantName="PM10"
+            baseChartColor="#47B881"
+            drilldownChartColor="#80CBC4"
+            height={200}
+            safeLimit={100}
+          />
+        </Card>
+      </div>
+
+      <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
+        <Card className="w-full">
+          <PollutantChart
+            envirolocation={envirolocation}
+            envirodate={envirodate}
+            envirotime={envirotime}
+            pollutantData={enviroNO2}
+            selectedLocation={selectedLocation}
+            pollutantName="NO2"
+            baseChartColor="#FFDD82"
+            drilldownChartColor="#E57373"
+            height={200}
+            safeLimit={80}
+          />
+        </Card>
+        <Card className="w-full">
+          <PollutantChart
+            envirolocation={envirolocation}
+            envirodate={envirodate}
+            envirotime={envirotime}
+            pollutantData={enviroso2}
+            selectedLocation={selectedLocation}
+            pollutantName="SO2"
+            baseChartColor="#F64C4C"
+            drilldownChartColor="#FFF176"
+            height={200}
+            safeLimit={80}
+          />
+        </Card>
+      </div>
 
       {/* {show && (
             <>

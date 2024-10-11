@@ -31,6 +31,7 @@ import {
   Users,
   Wind,
 } from "lucide-react";
+import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -181,7 +182,7 @@ const GovernmentSidebar = () => {
             <li>
               <div
                 onClick={() => {
-                  setVisible(true)
+                  setVisible(true);
                   toggleSection("environment");
                   // handleTabClick("environment");
                 }}
@@ -289,8 +290,8 @@ const GovernmentSidebar = () => {
               <div
                 onClick={() => {
                   toggleSection("society");
-                //  handleTabClick("society");
-                setVisible(true)
+                  //  handleTabClick("society");
+                  setVisible(true);
                 }}
                 style={getTabStyle("society")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
@@ -357,7 +358,7 @@ const GovernmentSidebar = () => {
       <div className="content" style={{ marginLeft: "6rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCardGov />}
-        {activeTab === "aqi" && <AQI />}
+        {activeTab === "aqi" && <AqiDashboard show={true} />}
         {activeTab === "temperature" && <TempMain />}
         {activeTab === "rain" && <RainMain />}
         {activeTab === "land" && <LandMain />}

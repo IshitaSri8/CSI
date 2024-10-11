@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
 import HeatMap from "./HeatMap";
+import { Button } from "primereact/button";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const DailyTrend = ({
@@ -37,7 +38,7 @@ const DailyTrend = ({
           type: "area",
           indexLabelFontColor: "red",
           dataPoints: dataPoints,
-          color: "#40A2E3",
+          color: "#1F8297",
         },
       ],
     };
@@ -62,7 +63,7 @@ const DailyTrend = ({
       });
     setDrilldownChartData([
       {
-        color: "#67C6E3",
+        color: "#4C9BAC",
         name: selectedDate,
         type: "area",
         dataPoints: selectedDateData,
@@ -87,22 +88,15 @@ const DailyTrend = ({
   const baseChartOptions = {
     animationEnabled: true,
     theme: "lightblue",
-    // title: {
-    //   text: "AQI Level for " + selectedLocation,
-    //   fontSize: 20,
-    //   fontFamily: "Inter",
-    //   fontWeight: 600,
-    // },
     height: 200,
-    // width: 1100,
     legend: {
       fontSize: 10,
     },
     title: {
       text: "AQI Trend",
       fontSize: 15,
-      fontFamily: "DM Sans",
-      fontWeight: "800",
+      fontFamily: "Montserrat",
+      fontWeight: "600",
     },
     axisX: {
       labelFontColor: "#717171",
@@ -263,6 +257,7 @@ const DailyTrend = ({
   return (
     <>
       <div className="btn-container">
+        {/* <Button label="Back" className="bg-white text-cyan-800 border-round" /> */}
         <button
           className={backButtonClassName}
           onClick={backButtonClickHandler}

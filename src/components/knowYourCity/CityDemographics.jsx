@@ -77,7 +77,7 @@ const CityDemographics = () => {
                       hideDelay: 101300,
                     }}
                   >
-                    <div className="flex align-items-start justify-content-start gap-4 surface-500 p-2">
+                    <div className="flex align-items-start justify-content-start gap-4 p-2">
                       <ul>
                         <li>Lucknow Ayodhya Expressway (252 kms)</li>
                       </ul>
@@ -217,7 +217,7 @@ const CityDemographics = () => {
                     hideDelay: 101300,
                   }}
                 >
-                  <div className="flex align-items-start justify-content-start gap-4 surface-500  p-2">
+                  <div className="flex align-items-start justify-content-start gap-4 p-2">
                     <ul>
                       <li>Capacity : 12MLD</li>
                     </ul>
@@ -250,39 +250,16 @@ const CityDemographics = () => {
                 <i className="pi pi-info-circle text-white text-right w-full hospitals cursor-pointer text-xs"></i>
                 <h1 className="text-white p-1 m-0 text-2xl">188</h1>
                 <p className="text-white p-1 m-0 text-sm">Hospitals</p>
-                <Tooltip
-                  target=".hospitals"
-                  position="right"
-                  style={{ backgroundColor: "white !importanat" }}
-                  tooltipOptions={{
-                    className: "hoverClass",
-                    showDelay: 500,
-                    hideDelay: 101300,
-                  }}
-                >
-                  <p className="text-white text-center ">
+                <Tooltip target=".hospitals" position="right">
+                  <p className="text-left font-bold m-0 p-0">
                     List of Top 4 Hospitals
                   </p>
-                  <div className="flex align-items-start justify-content-start gap-4 surface-500 p-2">
+                  <div className="flex align-items-start justify-content-start gap-4">
                     <ul>
-                      <li>
-                        <i className="pi pi-forward mr-1"></i>
-                        Government Hospital, Ayodhya
-                      </li>
-                      <li>
-                        {" "}
-                        <i className="pi pi-forward mr-1"></i>Anand
-                        Multispeciality Hospital
-                      </li>
-                      <li>
-                        {" "}
-                        <i className="pi pi-forward mr-1"></i>Sewa Hospital and
-                        Research Centre
-                      </li>
-                      <li>
-                        <i className="pi pi-forward mr-1"></i>Chiranjeev
-                        Hospital
-                      </li>
+                      <li>Government Hospital, Ayodhya</li>
+                      <li> Anand Multispeciality Hospital</li>
+                      <li> Sewa Hospital and Research Centre</li>
+                      <li>Chiranjeev Hospital</li>
                     </ul>
                   </div>
                 </Tooltip>
@@ -293,28 +270,11 @@ const CityDemographics = () => {
                 <p className="text-white p-1 m-0 text-sm">
                   Educational Facilities
                 </p>
-                <Tooltip
-                  target=".education"
-                  position="right"
-                  style={{ backgroundColor: "white !important" }}
-                  tooltipOptions={{
-                    className: "hoverClass",
-                    showDelay: 500,
-                    hideDelay: 101300,
-                  }}
-                >
-                  <div className="flex align-items-start justify-content-start gap-4 surface-500 p-2">
-                    <ul>
-                      <li>
-                        <i className="pi pi-forward mr-1"></i>
-                        Number of Schools : 236
-                      </li>
-                      <li>
-                        {" "}
-                        <i className="pi pi-forward mr-1"></i>Number of Colleges
-                        : 16
-                      </li>
-                    </ul>
+                <Tooltip target=".education" position="right">
+                  <div className="flex align-items-center justify-content-center gap-4  p-2 flex-row">
+                    <p className="m-0 p-0">Schools : 236</p>
+                    <Divider layout="vertical" className="m-0" />
+                    <p className="m-0 p-0"> Colleges : 16</p>
                   </div>
                 </Tooltip>
               </div>
@@ -334,33 +294,23 @@ const CityDemographics = () => {
                     hideDelay: 101300,
                   }}
                 >
-                  <p className="text-white text-center">
-                    List of Top 4 Hospitals
+                  <p className="text-left font-bold p-0 m-0">
+                    List of Top 5 Hotels{" "}
                   </p>
-                  <div className="flex align-items-start justify-content-start gap-4 surface-500 p-2">
+                  <div className="flex align-items-start justify-content-start gap-4  p-2">
                     <ul>
                       <li>
-                        <i className="pi pi-forward mr-1"></i>
                         Hotel Saket, a Unit of Uttar Pradesh State Tourism
                         Development Corporation Ltd.
                       </li>
                       <li>
                         {" "}
-                        <i className="pi pi-forward mr-1"></i>Rahi Yatri Niwas
-                        Ayodhya, a Unit of Uttar Pradesh State Tourism
-                        Development Corporation Ltd
+                        Rahi Yatri Niwas Ayodhya, a Unit of Uttar Pradesh State
+                        Tourism Development Corporation Ltd
                       </li>
-                      <li>
-                        {" "}
-                        <i className="pi pi-forward mr-1"></i>Ramprastha Hotel
-                        and Resorts
-                      </li>
-                      <li>
-                        <i className="pi pi-forward mr-1"></i>A P Palace
-                      </li>
-                      <li>
-                        <i className="pi pi-forward mr-1"></i>Tirupati Hotel
-                      </li>
+                      <li>Ramprastha Hotel and Resorts</li>
+                      <li>A P Palace</li>
+                      <li>Tirupati Hotel</li>
                     </ul>
                   </div>
                 </Tooltip>
@@ -379,29 +329,15 @@ const CityDemographics = () => {
                     hideDelay: 101300,
                   }}
                 >
-                  <p className="text-white text-center ">
+                  <p className="text-left font-bold p-0 m-0 ">
                     List of Top 4 Dharamshalas
                   </p>
-                  <div className="flex align-items-start justify-content-start gap-4 surface-500 p-2">
+                  <div className="flex align-items-start justify-content-start gap-4  p-2">
                     <ul>
-                      <li>
-                        <i className="pi pi-forward mr-1"></i>
-                        Ayodhya Dharamshala
-                      </li>
-                      <li>
-                        {" "}
-                        <i className="pi pi-forward mr-1"></i>Anand Birla
-                        Dharamshala
-                      </li>
-                      <li>
-                        {" "}
-                        <i className="pi pi-forward mr-1"></i>Hanumat Bhavan
-                        Dharamshala
-                      </li>
-                      <li>
-                        <i className="pi pi-forward mr-1"></i>Baranwal
-                        Dharamshala
-                      </li>
+                      <li>Ayodhya Dharamshala</li>
+                      <li> Anand Birla Dharamshala</li>
+                      <li> Hanumat Bhavan Dharamshala</li>
+                      <li>Baranwal Dharamshala</li>
                     </ul>
                   </div>
                 </Tooltip>
@@ -420,9 +356,12 @@ const CityDemographics = () => {
                     hideDelay: 101300,
                   }}
                 >
-                  <div className="flex align-items-start justify-content-start gap-4 surface-500 p-2">
+                  <div className="flex align-items-start justify-content-start gap-4  p-2">
                     <ul>
                       <li>Area: 39.30 acre</li>
+                    </ul>
+                    <Divider layout="vertical" className="m-0" />
+                    <ul>
                       <li>Quantity (in Quintal): 2616387</li>
                     </ul>
                   </div>
@@ -464,42 +403,20 @@ const CityDemographics = () => {
                       hideDelay: 101300,
                     }}
                   >
-                    <div className="flex align-items-start justify-content-start gap-4 surface-500  p-2">
+                    <div className="flex align-items-start justify-content-start gap-4   p-2">
                       <ul>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>
-                          Ram Mandir
-                        </li>
-                        <li>
-                          {" "}
-                          <i className="pi pi-forward mr-1"></i>Gulab Bari
-                        </li>
-                        <li>
-                          {" "}
-                          <i className="pi pi-forward mr-1"></i>Bahu Begum ka
-                          Maqbara
-                        </li>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Guptar Ghat
-                        </li>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Lakshman Kila
-                        </li>
+                        <li>Ram Mandir</li>
+                        <li> Gulab Bari</li>
+                        <li> Bahu Begum ka Maqbara</li>
+                        <li>Guptar Ghat</li>
+                        <li>Lakshman Kila</li>
                       </ul>
+                      <Divider layout="vertical" className="h-12rem" />
                       <ul>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Company Gardens
-                        </li>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Hanuman Ghari
-                        </li>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Kanak Bhawan
-                        </li>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Nageshwarnath
-                          Mandir
-                        </li>
+                        <li>Company Gardens</li>
+                        <li>Hanuman Ghari</li>
+                        <li>Kanak Bhawan</li>
+                        <li>Nageshwarnath Mandir</li>
                       </ul>
                     </div>
                   </Tooltip>
@@ -523,25 +440,16 @@ const CityDemographics = () => {
                     }}
                     style={{ padding: "0" }}
                   >
-                    <div className="flex align-items-start justify-content-start gap-4 surface-500 p-2">
+                    <div className="flex align-items-start justify-content-start gap-4  p-2">
                       <ul>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>
-                          Ram Leela
-                        </li>
+                        <li>Ram Leela</li>
 
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Ram Navmi Mela
-                        </li>
+                        <li>Ram Navmi Mela</li>
                       </ul>
+                      <Divider layout="vertical" className="m-0 h-5rem" />
                       <ul>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Sravan Jhula
-                          Mela
-                        </li>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Parikramas
-                        </li>
+                        <li>Sravan Jhula Mela</li>
+                        <li>Parikramas</li>
                       </ul>
                     </div>
                   </Tooltip>
@@ -564,38 +472,18 @@ const CityDemographics = () => {
                       hideDelay: 101300,
                     }}
                   >
-                    <div className="flex align-items-start justify-content-start gap-4 surface-500  p-2">
+                    <div className="flex align-items-start justify-content-start gap-4   p-2">
                       <ul>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>
-                          Anganwari-Housing Area
-                        </li>
-                        <li>
-                          {" "}
-                          <i className="pi pi-forward mr-1"></i>Community room{" "}
-                        </li>
-                        <li>
-                          {" "}
-                          <i className="pi pi-forward mr-1"></i>Community hall
-                          and library
-                        </li>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Recreational
-                          club
-                        </li>
+                        <li>Anganwari-Housing Area</li>
+                        <li> Community room </li>
+                        <li> Community hall and library</li>
+                        <li>Recreational club</li>
                       </ul>
+                      <Divider layout="vertical" className="h-10rem m-0" />
                       <ul>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Music, dance and
-                          drama center
-                        </li>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i>Meditation and
-                          spiritual center
-                        </li>
-                        <li>
-                          <i className="pi pi-forward mr-1"></i> Old-age home
-                        </li>
+                        <li>Music, dance and drama center</li>
+                        <li>Meditation and spiritual center</li>
+                        <li>Old-age home</li>
                       </ul>
                     </div>
                   </Tooltip>
