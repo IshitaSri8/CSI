@@ -51,7 +51,7 @@ const LandingScreen = () => {
 
         {/* Main Content */}
         <div
-          className="flex flex-column gap-1 mt-5 align-items-center"
+          className="flex flex-column gap-1 mt-5 align-items-center md:flex-wrap"
           style={{ textAlign: "center" }}
         >
           <h2 className="text-4xl text-theme m-0 p-0">

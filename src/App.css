@@ -91,7 +91,10 @@ body {
 .indicator .p-carousel .p-carousel-indicators .p-carousel-indicator {
   border-radius: 50%;
 }
-
+/* .p-panel {
+  display: flex !important;
+  flex-wrap: wrap !important;
+} */
 .p-panel .p-panel-header {
   background: var(--theme-secondary);
 }
@@ -176,4 +179,14 @@ body {
 
 .shadow {
   box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.p-tooltip-arrow {
+  color: white;
+}
+.p-tooltip-text {
+  background-color: white;
+  color: #282c34;
+  padding: 0.8rem;
+  font-weight: 500;
 }

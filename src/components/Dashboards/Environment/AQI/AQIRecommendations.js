@@ -411,9 +411,9 @@ const AQIRecommendations = ({ aqi, pm25, pm10 }) => {
   };
 
   return (
-    <div className="p-m-3">
+    <div className="p-0">
       <Fieldset legend={getBadge(aqi)}>
-        <div className="p-mb-4">{getRecommendation(aqi)}</div>
+        <div className="p-1">{getRecommendation(aqi)}</div>
       </Fieldset>
     </div>
   );
