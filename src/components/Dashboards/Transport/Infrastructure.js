@@ -179,11 +179,12 @@ const Infrastructure = () => {
  
   return (
     <div className="flex align-items-center justify-content-between flex-column gap-3 w-full">
-      <div className="flex align-items-center justify-content-between flex-row gap-3 w-full">
+      <div className="flex align-items-center justify-content-between gap-3 w-full">
         <Card className="w-full">
-          <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
-            <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-              <h1 className=" m-0 p-0 text-xs">Roadways Condition</h1>
+        <div className="flex flex-column gap-3">
+          <div className="flex align-items-start justify-content-between w-full">
+            <div className="flex align-items-start justify-content-start flex-column gap-3 w-full">
+              <h1 className=" m-0 p-0">Roadways Condition</h1>
               <h1
                 className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
                 style={{ backgroundColor: "#E9F3F5" }}
@@ -207,7 +208,7 @@ const Infrastructure = () => {
             />
             {/* </div> */}
           </div>
-          <div className="flex align-items-start justify-content-start flex-row w-full ">
+          <div className="flex align-items-start justify-content-start w-full ">
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
@@ -219,7 +220,7 @@ const Infrastructure = () => {
             <i className="pi pi-star" style={{ color: "#1f8297" }} />
             <i className="pi pi-star" style={{ color: "#1f8297" }} />
           </div>
-          <div className="flex align-items-start justify-content-between flex-row w-full ">
+          <div className="flex align-items-start justify-content-between w-full ">
             <div className="flex align-items-start justify-content-start flex-row">
               <img
                 src={increase}
@@ -232,7 +233,7 @@ const Infrastructure = () => {
             </div>
             <CustomTooltip
               content={
-                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column w-full">
                   <p className="m-0 text-xs">
                     Maintained Roadways In Current Year: 70%
                   </p>
@@ -247,11 +248,13 @@ const Infrastructure = () => {
               />
             </CustomTooltip>
           </div>
+          </div>
         </Card>
         <Card className="w-full">
-          <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
-            <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-              <h1 className=" m-0 p-0 text-xs">Railways Condition</h1>
+        <div className="flex flex-column gap-3">
+          <div className="flex align-items-start justify-content-between w-full">
+            <div className="flex align-items-start justify-content-start flex-column gap-3 w-full">
+              <h1 className=" m-0 p-0">Railways Condition</h1>
               <h1
                 className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
                 style={{ backgroundColor: "#E9F3F5" }}
@@ -275,7 +278,7 @@ const Infrastructure = () => {
             />
             {/* </div> */}
           </div>
-          <div className="flex align-items-start justify-content-start flex-row w-full ">
+          <div className="flex align-items-start justify-content-startw-full ">
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
@@ -288,7 +291,7 @@ const Infrastructure = () => {
             <i className="pi pi-star" style={{ color: "#1f8297" }} />
           </div>
  
-          <div className="flex align-items-start justify-content-between flex-row w-full ">
+          <div className="flex align-items-start justify-content-betweenw-full ">
             <div className="flex align-items-start justify-content-start flex-row">
               <img
                 src={decrease}
@@ -316,11 +319,13 @@ const Infrastructure = () => {
               />
             </CustomTooltip>
           </div>
+          </div>
         </Card>
         <Card className="w-full">
-          <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
-            <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-              <h1 className=" m-0 p-0 text-xs">Airways Condition</h1>
+        <div className="flex flex-column gap-3">
+          <div className="flex align-items-start justify-content-between w-full">
+            <div className="flex align-items-start justify-content-start flex-column gap-3 w-full">
+              <h1 className="m-0 p-0">Airways Condition</h1>
               <h1
                 className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
                 style={{ backgroundColor: "#E9F3F5" }}
@@ -339,7 +344,7 @@ const Infrastructure = () => {
             />
             {/* </div> */}
           </div>
-          <div className="flex align-items-start justify-content-start flex-row w-full ">
+          <div className="flex align-items-start justify-content-startw-full ">
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
@@ -352,7 +357,7 @@ const Infrastructure = () => {
             <i className="pi pi-star" style={{ color: "#1f8297" }} />
           </div>
  
-          <div className="flex align-items-start justify-content-between flex-row w-full ">
+          <div className="flex align-items-start justify-content-betweenw-full ">
             <div className="flex align-items-start justify-content-start flex-row">
               <img
                 src={increase}
@@ -380,11 +385,13 @@ const Infrastructure = () => {
               />
             </CustomTooltip>
           </div>
+          </div>
         </Card>
         <Card className="w-full">
-          <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
-            <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-              <h1 className=" m-0 p-0 text-xs">Waterways Condition</h1>
+        <div className="flex flex-column gap-3">
+        <div className="flex align-items-start justify-content-between w-full">
+            <div className="flex align-items-start justify-content-start flex-column gap-3 w-full">
+              <h1 className=" m-0 p-0">Waterways Condition</h1>
               <h1
                 className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
                 style={{ backgroundColor: "#E9F3F5" }}
@@ -403,7 +410,7 @@ const Infrastructure = () => {
             />
             {/* // </div> */}
           </div>
-          <div className="flex align-items-start justify-content-start flex-row w-full ">
+          <div className="flex align-items-start justify-content-startw-full ">
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
             <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
@@ -415,7 +422,7 @@ const Infrastructure = () => {
             <i className="pi pi-star" style={{ color: "#1f8297" }} />
             <i className="pi pi-star" style={{ color: "#1f8297" }} />
           </div>
-          <div className="flex align-items-start justify-content-between flex-row w-full ">
+          <div className="flex align-items-start justify-content-betweenw-full ">
             <div className="flex align-items-start justify-content-start flex-row">
               <img
                 src={increase}
@@ -443,9 +450,10 @@ const Infrastructure = () => {
               />
             </CustomTooltip>
           </div>
+        </div>
         </Card>
       </div>
-      {/* <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
+      {/* <div className="flex align-items-center justify-content-betweengap-1 w-full">
         <Card className="w-full">
           <Doughnut
             title="Percentage of Well Maintained Roads"
@@ -479,7 +487,7 @@ const Infrastructure = () => {
           />
         </Card>
       </div> */}
-      <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
+      <div className="flex align-items-center justify-content-betweengap-1 w-full">
         <Card className="w-full">
           <CanvasJSChart options={options} />
         </Card>

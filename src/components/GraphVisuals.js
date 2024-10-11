@@ -8,11 +8,10 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
   "#FFDD82",
-  "#98C6CF",
   "#47B881",
   "#F7A47A",
+  "#98C6CF",
   "#1F8297",
-  "#F7A47A",
   "#F64C4C",
   "#0F4B57",
   "#166c7d",

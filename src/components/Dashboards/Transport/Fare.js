@@ -36,8 +36,7 @@ const Fare = () => {
      // title: "Transport Modes",
      labelFontSize: 10,
     },
-    height: 200,
-    width: 300,
+   
     data: [
       {
         type: "column",
@@ -61,8 +60,7 @@ const Fare = () => {
       fontSize: 12,
       padding: { bottom: 20 },
     },
-    height: 200,
-    width: 300,
+   
     axisY: {
       //title: "% of Income",
       includeZero: false,
@@ -115,8 +113,7 @@ const Fare = () => {
         // verticalAlign: "center",
         fontSize: 8,
       },
-    height: 200,
-    width: 300,
+   
     data: [
       {
         type: "stackedBar",
@@ -148,19 +145,19 @@ const Fare = () => {
   return (
     <>
       {/* Row for Average Fare and Fare Affordability */}
-      <div className="flex align-items-center justify-content-between flex-row gap-3">
+      <div className="flex align-items-center justify-content-between gap-3">
         {/* 1. Average Fare per Transport Mode */}
-        <Card className="w-full p-0 h-15rem">
+        <Card className="w-full">
           {/* <h1 className="m-0 p-1 text-lg">Average Fare per Transport Mode</h1> */}
           <CanvasJSChart options={averageFareOptions} />
-          {/* <div className="flex align-items-start justify-content-between flex-row w-full">
-            <div className="flex align-items-start justify-content-start flex-row">
+          {/* <div className="flex align-items-start justify-content-between w-full">
+            <div className="flex align-items-start justify-content-start">
               <img
                 src={increase}
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               />
-              <p className="text-green-500 text-xs p-0 m-0">
+              <p className="text-green-500 text-xs m-0">
                 5% increase in last one year.
               </p>
             </div>
@@ -171,11 +168,11 @@ const Fare = () => {
         </Card>
 
         {/* 2. Fare Affordability Index */}
-        <Card className="w-full h-15rem p-0">
+        <Card className="w-full">
           <CanvasJSChart options={fareAffordabilityOptions} />
         </Card>
         {/* 3. Comparison of Fare Structures */}
-        <Card className="w-full h-15rem p-0">
+        <Card className="w-full">
           <CanvasJSChart options={fareStructureOptions} />
         </Card>
       </div>

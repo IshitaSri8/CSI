@@ -54,7 +54,7 @@ const CityProgress = () => {
           <div className="flex justify-content-between w-full p-2">
           <div className="flex flex-column align-items-center p-2 w-full">
           <p
-            className="text-xl font-medium mt-1"
+            className="text-lg font-medium mt-1"
             style={{ color: "#fff" }}
           >
             Water Management
@@ -71,7 +71,7 @@ const CityProgress = () => {
                 <div className="flex flex-column">
                   <div className="flex justify-content-between">
                     <p
-                      className="text-xl font-medium mt-1"
+                      className="text-lg font-medium mt-1"
                       style={{ color: "#fff" }}
                     >
                       State Category Rank
@@ -108,7 +108,7 @@ const CityProgress = () => {
               >
                 <div className="flex justify-content-between">
                   <p
-                    className="text-xl font-medium mt-1"
+                    className="text-lg font-medium mt-1"
                     style={{ color: "#fff" }}
                   >
                     Water Supply
@@ -150,7 +150,7 @@ const CityProgress = () => {
                 "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
             }}
           >
-            <p className="text-xl font-medium mt-1 text-center" style={{ color: "#fff" }}>
+            <p className="text-lg font-medium mt-1 text-center" style={{ color: "#fff" }}>
               Housing
             </p>
             <div
@@ -229,7 +229,7 @@ const CityProgress = () => {
               <div className="flex flex-column p-2">
                 <div className="flex justify-content-between">
                   <p
-                    className="text-xl font-medium mt-1"
+                    className="text-lg font-medium mt-1"
                     style={{ color: "#fff" }}
                   >
                     Garbage Free City
@@ -262,7 +262,7 @@ const CityProgress = () => {
             </div>
            <div className="flex flex-column align-items-center">
            <p
-              className="text-xl font-medium m-0 text-center"
+              className="text-lg font-medium m-0 text-center"
               style={{ color: "#fff" }}
             >
               Waste Management
@@ -299,7 +299,7 @@ const CityProgress = () => {
               <div className="flex flex-column">
                 <div className="flex justify-content-between">
                   <p
-                    className="text-xl font-medium mt-1"
+                    className="text-lg font-medium mt-1"
                     style={{ color: "#fff" }}
                   >
                     Swachh Survekshan
@@ -354,13 +354,13 @@ const CityProgress = () => {
               <div className="flex flex-column">
                 <div className="flex justify-content-between">
                   <p
-                    className="text-xl font-medium mt-1"
+                    className="text-lg font-medium mt-1"
                     style={{ color: "#fff" }}
                   >
                     CT/PT
                   </p>
                   <p
-                    className="text-xl font-medium mt-1"
+                    className="text-lg font-medium mt-1"
                     style={{ color: "#fff" }}
                   >
                     62/62

@@ -6,52 +6,48 @@ import { DonutChart } from "../../../GraphVisuals";
 
 const WaterDashboard = () => {
   return (
-    <div className="w-full">
-      <div className="w-full flex align-items-center justify-content-between flex-row gap-5 mb-6">
+    <div className="w-full px-5 flex gap-4 flex-column">
+      <div className="w-full flex align-items-center justify-content-between gap-4">
         <Card title="Water Production (MLD)" className="w-full">
-          {/* <div className="flex align-items-center justify-content-between flex-row w-full m-1"> */}
+          {/* <div className="flex align-items-center justify-content-between w-full m-1"> */}
           <DonutChart
             labels={["Dams", "Natural Resources"]}
             series={[12, 36]}
             height={150}
-            width={400}
           />
         </Card>
-        <Card title="Water Supply" className="w-full">
-          <div className="flex align-items-center justify-content-between flex-row m-0 gap-6">
-            <div className="flex align-items-center justify-content-between flex-column ">
-              <div className="flex align-items-center justify-content-between flex-column mb-4">
-                <h1 className="text-xl m-0 p-0 text-theme">900 MLD</h1>
-                <p className="text-xs font-bold text-center">
-                  Proposed Consumption Level
-                </p>
-              </div>
-              <div className="flex align-items-center justify-content-between flex-row">
-                <div>
-                  <h1 className="text-xl m-0 p-0 text-theme">1123 MLD </h1>
-                  <p className="text-xs font-bold text-center">
-                    Actual Consumption Level
-                  </p>
-                </div>
-              </div>
-            </div>
+        <Card title="Water Usage Management" className="w-full">
+          <div className="flex align-items-center justify-content-between">
             <div className="flex align-items-center justify-content-center flex-column">
               <Knob
-                value={79.58}
+                value={63.8}
                 readOnly
-                size={130}
+                size={120}
                 strokeWidth={5}
                 valueColor="#166c7d"
                 rangeColor="#E9F3F5"
               />
               <p className="text-xs font-bold text-center m-0 p-0">
-                Households with Water Connections vs. Total Households
+                Houses with Connections but no water meter (%)
+              </p>
+            </div>
+            <div className="flex align-items-center justify-content-center flex-column">
+              <Knob
+                value={37.8}
+                readOnly
+                size={120}
+                strokeWidth={5}
+                valueColor="#166c7d"
+                rangeColor="#E9F3F5"
+              />
+              <p className="text-xs font-bold text-center m-0 p-0">
+                % of Total Bill Generated being paid
               </p>
             </div>
           </div>
         </Card>
         <Card title="Water Preservation" className="w-full">
-          <div className="flex align-items-center justify-content-between flex-column">
+          <div className="flex align-items-center justify-content-between flex-column p-3">
             <div className="flex align-items-center justify-content-between flex-column mb-4">
               <h1 className="text-xl m-0 p-0 text-theme">3500</h1>
               <p className="text-sm font-bold">
@@ -65,22 +61,22 @@ const WaterDashboard = () => {
           </div>
         </Card>
       </div>
-      <div className="w-full flex align-items-center justify-content-between flex-row gap-4">
+      <div className="w-full flex align-items-center justify-content-between gap-4">
         <Card title="Water Treatment" className="w-full">
-          <div className="flex align-items-center justify-content-between flex-row w-full m-1">
-            <div className="flex align-items-center justify-content-between flex-column mt-2">
-              <div className="flex align-items-center justify-content-between flex-column p-3 m-1">
+          <div className="flex align-items-center justify-content-between w-full">
+            <div className="flex align-items-center justify-content-between flex-column gap-2">
+              <div className="flex align-items-center justify-content-between flex-column">
                 <h1 className="text-xl m-0 p-0 text-theme">10</h1>
-                <p className="text-xs font-bold">Total STPs</p>
+                <p className="font-bold">Total STPs</p>
               </div>
-              <div className="flex align-items-center justify-content-between flex-row p-3 m-1 ">
-                <div>
+              <div className="flex align-items-center justify-content-between flex-column ">
+              
                   <h1 className="text-xl m-0 p-0 text-theme">567 </h1>
-                  <p className="text-xs font-bold">STP Capacity (MLD)</p>
-                </div>
+                  <p className="font-bold">STP Capacity (MLD)</p>
+                
               </div>
             </div>
-            <div className="flex align-items-center justify-content-center p-3 m-1 flex-column">
+            <div className="flex align-items-center justify-content-center flex-column">
               <Knob
                 value={83.04}
                 readOnly
@@ -95,24 +91,28 @@ const WaterDashboard = () => {
             </div>
           </div>
         </Card>
-        <Card title="Water Usage Management" className="w-full">
-          <div className="flex align-items-center justify-content-between flex-row w-full m-1">
-            <div className="flex align-items-center justify-content-center p-3 m-1 flex-column">
-              <Knob
-                value={63.8}
-                readOnly
-                size={130}
-                strokeWidth={5}
-                valueColor="#166c7d"
-                rangeColor="#E9F3F5"
-              />
-              <p className="text-xs font-bold text-center m-0 p-0">
-                Houses with Connections but no water meter (%)
-              </p>
+
+        <Card title="Water Supply" className="w-full">
+          <div className="flex align-items-center justify-content-between m-0 gap-6">
+            <div className="flex flex-column ">
+              <div className="flex align-items-center justify-content-between flex-column mb-4">
+                <h1 className="text-xl m-0 p-0 text-theme">900 MLD</h1>
+                <p className="font-bold text-center">
+                  Proposed Consumption Level
+                </p>
+              </div>
+              <div className="flex align-items-center justify-content-between flex-column">
+                
+                  <h1 className="text-xl m-0 p-0 text-theme">1123 MLD </h1>
+                  <p className="font-bold text-center">
+                    Actual Consumption Level
+                  </p>
+            
+              </div>
             </div>
-            <div className="flex align-items-center justify-content-center p-3 m-1 flex-column">
+            <div className="flex align-items-center justify-content-center flex-column">
               <Knob
-                value={37.8}
+                value={79.58}
                 readOnly
                 size={130}
                 strokeWidth={5}
@@ -120,7 +120,7 @@ const WaterDashboard = () => {
                 rangeColor="#E9F3F5"
               />
               <p className="text-xs font-bold text-center m-0 p-0">
-                % of Total Bill Generated being paid
+                Households with Water Connections vs. Total Households
               </p>
             </div>
           </div>

@@ -8,32 +8,12 @@ const CityReportCardCitizen = ({ show }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="flex align-items-start jutify-content-center flex-column w-full p-2 ">
-      <div className="w-full ">
-        <h1 className="text-primary1 text-xl text-left text-medium w-full justify-content-start m-0 p-2 ml-3">
-          City Report Card
-          {show}
-        </h1>
-      </div>
+    <div className="px-2 py-5">
+      <h1 className="text-primary1 text-xl text-left text-medium w-full m-0 p-0 ml-3 mb-3">
+        City Report Card
+        {show}
+      </h1>
       <Report />
-      {/* <TabView
-        activeIndex={activeTab}
-        onTabChange={(e) => setActiveTab(e.index)}
-        className=" bg-cyan-500"
-      > */}
-
-      {/* <TabPanel header="Performance" className="text-black">
-          <Report />
-        </TabPanel> */}
-      {/* <TabPanel header="Recommendations">
-          <Recommendations />
-        </TabPanel>
-        <TabPanel header="Report" className="text-black ">
-          <div className="w-full">
-            <GenerateReport />
-          </div>
-        </TabPanel> */}
-      {/* </TabView> */}
     </div>
   );
 };

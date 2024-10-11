@@ -113,8 +113,8 @@ const Renewable = () => {
   const projectLabels = ["Completed", "Ongoing", "Planned"];
   const projectSeries = [4, 12, 4];
   return (
-    <div className="flex align-items-center justify-content-between flex-column gap-1 w-full">
-      <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
+    <div className="flex align-items-center justify-content-between flex-column gap-4 w-full">
+      <div className="flex align-items-center justify-content-between flex-row gap-4 w-full">
         <Card className="w-full">
           <div className="flex align-items-center justify-content-center flex-column">
             <h1 className="text-2xl text-theme text-bold m-0 p-0">38 %</h1>
@@ -225,13 +225,13 @@ const Renewable = () => {
             height={100}
           />
         </Card> */}
-        <Panel className="w-full">
+        <Card className="w-full">
           <BusTrend
             totalBusesData={totalBusesData}
             electricBusesData={electricBusesData}
             height={200}
           />
-        </Panel>
+        </Card>
       </div>
     </div>
   );

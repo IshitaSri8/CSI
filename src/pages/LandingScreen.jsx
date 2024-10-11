@@ -75,10 +75,10 @@ const LandingScreen = () => {
 
           {/* Landing SVG Image */}
           <img
-            className=""
+            className="w-full"
             src={MySvgImage}
             alt="Landing Illustration"
-            style={{ width: "80rem" }}
+            // style={{ width: "80rem" }}
           />
         </div>
         {/* <Divider /> */}
@@ -103,7 +103,7 @@ const LandingScreen = () => {
           <CSIVideo />
         </div>
 
-        <div className="flex h-screen justify-content-center flex-nowrap w-full overflow-auto px-5">
+        <div className="flex h-screen justify-content-center w-full overflow-auto p-5">
           <Parameters />
         </div>
 

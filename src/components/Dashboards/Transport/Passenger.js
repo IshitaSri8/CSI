@@ -107,12 +107,13 @@ const options = {
 
 const Passenger = () => {
   return (
-    <div className="flex align-items-center justify-content-between flex-column gap-1 w-full">
-      <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
+    <div className="flex align-items-center justify-content-between flex-column gap-4 w-full">
+      <div className="flex align-items-center justify-content-between gap-4 w-full">
         <Card className="w-full">
-          <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
+         <div className="flex flex-column gap-4">
+         <div className="flex align-items-start justify-content-between w-full">
             <div className="flex align-items-start justify-content-start flex-column gap-3 text-left w-full">
-              <h1 className=" m-0 p-0 text-xs">Roadways Passenger Load</h1>
+              <h1 className=" m-0 p-0 text-sm">Roadways Passenger Load</h1>
               <h1 className=" m-0 text-xl text-theme border-circle">
                 3 Times Higher
               </h1>
@@ -133,14 +134,15 @@ const Passenger = () => {
             {/* </div> */}
           </div>
 
-          <div className="flex align-items-start justify-content-between flex-row w-full ">
-            <div className="flex align-items-start justify-content-start flex-row">
+          <div className="flex align-items-start justify-content-between w-full ">
+            <div className="flex align-items-start justify-content-start">
+              {" "}
               <img
                 src={increase}
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               ></img>
-              <p className="text-theme text-xs p-0 m-0">
+              <p className="text-theme text-sm p-0 m-0">
                 20% increase in last one year.
               </p>
             </div>
@@ -148,12 +150,9 @@ const Passenger = () => {
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
                   <p className="m-0 text-base text-theme font-bold"> 50</p>
-                  <p className="m-0 text-xs font-semibold">Average Capacity</p>
-                  <p className="m-0 text-base text-theme font-bold">
-                    {" "}
-                    1500
-                  </p>
-                  <p className="m-0 text-xs font-semibold">Passenger Count</p>
+                  <p className="m-0 text-sm font-semibold">Average Capacity</p>
+                  <p className="m-0 text-base text-theme font-bold"> 1500</p>
+                  <p className="m-0 text-sm font-semibold">Passenger Count</p>
                 </div>
               }
             >
@@ -162,11 +161,13 @@ const Passenger = () => {
               />
             </CustomTooltip>
           </div>
+         </div>
         </Card>
         <Card className="w-full">
-          <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
+        <div className="flex flex-column gap-4">
+          <div className="flex align-items-start justify-content-between  text-center w-full">
             <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-              <h1 className=" m-0 p-0 text-xs">Train Passenger Load</h1>
+              <h1 className=" m-0 p-0 text-sm">Train Passenger Load</h1>
               <h1 className=" m-0 text-xl text-theme border-circle">
                 2 Times Higher
               </h1>
@@ -187,30 +188,24 @@ const Passenger = () => {
             {/* </div> */}
           </div>
 
-          <div className="flex align-items-start justify-content-between flex-row w-full ">
-            <div className="flex align-items-start justify-content-start flex-row">
+          <div className="flex align-items-start justify-content-between w-full ">
+            <div className="flex align-items-start justify-content-start">
               <img
                 src={increase}
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               ></img>
-              <p className="text-theme text-xs p-0 m-0">
+              <p className="text-theme text-sm p-0 m-0">
                 20% increase in last one year.
               </p>
             </div>
             <CustomTooltip
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                  <p className="m-0 text-base text-theme font-bold">
-                    {" "}
-                    1200
-                  </p>
-                  <p className="m-0 text-xs font-semibold">Average Capacity</p>
-                  <p className="m-0 text-base text-theme font-bold">
-                    {" "}
-                    15000
-                  </p>
-                  <p className="m-0 text-xs font-semibold">Passenger Count</p>
+                  <p className="m-0 text-base text-theme font-bold"> 1200</p>
+                  <p className="m-0 text-sm font-semibold">Average Capacity</p>
+                  <p className="m-0 text-base text-theme font-bold"> 15000</p>
+                  <p className="m-0 text-sm font-semibold">Passenger Count</p>
                 </div>
               }
             >
@@ -219,11 +214,13 @@ const Passenger = () => {
               />
             </CustomTooltip>
           </div>
+          </div>
         </Card>
         <Card className="w-full">
-          <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
+        <div className="flex flex-column gap-4">
+          <div className="flex align-items-start justify-content-between  text-center w-full">
             <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-              <h1 className=" m-0 p-0 text-xs">Plane Passenger Load</h1>
+              <h1 className=" m-0 p-0 text-sm">Plane Passenger Load</h1>
               <h1 className=" m-0  text-xl text-theme border-circle">
                 1.5 Times Higher
               </h1>
@@ -239,14 +236,14 @@ const Passenger = () => {
             {/* </div> */}
           </div>
 
-          <div className="flex align-items-start justify-content-between flex-row w-full ">
-            <div className="flex align-items-start justify-content-start flex-row">
+          <div className="flex align-items-start justify-content-between w-full ">
+            <div className="flex align-items-start justify-content-start">
               <img
                 src={increase}
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               ></img>
-              <p className="text-theme text-xs p-0 m-0">
+              <p className="text-theme text-sm p-0 m-0">
                 20% increase in last one year.
               </p>
             </div>
@@ -254,12 +251,9 @@ const Passenger = () => {
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
                   <p className="m-0 text-base text-theme font-bold"> 150</p>
-                  <p className="m-0 text-xs font-semibold">Average Capacity</p>
-                  <p className="m-0 text-base text-theme font-bold">
-                    {" "}
-                    15000
-                  </p>
-                  <p className="m-0 text-xs font-semibold">Passenger Count</p>
+                  <p className="m-0 text-sm font-semibold">Average Capacity</p>
+                  <p className="m-0 text-base text-theme font-bold"> 15000</p>
+                  <p className="m-0 text-sm font-semibold">Passenger Count</p>
                 </div>
               }
             >
@@ -268,11 +262,13 @@ const Passenger = () => {
               />
             </CustomTooltip>
           </div>
+          </div>
         </Card>
         <Card className="w-full">
-          <div className="flex align-items-start justify-content-between flex-row  text-center w-full">
+        <div className="flex flex-column gap-4">
+          <div className="flex align-items-start justify-content-between  text-center w-full">
             <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-              <h1 className=" m-0 p-0 text-xs">Average Ship Capacity</h1>
+              <h1 className=" m-0 p-0 text-sm">Average Ship Capacity</h1>
               <h1 className=" m-0 text-xl text-theme border-circle">
                 2 Times Higher
               </h1>
@@ -288,14 +284,14 @@ const Passenger = () => {
             {/* // </div> */}
           </div>
 
-          <div className="flex align-items-start justify-content-between flex-row w-full ">
-            <div className="flex align-items-start justify-content-start flex-row">
+          <div className="flex align-items-start justify-content-between w-full ">
+            <div className="flex align-items-start justify-content-start">
               <img
                 src={increase}
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               ></img>
-              <p className="text-theme text-xs p-0 m-0">
+              <p className="text-theme text-sm p-0 m-0">
                 20% increase in last one year.
               </p>
             </div>
@@ -303,12 +299,9 @@ const Passenger = () => {
               content={
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
                   <p className="m-0 text-base text-theme font-bold"> 50</p>
-                  <p className="m-0 text-xs font-semibold">Average Capacity</p>
-                  <p className="m-0 text-base text-theme font-bold">
-                    {" "}
-                    15000
-                  </p>
-                  <p className="m-0 text-xs font-semibold">Passenger Count</p>
+                  <p className="m-0 text-sm font-semibold">Average Capacity</p>
+                  <p className="m-0 text-base text-theme font-bold"> 15000</p>
+                  <p className="m-0 text-sm font-semibold">Passenger Count</p>
                 </div>
               }
             >
@@ -317,9 +310,10 @@ const Passenger = () => {
               />
             </CustomTooltip>
           </div>
+          </div>
         </Card>
       </div>
-      <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
+      <div className="flex align-items-center justify-content-between gap-1 w-full">
         <Card className="w-full">
           <CanvasJSChart options={options} />
         </Card>

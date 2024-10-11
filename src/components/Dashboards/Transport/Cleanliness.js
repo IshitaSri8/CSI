@@ -41,8 +41,7 @@ const cleanlinessOptions = {
       labelFontSize: 10,
 
     },
-    height: 200,
-    width: 300,
+   
     data: [
       {
         type: "column",
@@ -76,8 +75,7 @@ const cleanlinessOptions = {
     //  title: "Months",
       labelFontSize: 10,
     },
-    height: 200,
-    width: 300,
+   
     data: [
       {
         type: "line",
@@ -119,8 +117,7 @@ const cleanlinessOptions = {
       //title: "Transport Types",
       labelFontSize: 10,
     },
-    height: 200,
-    width: 300,
+   
     data: [
       {
         type: "column",
@@ -141,13 +138,13 @@ const Cleanliness = () => {
       {/* Row for Cleanliness Rating and Frequency of Maintenance */}
       <div className="flex align-items-center justify-content-between flex-row gap-3">
         {/* 1. Cleanliness Rating */}
-        <Card className="w-full h-15rem p-0">
+        <Card className="w-full">
           {/* <h1 className="m-0 p-1 text-lg">Cleanliness Rating for Transport Modes</h1> */}
           <CanvasJSChart options={cleanlinessOptions.cleanlinessRatingOptions} />
         </Card>
 
         {/* 2. Frequency of Maintenance Activities */}
-        <Card className="w-full h-15rem p-0">
+        <Card className="w-full">
           <CanvasJSChart options={cleanlinessOptions.maintenanceFrequencyOptions} />
           {/* <div className="flex align-items-start justify-content-between flex-row w-full">
             <CustomTooltip content={<CanvasJSChart options={cleanlinessOptions.maintenanceFrequencyOptions} />}>
@@ -157,7 +154,7 @@ const Cleanliness = () => {
         </Card>
 
         {/* 3. Cleanliness Adherence Percentage */}
-        <Card className="w-full h-15rem p-0">
+        <Card className="w-full">
           <CanvasJSChart options={cleanlinessOptions.adherenceOptions} />
         </Card>
       </div>

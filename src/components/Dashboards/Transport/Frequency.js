@@ -25,8 +25,8 @@ const Frequency = () => {
   ];
 
   return (
-    <>
-      <div className="flex align-items-center justify-content-between flex-row gap-2 mb-2">
+    <div className="flex flex-column gap-4">
+      <div className="flex align-items-center justify-content-between flex-row gap-4">
         {cardsData.map((card, index) => (
           <Card className="h-auto w-full p-0" key={index}>
             <div className="flex w-full h-auto p-0 m-0">
@@ -82,13 +82,13 @@ const Frequency = () => {
           </Card>
         ))}
       </div>
-      <div className="flex align-items-center justify-content-between gap-2 mt-2">
+      <div className="flex align-items-center justify-content-between gap-4">
         <Card className="w-full">
           <BarChart
             categories={categories}
             series={waitseries}
             height={200}
-            width={300}
+            width={"100%"}
             title="Average wait time for different transport modes"
           />
         </Card>
@@ -97,12 +97,12 @@ const Frequency = () => {
             labels={categories}
             series={frequencyseries}
             height={200}
-            width={300}
+        
             title="Average number of services per day"
           />
         </Card>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -64,17 +64,21 @@ const WasteDashboard = () => {
     { title: "Population", value: 722580, icon: PopulationIcon },
   ];
   const colors = [
-    "#26575D",
-    "#1F8297",
-    "#4D7479",
-    "#4C9BAC",
+    "#FFDD82",
+    "#47B881",
+    "#F7A47A",
     "#98C6CF",
+    "#1F8297",
+    "#F64C4C",
     "#0F4B57",
     "#166c7d",
     "#5B98A4",
     "#8AB5BE",
     "#B9D2D8",
     "#E9F3F5",
+    "#26575D",
+    "#4D7479",
+    "#4C9BAC",
   ];
 
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -87,8 +91,7 @@ const WasteDashboard = () => {
       fontFamily: "DM Sans",
       fontWeight: "800",
     },
-    height: 245,
-    width: 295,
+ 
     data: [
       {
         type: "pie",
@@ -124,8 +127,7 @@ const WasteDashboard = () => {
       horizontalAlign: "center",
       padding: { bottom: 10 },
     },
-    height: 245,
-    width: 320,
+  
     axisY: {
       gridThickness: 0,
       labelFontSize: 8,
@@ -214,23 +216,23 @@ const WasteDashboard = () => {
       <Panel className="mb-0 p-2 w-full">
         <div className="flex gap-3 w-full">
           <Card title="Common Toilets & Public Toilets " className="w-full">
-            <div className="flex align-items-center justify-content-center flex-column">
-              <div className="flex align-items-center justify-content-center flex-row">
+            <div className="flex align-items-center justify-content-center flex-column gap-4">
+              <div className="flex align-items-center justify-content-center flex-row gap-2">
                 <img
                   src={ConstructedIcon}
-                  style={{ height: "1.5rem", width: "1.5rem" }}
+                  style={{ height: "2rem", width: "2rem" }}
                   alt="constructed"
                 ></img>
-                <h1 className="text-sm">Constructed</h1>
+                <h1 className="text-lg">Constructed</h1>
               </div>
               <div className="flex align-items-center justify-content-center flex-row gap-6">
                 <div className="flex align-items-center justify-content-center flex-column">
-                  <h1 className="text-sm p-0 m-0">28400</h1>
-                  <h1 className="text-xs p-0 m-0 text-green-500">Functional</h1>
+                  <h1 className="p-0 m-0">28400</h1>
+                  <h1 className="text-sm p-0 m-0 text-green-500">Functional</h1>
                 </div>
                 <div className="flex align-items-center justify-content-center flex-column">
-                  <h1 className="text-sm  p-0 m-0">331</h1>
-                  <h1 className="text-xs p-0 m-0 text-green-500">
+                  <h1 className=" p-0 m-0">331</h1>
+                  <h1 className="text-sm p-0 m-0 text-green-500">
                     Non-Functional
                   </h1>
                 </div>
@@ -239,19 +241,19 @@ const WasteDashboard = () => {
               <div></div>
             </div>
             <Divider />
-            <div className="flex align-items-center justify-content-center flex-column">
-              <div className="flex align-items-center justify-content-center flex-row">
+            <div className="flex align-items-center justify-content-center flex-column gap-4">
+              <div className="flex align-items-center justify-content-center flex-row gap-2">
                 <img
                   src={UnderConstructedIcon}
-                  style={{ height: "1.5rem", width: "1.5rem" }}
+                  style={{ height: "2rem", width: "2rem" }}
                   alt="constructed"
                 ></img>
-                <h1 className="text-sm">Under Construction</h1>
+                <h1 className="text-lg">Under Construction</h1>
               </div>
               <div className="flex align-items-center justify-content-center flex-row gap-6">
                 <div className="flex align-items-center justify-content-center flex-column">
-                  <h1 className="text-sm p-0 m-0">223</h1>
-                  <h1 className="text-xs p-0 m-0 text-green-300">
+                  <h1 className="p-0 m-0">223</h1>
+                  <h1 className="text-sm p-0 m-0 text-green-300">
                     Under Construction
                   </h1>
                 </div>
