@@ -16,6 +16,8 @@ import TransportDashboard from "components/Dashboards/Transport/TransportDashboa
 import Healthcare from "components/Dashboards/Healthcare";
 import CityReportCardCitizen from "pages/CityReportCardCitizen";
 import CityReportCardGov from "pages/CityReportCardGov";
+import { BreadCrumb } from "primereact/breadcrumb";
+import { useNavigate } from "react-router-dom";
 import {
   Building,
   Bus,
@@ -42,7 +44,7 @@ const GovernmentSidebar = () => {
     cityReportCard: false,
     social: false,
   });
-
+  const navigate = useNavigate(); // For navigation
   const toggleSection = (section) => {
     setActiveSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
@@ -56,6 +58,67 @@ const GovernmentSidebar = () => {
     backgroundColor: activeTab === tab ? "#166c7d" : "#003940",
     borderRight: activeTab === tab ? "5px solid orange" : "none",
   });
+  // Dynamically assign breadcrumb items based on the active tab
+  const breadcrumbItems =
+    activeTab === "kyc"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Know Your City" },
+        ]
+      : activeTab === "cityReportCard"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "City Report Card" },
+        ]
+      : activeTab === "aqi"
+      ? [{ label: "CSI For Government", url: "/government" }, { label: "AQI" }]
+      : activeTab === "temperature"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Temperature" },
+        ]
+      : activeTab === "rain"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+
+          { label: "Rainfall" },
+        ]
+      : activeTab === "land"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Land Use" },
+        ]
+      : activeTab === "water"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Water Quality" },
+        ]
+      : activeTab === "waste"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Waste Management" },
+        ]
+      : activeTab === "transport"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Transport" },
+        ]
+      : activeTab === "healthcare"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Healthcare" },
+        ]
+      : [];
+
+  const home = {
+    icon: "pi pi-home",
+    url: "/",
+    className: "font-bold text-cyan-800",
+  };
+
+  const onBreadcrumbClick = (url) => {
+    navigate(url); // Navigate to the URL when breadcrumb is clicked
+  };
 
   return (
     <div className="">
@@ -353,6 +416,17 @@ const GovernmentSidebar = () => {
           />
         </div>
       </Sidebar>
+      {/* Breadcrumb */}
+      <BreadCrumb
+        model={breadcrumbItems.map((item) => ({
+          ...item,
+          command: () => onBreadcrumbClick(item.url),
+        }))}
+        home={home}
+        style={{
+          marginLeft: "6rem",
+        }}
+      />
 
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "6rem" }}>

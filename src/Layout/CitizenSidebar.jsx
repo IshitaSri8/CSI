@@ -3,35 +3,21 @@ import { Sidebar } from "primereact/sidebar";
 import { Ripple } from "primereact/ripple";
 import { Button } from "primereact/button";
 import "../components/landingPage/Landing.css";
-import AQI from "components/Dashboards/Environment/AQI/AQI";
-import TempMain from "components/Dashboards/Environment/Temperature/TempMain";
-import RainMain from "components/Dashboards/Environment/Rain/RainMain";
-import LandMain from "components/Dashboards/Environment/Land/LandMain";
-import WaterMain from "components/Dashboards/Environment/Water/WaterMain";
-import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
-// import HeaderLogout from "components/HeaderLogout";
 import KnowYourCity from "../pages/KnowYourCity";
-import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
-import Healthcare from "components/Dashboards/Healthcare";
 import CityReportCardCitizen from "pages/CityReportCardCitizen";
 import Arahas from "assets/arahas_logo.png";
 import { Building, FileChartPie, LogOut } from "lucide-react";
+import { BreadCrumb } from "primereact/breadcrumb";
+import { useNavigate } from "react-router-dom";
 
 const CitizenSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
   const [visible, setVisible] = useState(false);
-  const [activeSections, setActiveSections] = useState({
-    knowYourCity: false,
-    cityReportCard: false,
-  });
-
-  const toggleSection = (section) => {
-    setActiveSections((prev) => ({ ...prev, [section]: !prev[section] }));
-  };
+  const navigate = useNavigate(); // For navigation
 
   const handleTabClick = (tab) => {
     setActiveTab(tab); // Set the clicked tab as active
-    setVisible(false); // Show the sidebar when a tab is clicked
+    setVisible(false); // Hide the sidebar when a tab is clicked
   };
 
   const getTabStyle = (tab) => ({
@@ -39,20 +25,42 @@ const CitizenSidebar = () => {
     borderRight: activeTab === tab ? "5px solid orange" : "none",
   });
 
+  // Dynamically assign breadcrumb items based on the active tab
+  const breadcrumbItems =
+    activeTab === "kyc"
+      ? [
+          { label: "CSI For Citizen", url: "/citizens" },
+          { label: "Know Your City" },
+        ]
+      : [
+          { label: "CSI For Citizen", url: "/citizens" },
+          { label: "City Report Card" },
+        ];
+
+  const home = {
+    icon: "pi pi-home",
+    url: "/",
+    className: "font-bold text-cyan-800",
+  };
+
+  const onBreadcrumbClick = (url) => {
+    navigate(url); // Navigate to the URL when breadcrumb is clicked
+  };
+
   return (
     <div className="">
       {/* Display icons in the collapsed sidebar */}
       {!visible && (
         <div
           style={{
-            width: "6rem", // Adjust the width for the collapsed sidebar
+            width: "6rem",
             backgroundColor: "#003940",
             height: "100vh",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            paddingTop: "1rem", // This causes the top margin/padding
-            position: "fixed", // For positioning the toggle button at the bottom
+            paddingTop: "1rem",
+            position: "fixed",
           }}
         >
           <img src={Arahas} alt="Arahas" className="w-5rem mb-4" />
@@ -68,7 +76,6 @@ const CitizenSidebar = () => {
             style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
             tooltip="City Report Card"
           />
-
           <Button
             icon={<LogOut size={18} />}
             onClick={() => setVisible(true)}
@@ -80,7 +87,6 @@ const CitizenSidebar = () => {
             }}
             tooltip="Logout"
           />
-          {/* Bottom-right toggle button */}
           <i
             className="pi pi-angle-double-right text-white"
             onClick={() => setVisible(true)}
@@ -99,27 +105,18 @@ const CitizenSidebar = () => {
         visible={visible}
         onHide={() => setVisible(false)}
         position="left"
-        header={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              backgroundColor: "#000",
-            }}
-          ></div>
-        }
+        header={<div style={{ backgroundColor: "#000" }}></div>}
       >
         <div
           style={{
             backgroundColor: "#003940",
             padding: "1rem",
             height: "100vh",
-            position: "relative", // For positioning the toggle button
+            position: "relative",
           }}
         >
           <img src={Arahas} alt="Arahas" className="w-7rem mb-4" />
-          <ul className="list-none p-0 m-0" style={{ textDecoration: "none" }}>
-            {/* Know Your City Section */}
+          <ul className="list-none p-0 m-0">
             <li>
               <div
                 style={getTabStyle("kyc")}
@@ -131,7 +128,6 @@ const CitizenSidebar = () => {
                 <Ripple />
               </div>
             </li>
-            {/* City Report Card */}
             <li>
               <div
                 style={getTabStyle("cityReportCard")}
@@ -144,8 +140,6 @@ const CitizenSidebar = () => {
               </div>
             </li>
           </ul>
-
-          {/* Bottom-right toggle button for the full sidebar */}
           <i
             className="pi pi-angle-double-left text-white"
             onClick={() => setVisible(false)}
@@ -158,6 +152,16 @@ const CitizenSidebar = () => {
           />
         </div>
       </Sidebar>
+
+      {/* Breadcrumb */}
+      <BreadCrumb
+        model={breadcrumbItems.map((item) => ({
+          ...item,
+          command: () => onBreadcrumbClick(item.url),
+        }))}
+        home={home}
+        style={{ marginLeft: "6rem" }}
+      />
 
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "6rem" }}>

@@ -190,3 +190,11 @@ body {
   padding: 0.8rem;
   font-weight: 500;
 }
+.p-menuitem,
+.p-menuitem-text,
+.p-breadcrumb-chevron,
+.pi-home,
+.pi {
+  color: #166c7d !important;
+  font-weight: 700 !important;
+}
