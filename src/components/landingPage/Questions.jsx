@@ -17,7 +17,7 @@ const Questions = ({ question, points, textTheme }) => {
         <div
           className="p-5 mt-3"
           style={{
-            maxHeight: "30rem",
+            maxHeight: "40rem",
             overflowY: "auto", // Allow vertical scrolling
             scrollbarWidth: "none", // For Firefox
             msOverflowStyle: "none", // For Internet Explorer and Edge
@@ -27,13 +27,13 @@ const Questions = ({ question, points, textTheme }) => {
             {points &&
               points.length > 0 &&
               points.map((point, index) => (
-                <li key={index} className="mb-4 text-4xl">
-                  <span className={`font-bold ${textClass} text-5xl`}>
+                <li key={index} className="">
+                  <span className={`font-bold ${textClass} text-3xl`}>
                     {`${index + 1}. `}
                   </span>
                   {/* <hr className="my-2" /> */}
-                  <p className="text-2xl font-semibold">{point.subheading}</p>
-                  <p>{point.content}</p> {/* Main point content */}
+                  <p className="text-xl font-semibold">{point.subheading}</p>
+                  <p className="text-lg">{point.content}</p> {/* Main point content */}
                 </li>
               ))}
           </ul>

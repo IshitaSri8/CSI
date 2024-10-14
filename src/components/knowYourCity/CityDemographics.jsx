@@ -26,15 +26,15 @@ const CityDemographics = () => {
             <h1 className="m-0 p-0 text-white">Geographical Overview</h1>
             <i className="pi pi-map-marker text-white"></i>
           </div>
-          <div className="flex align-items-center justify-content-center gap-2 p-2">
+          <div className="flex align-items-center justify-content-center gap-3 p-2">
             <div className="flex align-items-center justify-content-center flex-column w-full gap-2">
               <div className="flex align-items-center justify-content-center w-full gap-2">
                 <div
                   className="flex align-items-center justify-content-center flex-column p-3 shadow-3 border-round w-full "
                   style={{ backgroundColor: "rgba(14, 116, 144, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-lg font-semibold text-white">
-                    133.67 sq.km
+                  <h1 className="p-1 m-0 text-xl font-semibold text-white">
+                    133.67 <span className="text-sm">sq.km</span>
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">
                     Geographical Area
@@ -59,10 +59,10 @@ const CityDemographics = () => {
                   <p className="p-1 m-0 text-white text-sm">Wards</p>
                 </div>
                 <div
-                  className="flex align-items-center justify-content-center p-3 shadow-3 border-round flex-column"
+                  className="flex align-items-center justify-content-center p-2 shadow-3 border-round flex-column"
                   style={{ backgroundColor: "rgba(14, 116, 144, 0.2)" }}
                 >
-                  <i className="pi pi-info-circle text-white w-full text-right highway"></i>
+                  <i className="pi pi-info-circle text-white w-full text-right highway text-xs"></i>
                   <h1 className="p-1 m-0 text-2xl font-semibold text-white">
                     1
                   </h1>
@@ -104,7 +104,9 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center p-3 shadow-3 border-round flex-column w-full"
                   style={{ backgroundColor: "rgba(14, 116, 144, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-xl text-white">163.31 ha</h1>
+                  <h1 className="p-1 m-0 text-xl text-white">
+                    163.31 <span className="text-sm">ha</span>{" "}
+                  </h1>
                   <p className="p-1 m-0 text-white text-xs">
                     Parks & Open Spaces
                   </p>
@@ -126,17 +128,17 @@ const CityDemographics = () => {
             <h1 className="m-0 p-0 text-white">Population Insights</h1>
             <i className="pi pi-users text-white"></i>
           </div>
-          <div className="flex align-items-center justify-content-between gap-3 p-2">
+          <div className="flex align-items-center justify-content-center gap-5 p-2">
             {/* waves */}
             <div className="flex align-items-center justify-content-between flex-column my-2 bg-cyan-700 border-round">
               <div className="flex align-items-center justify-content-between bg-white border-round-top">
                 <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
-                  <h1 className="p-1 m-0 text-lg text-cyan-800">2,21,118</h1>
+                  <h1 className="p-1 m-0 text-xl text-cyan-800">2,21,118</h1>
                   <p className="p-0 m-0 text-600 text-xs">Census Population</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
-                  <h1 className="p-1 m-0 text-lg text-cyan-800">25,669</h1>
+                  <h1 className="p-1 m-0 text-xl text-cyan-800">25,669</h1>
                   <p className="p-1 m-0 text-gray-600 text-xs">
                     Slum Population
                   </p>
@@ -148,7 +150,7 @@ const CityDemographics = () => {
                 <p className="p-1 m-0 text-white text-sm">Current Population</p>
               </div>
             </div>{" "}
-            <div className="flex bg-white align-items-center justify-content-center py-3 w-full border-round">
+            <div className="flex bg-white align-items-center justify-content-center py-3 border-round">
               <Doughnut
                 title={"Sex Ratio"}
                 labels={["Male", "Female"]}

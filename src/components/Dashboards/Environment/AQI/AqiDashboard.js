@@ -21,6 +21,7 @@ import AqiMap from "./AqiMap";
 import { Dialog } from "primereact/dialog";
 import AQIRecommendations from "./AQIRecommendations";
 import AQIReportPrint from "./AQIReportPrint";
+import { Tag } from "primereact/tag";
 
 const AqiDashboard = ({
   onDataChange,
@@ -262,15 +263,15 @@ const AqiDashboard = ({
   const getAqiStatus = (aqi) => {
     if (aqi > 0 && aqi <= 100) {
       return {
-        status: "Good",
-        color: "green",
+        status: "GOOD",
+        color: "rgba(12, 157, 97, 1)",
         textColor: "white",
         image: good,
-        bg_color: "#BDE8CA",
+        bg_color: "rgba(12, 157, 97, 0.15)",
       };
     } else if (aqi > 100 && aqi <= 200) {
       return {
-        status: "Moderate",
+        status: "MODERATE",
         color: "#FABC3F",
         textColor: "black",
         image: moderate,
@@ -278,7 +279,7 @@ const AqiDashboard = ({
       };
     } else if (aqi > 200 && aqi <= 300) {
       return {
-        status: "Poor",
+        status: "POOR",
         color: "#FF7D29",
         textColor: "black",
         image: poor,
@@ -286,7 +287,7 @@ const AqiDashboard = ({
       };
     } else if (aqi > 300 && aqi <= 400) {
       return {
-        status: "Very Poor",
+        status: "VERY POOR",
         color: "#C7253E",
         textColor: "white",
         image: very_poor,
@@ -294,7 +295,7 @@ const AqiDashboard = ({
       };
     } else if (aqi > 400) {
       return {
-        status: "Severe",
+        status: "SEVERE",
         color: "#624E88",
         textColor: "white",
         image: severe,
@@ -340,8 +341,8 @@ const AqiDashboard = ({
       {/* {show && ( */}
       {show && (
         <div className="flex align-items-center justify-content-between">
-          <h1 className="m-0 p-0 text-2xl text-cyan-800">AQI Dashboard</h1>
-          <div className="flex align-ites-center justify-content-end flex-row gap-1">
+          <h1 className="m-0 p-0 text-2xl text">Air Quality Index</h1>
+          <div className="flex align-ites-center justify-content-end gap-2">
             <Button
               label="Filters"
               icon="pi pi-filter"
@@ -373,7 +374,7 @@ const AqiDashboard = ({
           setFilterVisible(false);
         }}
       >
-        <div className="flex flex-column align-items-end w-full gap-3 flex-row">
+        <div className="flex flex-column align-items-end w-full gap-3">
           <div className="flex align-items-center justify-content-between w-full gap-3">
             <div className="flex flex-column">
               <label htmlFor="location" className="font-semibold">
@@ -458,40 +459,51 @@ const AqiDashboard = ({
           endDate={endDate}
         />
       </Dialog>
-      <div className="flex flex-row flex-wrap md:flex-nowrap align-items-end w-full gap-3 mt-2">
+      <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
-          <Card
-            title="Air Quality Index"
-            className="w-full"
-            style={{ backgroundColor: aqiStatus.bg_color }}
+          <div
+            className="border-round-xl p-2"
+            style={{
+              backgroundColor: aqiStatus.bg_color,
+              border: `1px solid ${aqiStatus.color}`,
+            }}
           >
-            <div className="flex align-items-center justify-content-around flex-row w-full">
-              <div className="flex align-items-center justify-content-between flex-column gap-4 w-full">
-                <h1 className="text-5xl font-medium p-0 m-0">
-                  {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
-                </h1>
+            <h1 className="font-semibold text m-0 p-0">Air Quality Index</h1>
+            <div className="flex align-items-center justify-content-center p-2 gap-8">
+              <h1
+                className="text-5xl font-medium p-0 m-0"
+                style={{ color: aqiStatus.color }}
+              >
+                {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
+              </h1>
 
-                <h1
-                  className={`border-round-xs p-1 text-xs px-5 text-white text-base`}
+              {/* <h1
+                  className={`border-round-2xl py-2 px-3 text-xs text-white text-left`}
                   style={{ backgroundColor: aqiStatus.color }}
                 >
                   {aqiStatus.status || "No Status"}
-                </h1>
-              </div>
-              <div className="w-full flex justify-content-center align-items-center">
-                {aqiImage && (
-                  <img
-                    src={aqiImage}
-                    alt={aqiStatusText}
-                    style={{ width: "6rem", height: "10rem" }}
-                  />
-                )}
-              </div>
+                </h1> */}
+
+              {aqiImage && (
+                <img
+                  src={aqiImage}
+                  alt={aqiStatusText}
+                  style={{ width: "6rem", height: "10rem" }}
+                />
+              )}
             </div>
-          </Card>
+            <Tag
+              className="border-round-3xl"
+              style={{ backgroundColor: aqiStatus.color, color: "white" }}
+            >
+              <span className="text-xs">
+                {aqiStatus.status || "No Status"}{" "}
+              </span>
+            </Tag>
+          </div>
         )}
 
-        <Card className="w-full">
+        <div className="w-full">
           {loading ? (
             <div className="w-full">
               <TableSkeleton />
@@ -501,58 +513,74 @@ const AqiDashboard = ({
               value={dataTableData}
               rowClassName={rowClassName}
               scrollable
-              scrollHeight="12rem"
+              scrollHeight="15rem"
               style={{
-                textAlign: "center",
+                width: "100%",
+                borderRadius: "15px",
+                overflow: "hidden",
+                // scrollbarWidth: "none",
+                padding: 2,
               }}
               emptyMessage="No Outliear Days Found."
             >
               <Column
                 field="aqi"
                 header="AQI"
-                className="text-sm font-semibold"
+                className="text-sm font-semibold text-left"
                 headerStyle={{
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
+                  padding:3,
                 }}
               ></Column>
               <Column
                 field="date"
                 header="Date"
-                className="text-xs"
+                className="text-xs text-left"
                 headerStyle={{
                   fontSize: "0.2rem",
                   backgroundColor: "#166c7d",
                   color: "white",
+                  padding:3,
                 }}
               ></Column>
               <Column
                 field="time"
                 header="Time"
-                className="text-xs"
+                className="text-xs text-left"
                 headerStyle={{
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
+                  padding:3,
                 }}
               />
 
               <Column
                 field="deviationPercentage"
                 header="Outlier %"
-                className="text-sm font-semibold"
+                className="text-sm font-semibold text-left"
+                style={{ width: "20%" }}
                 headerStyle={{
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
+                  padding:3,
                 }}
               ></Column>
             </DataTable>
           )}
-        </Card>
+        </div>
 
-        <Card className="w-full">
+        <div
+          pt={{
+            body: {
+              className: "p-0",
+            },
+          }}
+          className="w-full border-round-2xl"
+        >
           {/* <AqiReport
               selectedLocation={selectedLocation}
               startDate={startDate}
@@ -560,7 +588,7 @@ const AqiDashboard = ({
               averageAQI={aqiValue}
             /> */}
           <AqiMap averageAQI={aqiValue} selectedLocation={selectedLocation} />
-        </Card>
+        </div>
       </div>
 
       <Card className="w-full">
@@ -643,7 +671,7 @@ const AqiDashboard = ({
 
       {/* {show && (
             <>
-              <div className="flex align-items-center justify-content-start flex-row flex-wrap md:flex-nowrap mt-2">
+              <div className="flex align-items-center justify-content-start flex-wrap md:flex-nowrap mt-2">
                 <Card className="h-15rem w-6">
                   <CustomBarChart
                     title="Human Loss by Age Group and Gender"

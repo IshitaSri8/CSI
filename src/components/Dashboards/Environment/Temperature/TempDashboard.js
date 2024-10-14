@@ -7,19 +7,14 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 // import { ProgressSpinner } from "primereact/progressspinner";
 import "../../Dash.css";
-import sunny from "../../../../assets/dashboard/sunny.png";
-import warm from "../../../../assets/dashboard/warm.png";
-// import very_poor from "../../DashBoards/DashImages/very_poor.png";
-// import AqiReport from "../AQI/AqiReport";
-// import AQIChart from "../AQI/AQIChart";
-// import PollutantChart from "./PollutantChart";
-// import { CustomBarChart, DonutChart } from "../../GraphVisuals";
-// import FileUploadPopup from "../../upload-popup/FileUploadPopup";
+import sunny from "assets/dashboard/Temperature- Below 40.svg";
+import warm from "assets/dashboard/Temperature- Above 40.svg";
 import { Button } from "primereact/button";
 import { Panel } from "primereact/panel";
 import TableSkeleton from "../../skeletons/TableSkeleton";
 import TempMap from "./TempMap";
 import Temperature from "./Temperature";
+import { Tag } from "primereact/tag";
 
 // Define the helper functions here
 const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
@@ -215,7 +210,7 @@ const TempDashboard = ({
   //     onUpload={handleUpload}
   //     department={"environment"}
   //     action={selectedAction}
-  //     subCategory={"Aqi"}
+  //     subCategory={"temp"}
   //   />
   // )}
 
@@ -243,17 +238,19 @@ const TempDashboard = ({
   const getTempStatus = (temp) => {
     if (temp > 0 && temp <= 40) {
       return {
-        // status: "Good",
-        color: "green",
+        status: "MODERATE",
+        color: "rgba(12, 157, 97, 1)",
         textColor: "white",
         image: sunny,
+        bg_color: "rgba(12, 157, 97, 0.15)",
       };
     } else if (temp > 40) {
       return {
-        status: "Very Hot",
-        color: "red",
+        status: "VERY HOT",
+        color: "rgba(230, 34, 37, 1)",
         textColor: "white",
         image: warm,
+        bg_color: "rgba(230, 34, 37, 0.15)",
       };
     }
   };
@@ -267,10 +264,10 @@ const TempDashboard = ({
   // console.log(startDate, endDate);
 
   const {
-    status: aqiStatusText,
+    status: tempStatusText,
     color,
     textColor,
-    image: aqiImage,
+    image: tempImage,
   } = tempStatus;
 
   const rowClassName = (data) => {
@@ -338,131 +335,151 @@ const TempDashboard = ({
           />
         </div>
       </Panel>
-      {/* )} */}
-      <Panel>
-        <div className="flex flex-row align-items-end w-full gap-4 mt-2">
-          {selectedLocation && (
-            <div>
-              <Card title="Temperature" className="h-20rem w-25rem">
-                <div className="flex align-items-center justify-content-around flex-row flex-wrap md:flex-nowrap">
-                  <div className="flex align-items-center justify-content-center flex-column">
-                    <h1 className="text-sm">
-                      {tempValue !== null
-                        ? `${tempValue} °C`
-                        : "No Data Found."}
-                    </h1>
 
-                    {aqiImage && (
-                      <img
-                        src={aqiImage}
-                        alt={aqiStatusText}
-                        style={{ width: "50%" }}
-                      />
-                    )}
-                    {/* <h1
+      <div className="flex flex-wrap md:flex-nowrap align-items-center w-full gap-4">
+        {selectedLocation && (
+          <div
+            className="border-round-xl p-2 w-full"
+            style={{
+              backgroundColor: tempStatus.bg_color,
+              border: `1px solid ${tempStatus.color}`,
+            }}
+          >
+            <h1 className="font-semibold text text-xl m-0 p-0">Temperature</h1>
+            <div className="flex align-items-center justify-content-center gap-8">
+              <h1
+                className="text-4xl font-medium p-0 m-0"
+                style={{ color: tempStatus.color }}
+              >
+                {tempValue !== null ? `${tempValue} °C` : "No Data Found."}
+              </h1>
+
+              {tempImage && (
+                <img
+                  src={tempImage}
+                  alt={tempStatusText}
+                  style={{ width: "15rem" }}
+                />
+              )}
+              {/* <h1
                           className={`border-round-xs p-1 text-xs text-white w-6rem`}
                           style={{ backgroundColor: tempStatus.color }}
                         >
                           {tempStatus.status || "No Status"}
                         </h1> */}
-                  </div>
-                </div>
-              </Card>
             </div>
-          )}
-          <div className="ml-1 mr-1">
-            <Card className="h-20rem w-28rem">
-              {loading ? (
-                <div className="w-24rem h-15rem">
-                  <TableSkeleton />
-                </div>
-              ) : (
-                <DataTable
-                  value={dataTableData}
-                  rowClassName={rowClassName}
-                  scrollable
-                  scrollHeight="15rem"
-                  style={{
-                    width: "26rem",
-                    height: "17rem",
-                    textAlign: "center",
-                  }}
-                  emptyMessage="No Outliear Days Found."
-                >
-                  <Column
-                    field="date"
-                    header="Date"
-                    className="text-xs"
-                    headerStyle={{
-                      fontSize: "0.6rem",
-                      backgroundColor: "#166c7d",
-                      color: "white",
-                    }}
-                  ></Column>
-                  <Column
-                    field="time"
-                    header="Time"
-                    className="text-xs"
-                    headerStyle={{
-                      fontSize: "0.6rem",
-                      backgroundColor: "#166c7d",
-                      color: "white",
-                    }}
-                  />
-                  <Column
-                    field="temp"
-                    header="Temperature > 40°C"
-                    className="text-xs"
-                    headerStyle={{
-                      fontSize: "0.6rem",
-                      backgroundColor: "#166c7d",
-                      color: "white",
-                    }}
-                  ></Column>
-                  <Column
-                    field="deviationPercentage"
-                    header="Outlier %"
-                    className="text-xs"
-                    headerStyle={{
-                      fontSize: "0.6rem",
-                      backgroundColor: "#166c7d",
-                      color: "white",
-                    }}
-                  ></Column>
-                </DataTable>
-              )}
-            </Card>
+            <Tag
+              className="border-round-3xl"
+              style={{ backgroundColor: tempStatus.color, color: "white" }}
+            >
+              <span className="text-xs">
+                {tempStatus.status || "No Status"}{" "}
+              </span>
+            </Tag>
           </div>
-          <Card className="h-20rem w-full">
-            {/* <AqiReport
+        )}
+        <div className="w-full">
+          {loading ? (
+            <div className="w-full">
+              <TableSkeleton />
+            </div>
+          ) : (
+            <DataTable
+              value={dataTableData}
+              rowClassName={rowClassName}
+              scrollable
+              scrollHeight="15rem"
+              style={{
+                width: "100%",
+                borderRadius: "15px",
+                overflow: "hidden",
+                // scrollbarWidth: "none",
+                padding: 2,
+              }}
+              emptyMessage="No Outliear Days Found."
+            >
+              <Column
+                field="date"
+                header="Date"
+                className="text-sm font-semibold text-left"
+                headerStyle={{
+                  fontSize: "0.6rem",
+                  backgroundColor: "#166c7d",
+                  color: "white",
+                  padding: 3,
+                }}
+              ></Column>
+              <Column
+                field="time"
+                header="Time"
+                className="text-xs text-left"
+                headerStyle={{
+                  fontSize: "0.6rem",
+                  backgroundColor: "#166c7d",
+                  color: "white",
+                  padding: 3,
+                }}
+              />
+              <Column
+                field="temp"
+                header="Temperature > 40°C"
+                className="text-xs text-left"
+                headerStyle={{
+                  fontSize: "0.6rem",
+                  backgroundColor: "#166c7d",
+                  color: "white",
+                  padding: 3,
+                }}
+              ></Column>
+              <Column
+                field="deviationPercentage"
+                header="Outlier %"
+                className="text-sm font-semibold text-left"
+                headerStyle={{
+                  fontSize: "0.6rem",
+                  backgroundColor: "#166c7d",
+                  color: "white",
+                  padding: 3,
+                }}
+              ></Column>
+            </DataTable>
+          )}
+        </div>
+        <div
+          pt={{
+            body: {
+              className: "p-0",
+            },
+          }}
+          className="w-full border-round-2xl"
+        >
+          {/* <tempReport
               selectedLocation={selectedLocation}
               startDate={startDate}
               endDate={endDate}
-              averageAQI={aqiValue}
+              averagetemp={tempValue}
             /> */}
-            <TempMap
-              averageTemp={tempValue}
-              selectedLocation={selectedLocation}
-            />
-          </Card>
+          <TempMap
+            averageTemp={tempValue}
+            selectedLocation={selectedLocation}
+          />
         </div>
-      </Panel>
-      <Panel>
-        <div className="flex align-items-center justify-content-between flex-row">
-          <Card className="w-full">
-            <Temperature
-              enviroDate={envirodate}
-              envirotime={envirotime}
-              temperature={temperature}
-              humidity={humidity}
-              enviroco2={enviroco2}
-              startDate={startDate}
-            />
-          </Card>
-        </div>
-      </Panel>
+      </div>
 
-      {/* <div className="w-100 flex align-items-center justify-content-center flex-row gap-1">
+      <div className="flex align-items-center justify-content-between">
+        <Card className="w-full">
+          <Temperature
+            enviroDate={envirodate}
+            envirotime={envirotime}
+            temperature={temperature}
+            humidity={humidity}
+            enviroco2={enviroco2}
+            startDate={startDate}
+          />
+        </Card>
+      </div>
+
+      {/* <div className="w-100 flex align-items-center justify-content-center gap-1">
               <Card className="h-15rem w-17rem">
                 <PollutantChart
                   envirolocation={envirolocation}
@@ -527,7 +544,7 @@ const TempDashboard = ({
 
       {/* {show && (
             <>
-              <div className="flex align-items-center justify-content-start flex-row mt-2">
+              <div className="flex align-items-center justify-content-start mt-2">
                 <Card className="h-15rem w-6">
                   <CustomBarChart
                     title="Human Loss by Age Group and Gender"

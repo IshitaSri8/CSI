@@ -8,7 +8,7 @@ const CityReportCardGov = ({ show }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="px-2 py-5">
+    <div className="px-2 py-4">
       <div className="w-full ">
         <h1 className="text-primary1 text-xl text-left text-medium w-full m-0 p-0 ml-3">
           City Report Card

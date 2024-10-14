@@ -67,20 +67,23 @@ const CitizenSidebar = () => {
           <Button
             icon={<Building size={18} />}
             onClick={() => handleTabClick("kyc")}
-            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
             tooltip="Know Your City"
+            className="border-none border-round-lg"
           />
           <Button
             icon={<FileChartPie size={18} />}
             onClick={() => handleTabClick("cityReportCard")}
-            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
             tooltip="City Report Card"
+            className="border-none border-round-lg"
           />
           <Button
             icon={<LogOut size={18} />}
             onClick={() => setVisible(true)}
+            className="border-none border-round-lg"
             style={{
-              backgroundColor: "#166c7d",
+              backgroundColor: "#69ABB9",
               position: "fixed",
               bottom: "5rem",
               left: "2rem",

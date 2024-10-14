@@ -6,14 +6,12 @@ import { Tag } from "primereact/tag";
 import Card1 from "../assets/card1.png";
 import Card2 from "../assets/card2.png";
 import Card3 from "../assets/card3.png";
-import Screen from "../assets/screen.png";
-import SpaIcon from "@mui/icons-material/Spa";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import Diversity3Icon from "@mui/icons-material/Diversity3";
 import citizen from "../assets/citizen_bg.jpg";
 import report_ss from "assets/report_ss.png";
 import trend_ss from "assets/trend_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
+import kyc from "assets/Citizen/know your city image- CSI for Citizen revised 1.png";
+import reportCard from "assets/Citizen/CSI Score.png";
 
 const Citizen = () => {
   return (
@@ -62,7 +60,7 @@ const Citizen = () => {
           {/* Image Column */}
           <div style={{ flex: "60%", position: "relative" }}>
             <img
-              src={Card1}
+              src={kyc}
               alt="Main"
               style={{
                 width: "100%",
@@ -181,7 +179,7 @@ const Citizen = () => {
 
           <div style={{ flex: "60%", position: "relative" }}>
             <img
-              src={Card2}
+              src={reportCard}
               alt="Main"
               style={{
                 width: "100%",

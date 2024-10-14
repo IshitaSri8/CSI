@@ -7,9 +7,9 @@ import SpaIcon from "@mui/icons-material/Spa";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import kyc from "../assets/kyc.png";
-import crc from "../assets/crc.png";
+import crc from "../assets/Citizen/Report Card.png";
 import indicator from "../assets/indicator.png";
-import government from "../assets/government.png";
+import government from "../assets/Citizen/csi for gov.png";
 import report_ss from "assets/report_ss.png";
 import trend_ss from "assets/trend_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
@@ -20,7 +20,7 @@ const Government = () => {
       {/* Header */}
       <Header />
       <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
-        <img src={government} alt="citizen" className="w-screen " />
+        <img src={government} alt="government" className="w-screen " />
         <div
           className="border-round-xl m-0 mb-5 p-0"
           style={{

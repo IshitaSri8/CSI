@@ -34,6 +34,7 @@ import {
   Wind,
 } from "lucide-react";
 import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
+import Arahas from "assets/arahas_logo.png";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -55,7 +56,7 @@ const GovernmentSidebar = () => {
   };
 
   const getTabStyle = (tab) => ({
-    backgroundColor: activeTab === tab ? "#166c7d" : "#003940",
+    backgroundColor: activeTab === tab ? "#69ABB9" : "#003940",
     borderRight: activeTab === tab ? "5px solid orange" : "none",
   });
   // Dynamically assign breadcrumb items based on the active tab
@@ -71,41 +72,52 @@ const GovernmentSidebar = () => {
           { label: "City Report Card" },
         ]
       : activeTab === "aqi"
-      ? [{ label: "CSI For Government", url: "/government" }, { label: "AQI" }]
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Nature" },
+          { label: "AQI" },
+        ]
       : activeTab === "temperature"
       ? [
           { label: "CSI For Government", url: "/government" },
+          { label: "Nature" },
           { label: "Temperature" },
         ]
       : activeTab === "rain"
       ? [
           { label: "CSI For Government", url: "/government" },
+          { label: "Nature" },
 
           { label: "Rainfall" },
         ]
       : activeTab === "land"
       ? [
           { label: "CSI For Government", url: "/government" },
+          { label: "Nature" },
           { label: "Land Use" },
         ]
       : activeTab === "water"
       ? [
           { label: "CSI For Government", url: "/government" },
+          { label: "Nature" },
           { label: "Water Quality" },
         ]
       : activeTab === "waste"
       ? [
           { label: "CSI For Government", url: "/government" },
+          { label: "Nature" },
           { label: "Waste Management" },
         ]
       : activeTab === "transport"
       ? [
           { label: "CSI For Government", url: "/government" },
+          { label: "Society" },
           { label: "Transport" },
         ]
       : activeTab === "healthcare"
       ? [
           { label: "CSI For Government", url: "/government" },
+          { label: "Society" },
           { label: "Healthcare" },
         ]
       : [];
@@ -137,36 +149,42 @@ const GovernmentSidebar = () => {
             position: "fixed", // For positioning the toggle button at the bottom
           }}
         >
+          <img src={Arahas} alt="Arahas" className="w-5rem mb-4" />
           <Button
             icon={<Building size={18} />}
             onClick={() => handleTabClick("kyc")}
             tooltip="Know your city"
-            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
+            className="border-none border-round-lg"
           />
           <Button
             icon={<FileChartPie size={18} />}
             onClick={() => handleTabClick("cityReportCard")}
             tooltip="City Report Card"
-            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
+            className="border-none border-round-lg"
           />
           <Button
             icon={<Sprout size={18} />}
             onClick={() => setVisible(true)}
             tooltip="Nature"
-            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
+            className="border-none border-round-lg"
           />
           <Button
             icon={<Users size={18} />}
             onClick={() => setVisible(true)}
             tooltip="Society"
-            style={{ backgroundColor: "#166c7d", marginBottom: "1rem" }}
+            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
+            className="border-none border-round-lg"
           />
 
           <Button
             icon={<LogOut size={18} />}
             onClick={() => setVisible(true)}
+            className="border-none border-round-lg"
             style={{
-              backgroundColor: "#166c7d",
+              backgroundColor: "#69ABB9",
               position: "fixed",
               bottom: "5rem",
               left: "1.5rem",
@@ -309,7 +327,7 @@ const GovernmentSidebar = () => {
                       onClick={() => handleTabClick("land")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <LandPlot className="text-white mr-1" size={15} />
+                      <LandPlot className="text-white mr-2" size={15} />
                       {/* <i className="pi pi-map mr-2 text-xl text-white"></i> */}
                       <span className="font-medium text-sm text-white">
                         Land
@@ -416,11 +434,16 @@ const GovernmentSidebar = () => {
           />
         </div>
       </Sidebar>
+
       {/* Breadcrumb */}
       <BreadCrumb
         model={breadcrumbItems.map((item) => ({
           ...item,
           command: () => onBreadcrumbClick(item.url),
+          // style: {
+          //   color: item.isSelected ? "#69ABB9" : "inherit", // Change color if selected
+          //   fontWeight: item.isSelected ? "bold" : "normal", // Optional: make the text bold
+          // },
         }))}
         home={home}
         style={{
