@@ -76,7 +76,7 @@ const Citizen = () => {
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-70%, -50%)",
+                transform: "translate(-50%, -50%)",
               }}
             />
             <img
@@ -88,7 +88,7 @@ const Citizen = () => {
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-75%, -55%)",
+                transform: "translate(-50%, -55%)",
               }}
             />
           </div>

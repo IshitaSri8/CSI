@@ -22,7 +22,7 @@ const Government = () => {
       <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
         <img src={government} alt="government" className="w-screen " />
         <div
-          className="border-round-xl m-0 mb-5 p-0"
+          className="border-round-xl p-5"
           style={{
             // backgroundColor: "rgba(247, 164, 122, 0.7)",
             background:
@@ -62,7 +62,7 @@ const Government = () => {
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-70%, -50%)",
+                transform: "translate(-50%, -50%)",
               }}
             />
             <img
@@ -74,7 +74,7 @@ const Government = () => {
                 height: "19rem",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-75%, -55%)",
+                transform: "translate(-50%, -55%)",
               }}
             />
           </div>
