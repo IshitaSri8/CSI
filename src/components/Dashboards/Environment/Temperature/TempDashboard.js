@@ -293,12 +293,12 @@ const TempDashboard = ({
               onClick={() => setFilterVisible(true)}
               className="bg-white text-cyan-800 border-1 border-cyan-800"
             />
-            <Button
+            {/* <Button
               label="Recommendations"
               icon="pi pi-align-center"
               onClick={() => setRecommendationsVisible(true)}
               className="bg-white text-cyan-800 border-1 border-cyan-800"
-            />
+            /> */}
             <Button
               label="Generate Report"
               icon="pi pi-file"
