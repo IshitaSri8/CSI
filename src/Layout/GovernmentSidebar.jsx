@@ -4,8 +4,6 @@ import { Ripple } from "primereact/ripple";
 import { Button } from "primereact/button";
 import "../components/landingPage/Landing.css";
 
-import AQI from "components/Dashboards/Environment/AQI/AQI";
-import TempMain from "components/Dashboards/Environment/Temperature/TempMain";
 import RainMain from "components/Dashboards/Environment/Rain/RainMain";
 import LandMain from "components/Dashboards/Environment/Land/LandMain";
 import WaterMain from "components/Dashboards/Environment/Water/WaterMain";
@@ -14,17 +12,20 @@ import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
 import KnowYourCity from "../pages/KnowYourCity";
 import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Healthcare";
-import CityReportCardCitizen from "pages/CityReportCardCitizen";
 import CityReportCardGov from "pages/CityReportCardGov";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { useNavigate } from "react-router-dom";
 import {
+  BookOpenText,
+  BriefcaseBusiness,
   Building,
   Bus,
   CloudHail,
   Droplet,
+  EarthLock,
   FileChartPie,
   HeartPulse,
+  Landmark,
   LandPlot,
   LogOut,
   Sprout,
@@ -44,7 +45,8 @@ const GovernmentSidebar = () => {
     environment: false,
     knowYourCity: false,
     cityReportCard: false,
-    social: false,
+    society: false,
+    governance: false,
   });
   const navigate = useNavigate(); // For navigation
   const toggleSection = (section) => {
@@ -58,8 +60,14 @@ const GovernmentSidebar = () => {
 
   const getTabStyle = (tab) => ({
     backgroundColor: activeTab === tab ? "#69ABB9" : "#003940",
-    borderRight: activeTab === tab ? "5px solid orange" : "none",
+    borderRight: activeTab === tab ? "5px solid #F9C849" : "none",
   });
+
+  const activeTabStyle = (tab) => ({
+    backgroundColor: activeTab === tab ? "#69ABB9" : "#003940",
+    border: activeTab === tab ? "#F9C849" : "none",
+  });
+
   // Dynamically assign breadcrumb items based on the active tab
   const breadcrumbItems =
     activeTab === "kyc"
@@ -121,6 +129,24 @@ const GovernmentSidebar = () => {
           { label: "Society" },
           { label: "Healthcare" },
         ]
+      : activeTab === "education"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Society" },
+          { label: "Education" },
+        ]
+      : activeTab === "employment"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Society" },
+          { label: "Employment" },
+        ]
+      : activeTab === "cultural"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Society" },
+          { label: "Cultural Preservation" },
+        ]
       : [];
 
   const home = {
@@ -155,37 +181,45 @@ const GovernmentSidebar = () => {
             icon={<Building size={18} />}
             onClick={() => handleTabClick("kyc")}
             tooltip="Know your city"
-            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
-            className="border-none border-round-lg"
+            style={activeTabStyle("gov")}
+            className="border-none border-round-lg mb-2"
           />
           <Button
             icon={<FileChartPie size={18} />}
             onClick={() => handleTabClick("cityReportCard")}
             tooltip="City Report Card"
-            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
-            className="border-none border-round-lg"
+            style={activeTabStyle("gov")}
+            className="border-none border-round-lg mb-2"
           />
           <Button
             icon={<Sprout size={18} />}
             onClick={() => setVisible(true)}
             tooltip="Nature"
-            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
-            className="border-none border-round-lg"
+            style={activeTabStyle("gov")}
+            className="border-none border-round-lg mb-2"
           />
           <Button
             icon={<Users size={18} />}
             onClick={() => setVisible(true)}
             tooltip="Society"
-            style={{ backgroundColor: "#69ABB9", marginBottom: "1rem" }}
+            style={activeTabStyle("gov")}
+            className="border-none border-round-lg mb-2"
+          />
+
+          <Button
+            icon={<Landmark size={20}/>}
+            onClick={() => setVisible(true)}
+            tooltip="Governance"
+            style={activeTabStyle("gov")}
             className="border-none border-round-lg"
           />
 
           <Button
-            icon={<LogOut size={18} />}
+            icon={<LogOut size={20} />}
             onClick={() => setVisible(true)}
             className="border-none border-round-lg"
             style={{
-              backgroundColor: "#69ABB9",
+              backgroundColor: "transparent",
               position: "fixed",
               bottom: "5rem",
               left: "1.5rem",
@@ -233,6 +267,7 @@ const GovernmentSidebar = () => {
             position: "relative", // For positioning the toggle button
           }}
         >
+           <img src={Arahas} alt="Arahas" className="w-8rem mb-2" />
           <ul className="list-none p-0 m-0" style={{ textDecoration: "none" }}>
             {/* Know Your City Section */}
             <li>
@@ -415,6 +450,109 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
+                  <li>
+                    <div
+                      style={getTabStyle("education")}
+                      onClick={() => handleTabClick("education")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <BookOpenText className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Education
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      style={getTabStyle("employment")}
+                      onClick={() => handleTabClick("employment")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <BriefcaseBusiness className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Employment
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      style={getTabStyle("cultural")}
+                      onClick={() => handleTabClick("cultural")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <EarthLock className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Cultural Preservation
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+                </ul>
+              )}
+            </li>
+            {/* Governance Section */}
+            <li>
+              <div
+                onClick={() => {
+                  toggleSection("governance");
+                  //  handleTabClick("governance");
+                  setVisible(true);
+                }}
+                style={getTabStyle("governance")}
+                className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+              >
+                <Landmark className="text-white mr-2" size={20} />
+                <span className="font-medium text-white">Governance</span>
+                <i
+                  className={`pi pi-chevron-${
+                    activeSections.governance ? "up" : "down"
+                  } ml-auto text-white`}
+                ></i>
+                <Ripple />
+              </div>
+              {activeSections.governance && (
+                <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
+                  <li>
+                    <div
+                      style={getTabStyle("transport")}
+                      onClick={() => handleTabClick("transport")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <Bus className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Transport
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      style={getTabStyle("healthcare")}
+                      onClick={() => handleTabClick("healthcare")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <HeartPulse className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Healthcare
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      style={getTabStyle("education")}
+                      onClick={() => handleTabClick("education")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <HeartPulse className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Education
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
                 </ul>
               )}
             </li>
@@ -457,7 +595,7 @@ const GovernmentSidebar = () => {
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCardGov />}
         {activeTab === "aqi" && <AqiDashboard show={true} />}
-        {activeTab === "temperature" && <TempDashboard show={true}/>}
+        {activeTab === "temperature" && <TempDashboard show={true} />}
         {activeTab === "rain" && <RainMain />}
         {activeTab === "land" && <LandMain />}
         {activeTab === "water" && <WaterMain />}

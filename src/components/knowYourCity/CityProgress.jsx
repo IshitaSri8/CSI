@@ -75,8 +75,8 @@ const CityProgress = () => {
                     </p>
                     <div className="flex flex-column">
                       <p
-                        className="m-0 text-center text-4xl"
-                        style={{ color: "#FFDD82" }}
+                        className="m-0 text-center text-4xl font-medium"
+                        style={{ color: "#F9C849" }}
                       >
                         21
                       </p>
@@ -113,8 +113,8 @@ const CityProgress = () => {
 
                   <div className="flex gap-1">
                     <p
-                      className="m-0 text-center text-4xl"
-                      style={{ color: "#FFDD82" }}
+                      className="m-0 text-center text-4xl font-medium"
+                      style={{ color: "#F9C849" }}
                     >
                       39.5
                     </p>
@@ -160,8 +160,8 @@ const CityProgress = () => {
               <div className="flex gap-4">
                 <div className="flex flex-column justify-content-end">
                   <p
-                    className="m-0 text-center text-4xl"
-                    style={{ color: "#FFDD82" }}
+                    className="m-0 text-center text-4xl font-medium"
+                    style={{ color: "#F9C849" }}
                   >
                     262
                   </p>
@@ -252,11 +252,11 @@ const CityProgress = () => {
                   <div className="flex flex-column justify-content-end">
                     {/* <p
                       className="m-0 text-center text-4xl"
-                      style={{ color: "#FFDD82", marginTop: -20 }}
+                      style={{ color: "#F9C849", marginTop: -20 }}
                     > */}
                     <i
-                      className="pi pi-star mt-1 ml-3"
-                      style={{ color: "#FFDD82" }}
+                      className="pi pi-star mt-1 ml-3 font-medium"
+                      style={{ color: "#F9C849" }}
                     />
                     {/* </p> */}
                     <p
@@ -312,8 +312,8 @@ const CityProgress = () => {
                   </p>
                   <div className="flex flex-column justify-content-end">
                     <p
-                      className="m-0 text-center text-4xl"
-                      style={{ color: "#FFDD82" }}
+                      className="m-0 text-center text-4xl font-medium "
+                      style={{ color: "#F9C849" }}
                     >
                       389
                     </p>
@@ -374,8 +374,8 @@ const CityProgress = () => {
                 </div>
                 <div className="flex flex-column justify-content-end">
                   <p
-                    className="m-0 text-center text-3xl"
-                    style={{ color: "#FFDD82" }}
+                    className="m-0 text-center text-3xl font-medium"
+                    style={{ color: "#F9C849" }}
                   >
                     100%
                   </p>
