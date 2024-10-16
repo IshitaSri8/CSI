@@ -29,31 +29,35 @@ const CityReportCard = () => {
   const categories = {
     Environment: {
       title: "Nature Metrics",
-      data: [60, 40, 30, 70, 55, 65, 45, 50, 40, 75, 80, 60],
+      data: [60, 40, 30, 70],
+      //, 55, 65, 45, 50, 40, 75, 80, 60
     },
     Social: {
       title: "Society Metrics",
-      data: [68, 81, 58, 44, 72, 37, 50, 68, 87, 48, 52, 40],
+      data: [68, 81, 58, 44],
+      //, 72, 37, 50, 68, 87, 48, 52, 40
     },
     Governance: {
       title: "Administration Metrics",
-      data: [40, 53, 82, 65, 69, 53, 32, 51, 82, 31, 53, 73],
+      data: [40, 53, 82, 65],
+      //, 69, 53, 32, 51, 82, 31, 53, 73
     },
     Overall: {
       title: "Overall Score",
-      data: [56, 58, 57, 60, 65, 52, 42, 56, 70, 51, 62, 58],
+      data: [56, 58, 57, 60],
+      // , 65, 52, 42, 56, 70, 51, 62, 58
     },
   };
 
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
+    // "January",
+    // "February",
+    // "March",
+    // "April",
+    // "May",
+    // "June",
+    // "July",
+    // "August",
     "September",
     "October",
     "November",
@@ -103,13 +107,17 @@ const CityReportCard = () => {
       cornerRadius: 4,
     },
 
-    dataPointWidth: 12,
+    dataPointWidth: 18,
     data: [
       {
         type: "column",
         name: "Nature",
         color: "#26575D",
         showInLegend: true,
+        indexLabel: "{y}",
+        indexLabelPlacement: "outside",
+        indexLabelFontColor: "#26575D",
+        indexLabelFontSize: 10,
         dataPoints: categories.Environment.data.map((val, index) => ({
           label: months[index],
           y: val,
@@ -121,6 +129,10 @@ const CityReportCard = () => {
         name: "Society",
         color: "#FFDD82",
         showInLegend: true,
+        indexLabel: "{y}",
+        indexLabelPlacement: "outside",
+        indexLabelFontColor: "#FFDD82",
+        indexLabelFontSize: 10,
         dataPoints: categories.Social.data.map((val, index) => ({
           label: months[index],
           y: val,
@@ -131,6 +143,10 @@ const CityReportCard = () => {
         name: "Administration",
         color: "#1F8297",
         showInLegend: true,
+        indexLabel: "{y}",
+        indexLabelPlacement: "outside",
+        indexLabelFontColor: "#1f8297",
+        indexLabelFontSize: 10,
         dataPoints: categories.Governance.data.map((val, index) => ({
           label: months[index],
           y: val,
@@ -419,17 +435,17 @@ const CityReportCard = () => {
       </div>
       <div className="flex">
         <div
-          className="flex flex-column border-round-2xl"
-          style={{ flex: "70%" }}
+          className="flex flex-column border-round-2xl w-full"
+        //  style={{ flex: "70%" }}
         >
-          <Card className="border-round-xl h-full">
+          <Card className="border-round-xl">
             <CanvasJSReact.CanvasJSChart
               options={options}
               containerProps={{ height: 300, width: "100%" }}
             />
           </Card>
         </div>
-        <div className="flex flex-column pl-4" style={{ flex: "30%" }}>
+        <div className="flex flex-column pl-4">
           <p className="text-xl font-medium mt-0 mb-1">Summary</p>
           <div className="flex border-round bg-white px-3 mb-2">
             <p>
