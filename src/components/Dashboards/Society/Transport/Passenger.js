@@ -1,7 +1,7 @@
 import { Card } from "primereact/card";
 import React from "react";
 
-import increase from "../../../assets/increase.png";
+import increase from "assets/increase.png";
 
 import CanvasJSReact from "@canvasjs/react-charts";
 import "primeicons/primeicons.css";

@@ -1,9 +1,9 @@
 import { Card } from "primereact/card";
 import React from "react";
-import { DonutChart, ParetoChart } from "../../../Layout/GraphVisuals";
+import { DonutChart, ParetoChart } from "../../../../Layout/GraphVisuals";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
-import increase from "../../../assets/increase.png";
+import increase from "assets/increase.png";
 import CanvasJSReact from "@canvasjs/react-charts";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;

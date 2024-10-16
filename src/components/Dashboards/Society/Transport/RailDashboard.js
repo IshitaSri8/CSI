@@ -2,7 +2,7 @@ import React from "react";
 import RailTrend from "./RailTrend";
 import { Panel } from "primereact/panel";
 import { Card } from "primereact/card";
-import { BarChart } from "../GraphVisuals";
+import { BarChart } from "GraphVisuals";
 import StackedBarChart from "./StackedBarChart";
 import "primereact/resources/themes/saga-blue/theme.css"; // PrimeReact theme
 import "primereact/resources/primereact.min.css"; // Core PrimeReact styles

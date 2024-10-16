@@ -1,6 +1,6 @@
 import { Card } from "primereact/card";
 import React from "react";
-import { DonutChart, BarChart } from "../../../Layout/GraphVisuals";
+import { DonutChart, BarChart } from "Layout/GraphVisuals";
 
 import Air from "@mui/icons-material/Flight";
 import Water from "@mui/icons-material/DirectionsBoat";

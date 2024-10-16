@@ -10,8 +10,8 @@ import WaterMain from "components/Dashboards/Environment/Water/WaterMain";
 import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
 // import HeaderLogout from "components/HeaderLogout";
 import KnowYourCity from "../pages/KnowYourCity";
-import TransportDashboard from "components/Dashboards/Transport/TransportDashboard";
-import Healthcare from "components/Dashboards/Healthcare";
+import TransportDashboard from "components/Dashboards/Society/Transport/TransportDashboard";
+import Healthcare from "components/Dashboards/Society/Healthcare";
 import CityReportCardGov from "pages/CityReportCardGov";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { useNavigate } from "react-router-dom";
@@ -37,6 +37,7 @@ import {
 import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
 import Arahas from "assets/arahas_logo.png";
 import TempDashboard from "components/Dashboards/Environment/Temperature/TempDashboard";
+import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -207,7 +208,7 @@ const GovernmentSidebar = () => {
           />
 
           <Button
-            icon={<Landmark size={20}/>}
+            icon={<Landmark size={20} />}
             onClick={() => setVisible(true)}
             tooltip="Governance"
             style={activeTabStyle("gov")}
@@ -267,7 +268,7 @@ const GovernmentSidebar = () => {
             position: "relative", // For positioning the toggle button
           }}
         >
-           <img src={Arahas} alt="Arahas" className="w-8rem mb-2" />
+          <img src={Arahas} alt="Arahas" className="w-8rem mb-2" />
           <ul className="list-none p-0 m-0" style={{ textDecoration: "none" }}>
             {/* Know Your City Section */}
             <li>
@@ -469,7 +470,10 @@ const GovernmentSidebar = () => {
                       onClick={() => handleTabClick("employment")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <BriefcaseBusiness className="text-white mr-2" size={15} />
+                      <BriefcaseBusiness
+                        className="text-white mr-2"
+                        size={15}
+                      />
                       <span className="font-medium text-sm text-white">
                         Employment
                       </span>
@@ -485,6 +489,19 @@ const GovernmentSidebar = () => {
                       <EarthLock className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
                         Cultural Preservation
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      style={getTabStyle("community")}
+                      onClick={() => handleTabClick("community")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <EarthLock className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Community Engagement & Holistic Well-Being
                       </span>
                       <Ripple />
                     </div>
@@ -522,33 +539,7 @@ const GovernmentSidebar = () => {
                     >
                       <Bus className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
-                        Transport
-                      </span>
-                      <Ripple />
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      style={getTabStyle("healthcare")}
-                      onClick={() => handleTabClick("healthcare")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
-                    >
-                      <HeartPulse className="text-white mr-2" size={15} />
-                      <span className="font-medium text-sm text-white">
-                        Healthcare
-                      </span>
-                      <Ripple />
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      style={getTabStyle("education")}
-                      onClick={() => handleTabClick("education")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
-                    >
-                      <HeartPulse className="text-white mr-2" size={15} />
-                      <span className="font-medium text-sm text-white">
-                        Education
+                        Disaster Management
                       </span>
                       <Ripple />
                     </div>
@@ -603,6 +594,7 @@ const GovernmentSidebar = () => {
 
         {activeTab === "transport" && <TransportDashboard />}
         {activeTab === "healthcare" && <Healthcare />}
+        {activeTab === "education" && <EducationDashboard />}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { Card } from "primereact/card";
 import { Panel } from "primereact/panel";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
-import increase from "../../../assets/increase.png";
+import increase from "assets/increase.png";
 import CanvasJSReact from "@canvasjs/react-charts";
 import BusTrend from "./BusTrend";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;

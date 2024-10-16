@@ -107,7 +107,7 @@ const CityReportCard = () => {
       cornerRadius: 4,
     },
 
-    dataPointWidth: 18,
+    dataPointWidth: 24,
     data: [
       {
         type: "column",

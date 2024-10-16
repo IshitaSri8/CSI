@@ -2,7 +2,6 @@ import React from "react";
 import { Card } from "primereact/card";
 import InfoIcon from "@mui/icons-material/Info";
 import { Panel } from "primereact/panel";
-import CustomTooltip from "./Society/Transport/CustomTooltip";
 import CanvasJSReact from "@canvasjs/react-charts";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
