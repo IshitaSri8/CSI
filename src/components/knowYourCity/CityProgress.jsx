@@ -27,7 +27,7 @@ const CityProgress = () => {
   };
 
   const electricityConsumptionData = {
-    title: "Electricity Consumption (kWH)",
+    title: "Power Consumption (kWH)",
     labels: [
       "Residential",
       "Commercial",
@@ -136,7 +136,7 @@ const CityProgress = () => {
                   Source:
                 </p>
                 <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
-                  Jal Kal Vibhag 2020
+                  Jal Kal Vibhag
                 </p>
               </div>
             </div>
@@ -222,6 +222,19 @@ const CityProgress = () => {
       >
         <div className="flex gap-2 w-full p-2">
           <div className="flex flex-column gap-4 w-full">
+          <div className="flex flex-column align-items-center">
+           <p
+              className="text-lg font-medium m-0 text-center"
+              style={{ color: "#fff" }}
+            >
+              Waste Management
+            </p>
+            <img
+              src={waste}
+              alt="overall"
+              className="w-4 mt-2"
+            />
+           </div>
             <div
               className="border-round-2xl w-full"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -260,19 +273,7 @@ const CityProgress = () => {
                 </p>
               </div>
             </div>
-           <div className="flex flex-column align-items-center">
-           <p
-              className="text-lg font-medium m-0 text-center"
-              style={{ color: "#fff" }}
-            >
-              Waste Management
-            </p>
-            <img
-              src={waste}
-              alt="overall"
-              className="w-4 mt-2"
-            />
-           </div>
+          
             <div
               className="border-round-2xl w-full p-2"
               style={{

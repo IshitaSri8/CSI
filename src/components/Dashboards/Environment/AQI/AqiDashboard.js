@@ -125,7 +125,7 @@ const AqiDashboard = ({
   const handleSearch = async () => {
     try {
       setLoading(true);
-
+      setFilterVisible(false);
       const start = new Date(startDate).toDateString("en-CA");
       const end = new Date(endDate).toDateString("en-CA");
 

@@ -256,7 +256,7 @@ const CityReportCard = () => {
                 <div className="flex gap-1">
                   <img src={Healthcare} alt="nature" className="w-1rem" />
                   <p className="font-semibold text-xs text-900">
-                    Basic Services
+                    Citizen Services
                   </p>
                 </div>
 
