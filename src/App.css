@@ -155,8 +155,8 @@ body {
 .p-menubar .p-menuitem-link:hover > span,
 .p-menubar .p-menuitem-link:hover > p {
   color: var(--text-theme) !important;
-  font-weight: bolder;
-  font-size: larger;
+  font-weight: bold !important;
+  font-size: larger !important;
 }
 
 .text-disabled {
