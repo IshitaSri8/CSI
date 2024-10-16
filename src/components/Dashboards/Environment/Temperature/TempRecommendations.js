@@ -1,16 +1,13 @@
 import React from "react";
 import { Fieldset } from "primereact/fieldset";
 import { Badge } from "primereact/badge";
-import { VirtualScroller } from "primereact/virtualscroller";
-import recom from "assets/recom.svg"; // Recommendation image
-import { Card } from "primereact/card";
 
-const TempRecommendations = ({ temperature, humidity }) => {
+const TempRecommendations = ({ temperature }) => {
   const getRecommendationTemp = (temp) => {
     if (temp > 40) {
       return [
         {
-          title: "",
+          title: "Heat Safety Tips",
           recommendations: [
             "Use fans, air coolers, or air conditioning to regulate indoor temperatures, especially in living spaces for children and the elderly.",
             "Keep windows and curtains closed during the hottest part of the day to block out direct sunlight.",
@@ -20,7 +17,7 @@ const TempRecommendations = ({ temperature, humidity }) => {
             "Plan outdoor activities early in the morning or late in the afternoon when temperatures are cooler.",
             "Children and Elderly: Minimize outdoor exposure between 11 AM and 4 PM when the sun is at its peak.",
             "For those who must be outdoors, try to stay in shaded areas whenever possible.",
-            "Wear loose, light-colored, and breathable clothing made of cotton or linen. This will help reflect sunlight and keep the body cool.",
+            "Wear loose, light-colored, and breathable clothing made of cotton or linen.",
             "Children should wear hats or caps when playing outside to protect them from direct sun exposure.",
             "Elderly individuals should avoid tight or layered clothing to reduce the risk of overheating.",
           ],
@@ -37,13 +34,10 @@ const TempRecommendations = ({ temperature, humidity }) => {
         {
           title: "Stay Hydrated",
           recommendations: [
-            "General Public-",
             "Drink plenty of water throughout the day, even if you don’t feel thirsty.",
             "Avoid alcohol, caffeine, and sugary drinks, which can cause dehydration.",
-            "Children-",
-            "Ensure children drink water frequently. Encourage them to take small sips throughout the day, especially if they are active.",
-            "Elderly-",
-            "Regularly remind older adults to drink water, as they may not recognize signs of dehydration as readily.",
+            "Children should drink water frequently, especially if they are active.",
+            "Remind older adults to drink water regularly, as they may not recognize signs of dehydration readily.",
           ],
         },
         {
@@ -64,9 +58,9 @@ const TempRecommendations = ({ temperature, humidity }) => {
         {
           title: "Provide Special Care for Vulnerable Groups",
           recommendations: [
-            "Children: Ensure they stay in shaded or cool areas. Make cooling activities like baths or using a fan available.",
-            "Elderly: Check on older adults frequently, ensuring they are comfortable and hydrated.",
-            "Pregnant Women and Individuals with Health Conditions: Avoid heat exposure and stay hydrated. Consult a doctor if feeling unwell.",
+            "Ensure children stay in shaded or cool areas. Make cooling activities like baths or using a fan available.",
+            "Check on older adults frequently, ensuring they are comfortable and hydrated.",
+            "Pregnant women and individuals with health conditions should avoid heat exposure and stay hydrated.",
           ],
         },
       ];
@@ -74,51 +68,30 @@ const TempRecommendations = ({ temperature, humidity }) => {
   };
 
   const getBadge = (temp) => {
-    if (temp <= 40) {
-      return (
-        <Badge value="Your Ultimate Temperature Tips" severity="warning" />
-      );
-    } else if (temp > 40) {
-      return <Badge value="Beat the Heat" severity="danger" />;
-    }
-  };
-
-  const itemTemplate = (item) => {
-    return (
-      <div className="w-full p-0 ">
-        <ul>
-          <h1 className="text-theme">{item.title}</h1>
-          {item.recommendations.map((rec, index) => (
-            <li key={index} className="text-lg m-0 p-0 text-900">
-              {rec}
-            </li>
-          ))}
-        </ul>
-      </div>
+    return temp > 40 ? (
+      <Badge value="Beat the Heat" severity="danger" />
+    ) : (
+      <Badge value="Your Ultimate Temperature Tips" severity="warning" />
     );
   };
 
   const recommendations = getRecommendationTemp(temperature);
 
-  // return (
-  //   <div className="flex w-full border-round-2xl">
-  //     {/* VirtualScroller for recommendations */}
-  //     <VirtualScroller
-  //       items={recommendations}
-  //       itemSize={50}
-  //       itemTemplate={itemTemplate}
-  //       className="surface-border border-round"
-  //       style={{ width: "100%", height: "38rem" }} // Adjust height and width as needed
-  //     />
-
-  //     {/* Recommendation image */}
-  //     {/* <img src={recom} className=" p-4" alt="Recommendations" /> */}
-  //   </div>
-  // );
   return (
-    <div className="p-0">
+    <div className="flex flex-column w-full">
       <Fieldset legend={getBadge(temperature)}>
-        <div className="p-1">{getRecommendationTemp(temperature)}</div>
+        {recommendations.map((item, index) => (
+          <div key={index} className="p-2">
+            <h2 className="text-theme">{item.title}</h2>
+            <ul className="ml-4">
+              {item.recommendations.map((rec, recIndex) => (
+                <li key={recIndex} className="text-lg m-2 text-900">
+                  {rec}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </Fieldset>
     </div>
   );
