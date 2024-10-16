@@ -109,6 +109,7 @@ const LandingScreen = () => {
 
         <div className="flex bg-theme text-white h-screen">
           <Questions
+          textTheme="white"
             question="What is the City Sustainability Index (CSI)?"
             points={[
               {

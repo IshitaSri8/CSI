@@ -146,6 +146,19 @@ body {
   padding: 0 0.5rem !important;
 }
 
+.p-menubar .p-menuitem-link:hover {
+  background-color: var(--theme-secondary);
+  /* border: 1px solid var(--text-theme); */
+  /* border-radius: 0.625rem; */
+}
+
+.p-menubar .p-menuitem-link:hover > span,
+.p-menubar .p-menuitem-link:hover > p {
+  color: var(--text-theme) !important;
+  font-weight: bolder;
+  font-size: larger;
+}
+
 .text-disabled {
   color: #4b95a4;
 }

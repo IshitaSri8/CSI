@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
 import Arahas from "assets/arahas_logo.png";
+import TempDashboard from "components/Dashboards/Environment/Temperature/TempDashboard";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -456,7 +457,7 @@ const GovernmentSidebar = () => {
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCardGov />}
         {activeTab === "aqi" && <AqiDashboard show={true} />}
-        {activeTab === "temperature" && <TempMain />}
+        {activeTab === "temperature" && <TempDashboard show={true}/>}
         {activeTab === "rain" && <RainMain />}
         {activeTab === "land" && <LandMain />}
         {activeTab === "water" && <WaterMain />}

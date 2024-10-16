@@ -338,7 +338,7 @@ const AqiDashboard = ({
 
   return (
     <div className="flex flex-column gap-3 w-full p-4">
-      {/* {show && ( */}
+    
       {show && (
         <div className="flex align-items-center justify-content-between">
           <h1 className="m-0 p-0 text-2xl text">Air Quality Index</h1>

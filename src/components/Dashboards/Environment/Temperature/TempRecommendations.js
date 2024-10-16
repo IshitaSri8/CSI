@@ -85,11 +85,11 @@ const TempRecommendations = ({ temperature, humidity }) => {
 
   const itemTemplate = (item) => {
     return (
-      <div className="text-cyan-800 w-full my-2 p-0 ">
+      <div className="w-full p-0 ">
         <ul>
-          <h1>{item.title}</h1>
+          <h1 className="text-theme">{item.title}</h1>
           {item.recommendations.map((rec, index) => (
-            <li key={index} className="text-lg m-0 p-0">
+            <li key={index} className="text-lg m-0 p-0 text-900">
               {rec}
             </li>
           ))}
@@ -100,22 +100,27 @@ const TempRecommendations = ({ temperature, humidity }) => {
 
   const recommendations = getRecommendationTemp(temperature);
 
-  return (
-    <Card className="w-full border-round-2xl">
-      <div className="flex w-full align-items-center justify-content-center flex-row gap-1 ">
-        {/* VirtualScroller for recommendations */}
-        <VirtualScroller
-          items={recommendations}
-          itemSize={50}
-          itemTemplate={itemTemplate}
-          className="surface-border border-round"
-          style={{ width: "100%", height: "38rem" }} // Adjust height and width as needed
-        />
+  // return (
+  //   <div className="flex w-full border-round-2xl">
+  //     {/* VirtualScroller for recommendations */}
+  //     <VirtualScroller
+  //       items={recommendations}
+  //       itemSize={50}
+  //       itemTemplate={itemTemplate}
+  //       className="surface-border border-round"
+  //       style={{ width: "100%", height: "38rem" }} // Adjust height and width as needed
+  //     />
 
-        {/* Recommendation image */}
-        <img src={recom} className="h-30rem p-4" alt="Recommendations" />
-      </div>
-    </Card>
+  //     {/* Recommendation image */}
+  //     {/* <img src={recom} className=" p-4" alt="Recommendations" /> */}
+  //   </div>
+  // );
+  return (
+    <div className="p-0">
+      <Fieldset legend={getBadge(temperature)}>
+        <div className="p-1">{getRecommendationTemp(temperature)}</div>
+      </Fieldset>
+    </div>
   );
 };
 

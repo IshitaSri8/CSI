@@ -1,7 +1,7 @@
 import React from "react";
 
 const Questions = ({ question, points, textTheme }) => {
-  const textClass = textTheme === "white" ? "text-300" : "text-500";
+  const textClass = textTheme === "white" ? "text-500" : "text-600";
   return (
     <div className="p-8 m-4 flex gap-7">
       {/* First Column with Fixed Question */}
@@ -15,9 +15,9 @@ const Questions = ({ question, points, textTheme }) => {
         style={{ position: "relative", paddingLeft: "20px" }}
       >
         <div
-          className="p-5 mt-3"
+          className="p-3"
           style={{
-            maxHeight: "40rem",
+            maxHeight: "30rem",
             overflowY: "auto", // Allow vertical scrolling
             scrollbarWidth: "none", // For Firefox
             msOverflowStyle: "none", // For Internet Explorer and Edge
@@ -28,12 +28,12 @@ const Questions = ({ question, points, textTheme }) => {
               points.length > 0 &&
               points.map((point, index) => (
                 <li key={index} className="">
-                  <span className={`font-bold ${textClass} text-3xl`}>
-                    {`${index + 1}. `}
+                  <span className={`font-bold ${textClass} text-5xl`}>
+                    {`0${index + 1}. `}
                   </span>
                   {/* <hr className="my-2" /> */}
-                  <p className="text-xl font-semibold">{point.subheading}</p>
-                  <p className="text-lg">{point.content}</p> {/* Main point content */}
+                  <p className="text-2xl font-semibold m-0 px-0 py-2">{point.subheading}</p>
+                  <p className="m-0 p-0">{point.content}</p> {/* Main point content */}
                 </li>
               ))}
           </ul>

@@ -15,6 +15,9 @@ import TableSkeleton from "../../skeletons/TableSkeleton";
 import TempMap from "./TempMap";
 import Temperature from "./Temperature";
 import { Tag } from "primereact/tag";
+import { Dialog } from "primereact/dialog";
+import TempRecommendations from "./TempRecommendations";
+import TempReportPrint from "./TempReportPrint";
 
 // Define the helper functions here
 const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
@@ -55,6 +58,10 @@ const TempDashboard = ({
   const [humidity, setHumidity] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedAction, setSelectedAction] = useState("");
+
+  const [filterVisible, setFilterVisible] = useState(false);
+  const [RecommendationVisible, setRecommendationsVisible] = useState(false);
+  const [ReportVisible, setReportVisible] = useState(false);
 
   const handleLocationChange = (e) => {
     if (show) {
@@ -239,10 +246,10 @@ const TempDashboard = ({
     if (temp > 0 && temp <= 40) {
       return {
         status: "MODERATE",
-        color: "rgba(12, 157, 97, 1)",
+        color: "rgba(8, 194, 255, 1)",
         textColor: "white",
         image: sunny,
-        bg_color: "rgba(12, 157, 97, 0.15)",
+        bg_color: "rgba(8, 194, 255, 0.15)",
       };
     } else if (temp > 40) {
       return {
@@ -274,9 +281,41 @@ const TempDashboard = ({
     return parseFloat(data.deviationPercentage) > 2 ? "red-row" : "";
   };
   return (
-    <div className="flex flex-column gap-3 w-full">
-      {/* {show && ( */}
-      <Panel toggleable header="Filter By">
+    <div className="flex flex-column gap-3 w-full p-4">
+      {show && (
+        <div className="flex align-items-center justify-content-between">
+          <h1 className="m-0 p-0 text-2xl text">Temperature</h1>
+          <div className="flex align-ites-center justify-content-end gap-2">
+            <Button
+              label="Filters"
+              icon="pi pi-filter"
+              onClick={() => setFilterVisible(true)}
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+            />
+            <Button
+              label="Recommendations"
+              icon="pi pi-align-center"
+              onClick={() => setRecommendationsVisible(true)}
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+            />
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+            />
+          </div>
+        </div>
+      )}
+      <Dialog
+        header="Filter By"
+        visible={filterVisible}
+        style={{ width: "50vw" }}
+        onHide={() => {
+          if (!filterVisible) return;
+          setFilterVisible(false);
+        }}
+      >
         <div className="flex flex-column align-items-end w-full gap-3">
           <div className="flex align-items-center justify-content-between w-full gap-3">
             <div className="flex flex-column">
@@ -334,7 +373,33 @@ const TempDashboard = ({
             onClick={handleSearch}
           />
         </div>
-      </Panel>
+      </Dialog>
+      <Dialog
+        header="Recommendations"
+        visible={RecommendationVisible}
+        style={{ width: "70rem" }}
+        onHide={() => {
+          if (!RecommendationVisible) return;
+          setRecommendationsVisible(false);
+        }}
+      >
+        <TempRecommendations temperature={tempValue} humidity={humidityValue} />
+      </Dialog>
+      <Dialog
+        visible={ReportVisible}
+        style={{ width: "100rem" }}
+        onHide={() => {
+          if (!ReportVisible) return;
+          setReportVisible(false);
+        }}
+      >
+        <TempReportPrint
+          show={false}
+          selectedLocation={selectedLocation}
+          startDate={startDate}
+          endDate={endDate}
+        />
+      </Dialog>
 
       <div className="flex flex-wrap md:flex-nowrap align-items-center w-full gap-4">
         {selectedLocation && (
@@ -346,7 +411,7 @@ const TempDashboard = ({
             }}
           >
             <h1 className="font-semibold text text-xl m-0 p-0">Temperature</h1>
-            <div className="flex align-items-center justify-content-center gap-8">
+            <div className="flex align-items-center justify-content-around">
               <h1
                 className="text-4xl font-medium p-0 m-0"
                 style={{ color: tempStatus.color }}
@@ -358,7 +423,7 @@ const TempDashboard = ({
                 <img
                   src={tempImage}
                   alt={tempStatusText}
-                  style={{ width: "15rem" }}
+                  style={{ width: "10rem" }}
                 />
               )}
               {/* <h1

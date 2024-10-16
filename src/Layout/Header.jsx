@@ -17,11 +17,11 @@ const Header = () => {
 
   const itemRenderer = (item) => (
     <div
-      className={`flex align-items-center p-menuitem-link }`}
+      className={`flex align-items-center p-menuitem-link`}
       onClick={item.command}
     >
       <span
-        className={`${item.icon}  ${
+        className={`text-lg ${item.icon}  ${
           isActive(item.path) ? "icon-active" : "text-600"
         }`}
       />
@@ -53,14 +53,14 @@ const Header = () => {
     },
     {
       label: "CSI for Citizens",
-      icon: "pi pi-cog",
+      icon: "pi pi-users",
       template: itemRenderer,
       path: "/citizens",
       command: () => navigate("/citizens"),
     },
     {
       label: "CSI for Government",
-      icon: "pi pi-envelope",
+      icon: "pi pi-id-card",
       template: itemRenderer,
       path: "/government",
       command: () => navigate("/government"),
@@ -127,7 +127,7 @@ const Header = () => {
         model={items}
         start={start}
         end={end}
-        className="flex sec-theme align-items-center "
+        className="flex sec-theme align-items-center shadow-2"
         style={{
           position: "fixed",
           top: 0,
