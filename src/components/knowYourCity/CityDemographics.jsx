@@ -6,7 +6,7 @@ import geo_area from "assets/KYC/geographical.png";
 import { Divider } from "primereact/divider";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Doughnut, PieChart } from "components/GraphVisuals";
+import { Doughnut, PieChart } from "Layout/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
 import "./KYC.css";
 import { Building2, FerrisWheel, PartyPopper, Trash } from "lucide-react";

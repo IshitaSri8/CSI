@@ -2,7 +2,7 @@ import React from "react";
 import { Panel } from "primereact/panel";
 import { Card } from "primereact/card";
 import { Knob } from "primereact/knob"; // Import Knob from PrimeReact
-import { DonutChart } from "../../../GraphVisuals";
+import { DonutChart } from "../../../../Layout/GraphVisuals";
 
 const WaterDashboard = () => {
   return (
@@ -70,10 +70,8 @@ const WaterDashboard = () => {
                 <p className="font-bold">Total STPs</p>
               </div>
               <div className="flex align-items-center justify-content-between flex-column ">
-              
-                  <h1 className="text-xl m-0 p-0 text-theme">567 </h1>
-                  <p className="font-bold">STP Capacity (MLD)</p>
-                
+                <h1 className="text-xl m-0 p-0 text-theme">567 </h1>
+                <p className="font-bold">STP Capacity (MLD)</p>
               </div>
             </div>
             <div className="flex align-items-center justify-content-center flex-column">
@@ -102,12 +100,10 @@ const WaterDashboard = () => {
                 </p>
               </div>
               <div className="flex align-items-center justify-content-between flex-column">
-                
-                  <h1 className="text-xl m-0 p-0 text-theme">1123 MLD </h1>
-                  <p className="font-bold text-center">
-                    Actual Consumption Level
-                  </p>
-            
+                <h1 className="text-xl m-0 p-0 text-theme">1123 MLD </h1>
+                <p className="font-bold text-center">
+                  Actual Consumption Level
+                </p>
               </div>
             </div>
             <div className="flex align-items-center justify-content-center flex-column">

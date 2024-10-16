@@ -139,7 +139,7 @@ const CityReportCard = () => {
       {
         type: "line",
         name: "Overall Score",
-        color: "red",
+        color: "black",
         showInLegend: true,
         dataPoints: categories.Overall.data.map((val, index) => ({
           label: months[index],

@@ -1,6 +1,6 @@
 import React from "react";
 import "primeflex/primeflex.css";
-import { DonutChart } from "components/GraphVisuals";
+import { DonutChart } from "Layout/GraphVisuals";
 import water from "assets/KYC/water.svg";
 import waste from "assets/KYC/waste.svg";
 import { Divider } from "primereact/divider";
@@ -52,14 +52,11 @@ const CityProgress = () => {
           }}
         >
           <div className="flex justify-content-between w-full p-2">
-          <div className="flex flex-column align-items-center p-2 w-full">
-          <p
-            className="text-lg font-medium mt-1"
-            style={{ color: "#fff" }}
-          >
-            Water Management
-          </p>
-            <img src={water} alt="overall" className="w-6" />
+            <div className="flex flex-column align-items-center p-2 w-full">
+              <p className="text-lg font-medium mt-1" style={{ color: "#fff" }}>
+                Water Management
+              </p>
+              <img src={water} alt="overall" className="w-6" />
             </div>
             <div className="flex flex-column w-full gap-2 align-items-center justify-content-center">
               <div
@@ -150,7 +147,10 @@ const CityProgress = () => {
                 "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
             }}
           >
-            <p className="text-lg font-medium mt-1 text-center" style={{ color: "#fff" }}>
+            <p
+              className="text-lg font-medium mt-1 text-center"
+              style={{ color: "#fff" }}
+            >
               Housing
             </p>
             <div
@@ -165,7 +165,10 @@ const CityProgress = () => {
                   >
                     262
                   </p>
-                  <p className="mt-1 text-sm" style={{ color: "var(--text-tertiary-2)" }}>
+                  <p
+                    className="mt-1 text-sm"
+                    style={{ color: "var(--text-tertiary-2)" }}
+                  >
                     Houses allocated
                   </p>
                 </div>
@@ -177,7 +180,10 @@ const CityProgress = () => {
                   >
                     284
                   </p>
-                  <p className="mt-1 text-sm" style={{ color: "var(--text-tertiary-2)" }}>
+                  <p
+                    className="mt-1 text-sm"
+                    style={{ color: "var(--text-tertiary-2)" }}
+                  >
                     Houses built
                   </p>
                 </div>
@@ -222,19 +228,15 @@ const CityProgress = () => {
       >
         <div className="flex gap-2 w-full p-2">
           <div className="flex flex-column gap-4 w-full">
-          <div className="flex flex-column align-items-center">
-           <p
-              className="text-lg font-medium m-0 text-center"
-              style={{ color: "#fff" }}
-            >
-              Waste Management
-            </p>
-            <img
-              src={waste}
-              alt="overall"
-              className="w-4 mt-2"
-            />
-           </div>
+            <div className="flex flex-column align-items-center">
+              <p
+                className="text-lg font-medium m-0 text-center"
+                style={{ color: "#fff" }}
+              >
+                Waste Management
+              </p>
+              <img src={waste} alt="overall" className="w-4 mt-2" />
+            </div>
             <div
               className="border-round-2xl w-full"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -252,7 +254,10 @@ const CityProgress = () => {
                       className="m-0 text-center text-4xl"
                       style={{ color: "#FFDD82", marginTop: -20 }}
                     > */}
-                      <i className="pi pi-star mt-1 ml-3" style={{ color: "#FFDD82" }}/>
+                    <i
+                      className="pi pi-star mt-1 ml-3"
+                      style={{ color: "#FFDD82" }}
+                    />
                     {/* </p> */}
                     <p
                       className="mt-1 text-sm"
@@ -273,7 +278,7 @@ const CityProgress = () => {
                 </p>
               </div>
             </div>
-          
+
             <div
               className="border-round-2xl w-full p-2"
               style={{
@@ -374,7 +379,10 @@ const CityProgress = () => {
                   >
                     100%
                   </p>
-                  <p className="mt-1 text-sm text-center" style={{ color: "var(--text-tertiary-2)" }}>
+                  <p
+                    className="mt-1 text-sm text-center"
+                    style={{ color: "var(--text-tertiary-2)" }}
+                  >
                     Functional
                   </p>
                 </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Panel } from "primereact/panel";
-import { BarChart, GroupedBarChart } from "../../../GraphVisuals";
+import { BarChart, GroupedBarChart } from "../../../../Layout/GraphVisuals";
 import "./Waste.css";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
@@ -91,7 +91,7 @@ const WasteDashboard = () => {
       fontFamily: "DM Sans",
       fontWeight: "800",
     },
- 
+
     data: [
       {
         type: "pie",
@@ -127,7 +127,7 @@ const WasteDashboard = () => {
       horizontalAlign: "center",
       padding: { bottom: 10 },
     },
-  
+
     axisY: {
       gridThickness: 0,
       labelFontSize: 8,
@@ -268,7 +268,6 @@ const WasteDashboard = () => {
               categories={barChart1Categories}
               series={barChart1Data}
               height={240}
-              
               title="Solid Waste Management"
               colors={colors.slice(0, 3)}
             />
@@ -279,7 +278,6 @@ const WasteDashboard = () => {
               categories={barChartCategories}
               series={barChartData}
               height={250}
-              
               title="Open Defecation Free"
               colors={colors.slice(0, 4)}
             />

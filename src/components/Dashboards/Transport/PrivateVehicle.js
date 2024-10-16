@@ -1,6 +1,6 @@
 import { Card } from "primereact/card";
 import React from "react";
-import { DonutChart, ParetoChart } from "../../GraphVisuals";
+import { DonutChart, ParetoChart } from "../../../Layout/GraphVisuals";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
 import increase from "../../../assets/increase.png";
@@ -28,7 +28,7 @@ const PrivateVehicle = () => {
       padding: { bottom: 20 },
     },
     height: 200,
-  
+
     dataPointWidth: 24,
     axisX: {
       title: "",
@@ -36,7 +36,7 @@ const PrivateVehicle = () => {
       labelFontSize: 10,
     },
     axisY: {
-     // title: "(%)",
+      // title: "(%)",
       interval: 1,
       gridThickness: 0,
       labelFontSize: 10,
@@ -62,7 +62,7 @@ const PrivateVehicle = () => {
         type: "column",
         name: "Railways",
         color: "#4D7479",
-       // indexLabel: "Railways: {y}",
+        // indexLabel: "Railways: {y}",
         indexLabelPlacement: "outside",
         indexLabelFontColor: "black",
         indexLabelFontSize: 8,
@@ -82,7 +82,7 @@ const PrivateVehicle = () => {
         indexLabelFontColor: "black",
         indexLabelFontSize: 8,
         toolTipContent: "{name}: {y}",
-        //indexLabel: "Airways: {y}", 
+        //indexLabel: "Airways: {y}",
         dataPoints: chartCategories.map((year, index) => ({
           label: year,
           y: airSeries[index],
@@ -96,7 +96,7 @@ const PrivateVehicle = () => {
         indexLabelFontSize: 8,
         indexLabelPlacement: "outside",
         indexLabelFontColor: "black",
-       // indexLabel: "Waterways: {y}",
+        // indexLabel: "Waterways: {y}",
         toolTipContent: "{name}: {y}", // Custom tooltip format
         dataPoints: chartCategories.map((year, index) => ({
           label: year,
@@ -113,12 +113,12 @@ const PrivateVehicle = () => {
         <div className="flex align-items-center justify-content-between flex-column gap-3">
           <Card className="w-full ">
             <div className="flex flex-column align-items-center justify-content-between gap-3 ">
-            <h1 className="m-0 p-0 text-xl text-center">3000</h1>
-            <h1 className="m-0 text-xs text-center">
-              Number of private vehicles contributing to public transport
-            </h1>
-            <div className="flex align-items-center justify-content-center w-full">
-              {/* <div className="flex align-items-start justify-content-start flex-row">
+              <h1 className="m-0 p-0 text-xl text-center">3000</h1>
+              <h1 className="m-0 text-xs text-center">
+                Number of private vehicles contributing to public transport
+              </h1>
+              <div className="flex align-items-center justify-content-center w-full">
+                {/* <div className="flex align-items-start justify-content-start flex-row">
                 <img
                   src={increase}
                   style={{
@@ -132,40 +132,44 @@ const PrivateVehicle = () => {
                   8% increase in last one year.
                 </p>
               </div> */}
-              {/* Tooltip with DonutChart Chart */}
-              <CustomTooltip
-                content={
-                  <DonutChart
-                    title="Breakdown of private vehicles per transport mode"
-                    labels={categories}
-                    series={privateSeries}
-                    height={150}
+                {/* Tooltip with DonutChart Chart */}
+                <CustomTooltip
+                  content={
+                    <DonutChart
+                      title="Breakdown of private vehicles per transport mode"
+                      labels={categories}
+                      series={privateSeries}
+                      height={150}
+                    />
+                  }
+                >
+                  <InfoIcon
+                    style={{
+                      height: "1.2rem",
+                      width: "1.2rem",
+                      color: "#1f8297",
+                    }}
                   />
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
-            </div>
+                </CustomTooltip>
+              </div>
             </div>
           </Card>
 
           {/* Card 2: Transport Mode Usage by Percentage */}
           <Card className="w-full">
-          <div className="flex align-items-center justify-content-center gap-3 flex-column"> 
-            <div className="flex align-items-center justify-content-center">
-              <img
-                src={increase}
-                style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
-                alt="increase"
-              />
-              <h1 className="m-0 text-xl">15%</h1>
-            </div>
+            <div className="flex align-items-center justify-content-center gap-3 flex-column">
+              <div className="flex align-items-center justify-content-center">
+                <img
+                  src={increase}
+                  style={{
+                    height: "1rem",
+                    width: "1rem",
+                    marginRight: "0.5rem",
+                  }}
+                  alt="increase"
+                />
+                <h1 className="m-0 text-xl">15%</h1>
+              </div>
               <h1 className="m-0 text-xs text-center">
                 Percentage increase in private vehicles contributing to public
                 transport

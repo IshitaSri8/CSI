@@ -1,6 +1,6 @@
 import React from "react";
 import { Panel } from "primereact/panel";
-import { DonutChart } from "../../../GraphVisuals";
+import { DonutChart } from "../../../../Layout/GraphVisuals";
 import "./Land.css";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { Card } from "primereact/card";
