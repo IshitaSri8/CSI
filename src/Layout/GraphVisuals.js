@@ -82,14 +82,16 @@ export const DonutChart = ({
     />
   );
 };
-export const Doughnut = ({ title, labels, series, height, width, bgColor }) => {
+export const Doughnut = ({ title, labels, series, height, width, bgColor, show }) => {
+  const totalValue = series.reduce((acc, value) => acc + value, 0);
   const options = {
     animationEnabled: true,
     title: {
       text: title,
-      fontSize: 10,
+      fontSize: 14,
       fontFamily: "Montserrat",
       fontWeight: "500",
+      fontColor: "black",
     },
     labels: labels,
     backgroundColor: bgColor,
@@ -111,21 +113,35 @@ export const Doughnut = ({ title, labels, series, height, width, bgColor }) => {
           y: value,
           label: labels[index],
           legendText: labels[index],
-          color: colors[index % colors.length],
+          color: colors[index + 3 % (colors.length)],
         })),
       },
     ],
     legend: {
-      fontSize: 10,
+      fontSize: 12,
       horizontalAlign: "center",
       verticalAlign: "bottom",
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontColor: "black",
     },
+    subtitles: show ? [
+      {
+        text: `${totalValue}`,
+        verticalAlign: "center",
+        fontSize: 14,
+        dockInsidePlotArea: true,
+        fontFamily: "Montserrat",
+        fontWeight: "500",
+        fontColor: "black",
+      },
+    ] : [],
   };
 
   return (
     <CanvasJSChart
       options={options}
-      containerProps={{ height: height, width: width, bgColor: bgColor }}
+      containerProps={{ height: height, width: "100%", bgColor: bgColor }}
     />
   );
 };
@@ -325,52 +341,54 @@ export const ParetoChart = ({
   );
 };
 
-export const LineBar = ({
+export const LineChart = ({
   title,
   categories,
-  chartSeries,
-  height,
-  width,
+  data,
   xtitle,
   ytitle,
+  fontColor,
 }) => {
   const options = {
     animationEnabled: true,
     title: {
       text: title,
-      fontSize: 13,
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontColor: fontColor,
     },
     axisX: {
       title: xtitle,
+      labelFontSize: 10,
+      interval: 1,
     },
-    axisY: [
-      {
-        title: {
-          text: ytitle,
-        },
-      },
-      {
-        opposite: true,
-        title: {
-          text: "",
-        },
-      },
-    ],
-    data: chartSeries.map((series, index) => ({
+    axisY: {
+      title: ytitle,
+      labelFontSize: 10,
+      gridThickness: 0,
+    },
+
+    data: data.map((series, index) => ({
       type: "line",
       name: categories[index],
-      showInLegend: true,
-      dataPoints: series.map((value, i) => ({
+      showInLegend: false,
+      markerType: "circle",
+      markerSize: 5,
+      dataPoints: data.map((value, i) => ({
         y: value,
-        label: categories[i],
+        label: categories[i], // Assuming categories array represents labels on the X-axis
       })),
-      color: colors[index % colors.length],
+      color: colors[index % colors.length], // Cycles through colors array
     })),
   };
 
   return (
     <div className="chart-container z-index">
-      <CanvasJSChart options={options} height={height} width={width} />
+      <CanvasJSChart
+        options={options}
+        containerProps={{ height: 200, width: "100%" }}
+      />
     </div>
   );
 };

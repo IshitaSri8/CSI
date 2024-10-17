@@ -150,14 +150,13 @@ const CityDemographics = () => {
                 <p className="p-1 m-0 text-white text-sm">Current Population</p>
               </div>
             </div>{" "}
-            <div className="flex bg-white align-items-center justify-content-center py-3 border-round">
+            <div className="flex w-full bg-white align-items-center justify-content-center py-3 border-round">
               <Doughnut
                 title={"Sex Ratio"}
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
                 height={120}
-                width={100}
-                bgColor="transparent"
+                //bgColor="transparent"
               />
             </div>
             {/* literacy-rate */}
