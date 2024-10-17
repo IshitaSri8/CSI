@@ -1,17 +1,13 @@
 export const primaryData = {
-  enrollment: "75800",
-  institutions: 1200,
+  enrollment: "75000*",
+  institutions: 196,
   parityIndex: 0.8,
 
-  enrollmentRatioTarget: "3:8",
-  enrollmentRatioCurrent: "2:7",
-  enrollmentRatioTargetValue: 3/8,
-  enrollmentRatioCurrentValue:2/7,
+  enrollmentTarget: 100,
+  enrollmentCurrent: 77.8,
 
-  dropoutRatioTarget: "5:4",
-  dropoutRatioCurrent: "7:9",
-  dropoutRatioTargetValue: 5/4,
-  dropoutRatioCurrentValue:7/9,
+  dropoutRatioTargetValue: 0.28,
+  dropoutRatioCurrentValue: 0.3,
 
   teacherStudentRatioTarget: "1:25",
   teacherStudentRatioCurrent: "1:36",
@@ -38,7 +34,7 @@ export const primaryData = {
   institutionsAnalysisLabels: ["Nursery", "Primary", "Aanganwari"],
   institutionsAnalysisData: [
     { name: "Target", data: [478, 239, 239] },
-    { name: "Existing", data: [239, 103, 103] },
+    { name: "Existing", data: [146, 50, 50] },
   ],
 
   

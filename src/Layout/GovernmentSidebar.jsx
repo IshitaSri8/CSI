@@ -38,6 +38,7 @@ import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
 import Arahas from "assets/arahas_logo.png";
 import TempDashboard from "components/Dashboards/Environment/Temperature/TempDashboard";
 import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
+import Employment from "components/Dashboards/Society/Employment/Employment";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -595,6 +596,7 @@ const GovernmentSidebar = () => {
         {activeTab === "transport" && <TransportDashboard />}
         {activeTab === "healthcare" && <Healthcare />}
         {activeTab === "education" && <EducationDashboard />}
+        {activeTab === "employment" && <Employment />}
       </div>
     </div>
   );

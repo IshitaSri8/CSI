@@ -1,17 +1,13 @@
 export const higherEducationData = {
-  enrollment: "76000",
-  institutions: 750,
+  enrollment: "4600*",
+  institutions: 16,
   parityIndex: 0.9,
   
-  enrollmentRatioTarget: "3:8",
-  enrollmentRatioCurrent: "2:7",
-  enrollmentRatioTargetValue: 3/8,
-  enrollmentRatioCurrentValue:2/7,
+  enrollmentTarget: 44,
+  enrollmentCurrent: 39,
 
-  dropoutRatioTarget: "5:4",
-  dropoutRatioCurrent: "7:9",
-  dropoutRatioTargetValue: 5/4,
-  dropoutRatioCurrentValue:7/9,
+  dropoutRatioTargetValue: 0.28,
+  dropoutRatioCurrentValue: 0.3,
 
   teacherStudentRatioTarget: "1:25",
   teacherStudentRatioCurrent: "1:36",

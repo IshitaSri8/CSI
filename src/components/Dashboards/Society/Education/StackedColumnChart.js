@@ -3,7 +3,7 @@ import CanvasJSReact from "@canvasjs/react-charts";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const StackedColumnChart = ({ title, dataSeries, labels }) => {
-  const colors = ["#166c7d", "#e9f3f5"];
+  const colors = ["#98C6CF", "#1F8297", "#166c7d", "#e9f3f5"];
   console.log(dataSeries);
   const options = {
     animationEnabled: true,

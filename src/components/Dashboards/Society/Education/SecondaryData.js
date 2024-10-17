@@ -1,17 +1,13 @@
 export const secondaryData = {
-  enrollment: "55000",
-  institutions: 650,
-  parityIndex: 0.7,
+  enrollment: "55000*",
+  institutions: 43,
+  parityIndex: 0.8,
   
-  enrollmentRatioTarget: "3:8",
-  enrollmentRatioCurrent: "2:7",
-  enrollmentRatioTargetValue: 3/8,
-  enrollmentRatioCurrentValue:2/7,
+  enrollmentTarget: 100,
+  enrollmentCurrent: 76,
 
-  dropoutRatioTarget: "5:4",
-  dropoutRatioCurrent: "7:9",
-  dropoutRatioTargetValue: 5/4,
-  dropoutRatioCurrentValue:7/9,
+  dropoutRatioTargetValue: 10,
+  dropoutRatioCurrentValue: 13,
 
   teacherStudentRatioTarget: "1:25",
   teacherStudentRatioCurrent: "1:36",
@@ -38,7 +34,7 @@ export const secondaryData = {
   institutionsAnalysisLabels: ["Junior High School", "Inter College"],
   institutionsAnalysisData: [
     { name: "Target", data: [159, 119] },
-    { name: "Existing", data: [69, 52] },
+    { name: "Existing", data: [24, 19] },
   ],
 
 };

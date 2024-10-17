@@ -82,7 +82,8 @@ export const DonutChart = ({
     />
   );
 };
-export const Doughnut = ({ title, labels, series, height, width, bgColor }) => {
+export const Doughnut = ({ title, labels, series, height, width, bgColor, show }) => {
+  const totalValue = series.reduce((acc, value) => acc + value, 0);
   const options = {
     animationEnabled: true,
     title: {
@@ -112,15 +113,29 @@ export const Doughnut = ({ title, labels, series, height, width, bgColor }) => {
           y: value,
           label: labels[index],
           legendText: labels[index],
-          color: colors[index+3 % colors.length],
+          color: colors[index + 3 % (colors.length)],
         })),
       },
     ],
     legend: {
-      fontSize: 10,
+      fontSize: 12,
       horizontalAlign: "center",
       verticalAlign: "bottom",
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontColor: "black",
     },
+    subtitles: show ? [
+      {
+        text: `${totalValue}`,
+        verticalAlign: "center",
+        fontSize: 14,
+        dockInsidePlotArea: true,
+        fontFamily: "Montserrat",
+        fontWeight: "500",
+        fontColor: "black",
+      },
+    ] : [],
   };
 
   return (
@@ -353,9 +368,7 @@ export const LineChart = ({
       labelFontSize: 10,
       gridThickness: 0,
     },
-    toolTip: {
-      shared: true,
-    },
+
     data: data.map((series, index) => ({
       type: "line",
       name: categories[index],
@@ -372,7 +385,10 @@ export const LineChart = ({
 
   return (
     <div className="chart-container z-index">
-      <CanvasJSChart options={options} containerProps={{ height: 200, width: "100%" }}/>
+      <CanvasJSChart
+        options={options}
+        containerProps={{ height: 200, width: "100%" }}
+      />
     </div>
   );
 };

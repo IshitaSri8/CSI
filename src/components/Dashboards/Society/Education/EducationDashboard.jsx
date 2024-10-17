@@ -114,7 +114,7 @@ const EducationDashboard = () => {
             <div className="flex flex-column align-items-center">
               <p className="text-xl m-0 p-0">
                 {(
-                  ((educationData.teacherStudentRatioTargerValue -
+                  ((educationData.teacherStudentRatioTargetValue -
                     educationData.teacherStudentRatioCurrentValue) /
                     educationData.teacherStudentRatioTargetValue) *
                   100
@@ -143,7 +143,6 @@ const EducationDashboard = () => {
             title="Institution Gap Analysis"
             labels={educationData.institutionsAnalysisLabels}
             dataSeries={educationData.institutionsAnalysisData}
-            years={years}
           />
         </Card>
 
@@ -165,14 +164,14 @@ const EducationDashboard = () => {
           <div className="flex align-items-center justify-content-around">
             <div className="flex flex-column align-items-center">
               <p className="text-xl m-0 p-0">
-                {educationData.enrollmentRatioTarget}
+                {educationData.enrollmentTarget}
               </p>
               <h1>Target</h1>
             </div>
             <Divider layout="vertical" />
             <div className="flex flex-column align-items-center">
               <p className="text-xl m-0 p-0">
-                {educationData.enrollmentRatioCurrent}
+                {educationData.enrollmentCurrent}
               </p>
               <h1>Current</h1>
             </div>
@@ -180,11 +179,9 @@ const EducationDashboard = () => {
             <div className="flex flex-column align-items-center">
               <p className="text-xl m-0 p-0">
                 {(
-                  ((educationData.enrollmentRatioTargetValue -
-                    educationData.enrollmentRatioCurrentValue) /
-                    educationData.enrollmentRatioTargetValue) *
-                  100
-                ).toFixed(2)}
+                  educationData.enrollmentTarget -
+                  educationData.enrollmentCurrent
+                ).toFixed(2)}{" "}
                 %
               </p>
               <h1>Gap Percentage</h1>
@@ -193,19 +190,19 @@ const EducationDashboard = () => {
         </Card>
 
         <Card className="w-full">
-          <p className="text-xl font-medium text-center mb-4">Dropout Ratio</p>
+          <p className="text-xl font-medium text-center mb-4">Dropout Rate</p>
 
           <div className="flex align-items-center justify-content-around">
             <div className="flex flex-column align-items-center">
               <p className="text-xl m-0 p-0">
-                {educationData.dropoutRatioTarget}
+                {educationData.dropoutRatioTargetValue}
               </p>
               <h1>Target</h1>
             </div>
             <Divider layout="vertical" />
             <div className="flex flex-column align-items-center">
               <p className="text-xl m-0 p-0">
-                {educationData.dropoutRatioCurrent}
+                {educationData.dropoutRatioCurrentValue}
               </p>
               <h1>Current</h1>
             </div>
@@ -214,8 +211,8 @@ const EducationDashboard = () => {
               <p className="text-xl m-0 p-0">
                 {" "}
                 {(
-                  ((educationData.dropoutRatioTargetValue -
-                    educationData.dropoutRatioCurrentValue) /
+                  ((educationData.dropoutRatioCurrentValue -
+                    educationData.dropoutRatioTargetValue) /
                     educationData.dropoutRatioTargetValue) *
                   100
                 ).toFixed(2)}
