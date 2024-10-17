@@ -204,6 +204,10 @@ body {
   font-weight: 500;
 }
 
+.p-dropdown-label {
+  color: var(--text-theme);
+  font-weight: bold;
+}
 /* .p-menuitem,
 .p-menuitem-text,
 .p-breadcrumb-chevron,

@@ -436,7 +436,7 @@ const CityReportCard = () => {
       <div className="flex">
         <div
           className="flex flex-column border-round-2xl w-full"
-        //  style={{ flex: "70%" }}
+          //  style={{ flex: "70%" }}
         >
           <Card className="border-round-xl">
             <CanvasJSReact.CanvasJSChart

@@ -11,7 +11,7 @@ import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
 // import HeaderLogout from "components/HeaderLogout";
 import KnowYourCity from "../pages/KnowYourCity";
 import TransportDashboard from "components/Dashboards/Society/Transport/TransportDashboard";
-import Healthcare from "components/Dashboards/Society/Healthcare";
+import Healthcare from "components/Dashboards/Society/Healthcare/Healthcare";
 import CityReportCardGov from "pages/CityReportCardGov";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { useNavigate } from "react-router-dom";
