@@ -112,7 +112,7 @@ export const Doughnut = ({ title, labels, series, height, width, bgColor }) => {
           y: value,
           label: labels[index],
           legendText: labels[index],
-          color: colors[index % colors.length],
+          color: colors[index+3 % colors.length],
         })),
       },
     ],
@@ -126,7 +126,7 @@ export const Doughnut = ({ title, labels, series, height, width, bgColor }) => {
   return (
     <CanvasJSChart
       options={options}
-      containerProps={{ height: height, width: width, bgColor: bgColor }}
+      containerProps={{ height: height, width: "100%", bgColor: bgColor }}
     />
   );
 };
