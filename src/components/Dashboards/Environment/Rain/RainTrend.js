@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
+import { Button } from "primereact/button";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const RainTrend = ({
@@ -151,29 +152,14 @@ const RainTrend = ({
   const backButtonClassName = isDrilldown ? "" : "invisible";
 
   return (
-    // <div>
-    //   <div className="main-graph">
-    //     {isDrilldown ? (
-    //       <div className="flex align-items-center justify-content-start flex-column">
-    //         <button onClick={handleBackClick}>Back to Yearly View</button>
-    //         <CanvasJSChart options={drilldownChartOptions} />
-    //       </div>
-    //     ) : (
-    //       <CanvasJSChart options={baseChartOptions} />
-    //     )}
-    //   </div>
-    // </div>
     <div>
       <div className="">
         {isDrilldown && (
-          <div className="btn-container">
-            <button className="back-button" onClick={handleBackClick}>
-              &lt; Back
-            </button>
-          </div>
+          <Button label="Back" onClick={handleBackClick}></Button>
         )}
         <CanvasJSChart
           options={isDrilldown ? drilldownChartOptions : baseChartOptions}
+          containerProps={{ height: 200, width: "100%" }}
         />
       </div>
     </div>

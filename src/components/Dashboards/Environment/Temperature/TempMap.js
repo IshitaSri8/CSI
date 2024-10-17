@@ -234,7 +234,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
         ref={mapRef}
         style={{
           width: "30rem",
-          height: "15rem",
+          height: "16rem",
           overflow: "hidden",
         }}
       />

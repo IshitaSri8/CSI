@@ -247,10 +247,10 @@ const TempDashboard = ({
     if (temp > 0 && temp <= 40) {
       return {
         status: "MODERATE",
-        color: "rgba(8, 194, 255, 1)",
-        textColor: "white",
+        color: "#E78F81",
+        textColor: "black",
         image: sunny,
-        bg_color: "rgba(8, 194, 255, 0.15)",
+        bg_color: "#F8EDE3",
       };
     } else if (temp > 40) {
       return {
@@ -258,7 +258,7 @@ const TempDashboard = ({
         color: "rgba(230, 34, 37, 1)",
         textColor: "white",
         image: warm,
-        bg_color: "rgba(230, 34, 37, 0.15)",
+        bg_color: "#EBC49F",
       };
     }
   };
@@ -286,7 +286,7 @@ const TempDashboard = ({
       {show && (
         <div className="flex align-items-center justify-content-between">
           <h1 className="m-0 p-0 text-2xl text">Temperature</h1>
-          <div className="flex align-ites-center justify-content-end gap-2">
+          <div className="flex align-items-center justify-content-end gap-2">
             <Button
               label="Filters"
               icon="pi pi-filter"
@@ -395,7 +395,7 @@ const TempDashboard = ({
         }}
       >
         <TempReportPrint
-          show={false}
+          show={true}
           selectedLocation={selectedLocation}
           startDate={startDate}
           endDate={endDate}
@@ -454,7 +454,7 @@ const TempDashboard = ({
               value={dataTableData}
               rowClassName={rowClassName}
               scrollable
-              scrollHeight="15rem"
+              scrollHeight="16rem"
               style={{
                 width: "100%",
                 borderRadius: "15px",
@@ -544,7 +544,7 @@ const TempDashboard = ({
           />
         </Card>
       </div>
-
+      <TempRecommendations />
       {/* <div className="w-100 flex align-items-center justify-content-center gap-1">
               <Card className="h-15rem w-17rem">
                 <PollutantChart

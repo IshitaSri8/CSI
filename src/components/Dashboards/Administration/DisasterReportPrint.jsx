@@ -1,13 +1,11 @@
 import React, { useState, useRef } from "react";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import RainDashboard from "./RainDashboard";
-import RainRecommendations from "./RainRecommendations";
+import Disaster from "./Disaster Management/Disaster";
 
-export default function RainReportPrint() {
+export default function DisasterReportPrint() {
   const contentRef = useRef(null);
 
   const handlePrint = useReactToPrint({
@@ -47,7 +45,7 @@ export default function RainReportPrint() {
         pdf.internal.pageSize.height - 10
       );
 
-      pdf.save("rain_summary_report.pdf");
+      pdf.save("culture_summary_report.pdf");
     }
   };
 
@@ -65,7 +63,7 @@ export default function RainReportPrint() {
             <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
           </div>
           <div className="w-full">
-            <RainDashboard show={false} />
+            <Disaster show={false} />
           </div>
         </div>
       </div>

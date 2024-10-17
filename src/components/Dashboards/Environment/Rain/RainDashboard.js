@@ -5,8 +5,12 @@ import { Card } from "primereact/card";
 import "../../Dash.css";
 import { Panel } from "primereact/panel";
 import { Tooltip } from "primereact/tooltip";
+import RainRecommendations from "./RainRecommendations";
+import { Button } from "primereact/button";
+import RainReportPrint from "./RainReportPrint";
+import { Dialog } from "primereact/dialog";
 
-const RainDashboard = () => {
+const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
   const [rainYears, setRainYears] = useState([]);
   const [yearAverageRainActual, setYearAverageRainActual] = useState({});
@@ -20,7 +24,7 @@ const RainDashboard = () => {
   const [maxRainfall, setMaxRainfall] = useState(0);
   const [maxRainfallYear, setMaxRainfallYear] = useState(null);
   const [maxRainfallMonth, setMaxRainfallMonth] = useState(null);
-
+  const [ReportVisible, setReportVisible] = useState(false);
   useEffect(() => {
     fetchData();
   }, []);
@@ -131,8 +135,31 @@ const RainDashboard = () => {
   }, [selectedYear, rainData]);
 
   return (
-    <div className="overflow-y-hidden  gap-4">
-      <Card className="mb-6">
+    <div className="flex align-items-center justify-content-center flex-column gap-2 p-4">
+      {show && (
+        <div className="flex align-items-center justify-content-between w-full">
+          <h1 className="m-0 p-0 text-2xl text">Rainfall Dashboard</h1>
+          <div className="flex align-items-center justify-content-end gap-2">
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+            />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <RainReportPrint show={false} />
+            </Dialog>
+          </div>
+        </div>
+      )}
+      <Card className="w-full">
         <div className="flex align-items-center justify-content-center gap-6 flex-row">
           {/* Total Actual Rainfall */}
           <Card className="h-10rem w-full">
@@ -177,8 +204,7 @@ const RainDashboard = () => {
           </Card>
         </div>
       </Card>
-
-      <Panel className="h-16rem">
+      <Card className="w-full">
         <RainTrend
           rainYears={rainYears}
           yearAverageRainActual={yearAverageRainActual}
@@ -188,7 +214,8 @@ const RainDashboard = () => {
           monthRainActual={monthRainActual}
           monthRainExpected={monthRainExpected}
         />
-      </Panel>
+      </Card>
+      <RainRecommendations />
     </div>
   );
 };
