@@ -1,15 +1,13 @@
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Tooltip } from "primereact/tooltip";
-import CanvasJSReact from "@canvasjs/react-charts";
 import React, { useState } from "react";
-import { BarChart } from "Layout/GraphVisuals";
+import { BarChart, GroupedBarChart } from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import CommunityReportPrint from "./CommunityReportPrint";
 
 const Community = ({ show }) => {
-  const CanvasJSChart = CanvasJSReact.CanvasJSChart;
   const [ReportVisible, setReportVisible] = useState(false);
   const tcategories = [
     "Anganwari-Housing Area/Cluster",
@@ -31,67 +29,14 @@ const Community = ({ show }) => {
     [80, 90, 178, 148, 215], // Funds allocated for each year (in crores)
   ];
 
-  const GroupedBarChart = ({
-    title,
-    categories,
-    series,
-    height,
-    xtitle,
-    ytitle,
-    color,
-    labelFontSize = 7,
-  }) => {
-    return (
-      <CanvasJSChart
-        options={{
-          animationEnabled: true,
-          title: {
-            text: title,
-            fontSize: 12,
-            fontFamily: "Montserrat",
-            fontWeight: "bold",
-            color: "#333",
-            horizontalAlign: "center",
-          },
-          axisX: {
-            title: xtitle,
-            gridThickness: 0,
-            labelFontSize: labelFontSize,
-          },
-          axisY: {
-            title: ytitle,
-            gridThickness: 0,
-            labelFontSize: labelFontSize,
-          },
-          toolTip: {
-            shared: true, // Enable shared tooltip
-          },
-          data: series.map((data, index) => ({
-            type: "column",
-            name: index === 0 ? "Existing Value" : "Target Value", // Define names for bars
-            showInLegend: true,
-            color: color[index % color.length],
-            dataPoints: categories.map((category, i) => ({
-              y: data[i],
-              label: category,
-              indexLabel: `{y}`,
-              indexLabelFontSize: 10,
-              indexLabelPlacement: "outside",
-            })),
-          })),
-        }}
-        containerProps={{ height: height, width: "100%" }}
-      />
-    );
-  };
+ 
   return (
     <div className="flex align-items-center justify-content-center gap-2  flex-column p-4">
       {show && (
-        <div className="flex align-items-center justify-content-between w-full">
+      <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">
-            Community Engagement & Holisitic Well-Being Dashboard
+            Community Engagement & Holisitic Well-Being
           </h1>
-          <div className="flex align-items-center justify-content-end gap-2">
             <Button
               label="Generate Report"
               icon="pi pi-file"
@@ -109,7 +54,6 @@ const Community = ({ show }) => {
               <CommunityReportPrint />
             </Dialog>
           </div>
-        </div>
       )}
       {/* First Row */}
       <div className="flex align-items-center justify-content-center gap-2 flex-row w-full">

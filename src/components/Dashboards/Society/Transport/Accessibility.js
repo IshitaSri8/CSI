@@ -13,69 +13,13 @@ import increase from "assets/increase.png";
 import decrease from "assets/decrease.png";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
- 
-import CanvasJSReact from "@canvasjs/react-charts";
+import { Doughnut } from "Layout/GraphVisuals";
 
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Accessibility = () => {
   const usageLabels = ["Roadways", "Railways", "Airways", "Waterways"];
   const usageSeries = [85, 73, 42, 35];
 
-  const Doughnut = ({ title, labels, series, height }) => {
-    const colors = [
-      "#26575D",
-      "#1F8297",
-      "#4D7479",
-      "#4C9BAC",
-      "#98C6CF",
-      "#F7A47A",
-      "#47B881",
-      "#FFDD82",
-      "#F64C4C",
-    ];
-
-    const options = {
-      animationEnabled: true,
-      title: {
-        text: title,
-        fontSize: 12,
-        fontFamily: "Arial",
-        fontWeight: "bold",
-        padding: {bottom: 20}
-      },
-      data: [
-        {
-          type: "doughnut",
-          startAngle: 20,
-          toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-          showInLegend: false,
-          color: colors,
-          indexLabel: "{label} - #percent%",
-          indexLabelFontSize: 10,
-          indexLabelFontFamily: "DM Sans",
-          indexLabelFontWeight: 700,
-          dataPoints: series.map((value, index) => ({
-            y: value,
-            label: labels[index],
-            color: colors[index % colors.length],
-          })),
-        },
-      ],
-      legend: {
-        fontSize: 10,
-        horizontalAlign: "center",
-        verticalAlign: "bottom",
-      },
-    };
-
-    return (
-      <CanvasJSChart
-        options={options}
-        containerProps={{ height: height, width: "100%" }}
-      />
-    );
-  };
 
   const cardsData = [
     { label: "Roadways Accessibility", value: 85, icon: Road },

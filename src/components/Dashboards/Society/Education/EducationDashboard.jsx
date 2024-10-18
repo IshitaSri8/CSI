@@ -9,8 +9,10 @@ import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
 import StackedColumnChart from "./StackedColumnChart";
 import { Divider } from "primereact/divider";
+import { Dialog } from "primereact/dialog";
+import EducationReportPrint from "./EducationReportPrint";
 
-const EducationDashboard = () => {
+const EducationDashboard = ({ show }) => {
   const [selectedLevel, setSelectedLevel] = useState("Primary");
   const educationDataMap = {
     Primary: primaryData,
@@ -24,26 +26,38 @@ const EducationDashboard = () => {
   const levels = ["Primary", "Secondary", "Higher"];
 
   return (
-    <div className="w-full p-5 flex flex-column gap-2">
-      <div className="flex justify-content-between">
-        <h1 className="text-2xl font-bold m-0 p-0">Education</h1>
-        {/* Dropdown for selecting education level */}
-        <div className="flex gap-2">
-          <Dropdown
-            value={selectedLevel}
-            options={levels}
-            onChange={(e) => setSelectedLevel(e.value)}
-            placeholder="Select Education Level"
-            className="mb-4 bg-white border-1 border-cyan-800"
-          />
-          <Button
-            label="Generate Report"
-            icon="pi pi-file"
-            onClick={() => setReportVisible(true)}
-            className="mb-4 bg-white text-theme border-1 border-cyan-800"
-          />
+    <div className="w-full p-5 flex flex-column gap-2 ">
+      {show && (
+        <div className="flex align-items-center justify-content-between w-full">
+          <h1 className="m-0 p-0 text-2xl text">Education</h1>
+          {/* Dropdown for selecting education level */}
+          <div className="flex gap-2">
+            <Dropdown
+              value={selectedLevel}
+              options={levels}
+              onChange={(e) => setSelectedLevel(e.value)}
+              placeholder="Select Education Level"
+              className="mb-4 bg-white border-1 border-cyan-800"
+            />
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="mb-4 bg-white text-theme border-1 border-cyan-800"
+            />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <EducationReportPrint />
+            </Dialog>
+          </div>
         </div>
-      </div>
+      )}
       <h1 className="text-3xl text-theme font-semibold text-center mt-0 p-0 mb-2">
         {selectedLevel} Level Education
       </h1>

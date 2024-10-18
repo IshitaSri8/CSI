@@ -3,9 +3,9 @@ import { Button } from "primereact/button";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import Culture from "./Culture";
+import Education from "./EducationDashboard";
 
-export default function CultureReportPrint() {
+export default function EducationReportPrint() {
   const contentRef = useRef(null);
 
   const handlePrint = useReactToPrint({
@@ -45,7 +45,7 @@ export default function CultureReportPrint() {
         pdf.internal.pageSize.height - 10
       );
 
-      pdf.save("culture_summary_report.pdf");
+      pdf.save("education_summary_report.pdf");
     }
   };
 
@@ -63,7 +63,7 @@ export default function CultureReportPrint() {
             <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
           </div>
           <div className="w-full">
-            <Culture show={false} />
+            <Education show={false} />
           </div>
         </div>
       </div>

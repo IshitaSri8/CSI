@@ -138,7 +138,7 @@ const RainDashboard = ({ show }) => {
     <div className="flex align-items-center justify-content-center flex-column gap-2 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-2xl text">Rainfall Dashboard</h1>
+          <h1 className="m-0 p-0 text-2xl text">Rainfall</h1>
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
               label="Generate Report"

@@ -1,19 +1,22 @@
 import React from "react";
 import { Panel } from "primereact/panel";
-import { DonutChart } from "../../../../Layout/GraphVisuals";
-import "./Land.css";
+import { Doughnut } from "Layout/GraphVisuals";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { Card } from "primereact/card";
 import LandIcon from "assets/waste/land.png";
 import AreaIcon from "assets/waste/measurement.png";
 import Above from "assets/waste/above.png";
 import Below from "assets/waste/below.png";
-import { width } from "@mui/system";
-//import Tree from "react-d3-tree";
+import LandReportPrint from "./LandReportPrint";
+import { Dialog } from "primereact/dialog";
+import { Button } from "primereact/button";
+import { useState } from "react";
+import { Divider } from "primereact/divider";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const LandDashboard = () => {
+const LandDashboard = ({ show }) => {
+  const [ReportVisible, setReportVisible] = useState(false);
   const donutChartLabels = [
     "Agriculture",
     "Open Land",
@@ -194,10 +197,32 @@ const LandDashboard = () => {
   };
 
   return (
-    <div className="flex flex-column gap-4 align-items-center w-full ">
-      <div className="flex flex-column gap-4 w-full">
-        <div className="flex gap-3">
-          <Card className="flex-1 border-round bg-white">
+    <div className="flex align-items-center justify-content-center gap-3 flex-column p-4">
+      {show && (
+        <div className="flex align-items-center justify-content-between w-full">
+          <h1 className="m-0 p-0 text-2xl text">Land use</h1>
+          <div className="flex align-items-center justify-content-end gap-2">
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+            />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <LandReportPrint show={false} />
+            </Dialog>
+          </div>
+        </div>
+      )}
+        <div className="flex gap-3 w-full">
+          <Card className="w-full">
             <div className="flex align-items-center gap-3">
               {/* First column: Image */}
               <div className="flex-shrink-0">
@@ -216,7 +241,7 @@ const LandDashboard = () => {
             </div>
           </Card>
 
-          <Card className="flex-1 border-round bg-white">
+          <Card className="w-full">
             <div className="flex align-items-center gap-3">
               {/* First column: Image */}
               <div className="flex-shrink-0">
@@ -235,7 +260,7 @@ const LandDashboard = () => {
             </div>
           </Card>
 
-          <Card className="flex-1 border-round bg-white">
+          <Card className="w-full">
             <div className="flex align-items-center gap-3">
               <div className="flex-shrink-0">
                 <img
@@ -252,7 +277,7 @@ const LandDashboard = () => {
             </div>
           </Card>
 
-          <Card className="flex-1 border-round bg-white">
+          <Card className="w-full">
             <div className="flex align-items-center gap-3">
               <div className="flex-shrink-0">
                 <img
@@ -269,51 +294,45 @@ const LandDashboard = () => {
             </div>
           </Card>
         </div>
-      </div>
 
-      <Panel className="w-full">
-        <div className="flex flex-row gap-8 flex-wrap md:flex-nowrap px-8">
-          <DonutChart
+      <div className="flex gap-3 w-full">
+        <Card className="w-full">
+          <Doughnut
             title="Green Area Cover Distribution"
             labels={donutChartLabels}
             series={donutChartSeries}
             height={240}
-            width={300}
           />
-
-          <DonutChart
+        </Card>
+        <Card className="w-full">
+          <Doughnut
             title="Target Achieved Above Proposed Limit"
             labels={AboveLabels}
             series={AboveSeries}
             height={240}
-            width={300}
           />
-
-          <DonutChart
+        </Card>
+        <Card className="w-full">
+          <Doughnut
             title="Target Achieved Below Proposed Limit"
             labels={BelowLabels}
             series={BelowSeries}
             height={240}
-            width={300}
           />
-        </div>
-      </Panel>
+        </Card>
+      </div>
 
       <Panel className="w-full">
-        <div className="flex flex-row gap-4 flex-wrap md:flex-nowrap">
-          <Card className="w-full">
-            <CanvasJSChart
-              options={areaChartOptions}
-              containerProps={{ height: 200, width: "100%" }}
-            />
-          </Card>
-
-          <Card className="w-full">
-            <CanvasJSChart
-              options={tornadoChartOptions}
-              containerProps={{ height: 200, width: "100%" }}
-            />
-          </Card>
+        <div className="flex gap-4">
+          <CanvasJSChart
+            options={areaChartOptions}
+            containerProps={{ height: 200, width: "100%" }}
+          />
+          <Divider layout="vertical" />
+          <CanvasJSChart
+            options={tornadoChartOptions}
+            containerProps={{ height: 200, width: "100%" }}
+          />
         </div>
       </Panel>
     </div>

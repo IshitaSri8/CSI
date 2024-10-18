@@ -8,63 +8,7 @@ import "primereact/resources/themes/saga-blue/theme.css"; // PrimeReact theme
 import "primereact/resources/primereact.min.css"; // Core PrimeReact styles
 import "primeflex/primeflex.css"; // PrimeFlex CSS
 import CustomTooltip from "./CustomTooltip";
-import CanvasJSReact from "@canvasjs/react-charts";
-
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-const Doughnut = ({ title, labels, series, height }) => {
-  const colors = [
-    "#26575D",
-    "#1F8297",
-    "#4D7479",
-    "#4C9BAC",
-    "#98C6CF",
-    "#F7A47A",
-    "#47B881",
-    "#FFDD82",
-    "#F64C4C",
-  ];
-
-  const options = {
-    animationEnabled: true,
-    title: {
-      text: title,
-      fontSize: 12,
-      fontFamily: "DM Sans",
-      fontWeight: "800",
-    },
-    data: [
-      {
-        type: "doughnut",
-        startAngle: 20,
-        toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-        showInLegend: false,
-        color: colors,
-        indexLabel: "{label} - #percent%",
-        indexLabelFontSize: 10,
-        indexLabelFontFamily: "DM Sans",
-        indexLabelFontWeight: 700,
-        dataPoints: series.map((value, index) => ({
-          y: value,
-          label: labels[index],
-          color: colors[index % colors.length],
-        })),
-      },
-    ],
-    legend: {
-      fontSize: 10,
-      horizontalAlign: "center",
-      verticalAlign: "bottom",
-    },
-  };
-
-  return (
-    <CanvasJSChart
-      options={options}
-      containerProps={{ height: height, width: "100%" }}
-    />
-  );
-};
+import { Doughnut } from "Layout/GraphVisuals";
 
 const BusDashboard = () => {
   const totalBusesData = [

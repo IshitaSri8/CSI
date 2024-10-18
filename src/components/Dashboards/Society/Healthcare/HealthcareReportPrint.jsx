@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Button } from "primereact/button";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import Disaster from "./Disaster Management/Disaster";
+import Healthcare from "./Healthcare";
 
-export default function DisasterReportPrint() {
+export default function HealthcareReportPrint() {
   const contentRef = useRef(null);
 
   const handlePrint = useReactToPrint({
@@ -45,7 +45,7 @@ export default function DisasterReportPrint() {
         pdf.internal.pageSize.height - 10
       );
 
-      pdf.save("culture_summary_report.pdf");
+      pdf.save("Healthcare_summary_report.pdf");
     }
   };
 
@@ -63,7 +63,7 @@ export default function DisasterReportPrint() {
             <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
           </div>
           <div className="w-full">
-            <Disaster show={false} />
+            <Healthcare show={false} />
           </div>
         </div>
       </div>

@@ -5,8 +5,10 @@ import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
 import StackedColumnChart from "../Education/StackedColumnChart";
 import { Divider } from "primereact/divider";
+import { Dialog } from "primereact/dialog";
+import EmploymentReportPrint from "./EmploymentReportPrint";
 
-const Employment = () => {
+const Employment = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
   const employmentLables = [
     "Self employed",
@@ -32,18 +34,31 @@ const Employment = () => {
 
   return (
     <div className="w-full p-5 flex flex-column">
-      <div className="flex justify-content-between">
-        <h1 className="text-2xl font-bold m-0 p-0">Employment Opportunities</h1>
+      {show && (
+        <div className="flex align-items-center justify-content-between w-full">
+          <h1 className="m-0 p-0 text-2xl text">
+            Employment Opportunities
+          </h1>
 
-        <Button
-          label="Generate Report"
-          icon="pi pi-file"
-          onClick={() => setReportVisible(true)}
-          className="mb-4 bg-theme text-white"
-          raised
-        />
-      </div>
-
+          <Button
+            label="Generate Report"
+            icon="pi pi-file"
+            onClick={() => setReportVisible(true)}
+            className="mb-4 bg-theme text-white"
+            raised
+          />
+          <Dialog
+            visible={ReportVisible}
+            style={{ width: "100rem" }}
+            onHide={() => {
+              if (!ReportVisible) return;
+              setReportVisible(false);
+            }}
+          >
+            <EmploymentReportPrint />
+          </Dialog>
+        </div>
+      )}
       {/* First row with parameter cards */}
       <div className="flex gap-3 justify-content-center align-items-stretch">
         <Card className="w-full flex flex-column align-items-center justify-content-center">
@@ -87,7 +102,7 @@ const Employment = () => {
             series={industriesData}
             height={200}
             fontColor={"black"}
-            show={true}
+            showNo={true}
           />
         </Card>
         <Card className="w-full">

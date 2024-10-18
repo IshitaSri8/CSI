@@ -16,6 +16,7 @@ import CityReportCardGov from "pages/CityReportCardGov";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { useNavigate } from "react-router-dom";
 import {
+  Ambulance,
   BookOpenText,
   BriefcaseBusiness,
   Building,
@@ -24,6 +25,7 @@ import {
   Droplet,
   EarthLock,
   FileChartPie,
+  HeartHandshake,
   HeartPulse,
   Landmark,
   LandPlot,
@@ -43,6 +45,9 @@ import Culture from "components/Dashboards/Society/Culture/Culture";
 import Community from "components/Dashboards/Society/Community/Community";
 import Disaster from "components/Dashboards/Administration/Disaster Management/Disaster";
 import Employment from "components/Dashboards/Society/Employment/Employment";
+import WasteDashboard from "components/Dashboards/Environment/Waste/WasteDashboard";
+import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboard";
+import LandDashboard from "components/Dashboards/Environment/Land/LandDashboard";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -52,7 +57,7 @@ const GovernmentSidebar = () => {
     knowYourCity: false,
     cityReportCard: false,
     society: false,
-    governance: false,
+    administration: false,
   });
   const navigate = useNavigate(); // For navigation
   const toggleSection = (section) => {
@@ -227,7 +232,7 @@ const GovernmentSidebar = () => {
           <Button
             icon={<Landmark size={20} />}
             onClick={() => setVisible(true)}
-            tooltip="Governance"
+            tooltip="Administration"
             style={activeTabStyle("gov")}
             className="border-none border-round-lg"
           />
@@ -339,7 +344,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("aqi")}
                       onClick={() => handleTabClick("aqi")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2  border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors ml-4"
+                      className="p-ripple flex align-items-center cursor-pointer p-2  border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors ml-2"
                     >
                       {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
                       <Wind className="text-white mr-2" size={15} />
@@ -353,7 +358,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("temperature")}
                       onClick={() => handleTabClick("temperature")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <ThermometerSun className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
@@ -366,7 +371,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("rain")}
                       onClick={() => handleTabClick("rain")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <CloudHail className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
@@ -379,12 +384,12 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("land")}
                       onClick={() => handleTabClick("land")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <LandPlot className="text-white mr-2" size={15} />
                       {/* <i className="pi pi-map mr-2 text-xl text-white"></i> */}
                       <span className="font-medium text-sm text-white">
-                        Land
+                        Land Use
                       </span>
                       <Ripple />
                     </div>
@@ -394,12 +399,12 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("water")}
                       onClick={() => handleTabClick("water")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <Droplet className="text-white mr-2" size={15} />
                       {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
                       <span className="font-medium text-sm text-white">
-                        Water
+                        Water Quality
                       </span>
                       <Ripple />
                     </div>
@@ -408,11 +413,11 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("waste")}
                       onClick={() => handleTabClick("waste")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <Trash className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
-                        Waste
+                        Waste Management
                       </span>
                       <Ripple />
                     </div>
@@ -446,7 +451,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("transport")}
                       onClick={() => handleTabClick("transport")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <Bus className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
@@ -459,9 +464,9 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("healthcare")}
                       onClick={() => handleTabClick("healthcare")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <HeartPulse className="text-white mr-2" size={15} />
+                      <Ambulance className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
                         Healthcare
                       </span>
@@ -472,7 +477,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("education")}
                       onClick={() => handleTabClick("education")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <BookOpenText className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
@@ -485,7 +490,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("employment")}
                       onClick={() => handleTabClick("employment")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <BriefcaseBusiness
                         className="text-white mr-2"
@@ -501,7 +506,7 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("cultural")}
                       onClick={() => handleTabClick("cultural")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <EarthLock className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
@@ -514,9 +519,9 @@ const GovernmentSidebar = () => {
                     <div
                       style={getTabStyle("community")}
                       onClick={() => handleTabClick("community")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <EarthLock className="text-white mr-2" size={15} />
+                      <HeartHandshake className="text-white mr-2" size={25} />
                       <span className="font-medium text-sm text-white">
                         Community Engagement & Holistic Well-Being
                       </span>
@@ -526,33 +531,33 @@ const GovernmentSidebar = () => {
                 </ul>
               )}
             </li>
-            {/* Governance Section */}
+            {/* administration Section */}
             <li>
               <div
                 onClick={() => {
-                  toggleSection("governance");
-                  //  handleTabClick("governance");
+                  toggleSection("administration");
+                  //  handleTabClick("administration");
                   setVisible(true);
                 }}
-                style={getTabStyle("governance")}
+                style={getTabStyle("administration")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
               >
                 <Landmark className="text-white mr-2" size={20} />
-                <span className="font-medium text-white">Governance</span>
+                <span className="font-medium text-white">Admininstration</span>
                 <i
                   className={`pi pi-chevron-${
-                    activeSections.governance ? "up" : "down"
+                    activeSections.administration ? "up" : "down"
                   } ml-auto text-white`}
                 ></i>
                 <Ripple />
               </div>
-              {activeSections.governance && (
+              {activeSections.administration && (
                 <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
                   <li>
                     <div
                       style={getTabStyle("disaster")}
                       onClick={() => handleTabClick("disaster")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <Bus className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
@@ -605,17 +610,17 @@ const GovernmentSidebar = () => {
         {activeTab === "aqi" && <AqiDashboard show={true} />}
         {activeTab === "temperature" && <TempDashboard show={true} />}
         {activeTab === "rain" && <RainDashboard show={true} />}
-        {activeTab === "land" && <LandMain />}
-        {activeTab === "water" && <WaterMain />}
-        {activeTab === "waste" && <WasteMain />}
+        {activeTab === "land" && <LandDashboard show={true}/>}
+        {activeTab === "water" && <WaterDashboard show={true}/>}
+        {activeTab === "waste" && <WasteDashboard show={true}/>}
 
-        {activeTab === "transport" && <TransportDashboard />}
-        {activeTab === "healthcare" && <Healthcare />}
-        {activeTab === "education" && <EducationDashboard />}
+        {activeTab === "transport" && <TransportDashboard show={true}/>}
+        {activeTab === "healthcare" && <Healthcare show={true}/>}
+        {activeTab === "education" && <EducationDashboard show={true}/>}
         {activeTab === "cultural" && <Culture show={true} />}
         {activeTab === "community" && <Community show={true} />}
         {activeTab === "disaster" && <Disaster show={true} />}
-        {activeTab === "employment" && <Employment />}
+        {activeTab === "employment" && <Employment show={true}/>}
       </div>
     </div>
   );

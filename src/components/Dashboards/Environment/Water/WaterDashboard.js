@@ -2,15 +2,43 @@ import React from "react";
 import { Panel } from "primereact/panel";
 import { Card } from "primereact/card";
 import { Knob } from "primereact/knob"; // Import Knob from PrimeReact
-import { DonutChart } from "../../../../Layout/GraphVisuals";
+import { Doughnut } from "Layout/GraphVisuals";
+import WaterReportPrint from "./WaterReportPrint";
+import { Dialog } from "primereact/dialog";
+import { Button } from "primereact/button";
+import { useState } from "react";
 
-const WaterDashboard = () => {
+const WaterDashboard = ({show}) => {
+  const [ReportVisible, setReportVisible] = useState(false);
   return (
-    <div className="w-full px-5 flex gap-4 flex-column">
+    <div className="w-full p-4 flex gap-3 flex-column">
+         {show && (
+        <div className="flex align-items-center justify-content-between w-full">
+          <h1 className="m-0 p-0 text-2xl text">Water Quality</h1>
+          <div className="flex align-items-center justify-content-end gap-2">
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+            />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <WaterReportPrint show={false} />
+            </Dialog>
+          </div>
+        </div>
+      )}
       <div className="w-full flex align-items-center justify-content-between gap-4">
         <Card title="Water Production (MLD)" className="w-full">
           {/* <div className="flex align-items-center justify-content-between w-full m-1"> */}
-          <DonutChart
+          <Doughnut
             labels={["Dams", "Natural Resources"]}
             series={[12, 36]}
             height={150}

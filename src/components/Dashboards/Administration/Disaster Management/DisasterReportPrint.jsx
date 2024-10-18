@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "primereact/button";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import Culture from "./Culture";
+import Disaster from "./Disaster";
 
-export default function CultureReportPrint() {
+export default function DisasterReportPrint() {
   const contentRef = useRef(null);
 
   const handlePrint = useReactToPrint({
@@ -63,7 +63,7 @@ export default function CultureReportPrint() {
             <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
           </div>
           <div className="w-full">
-            <Culture show={false} />
+            <Disaster show={false} />
           </div>
         </div>
       </div>
