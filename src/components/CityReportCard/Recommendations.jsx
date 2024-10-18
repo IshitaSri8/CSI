@@ -18,21 +18,19 @@ const Recommendations = () => {
             particulate matter pose immediate health risks to vulnerable group
             exacerbating respiratory conditions such as asthma and bronchitis.
           </li>
-        </ul>{" "}
-        <ul>
-          <li className="font-medium  text-lg">
+
+          <li className="font-medium text-lg">
             2. Invest in alternative water sources such as rainwater harvesting,
             desalination, and wastewater recycling. Implement stringent
             regulations to prevent industrial, agricultural, and domestic
             pollution of water sources.
           </li>
-        </ul>{" "}
-        <ul>
-          <li className="font-medium  text-lg">
+
+          <li className="font-medium text-lg">
             3. Develop a Digital Waste Tracking System. Maintain a current
             inventory of hazardous materials employed within work areas.
           </li>
-        </ul>{" "}
+        </ul>
       </>
     );
   };
@@ -47,10 +45,9 @@ const Recommendations = () => {
   //   };
 
   return (
-    <div className="flex flex-row align-items-start justify-content-center gap-8 p-m-3">
-      <div className="text-sm">{getRecommendation()}</div>
-
-      <img src={recom} className="h-25rem w-25rem " alt="recommednations"></img>
+    <div className="flex align-items-center justify-content-around p-5 gap-8">
+      <img src={recom} alt="recommendations" />
+      <div>{getRecommendation()}</div>
     </div>
   );
 };

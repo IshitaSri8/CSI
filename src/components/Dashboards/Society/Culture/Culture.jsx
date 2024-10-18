@@ -2,14 +2,23 @@ import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Tooltip } from "primereact/tooltip";
 import React, { useState } from "react";
-import { BarChart, CombinationChart, GroupedBarChart } from "Layout/GraphVisuals";
+import {
+  BarChart,
+  CombinationChart,
+  GroupedBarChart,
+} from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import CultureReportPrint from "./CultureReportPrint";
 
 const Culture = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
-  
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
+
   const tcategories = ["Domestic Tourists", "International Tourists"];
   const tseries = [
     [50000, 60000, 70000, 80000, 85000], // Domestic Tourists (2020-2024)
@@ -23,17 +32,17 @@ const Culture = ({ show }) => {
   const maintainedSites = [20, 40, 50, 80, 180];
 
   return (
-    <div className="flex align-items-center justify-content-center gap-3 flex-column p-4">
+    <div className="flex gap-3 flex-column p-4">
       {show && (
-       <div className="flex align-items-center justify-content-between w-full">
+        <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">Cultural Preservation</h1>
           <Button
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
             //className="bg-white text-cyan-800 border-1 border-cyan-800"
-             className="mb-4 bg-theme text-white"
-             raised
+            className="mb-4 bg-theme text-white"
+            raised
           />
           <Dialog
             visible={ReportVisible}
@@ -150,6 +159,23 @@ const Culture = ({ show }) => {
           />
         </Card>
       </div>
+      <div className="flex justify-content-end">
+        <Button
+          label={
+            recommendationsVisible
+              ? "Close Recommendations"
+              : "Get Recommendations"
+          }
+          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+          onClick={handleToggleRecommendations}
+          className="bg-theme text-white"
+          raised
+        />
+      </div>
+
+      {/* {recommendationsVisible && (
+        <DisasterRecommdations />
+      )} */}
     </div>
   );
 };

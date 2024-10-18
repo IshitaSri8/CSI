@@ -21,12 +21,17 @@ const EducationDashboard = ({ show }) => {
   };
   const educationData = educationDataMap[selectedLevel];
   const [ReportVisible, setReportVisible] = useState(false);
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
   const years = ["2021", "2022", "2023", "2024"];
 
   const levels = ["Primary", "Secondary", "Higher"];
 
   return (
-    <div className="w-full p-5 flex flex-column gap-2 ">
+    <div className="p-4 flex flex-column gap-3">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">Education</h1>
@@ -257,6 +262,19 @@ const EducationDashboard = ({ show }) => {
           />
         </Card>
       </div>
+      <div className="flex justify-content-end">
+      <Button
+        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+        onClick={handleToggleRecommendations}
+        className="bg-theme text-white"
+        raised
+      />
+      </div>
+
+      {/* {recommendationsVisible && (
+        <DisasterRecommdations />
+      )} */}
     </div>
   );
 };

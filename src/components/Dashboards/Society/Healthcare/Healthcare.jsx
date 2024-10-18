@@ -8,6 +8,11 @@ import { Doughnut, ColumnChart } from "Layout/GraphVisuals";
 
 const Healthcare = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
 
   const hospitalData = [51, 129]; // Example data
   const hospitalLabels = ["Government", "Non-Government"];
@@ -52,7 +57,7 @@ const Healthcare = ({ show }) => {
     "Cervical Cancer Screenings",
   ];
   return (
-    <div className="flex align-items-center justify-content-center gap-2 flex-column p-4">
+    <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">Healthcare</h1>
@@ -190,6 +195,19 @@ const Healthcare = ({ show }) => {
           />
         </Card>
       </div>
+      <div className="flex justify-content-end">
+      <Button
+        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+        onClick={handleToggleRecommendations}
+        className="bg-theme text-white"
+        raised
+      />
+      </div>
+
+      {/* {recommendationsVisible && (
+        <DisasterRecommdations />
+      )} */}
     </div>
   );
 };

@@ -10,6 +10,11 @@ import EmploymentReportPrint from "./EmploymentReportPrint";
 
 const Employment = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
   const employmentLables = [
     "Self employed",
     "Government",
@@ -33,7 +38,7 @@ const Employment = ({ show }) => {
   const years = [2021, 2022, 2023, 2024];
 
   return (
-    <div className="w-full p-5 flex flex-column">
+    <div className="gap-3 p-4 flex flex-column">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">
@@ -124,7 +129,7 @@ const Employment = ({ show }) => {
       </div>
 
       {/* Second row with corresponding charts */}
-      <div className="flex gap-3 mt-3">
+      <div className="flex gap-3">
         <Card className="w-full">
           <p className="text-lg font-semibold text-center">
             No. of Skill Programs
@@ -144,6 +149,19 @@ const Employment = ({ show }) => {
           />
         </Card>
       </div>
+      <div className="flex justify-content-end">
+      <Button
+        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+        onClick={handleToggleRecommendations}
+        className="bg-theme text-white"
+        raised
+      />
+      </div>
+
+      {/* {recommendationsVisible && (
+        <DisasterRecommdations />
+      )} */}
     </div>
   );
 };

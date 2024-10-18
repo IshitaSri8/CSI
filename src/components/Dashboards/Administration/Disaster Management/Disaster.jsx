@@ -8,11 +8,16 @@ import DisasterReportPrint from "./DisasterReportPrint";
 
 const Disaster = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
 
   return (
-    <div className="flex align-items-center justify-content-center gap-2 flex-column p-4">
+    <div className="flex gap-3 flex-column p-4">
       {show && (
-       <div className="flex align-items-center justify-content-between w-full">
+        <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">Disaster Management</h1>
           <Button
             label="Generate Report"
@@ -35,18 +40,12 @@ const Disaster = ({ show }) => {
         </div>
       )}
       {/* First Row */}
-      <div className="flex align-items-center justify-content-center gap-2 flex-row w-full">
-        <Card className="w-full p-3">
-          <div className="flex">
-            <i className="pi pi-info-circle text-cyan-800 text-right w-full text-sm cursor-pointer events"></i>
-          </div>
+      <div className="flex align-items-center justify-content-center gap-2 w-full">
+        <Card className="w-full">
+          <i className="pi pi-info-circle text-cyan-800 text-right w-full text-sm cursor-pointer events"></i>
 
-          <div className="flex align-items-center justify-content-center flex-row gap-1">
-            <div className="flex align-items-center justify-content-center gap-2 flex-column">
-              <h1 className="m-0 p-1 text-2xl text-cyan-800 text-center">8</h1>
-              <p className="text-base m-0 p-0 text-center">Disastrous Events</p>
-            </div>
-          </div>
+          <h1 className="text-2xl text-cyan-800 text-center m-1 p-0">8</h1>
+          <p className="p-0 m-2 text-center">Disastrous Events</p>
         </Card>
         <Tooltip target=".events" position="bottom">
           <div className="flex align-items-start justify-content-start gap-2 p-2 flex-column">
@@ -69,25 +68,25 @@ const Disaster = ({ show }) => {
           <h1 className="m-0 p-0 text-cyan-800 text-lg text-center">
             Life Loss
           </h1>
-          <div className="flex align-items-center justify-content-center gap-1 flex-row p-2">
-            <div className="flex align-items-center justify-content-center gap-1 flex-column px-2">
-              <h1 className="m-0 p-1 text-lg text-cyan-800 text-center">269</h1>
-              <p className="text-sm m-0 p-1 text-center">Deaths</p>
+          <div className="flex align-items-center justify-content-center gap-1">
+            <div className="flex align-items-center justify-content-center gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800 text-center">269</h1>
+              <p className="text-sm text-center m-0 p-0">Deaths</p>
             </div>
-            <div className="flex align-items-center justify-content-center gap-1 flex-column px-2">
-              <h1 className="m-0 p-1 text-lg text-cyan-800 text-center">
+            <div className="flex align-items-center justify-content-center gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800 text-center">
                 1,267
               </h1>
-              <p className="text-sm m-0 p-1 text-center">Injured</p>
+              <p className="text-sm text-center m-0 p-0">Injured</p>
             </div>
             <Divider layout="vertical" />
-            <div className="flex align-items-center justify-content-center gap-1 flex-column px-2">
-              <h1 className="m-0 p-1 text-lg text-cyan-800 text-center">678</h1>
-              <p className="text-sm m-0 p-1 text-center">Animal Loss</p>
+            <div className="flex align-items-center justify-content-center gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800 text-center">678</h1>
+              <p className="text-sm text-center m-0 p-0">Animal Loss</p>
             </div>
-            <div className="flex align-items-center justify-content-center gap-1 flex-column px-2">
-              <h1 className="m-0 p-1 text-lg text-cyan-800 text-center">159</h1>
-              <p className="text-sm m-0 p-1 text-center">Vegetation Loss</p>
+            <div className="flex align-items-center justify-content-center gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800 text-center">159</h1>
+              <p className="text-sm text-center m-0 p-0">Vegetation Loss</p>
             </div>
           </div>
         </Card>
@@ -95,33 +94,26 @@ const Disaster = ({ show }) => {
           <h1 className="m-0 p-0 text-cyan-800 text-lg text-center">
             Economic Loss
           </h1>
-          <div className="flex align-items-center justify-content-center gap-1 flex-row p-2">
-            <div className="flex align-items-center justify-content-center gap-1 flex-column p-2">
-              <h1 className="m-0 p-1 text-lg text-cyan-800 text-center">
+          <div className="flex align-items-center justify-content-center gap-1">
+            <div className="flex align-items-center justify-content-center gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800 text-center">
                 120 Cr
               </h1>
-              <p className="text-sm m-0 p-1 text-center">Capital Loss</p>
+              <p className="text-sm text-center m-0 p-0">Capital Loss</p>
             </div>
 
             <Divider layout="vertical" />
-            <div className="flex align-items-center justify-content-center gap-1 flex-column p-2">
-              <h1 className="m-0 p-1 text-lg text-cyan-800 text-center">
+            <div className="flex align-items-center justify-content-center gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800 text-center">
                 1200 Cr
               </h1>
-              <p className="text-sm m-0 p-1 text-center">Infrastructure Loss</p>
+              <p className="text-sm text-center m-0 p-0">Infrastructure Loss</p>
             </div>
           </div>
         </Card>
-        <Card className="w-full p-2">
-          <div className="flex align-items-center justify-content-center gap-1 flex-column p-3">
-            <h1 className="m-0 p-1 text-xl text-cyan-800 text-center">
-              12,000
-            </h1>
-            <p className="text-base m-0 p-1 text-center">
-              {" "}
-              Responders Available
-            </p>
-          </div>
+        <Card className="w-full">
+          <h1 className="text-xl text-cyan-800 text-center">12,000</h1>
+          <p className="text-center">Responders Available</p>
         </Card>
       </div>
 
@@ -156,6 +148,23 @@ const Disaster = ({ show }) => {
           </ul>
         </Card>
       </div>
+      <div className="flex justify-content-end">
+        <Button
+          label={
+            recommendationsVisible
+              ? "Close Recommendations"
+              : "Get Recommendations"
+          }
+          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+          onClick={handleToggleRecommendations}
+          className="bg-theme text-white"
+          raised
+        />
+      </div>
+
+      {/* {recommendationsVisible && (
+        <DisasterRecommdations />
+      )} */}
     </div>
   );
 };

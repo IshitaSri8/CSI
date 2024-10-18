@@ -9,6 +9,12 @@ import CommunityReportPrint from "./CommunityReportPrint";
 
 const Community = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
+
   const tcategories = [
     "Anganwari-Housing Area/Cluster",
     "Community room",
@@ -31,7 +37,7 @@ const Community = ({ show }) => {
 
  
   return (
-    <div className="flex align-items-center justify-content-center gap-2  flex-column p-4">
+    <div className="flex gap-3 flex-column p-4">
       {show && (
       <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">
@@ -158,6 +164,19 @@ const Community = ({ show }) => {
           />
         </Card>
       </div>
+      <div className="flex justify-content-end">
+      <Button
+        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+        onClick={handleToggleRecommendations}
+        className="bg-theme text-white"
+        raised
+      />
+      </div>
+
+      {/* {recommendationsVisible && (
+        <DisasterRecommdations />
+      )} */}
     </div>
   );
 };
