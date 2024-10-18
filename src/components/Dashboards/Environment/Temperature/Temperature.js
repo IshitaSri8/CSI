@@ -3,6 +3,7 @@ import { Select, MenuItem } from "@mui/material";
 import DailyTrend from "./DailyTrend";
 import TemperatureTrend from "./TemperatureTrend";
 import TemperatureHumidityTrend from "./TemperatureHumidityTrend";
+import { Card } from "primereact/card";
 
 const Temperature = ({
   enviroDate,
@@ -433,34 +434,38 @@ const Temperature = ({
   };
 
   return (
-    <div>
-          {chartData.length > 0 && (
-            <>
-              <TemperatureTrend
-                selectedDate={selectedDate}
-                dailyAverageTemp={dailyAverage}
-                dailyAverageCo2={dailyAverageco2}
-                dailyDataTemp={dailyData}
-                dailyDataCo2={dailyDataco2}
-                setSelectedDate={setSelectedDate}
-                fifteenDaysData={fifteenDaysData}
-                startDate={startDate}
-              />
-              <TemperatureHumidityTrend
-                selectedDate={selectedDate}
-                dailyAverageTemp={dailyAverage}
-                dailyAveragehumidity={dailyAveragehumidity}
-                dailyDataTemp={dailyData}
-                dailyDatahumidity={dailyDatahumidity}
-                setSelectedDate={setSelectedDate}
-                fifteenDaysData={fifteenDaysData}
-                startDate={startDate}
-                dailyAverageFeelsLike={dailyFeelsLike}
-                dailyDataFeelsLike={dailyFeelsLikeData}
-              />
-            </>
-          )}
-        </div>
+    <div className="flex align-items-center justify-content-center flex-row gap-2">
+      {chartData.length > 0 && (
+        <>
+          <Card className="w-full">
+            <TemperatureTrend
+              selectedDate={selectedDate}
+              dailyAverageTemp={dailyAverage}
+              dailyAverageCo2={dailyAverageco2}
+              dailyDataTemp={dailyData}
+              dailyDataCo2={dailyDataco2}
+              setSelectedDate={setSelectedDate}
+              fifteenDaysData={fifteenDaysData}
+              startDate={startDate}
+            />
+          </Card>
+          <Card className="w-full">
+            <TemperatureHumidityTrend
+              selectedDate={selectedDate}
+              dailyAverageTemp={dailyAverage}
+              dailyAveragehumidity={dailyAveragehumidity}
+              dailyDataTemp={dailyData}
+              dailyDatahumidity={dailyDatahumidity}
+              setSelectedDate={setSelectedDate}
+              fifteenDaysData={fifteenDaysData}
+              startDate={startDate}
+              dailyAverageFeelsLike={dailyFeelsLike}
+              dailyDataFeelsLike={dailyFeelsLikeData}
+            />
+          </Card>
+        </>
+      )}
+    </div>
   );
 };
 

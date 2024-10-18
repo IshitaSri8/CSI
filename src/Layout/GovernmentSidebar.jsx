@@ -38,6 +38,10 @@ import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
 import Arahas from "assets/arahas_logo.png";
 import TempDashboard from "components/Dashboards/Environment/Temperature/TempDashboard";
 import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
+import RainDashboard from "components/Dashboards/Environment/Rain/RainDashboard";
+import Culture from "components/Dashboards/Society/Culture/Culture";
+import Community from "components/Dashboards/Society/Community/Community";
+import Disaster from "components/Dashboards/Administration/Disaster Management/Disaster";
 import Employment from "components/Dashboards/Society/Employment/Employment";
 
 const GovernmentSidebar = () => {
@@ -149,6 +153,18 @@ const GovernmentSidebar = () => {
           { label: "Society" },
           { label: "Cultural Preservation" },
         ]
+      : activeTab === "community"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Society" },
+          { label: "Community Enagagement & Holistic Well-Being" },
+        ]
+      : activeTab === "disaster"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Administration" },
+          { label: "Disaster Management" },
+        ]
       : [];
 
   const home = {
@@ -183,28 +199,28 @@ const GovernmentSidebar = () => {
             icon={<Building size={18} />}
             onClick={() => handleTabClick("kyc")}
             tooltip="Know your city"
-            style={activeTabStyle("gov")}
+            style={activeTabStyle("kyc")}
             className="border-none border-round-lg mb-2"
           />
           <Button
             icon={<FileChartPie size={18} />}
             onClick={() => handleTabClick("cityReportCard")}
             tooltip="City Report Card"
-            style={activeTabStyle("gov")}
+            style={activeTabStyle("cityReportCard")}
             className="border-none border-round-lg mb-2"
           />
           <Button
             icon={<Sprout size={18} />}
             onClick={() => setVisible(true)}
             tooltip="Nature"
-            style={activeTabStyle("gov")}
+            style={activeTabStyle("environment")}
             className="border-none border-round-lg mb-2"
           />
           <Button
             icon={<Users size={18} />}
             onClick={() => setVisible(true)}
             tooltip="Society"
-            style={activeTabStyle("gov")}
+            style={activeTabStyle("society")}
             className="border-none border-round-lg mb-2"
           />
 
@@ -434,7 +450,7 @@ const GovernmentSidebar = () => {
                     >
                       <Bus className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
-                        Transport
+                        Public Transport
                       </span>
                       <Ripple />
                     </div>
@@ -476,7 +492,7 @@ const GovernmentSidebar = () => {
                         size={15}
                       />
                       <span className="font-medium text-sm text-white">
-                        Employment
+                        Employment Opportunities
                       </span>
                       <Ripple />
                     </div>
@@ -534,8 +550,8 @@ const GovernmentSidebar = () => {
                 <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
                   <li>
                     <div
-                      style={getTabStyle("transport")}
-                      onClick={() => handleTabClick("transport")}
+                      style={getTabStyle("disaster")}
+                      onClick={() => handleTabClick("disaster")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-4 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
                       <Bus className="text-white mr-2" size={15} />
@@ -588,7 +604,7 @@ const GovernmentSidebar = () => {
         {activeTab === "cityReportCard" && <CityReportCardGov />}
         {activeTab === "aqi" && <AqiDashboard show={true} />}
         {activeTab === "temperature" && <TempDashboard show={true} />}
-        {activeTab === "rain" && <RainMain />}
+        {activeTab === "rain" && <RainDashboard show={true} />}
         {activeTab === "land" && <LandMain />}
         {activeTab === "water" && <WaterMain />}
         {activeTab === "waste" && <WasteMain />}
@@ -596,6 +612,9 @@ const GovernmentSidebar = () => {
         {activeTab === "transport" && <TransportDashboard />}
         {activeTab === "healthcare" && <Healthcare />}
         {activeTab === "education" && <EducationDashboard />}
+        {activeTab === "cultural" && <Culture show={true} />}
+        {activeTab === "community" && <Community show={true} />}
+        {activeTab === "disaster" && <Disaster show={true} />}
         {activeTab === "employment" && <Employment />}
       </div>
     </div>

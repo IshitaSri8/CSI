@@ -338,7 +338,6 @@ const AqiDashboard = ({
 
   return (
     <div className="flex flex-column gap-3 w-full p-4">
-    
       {show && (
         <div className="flex align-items-center justify-content-between">
           <h1 className="m-0 p-0 text-2xl text">Air Quality Index</h1>
@@ -349,12 +348,12 @@ const AqiDashboard = ({
               onClick={() => setFilterVisible(true)}
               className="bg-white text-cyan-800 border-1 border-cyan-800"
             />
-            <Button
+            {/* <Button
               label="Recommendations"
               icon="pi pi-align-center"
               onClick={() => setRecommendationsVisible(true)}
               className="bg-white text-cyan-800 border-1 border-cyan-800"
-            />
+            /> */}
             <Button
               label="Generate Report"
               icon="pi pi-file"
@@ -433,17 +432,7 @@ const AqiDashboard = ({
         </div>
       </Dialog>
       {/* )} */}
-      <Dialog
-        header="Recommendations"
-        visible={RecommendationVisible}
-        style={{ width: "70rem" }}
-        onHide={() => {
-          if (!RecommendationVisible) return;
-          setRecommendationsVisible(false);
-        }}
-      >
-        <AQIRecommendations aqi={aqiValue} pm25={pm25Value} pm10={pm10Value} />
-      </Dialog>
+
       <Dialog
         visible={ReportVisible}
         style={{ width: "100rem" }}
@@ -531,7 +520,7 @@ const AqiDashboard = ({
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
-                  padding:3,
+                  padding: 3,
                 }}
               ></Column>
               <Column
@@ -542,7 +531,7 @@ const AqiDashboard = ({
                   fontSize: "0.2rem",
                   backgroundColor: "#166c7d",
                   color: "white",
-                  padding:3,
+                  padding: 3,
                 }}
               ></Column>
               <Column
@@ -553,7 +542,7 @@ const AqiDashboard = ({
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
-                  padding:3,
+                  padding: 3,
                 }}
               />
 
@@ -566,7 +555,7 @@ const AqiDashboard = ({
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
-                  padding:3,
+                  padding: 3,
                 }}
               ></Column>
             </DataTable>
@@ -636,9 +625,6 @@ const AqiDashboard = ({
             safeLimit={100}
           />
         </Card>
-      </div>
-
-      <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
         <Card className="w-full">
           <PollutantChart
             envirolocation={envirolocation}
@@ -661,13 +647,15 @@ const AqiDashboard = ({
             pollutantData={enviroso2}
             selectedLocation={selectedLocation}
             pollutantName="SO2"
-            baseChartColor="#F64C4C"
+            baseChartColor="#C68FE6"
             drilldownChartColor="#FFF176"
             height={200}
             safeLimit={80}
           />
         </Card>
       </div>
+
+      <AQIRecommendations aqi={aqiValue} pm25={pm25Value} pm10={pm10Value} />
 
       {/* {show && (
             <>

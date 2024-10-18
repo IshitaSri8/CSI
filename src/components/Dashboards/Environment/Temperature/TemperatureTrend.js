@@ -46,15 +46,15 @@ const TemperatureTrend = ({
           cursor: "pointer",
           explodeOnClick: false,
           name: "Temperature",
-          type: "line",
+          type: "area",
           dataPoints: tempDataPoints,
-          color: "#FFA38F",
+          color: "rgba(255, 245, 205,0.8)",
         },
         {
           name: "CO2",
           type: "line",
           dataPoints: co2DataPoints,
-          color: "#2A9D8F",
+          color: "#E78F81",
         },
       ],
     };
@@ -153,6 +153,7 @@ const TemperatureTrend = ({
     data: (chartData["BaseChart"] || []).map((series) => ({
       ...series,
       axisYType: series.name === "Temperature" ? "primary" : "secondary",
+      showInLegend: true,
     })),
     toolTip: {
       contentFormatter: function (e) {
@@ -301,6 +302,7 @@ const TemperatureTrend = ({
     data: drilldownChartData.map((series) => ({
       ...series,
       axisYType: series.name.includes("Temperature") ? "primary" : "secondary",
+      showInLegend: true,
     })),
     toolTip: {
       contentFormatter: function (e) {

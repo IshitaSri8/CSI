@@ -95,14 +95,6 @@ export default function AQIReportPrint({
               pSelectedEndDate={endDate}
             />
           </div>
-          <div className="w-full">
-            <h1 className="m-0 py-2">Recommendations</h1>
-            <AQIRecommendations
-              aqi={aqiValue}
-              pm25={pm25Value}
-              pm10={pm10Value}
-            />
-          </div>
         </div>
       </div>
       <div className="flex align-items-center justify-content-end p-2 w-full">

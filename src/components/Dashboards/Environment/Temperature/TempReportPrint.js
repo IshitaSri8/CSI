@@ -62,16 +62,14 @@ export default function TempReportPrint({
   };
 
   return (
-    <Dialog
-      header=""
-      visible={visible}
-      style={{ width: "95vw" }}
-      onHide={toggleModalVisibility}
-    >
+    <>
       <div ref={contentRef}>
         <div className="w-full print-container">
           <div className="flex flex-column gap-2 align-items-center w-full">
-            <h1 style={{ color: "#00a269" }} className="m-0 p-0 text-center">
+            <h1
+              style={{ color: "#1F8297" }}
+              className="m-0 p-0 text-center text-2xl"
+            >
               City Sustainability Index 2024
             </h1>
             <h4 className="m-0 p-0">{selectedLocation}</h4>
@@ -93,27 +91,24 @@ export default function TempReportPrint({
               pSelectedEndDate={endDate}
             />
           </div>
-          <div className="w-full">
-            <TempRecommendations temperature={tempValue} />
-          </div>
         </div>
       </div>
-      <div className="flex align-items-center justify-content-end p-2 w-full">
+      <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
         <Button
           label="Print"
           icon="pi pi-print"
           size="small"
-          className="p-button-secondary mr-2"
+          className="bg-cyan-700"
           onClick={handlePrint}
         />
         <Button
           label="Export as PDF"
           icon="pi pi-file-export"
           size="small"
-          className="p-button-success"
+          className="bg-cyan-800"
           onClick={handleExport}
         />
       </div>
-    </Dialog>
+    </>
   );
 }
