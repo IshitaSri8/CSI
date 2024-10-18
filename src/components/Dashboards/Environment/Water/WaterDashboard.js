@@ -19,7 +19,7 @@ const WaterDashboard = ({ show }) => {
     <div className="w-full p-4 flex gap-3 flex-column">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-2xl text">Water Quality</h1>
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">Water Quality</h1>
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
               label="Generate Report"
@@ -158,7 +158,7 @@ const WaterDashboard = ({ show }) => {
       </div>
       <div className="flex justify-content-end">
       <Button
-        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        label={recommendationsVisible ? "Close Recommendations" : "View Recommendations"}
         icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
         onClick={handleToggleRecommendations}
         className="bg-theme text-white"

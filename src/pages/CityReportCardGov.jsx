@@ -18,9 +18,11 @@ const CityReportCardGov = ({ show }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="flex px-2 py-4 flex-column sec-theme">
+    <div className="flex p-4 flex-column sec-theme">
       <div className="flex align-items-center justify-content-between w-full">
-        <h1 className="m-0 p-0 text-2xl text">City Report Card</h1>
+        <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
+          City Report Card
+        </h1>
         <Button
           label="Generate Report"
           icon="pi pi-file"
@@ -51,7 +53,7 @@ const CityReportCardGov = ({ show }) => {
           label={
             recommendationsVisible
               ? "Close Recommendations"
-              : "Get Recommendations"
+              : "View Recommendations"
           }
           icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
           onClick={handleToggleRecommendations}

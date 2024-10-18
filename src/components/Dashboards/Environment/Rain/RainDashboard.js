@@ -143,7 +143,7 @@ const RainDashboard = ({ show }) => {
     <div className="flex flex-column gap-3 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-2xl text">Rainfall</h1>
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">Rainfall</h1>
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
               label="Generate Report"
@@ -221,7 +221,7 @@ const RainDashboard = ({ show }) => {
       </Card>
       <div className="flex justify-content-end">
       <Button
-        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        label={recommendationsVisible ? "Close Recommendations" : "View Recommendations"}
         icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
         onClick={handleToggleRecommendations}
         className="bg-theme text-white"

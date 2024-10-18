@@ -60,7 +60,9 @@ const Healthcare = ({ show }) => {
     <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-2xl text">Healthcare</h1>
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
+            Healthcare
+          </h1>
 
           <Button
             label="Generate Report"
@@ -196,13 +198,17 @@ const Healthcare = ({ show }) => {
         </Card>
       </div>
       <div className="flex justify-content-end">
-      <Button
-        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
-        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-        onClick={handleToggleRecommendations}
-        className="bg-theme text-white"
-        raised
-      />
+        <Button
+          label={
+            recommendationsVisible
+              ? "Close Recommendations"
+              : "View Recommendations"
+          }
+          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+          onClick={handleToggleRecommendations}
+          className="bg-theme text-white"
+          raised
+        />
       </div>
 
       {/* {recommendationsVisible && (

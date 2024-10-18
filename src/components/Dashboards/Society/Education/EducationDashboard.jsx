@@ -34,7 +34,9 @@ const EducationDashboard = ({ show }) => {
     <div className="p-4 flex flex-column gap-3">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-2xl text">Education</h1>
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
+            Education
+          </h1>
           {/* Dropdown for selecting education level */}
           <div className="flex gap-2">
             <Dropdown
@@ -45,13 +47,13 @@ const EducationDashboard = ({ show }) => {
               className="mb-4 bg-white border-1 border-cyan-800"
             />
             <Button
-            label="Generate Report"
-            icon="pi pi-file"
-            onClick={() => setReportVisible(true)}
-            className="mb-4 bg-theme text-white"
-            raised
-          />
-          
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="mb-4 bg-theme text-white"
+              raised
+            />
+
             <Dialog
               visible={ReportVisible}
               style={{ width: "100rem" }}
@@ -263,13 +265,17 @@ const EducationDashboard = ({ show }) => {
         </Card>
       </div>
       <div className="flex justify-content-end">
-      <Button
-        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
-        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-        onClick={handleToggleRecommendations}
-        className="bg-theme text-white"
-        raised
-      />
+        <Button
+          label={
+            recommendationsVisible
+              ? "Close Recommendations"
+              : "View Recommendations"
+          }
+          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+          onClick={handleToggleRecommendations}
+          className="bg-theme text-white"
+          raised
+        />
       </div>
 
       {/* {recommendationsVisible && (

@@ -41,7 +41,7 @@ const Employment = ({ show }) => {
     <div className="gap-3 p-4 flex flex-column">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-2xl text">
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
             Employment Opportunities
           </h1>
 
@@ -151,7 +151,7 @@ const Employment = ({ show }) => {
       </div>
       <div className="flex justify-content-end">
       <Button
-        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        label={recommendationsVisible ? "Close Recommendations" : "View Recommendations"}
         icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
         onClick={handleToggleRecommendations}
         className="bg-theme text-white"

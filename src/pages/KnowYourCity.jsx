@@ -10,7 +10,7 @@ const KnowYourCity = () => {
 
   return (
     <div className="px-0 py-4">
-      <h1 className="text-primary1 text-xl text-left text-medium w-full m-0 p-0 ml-3">
+      <h1 className="text-primary1 text-xl text-medium w-full m-0 p-0 ml-3">
         Know Your City
       </h1>
       <TabView

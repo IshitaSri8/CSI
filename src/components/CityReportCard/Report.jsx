@@ -22,6 +22,7 @@ import transparency from "assets/Report/Transparency and accountability.svg";
 import community from "assets/Report/Community engagement and holistic wellbeing.svg";
 import disaster from "assets/Report/disaster management.svg";
 import ethical from "assets/Report/ethical leadership.svg";
+import employment from "assets/Report/employment.svg";
 
 const CityReportCard = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -178,7 +179,7 @@ const CityReportCard = () => {
   };
 
   return (
-    <div className="flex flex-column p-2 gap-3 sec-theme w-full">
+    <div className="flex flex-column gap-4 sec-theme w-full">
       <div className="flex justify-content-around gap-3">
         {/* First Card */}
         <Card
@@ -286,7 +287,7 @@ const CityReportCard = () => {
               <Divider layout="vertical" />
               <div className="flex flex-column justify-content-center align-items-center w-full">
                 <div className="flex gap-1 align-items-center">
-                  <img src={community} alt="nature" className="w-1rem" />
+                  <img src={employment} alt="nature" className="w-1rem" />
                   <p className="font-semibold text-xs text-900">
                     Employment Opportunities
                   </p>
@@ -441,11 +442,11 @@ const CityReportCard = () => {
           <Card className="border-round-xl">
             <CanvasJSReact.CanvasJSChart
               options={options}
-              containerProps={{ height: 300, width: "100%" }}
+              containerProps={{ height: 250, width: "100%" }}
             />
           </Card>
         </div>
-        <div className="flex flex-column pl-4">
+        <div className="flex flex-column pl-4 w-full">
           <p className="text-xl font-medium mt-0 mb-1">Summary</p>
           <div className="flex border-round bg-white px-3 mb-2">
             <p>

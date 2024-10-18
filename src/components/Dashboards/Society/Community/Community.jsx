@@ -35,33 +35,32 @@ const Community = ({ show }) => {
     [80, 90, 178, 148, 215], // Funds allocated for each year (in crores)
   ];
 
- 
   return (
     <div className="flex gap-3 flex-column p-4">
       {show && (
-      <div className="flex align-items-center justify-content-between w-full">
+        <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">
             Community Engagement & Holisitic Well-Being
           </h1>
-            <Button
-              label="Generate Report"
-              icon="pi pi-file"
-              onClick={() => setReportVisible(true)}
-              //className="bg-white text-cyan-800 border-1 border-cyan-800"
-              className="mb-4 bg-theme text-white"
-              raised
-            />
-            <Dialog
-              visible={ReportVisible}
-              style={{ width: "100rem" }}
-              onHide={() => {
-                if (!ReportVisible) return;
-                setReportVisible(false);
-              }}
-            >
-              <CommunityReportPrint />
-            </Dialog>
-          </div>
+          <Button
+            label="Generate Report"
+            icon="pi pi-file"
+            onClick={() => setReportVisible(true)}
+            //className="bg-white text-cyan-800 border-1 border-cyan-800"
+            className="mb-4 bg-theme text-white"
+            raised
+          />
+          <Dialog
+            visible={ReportVisible}
+            style={{ width: "100rem" }}
+            onHide={() => {
+              if (!ReportVisible) return;
+              setReportVisible(false);
+            }}
+          >
+            <CommunityReportPrint />
+          </Dialog>
+        </div>
       )}
       {/* First Row */}
       <div className="flex align-items-center justify-content-center gap-2 flex-row w-full">
@@ -165,13 +164,17 @@ const Community = ({ show }) => {
         </Card>
       </div>
       <div className="flex justify-content-end">
-      <Button
-        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
-        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-        onClick={handleToggleRecommendations}
-        className="bg-theme text-white"
-        raised
-      />
+        <Button
+          label={
+            recommendationsVisible
+              ? "Close Recommendations"
+              : "View Recommendations"
+          }
+          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+          onClick={handleToggleRecommendations}
+          className="bg-theme text-white"
+          raised
+        />
       </div>
 
       {/* {recommendationsVisible && (

@@ -291,7 +291,7 @@ const TempDashboard = ({
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
         <div className="flex align-items-center justify-content-between">
-          <h1 className="m-0 p-0 text-2xl text">Temperature</h1>
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">Temperature</h1>
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
               label="Filters"
@@ -547,7 +547,7 @@ const TempDashboard = ({
           label={
             recommendationsVisible
               ? "Close Recommendations"
-              : "Get Recommendations"
+              : "View Recommendations"
           }
           icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
           onClick={handleToggleRecommendations}

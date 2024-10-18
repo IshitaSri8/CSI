@@ -89,12 +89,15 @@ const CityProgress = () => {
                     </div>
                   </div>
                   <p
-                    className="m-0 text-sm"
+                    className="m-0 text-xs"
                     style={{ color: "var(--text-tertiary-2)" }}
                   >
                     Source:
                   </p>
-                  <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
+                  <p
+                    className="m-0 text-sm"
+                    style={{ color: "var(--text-tertiary)" }}
+                  >
                     Jal Jeevan Mission
                   </p>
                 </div>
@@ -127,12 +130,15 @@ const CityProgress = () => {
                   </div>
                 </div>
                 <p
-                  className="m-0 text-sm"
+                  className="m-0 text-xs"
                   style={{ color: "var(--text-tertiary-2)" }}
                 >
                   Source:
                 </p>
-                <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
+                <p
+                  className="m-0 text-sm"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
                   Jal Kal Vibhag
                 </p>
               </div>
@@ -189,12 +195,15 @@ const CityProgress = () => {
                 </div>
               </div>
               <p
-                className="m-0 text-sm mt-4"
+                className="m-0 text-xs mt-4"
                 style={{ color: "var(--text-tertiary-2)" }}
               >
                 Source:
               </p>
-              <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
+              <p
+                className="m-0 text-sm"
+                style={{ color: "var(--text-tertiary)" }}
+              >
                 Ministry of Housing & Urban Affairs
               </p>
             </div>
@@ -209,12 +218,15 @@ const CityProgress = () => {
           >
             {DonutChart(electricityConsumptionData)}
             <p
-              className="m-0 text-sm"
+              className="m-0 text-xs"
               style={{ color: "var(--text-tertiary-2)" }}
             >
               Source:
             </p>
-            <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
+            <p
+              className="m-0 text-sm"
+              style={{ color: "var(--text-tertiary)" }}
+            >
               Vidyut Vibhag Ayodhya
             </p>
           </div>
@@ -268,12 +280,15 @@ const CityProgress = () => {
                   </div>
                 </div>
                 <p
-                  className="m-0 text-sm"
+                  className="m-0 text-xs"
                   style={{ color: "var(--text-tertiary-2)" }}
                 >
                   Source:
                 </p>
-                <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
+                <p
+                  className="m-0 text-sm"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
                   Ministry of Housing and Urban Affairs
                 </p>
               </div>
@@ -287,12 +302,15 @@ const CityProgress = () => {
             >
               {DonutChart(wasteGenerationData)}
               <p
-                className="m-0 text-sm"
+                className="m-0 text-xs"
                 style={{ color: "var(--text-tertiary-2)" }}
               >
                 Source:
               </p>
-              <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
+              <p
+                className="m-0 text-sm"
+                style={{ color: "var(--text-tertiary)" }}
+              >
                 Ayodhya Industrial Dept 2020
               </p>
             </div>
@@ -326,12 +344,15 @@ const CityProgress = () => {
                   </div>
                 </div>
                 <p
-                  className="m-0 text-sm"
+                  className="m-0 text-xs"
                   style={{ color: "var(--text-tertiary-2)" }}
                 >
                   Source:
                 </p>
-                <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
+                <p
+                  className="m-0 text-sm"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
                   Swachh Survekshan Mission
                 </p>
               </div>
@@ -344,12 +365,15 @@ const CityProgress = () => {
             >
               {DonutChart(solidWasteProcessedData)}
               <p
-                className="m-0 text-sm"
+                className="m-0 text-xs"
                 style={{ color: "var(--text-tertiary-2)" }}
               >
                 Source:
               </p>
-              <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
+              <p
+                className="m-0 text-sm"
+                style={{ color: "var(--text-tertiary)" }}
+              >
                 Swachh Bharat Mission
               </p>
             </div>
@@ -387,12 +411,15 @@ const CityProgress = () => {
                   </p>
                 </div>
                 <p
-                  className="m-0 text-sm"
+                  className="m-0 text-xs"
                   style={{ color: "var(--text-tertiary-2)" }}
                 >
                   Source:
                 </p>
-                <p className="m-0" style={{ color: "var(--text-tertiary)" }}>
+                <p
+                  className="m-0 text-sm"
+                  style={{ color: "var(--text-tertiary)" }}
+                >
                   Swachh Bharat Mission
                 </p>
               </div>

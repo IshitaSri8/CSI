@@ -35,7 +35,9 @@ const Culture = ({ show }) => {
     <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-2xl text">Cultural Preservation</h1>
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
+            Cultural Preservation
+          </h1>
           <Button
             label="Generate Report"
             icon="pi pi-file"
@@ -164,7 +166,7 @@ const Culture = ({ show }) => {
           label={
             recommendationsVisible
               ? "Close Recommendations"
-              : "Get Recommendations"
+              : "View Recommendations"
           }
           icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
           onClick={handleToggleRecommendations}

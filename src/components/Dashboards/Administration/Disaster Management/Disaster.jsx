@@ -18,7 +18,7 @@ const Disaster = ({ show }) => {
     <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-2xl text">Disaster Management</h1>
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">Disaster Management</h1>
           <Button
             label="Generate Report"
             icon="pi pi-file"
@@ -40,10 +40,9 @@ const Disaster = ({ show }) => {
         </div>
       )}
       {/* First Row */}
-      <div className="flex align-items-center justify-content-center gap-2 w-full">
+      <div className="flex gap-2 w-full">
         <Card className="w-full">
           <i className="pi pi-info-circle text-cyan-800 text-right w-full text-sm cursor-pointer events"></i>
-
           <h1 className="text-2xl text-cyan-800 text-center m-1 p-0">8</h1>
           <p className="p-0 m-2 text-center">Disastrous Events</p>
         </Card>
@@ -68,25 +67,23 @@ const Disaster = ({ show }) => {
           <h1 className="m-0 p-0 text-cyan-800 text-lg text-center">
             Life Loss
           </h1>
-          <div className="flex align-items-center justify-content-center gap-1">
-            <div className="flex align-items-center justify-content-center gap-1 flex-column">
-              <h1 className="text-lg text-cyan-800 text-center">269</h1>
-              <p className="text-sm text-center m-0 p-0">Deaths</p>
+          <div className="flex justify-content-between gap-2">
+            <div className="flex gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800">269</h1>
+              <p className="text-sm m-0 p-0">Deaths</p>
             </div>
-            <div className="flex align-items-center justify-content-center gap-1 flex-column">
-              <h1 className="text-lg text-cyan-800 text-center">
-                1,267
-              </h1>
-              <p className="text-sm text-center m-0 p-0">Injured</p>
+            <div className="flex gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800">1,267</h1>
+              <p className="text-sm m-0 p-0">Injured</p>
             </div>
             <Divider layout="vertical" />
-            <div className="flex align-items-center justify-content-center gap-1 flex-column">
-              <h1 className="text-lg text-cyan-800 text-center">678</h1>
-              <p className="text-sm text-center m-0 p-0">Animal Loss</p>
+            <div className="flex gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800">678</h1>
+              <p className="text-sm m-0 p-0">Animal Loss</p>
             </div>
-            <div className="flex align-items-center justify-content-center gap-1 flex-column">
-              <h1 className="text-lg text-cyan-800 text-center">159</h1>
-              <p className="text-sm text-center m-0 p-0">Vegetation Loss</p>
+            <div className="flex gap-1 flex-column">
+              <h1 className="text-lg text-cyan-800">159</h1>
+              <p className="text-sm m-0 p-0">Vegetation Loss</p>
             </div>
           </div>
         </Card>
@@ -96,18 +93,14 @@ const Disaster = ({ show }) => {
           </h1>
           <div className="flex align-items-center justify-content-center gap-1">
             <div className="flex align-items-center justify-content-center gap-1 flex-column">
-              <h1 className="text-lg text-cyan-800 text-center">
-                120 Cr
-              </h1>
-              <p className="text-sm text-center m-0 p-0">Capital Loss</p>
+              <h1 className="text-lg text-cyan-800">120 Cr</h1>
+              <p className="text-sm m-0 p-0">Capital Loss</p>
             </div>
 
             <Divider layout="vertical" />
             <div className="flex align-items-center justify-content-center gap-1 flex-column">
-              <h1 className="text-lg text-cyan-800 text-center">
-                1200 Cr
-              </h1>
-              <p className="text-sm text-center m-0 p-0">Infrastructure Loss</p>
+              <h1 className="text-lg text-cyan-800">1200 Cr</h1>
+              <p className="text-sm m-0 p-0">Infrastructure Loss</p>
             </div>
           </div>
         </Card>
@@ -153,7 +146,7 @@ const Disaster = ({ show }) => {
           label={
             recommendationsVisible
               ? "Close Recommendations"
-              : "Get Recommendations"
+              : "View Recommendations"
           }
           icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
           onClick={handleToggleRecommendations}
