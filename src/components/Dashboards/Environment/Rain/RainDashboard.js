@@ -3,8 +3,6 @@ import axios from "axios";
 import RainTrend from "./RainTrend";
 import { Card } from "primereact/card";
 import "../../Dash.css";
-import { Panel } from "primereact/panel";
-import { Tooltip } from "primereact/tooltip";
 import RainRecommendations from "./RainRecommendations";
 import { Button } from "primereact/button";
 import RainReportPrint from "./RainReportPrint";
@@ -25,6 +23,13 @@ const RainDashboard = ({ show }) => {
   const [maxRainfallYear, setMaxRainfallYear] = useState(null);
   const [maxRainfallMonth, setMaxRainfallMonth] = useState(null);
   const [ReportVisible, setReportVisible] = useState(false);
+
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -135,7 +140,7 @@ const RainDashboard = ({ show }) => {
   }, [selectedYear, rainData]);
 
   return (
-    <div className="flex align-items-center justify-content-center flex-column gap-2 p-4">
+    <div className="flex flex-column gap-3 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">Rainfall</h1>
@@ -144,7 +149,8 @@ const RainDashboard = ({ show }) => {
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
+              className="bg-theme text-white"
+              raised
             />
             <Dialog
               visible={ReportVisible}
@@ -159,8 +165,7 @@ const RainDashboard = ({ show }) => {
           </div>
         </div>
       )}
-      <Card className="w-full">
-        <div className="flex align-items-center justify-content-center gap-6 flex-row">
+        <div className="flex align-items-center justify-content-center gap-3 w-full">
           {/* Total Actual Rainfall */}
           <Card className="h-10rem w-full">
             <div className="flex align-items-center justify-content-center flex-column">
@@ -203,7 +208,6 @@ const RainDashboard = ({ show }) => {
             </div>
           </Card>
         </div>
-      </Card>
       <Card className="w-full">
         <RainTrend
           rainYears={rainYears}
@@ -215,7 +219,19 @@ const RainDashboard = ({ show }) => {
           monthRainExpected={monthRainExpected}
         />
       </Card>
-      <RainRecommendations />
+      <div className="flex justify-content-end">
+      <Button
+        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+        onClick={handleToggleRecommendations}
+        className="bg-theme text-white"
+        raised
+      />
+      </div>
+
+      {recommendationsVisible && (
+        <RainRecommendations />
+      )}
     </div>
   );
 };

@@ -153,15 +153,11 @@ const RainTrend = ({
 
   return (
     <div>
-      <div className="">
-        {isDrilldown && (
-          <Button label="Back" onClick={handleBackClick}></Button>
-        )}
-        <CanvasJSChart
-          options={isDrilldown ? drilldownChartOptions : baseChartOptions}
-          containerProps={{ height: 200, width: "100%" }}
-        />
-      </div>
+      {isDrilldown && <Button label="Back" onClick={handleBackClick}></Button>}
+      <CanvasJSChart
+        options={isDrilldown ? drilldownChartOptions : baseChartOptions}
+        containerProps={{ height: 200, width: "100%" }}
+      />
     </div>
   );
 };

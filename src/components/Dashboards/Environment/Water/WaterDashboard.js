@@ -1,5 +1,4 @@
 import React from "react";
-import { Panel } from "primereact/panel";
 import { Card } from "primereact/card";
 import { Knob } from "primereact/knob"; // Import Knob from PrimeReact
 import { Doughnut } from "Layout/GraphVisuals";
@@ -7,12 +6,18 @@ import WaterReportPrint from "./WaterReportPrint";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { useState } from "react";
+import WaterRecommendations from "./WaterRecommendations";
 
-const WaterDashboard = ({show}) => {
+const WaterDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
   return (
     <div className="w-full p-4 flex gap-3 flex-column">
-         {show && (
+      {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">Water Quality</h1>
           <div className="flex align-items-center justify-content-end gap-2">
@@ -20,7 +25,8 @@ const WaterDashboard = ({show}) => {
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
+              className="bg-theme text-white"
+              raised
             />
             <Dialog
               visible={ReportVisible}
@@ -150,6 +156,20 @@ const WaterDashboard = ({show}) => {
           </div>
         </Card>
       </div>
+      <div className="flex justify-content-end">
+      <Button
+        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+        onClick={handleToggleRecommendations}
+        className="bg-theme text-white"
+        raised
+      />
+      </div>
+
+      {recommendationsVisible && (
+        <WaterRecommendations />
+      )}
+    
     </div>
   );
 };

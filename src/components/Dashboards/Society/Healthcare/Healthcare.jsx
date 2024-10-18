@@ -77,7 +77,7 @@ const Healthcare = ({ show }) => {
         </div>
       )}
       <div className="flex align-items-center justify-content-center w-full gap-3">
-        <div className="flex flex-column w-full gap-3">
+        <div className="flex flex-column w-full gap-2">
           <Card className="w-full ">
             <div className="flex flex-column align-items-center justify-content-center ">
               <h1 className="text-theme text-xl font-bold text-center p-0 m-0">
@@ -114,7 +114,7 @@ const Healthcare = ({ show }) => {
             title="Healthcare Institutions"
             labels={hospitalLabels}
             series={hospitalData}
-            height={150}
+            height={200}
           />
         </Card>
         <Card className="w-full ">
@@ -122,7 +122,7 @@ const Healthcare = ({ show }) => {
             title="Non-Government Institutions"
             labels={["Nursing Homes", "Private Hospitals"]}
             series={[60, 69]}
-            height={150}
+            height={200}
           />
         </Card>
       </div>

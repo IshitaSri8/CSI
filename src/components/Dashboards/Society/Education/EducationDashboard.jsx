@@ -40,11 +40,13 @@ const EducationDashboard = ({ show }) => {
               className="mb-4 bg-white border-1 border-cyan-800"
             />
             <Button
-              label="Generate Report"
-              icon="pi pi-file"
-              onClick={() => setReportVisible(true)}
-              className="mb-4 bg-white text-theme border-1 border-cyan-800"
-            />
+            label="Generate Report"
+            icon="pi pi-file"
+            onClick={() => setReportVisible(true)}
+            className="mb-4 bg-theme text-white"
+            raised
+          />
+          
             <Dialog
               visible={ReportVisible}
               style={{ width: "100rem" }}

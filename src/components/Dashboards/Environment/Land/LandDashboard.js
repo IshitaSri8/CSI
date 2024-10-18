@@ -12,11 +12,17 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { useState } from "react";
 import { Divider } from "primereact/divider";
+import LandRecommendations from "./LandRecommendations";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const LandDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
   const donutChartLabels = [
     "Agriculture",
     "Open Land",
@@ -197,7 +203,7 @@ const LandDashboard = ({ show }) => {
   };
 
   return (
-    <div className="flex align-items-center justify-content-center gap-3 flex-column p-4">
+    <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">Land use</h1>
@@ -206,7 +212,8 @@ const LandDashboard = ({ show }) => {
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
+              className="bg-theme text-white"
+              raised
             />
             <Dialog
               visible={ReportVisible}
@@ -221,79 +228,79 @@ const LandDashboard = ({ show }) => {
           </div>
         </div>
       )}
-        <div className="flex gap-3 w-full">
-          <Card className="w-full">
-            <div className="flex align-items-center gap-3">
-              {/* First column: Image */}
-              <div className="flex-shrink-0">
-                <img
-                  src={LandIcon}
-                  alt="Total Area"
-                  style={{ width: "50px", height: "50px" }}
-                />
-              </div>
-
-              {/* Second column: Total Area label and value */}
-              <div className="flex flex-column align-items-center">
-                <h3 className="m-0 text-xs">Total Area (hA)</h3>
-                <span className="text-xs font-bold">23963.80</span>{" "}
-              </div>
+      <div className="flex gap-3 w-full">
+        <Card className="w-full">
+          <div className="flex align-items-center gap-3">
+            {/* First column: Image */}
+            <div className="flex-shrink-0">
+              <img
+                src={LandIcon}
+                alt="Total Area"
+                style={{ width: "50px", height: "50px" }}
+              />
             </div>
-          </Card>
 
-          <Card className="w-full">
-            <div className="flex align-items-center gap-3">
-              {/* First column: Image */}
-              <div className="flex-shrink-0">
-                <img
-                  src={AreaIcon}
-                  alt="Developed Area(%)"
-                  style={{ width: "40px", height: "40px" }}
-                />
-              </div>
-
-              {/* Second column: Total Area label and value */}
-              <div className="flex flex-column align-items-center">
-                <h3 className="m-0 text-xs">Developed Area (%)</h3>
-                <span className="text-xs font-bold">91.03</span>{" "}
-              </div>
+            {/* Second column: Total Area label and value */}
+            <div className="flex flex-column align-items-center">
+              <h3 className="m-0 text-xs">Total Area (hA)</h3>
+              <span className="text-xs font-bold">23963.80</span>{" "}
             </div>
-          </Card>
+          </div>
+        </Card>
 
-          <Card className="w-full">
-            <div className="flex align-items-center gap-3">
-              <div className="flex-shrink-0">
-                <img
-                  src={Below}
-                  alt="Below"
-                  style={{ width: "40px", height: "40px" }}
-                />
-              </div>
-
-              <div className="flex flex-column align-items-center">
-                <h3 className="m-0 text-xs">Below Proposed Limit (hA)</h3>
-                <span className="text-xs font-bold">19364.11 </span>{" "}
-              </div>
+        <Card className="w-full">
+          <div className="flex align-items-center gap-3">
+            {/* First column: Image */}
+            <div className="flex-shrink-0">
+              <img
+                src={AreaIcon}
+                alt="Developed Area(%)"
+                style={{ width: "40px", height: "40px" }}
+              />
             </div>
-          </Card>
 
-          <Card className="w-full">
-            <div className="flex align-items-center gap-3">
-              <div className="flex-shrink-0">
-                <img
-                  src={Above}
-                  alt="Above"
-                  style={{ width: "50px", height: "50px" }}
-                />
-              </div>
-
-              <div className="flex flex-column align-items-center">
-                <h3 className="m-0 text-xs">Above Proposed Limit (hA)</h3>
-                <span className="text-xs font-bold">5599.69</span>{" "}
-              </div>
+            {/* Second column: Total Area label and value */}
+            <div className="flex flex-column align-items-center">
+              <h3 className="m-0 text-xs">Developed Area (%)</h3>
+              <span className="text-xs font-bold">91.03</span>{" "}
             </div>
-          </Card>
-        </div>
+          </div>
+        </Card>
+
+        <Card className="w-full">
+          <div className="flex align-items-center gap-3">
+            <div className="flex-shrink-0">
+              <img
+                src={Below}
+                alt="Below"
+                style={{ width: "40px", height: "40px" }}
+              />
+            </div>
+
+            <div className="flex flex-column align-items-center">
+              <h3 className="m-0 text-xs">Below Proposed Limit (hA)</h3>
+              <span className="text-xs font-bold">19364.11 </span>{" "}
+            </div>
+          </div>
+        </Card>
+
+        <Card className="w-full">
+          <div className="flex align-items-center gap-3">
+            <div className="flex-shrink-0">
+              <img
+                src={Above}
+                alt="Above"
+                style={{ width: "50px", height: "50px" }}
+              />
+            </div>
+
+            <div className="flex flex-column align-items-center">
+              <h3 className="m-0 text-xs">Above Proposed Limit (hA)</h3>
+              <span className="text-xs font-bold">5599.69</span>{" "}
+            </div>
+          </div>
+        </Card>
+      </div>
 
       <div className="flex gap-3 w-full">
         <Card className="w-full">
@@ -335,6 +342,19 @@ const LandDashboard = ({ show }) => {
           />
         </div>
       </Panel>
+      <div className="flex justify-content-end">
+      <Button
+        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+        onClick={handleToggleRecommendations}
+        className="bg-theme text-white"
+        raised
+      />
+      </div>
+
+      {recommendationsVisible && (
+        <LandRecommendations />
+      )}
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React from "react";
-import { Panel } from "primereact/panel";
-import { BarChart, GroupedColumnChart } from "../../../../Layout/GraphVisuals";
+import { BarChart, GroupedColumnChart } from "Layout/GraphVisuals";
 import "./Waste.css";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
@@ -19,9 +18,15 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import WasteReportPrint from "./WasteReportPrint";
 import { useState } from "react";
+import WasteRecommendations from "./WasteRecommendations";
 
 const WasteDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
 
   const solidWasteData = [
     { label: "SW-Collection(TPD)", y: 181 },
@@ -200,7 +205,7 @@ const WasteDashboard = ({ show }) => {
   };
 
   return (
-    <div className="flex align-items-center justify-content-center flex-column gap-3 p-4">
+    <div className="flex flex-column gap-3 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-2xl text">Waste Management</h1>
@@ -209,7 +214,8 @@ const WasteDashboard = ({ show }) => {
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
+              className="bg-theme text-white"
+              raised
             />
             <Dialog
               visible={ReportVisible}
@@ -335,6 +341,20 @@ const WasteDashboard = ({ show }) => {
           />
         </Card>
       </div>
+      <div className="flex justify-content-end">
+      <Button
+        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+        onClick={handleToggleRecommendations}
+        className="bg-theme text-white"
+        raised
+      />
+      </div>
+
+      {recommendationsVisible && (
+        <WasteRecommendations />
+      )}
+    
     </div>
   );
 };

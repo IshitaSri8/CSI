@@ -18,7 +18,9 @@ const Disaster = ({ show }) => {
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
-            className="bg-white text-cyan-800 border-1 border-cyan-800"
+            //className="bg-white text-cyan-800 border-1 border-cyan-800"
+            className="mb-4 bg-theme text-white"
+            raised
           />
           <Dialog
             visible={ReportVisible}

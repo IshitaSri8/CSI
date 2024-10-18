@@ -62,7 +62,12 @@ const AqiDashboard = ({
   const [enviroco2, setEnviroco2] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterVisible, setFilterVisible] = useState(false);
-  const [RecommendationVisible, setRecommendationsVisible] = useState(false);
+
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
   const [ReportVisible, setReportVisible] = useState(false);
   const handleLocationChange = (e) => {
     if (show) {
@@ -346,19 +351,16 @@ const AqiDashboard = ({
               label="Filters"
               icon="pi pi-filter"
               onClick={() => setFilterVisible(true)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
+              className="bg-white text-cyan-800 border-1 border-cyan-800 "
             />
-            {/* <Button
-              label="Recommendations"
-              icon="pi pi-align-center"
-              onClick={() => setRecommendationsVisible(true)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
-            /> */}
+
             <Button
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
+              // className="bg-white text-cyan-800 border-1 border-cyan-800"
+              className=" bg-theme text-white"
+              raised
             />
           </div>
         </div>
@@ -431,7 +433,6 @@ const AqiDashboard = ({
           />
         </div>
       </Dialog>
-      {/* )} */}
 
       <Dialog
         visible={ReportVisible}
@@ -654,8 +655,19 @@ const AqiDashboard = ({
           />
         </Card>
       </div>
+      <div className="flex justify-content-end">
+      <Button
+        label={recommendationsVisible ? "Close Recommendations" : "Get Recommendations"}
+        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+        onClick={handleToggleRecommendations}
+        className="bg-theme text-white"
+        raised
+      />
+      </div>
 
-      <AQIRecommendations aqi={aqiValue} pm25={pm25Value} pm10={pm10Value} />
+      {recommendationsVisible && (
+        <AQIRecommendations aqi={aqiValue} pm25={pm25Value} pm10={pm10Value} />
+      )}
 
       {/* {show && (
             <>

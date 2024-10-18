@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "primereact/card";
 import "primeflex/primeflex.css";
 import waves from "assets/KYC/wave.svg";
 import geo_area from "assets/KYC/geographical.png";
@@ -9,7 +8,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { Doughnut } from "Layout/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
 import "./KYC.css";
-import { Building2, FerrisWheel, PartyPopper, Trash } from "lucide-react";
+import { Building2, PartyPopper, Trash } from "lucide-react";
 
 const CityDemographics = () => {
   return (

@@ -60,8 +60,13 @@ const TempDashboard = ({
   const [selectedAction, setSelectedAction] = useState("");
 
   const [filterVisible, setFilterVisible] = useState(false);
-  const [RecommendationVisible, setRecommendationsVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
+
+  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
+
+  const handleToggleRecommendations = () => {
+    setRecommendationsVisible(!recommendationsVisible);
+  };
 
   const handleLocationChange = (e) => {
     if (show) {
@@ -212,6 +217,7 @@ const TempDashboard = ({
       setSelectedLocation(pSelectedLocation);
     }
   }, [show, pSelectedLocation]);
+  
   // {showPopup && (
   //   <FileUploadPopup
   //     onClose={() => setShowPopup(false)}
@@ -303,7 +309,8 @@ const TempDashboard = ({
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
+              className=" bg-theme text-white"
+              raised
             />
           </div>
         </div>
@@ -375,7 +382,7 @@ const TempDashboard = ({
           />
         </div>
       </Dialog>
-      <Dialog
+      {/* <Dialog
         header="Recommendations"
         visible={RecommendationVisible}
         style={{ width: "70rem" }}
@@ -385,7 +392,7 @@ const TempDashboard = ({
         }}
       >
         <TempRecommendations temperature={tempValue} humidity={humidityValue} />
-      </Dialog>
+      </Dialog> */}
       <Dialog
         visible={ReportVisible}
         style={{ width: "100rem" }}
@@ -511,14 +518,7 @@ const TempDashboard = ({
             </DataTable>
           )}
         </div>
-        <div
-          pt={{
-            body: {
-              className: "p-0",
-            },
-          }}
-          className="w-full border-round-2xl"
-        >
+        <div className="w-full border-round-2xl">
           {/* <tempReport
               selectedLocation={selectedLocation}
               startDate={startDate}
@@ -532,8 +532,7 @@ const TempDashboard = ({
         </div>
       </div>
 
-      <div className="flex align-items-center justify-content-between">
-        <Card className="w-full">
+      <div className="flex align-items-center justify-content-between w-full">
           <Temperature
             enviroDate={envirodate}
             envirotime={envirotime}
@@ -542,9 +541,22 @@ const TempDashboard = ({
             enviroco2={enviroco2}
             startDate={startDate}
           />
-        </Card>
       </div>
-      <TempRecommendations />
+      <div className="flex justify-content-end">
+        <Button
+          label={
+            recommendationsVisible
+              ? "Close Recommendations"
+              : "Get Recommendations"
+          }
+          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+          onClick={handleToggleRecommendations}
+          className="bg-theme text-white"
+          raised
+        />
+      </div>
+
+      {recommendationsVisible && <TempRecommendations temperature={tempValue} humidity={humidityValue}/>}
       {/* <div className="w-100 flex align-items-center justify-content-center gap-1">
               <Card className="h-15rem w-17rem">
                 <PollutantChart
