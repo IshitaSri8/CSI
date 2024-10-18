@@ -26,7 +26,7 @@ const EducationDashboard = () => {
   return (
     <div className="w-full p-5 flex flex-column gap-2">
       <div className="flex justify-content-between">
-        <h1 className="text-2xl font-bold">Education</h1>
+        <h1 className="text-2xl font-bold m-0 p-0">Education</h1>
         {/* Dropdown for selecting education level */}
         <div className="flex gap-2">
           <Dropdown
@@ -44,7 +44,7 @@ const EducationDashboard = () => {
           />
         </div>
       </div>
-      <h1 className="text-3xl text-theme font-semibold text-center m-0 p-0 mb-2">
+      <h1 className="text-3xl text-theme font-semibold text-center mt-0 p-0 mb-2">
         {selectedLevel} Level Education
       </h1>
 
@@ -128,7 +128,7 @@ const EducationDashboard = () => {
       </div>
 
       {/* Second row with corresponding charts */}
-      <div className="flex gap-2 mb-3">
+      <div className="flex gap-2 mb-2">
         <Card className="w-full">
           <Doughnut
             title={`Gender Parity Index - ${educationData.parityIndex}`}
@@ -148,7 +148,7 @@ const EducationDashboard = () => {
 
         <Card className="w-full">
           <LineChart
-            title="No. of Students per teacher"
+            title="No. of Students per Teacher"
             categories={educationData.years}
             data={educationData.teacherStudentRatioTrend}
             fontColor={"black"}
@@ -158,7 +158,7 @@ const EducationDashboard = () => {
       <div className="flex w-full gap-2">
         <Card className="w-full">
           <p className="text-xl font-medium text-center mb-4">
-            Adjusted Net Enrollment Ratio
+            Adjusted Net Enrollment Rate
           </p>
 
           <div className="flex align-items-center justify-content-around">
@@ -226,7 +226,7 @@ const EducationDashboard = () => {
       <div className="flex w-full gap-2">
         <Card className="w-full">
           <StackedColumnChart
-            title="Enrollment Ratio Trend"
+            title="Enrollment Rate Trend"
             labels={educationData.years}
             dataSeries={educationData.enrollmentTrendData}
             years={years}
@@ -234,7 +234,7 @@ const EducationDashboard = () => {
         </Card>
         <Card className="w-full">
           <StackedColumnChart
-            title="Dropout Ratio Trend"
+            title="Dropout Rate Trend"
             labels={educationData.years}
             dataSeries={educationData.dropoutTrendData}
             years={years}
