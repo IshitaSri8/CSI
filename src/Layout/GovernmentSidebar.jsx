@@ -4,11 +4,6 @@ import { Ripple } from "primereact/ripple";
 import { Button } from "primereact/button";
 import "../components/landingPage/Landing.css";
 
-import RainMain from "components/Dashboards/Environment/Rain/RainMain";
-import LandMain from "components/Dashboards/Environment/Land/LandMain";
-import WaterMain from "components/Dashboards/Environment/Water/WaterMain";
-import WasteMain from "components/Dashboards/Environment/Waste/WasteMain";
-// import HeaderLogout from "components/HeaderLogout";
 import KnowYourCity from "../pages/KnowYourCity";
 import TransportDashboard from "components/Dashboards/Society/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Society/Healthcare/Healthcare";
@@ -47,7 +42,7 @@ import Disaster from "components/Dashboards/Administration/Disaster Management/D
 import Employment from "components/Dashboards/Society/Employment/Employment";
 import WasteDashboard from "components/Dashboards/Environment/Waste/WasteDashboard";
 import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboard";
-import LandDashboard from "components/Dashboards/Environment/Land/LandDashboard";
+import Land from "components/Dashboards/Environment/Land/Land";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -629,7 +624,7 @@ const GovernmentSidebar = () => {
         {activeTab === "aqi" && <AqiDashboard show={true} />}
         {activeTab === "temperature" && <TempDashboard show={true} />}
         {activeTab === "rain" && <RainDashboard show={true} />}
-        {activeTab === "land" && <LandDashboard show={true} />}
+        {activeTab === "land" && <Land show={true} />}
         {activeTab === "water" && <WaterDashboard show={true} />}
         {activeTab === "waste" && <WasteDashboard show={true} />}
 

@@ -78,6 +78,14 @@ body {
   color: var(--text-primary);
 }
 
+.text-secondary2 {
+  color: var(--text-secondary-2);
+}
+
+.text-tertiary3 {
+  color: var(--text-tertiary-3);
+}
+
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
   background-color: var(--theme-primary-color);
 }

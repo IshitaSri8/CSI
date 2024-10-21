@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../Layout/Header";
+import Header from "../src/Layout/Header";
 
 const AboutUs = () => {
   const navigate = useNavigate(); // Initialize useNavigate

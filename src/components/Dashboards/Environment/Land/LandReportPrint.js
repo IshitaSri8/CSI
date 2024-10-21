@@ -4,7 +4,7 @@ import { Dialog } from "primereact/dialog";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import LandDashboard from "./LandDashboard";
+import Land from "./Land";
 import LandRecommendations from "./LandRecommendations";
  
 export default function LandReportPrint({ visible, toggleModalVisibility }) {
@@ -67,7 +67,7 @@ export default function LandReportPrint({ visible, toggleModalVisibility }) {
             <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
           </div>
           <div className="w-full">
-            <LandDashboard />
+            <Land />
           </div>
           <div className="w-full">
             <LandRecommendations />

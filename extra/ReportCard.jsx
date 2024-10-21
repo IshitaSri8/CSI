@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ParetoChart } from "../Layout/GraphVisuals";
+import { ParetoChart } from "../src/Layout/GraphVisuals";
 import sum_img from "../assets/City report card/plus.png";
 import equal_img from "../assets/City report card/equal.png";
 import esg from "../assets/City report card/ESG_ESG.png";

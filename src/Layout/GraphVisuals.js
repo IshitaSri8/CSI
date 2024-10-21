@@ -317,6 +317,75 @@ export const BarChart = ({
   );
 };
 
+export const ModifiedBarChart = ({
+  title,
+  categories,
+  series,
+  height,
+  xtitle,
+  ytitle,
+}) => {
+  return (
+    <CanvasJSChart
+      options={{
+        animationEnabled: true,
+        title: {
+          text: title,
+          fontSize: 14,
+          fontFamily: "Montserrat",
+          fontWeight: "500",
+          fontColor: "black",
+          horizontalAlign: "left", // Left-align the title
+        },
+        backgroundColor: "transparent",
+        dataPointWidth: 20,
+        axisX: {
+          gridThickness: 0,
+          tickLength: 0,
+          lineThickness: 0,
+          labelFormatter: function () {
+            return " ";
+          },
+        },
+        axisY: {
+          title: ytitle,
+          gridThickness: 0.25,
+          labelFontSize: 8, // Hide labels by setting font size to 0
+          lineThickness: 0.5, // Hide the X-axis line
+          tickLength: 0, // Remove ticks on the X-axis
+        },
+        data: series.map((data, index) => ({
+          showInLegend: false,
+          type: "bar",
+          name: categories[index],
+          dataPoints: data.map((value, i) => ({
+            y: value,
+            label: categories[i],
+            legendText: `${categories}: {y}`,
+            indexLabel: `${categories[i]}: {y}`, // Include categories in indexLabel
+            indexLabelFontSize: 10, // Font size for the value
+            indexLabelPlacement: "outside", // Position the value outside the bar
+            indexLabelFontFamily: "Montserrat",
+            //indexLabelFontWeight: "bold",
+            color: colors[i % colors.length], // Assign color to each bar
+            cornerRadius: 30,
+          })),
+          color: colors[index % colors.length],
+        })),
+        legend: {
+          horizontalAlign: "center",
+          // verticalAlign: "center",
+          fontFamily: "Montserrat",
+          fontWeight: "normal",
+          fontSize: 10,
+          fontColor: "black",
+        },
+      }}
+      containerProps={{ height: height, width: "100%" }}
+    />
+  );
+};
+
 export const ColumnChart = ({
   title,
   titleOptions = {},
@@ -567,42 +636,51 @@ export const LineChart = ({
   );
 };
 
-export const PieChart = ({ title, labels, series, height }) => {
+export const PieChart = ({ title, categories, series, height }) => {
+  const total = series.reduce((acc, value) => acc + value, 0);
   return (
-    <div className="z-index-low">
       <CanvasJSChart
         options={{
           animationEnabled: true,
           title: {
             text: title,
-            fontSize: 10,
+            fontSize: 14,
+            fontFamily: "Montserrat",
+            fontWeight: "500",
+            fontColor: "black",
+            horizontalAlign: "left",
           },
+          backgroundColor: "transparent",
           legend: {
-            horizontalAlign: "right",
+            horizontalAlign: "left",
             verticalAlign: "center",
-            fontSize: 8,
+            fontSize: 12,
+            fontFamily: "Montserrat",
+            fontWeight: "500",
+            fontColor: "black",
           },
           data: [
             {
               type: "pie",
               startAngle: 75,
-              toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-              showInLegend: false,
-              legendText: "{label}",
-              indexLabelFontSize: 8,
+              toolTipContent: "<b>{label}</b>: (#percent%)",
+              showInLegend: true,
+              legendText: "{label}: {y}",
+              indexLabel: "{label}: {y}",  // Show label and value
+              indexLabelFontSize: 0,
               indexLabelFontWeight: "bold",
               indexLabelPlacement: "inside",
-              dataPoints: labels.map((label, index) => ({
-                y: series[index],
-                label: label,
+              dataPoints: series.map((value, index) => ({
+                y: value,
+                label: categories[index],
                 color: colors[index % colors.length],
+                percent: ((value / total) * 100).toFixed(2),
               })),
             },
           ],
         }}
         containerProps={{ height: height, width: "100%" }}
       />
-    </div>
   );
 };
 
