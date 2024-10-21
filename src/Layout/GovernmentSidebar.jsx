@@ -281,6 +281,10 @@ const GovernmentSidebar = () => {
             }}
           ></div>
         }
+        style={{
+          backgroundColor: "#003940",
+          overflowY: "auto", // Hide vertical scrollbar
+        }}
       >
         <div
           style={{
@@ -290,8 +294,23 @@ const GovernmentSidebar = () => {
             position: "relative", // For positioning the toggle button
           }}
         >
-          <img src={Arahas} alt="Arahas" className="w-8rem mb-2" />
-          <ul className="list-none p-0 m-0" style={{ textDecoration: "none" }}>
+          <img
+            src={Arahas}
+            alt="Arahas"
+            className="w-9rem"
+            style={{ position: "fixed", top: "1rem" }}
+          />
+          <ul
+            className="list-none"
+            style={{
+              paddingTop: "2rem", // Add some padding to avoid overlapping the icon
+              textDecoration: "none",
+              overflowY: "auto", // Enable scrolling for the list items
+              height: "calc(100vh - 8rem)", // Adjust the height to leave space for the toggle button
+              scrollbarWidth: "none", // For Firefox
+             // msOverflowStyle: "none", // For Internet Explorer and Edge
+            }}
+          >
             {/* Know Your City Section */}
             <li>
               <div
@@ -580,7 +599,7 @@ const GovernmentSidebar = () => {
               cursor: "pointer",
               fontSize: "1rem",
               position: "fixed",
-              bottom: "20px",
+              bottom: "1.5rem",
               left: "17rem",
             }}
           />
@@ -610,17 +629,17 @@ const GovernmentSidebar = () => {
         {activeTab === "aqi" && <AqiDashboard show={true} />}
         {activeTab === "temperature" && <TempDashboard show={true} />}
         {activeTab === "rain" && <RainDashboard show={true} />}
-        {activeTab === "land" && <LandDashboard show={true}/>}
-        {activeTab === "water" && <WaterDashboard show={true}/>}
-        {activeTab === "waste" && <WasteDashboard show={true}/>}
+        {activeTab === "land" && <LandDashboard show={true} />}
+        {activeTab === "water" && <WaterDashboard show={true} />}
+        {activeTab === "waste" && <WasteDashboard show={true} />}
 
-        {activeTab === "transport" && <TransportDashboard show={true}/>}
-        {activeTab === "healthcare" && <Healthcare show={true}/>}
-        {activeTab === "education" && <EducationDashboard show={true}/>}
+        {activeTab === "transport" && <TransportDashboard show={true} />}
+        {activeTab === "healthcare" && <Healthcare show={true} />}
+        {activeTab === "education" && <EducationDashboard show={true} />}
         {activeTab === "cultural" && <Culture show={true} />}
         {activeTab === "community" && <Community show={true} />}
         {activeTab === "disaster" && <Disaster show={true} />}
-        {activeTab === "employment" && <Employment show={true}/>}
+        {activeTab === "employment" && <Employment show={true} />}
       </div>
     </div>
   );

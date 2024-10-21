@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-//import ApexCharts from "react-apexcharts";
 import CanvasJSReact from "@canvasjs/react-charts";
-//import { color } from "framer-motion";
-//import "./Admin.css";
-//const CanvasJS = CanvasJSReact.CanvasJS;
+
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
