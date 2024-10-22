@@ -201,7 +201,7 @@ const RainDashboard = ({ show }) => {
         </div>
 
         {/* Deviation from Expected */}
-        <div className="flex flex-column bg-white border-round p-2 px-4 w-full mr-3">
+        <div className="flex flex-column align-items-center bg-white border-round p-2 px-4 w-full mr-3">
           <p className="text-primary1 font-medium text-lg">
             Deviation from Expected
           </p>
@@ -210,6 +210,7 @@ const RainDashboard = ({ show }) => {
               value={-deviationPercentage}
               text={`${deviationPercentage}%`}
               counterClockwise="true"
+              strokeWidth={6}
               styles={buildStyles({
                 pathColor: "#E62225",
                 textColor: "#001F23",

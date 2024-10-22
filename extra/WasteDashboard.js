@@ -33,11 +33,17 @@ const WasteDashboard = ({ show }) => {
     { label: "SW-Generated(TPD)", y: 181 },
     { label: "SW-Processed(TPD)", y: 181 },
   ];
-  const estimatedSWG = [
-    { label: "Residential", y: 358261 },
-    { label: "Commercial", y: 119420 },
-    { label: "Street Sweepings", y: 59700 },
-    { label: "Institutional", y: 59700 },
+  const openDefecationData = [
+    { label: "ODF Certified", y: 4575 },
+    { label: "ODF+ Certified", y: 3912 },
+    { label: "ODF++ Certified", y: 1428 },
+    { label: "Water+ Certified", y: 64 },
+  ];
+  const GarbageData = [
+    { label: "GFC Star 1", y: 426 },
+    { label: "GFC Star 3", y: 229 },
+    { label: "GFC Star 5", y: 15 },
+    { label: "GFC Star 7", y: 3 },
   ];
 
   const pieChartData = [55, 34, 179, 83];
@@ -50,12 +56,14 @@ const WasteDashboard = ({ show }) => {
 
   const total = pieChartData.reduce((acc, value) => acc + value, 0);
 
-  const barChartData = [estimatedSWG.map((item) => item.y)];
-  const barChartCategories = estimatedSWG.map((item) => item.label);
+  const barChartData = [openDefecationData.map((item) => item.y)];
+  const barChartCategories = openDefecationData.map((item) => item.label);
 
   const barChart1Data = [solidWasteData.map((item) => item.y)];
   const barChart1Categories = solidWasteData.map((item) => item.label);
 
+  const barChart2Data = [GarbageData.map((item) => item.y)];
+  const barChart2Categories = GarbageData.map((item) => item.label);
 
   const cardData = [
     { title: "Community Toilet", value: 550, icon: CommunityToiletIcon },
@@ -63,6 +71,8 @@ const WasteDashboard = ({ show }) => {
     { title: "Waste Generated", value: "355 MTD", icon: WasteGeneratedIcon },
     { title: "Waste Collected", value: "322 MTD", icon: WasteCollectedIcon },
     { title: "Avg Waste Generated", value: 2.25, icon: AvgWasteIcon },
+    { title: "Population Density", value: 6361, icon: PopulationDensityIcon },
+    { title: "Population", value: 722580, icon: PopulationIcon },
   ];
   const colors = [
     "#FFDD82",
@@ -303,14 +313,22 @@ const WasteDashboard = ({ show }) => {
             categories={barChartCategories}
             series={barChartData}
             height={250}
-            title="Estimated Solid Waste Generated"
+            title="Open Defecation Free"
             colors={colors.slice(0, 4)}
           />
         </Card>
       </div>
 
       <div className="flex gap-3 w-full">
-       
+        <Card className="w-full">
+          <BarChart
+            categories={barChart2Categories}
+            series={barChart2Data}
+            height={245}
+            title="Garbage Free City"
+            colors={colors.slice(0, 4)}
+          />
+        </Card>
         <Card className="w-full">
           <CanvasJSChart
             options={CustomBar}

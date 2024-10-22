@@ -52,6 +52,8 @@ const Land = ({ show }) => {
     137.19, 75.9, 580.98, 163.31, 470.3, 143.09, 124.46, 1466,
   ];
 
+  const devArea = 91.03;
+
   return (
     <div className="flex gap-3 flex-column p-4">
       {show && (
@@ -119,8 +121,8 @@ const Land = ({ show }) => {
               </div>
               <div className="flex w-15rem custom-circular-progress">
                 <CircularProgressbar
-                  value={91.03}
-                  text="91.03%"
+                  value={devArea}
+                  text={`${devArea}%`}
                   strokeWidth={4}
                   styles={buildStyles({
                     pathColor: "#1f8297",
