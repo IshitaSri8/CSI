@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
 import { Button } from "primereact/button";
+import { color } from "framer-motion";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const RainTrend = ({
@@ -33,33 +34,37 @@ const RainTrend = ({
       animationEnabled: true,
       theme: "light2",
       height: 200,
+      backgroundColor: "transparent",
       legend: {
         fontSize: 10,
+        horizontalAlign: "left",
       },
       title: {
         text: "Rainfall Trend Over Years",
-        fontSize: 15,
-        fontFamily: "DM Sans",
-        fontWeight: "800",
+        fontSize: 14,
+        fontFamily: "Montserrat",
+        fontWeight: "500",
+        fontColor: "black",
+        horizontalAlign: "left",
+        padding: { bottom: 14 },
       },
       axisX: {
-        interval: 1,
-        labelFontColor: "#717171",
-        lineColor: "#a2a2a2",
-        tickColor: "#a2a2a2",
+        labelFontSize: 10,
+        labelFontFamily: "Montserrat",
       },
       axisY: {
-        includeZero: false,
-        gridThickness: 0,
-        labelFontColor: "#717171",
-        lineColor: "#a2a2a2",
-        tickColor: "#a2a2a2",
-        lineThickness: 1,
+        gridThickness: 0.3,
+        tickLength: 0,
+        lineThickness: 0,
+        labelFormatter: function () {
+          return " ";
+        },
       },
       data: [
         {
           type: "line",
           name: "Actual Rainfall",
+          color: "#FFDD82",
           showInLegend: true,
           dataPoints: actualDataPoints,
           click: handleYearClick, // Handle clicks for drilldown
@@ -67,6 +72,7 @@ const RainTrend = ({
         {
           type: "line",
           name: "Expected Rainfall",
+          color: "#1F8297",
           showInLegend: true,
           dataPoints: expectedDataPoints,
           click: handleYearClick,
@@ -92,40 +98,44 @@ const RainTrend = ({
         animationEnabled: true,
         theme: "light2",
         height: 200,
+        backgroundColor: "transparent",
         legend: {
           fontSize: 10,
+          horizontalAlign: "left",
         },
         title: {
           text: `Rainfall Trend Over Months for ${selectedYear}`,
-          fontSize: 15,
-          fontFamily: "DM Sans",
-          fontWeight: "800",
+          fontSize: 14,
+          fontFamily: "Montserrat",
+          fontWeight: "500",
+          fontColor: "black",
+          horizontalAlign: "left",
+          padding: { bottom: 14 },
         },
         axisX: {
-          title: "Month",
-          interval: 1,
-          labelFontColor: "#717171",
-          lineColor: "#a2a2a2",
-          tickColor: "#a2a2a2",
+          labelFontSize: 10,
+          labelFontFamily: "Montserrat",
         },
         axisY: {
-          includeZero: false,
-          gridThickness: 0,
-          labelFontColor: "#717171",
-          lineColor: "#a2a2a2",
-          tickColor: "#a2a2a2",
-          lineThickness: 1,
+          gridThickness: 0.3,
+          tickLength: 0,
+          lineThickness: 0,
+          labelFormatter: function () {
+            return " ";
+          },
         },
         data: [
           {
             type: "line",
             name: "Actual Rainfall",
+            color: "#FFDD82",
             showInLegend: true,
             dataPoints: actualDataPoints,
           },
           {
             type: "line",
             name: "Expected Rainfall",
+            color: "#1F8297",
             showInLegend: true,
             dataPoints: expectedDataPoints,
           },
@@ -152,12 +162,12 @@ const RainTrend = ({
   const backButtonClassName = isDrilldown ? "" : "invisible";
 
   return (
-    <div>
-      {isDrilldown && <Button label="Back" onClick={handleBackClick}></Button>}
+    <div className="w-full">
       <CanvasJSChart
         options={isDrilldown ? drilldownChartOptions : baseChartOptions}
-        containerProps={{ height: 200, width: "100%" }}
-      />
+        containerProps={{ height:200, width: "100%" }}
+        />
+        {isDrilldown && <Button label="Back" onClick={handleBackClick} raised className="bg-theme"></Button>}
     </div>
   );
 };

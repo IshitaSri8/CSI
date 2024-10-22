@@ -52,45 +52,43 @@ export default function LandReportPrint({ visible, toggleModalVisibility }) {
   };
  
   return (
-    <Dialog
-      header=""
-      visible={visible}
-      style={{ width: "95vw" }}
-      onHide={toggleModalVisibility}
-    >
-      <div ref={contentRef}>
-        <div className="w-full print-container">
-          <div className="flex flex-column gap-2 align-items-center w-full">
-            <h1 style={{ color: "#00a269" }} className="m-0 p-0 text-center">
-              City Sustainability Index 2024
-            </h1>
-            <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
-          </div>
-          <div className="w-full">
-            <Land />
+    <>
+    <div ref={contentRef}>
+      <div className="w-full">
+        <div className="flex flex-column gap-2 align-items-center w-full">
+          <h1
+            style={{ color: "#1F8297" }}
+            className="m-0 p-0 text-center text-2xl"
+          >
+            City Sustainability Index 2024
+          </h1>
+          <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
+        </div>
+        <div className="w-full">
+            <Land show={false} />
           </div>
           <div className="w-full">
             <LandRecommendations />
           </div>
-        </div>
       </div>
-      <div className="flex align-items-center justify-content-end p-2 w-full">
-        <Button
-          label="Print"
-          icon="pi pi-print"
-          size="small"
-          className="p-button-secondary mr-2"
-          onClick={handlePrint}
-        />
-        <Button
-          label="Export as PDF"
-          icon="pi pi-file-export"
-          size="small"
-          className="p-button-success"
-          onClick={handleExport}
-        />
-      </div>
-    </Dialog>
+    </div>
+    <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
+      <Button
+        label="Print"
+        icon="pi pi-print"
+        size="small"
+        className="bg-cyan-700"
+        onClick={handlePrint}
+      />
+      <Button
+        label="Export as PDF"
+        icon="pi pi-file-export"
+        size="small"
+        className="bg-cyan-800"
+        onClick={handleExport}
+      />
+    </div>
+  </>
   );
 }
  

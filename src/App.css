@@ -70,6 +70,10 @@ body {
   background-color: var(--theme-secondary);
 }
 
+.ter-theme {
+  background-color: var(--theme-primary-light);
+}
+
 .text {
   color: var(--text-color);
 }
@@ -180,25 +184,10 @@ body {
   background: transparent;
 }
 
-/* .p-dialog .p-dialog-header {
-  padding: 0 !important;
-}
-.p-dialog .p-dialog-header-icons {
-  padding: 0.1rem 0.5rem !important;
-} */
-
-/* .p-card-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.p-card-body {
+/* .p-card-body {
   padding: 0;
 } */
-
-.shadow {
+*/ .shadow {
   box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
@@ -224,3 +213,24 @@ body {
   color: #166c7d !important;
   font-weight: 700 !important;
 } */
+
+.gradient-tag {
+  background: linear-gradient(to left, #1f8297, #166c7d, #003940) !important;
+  color: #fff;
+  /* padding: 0.5rem 1rem !important;  */
+  border-radius: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
+.gradient-tag .p-tag-value {
+  font-size: 0.7rem !important; /* Adjust font size as needed */
+  font-weight: 600 !important;
+  text-transform: uppercase;
+}
+
+.custom-circular-progress .CircularProgressbar-text {
+  font-weight: 600; /* Bold text */
+}

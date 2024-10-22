@@ -78,6 +78,7 @@ export const DonutChart = ({
     />
   );
 };
+
 export const Doughnut = ({
   title,
   labels,
@@ -325,6 +326,26 @@ export const ModifiedBarChart = ({
   xtitle,
   ytitle,
 }) => {
+  const data = []; // Array to hold data series
+
+  // Create a data series for each category
+  series.forEach((dataPoints, index) => {
+    dataPoints.forEach((value, i) => {
+      data.push({
+        type: "bar",
+        name: `${categories[index]}: ${value}`, // Unique name for the legend
+        legendText: `${categories[index]}: ${value}`, // Unique text for the legend
+        y: value,
+        color: colors[index % colors.length], // Assign color to each bar
+        indexLabel: `${categories[index]}: ${value}`, // Display category with its value
+        indexLabelFontSize: 10,
+        indexLabelPlacement: "outside", // Position the value outside the bar
+        indexLabelFontFamily: "Montserrat",
+        cornerRadius: 30,
+      });
+    });
+  });
+
   return (
     <CanvasJSChart
       options={{
@@ -334,8 +355,9 @@ export const ModifiedBarChart = ({
           fontSize: 14,
           fontFamily: "Montserrat",
           fontWeight: "500",
-          fontColor: "black",
+          fontColor: "#4C4C4C",
           horizontalAlign: "left", // Left-align the title
+          padding: { bottom: 14 },
         },
         backgroundColor: "transparent",
         dataPointWidth: 20,
@@ -359,22 +381,22 @@ export const ModifiedBarChart = ({
           type: "bar",
           name: categories[index],
           dataPoints: data.map((value, i) => ({
+            legendText: `${categories[index]}: ${value}`,
             y: value,
             label: categories[i],
-            legendText: `${categories}: {y}`,
             indexLabel: `${categories[i]}: {y}`, // Include categories in indexLabel
             indexLabelFontSize: 10, // Font size for the value
             indexLabelPlacement: "outside", // Position the value outside the bar
             indexLabelFontFamily: "Montserrat",
-            //indexLabelFontWeight: "bold",
+            //indexLabelFontWeight: "400",
             color: colors[i % colors.length], // Assign color to each bar
-            cornerRadius: 30,
+            //cornerRadius: 30,
           })),
           color: colors[index % colors.length],
         })),
         legend: {
           horizontalAlign: "center",
-          // verticalAlign: "center",
+          verticalAlign: "bottom",
           fontFamily: "Montserrat",
           fontWeight: "normal",
           fontSize: 10,
@@ -639,48 +661,68 @@ export const LineChart = ({
 export const PieChart = ({ title, categories, series, height }) => {
   const total = series.reduce((acc, value) => acc + value, 0);
   return (
-      <CanvasJSChart
-        options={{
-          animationEnabled: true,
-          title: {
-            text: title,
-            fontSize: 14,
-            fontFamily: "Montserrat",
-            fontWeight: "500",
-            fontColor: "black",
-            horizontalAlign: "left",
-          },
-          backgroundColor: "transparent",
-          legend: {
-            horizontalAlign: "left",
-            verticalAlign: "center",
-            fontSize: 12,
-            fontFamily: "Montserrat",
-            fontWeight: "500",
-            fontColor: "black",
-          },
-          data: [
-            {
-              type: "pie",
-              startAngle: 75,
-              toolTipContent: "<b>{label}</b>: (#percent%)",
-              showInLegend: true,
-              legendText: "{label}: {y}",
-              indexLabel: "{label}: {y}",  // Show label and value
-              indexLabelFontSize: 0,
-              indexLabelFontWeight: "bold",
-              indexLabelPlacement: "inside",
-              dataPoints: series.map((value, index) => ({
-                y: value,
-                label: categories[index],
-                color: colors[index % colors.length],
-                percent: ((value / total) * 100).toFixed(2),
-              })),
+    <div className="flex flex-column align-items-center justify-content-between w-full gap-8">
+      <div className="flex w-full">
+        <CanvasJSChart
+          options={{
+            animationEnabled: true,
+            title: {
+              text: title,
+              fontSize: 14,
+              fontFamily: "Montserrat",
+              fontWeight: "500",
+              fontColor: "black",
+              horizontalAlign: "left",
+              padding: { bottom: 40 },
             },
-          ],
-        }}
-        containerProps={{ height: height, width: "100%" }}
-      />
+            backgroundColor: "transparent",
+            legend: {
+              enabled: false, // Disable default legend
+            },
+            data: [
+              {
+                type: "pie",
+                startAngle: 60,
+                toolTipContent: "<b>{label}</b>: #percent%",
+                showInLegend: false, // Disable showInLegend since we're using custom legends
+                radius: 180,
+                indexLabel: "{y} ha", // Show label and value
+                indexLabelFontSize: 14,
+                indexLabelPlacement: "outside",
+                dataPoints: series.map((value, index) => ({
+                  y: value,
+                  label: categories[index],
+                  color: colors[index % colors.length],
+                  percent: ((value / total) * 100).toFixed(2),
+                })),
+              },
+            ],
+          }}
+          containerProps={{ height: height, width: "100%" }}
+        />
+      </div>
+
+      {/* Custom Legends */}
+      <div className="flex flex-wrap">
+        {series.map((value, index) => (
+          <div
+            key={index}
+            className="flex align-items-center mb-1"
+            style={{ width: "50%" }}
+          >
+            <div
+              className="mr-2"
+              style={{
+                width: "0.7rem",
+                height: "0.7rem",
+                backgroundColor: colors[index % colors.length],
+              }}
+            ></div>
+            <span className="text-lg">{categories[index]}</span>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

@@ -6,7 +6,7 @@ import axios from "axios";
 import Lottie from "lottie-react";
 import report_ani from "../../../../assets/animations/Report_ani.json";
 import { Button } from "primereact/button";
-import LandReportPrint from "./LandReportPrint";
+import LandReportPrint from "../src/components/Dashboards/Environment/Land/LandReportPrint";
 
 // Utility functions
 const GenerateLandReport = () => {

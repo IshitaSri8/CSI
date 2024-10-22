@@ -157,7 +157,7 @@ const CityDemographics = () => {
             </div>{" "}
             <div className="flex w-full bg-white align-items-center justify-content-center py-3 border-round">
               <Doughnut
-                title={"Sex Ratio"}
+                title={"Sex Ratio- 980"}
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
                 height={120}
@@ -530,8 +530,8 @@ const CityDemographics = () => {
           </div>
         </div>
       </div>
-      <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700">
-        These numbers are subject to variation.*
+      <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
+      *These numbers are subject to variation.
       </p>
     </div>
   );

@@ -109,7 +109,7 @@ const GovernmentSidebar = () => {
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Nature" },
-          { label: "Land Use" },
+          { label: "Land Usage" },
         ]
       : activeTab === "water"
       ? [
@@ -403,7 +403,7 @@ const GovernmentSidebar = () => {
                       <LandPlot className="text-white mr-2" size={15} />
                       {/* <i className="pi pi-map mr-2 text-xl text-white"></i> */}
                       <span className="font-medium text-sm text-white">
-                        Land Use
+                        Land Usage
                       </span>
                       <Ripple />
                     </div>
