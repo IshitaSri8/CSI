@@ -107,15 +107,18 @@ const TemperatureTrend = ({
   const baseChartOptions = {
     animationEnabled: true,
     theme: "lightblue",
-    height: 200,
+    height: 250,
     legend: {
       fontSize: 10,
     },
     title: {
       text: "Temperature and CO2 Trend",
-      fontSize: 15,
-      fontFamily: "DM Sans",
-      fontWeight: "800",
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontColor: "black",
+      horizontalAlign: "left",
+      padding: { bottom: 20 },
     },
     axisX: {
       labelFontColor: "#717171",
@@ -272,9 +275,14 @@ const TemperatureTrend = ({
     animationEnabled: true,
     title: {
       text: `Temperature and CO2 Levels for ${selectedDate}`,
-      fontSize: 15,
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontColor: "black",
+      horizontalAlign: "left",
+      padding: { bottom: 20 },
     },
-    height: 170,
+    height: 200,
     theme: "light2",
     axisX: {
       labelFontColor: "#717171",

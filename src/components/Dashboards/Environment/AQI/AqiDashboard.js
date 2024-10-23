@@ -5,7 +5,6 @@ import { Card } from "primereact/card";
 import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { ProgressSpinner } from "primereact/progressspinner";
 import "../../Dash.css";
 import good from "assets/dashboard/good.png";
 import moderate from "assets/dashboard/moderate.png";
@@ -14,7 +13,6 @@ import very_poor from "assets/dashboard/very_poor.png";
 import severe from "assets/dashboard/severe.png";
 import PollutantChart from "./PollutantChart";
 import { Button } from "primereact/button";
-import { Panel } from "primereact/panel";
 import TableSkeleton from "../../skeletons/TableSkeleton";
 import AQIChart from "./AQIChart";
 import AqiMap from "./AqiMap";
@@ -36,7 +34,6 @@ const AqiDashboard = ({
   const [endDate, setEndDate] = useState(
     pSelectedEndDate ?? new Date("2024-08-13")
   );
-  const [aqiData, setAqiData] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(
     pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
   );
@@ -327,25 +324,14 @@ const AqiDashboard = ({
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
   };
-  const categories = ["0-17", "18-65", "65+"];
-  const series = [
-    { female: 25, male: 30 }, // 0-17
-    { female: 55, male: 60 }, // 18-65
-    { female: 35, male: 40 }, // 65+
-  ];
-  const NO2impactlabels = [
-    "Breathing Problems",
-    "Cardiovascular Issues",
-    "CNS Impact",
-    "Liver/Spleen/Blood Impact",
-  ];
-  const NO2Impactseries = [1090, 815, 345, 245];
 
   return (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
         <div className="flex align-items-center justify-content-between">
-          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">Air Quality Index</h1>
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
+            Air Quality Index
+          </h1>
           <div className="flex align-ites-center justify-content-end gap-2">
             <Button
               label="Filters"
@@ -449,6 +435,7 @@ const AqiDashboard = ({
           endDate={endDate}
         />
       </Dialog>
+
       <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
           <div
@@ -581,7 +568,8 @@ const AqiDashboard = ({
         </div>
       </div>
 
-      <Card className="w-full">
+      <div className="flex gap-3 w-full bg-white border-round p-4">
+        {" "}
         <AQIChart
           envirolocation={envirolocation}
           enviroDate={envirodate}
@@ -595,10 +583,10 @@ const AqiDashboard = ({
           selectedLocation={selectedLocation}
           startDate={startDate}
         />
-      </Card>
+      </div>
 
       <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
-        <Card className="w-full">
+        <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
             envirolocation={envirolocation}
             envirodate={envirodate}
@@ -611,8 +599,8 @@ const AqiDashboard = ({
             height={200}
             safeLimit={60}
           />
-        </Card>
-        <Card className="w-full">
+        </div>
+        <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
             envirolocation={envirolocation}
             envirodate={envirodate}
@@ -625,8 +613,8 @@ const AqiDashboard = ({
             height={200}
             safeLimit={100}
           />
-        </Card>
-        <Card className="w-full">
+        </div>
+        <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
             envirolocation={envirolocation}
             envirodate={envirodate}
@@ -639,8 +627,8 @@ const AqiDashboard = ({
             height={200}
             safeLimit={80}
           />
-        </Card>
-        <Card className="w-full">
+        </div>
+        <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
             envirolocation={envirolocation}
             envirodate={envirodate}
@@ -653,16 +641,20 @@ const AqiDashboard = ({
             height={200}
             safeLimit={80}
           />
-        </Card>
+        </div>
       </div>
       <div className="flex justify-content-end">
-      <Button
-        label={recommendationsVisible ? "Close Recommendations" : "View Recommendations"}
-        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-        onClick={handleToggleRecommendations}
-        className="bg-theme text-white"
-        raised
-      />
+        <Button
+          label={
+            recommendationsVisible
+              ? "Close Recommendations"
+              : "View Recommendations"
+          }
+          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+          onClick={handleToggleRecommendations}
+          className="bg-theme text-white"
+          raised
+        />
       </div>
 
       {recommendationsVisible && (

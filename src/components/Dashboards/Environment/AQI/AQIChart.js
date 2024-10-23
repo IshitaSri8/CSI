@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Select, MenuItem } from "@mui/material";
 import "./AqiReport.css";
-import DailyTrend from "../Temperature/DailyTrend";
+import DailyTrend from "./DailyTrend";
 
 const AQIChart = ({
   enviroDate,

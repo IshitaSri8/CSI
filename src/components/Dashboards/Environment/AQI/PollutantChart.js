@@ -79,6 +79,10 @@ const PollutantChart = ({
         title: {
           text: `${pollutantName} Trend`,
           fontSize: 12,
+          fontFamily: "Montserrat",
+          fontWeight: "500",
+          horizontalAlign: "left",
+          padding: { bottom: 10 },
         },
         axisX: {
           fontSize: 10,
@@ -126,7 +130,11 @@ const PollutantChart = ({
         theme: "light2",
         title: {
           text: `${pollutantName} Levels on ${selectedDate}`,
-          fontSize: 10,
+          fontSize: 12,
+          fontFamily: "Montserrat",
+          fontWeight: "500",
+          horizontalAlign: "left",
+          padding: { bottom: 10 },
         },
         axisX: {
           gridThickness: 0, // Remove X-axis gridlines
@@ -171,16 +179,17 @@ const PollutantChart = ({
   }, [isDrilldown, selectedDate, envirodate, pollutantData]);
 
   return (
-    <div className="flex align-items-center justify-content-center flex-column gap-1">
-      {isDrilldown && (
-        <Button onClick={handleBackButtonClick} className="pt-1 pb-1 pl-3 pr-3">
-          Back
-        </Button>
-      )}
+    <div className="flex flex-column w-full">
+    
       <CanvasJSChart
         options={chartOptions}
         containerProps={{ height: height, width: "100%" }}
       />
+        {isDrilldown && (
+        <Button onClick={handleBackButtonClick} className="pt-1 pb-1 pl-3 pr-3">
+          Back
+        </Button>
+      )}
     </div>
   );
 };

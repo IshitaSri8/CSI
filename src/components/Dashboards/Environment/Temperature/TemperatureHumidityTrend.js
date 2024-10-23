@@ -122,15 +122,17 @@ const TemperatureHumidityTrend = ({
   const baseChartOptions = {
     animationEnabled: true,
     theme: "lightblue",
-    height: 200,
+    height: 250,
     legend: {
       fontSize: 10,
     },
     title: {
       text: "Temperature and Feels Like Temperature Trend",
-      fontSize: 15,
-      fontFamily: "DM Sans",
-      fontWeight: "800",
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      horizontalAlign: "left",
+      padding: { bottom: 20 },
     },
     axisX: {
       labelFontColor: "#717171",
@@ -305,9 +307,13 @@ const TemperatureHumidityTrend = ({
     animationEnabled: true,
     title: {
       text: `Temperature and Humidity Trend for ${selectedDate}`,
-      fontSize: 15,
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      horizontalAlign: "left",
+      padding: { bottom: 20 },
     },
-    height: 170,
+    height: 200,
     theme: "light2",
     axisX: {
       labelFontColor: "#717171",

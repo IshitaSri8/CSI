@@ -36,18 +36,18 @@ const Land = ({ show }) => {
   };
 
   const distributionSeries = [
-    "Miscellaneous",
-    "Recreational",
-    "Transportation",
-    "Parks and Open Spaces",
-    "Public and Semi-Public",
-    "Industrial",
-    "Commercial",
     "Residential",
+    "Commercial",
+    "Industrial",
+    "Public and Semi-Public",
+    "Parks and Open Spaces",
+    "Transportation",
+    "Recreational",
+    "Miscellaneous",
   ];
 
   const distributionData = [
-    137.19, 75.9, 580.98, 163.31, 470.3, 143.09, 124.46, 1466,
+    1466, 124.46, 143.09, 470.3, 163.31, 580.98, 75.9, 137.19,
   ];
 
   const devArea = 91.03;
@@ -391,7 +391,7 @@ const Land = ({ show }) => {
           </div>
         </div>
         <div
-          className="flex flex-column gap-3 w-full bg-white border-round p-4"
+          className="flex gap-3 w-full bg-white border-round p-4"
           style={{ flex: "45%" }}
         >
           {/* Land Distribution */}

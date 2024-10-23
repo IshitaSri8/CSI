@@ -693,13 +693,15 @@ export const PieChart = ({ title, categories, series, height }) => {
             data: [
               {
                 type: "pie",
-                startAngle: 60,
+                startAngle:90,
                 toolTipContent: "<b>{label}</b>: #percent%",
                 showInLegend: false, // Disable showInLegend since we're using custom legends
                 radius: 180,
                 indexLabel: "{y} ha", // Show label and value
                 indexLabelFontSize: 14,
                 indexLabelPlacement: "outside",
+                indexLabelFontFamily: "Montserrat",
+                indexLabelFontWeight: "500",
                 dataPoints: series.map((value, index) => ({
                   y: value,
                   label: categories[index],

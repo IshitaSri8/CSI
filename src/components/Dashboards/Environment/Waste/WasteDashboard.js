@@ -1,17 +1,13 @@
 import React from "react";
 import { BarChart, GroupedColumnChart } from "Layout/GraphVisuals";
 import "./Waste.css";
-import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import CanvasJSReact from "@canvasjs/react-charts";
-
 import CommunityToiletIcon from "assets/waste/community_toilet.png";
 import PublicToiletIcon from "assets/waste/public-toilet.png";
 import WasteGeneratedIcon from "assets/waste/waste_generated.png";
 import WasteCollectedIcon from "assets/waste/waste_collected.png";
 import AvgWasteIcon from "assets/waste/avg_waste.png";
-import PopulationDensityIcon from "assets/waste/population_density.png";
-import PopulationIcon from "assets/waste/population.png";
 import ConstructedIcon from "assets/waste/building.png";
 import UnderConstructedIcon from "assets/waste/under-construction.png";
 import { Button } from "primereact/button";

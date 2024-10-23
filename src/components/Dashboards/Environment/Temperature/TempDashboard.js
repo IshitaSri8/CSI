@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Calendar } from "primereact/calendar";
 import axios from "axios";
-import { Card } from "primereact/card";
 import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-// import { ProgressSpinner } from "primereact/progressspinner";
 import "../../Dash.css";
 import sunny from "assets/dashboard/Temperature- Below 40.svg";
 import warm from "assets/dashboard/Temperature- Above 40.svg";
 import { Button } from "primereact/button";
-import { Panel } from "primereact/panel";
 import TableSkeleton from "../../skeletons/TableSkeleton";
 import TempMap from "./TempMap";
 import Temperature from "./Temperature";
@@ -56,8 +53,6 @@ const TempDashboard = ({
   const [loading, setLoading] = useState(true);
   const [temperature, setTemp] = useState([]);
   const [humidity, setHumidity] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedAction, setSelectedAction] = useState("");
 
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);

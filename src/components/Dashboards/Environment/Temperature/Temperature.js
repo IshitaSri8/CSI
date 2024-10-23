@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Select, MenuItem } from "@mui/material";
-import DailyTrend from "./DailyTrend";
 import TemperatureTrend from "./TemperatureTrend";
 import TemperatureHumidityTrend from "./TemperatureHumidityTrend";
 import { Card } from "primereact/card";
@@ -437,7 +435,7 @@ const Temperature = ({
     <div className="flex align-items-center justify-content-center w-full gap-2">
       {chartData.length > 0 && (
         <>
-          <Card className="w-full">
+          <div className="flex w-full bg-white border-round p-4">
             <TemperatureTrend
               selectedDate={selectedDate}
               dailyAverageTemp={dailyAverage}
@@ -448,8 +446,8 @@ const Temperature = ({
               fifteenDaysData={fifteenDaysData}
               startDate={startDate}
             />
-          </Card>
-          <Card className="w-full">
+          </div>
+          <div className="flex w-full bg-white border-round p-4">
             <TemperatureHumidityTrend
               selectedDate={selectedDate}
               dailyAverageTemp={dailyAverage}
@@ -462,7 +460,7 @@ const Temperature = ({
               dailyAverageFeelsLike={dailyFeelsLike}
               dailyDataFeelsLike={dailyFeelsLikeData}
             />
-          </Card>
+          </div>
         </>
       )}
     </div>

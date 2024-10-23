@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
-import HeatMap from "./HeatMap";
+import HeatMap from "../Temperature/HeatMap";
 import { Button } from "primereact/button";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -94,9 +94,11 @@ const DailyTrend = ({
     },
     title: {
       text: "AQI Trend",
-      fontSize: 15,
+      fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "600",
+      fontWeight: "500",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
     axisX: {
       labelFontColor: "#717171",
@@ -214,7 +216,11 @@ const DailyTrend = ({
     animationEnabled: true,
     title: {
       text: "AQI Level for" + selectedDate,
-      fontSize: 15,
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
     height: 170,
     theme: "light2",
@@ -257,24 +263,7 @@ const DailyTrend = ({
   return (
     <>
       <div className="btn-container">
-        {/* <Button label="Back" className="bg-white text-cyan-800 border-round" /> */}
-        <button
-          className={backButtonClassName}
-          onClick={backButtonClickHandler}
-          style={{
-            borderRadius: "10px",
-            padding: "0.5vw",
-            border: "none",
-            fontSize: "0.8vw",
-            backgroundColor: "#2eacd1",
-            color: "white",
-            cursor: "pointer",
-            margin: "0.5vw ",
-            width: "10rem",
-          }}
-        >
-          &lt; Back
-        </button>
+        
         {fifteenDaysData.length > 0 && (
           <button
             className={backButtonClassName}
@@ -294,6 +283,24 @@ const DailyTrend = ({
             View Previous Days Trend
           </button>
         )}
+        {/* <Button label="Back" className="bg-white text-cyan-800 border-round" /> */}
+        <button
+          className={backButtonClassName}
+          onClick={backButtonClickHandler}
+          style={{
+            borderRadius: "10px",
+            padding: "0.5vw",
+            border: "none",
+            fontSize: "0.8vw",
+            backgroundColor: "#2eacd1",
+            color: "white",
+            cursor: "pointer",
+            margin: "0.5vw ",
+            width: "10rem",
+          }}
+        >
+          &lt; Back
+        </button>
       </div>
       <CanvasJSChart
         options={isDrilldown ? drilldownChartOptions : baseChartOptions}
