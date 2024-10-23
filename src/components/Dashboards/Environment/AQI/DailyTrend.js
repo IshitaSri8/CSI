@@ -91,19 +91,23 @@ const DailyTrend = ({
     height: 200,
     legend: {
       fontSize: 10,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
     },
     title: {
       text: "AQI Trend",
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       horizontalAlign: "left",
-      padding: { bottom: 10 },
+      padding: { bottom: 20 },
     },
     axisX: {
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
+      labelFontFamily: "Montserrat",
+      labelFontSize: 8,
     },
     axisY: {
       gridThickness: 0,
@@ -111,6 +115,7 @@ const DailyTrend = ({
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
+      labelFontFamily: "Montserrat",
       lineThickness: 1,
       stripLines: [
         {
@@ -218,9 +223,9 @@ const DailyTrend = ({
       text: "AQI Level for" + selectedDate,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       horizontalAlign: "left",
-      padding: { bottom: 10 },
+      padding: { bottom: 20 },
     },
     height: 170,
     theme: "light2",
@@ -228,6 +233,7 @@ const DailyTrend = ({
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
+      labelFontFamily: "Montserrat",
     },
     axisY: {
       gridThickness: 0,
@@ -235,6 +241,7 @@ const DailyTrend = ({
       labelFontColor: "black",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
+      labelFontFamily: "Montserrat",
       lineThickness: 1,
       stripLines: [
         {

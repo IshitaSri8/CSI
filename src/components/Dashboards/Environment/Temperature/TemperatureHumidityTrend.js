@@ -125,12 +125,14 @@ const TemperatureHumidityTrend = ({
     height: 250,
     legend: {
       fontSize: 10,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
     },
     title: {
       text: "Temperature and Feels Like Temperature Trend",
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       horizontalAlign: "left",
       padding: { bottom: 20 },
     },
@@ -138,6 +140,8 @@ const TemperatureHumidityTrend = ({
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
+      labelFontFamily: "Montserrat",
+      labelFontSize: 8,
     },
     axisY: {
       gridThickness: 0,
@@ -145,6 +149,7 @@ const TemperatureHumidityTrend = ({
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
+      labelFontFamily: "Montserrat",
       lineThickness: 1,
       //   stripLines: [
       //     {
@@ -309,7 +314,7 @@ const TemperatureHumidityTrend = ({
       text: `Temperature and Humidity Trend for ${selectedDate}`,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       horizontalAlign: "left",
       padding: { bottom: 20 },
     },

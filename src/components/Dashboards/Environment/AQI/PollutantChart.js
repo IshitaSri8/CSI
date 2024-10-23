@@ -80,18 +80,20 @@ const PollutantChart = ({
           text: `${pollutantName} Trend`,
           fontSize: 12,
           fontFamily: "Montserrat",
-          fontWeight: "500",
+          fontWeight: 500,
           horizontalAlign: "left",
-          padding: { bottom: 10 },
+          padding: { bottom: 20 },
         },
         axisX: {
           fontSize: 10,
           gridThickness: 0, // Remove X-axis gridlines
+          labelFontFamily: "Montserrat",
         },
         axisY: {
           includeZero: false,
           gridThickness: 0, // Remove Y-axis gridlines
           labelFontSize: 10, // Adjust Y-axis labels font size
+          labelFontFamily: "Montserrat",
           stripLines: [
             {
               value: safeLimit,
@@ -132,17 +134,20 @@ const PollutantChart = ({
           text: `${pollutantName} Levels on ${selectedDate}`,
           fontSize: 12,
           fontFamily: "Montserrat",
-          fontWeight: "500",
+          fontWeight: 500,
           horizontalAlign: "left",
-          padding: { bottom: 10 },
+          padding: { bottom: 20 },
         },
         axisX: {
           gridThickness: 0, // Remove X-axis gridlines
+          labelFontSize: 10, 
+          labelFontFamily: "Montserrat",
         },
         axisY: {
           includeZero: false,
           gridThickness: 0, // Remove Y-axis gridlines
           labelFontSize: 10, // Adjust Y-axis labels font size
+          labelFontFamily: "Montserrat",
           stripLines: [
             {
               value: safeLimit,
@@ -180,12 +185,11 @@ const PollutantChart = ({
 
   return (
     <div className="flex flex-column w-full">
-    
       <CanvasJSChart
         options={chartOptions}
         containerProps={{ height: height, width: "100%" }}
       />
-        {isDrilldown && (
+      {isDrilldown && (
         <Button onClick={handleBackButtonClick} className="pt-1 pb-1 pl-3 pr-3">
           Back
         </Button>

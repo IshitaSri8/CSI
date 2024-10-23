@@ -3,9 +3,10 @@ import { Divider } from "primereact/divider";
 import { Tooltip } from "primereact/tooltip";
 import React, { useState } from "react";
 import {
-  BarChart,
+  ColumnChart,
   CombinationChart,
   GroupedBarChart,
+  GroupedColumnChart,
 } from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -19,15 +20,19 @@ const Culture = ({ show }) => {
     setRecommendationsVisible(!recommendationsVisible);
   };
 
-  const tcategories = ["Domestic Tourists", "International Tourists"];
-  const tseries = [
-    [50000, 60000, 70000, 80000, 85000], // Domestic Tourists (2020-2024)
-    [10000, 15000, 20000, 25000, 30000], // International Tourists (2020-2024)
+  const touristData = [
+    {
+      name: "Domestic Tourists",
+      data: [50000, 60000, 70000, 80000, 85000], // Values for Domestic Tourists (2020-2024)
+    },
+    {
+      name: "International Tourists",
+      data: [10000, 15000, 20000, 25000, 30000], // Values for International Tourists (2020-2024)
+    },
   ];
+  
   const categories = ["2020", "2021", "2022", "2023", "2024"];
-  const fseries = [
-    [80, 90, 100, 110, 100], // Funds allocated for each year (in crores)
-  ];
+  const funds = [80, 90, 100, 110, 100]; // Funds allocated for each year (in crores)
   const totalSites = [200, 210, 215, 220, 225]; // Example total cultural sites over years
   const maintainedSites = [20, 40, 50, 80, 180];
 
@@ -137,27 +142,20 @@ const Culture = ({ show }) => {
           />
         </Card>
         <Card className="w-full">
-          <BarChart
+          <ColumnChart
             title="Funds Allocated Over Years (in Crore)"
             categories={categories}
-            series={fseries}
+            series={funds}
             height={300}
-            width={"100%"}
-            xtitle=""
-            ytitle=""
-            color={["#1f77b4"]} // Use a single color for the bars
-            labelFontSize={10} // Font size for axis labels
           />
         </Card>
         <Card className="w-full">
           <GroupedBarChart
             title="Number of Tourists Over Years"
-            categories={tcategories}
-            series={tseries}
+            labels={categories}
+            dataSeries={touristData}
             height={300}
-            xtitle=""
-            ytitle=""
-            color={["#4D7479", "#F7A47A"]} // Assign different colors to the bars
+            dataPointWidth={20}
           />
         </Card>
       </div>

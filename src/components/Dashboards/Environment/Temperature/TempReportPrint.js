@@ -1,11 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import TempDashboard from "./TempDashboard";
-import TempRecommendations from "./TempRecommendations";
 
 export default function TempReportPrint({
   visible,

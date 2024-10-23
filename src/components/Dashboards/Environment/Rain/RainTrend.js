@@ -38,12 +38,15 @@ const RainTrend = ({
       legend: {
         fontSize: 10,
         horizontalAlign: "left",
+        fontFamily: "Montserrat",
+        fontWeight: 500,
+        fontColor: "black",
       },
       title: {
         text: "Rainfall Trend Over Years",
         fontSize: 14,
         fontFamily: "Montserrat",
-        fontWeight: "500",
+        fontWeight: 500,
         fontColor: "black",
         horizontalAlign: "left",
         padding: { bottom: 14 },
@@ -102,12 +105,15 @@ const RainTrend = ({
         legend: {
           fontSize: 10,
           horizontalAlign: "left",
+          fontFamily: "Montserrat",
+          fontWeight: 500,
+          fontColor: "black",
         },
         title: {
           text: `Rainfall Trend Over Months for ${selectedYear}`,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: "500",
+          fontWeight: 500,
           fontColor: "black",
           horizontalAlign: "left",
           padding: { bottom: 14 },

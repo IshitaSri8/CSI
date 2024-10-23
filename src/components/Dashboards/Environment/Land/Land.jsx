@@ -7,7 +7,7 @@ import { Dialog } from "primereact/dialog";
 import { LandPlot } from "lucide-react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { ProgressBar } from "primereact/progressbar";
-import { PieChart } from "Layout/GraphVisuals";
+import { ModifiedPieChart } from "Layout/GraphVisuals";
 import { Tag } from "primereact/tag";
 import { Panel } from "primereact/panel";
 
@@ -395,7 +395,7 @@ const Land = ({ show }) => {
           style={{ flex: "45%" }}
         >
           {/* Land Distribution */}
-          <PieChart
+          <ModifiedPieChart
             title="Land Distribution"
             categories={distributionSeries}
             series={distributionData}

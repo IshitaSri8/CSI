@@ -4,19 +4,21 @@ import CanvasJSReact from "@canvasjs/react-charts";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
-  "#FFDD82",
-  "#47B881",
-  "#F7A47A",
-  "#98C6CF",
-  "#1F8297",
-  "#166c7d",
-  "#0F4B57",
-  "#5B98A4",
-  "#F64C4C",
-  "#8AB5BE",
-  "#B9D2D8",
-  "#E9F3F5",
+  "#FFDD82", // Light Yellow
+  "#47B881", // Green
+  "#F7A47A", // Light Orange
+  "#4D7479", //Dusty Teal
+  "#98C6CF", // Light Blue
+  "#1F8297", // Dark Cyan
+  "#166c7d", // Dark Teal
+  "#0F4B57", // Dark Slate Blue
+  "#5B98A4", // Slate Blue
+  "#F64C4C", // Red
+  "#8AB5BE", // Soft Blue-Green
+  "#B9D2D8", // Pale Cyan
+  "#E9F3F5", // Very Light Cyan
 ];
+
 export const DonutChart = ({
   title,
   labels,
@@ -34,7 +36,7 @@ export const DonutChart = ({
       fontWeight: "500",
       fontColor: fontColor,
       horizontalAlign: "left",
-      padding: { bottom: 10 },
+      padding: { bottom: 20 },
     },
     backgroundColor: bgColor,
     dataPointWidth: 12,
@@ -47,7 +49,6 @@ export const DonutChart = ({
         startAngle: 60,
         showInLegend: true,
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-
         indexLabelFontColor: "transparent",
         color: colors,
         legendText: "{label}- #percent%",
@@ -62,7 +63,7 @@ export const DonutChart = ({
       horizontalAlign: "right",
       verticalAlign: "center",
       fontFamily: "Montserrat",
-      fontWeight: "normal",
+      fontWeight: 500,
       fontSize: 10,
       fontColor: fontColor,
     },
@@ -100,7 +101,7 @@ export const Doughnut = ({
       fontWeight: "500",
       fontColor: "black",
       horizontalAlign: "left",
-      padding: { bottom: 10 },
+      padding: { bottom: 20 },
     },
     labels: labels,
     backgroundColor: bgColor,
@@ -122,7 +123,7 @@ export const Doughnut = ({
           y: value,
           label: labels[index],
           legendText: labels[index],
-          color: colors[index + (3 % colors.length)],
+          color: colors[index + (4 % colors.length)],
         })),
       },
     ],
@@ -131,7 +132,7 @@ export const Doughnut = ({
       horizontalAlign: "center",
       verticalAlign: "bottom",
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       fontColor: "black",
     },
     subtitles: showNo
@@ -157,123 +158,6 @@ export const Doughnut = ({
   );
 };
 
-export const GroupedColumnChart = ({
-  title,
-  categories,
-  series,
-  height,
-  width,
-  xtitle,
-  ytitle,
-  color,
-  labelFontSize = 8,
-}) => {
-  return (
-    <CanvasJSChart
-      options={{
-        animationEnabled: true,
-        title: {
-          text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: "500",
-          fontColor: "black",
-          horizontalAlign: "left",
-          padding: { bottom: 10 },
-        },
-        axisX: {
-          title: xtitle,
-          gridThickness: 0,
-          labelFontSize: labelFontSize,
-        },
-        axisY: {
-          title: ytitle,
-          gridThickness: 0,
-          labelFontSize: labelFontSize,
-        },
-
-        data: series.map((data, index) => ({
-          type: "column",
-          name: categories[index],
-          showInLegend: false,
-          dataPoints: data.map((value, i) => ({
-            y: value,
-            label: categories[i],
-            indexLabel: `{y}`, // Show value on each bar
-            indexLabelFontSize: 10, // Font size for the value
-            indexLabelPlacement: "outside", // Position the value inside the bar
-            color: colors[i % colors.length], // Assign color to each bar
-          })),
-          color: colors[index % colors.length],
-        })),
-      }}
-      containerProps={{ height: height, width: "100%" }}
-    />
-  );
-};
-
-export const GroupedBarChart = ({
-  title,
-  categories,
-  series,
-  height,
-  xtitle,
-  ytitle,
-  color,
-  labelFontSize = 8,
-}) => {
-  return (
-    <CanvasJSChart
-      options={{
-        animationEnabled: true,
-        title: {
-          text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: "500",
-          fontColor: "black",
-          horizontalAlign: "left",
-          padding: { bottom: 10 },
-        },
-        axisX: {
-          title: xtitle,
-          gridThickness: 0,
-          labelFontSize: labelFontSize,
-        },
-        axisY: {
-          title: ytitle,
-          gridThickness: 0,
-          labelFontSize: labelFontSize,
-        },
-        toolTip: {
-          shared: true, // Enable shared tooltip
-          content: function (e) {
-            // Create custom tooltip content
-            const year = e.entries[0].dataPoint.label;
-            const domestic = e.entries[0].dataPoint.y;
-            const international = e.entries[1].dataPoint.y;
-            return `Year: ${year}<br/>Domestic Tourists: ${domestic}<br/>International Tourists: ${international}`;
-          },
-        },
-        data: series.map((data, index) => ({
-          type: "column",
-          name: categories[index],
-          showInLegend: true,
-          color: color[index % color.length],
-          dataPoints: data.map((value, i) => ({
-            y: value,
-            label: `${2020 + i}`,
-            indexLabel: `{y}`,
-            indexLabelFontSize: 10,
-            indexLabelPlacement: "outside",
-          })),
-        })),
-      }}
-      containerProps={{ height: height, width: "100%" }}
-    />
-  );
-};
-
 export const BarChart = ({
   title,
   categories,
@@ -293,31 +177,171 @@ export const BarChart = ({
           fontWeight: "500",
           fontColor: "black",
           horizontalAlign: "left",
-          padding: { bottom: 10 },
+          padding: { bottom: 20 },
         },
         axisX: {
           title: xtitle,
           gridThickness: 0,
-          labelFontSize: 8,
+          labelFontSize: 10,
+          labelFontFamily: "Montserrat",
         },
         axisY: {
           title: ytitle,
           gridThickness: 0,
-          labelFontSize: 8,
+          labelFontSize: 10,
+          labelFontFamily: "Montserrat",
         },
-        data: series.map((data, index) => ({
-          type: "bar",
-          name: categories[index],
-          showInLegend: false,
-          dataPoints: data.map((value, i) => ({
-            y: value,
-            label: categories[i],
-            indexLabel: `{y}`, // Show value on each bar
-            indexLabelFontSize: 10, // Font size for the value
-            indexLabelPlacement: "outside", // Position the value outside the bar
-            color: colors[i % colors.length], // Assign color to each bar
-          })),
+        data: [
+          {
+            type: "bar",
+            showInLegend: false,
+            dataPoints: series.map((value, index) => ({
+              y: value,
+              label: categories[index],
+              indexLabel: `{y}`,
+              indexLabelFontSize: 10,
+              indexLabelPlacement: "outside",
+              indexLabelFontFamily: "Montserrat",
+              color: colors[index % colors.length],
+            })),
+          },
+        ],
+      }}
+      containerProps={{ height: height, width: "100%" }}
+    />
+  );
+};
+
+export const GroupedBarChart = ({
+  title,
+  dataSeries,
+  labels,
+  height,
+  xtitle,
+  ytitle,
+  dataPointWidth,
+}) => {
+  const options = {
+    animationEnabled: true,
+    title: {
+      text: title,
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontColor: "black",
+      horizontalAlign: "left",
+      padding: { bottom: 20 },
+    },
+    axisX: {
+      title: xtitle,
+      gridThickness: 0,
+      labelFontSize: 8,
+      labelFontFamily: "Montserrat",
+    },
+    axisY: {
+      title: ytitle,
+      gridThickness: 0,
+      labelFontSize: 8,
+      labelFontFamily: "Montserrat",
+    },
+    legend: {
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontSize: 10,
+    },
+    toolTip: {
+      shared: true, // Enable shared tooltip
+      //   content: function (e) {
+      //     // Create custom tooltip content
+      //     const year = e.entries[0].dataPoint.label;
+      //     const domestic = e.entries[0].dataPoint.y;
+      //     const international = e.entries[1].dataPoint.y;
+      //     return `Year: ${year}<br/>Domestic Tourists: ${domestic}<br/>International Tourists: ${international}`;
+      //   },
+      // },
+      content: function (e) {
+        // Dynamically generate the tooltip content
+        let content = `Year: ${e.entries[0].dataPoint.label}<br/>`; // Get year from the first dataPoint label
+        e.entries.forEach((entry) => {
+          const category = entry.dataSeries.name; // Get the category (domestic/international or any other)
+          const value = entry.dataPoint.y; // Get the value for this category
+          content += `${category}: ${value}<br/>`; // Add category and value dynamically
+        });
+        return content; // Return the dynamically generated content
+      },
+    },
+    dataPointWidth: dataPointWidth,
+    data: dataSeries.map((data, index) => {
+      return {
+        type: "bar",
+        name: data.name,
+        color: colors[index + (2 % colors.length)],
+        showInLegend: true,
+        indexLabel: "{y}",
+        indexLabelPlacement: "outside",
+        indexLabelFontColor: "#00403c",
+        indexLabelFontSize: 10,
+        indexLabelFontFamily: "Montserrat",
+        dataPoints: data.data?.map((val, index) => ({
+          label: labels[index],
+          y: val,
+        })),
+      };
+    }),
+  };
+
+  return (
+    <CanvasJSChart
+      options={options}
+      containerProps={{ height: height, width: "100%" }}
+    />
+  );
+};
+
+export const StackedBarChart = ({
+  title,
+  categories,
+  series,
+  height,
+  labels,
+}) => {
+  return (
+    <CanvasJSChart
+      options={{
+        animationEnabled: true,
+        title: {
+          text: title,
+          fontSize: 14,
+          fontFamily: "Montserrat",
+          fontWeight: "500",
+          fontColor: "black",
+          horizontalAlign: "left",
+          padding: { bottom: 20 },
+        },
+        axisY: {
+          includeZero: true,
+          gridThickness: 0,
+          labelFontSize: 10,
+          labelFontFamily: "Montserrat",
+        },
+        axisX: {
+          labelFontSize: 10,
+          labelFontFamily: "Montserrat",
+        },
+        legend: {
+          fontSize: 12,
+          fontFamily: "Montserrat",
+          fontWeight: 500,
+        },
+        data: categories.map((category, index) => ({
+          type: "stackedBar",
+          name: category,
+          showInLegend: true,
           color: colors[index % colors.length],
+          dataPoints: labels.map((year, i) => ({
+            label: year,
+            y: series[i][index],
+          })),
         })),
       }}
       containerProps={{ height: height, width: "100%" }}
@@ -364,7 +388,7 @@ export const ModifiedBarChart = ({
           fontWeight: "500",
           fontColor: "#4C4C4C",
           horizontalAlign: "left", // Left-align the title
-          padding: { bottom: 14 },
+          padding: { bottom: 20 },
         },
         backgroundColor: "transparent",
         dataPointWidth: 20,
@@ -380,6 +404,7 @@ export const ModifiedBarChart = ({
           title: ytitle,
           gridThickness: 0.25,
           labelFontSize: 8, // Hide labels by setting font size to 0
+          labelFontFamily: "Montserrat",
           lineThickness: 0.5, // Hide the X-axis line
           tickLength: 0, // Remove ticks on the X-axis
         },
@@ -405,7 +430,7 @@ export const ModifiedBarChart = ({
           horizontalAlign: "center",
           verticalAlign: "bottom",
           fontFamily: "Montserrat",
-          fontWeight: "normal",
+          fontWeight: 500,
           fontSize: 10,
           fontColor: "black",
         },
@@ -417,11 +442,9 @@ export const ModifiedBarChart = ({
 
 export const ColumnChart = ({
   title,
-  titleOptions = {},
   categories,
   series,
   height,
-  width,
   xtitle,
   ytitle,
 }) => {
@@ -431,24 +454,29 @@ export const ColumnChart = ({
         animationEnabled: true,
         title: {
           text: title,
-
           fontSize: 14,
           fontFamily: "Montserrat",
           fontWeight: "500",
           fontColor: "black",
           horizontalAlign: "left",
-          padding: { bottom: 10 },
+          padding: { bottom: 20 },
         },
         axisX: {
           title: xtitle,
           gridThickness: 0,
           labelFontSize: 8,
+          labelFontFamily: "Montserrat",
         },
         axisY: {
           title: ytitle,
           gridThickness: 0,
           labelFontSize: 8,
-          indexLabelFontFamily: "Montserrat",
+          labelFontFamily: "Montserrat",
+        },
+        legend: {
+          fontFamily: "Montserrat",
+          fontWeight: 500,
+          fontSize: 10,
         },
         data: [
           {
@@ -460,10 +488,136 @@ export const ColumnChart = ({
               indexLabel: `{y}`,
               indexLabelFontSize: 10,
               indexLabelPlacement: "outside",
+              indexLabelFontFamily: "Montserrat",
               color: colors[index % colors.length],
             })),
           },
         ],
+      }}
+      containerProps={{ height: height, width: "100%" }}
+    />
+  );
+};
+
+export const GroupedColumnChart = ({
+  title,
+  dataSeries,
+  labels,
+  dataPointWidth,
+  height,
+}) => {
+  // const colors = ["#98C6CF", "#1F8297", "#166c7d", "#e9f3f5"];
+  console.log(dataSeries);
+  const options = {
+    animationEnabled: true,
+    title: {
+      text: title,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontSize: 14,
+      padding: { bottom: 20 },
+      fontColor: "black",
+      horizontalAlign: "left",
+    },
+    axisY: {
+      //title: "Score",
+      gridThickness: 0,
+      labelFontSize: 10,
+      labelFontFamily: "Montserrat",
+    },
+    axisX: {
+      // interval: 1,
+      gridThickness: 0,
+      labelFontSize: 10,
+      labelFontFamily: "Montserrat",
+    },
+
+    toolTip: {
+      shared: true,
+      cornerRadius: 4,
+    },
+    legend: {
+      // horizontalAlign: "center",
+      // verticalAlign: "bottom",
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontSize: 10,
+      fontColor: "black",
+    },
+    dataPointWidth: dataPointWidth,
+    data: dataSeries.map((data, index) => {
+      console.log(data);
+      return {
+        type: "column",
+        name: data.name,
+        color: colors[index + (2 % colors.length)],
+        showInLegend: true,
+        indexLabel: "{y}",
+        indexLabelPlacement: "outside",
+        indexLabelFontColor: "#00403c",
+        indexLabelFontSize: 10,
+        indexLabelFontFamily: "Montserrat",
+        dataPoints: data.data?.map((val, index) => ({
+          label: labels[index],
+          y: val,
+        })),
+      };
+    }),
+  };
+
+  return (
+    <CanvasJSChart
+      options={options}
+      containerProps={{ height: height, width: "100%" }}
+    />
+  );
+};
+
+export const StackedColumnChart = ({
+  title,
+  categories,
+  series,
+  height,
+  labels,
+}) => {
+  return (
+    <CanvasJSChart
+      options={{
+        animationEnabled: true,
+        title: {
+          text: title,
+          fontSize: 14,
+          fontFamily: "Montserrat",
+          fontWeight: "500",
+          fontColor: "black",
+          horizontalAlign: "left",
+          padding: { bottom: 20 },
+        },
+        axisY: {
+          includeZero: true,
+          gridThickness: 0,
+          labelFontSize: 10,
+          labelFontFamily: "Montserrat",
+        },
+        axisX: {
+          labelFontSize: 10,
+          labelFontFamily: "Montserrat",
+        },
+        legend: {
+          fontSize: 12,
+          fontFamily: "Montserrat",
+          fontWeight: 500,
+        },
+        data: categories.map((category, index) => ({
+          type: "stackedColumn",
+          name: category,
+          showInLegend: true,
+          color: colors[index % colors.length],
+          dataPoints: labels.map((year, i) => ({
+            label: year,
+            y: series[i][index],
+          })),
+        })),
       }}
       containerProps={{ height: height, width: "100%" }}
     />
@@ -489,17 +643,26 @@ export const CombinationChart = ({
           fontFamily: "Montserrat",
           fontWeight: "500",
           fontColor: "black",
+          horizontalAlign: "left",
+          padding: { bottom: 20 },
         },
         axisX: {
           gridThickness: 0,
           labelFontSize: 10,
+          labelFontFamily: "Montserrat",
         },
         axisY: {
           gridThickness: 0,
           labelFontSize: 10,
+          labelFontFamily: "Montserrat",
         },
         toolTip: {
           shared: true,
+        },
+        legend: {
+          fontFamily: "Montserrat",
+          fontWeight: 500,
+          fontSize: 10,
         },
         data: [
           {
@@ -566,13 +729,15 @@ export const ParetoChart = ({
   const options = {
     height: height,
     width: width,
-
     animationEnabled: true,
     title: {
       text: title,
-      fontSize: 13,
-      fontWeight: "800",
+      fontSize: 14,
       fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontColor: "black",
+      horizontalAlign: "left",
+      padding: { bottom: 20 },
     },
     axisX: {
       title: xtitle,
@@ -586,12 +751,13 @@ export const ParetoChart = ({
     data: [
       {
         type: "column",
-        name: "Score",
+        // name: "Score",
         showInLegend: true,
         indexLabel: "{y}",
         indexLabelPlacement: "inside",
         indexLabelFontWeight: "bold",
         indexLabelFontSize: 10,
+        indexLabelFontFamily: "Montserrat",
         dataPoints: chartData,
         color: colors[2],
       },
@@ -602,6 +768,7 @@ export const ParetoChart = ({
         indexLabelPlacement: "outside",
         indexLabelFontWeight: "bold",
         indexLabelFontSize: 10,
+        indexLabelFontFamily: "Montserrat",
         dataPoints: lineDataPoints,
         color: colors[4],
       },
@@ -632,17 +799,19 @@ export const LineChart = ({
       fontWeight: "500",
       fontColor: fontColor,
       horizontalAlign: "left",
-      padding: { bottom: 10 },
+      padding: { bottom: 20 },
     },
     axisX: {
       title: xtitle,
       labelFontSize: 10,
       interval: 1,
+      labelFontFamily: "Montserrat",
     },
     axisY: {
       title: ytitle,
       labelFontSize: 10,
       gridThickness: 0,
+      labelFontFamily: "Montserrat",
     },
 
     data: data.map((series, index) => ({
@@ -669,7 +838,7 @@ export const LineChart = ({
   );
 };
 
-export const PieChart = ({ title, categories, series, height }) => {
+export const ModifiedPieChart = ({ title, categories, series, height }) => {
   const total = series.reduce((acc, value) => acc + value, 0);
   return (
     <div className="flex flex-column align-items-center justify-content-between w-full gap-8">
@@ -693,7 +862,7 @@ export const PieChart = ({ title, categories, series, height }) => {
             data: [
               {
                 type: "pie",
-                startAngle:90,
+                startAngle: 90,
                 toolTipContent: "<b>{label}</b>: #percent%",
                 showInLegend: false, // Disable showInLegend since we're using custom legends
                 radius: 180,
@@ -739,106 +908,6 @@ export const PieChart = ({ title, categories, series, height }) => {
   );
 };
 
-export const CustomBarChart = ({
-  title,
-  categories,
-  series,
-  height,
-  width,
-  xtitle,
-  ytitle,
-}) => {
-  const options = {
-    title: {
-      text: title,
-      fontSize: 12,
-      fontFamily: "Montserrat",
-      fontWeight: "800",
-    },
-    axisX: {
-      title: xtitle,
-      interval: 1,
-      gridThickness: 0, // Remove gridlines on X-axis
-    },
-    axisY: {
-      // title: ytitle,
-      includeZero: true,
-      gridThickness: 0, // Remove gridlines on Y-axis
-    },
-    toolTip: {
-      shared: true, // Display both series in the tooltip
-    },
-    data: [
-      {
-        type: "column",
-        name: "Female", // This will show "Female" in the tooltip
-        dataPoints: categories.map((category, index) => ({
-          label: category,
-          y: series[index].female,
-          color: "rgb(184, 184, 184)", // color for female
-        })),
-      },
-      {
-        type: "column",
-        name: "Male", // This will show "Male" in the tooltip
-        dataPoints: categories.map((category, index) => ({
-          label: category,
-          y: series[index].male,
-          color: "#00a269", // color for male
-        })),
-      },
-    ],
-    width,
-    height,
-  };
 
-  return (
-    <div style={{ width, height }}>
-      <CanvasJSChart options={options} />
-    </div>
-  );
-};
 
-export const DecompositionTree = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const categories = [
-    { label: "Root", y: 100 },
-    { label: "Branch 1", y: 60, parent: "Root" },
-    { label: "Branch 2", y: 40, parent: "Root" },
-    { label: "Leaf 1.1", y: 30, parent: "Branch 1" },
-    { label: "Leaf 1.2", y: 30, parent: "Branch 1" },
-    { label: "Leaf 2.1", y: 40, parent: "Branch 2" },
-  ];
-
-  const filteredCategories = categories.filter(
-    (category) =>
-      category.parent === selectedCategory ||
-      (!selectedCategory && !category.parent)
-  );
-
-  const options = {
-    animationEnabled: true,
-    title: {
-      text: "Decomposition Tree",
-    },
-    width: 400,
-    data: [
-      {
-        type: "column",
-        dataPoints: filteredCategories.map((category) => ({
-          label: category.label,
-          y: category.y,
-          click: () => setSelectedCategory(category.label),
-        })),
-      },
-    ],
-  };
-
-  return (
-    <div>
-      <button onClick={() => setSelectedCategory(null)}>Reset</button>
-      <CanvasJSChart options={options} />
-    </div>
-  );
-};

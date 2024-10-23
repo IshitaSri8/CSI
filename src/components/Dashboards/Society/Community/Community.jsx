@@ -2,7 +2,7 @@ import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Tooltip } from "primereact/tooltip";
 import React, { useState } from "react";
-import { BarChart, GroupedBarChart } from "Layout/GraphVisuals";
+import { BarChart, GroupedBarChart, GroupedColumnChart } from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import CommunityReportPrint from "./CommunityReportPrint";
@@ -15,7 +15,7 @@ const Community = ({ show }) => {
     setRecommendationsVisible(!recommendationsVisible);
   };
 
-  const tcategories = [
+  const facilitiesCategories = [
     "Anganwari-Housing Area/Cluster",
     "Community room",
     "Community hall and library",
@@ -25,15 +25,24 @@ const Community = ({ show }) => {
     "Old-age home",
   ];
 
+  const facilitiesData = [
+    {
+      name: "Existing",
+      data: [88, 88, 29, 4, 4, 4, 1],
+    },
+    {
+      name: "Target",
+      data: [220, 220, 73, 11, 11, 11, 2],
+    },
+  ];
+
   // Series data for existing and target values
   const tseries = [
     [88, 88, 29, 4, 4, 4, 1], // Existing values
     [220, 220, 73, 11, 11, 11, 2], // Target values
   ];
   const categories = ["2020", "2021", "2022", "2023", "2024"];
-  const fseries = [
-    [80, 90, 178, 148, 215], // Funds allocated for each year (in crores)
-  ];
+  const forums = [80, 90, 178, 148, 215]; // Funds allocated for each year (in crores)
 
   return (
     <div className="flex gap-3 flex-column p-4">
@@ -134,32 +143,18 @@ const Community = ({ show }) => {
           <BarChart
             title="Number of NGOs/Forums Over Years"
             categories={categories}
-            series={fseries}
+            series={forums}
             height={300}
-            width={"100%"}
-            xtitle=""
-            ytitle=""
-            color={["#1f77b4"]} // Use a single color for the bars
-            labelFontSize={10} // Font size for axis labels
-            titleOptions={{
-              fontFamily: "Montserrat",
-              fontWeight: "bold",
-              color: "#333",
-              align: "center",
-              padding: { bottom: 10 },
-            }}
           />
         </Card>
 
         <Card className="w-8">
-          <GroupedBarChart
+          <GroupedColumnChart
             title="Socio-Cultural Facilities"
-            categories={tcategories}
-            series={tseries}
+            labels={facilitiesCategories}
+            dataSeries={facilitiesData}
             height={300}
-            xtitle=""
-            ytitle=""
-            color={["#4D7479", "#F7A47A"]} // Assign different colors to the bars
+            dataPointWidth={40}
           />
         </Card>
       </div>

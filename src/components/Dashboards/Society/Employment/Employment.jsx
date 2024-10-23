@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Card } from "primereact/card";
-import { Doughnut } from "Layout/GraphVisuals";
+import { Doughnut, GroupedColumnChart } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
-import StackedColumnChart from "../Education/StackedColumnChart";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import EmploymentReportPrint from "./EmploymentReportPrint";
@@ -142,10 +141,12 @@ const Employment = ({ show }) => {
           <p className="text-2xl font-bold text-center">123</p>
         </Card>
         <Card className="w-full">
-          <StackedColumnChart
+          <GroupedColumnChart
             title="Job Trend"
             labels={years}
             dataSeries={jobTrendLabels}
+            dataPointWidth={40}
+            height={200}
           />
         </Card>
       </div>

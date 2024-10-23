@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Card } from "primereact/card";
 import { Dropdown } from "primereact/dropdown";
-import { Doughnut, LineChart } from "Layout/GraphVisuals";
+import { Doughnut, LineChart, GroupedColumnChart } from "Layout/GraphVisuals";
 import { primaryData } from "./PrimaryData";
 import { secondaryData } from "./SecondaryData";
 import { higherEducationData } from "./HigherEducationData";
 import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
-import StackedColumnChart from "./StackedColumnChart";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import EducationReportPrint from "./EducationReportPrint";
@@ -162,10 +161,12 @@ const EducationDashboard = ({ show }) => {
           />
         </Card>
         <Card className="w-full">
-          <StackedColumnChart
+          <GroupedColumnChart
             title="Institution Gap Analysis"
             labels={educationData.institutionsAnalysisLabels}
             dataSeries={educationData.institutionsAnalysisData}
+            dataPointWidth={40}
+            height={200}
           />
         </Card>
 
@@ -248,19 +249,23 @@ const EducationDashboard = ({ show }) => {
       </div>
       <div className="flex w-full gap-2">
         <Card className="w-full">
-          <StackedColumnChart
+          <GroupedColumnChart
             title="Enrollment Rate Trend"
             labels={educationData.years}
             dataSeries={educationData.enrollmentTrendData}
             years={years}
+            dataPointWidth={40}
+            height={200}
           />
         </Card>
         <Card className="w-full">
-          <StackedColumnChart
+          <GroupedColumnChart
             title="Dropout Rate Trend"
             labels={educationData.years}
             dataSeries={educationData.dropoutTrendData}
             years={years}
+            dataPointWidth={40}
+            height={200}
           />
         </Card>
       </div>

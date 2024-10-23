@@ -5,7 +5,6 @@ import "../AQI/AqiReport.css";
 import TempMap from "./TempMap";
 
 const TempReport = () => {
-  const [temperatureData, setTemperatureData] = useState([]);
   const [latestDate, setLatestDate] = useState("");
   const [filteredData, setFilteredData] = useState({});
   const [averageData, setAverageData] = useState({});

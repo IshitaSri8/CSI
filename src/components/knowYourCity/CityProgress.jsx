@@ -18,8 +18,8 @@ const CityProgress = () => {
 
   const solidWasteProcessedData = {
     title: "Solid Waste Processed (in TPD)",
-    labels: ["Domestic", "Dry", "Sanitary", "Wet"],
-    series: [5.43, 72.39, 3.62, 99.53],
+    labels: ["Wet", "Dry", "Sanitary", "Domestic"],
+    series: [99.53, 72.39, 3.62, 5.43],
     height: 150,
     width: 250,
     bgColor: "transparent",

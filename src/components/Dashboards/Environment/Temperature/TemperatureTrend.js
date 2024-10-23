@@ -110,12 +110,14 @@ const TemperatureTrend = ({
     height: 250,
     legend: {
       fontSize: 10,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
     },
     title: {
       text: "Temperature and CO2 Trend",
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       fontColor: "black",
       horizontalAlign: "left",
       padding: { bottom: 20 },
@@ -124,6 +126,8 @@ const TemperatureTrend = ({
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
+      labelFontFamily: "Montserrat",
+      labelFontSize: 8,
     },
     axisY2: {
       gridThickness: 0,
@@ -131,6 +135,7 @@ const TemperatureTrend = ({
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
+      labelFontFamily: "Montserrat",
       lineThickness: 1,
       title: "CO2",
       stripLines: [
@@ -151,6 +156,7 @@ const TemperatureTrend = ({
       tickColor: "#a2a2a2",
       lineThickness: 1,
       title: "Temperature",
+      labelFontFamily: "Montserrat",
     },
 
     data: (chartData["BaseChart"] || []).map((series) => ({
@@ -277,7 +283,7 @@ const TemperatureTrend = ({
       text: `Temperature and CO2 Levels for ${selectedDate}`,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       fontColor: "black",
       horizontalAlign: "left",
       padding: { bottom: 20 },

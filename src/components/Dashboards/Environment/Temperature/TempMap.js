@@ -16,7 +16,6 @@ import railway from "assets/aqi/railway.avif";
 import school from "assets/aqi/tiny-school.jpg";
 import temple from "assets/aqi/ram.jpg";
 import Shahadat from "assets/aqi/shahadat.jpeg";
-import AQI from "assets/aqi/AQI.png";
 import ADABoundary from "../Maps/ADA_Boundary.json";
 
 const TempMap = ({ averageTemp, selectedLocation }) => {

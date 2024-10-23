@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart, GroupedColumnChart } from "Layout/GraphVisuals";
+import { BarChart, ColumnChart, GroupedColumnChart } from "Layout/GraphVisuals";
 import "./Waste.css";
 import { Divider } from "primereact/divider";
 import CanvasJSReact from "@canvasjs/react-charts";
@@ -24,16 +24,19 @@ const WasteDashboard = ({ show }) => {
     setRecommendationsVisible(!recommendationsVisible);
   };
 
-  const solidWasteData = [
-    { label: "SW-Collection(TPD)", y: 181 },
-    { label: "SW-Generated(TPD)", y: 181 },
-    { label: "SW-Processed(TPD)", y: 181 },
+  const solidWasteData = [181, 181, 181];
+  const solidWasteLabels = [
+    "SW-Collection(TPD)",
+    "SW-Generated(TPD)",
+    "SW-Processed(TPD)",
   ];
-  const estimatedSWG = [
-    { label: "Residential", y: 358261 },
-    { label: "Commercial", y: 119420 },
-    { label: "Street Sweepings", y: 59700 },
-    { label: "Institutional", y: 59700 },
+
+  const estimatedSWGData = [358261, 119420, 59700, 59700]; // Example data
+  const estimatedSWGLabels = [
+    "Residential",
+    "Commercial",
+    "Street Sweepings",
+    "Institutional",
   ];
 
   const pieChartData = [55, 34, 179, 83];
@@ -45,12 +48,6 @@ const WasteDashboard = ({ show }) => {
   ];
 
   const total = pieChartData.reduce((acc, value) => acc + value, 0);
-
-  const barChartData = [estimatedSWG.map((item) => item.y)];
-  const barChartCategories = estimatedSWG.map((item) => item.label);
-
-  const barChart1Data = [solidWasteData.map((item) => item.y)];
-  const barChart1Categories = solidWasteData.map((item) => item.label);
 
   const cardData = [
     { title: "Community Toilet", value: 550, icon: CommunityToiletIcon },
@@ -227,7 +224,9 @@ const WasteDashboard = ({ show }) => {
             key={card.value}
           >
             <p className="p-0 m-0 text-primary1 font-semibold">{card.title}</p>
-            <p className="p-0 m-0 text-tertiary3 font-medium text-sm">{card.value}</p>
+            <p className="p-0 m-0 text-tertiary3 font-medium text-sm">
+              {card.value}
+            </p>
           </div>
         ))}
         <div className="flex justify-content-between align-items-center w-full bg-white border-round p-4">
@@ -281,8 +280,8 @@ const WasteDashboard = ({ show }) => {
       <div className="flex gap-3 w-full">
         <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
           <BarChart
-            categories={barChart1Categories}
-            series={barChart1Data}
+            categories={solidWasteLabels}
+            series={solidWasteData}
             height={200}
             title="Solid Waste Management"
             colors={colors.slice(0, 3)}
@@ -290,9 +289,9 @@ const WasteDashboard = ({ show }) => {
         </div>
 
         <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
-          <GroupedColumnChart
-            categories={barChartCategories}
-            series={barChartData}
+          <ColumnChart
+            categories={estimatedSWGLabels}
+            series={estimatedSWGData}
             height={200}
             title="Estimated Solid Waste Generated"
             colors={colors.slice(0, 4)}
