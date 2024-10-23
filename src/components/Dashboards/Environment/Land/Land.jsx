@@ -4,12 +4,10 @@ import LandRecommendations from "./LandRecommendations";
 import { Button } from "primereact/button";
 import LandReportPrint from "./LandReportPrint";
 import { Dialog } from "primereact/dialog";
-import { Divide, LandPlot } from "lucide-react";
+import { LandPlot } from "lucide-react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import increase from "assets/increase.png";
 import { ProgressBar } from "primereact/progressbar";
-import { ModifiedBarChart, PieChart } from "Layout/GraphVisuals";
-import { Divider } from "primereact/divider";
+import { PieChart } from "Layout/GraphVisuals";
 import { Tag } from "primereact/tag";
 import { Panel } from "primereact/panel";
 

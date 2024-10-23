@@ -38,7 +38,6 @@
   font-weight: 600;
   color: #00a269;
   margin-bottom: -0.3125rem;
-  /* background-color: #aca9a9; */
 }
 
 .card-dummy .p-card-title {
@@ -53,9 +52,6 @@
   font-size: 0.75rem;
   font-weight: bold;
   text-align: center;
-  /* margin-top: 1rem; */
-  /* margin-bottom: 1rem; */
-  /* border-bottom: 2px solid #00A269; */
 }
 
 .vertical-card-header {
@@ -64,16 +60,11 @@
   margin-bottom: 0rem;
   font-weight: bold;
   text-transform: uppercase;
-  /* margin-top: -2rem; */
 }
 
 .vertical-card-p {
   font-size: 0.9375rem;
   color: #000;
-}
-
-.canvasjs-chart-canvas {
-  /* position: relative !important; */
 }
 
 .card-uniform {

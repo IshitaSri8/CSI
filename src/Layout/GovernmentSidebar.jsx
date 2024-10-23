@@ -145,7 +145,7 @@ const GovernmentSidebar = () => {
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Society" },
-          { label: "Employment" },
+          { label: "Employment Opportunity" },
         ]
       : activeTab === "cultural"
       ? [
@@ -511,7 +511,7 @@ const GovernmentSidebar = () => {
                         size={15}
                       />
                       <span className="font-medium text-sm text-white">
-                        Employment Opportunities
+                        Employment Opportunity
                       </span>
                       <Ripple />
                     </div>

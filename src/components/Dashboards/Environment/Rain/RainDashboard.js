@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import RainTrend from "./RainTrend";
-import { Card } from "primereact/card";
 import "../../Dash.css";
 import RainRecommendations from "./RainRecommendations";
 import { Button } from "primereact/button";
 import RainReportPrint from "./RainReportPrint";
 import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
-import increase from "assets/increase.png";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import rain from "assets/Rainfall Illustration.svg";
 import { Chip } from "primereact/chip";
@@ -148,7 +146,7 @@ const RainDashboard = ({ show }) => {
     <div className="flex flex-column gap-3 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
+          <h1 className="m-0 p-0 text-primary1 text-xl text-semibold">
             Rainfall
           </h1>
           <div className="flex align-items-center justify-content-end gap-4">
@@ -176,13 +174,13 @@ const RainDashboard = ({ show }) => {
       <div className="flex align-items-stretch justify-content-center w-full">
         {/* total Rainfall */}
         <div className="flex flex-column bg-white border-round gap-3 p-2 px-4 w-full mr-3">
-          <p className="text-primary1 font-medium text-lg">Total Rainfall</p>
+          <p className="text-primary1 font-semibold text-lg">Total Rainfall</p>
           <div className="flex justify-content-around align-items-center gap-3">
             <div className="flex flex-column align-items-center px-5">
               <p className="text-3xl font-semibold m-0 text-secondary2">
                 {totalRainfall}
               </p>
-              <p className="p-0 m-0 font-semibold text-xl text-secondary2">
+              <p className="p-0 m-0 font-medium text-xl text-secondary2">
                 mm
               </p>
               <p className="text-primary1 font-medium text-lg px-0">Actual</p>
@@ -192,7 +190,7 @@ const RainDashboard = ({ show }) => {
               <p className="text-3xl font-semibold m-0 text-secondary2">
                 {totalExpectedRainfall}
               </p>
-              <p className="p-0 m-0 font-semibold text-xl text-secondary2">
+              <p className="p-0 m-0 font-medium text-xl text-secondary2">
                 mm
               </p>
               <p className="text-primary1 font-medium text-lg px-0">Expected</p>
@@ -202,7 +200,7 @@ const RainDashboard = ({ show }) => {
 
         {/* Deviation from Expected */}
         <div className="flex flex-column align-items-center bg-white border-round p-2 px-4 w-full mr-3">
-          <p className="text-primary1 font-medium text-lg">
+          <p className="text-primary1 font-semibold text-lg">
             Deviation from Expected
           </p>
           <div className="flex w-10rem custom-circular-progress">
@@ -230,7 +228,7 @@ const RainDashboard = ({ show }) => {
               }}
               alt="increase"
             />
-            <p className="text-tertiary3 text-sm p-0 m-0 font-medium">
+            <p className="text-tertiary3 text-sm p-0 m-0 font-semibold">
               <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last year.
             </p>
           </div> */}
@@ -244,15 +242,15 @@ const RainDashboard = ({ show }) => {
 
         {/* Maximum Rainfall */}
         <div
-          className="flex flex-column bg-white w-full p-2 px-4 gap-3 align-items-stretch"
+          className="flex flex-column bg-white w-full p-2 px-4 gap-4 align-items-stretch"
           style={{ borderRadius: "0 10px 10px 0" }}
         >
-          <p className="text-primary1 font-medium text-lg">Maximum Rainfall</p>
+          <p className="text-primary1 font-semibold text-lg">Maximum Rainfall</p>
           <div className="flex align-items-center justify-content-center flex-column">
             <p className="text-3xl font-semibold m-0 text-secondary2">
               {maxRainfall}
             </p>
-            <p className="p-0 m-0 font-semibold text-xl text-secondary2">mm</p>
+            <p className="p-0 m-0 font-medium text-xl text-secondary2">mm</p>
           </div>
           <Chip
             label={`${maxRainfallYear} (July)`}

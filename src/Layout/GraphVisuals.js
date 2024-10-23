@@ -33,6 +33,8 @@ export const DonutChart = ({
       fontFamily: "Montserrat",
       fontWeight: "500",
       fontColor: fontColor,
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
     backgroundColor: bgColor,
     dataPointWidth: 12,
@@ -97,6 +99,8 @@ export const Doughnut = ({
       fontFamily: "Montserrat",
       fontWeight: "500",
       fontColor: "black",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
     labels: labels,
     backgroundColor: bgColor,
@@ -155,7 +159,6 @@ export const Doughnut = ({
 
 export const GroupedColumnChart = ({
   title,
-  titleOptions = {},
   categories,
   series,
   height,
@@ -171,12 +174,12 @@ export const GroupedColumnChart = ({
         animationEnabled: true,
         title: {
           text: title,
-          fontSize: 12,
+          fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: titleOptions.fontWeight || "bold",
-          color: titleOptions.color || "#333",
-          horizontalAlign: titleOptions.align || "center",
-          padding: titleOptions.padding || { bottom: 10 },
+          fontWeight: "500",
+          fontColor: "black",
+          horizontalAlign: "left",
+          padding: { bottom: 10 },
         },
         axisX: {
           title: xtitle,
@@ -229,6 +232,8 @@ export const GroupedBarChart = ({
           fontFamily: "Montserrat",
           fontWeight: "500",
           fontColor: "black",
+          horizontalAlign: "left",
+          padding: { bottom: 10 },
         },
         axisX: {
           title: xtitle,
@@ -287,6 +292,8 @@ export const BarChart = ({
           fontFamily: "Montserrat",
           fontWeight: "500",
           fontColor: "black",
+          horizontalAlign: "left",
+          padding: { bottom: 10 },
         },
         axisX: {
           title: xtitle,
@@ -429,6 +436,8 @@ export const ColumnChart = ({
           fontFamily: "Montserrat",
           fontWeight: "500",
           fontColor: "black",
+          horizontalAlign: "left",
+          padding: { bottom: 10 },
         },
         axisX: {
           title: xtitle,
@@ -622,6 +631,8 @@ export const LineChart = ({
       fontFamily: "Montserrat",
       fontWeight: "500",
       fontColor: fontColor,
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
     axisX: {
       title: xtitle,

@@ -56,7 +56,6 @@ const WasteDashboard = ({ show }) => {
   const barChart1Data = [solidWasteData.map((item) => item.y)];
   const barChart1Categories = solidWasteData.map((item) => item.label);
 
-
   const cardData = [
     { title: "Community Toilet", value: 550, icon: CommunityToiletIcon },
     { title: "Public Toilet", value: 700, icon: PublicToiletIcon },
@@ -88,9 +87,11 @@ const WasteDashboard = ({ show }) => {
     animationEnabled: true,
     title: {
       text: "Waste Composition",
-      fontSize: 12,
-      fontFamily: "DM Sans",
-      fontWeight: "800",
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontColor: "black",
+      horizontalAlign: "left",
     },
 
     data: [
@@ -121,11 +122,11 @@ const WasteDashboard = ({ show }) => {
     animationEnabled: true,
     title: {
       text: "Waste Collection (in MT/day)",
-      fontSize: 12,
-      fontFamily: "Arial",
-      fontWeight: "bold",
-      color: "#333",
-      horizontalAlign: "center",
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: "500",
+      fontColor: "black",
+      horizontalAlign: "left",
       padding: { bottom: 10 },
     },
 
@@ -223,34 +224,30 @@ const WasteDashboard = ({ show }) => {
         </div>
       )}
 
-      <div className="flex flex-wrap gap-3 w-full justify-content-center">
+      <div className="flex gap-3 w-full justify-content-center">
         {cardData.slice(0, 7).map((card, index) => (
-          <Card key={card.value} className="card-dummy">
-            <div className="card-content">
-              <p className="p-card-title">{card.title}</p>
-              <img
-                src={card.icon}
-                alt={card.title}
-                className="card-icon-size"
-              />
-              <p className="card-value">{card.value}</p>
-            </div>
-          </Card>
+          <div
+            className="flex flex-column bg-white border-round p-4"
+            key={card.value}
+          >
+            <p className="p-0 m-0 text-primary1 font-semibold">{card.title}</p>
+            <p className="p-0 m-0 text-tertiary3 font-medium text-sm">{card.value}</p>
+          </div>
         ))}
-      </div>
-
-      <div className="flex gap-3 w-full">
-        <Card title="Common Toilets & Public Toilets " className="w-full">
-          <div className="flex align-items-center justify-content-center flex-column gap-4">
-            <div className="flex align-items-center justify-content-center flex-row gap-2">
+        <div className="flex justify-content-between align-items-center w-full bg-white border-round p-4">
+          <p className="text-primary1 font-semibold p-0 m-0">
+            Common Toilets & Public Toilets
+          </p>
+          <div className="flex align-items-center justify-content-center flex-column gap-2">
+            <div className="flex align-items-center justify-content-center gap-2">
               <img
                 src={ConstructedIcon}
-                style={{ height: "2rem", width: "2rem" }}
+                style={{ height: "1.5rem", width: "1.5rem" }}
                 alt="constructed"
               ></img>
-              <h1 className="text-lg">Constructed</h1>
+              <h1 className="p-0 m-0">Constructed</h1>
             </div>
-            <div className="flex align-items-center justify-content-center flex-row gap-6">
+            <div className="flex align-items-center justify-content-center gap-4">
               <div className="flex align-items-center justify-content-center flex-column">
                 <h1 className="p-0 m-0">28400</h1>
                 <h1 className="text-sm p-0 m-0 text-green-500">Functional</h1>
@@ -262,20 +259,18 @@ const WasteDashboard = ({ show }) => {
                 </h1>
               </div>
             </div>
-
-            <div></div>
           </div>
-          <Divider />
-          <div className="flex align-items-center justify-content-center flex-column gap-4">
-            <div className="flex align-items-center justify-content-center flex-row gap-2">
+          <Divider layout="vertical" />
+          <div className="flex align-items-center justify-content-center flex-column gap-2">
+            <div className="flex align-items-center justify-content-center gap-2">
               <img
                 src={UnderConstructedIcon}
                 style={{ height: "2rem", width: "2rem" }}
                 alt="constructed"
               ></img>
-              <h1 className="text-lg">Under Construction</h1>
+              <h1 className=" p-0 m-0">Under Construction</h1>
             </div>
-            <div className="flex align-items-center justify-content-center flex-row gap-6">
+            <div className="flex align-items-center justify-content-center gap-2">
               <div className="flex align-items-center justify-content-center flex-column">
                 <h1 className="p-0 m-0">223</h1>
                 <h1 className="text-sm p-0 m-0 text-green-300">
@@ -283,47 +278,42 @@ const WasteDashboard = ({ show }) => {
                 </h1>
               </div>
             </div>
-
-            <div></div>
           </div>
-        </Card>
-
-        <Card className="w-full">
-          <BarChart
-            categories={barChart1Categories}
-            series={barChart1Data}
-            height={240}
-            title="Solid Waste Management"
-            colors={colors.slice(0, 3)}
-          />
-        </Card>
-
-        <Card className="w-full">
-          <GroupedColumnChart
-            categories={barChartCategories}
-            series={barChartData}
-            height={250}
-            title="Estimated Solid Waste Generated"
-            colors={colors.slice(0, 4)}
-          />
-        </Card>
+        </div>
       </div>
 
       <div className="flex gap-3 w-full">
-       
-        <Card className="w-full">
+        <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
+          <BarChart
+            categories={barChart1Categories}
+            series={barChart1Data}
+            height={200}
+            title="Solid Waste Management"
+            colors={colors.slice(0, 3)}
+          />
+        </div>
+
+        <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
+          <GroupedColumnChart
+            categories={barChartCategories}
+            series={barChartData}
+            height={200}
+            title="Estimated Solid Waste Generated"
+            colors={colors.slice(0, 4)}
+          />
+        </div>
+        <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
           <CanvasJSChart
             options={CustomBar}
             containerProps={{ height: 200, width: "100%" }}
           />
-        </Card>
-
-        <Card className="w-full">
+        </div>
+        <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
           <CanvasJSChart
             options={pieOptions}
             containerProps={{ height: 200, width: "100%" }}
           />
-        </Card>
+        </div>
       </div>
       <div className="flex justify-content-end">
         <Button
