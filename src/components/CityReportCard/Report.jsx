@@ -10,13 +10,9 @@ import Climate from "assets/Report/Climate quality.svg";
 import Water from "assets/Report/Water Management.svg";
 import Fire from "assets/Report/Fire & energy.svg";
 import CanvasJSReact from "@canvasjs/react-charts";
-import transport from "assets/Report/transport.svg";
 import Healthcare from "assets/Report/Healthcare.svg";
 import Housing from "assets/Report/Housing.svg";
 import Cultural from "assets/Report/Cultural preservation.svg";
-import AntiCorruption from "assets/Report/Anti corruption.svg";
-import GovtPol from "assets/Report/Government policies.svg";
-import HumanRights from "assets/Report/Human Rights.svg";
 import { Divider } from "primereact/divider";
 import transparency from "assets/Report/Transparency and accountability.svg";
 import community from "assets/Report/Community engagement and holistic wellbeing.svg";
@@ -87,10 +83,12 @@ const CityReportCard = () => {
     animationEnabled: true,
     title: {
       text: "City Sustainability Metrics",
+      fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 800,
-      fontSize: 15,
-      padding: { bottom: 10 },
+      fontWeight: "500",
+      fontColor: "black",
+      horizontalAlign: "left",
+      padding: { bottom: 20 },
     },
     axisY: {
       title: "Score",

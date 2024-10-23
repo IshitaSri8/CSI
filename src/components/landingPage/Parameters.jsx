@@ -15,7 +15,7 @@ const Parameters = () => {
       <div className="flex align-items-center justify-content-center flex-row gap-2 w-full ">
         <div
           className="sec-theme w-full h-full shadow-none mx-4"
-          style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
+          // style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
         >
           <div className="flex flex-column align-items-left justify-content-start m-0 p-0 ">
             <img src={Nature} alt="Nature" className="w-full" />
@@ -34,7 +34,7 @@ const Parameters = () => {
 
         <div
           className="sec-theme w-full h-full shadow-none mx-4 pb-4"
-          style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
+          // style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
         >
           <div className="flex flex-column align-items-left justify-content-start ">
             <img src={Society} alt="Society" className="w-full" />
@@ -51,7 +51,7 @@ const Parameters = () => {
 
         <div
           className="sec-theme w-full h-full shadow-none mx-4"
-          style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
+          // style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
         >
           <div className="flex flex-column align-items-left justify-content-start ">
             <img src={Admin} alt="Admin" className="w-full" />
