@@ -44,7 +44,7 @@ const LandRecommendations = () => {
           </li>
 
           <li>
-            <li className="font-bold">Sustainable Urban Expansion:</li>
+            <li className="font-bold text-theme">Sustainable Urban Expansion:</li>
             Direct new development towards designated growth corridors and areas
             that have existing infrastructure to support it. Avoid expansion
             into ecologically sensitive areas such as wetlands, forests, and
@@ -52,14 +52,14 @@ const LandRecommendations = () => {
           </li>
 
           <li>
-            <li className="font-bold"> Smart Zoning Policies:</li>
+            <li className="font-bold text-theme"> Smart Zoning Policies:</li>
             Use smart zoning to create mixed-use neighborhoods that combine
             residential, commercial, and recreational spaces, reducing the need
             for long commutes and improving quality of life.
           </li>
 
           <li>
-            <li className="font-bold">Urban Renewal Projects:</li>
+            <li className="font-bold text-theme">Urban Renewal Projects:</li>
             Prioritize the redevelopment of dilapidated or underutilized areas.
             Encourage private-public partnerships (PPP) for urban renewal
             initiatives to revitalize older parts of the city.
@@ -80,8 +80,8 @@ const LandRecommendations = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-left text-xl">Recommendations</h1>
+    <div className="p-4">
+      {/* <h1 className="text-left text-xl">Recommendations</h1> */}
       <Fieldset legend={getBadge()}>{getRecommendationLand()}</Fieldset>
     </div>
   );

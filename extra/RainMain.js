@@ -4,8 +4,8 @@ import { TabView, TabPanel } from "primereact/tabview";
 import "primereact/resources/themes/saga-blue/theme.css"; // Choose your theme
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import RainDashboard from "./RainDashboard";
-import RainRecommendations from "./RainRecommendations";
+import RainDashboard from "../src/components/Dashboards/Environment/Rain/RainDashboard";
+import RainRecommendations from "../src/components/Dashboards/Environment/Rain/RainRecommendations";
 import GenerateRainReport from "./GenerateRainReport";
 
 const RainMain = () => {

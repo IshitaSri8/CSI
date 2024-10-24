@@ -234,3 +234,11 @@ body {
 .custom-circular-progress .CircularProgressbar-text {
   font-weight: 600; /* Bold text */
 }
+
+.p-panel .p-panel-content {
+  padding: 0;
+}
+
+.p-panel .p-panel-header {
+  border: none;
+}

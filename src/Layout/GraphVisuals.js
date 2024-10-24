@@ -33,7 +33,7 @@ export const DonutChart = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       fontColor: fontColor,
       horizontalAlign: "left",
       padding: { bottom: 20 },
@@ -98,7 +98,7 @@ export const Doughnut = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       fontColor: "black",
       horizontalAlign: "left",
       padding: { bottom: 20 },
@@ -143,7 +143,7 @@ export const Doughnut = ({
             fontSize: 14,
             dockInsidePlotArea: true,
             fontFamily: "Montserrat",
-            fontWeight: "500",
+            fontWeight: 500,
             fontColor: "black",
           },
         ]
@@ -174,7 +174,7 @@ export const BarChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: "500",
+          fontWeight: 500,
           fontColor: "black",
           horizontalAlign: "left",
           padding: { bottom: 20 },
@@ -227,7 +227,7 @@ export const GroupedBarChart = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       fontColor: "black",
       horizontalAlign: "left",
       padding: { bottom: 20 },
@@ -313,7 +313,7 @@ export const StackedBarChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: "500",
+          fontWeight: 500,
           fontColor: "black",
           horizontalAlign: "left",
           padding: { bottom: 20 },
@@ -385,7 +385,7 @@ export const ModifiedBarChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: "500",
+          fontWeight: 500,
           fontColor: "#4C4C4C",
           horizontalAlign: "left", // Left-align the title
           padding: { bottom: 20 },
@@ -456,7 +456,7 @@ export const ColumnChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: "500",
+          fontWeight: 500,
           fontColor: "black",
           horizontalAlign: "left",
           padding: { bottom: 20 },
@@ -588,7 +588,7 @@ export const StackedColumnChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: "500",
+          fontWeight: 500,
           fontColor: "black",
           horizontalAlign: "left",
           padding: { bottom: 20 },
@@ -641,7 +641,7 @@ export const CombinationChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: "500",
+          fontWeight: 500,
           fontColor: "black",
           horizontalAlign: "left",
           padding: { bottom: 20 },
@@ -734,7 +734,7 @@ export const ParetoChart = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       fontColor: "black",
       horizontalAlign: "left",
       padding: { bottom: 20 },
@@ -796,7 +796,7 @@ export const LineChart = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 500,
       fontColor: fontColor,
       horizontalAlign: "left",
       padding: { bottom: 20 },
@@ -850,7 +850,7 @@ export const ModifiedPieChart = ({ title, categories, series, height }) => {
               text: title,
               fontSize: 14,
               fontFamily: "Montserrat",
-              fontWeight: "500",
+              fontWeight: 500,
               fontColor: "black",
               horizontalAlign: "left",
               padding: { bottom: 40 },
@@ -870,7 +870,7 @@ export const ModifiedPieChart = ({ title, categories, series, height }) => {
                 indexLabelFontSize: 14,
                 indexLabelPlacement: "outside",
                 indexLabelFontFamily: "Montserrat",
-                indexLabelFontWeight: "500",
+                indexLabelFontWeight: 500,
                 dataPoints: series.map((value, index) => ({
                   y: value,
                   label: categories[index],
@@ -908,6 +908,70 @@ export const ModifiedPieChart = ({ title, categories, series, height }) => {
   );
 };
 
+export const GaugeChart = ({ title, gaugeValue, maxValue, height }) => {
+  const createGaugeOptions = () => {
+    // Calculation for the unoccupied (remaining) value
+    const unoccupied = {
+      y: maxValue - gaugeValue,
+      color: "#fff", // Color for the unoccupied portion
+      toolTipContent: null, // Disable tooltip for this section
+      highlightEnabled: false,
+      click: function () {
+        unoccupied.exploded = true; // Explode effect on click
+      },
+    };
 
+    // The filled portion of the gauge
+    const data = {
+      y: gaugeValue,
+      color: "#1F8297", // Default color for the gauge
+      click: function () {
+        data.exploded = true; // Explode effect on click
+      },
+    };
 
+    return {
+      animationEnabled: true,
+      title: {
+        text: title,
+        fontSize: 14,
+        fontFamily: "Montserrat",
+        fontWeight: 500,
+        fontColor: "black",
+        horizontalAlign: "left",
+      },
+      backgroundColor: "transparent",
+      subtitles: [
+        {
+          text:  `${gaugeValue}%`,// Display the gauge value in the center
+          verticalAlign: "center",
+          fontSize: 14,
+          fontFamily: "Montserrat",
+          fontWeight: 500,
+          fontColor: "black",
+        },
+      ],
+      data: [
+        {
+          type: "doughnut",
+          startAngle: 0, // Half-circle effect
+          endAngle: 180,
+          radius: "200%", // Adjust the radius to make the gauge bigger
+          innerRadius: "80%", // Adjust the inner radius to control the thickness of the gauge
+          dataPoints: [
+            { y: maxValue, color: "transparent", toolTipContent: null }, // Full background (transparent)
+            data, // Filled section
+            unoccupied, // Empty section
+          ],
+        },
+      ],
+    };
+  };
 
+  return (
+    <CanvasJSChart
+      options={createGaugeOptions()} // Pass the dynamically created gauge options
+      containerProps={{ height: height, width: "100%" }} // Adjust height and width of the chart
+    />
+  );
+};

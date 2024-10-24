@@ -414,11 +414,11 @@ const Land = ({ show }) => {
           onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
           headerTemplate={(options) => {
             const toggleIcon = options.collapsed
-              ? "pi pi-chevron-circle-right" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-circle-down"; // Arrow pointing down when expanded
+              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
+              : "pi pi-chevron-down"; // Arrow pointing down when expanded
 
             return (
-              <div className="flex justify-content-between align-items-center px-2 bg-theme">
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">
                   View Recommendations
                 </p>
@@ -427,7 +427,7 @@ const Land = ({ show }) => {
                   onClick={options.onTogglerClick}
                   style={{
                     background: "none",
-                    border: "none",
+                    // border: "none",
                     cursor: "pointer",
                     color: "#001F23",
                   }}

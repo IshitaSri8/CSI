@@ -10,6 +10,7 @@ import { Divider } from "primereact/divider";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import rain from "assets/Rainfall Illustration.svg";
 import { Chip } from "primereact/chip";
+import { Panel } from "primereact/panel";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
@@ -180,9 +181,7 @@ const RainDashboard = ({ show }) => {
               <p className="text-3xl font-semibold m-0 text-secondary2">
                 {totalRainfall}
               </p>
-              <p className="p-0 m-0 font-medium text-xl text-secondary2">
-                mm
-              </p>
+              <p className="p-0 m-0 font-medium text-xl text-secondary2">mm</p>
               <p className="text-primary1 font-medium text-lg px-0">Actual</p>
             </div>
             <Divider layout="vertical" />
@@ -190,9 +189,7 @@ const RainDashboard = ({ show }) => {
               <p className="text-3xl font-semibold m-0 text-secondary2">
                 {totalExpectedRainfall}
               </p>
-              <p className="p-0 m-0 font-medium text-xl text-secondary2">
-                mm
-              </p>
+              <p className="p-0 m-0 font-medium text-xl text-secondary2">mm</p>
               <p className="text-primary1 font-medium text-lg px-0">Expected</p>
             </div>
           </div>
@@ -218,20 +215,6 @@ const RainDashboard = ({ show }) => {
               })}
             />
           </div>
-          {/* <div className="flex align-items-center justify-content-start">
-            <img
-              src={increase}
-              style={{
-                height: "1.5rem",
-                width: "1.5rem",
-                marginRight: "0.5rem",
-              }}
-              alt="increase"
-            />
-            <p className="text-tertiary3 text-sm p-0 m-0 font-semibold">
-              <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last year.
-            </p>
-          </div> */}
         </div>
         <img
           src={rain}
@@ -245,7 +228,9 @@ const RainDashboard = ({ show }) => {
           className="flex flex-column bg-white w-full p-2 px-4 gap-4 align-items-stretch"
           style={{ borderRadius: "0 10px 10px 0" }}
         >
-          <p className="text-primary1 font-semibold text-lg">Maximum Rainfall</p>
+          <p className="text-primary1 font-semibold text-lg">
+            Maximum Rainfall
+          </p>
           <div className="flex align-items-center justify-content-center flex-column">
             <p className="text-3xl font-semibold m-0 text-secondary2">
               {maxRainfall}
@@ -278,21 +263,38 @@ const RainDashboard = ({ show }) => {
         *Data updated till 2021. These numbers are subject to variation.
       </p>
 
-      <div className="flex justify-content-end">
-        <Button
-          label={
-            recommendationsVisible
-              ? "Close Recommendations"
-              : "View Recommendations"
-          }
-          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-          onClick={handleToggleRecommendations}
-          className="bg-theme text-white"
-          raised
-        />
-      </div>
+      {show && (
+        <Panel
+          //  header="View Recommendations"
+          toggleable
+          onToggle={handleToggleRecommendations}
+          headerTemplate={(options) => {
+            const toggleIcon = options.collapsed
+              ? "pi pi-chevron-right"
+              : "pi pi-chevron-down";
 
-      {recommendationsVisible && <RainRecommendations />}
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
+          {recommendationsVisible && <RainRecommendations />}
+        </Panel>
+      )}
     </div>
   );
 };

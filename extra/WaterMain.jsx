@@ -4,8 +4,8 @@ import { TabView, TabPanel } from "primereact/tabview";
 import "primereact/resources/themes/saga-blue/theme.css"; // Choose your theme
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import WaterDashboard from "./WaterDashboard";
-import WaterRecommendations from "./WaterRecommendations";
+import WaterDashboard from "../src/components/Dashboards/Environment/Water/WaterDashboard";
+import WaterRecommendations from "../src/components/Dashboards/Environment/Water/WaterRecommendations";
 import GenerateWaterReport from "./GenerateWaterReport";
 
 const WaterMain = () => {

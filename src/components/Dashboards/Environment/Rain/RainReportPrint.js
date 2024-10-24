@@ -54,7 +54,7 @@ export default function RainReportPrint() {
   return (
     <>
       <div ref={contentRef}>
-        <div className="w-full print-container">
+        <div className="w-full print-container sec-theme p-4">
           <div className="flex flex-column gap-2 align-items-center w-full">
             <h1
               style={{ color: "#1F8297" }}
@@ -63,9 +63,16 @@ export default function RainReportPrint() {
               City Sustainability Index 2024
             </h1>
             <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
+            <h1 className="m-0 p-0 text-primary1 text-3xl text-semibold">
+              Rainfall
+            </h1>
           </div>
           <div className="w-full">
             <RainDashboard show={false} />
+          </div>
+          <div className="w-full">
+            <h1 className="text-left text-xl">Recommendations</h1>
+            <RainRecommendations />
           </div>
         </div>
       </div>

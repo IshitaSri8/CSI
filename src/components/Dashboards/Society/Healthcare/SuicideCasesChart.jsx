@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 
-export const PatientsRegisteredChart = ({ categories, series }) => {
+export const SuicideCasesChart = ({ categories, series }) => {
   const [selectedYear, setSelectedYear] = useState(null);
   const [drilldownData, setDrilldownData] = useState([]);
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -64,13 +64,13 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
 
   return (
     <div className="w-full flex flex-column">
-      {/* Main Chart for Registered Patients per Year */}
+      {/* Main Chart for Suicide Cases per Year */}
       {!selectedYear ? (
         <CanvasJSChart
           options={{
             animationEnabled: true,
             title: {
-              text: "Registered Patients per Year",
+              text: "Suicide Cases per Year",
               fontSize: 14,
               fontFamily: "Montserrat",
               fontWeight: "500",
@@ -91,7 +91,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
             data: [
               {
                 type: "column",
-                name: "Registered Patients",
+                name: "Suicide Cases",
                 click: handlePointClick, // Trigger drilldown on click
                 dataPoints: categories.map((year, index) => ({
                   label: year,
@@ -116,7 +116,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
           options={{
             animationEnabled: true,
             title: {
-              text: `Patients Registered in ${selectedYear} by Age Group`,
+              text: `Suicide Cases in ${selectedYear} by Age Group`,
               fontSize: 14,
               fontFamily: "Montserrat",
               fontWeight: 500,

@@ -14,6 +14,9 @@ import {
 import { Tooltip } from "primereact/tooltip";
 import { Divider } from "primereact/divider";
 import { PatientsRegisteredChart } from "./PatientsRegisteredChart";
+import { SuicideCasesChart } from "./SuicideCasesChart";
+import { Panel } from "primereact/panel";
+import LandRecommendations from "components/Dashboards/Environment/Land/LandRecommendations";
 
 const Healthcare = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -35,56 +38,63 @@ const Healthcare = ({ show }) => {
 
   const years = ["2020", "2021", "2022", "2023", "2024"];
   const doctorsData = [4000, 6300, 7000, 7600, 9000];
-  // const chronicData = [
-  //   [10, 3, 6, 1, 0],
-  //   [28, 1, 2, 39, 0],
-  //   [7, 5, 23, 14, 0],
-  //   [22, 2, 29, 25, 0],
-  //   [26, 3, 19, 226, 0]
-  // ];
-  // const chronicDiseases= ["Malaria", "J.E.", "A.E.S", "Dengue", "Chikengunia"]
-  const chronicDataWithDiseases = [
-    {
-      name: "Malaria",
-      data: [10, 28, 7, 22, 26], // Yearly data for Malaria
-    },
-    {
-      name: "J.E.",
-      data: [3, 1, 5, 2, 3], // Yearly data for J.E.
-    },
-    {
-      name: "A.E.S",
-      data: [6, 2, 23, 29, 19], // Yearly data for A.E.S.
-    },
-    {
-      name: "Dengue",
-      data: [1, 39, 14, 25, 226], // Yearly data for Dengue
-    },
-    {
-      name: "Chikengunia",
-      data: [0, 0, 0, 0, 0], // Yearly data for Chikengunia
-    },
+  const chronicData = [
+    [10, 3, 6, 1, 0],
+    [28, 1, 2, 39, 0],
+    [7, 5, 23, 14, 0],
+    [22, 2, 29, 25, 0],
+    [26, 3, 19, 226, 0],
   ];
+  const chronicDiseases = ["Malaria", "J.E.", "A.E.S", "Dengue", "Chikengunia"];
+  // const chronicDataWithDiseases = [
+  //   {
+  //     name: "Malaria",
+  //     data: [10, 28, 7, 22, 26], // Yearly data for Malaria
+  //   },
+  //   {
+  //     name: "J.E.",
+  //     data: [3, 1, 5, 2, 3], // Yearly data for J.E.
+  //   },
+  //   {
+  //     name: "A.E.S",
+  //     data: [6, 2, 23, 29, 19], // Yearly data for A.E.S.
+  //   },
+  //   {
+  //     name: "Dengue",
+  //     data: [1, 39, 14, 25, 226], // Yearly data for Dengue
+  //   },
+  //   {
+  //     name: "Chikengunia",
+  //     data: [0, 0, 0, 0, 0], // Yearly data for Chikengunia
+  //   },
+  // ];
 
   const institutionsAnalysisData = [
     { name: "Target", data: [250, 300] },
     { name: "Existing", data: [146, 198] },
   ];
 
-  const mortalityData = [65, 35]; // Example data
-  const mortalityLabels = ["Infants", "Pregnant Ladies"];
+  const mortalityData = [
+    { name: "Infants", data: [10, 20, 30, 25, 32] },
+    { name: "Pregnant Ladies", data: [45, 38, 25, 47, 55] },
+  ];
 
-  const vaccinationData = [150, 80, 60]; // Example data
+  const vaccinationData = [150, 80, 60];
   const vaccinationLabels = [
     "Newborn Baby Immunization",
     "Flu Vaccinations",
     "Cervical Cancer Screenings",
   ];
 
-  const ageGroup = ["0-18", "19-35", "36-60", "61+"];
-  const suicideData= [270, 328, 232, 150];
+  // const ageGroup = ["0-18", "19-35", "36-60", "61+"];
+  const suicideData = [270, 328, 232, 150, 450];
 
-  const mentalPatientsLabels = ["Addiction", "Depression", "Anxiety", "Schizophrenia"];
+  const mentalPatientsLabels = [
+    "Addiction",
+    "Depression",
+    "Anxiety",
+    "Schizophrenia",
+  ];
   const mentalPatientsData = [270, 328, 232, 150];
 
   return (
@@ -180,9 +190,20 @@ const Healthcare = ({ show }) => {
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
-        <div className="flex flex-column gap-3 w-full">
+        <div className="flex bg-white border-round p-4 w-full">
+          <GroupedColumnChart
+            title="Healthcare Institutes Analysis"
+            labels={Labels}
+            dataSeries={institutionsAnalysisData}
+            dataPointWidth={40}
+            height={200}
+          />
+        </div>
+        <div className="flex flex-column gap-3 w-full p-4">
           <div className="flex bg-white border-round p-3 flex-column ">
-            <p className="text-lg font-semibold text-center">No. of Beds Available</p>
+            <p className="text-lg font-semibold text-center">
+              No. of Beds Available
+            </p>
             <div className="flex align-items-center justify-content-around">
               <div className="flex flex-column">
                 <p className="text-primary1 m-0 p-0 font-medium">
@@ -243,8 +264,8 @@ const Healthcare = ({ show }) => {
           </div>
         </div>
         <div className="flex bg-white border-round p-4 w-full">
-          <ColumnChart
-            title="Total Vaccination acilities= 5678"
+          <BarChart
+            title="Vaccination Facilities"
             categories={vaccinationLabels}
             series={vaccinationData}
             height={200}
@@ -252,66 +273,52 @@ const Healthcare = ({ show }) => {
             // ytitle="Number of Vaccinations"
           />
         </div>
-        <div className="flex bg-white border-round p-4 w-full">
-          <GroupedColumnChart
-            title="Healthcare Institutes Analysis"
-            labels={Labels}
-            dataSeries={institutionsAnalysisData}
-            dataPointWidth={40}
-            height={200}
-          />
-        </div>
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
+        <div className="flex bg-white border-round p-4 w-full">
+          <PatientsRegisteredChart categories={years} series={doctorsData} />
+        </div>
+
         {/* Chronic Diseases*/}
         <div className="flex bg-white border-round p-4 w-full">
-          <GroupedColumnChart
+          {/* <GroupedColumnChart
             title="Prevailing Chronic Diseases"
             labels={years}
             dataSeries={chronicDataWithDiseases}
             dataPointWidth={10}
             height={200}
-          />
-          {/* <StackedBarChart
+          /> */}
+          <StackedColumnChart
             title="Chronic Disease Distribution"
             categories={chronicDiseases}
             series={chronicData}
             labels={years}
-            height={400}
-          /> */}
+            height={300}
+          />
         </div>
 
-        <div className="flex bg-white border-round p-4 w-full">
-          <PatientsRegisteredChart categories={years} series={doctorsData} />
-        </div>
-        <div className="flex bg-white border-round p-4 w-full">
-          <BarChart
-            title="Mortality Rate (Total number of New Borns=2700)"
-            categories={mortalityLabels}
-            series={mortalityData}
-            height={200}
+        <div className="flex flex-column bg-white border-round p-4 w-full">
+          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
+            Total number of New Borns=2700
+          </p>
+          <GroupedColumnChart
+            title="Mortality Rate"
+            labels={years}
+            dataSeries={mortalityData}
+            dataPointWidth={25}
+            height={280}
           />
         </div>
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
-        {/* Chronic Diseases*/}
         <div className="flex bg-white border-round p-4 w-full">
           <BarChart
-            title="Suicide Cases Analysis"
-            categories={ageGroup}
-            series={suicideData}
-            height={200}
-          />
-        </div>
-
-        <div className="flex bg-white border-round p-4 w-full">
-          <ColumnChart
             title="Patients of Mental Illness"
             categories={mentalPatientsLabels}
             series={mentalPatientsData}
-            height={200}
+            height={300}
           />
         </div>
         <div className="flex flex-column bg-white border-round p-4 w-full align-items-center gap-6">
@@ -336,25 +343,45 @@ const Healthcare = ({ show }) => {
             </div>
           </Tooltip>
         </div>
+        <div className="flex bg-white border-round p-4 w-full">
+          <SuicideCasesChart categories={years} series={suicideData} />
+        </div>
       </div>
+      <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
+        *Data updated till 2020. These numbers are subject to variation.
+      </p>
+      {show && (
+        <Panel
+          //  header="View Recommendations"
+          toggleable
+          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          headerTemplate={(options) => {
+            const toggleIcon = options.collapsed
+              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
+              : "pi pi-chevron-down"; // Arrow pointing down when expanded
 
-      <div className="flex justify-content-end">
-        <Button
-          label={
-            recommendationsVisible
-              ? "Close Recommendations"
-              : "View Recommendations"
-          }
-          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-          onClick={handleToggleRecommendations}
-          className="bg-theme text-white"
-          raised
-        />
-      </div>
-
-      {/* {recommendationsVisible && (
-        <DisasterRecommdations />
-      )} */}
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
+          {recommendationsVisible && <LandRecommendations />}
+        </Panel>
+      )}
     </div>
   );
 };
