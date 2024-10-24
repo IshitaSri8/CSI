@@ -128,8 +128,8 @@ const WaterRecommendations = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-left text-xl">Recommendations</h1>
+    <div className="p-4">
+      {/* <h1 className="text-left text-xl">Recommendations</h1> */}
       <Fieldset legend={getBadge()}>{getRecommendationWater()}</Fieldset>
     </div>
   );

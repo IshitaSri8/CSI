@@ -1,6 +1,5 @@
 import React from "react";
-import { Card } from "primereact/card";
-import { Knob } from "primereact/knob"; // Import Knob from PrimeReact
+import { Knob } from "primereact/knob";
 import { Doughnut, GaugeChart } from "Layout/GraphVisuals";
 import WaterReportPrint from "./WaterReportPrint";
 import { Dialog } from "primereact/dialog";
@@ -10,6 +9,7 @@ import WaterRecommendations from "./WaterRecommendations";
 import { Divider } from "primereact/divider";
 import { Panel } from "primereact/panel";
 import { Tooltip } from "primereact/tooltip";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 
 const WaterDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -68,7 +68,7 @@ const WaterDashboard = ({ show }) => {
                   MLD
                 </p>
               </div>
-              <div className="flex align-items-center">
+              <div className="flex align-items-center justify-content-between">
                 <p className="text">Natural Resources</p>
                 <i className="pi pi-info-circle text-theme natural text-sm"></i>
                 <Tooltip target=".natural" position="left">
@@ -121,138 +121,188 @@ const WaterDashboard = ({ show }) => {
             </div>
           </div>
         </div>
-          <div className="flex flex-column gap-4 p-4 w-full border-round bg-white">
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
-              Water Consumption
-            </p>
-            <div className="flex justify-content-between gap-8">
-              <div className="flex flex-column w-full p-2">
-                <div className="flex align-items-end gap-2">
-                  <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                    900
-                  </p>
-                  <p className="text-lg font-semibold m-0 text-secondary2 p-0">
-                    MLD
-                  </p>
-                </div>
-                <p className="text">Proposed</p>
-              </div>
-              <div className="flex flex-column w-full p-2">
-                <div className="flex align-items-end gap-2">
-                  <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                    1123
-                  </p>
-                  <p className="text-lg font-semibold m-0 text-secondary2 p-0">
-                    MLD
-                  </p>
-                </div>
-                <p className="text">Actual</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex sec-theme border-round w-full gap-4 p-4 flex-column">
+        <div className="flex flex-column gap-4 p-4 w-full border-round bg-white">
           <p className="text-primary1 font-semibold text-lg p-0 m-0">
-              Water Connections
-            </p>
-            <GaugeChart
-              // title="Water Connections"
-              gaugeValue={79.58}
-              maxValue={100}
-              height={100}
-            />
+            Water Consumption
+          </p>
+          <div className="flex justify-content-between gap-8">
+            <div className="flex flex-column w-full p-2">
+              <div className="flex align-items-end gap-2">
+                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                  900
+                </p>
+                <p className="text-lg font-semibold m-0 text-secondary2 p-0">
+                  MLD
+                </p>
+              </div>
+              <p className="text">Proposed</p>
+            </div>
+            <div className="flex flex-column w-full p-2">
+              <div className="flex align-items-end gap-2">
+                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                  1123
+                </p>
+                <p className="text-lg font-semibold m-0 text-secondary2 p-0">
+                  MLD
+                </p>
+              </div>
+              <p className="text">Actual</p>
+            </div>
           </div>
+        </div>
+        <div className="flex sec-theme border-round w-full gap-4 p-4 flex-column">
+          <GaugeChart
+            // title="Water Connections"
+            gaugeValue={79.58}
+            maxValue={100}
+            height={100}
+          />
+          <p className="text-primary1 font-medium text-lg p-0 m-0 text-center" style={{marginTop: -50}}>
+            Percentage of Household with Water Connections
+          </p>
+        </div>
       </div>
-      
-      <div className="w-full flex align-items-center justify-content-between gap-4">
-        <div className="flex flex-column bg-white border-round p-4 w-full">
-          <p>Water Treatment</p>
-          <div className="flex align-items-center justify-content-between w-full">
-            <div className="flex align-items-center justify-content-between flex-column gap-2">
-              <div className="flex align-items-center justify-content-between flex-column">
-                <h1 className="text-xl m-0 p-0 text-theme">10</h1>
-                <p className="font-bold">Total STPs</p>
+
+      <div className="w-full flex gap-4">
+        <div
+          className="flex bg-white border-round p-4 w-full gap-6"
+          style={{ flex: "35%" }}
+        >
+          <div className="flex flex-column gap-4">
+            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+              Water Production
+            </p>
+            <div className="flex flex-column justify-content-between gap-4">
+              <div
+                className="flex flex-column w-full p-2 sec-theme gap-1"
+                style={{
+                  borderLeft: "4px solid #1F8297", // Adjust thickness and color
+                  height: "60px", // Adjust height
+                }}
+              >
+                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                  10
+                </p>
+                <p className="text m-0 p-0">STPs</p>
               </div>
-              <div className="flex align-items-center justify-content-between flex-column ">
-                <h1 className="text-xl m-0 p-0 text-theme">567 </h1>
-                <p className="font-bold">STP Capacity (MLD)</p>
+              <div
+                className="flex flex-column w-full p-2 sec-theme gap-2"
+                style={{
+                  borderLeft: "4px solid #98C6CF", // Adjust thickness and color
+                  height: "60px", // Adjust height
+                }}
+              >
+                <div className="flex align-items-end gap-2">
+                  <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                    567
+                  </p>
+                  <p className="text-lg font-semibold m-0 text-secondary2 p-0">
+                    MLD
+                  </p>
+                </div>
+                <p className="text m-0 p-0">Total STP Capacity</p>
               </div>
-            </div>
-            <div className="flex align-items-center justify-content-center flex-column">
-              <Knob
-                value={83.04}
-                readOnly
-                size={130}
-                strokeWidth={5}
-                valueColor="#166c7d"
-                rangeColor="#E9F3F5"
-              />
-              <p className="text-xs font-bold text-center m-0 p-0">
-                Treated Resued Water Vs Total Reused Water
-              </p>
             </div>
           </div>
-        </div>
-        <div className="flex flex-column bg-white border-round p-4 w-full">
-          <p>Water Supply</p>
-          <div className="flex align-items-center justify-content-between m-0 gap-6">
-            <div className="flex align-items-center justify-content-center flex-column">
-              <Knob
-                value={79.58}
-                readOnly
-                size={130}
-                strokeWidth={5}
-                valueColor="#166c7d"
-                rangeColor="#E9F3F5"
-              />
-              <p className="text-xs font-bold text-center m-0 p-0">
-                Households with Water Connections vs. Total Households
-              </p>
-            </div>
+          <div className="flex flex-column mt-4 align-items-center">
+            <Knob
+              value={83.04}
+              valueTemplate={'{value}%'}
+              readOnly
+              size={130}
+              strokeWidth={5}
+              valueColor="#166c7d"
+              rangeColor="#E9F3F5"
+            />
+            <p className="text-secondary2 font-medium p-0 m-0">
+              Total Reused Water: <span className="text-theme">682.8</span>
+            </p>
           </div>
         </div>
-        <div className="flex flex-column bg-white border-round p-4 w-full">
-          <p>Water Usage Management</p>
-          <div className="flex align-items-center justify-content-between">
-            <div className="flex align-items-center justify-content-center flex-column">
-              <Knob
-                value={63.8}
-                readOnly
-                size={120}
-                strokeWidth={5}
-                valueColor="#166c7d"
-                rangeColor="#E9F3F5"
+
+        <div
+          className="flex flex-column bg-white border-round p-4 gap-3 w-full"
+          style={{ flex: "45%" }}
+        >
+            <p className="text-primary1 font-semibold text-lg p-0 m-0 text-left">
+              Water Usage Management
+            </p>
+         <div className="flex gap-3">
+         <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
+            <div className="flex w-8rem custom-circular-progress">
+              <CircularProgressbar
+                value={69.8}
+                text="69.80%"
+                strokeWidth={6}
+                styles={buildStyles({
+                  pathColor: "#1f8297",
+                  textColor: "#001F23",
+                  trailColor: "#E7EAEA",
+                  textSize: "1.2rem",
+                  pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                  transform: "rotate(2.25turn)",
+                })}
               />
-              <p className="text-xs font-bold text-center m-0 p-0">
-                Houses with Connections but no water meter (%)
-              </p>
             </div>
-            <div className="flex align-items-center justify-content-center flex-column">
-              <Knob
+            <p className="text font-medium text-sm text-center p-0 m-0">
+              Percentage of Houses with Connections but no Water Meter
+            </p>
+          </div>
+          <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
+            <div className="flex w-8rem custom-circular-progress">
+              <CircularProgressbar
                 value={37.8}
-                readOnly
-                size={120}
-                strokeWidth={5}
-                valueColor="#166c7d"
-                rangeColor="#E9F3F5"
+                text="37.80%"
+                strokeWidth={6}
+                styles={buildStyles({
+                  pathColor: "#E62225",
+                  textColor: "#001F23",
+                  trailColor: "#E7EAEA",
+                  textSize: "1.2rem",
+                  pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                  transform: "rotate(2.25turn)",
+                })}
               />
-              <p className="text-xs font-bold text-center m-0 p-0">
-                % of Total Bill Generated being paid
-              </p>
             </div>
+            <p className="text font-medium text-center text-sm p-0 m-0">
+              Percentage of Total Bill Generated being Paid
+            </p>
           </div>
+         </div>
         </div>
-        <div className="flex flex-column bg-white border-round p-4 w-full">
-          <p>Water Preservation</p>
-          <div className="flex align-items-center justify-content-between flex-column p-3">
-            <div className="flex align-items-center justify-content-between flex-column mb-4">
-              <h1 className="text-xl m-0 p-0 text-theme">3500</h1>
-              <p className="text-sm font-bold">
-                Total Volume Harvested (<span>m&sup3;</span>)
+
+        <div
+          className="flex flex-column bg-white border-round p-4 w-full gap-4"
+          style={{ flex: "20%" }}
+        >
+          <p className="text-primary1 font-semibold text-lg p-0 m-0">
+            Water Preservation
+          </p>
+          <div className="flex flex-column gap-4">
+            <div
+              className="flex flex-column w-full p-2 justify-content-center"
+              style={{
+                borderLeft: "4px solid #1F8297", // Adjust thickness and color
+                height: "50px", // Adjust height
+              }}
+            >
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                3500 <span className="text-2xl"> m&sup3;</span>
               </p>
+              <p className="text p-0 m-0">Total Volume Harvested</p>
             </div>
-            <div className="flex align-items-center justify-content-between flex-column">
-              <h1 className="text-xl m-0 p-0 text-theme">144 </h1>
-              <p className="text-sm font-bold">No. of sites with RWHS</p>
+            <Divider />
+            <div
+              className="flex flex-column w-full p-2 justify-content-center"
+              style={{
+                borderLeft: "4px solid #98C6CF", // Adjust thickness and color
+                height: "50px", // Adjust height
+              }}
+            >
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                144
+              </p>
+              <p className="text p-0 m-0">No. of sites with RWHS</p>
             </div>
           </div>
         </div>

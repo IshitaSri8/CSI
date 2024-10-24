@@ -31,6 +31,7 @@
     "react-chatbotify": "^2.0.0-beta.13",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.3.1",
+    "react-gauge-chart": "^0.5.1",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
