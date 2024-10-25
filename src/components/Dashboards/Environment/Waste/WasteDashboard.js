@@ -215,17 +215,19 @@ const WasteDashboard = ({ show }) => {
         </div>
       )}
 
-      <div className="flex gap-3 w-full justify-content-center">
+      <div className="flex w-full justify-content-center">
        <div className="flex w-full gap-2">
        {cardData.slice(0, 7).map((card, index) => (
           <div
             className="flex flex-column bg-white border-round p-4 gap-3"
             key={card.value}
           >
-            <p className="p-0 m-0 text-primary1 font-semibold">{card.title}</p>
-            <p className="p-0 m-0 text-tertiary3 font-medium text-sm">
+            <p className="p-0 m-0 text-primary1 font-semibold ">{card.title}</p>
+            <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
+            <p className="p-0 m-0 text-tertiary3 font-medium text-lg">
               {card.value}
             </p>
+            </div>
           </div>
         ))}
        </div>
