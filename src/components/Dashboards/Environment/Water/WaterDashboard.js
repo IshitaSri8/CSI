@@ -66,10 +66,10 @@ const WaterDashboard = ({ show }) => {
               <div className="flex align-items-center justify-content-between">
                 <p className="text">Natural Resources</p>
                 <i className="pi pi-info-circle text-theme natural text-sm"></i>
-                <Tooltip target=".natural" position="left">
+                <Tooltip target=".natural" position="bottom">
                   <div className="flex align-items-start justify-content-start gap-2 p-2 flex-column">
                     <h1 className="m-0 p-0 text-lg text-cyan-800">
-                      List of Natural Resources
+                      Natural Resources
                     </h1>
                     <ul>
                       <li>Natural Resource: 1</li>
@@ -94,10 +94,10 @@ const WaterDashboard = ({ show }) => {
               <div className="flex align-items-center gap-2">
                 <p className="text">Dams</p>
                 <i className="pi pi-info-circle text-theme dams text-sm"></i>
-                <Tooltip target=".dams" position="left">
+                <Tooltip target=".dams" position="bottom">
                   <div className="flex align-items-start justify-content-start gap-2 p-2 flex-column">
                     <h1 className="m-0 p-0 text-lg text-cyan-800">
-                      List of Dams
+                      Dams
                     </h1>
                     <ul>
                       <li>Dam 1</li>
