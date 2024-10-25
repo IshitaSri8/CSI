@@ -215,7 +215,7 @@ const WasteDashboard = ({ show }) => {
         </div>
       )}
 
-      <div className="flex w-full justify-content-center">
+      <div className="flex w-full">
        <div className="flex w-full gap-2">
        {cardData.slice(0, 7).map((card, index) => (
           <div
