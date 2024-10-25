@@ -177,19 +177,17 @@ const RainDashboard = ({ show }) => {
         <div className="flex flex-column bg-white border-round gap-3 p-2 px-4 w-full mr-3">
           <p className="text-primary1 font-semibold text-lg">Total Rainfall</p>
           <div className="flex justify-content-around align-items-center gap-3">
-            <div className="flex flex-column align-items-center px-5">
-              <p className="text-3xl font-semibold m-0 text-secondary2">
-                {totalRainfall}
+            <div className="flex flex-column align-items-center px-5 sec-theme">
+              <p className="text-3xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
+                {totalRainfall} <span className="text-xl">mm</span>
               </p>
-              <p className="p-0 m-0 font-medium text-xl text-secondary2">mm</p>
               <p className="text-primary1 font-medium text-lg px-0">Actual</p>
             </div>
             <Divider layout="vertical" />
-            <div className="flex flex-column align-items-center px-5">
-              <p className="text-3xl font-semibold m-0 text-secondary2">
-                {totalExpectedRainfall}
+            <div className="flex flex-column align-items-center px-5 sec-theme">
+              <p className="text-3xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
+                {totalExpectedRainfall} <span className="text-xl">mm</span>
               </p>
-              <p className="p-0 m-0 font-medium text-xl text-secondary2">mm</p>
               <p className="text-primary1 font-medium text-lg px-0">Expected</p>
             </div>
           </div>
@@ -225,18 +223,15 @@ const RainDashboard = ({ show }) => {
 
         {/* Maximum Rainfall */}
         <div
-          className="flex flex-column bg-white w-full p-2 px-4 gap-4 align-items-stretch"
+          className="flex flex-column bg-white w-full p-2 px-4 gap-6 align-items-stretch"
           style={{ borderRadius: "0 10px 10px 0" }}
         >
           <p className="text-primary1 font-semibold text-lg">
             Maximum Rainfall
           </p>
-          <div className="flex align-items-center justify-content-center flex-column">
-            <p className="text-3xl font-semibold m-0 text-secondary2">
-              {maxRainfall}
+            <p className="text-3xl font-semibold m-0 text-secondary2 text-center">
+              {maxRainfall}  <span className="text-xl">mm</span>
             </p>
-            <p className="p-0 m-0 font-medium text-xl text-secondary2">mm</p>
-          </div>
           <Chip
             label={`${maxRainfallYear} (July)`}
             style={{

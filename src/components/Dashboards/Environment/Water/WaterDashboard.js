@@ -1,6 +1,5 @@
 import React from "react";
 import { Knob } from "primereact/knob";
-import { Doughnut, GaugeChart } from "Layout/GraphVisuals";
 import WaterReportPrint from "./WaterReportPrint";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -10,6 +9,7 @@ import { Divider } from "primereact/divider";
 import { Panel } from "primereact/panel";
 import { Tooltip } from "primereact/tooltip";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import { ProgressBar } from "primereact/progressbar";
 
 const WaterDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -60,14 +60,9 @@ const WaterDashboard = ({ show }) => {
                 height: "60px", // Adjust height
               }}
             >
-              <div className="flex align-items-end gap-2">
-                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  12
-                </p>
-                <p className="text-lg font-semibold m-0 text-secondary2 p-0">
-                  MLD
-                </p>
-              </div>
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                12 <span className="text-xl">MLD</span>
+              </p>
               <div className="flex align-items-center justify-content-between">
                 <p className="text">Natural Resources</p>
                 <i className="pi pi-info-circle text-theme natural text-sm"></i>
@@ -93,14 +88,9 @@ const WaterDashboard = ({ show }) => {
                 height: "60px", // Adjust height
               }}
             >
-              <div className="flex align-items-end gap-2">
-                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  36
-                </p>
-                <p className="text-lg font-semibold m-0 text-secondary2 p-0">
-                  MLD
-                </p>
-              </div>
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                36 <span className="text-xl">MLD</span>
+              </p>
               <div className="flex align-items-center gap-2">
                 <p className="text">Dams</p>
                 <i className="pi pi-info-circle text-theme dams text-sm"></i>
@@ -126,38 +116,50 @@ const WaterDashboard = ({ show }) => {
             Water Consumption
           </p>
           <div className="flex justify-content-between gap-8">
-            <div className="flex flex-column w-full p-2">
-              <div className="flex align-items-end gap-2">
-                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  900
-                </p>
-                <p className="text-lg font-semibold m-0 text-secondary2 p-0">
-                  MLD
-                </p>
-              </div>
+            <div
+              className="flex flex-column w-full p-2"
+              style={{
+                borderLeft: "4px solid #1F8297", // Adjust thickness and color
+                height: "60px", // Adjust height
+              }}
+            >
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                900 <span className="text-xl">MLD</span>
+              </p>
               <p className="text">Proposed</p>
             </div>
-            <div className="flex flex-column w-full p-2">
-              <div className="flex align-items-end gap-2">
-                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  1123
-                </p>
-                <p className="text-lg font-semibold m-0 text-secondary2 p-0">
-                  MLD
-                </p>
-              </div>
+            <div
+              className="flex flex-column w-full p-2"
+              style={{
+                borderLeft: "4px solid #98C6CF", // Adjust thickness and color
+                height: "60px", // Adjust height
+              }}
+            >
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                1123 <span className="text-xl">MLD</span>
+              </p>
               <p className="text">Actual</p>
             </div>
           </div>
         </div>
-        <div className="flex sec-theme border-round w-full gap-4 p-4 flex-column">
-          <GaugeChart
+        <div className="flex bg-white border-round w-full gap-4 p-4 flex-column align-items-center justify-content-center">
+          <ProgressBar
+            value={79.58}
+          style={{ height: "1.25rem" }} // Adjust the height
+            className="w-full" // Full width of its container
+            color="#166c7d"
+            //  displayValueTemplate={() => null} // Hide the displayed value
+          />
+          {/* <GaugeChart
             // title="Water Connections"
             gaugeValue={79.58}
             maxValue={100}
             height={100}
-          />
-          <p className="text-primary1 font-medium text-lg p-0 m-0 text-center" style={{marginTop: -50}}>
+          /> */}
+          <p
+            className="text-primary1 font-medium p-0 m-0"
+            style={{ marginTop: -50 }}
+          >
             Percentage of Household with Water Connections
           </p>
         </div>
@@ -192,14 +194,9 @@ const WaterDashboard = ({ show }) => {
                   height: "60px", // Adjust height
                 }}
               >
-                <div className="flex align-items-end gap-2">
-                  <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                    567
-                  </p>
-                  <p className="text-lg font-semibold m-0 text-secondary2 p-0">
-                    MLD
-                  </p>
-                </div>
+                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+                  567 <span className="text-xl">MLD</span>
+                </p>
                 <p className="text m-0 p-0">Total STP Capacity</p>
               </div>
             </div>
@@ -207,7 +204,7 @@ const WaterDashboard = ({ show }) => {
           <div className="flex flex-column mt-4 align-items-center">
             <Knob
               value={83.04}
-              valueTemplate={'{value}%'}
+              valueTemplate={"{value}%"}
               readOnly
               size={130}
               strokeWidth={5}
@@ -224,51 +221,51 @@ const WaterDashboard = ({ show }) => {
           className="flex flex-column bg-white border-round p-4 gap-3 w-full"
           style={{ flex: "45%" }}
         >
-            <p className="text-primary1 font-semibold text-lg p-0 m-0 text-left">
-              Water Usage Management
-            </p>
-         <div className="flex gap-3">
-         <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
-            <div className="flex w-8rem custom-circular-progress">
-              <CircularProgressbar
-                value={69.8}
-                text="69.80%"
-                strokeWidth={6}
-                styles={buildStyles({
-                  pathColor: "#1f8297",
-                  textColor: "#001F23",
-                  trailColor: "#E7EAEA",
-                  textSize: "1.2rem",
-                  pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                  transform: "rotate(2.25turn)",
-                })}
-              />
+          <p className="text-primary1 font-semibold text-lg p-0 m-0 text-left">
+            Water Usage Management
+          </p>
+          <div className="flex gap-3">
+            <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
+              <div className="flex w-8rem custom-circular-progress">
+                <CircularProgressbar
+                  value={69.8}
+                  text="69.80%"
+                  strokeWidth={6}
+                  styles={buildStyles({
+                    pathColor: "#1f8297",
+                    textColor: "#001F23",
+                    trailColor: "#E7EAEA",
+                    textSize: "1.2rem",
+                    pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                    transform: "rotate(2.25turn)",
+                  })}
+                />
+              </div>
+              <p className="text font-medium text-sm text-center p-0 m-0">
+                Percentage of Houses with Connections but no Water Meter
+              </p>
             </div>
-            <p className="text font-medium text-sm text-center p-0 m-0">
-              Percentage of Houses with Connections but no Water Meter
-            </p>
-          </div>
-          <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
-            <div className="flex w-8rem custom-circular-progress">
-              <CircularProgressbar
-                value={37.8}
-                text="37.80%"
-                strokeWidth={6}
-                styles={buildStyles({
-                  pathColor: "#E62225",
-                  textColor: "#001F23",
-                  trailColor: "#E7EAEA",
-                  textSize: "1.2rem",
-                  pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                  transform: "rotate(2.25turn)",
-                })}
-              />
+            <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
+              <div className="flex w-8rem custom-circular-progress">
+                <CircularProgressbar
+                  value={37.8}
+                  text="37.80%"
+                  strokeWidth={6}
+                  styles={buildStyles({
+                    pathColor: "#E62225",
+                    textColor: "#001F23",
+                    trailColor: "#E7EAEA",
+                    textSize: "1.2rem",
+                    pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                    transform: "rotate(2.25turn)",
+                  })}
+                />
+              </div>
+              <p className="text font-medium text-center text-sm p-0 m-0">
+                Percentage of Total Bill Generated being Paid
+              </p>
             </div>
-            <p className="text font-medium text-center text-sm p-0 m-0">
-              Percentage of Total Bill Generated being Paid
-            </p>
           </div>
-         </div>
         </div>
 
         <div

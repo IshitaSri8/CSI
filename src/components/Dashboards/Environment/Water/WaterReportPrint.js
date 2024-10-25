@@ -52,19 +52,17 @@ export default function WaterReportPrint({ visible, toggleModalVisibility }) {
   };
 
   return (
-    <Dialog
-      header=""
-      visible={visible}
-      style={{ width: "95vw" }}
-      onHide={toggleModalVisibility}
-    >
+    <>
       <div ref={contentRef}>
-        <div className="w-full print-container">
+        <div className="w-full print-container sec-theme p-4">
           <div className="flex flex-column gap-2 align-items-center w-full">
-            <h1 style={{ color: "#00a269" }} className="m-0 p-0 text-center">
+            <h1 style={{ color: "#1F8297" }} className="m-0 p-0 text-center">
               City Sustainability Index 2024
             </h1>
             <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
+            <h1 className="m-0 p-0 text-primary1 text-3xl text-semibold">
+              Water Quality
+            </h1>
           </div>
           <div className="w-full">
             <WaterDashboard />
@@ -74,22 +72,22 @@ export default function WaterReportPrint({ visible, toggleModalVisibility }) {
           </div>
         </div>
       </div>
-      <div className="flex align-items-center justify-content-end p-2 w-full">
+      <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
         <Button
           label="Print"
           icon="pi pi-print"
           size="small"
-          className="p-button-secondary mr-2"
+          className="bg-cyan-700"
           onClick={handlePrint}
         />
         <Button
           label="Export as PDF"
           icon="pi pi-file-export"
           size="small"
-          className="p-button-success"
+          className="bg-cyan-800"
           onClick={handleExport}
         />
       </div>
-    </Dialog>
+    </>
   );
 }

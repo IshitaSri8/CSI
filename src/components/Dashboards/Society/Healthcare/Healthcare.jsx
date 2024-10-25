@@ -190,6 +190,7 @@ const Healthcare = ({ show }) => {
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
+      {/* Healthcare Institutes Analysis */}
         <div className="flex bg-white border-round p-4 w-full">
           <GroupedColumnChart
             title="Healthcare Institutes Analysis"
@@ -200,6 +201,7 @@ const Healthcare = ({ show }) => {
           />
         </div>
         <div className="flex flex-column gap-3 w-full p-4">
+        {/* No. of Beds Available */}
           <div className="flex bg-white border-round p-3 flex-column ">
             <p className="text-lg font-semibold text-center">
               No. of Beds Available
@@ -231,6 +233,7 @@ const Healthcare = ({ show }) => {
               </div>
             </div>
           </div>
+          {/* Patient Doctor Ratio */}
           <div className="flex bg-white border-round p-3 flex-column ">
             <p className="text-lg font-semibold text-center">
               Patient Doctor Ratio
@@ -263,6 +266,7 @@ const Healthcare = ({ show }) => {
             </div>
           </div>
         </div>
+        {/* Vaccination Facilities */}
         <div className="flex bg-white border-round p-4 w-full">
           <BarChart
             title="Vaccination Facilities"
@@ -276,6 +280,7 @@ const Healthcare = ({ show }) => {
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
+      {/* PatientsRegisteredChart */}
         <div className="flex bg-white border-round p-4 w-full">
           <PatientsRegisteredChart categories={years} series={doctorsData} />
         </div>
@@ -298,6 +303,7 @@ const Healthcare = ({ show }) => {
           />
         </div>
 
+        {/* "Mortality Rate" */}
         <div className="flex flex-column bg-white border-round p-4 w-full">
           <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
             Total number of New Borns=2700
@@ -313,6 +319,7 @@ const Healthcare = ({ show }) => {
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
+      {/* Patients of Mental Illness */}
         <div className="flex bg-white border-round p-4 w-full">
           <BarChart
             title="Patients of Mental Illness"
@@ -321,6 +328,7 @@ const Healthcare = ({ show }) => {
             height={300}
           />
         </div>
+        {/* No. of Rehab Centers */}
         <div className="flex flex-column bg-white border-round p-4 w-full align-items-center gap-6">
           <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
             No. of Rehab Centers
@@ -343,6 +351,7 @@ const Healthcare = ({ show }) => {
             </div>
           </Tooltip>
         </div>
+        {/* SuicideCasesChart */}
         <div className="flex bg-white border-round p-4 w-full">
           <SuicideCasesChart categories={years} series={suicideData} />
         </div>
