@@ -50,11 +50,9 @@ const WasteDashboard = ({ show }) => {
   const total = pieChartData.reduce((acc, value) => acc + value, 0);
 
   const cardData = [
-    { title: "Community Toilet", value: 550, icon: CommunityToiletIcon },
-    { title: "Public Toilet", value: 700, icon: PublicToiletIcon },
     { title: "Waste Generated", value: "355 MTD", icon: WasteGeneratedIcon },
     { title: "Waste Collected", value: "322 MTD", icon: WasteCollectedIcon },
-    { title: "Avg Waste Generated", value: 2.25, icon: AvgWasteIcon },
+    { title: "Avg Waste Generated", value: "2.25 kg/day", icon: AvgWasteIcon },
   ];
   const colors = [
     "#FFDD82",
@@ -218,9 +216,10 @@ const WasteDashboard = ({ show }) => {
       )}
 
       <div className="flex gap-3 w-full justify-content-center">
-        {cardData.slice(0, 7).map((card, index) => (
+       <div className="flex w-full gap-2">
+       {cardData.slice(0, 7).map((card, index) => (
           <div
-            className="flex flex-column bg-white border-round p-4"
+            className="flex flex-column bg-white border-round p-4 gap-3"
             key={card.value}
           >
             <p className="p-0 m-0 text-primary1 font-semibold">{card.title}</p>
@@ -229,11 +228,13 @@ const WasteDashboard = ({ show }) => {
             </p>
           </div>
         ))}
-        <div className="flex justify-content-between align-items-center w-full bg-white border-round p-4">
+       </div>
+        <div className="flex flex-column justify-content-between align-items-center w-full bg-white border-round p-4">
           <p className="text-primary1 font-semibold p-0 m-0">
-            Common Toilets & Public Toilets
+            Community Toilets & Public Toilets
           </p>
-          <div className="flex align-items-center justify-content-center flex-column gap-2">
+        <div className="flex">
+        <div className="flex align-items-center justify-content-center flex-column gap-2">
             <div className="flex align-items-center justify-content-center gap-2">
               <img
                 src={ConstructedIcon}
@@ -274,6 +275,7 @@ const WasteDashboard = ({ show }) => {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
 
