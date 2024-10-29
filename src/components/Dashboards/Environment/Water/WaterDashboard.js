@@ -126,16 +126,16 @@ const WaterDashboard = ({ show }) => {
             <div className="flex justify-content-between">
               <div className="flex flex-column w-full p-2">
                 <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  900 <span className="text-xl">MLD</span>
+                  39.55 <span className="text-xl">MLD</span>
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm">Proposed Consumption Level</p>
+                <p className="text p-0 m-0 mt-1 text-sm">Current Water Supply</p>
               </div>
               <Divider layout="vertical" />
               <div className="flex flex-column w-full p-2">
                 <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  1123 <span className="text-xl">MLD</span>
+                  49.68 <span className="text-xl">MLD</span>
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm">Actual Consumption Level</p>
+                <p className="text p-0 m-0 mt-1 text-sm">Required Water Supply</p>
               </div>
             </div>
           </div>
@@ -182,9 +182,9 @@ const WaterDashboard = ({ show }) => {
                 }}
               >
                 <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  10
+                  1
                 </p>
-                <p className="text m-0 p-0 mt-1">STPs</p>
+                <p className="text m-0 p-0 mt-1">STP</p>
               </div>
               <div
                 className="flex flex-column w-full p-2 sec-theme gap-2"
@@ -194,7 +194,7 @@ const WaterDashboard = ({ show }) => {
                 }}
               >
                 <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  567 <span className="text-xl">MLD</span>
+                  12 <span className="text-xl">MLD</span>
                 </p>
                 <p className="text m-0 p-0 mt-1">Total STP Capacity</p>
               </div>

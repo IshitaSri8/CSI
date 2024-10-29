@@ -1007,7 +1007,7 @@ export const PieChart = ({
 export const ModifiedPieChart = ({ title, categories, series, height }) => {
   const total = series.reduce((acc, value) => acc + value, 0);
   return (
-    <div className="flex flex-column align-items-center justify-content-between w-full gap-8">
+    <div className="flex flex-column align-items-center justify-content-around w-full">
       <div className="flex w-full">
         <CanvasJSChart
           options={{

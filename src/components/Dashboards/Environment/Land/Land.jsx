@@ -92,7 +92,7 @@ const Land = ({ show }) => {
                 </p>
                 <LandPlot size={15} />
               </div>
-              <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-14rem h-14rem">
+              <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
                 <p className="text-4xl font-semibold m-0 text-secondary2">
                   239.638
                 </p>
@@ -117,7 +117,7 @@ const Land = ({ show }) => {
                 </p>
                 <LandPlot size={15} />
               </div>
-              <div className="flex w-15rem custom-circular-progress">
+              <div className="flex w-13rem custom-circular-progress">
                 <CircularProgressbar
                   value={devArea}
                   text={`${devArea}%`}
@@ -158,13 +158,13 @@ const Land = ({ show }) => {
               </div>
 
               {/* Outer Circle */}
-              <div className="flex align-items-start justify-content-center w-16rem h-16rem border-circle sec-theme position-absolute">
+              <div className="flex align-items-start justify-content-center w-13rem h-13rem border-circle sec-theme position-absolute">
                 <div
                   className="flex flex-column align-items-center justify-content-center position-relative"
                   style={{
                     top: "0", // Align at the bottom of the outer circle
                     left: "50%", // Center horizontally
-                    transform: "translate(38%, 80%)", // Adjust for correct positioning
+                    transform: "translate(25%, 80%)", // Adjust for correct positioning
                   }}
                 >
                   <p className="text-4xl font-semibold m-0 text-secondary2">
@@ -177,17 +177,19 @@ const Land = ({ show }) => {
 
                 {/* Inner Circle */}
                 <div
-                  className="flex flex-column align-items-center justify-content-center w-7rem h-7rem border-circle ter-theme position-relative"
+                  className="flex flex-column align-items-center justify-content-center w-7rem h-5rem border-circle ter-theme position-relative"
                   style={{
                     bottom: "0", // Align at the bottom of the outer circle
                     left: "50%", // Center horizontally
-                    transform: "translate(-60%, 120%)", // Adjust for correct positioning
+                    transform: "translate(-90%, 150%)", // Adjust for correct positioning
                   }}
                 >
-                  <p className="text-2xl font-semibold m-0 text-secondary2">
+                  <p className="text-lg font-semibold m-0 text-secondary2">
                     1,798
                   </p>
-                  <p className="font-semibold m-0 text-secondary2">/Hectare</p>
+                  <p className="font-semibold m-0 text-secondary2 text-sm">
+                    /Hectare
+                  </p>
                 </div>
               </div>
             </div>
