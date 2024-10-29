@@ -193,7 +193,7 @@ const WasteDashboard = ({ show }) => {
     <div className="flex flex-column gap-3 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Waste Management
           </h1>
           <div className="flex align-items-center justify-content-end gap-2">

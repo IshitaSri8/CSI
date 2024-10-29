@@ -22,8 +22,8 @@ const WaterDashboard = ({ show }) => {
     <div className="w-full p-4 flex gap-3 flex-column">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
-            Water Quality
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+            Water Management
           </h1>
           <div className="flex align-items-center justify-content-end gap-2">
             <Button

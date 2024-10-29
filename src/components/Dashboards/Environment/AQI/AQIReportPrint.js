@@ -71,11 +71,11 @@ export default function AQIReportPrint({
         <div className="flex flex-column gap-2 align-items-center w-full">
           <h1
             style={{ color: "#166c7d" }}
-            className="m-0 p-0 text-center text-2xl"
+            className="m-0 p-0 text-3xl font-semibold"
           >
             City Sustainability Index 2024
           </h1>
-          <h1 className="m-0 p-0 text-primary1 text-3xl text-semibold">
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Air Quality Index{" "}
           </h1>
           <h4 className="m-0 p-0">{selectedLocation}</h4>

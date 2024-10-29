@@ -56,13 +56,13 @@ export default function WasteReportPrint({ visible, toggleModalVisibility }) {
       <div ref={contentRef} className="w-full print-container sec-theme p-4">
         <div className="flex flex-column gap-2 align-items-center w-full">
           <h1
-            style={{ color: "#1F8297" }}
-            className="m-0 p-0 text-center text-2xl"
+            style={{ color: "#166c7d" }}
+            className="m-0 p-0 text-3xl font-semibold"
           >
             City Sustainability Index 2024
           </h1>
           <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
-          <h1 className="m-0 p-0 text-primary1 text-3xl text-semibold">
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Waste Management
           </h1>
         </div>

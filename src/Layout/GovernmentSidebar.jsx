@@ -115,7 +115,7 @@ const GovernmentSidebar = () => {
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Nature" },
-          { label: "Water Quality" },
+          { label: "Water Management" },
         ]
       : activeTab === "waste"
       ? [
@@ -418,7 +418,7 @@ const GovernmentSidebar = () => {
                       <Droplet className="text-white mr-2" size={15} />
                       {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
                       <span className="font-medium text-sm text-white">
-                        Water Quality
+                        Water Management
                       </span>
                       <Ripple />
                     </div>

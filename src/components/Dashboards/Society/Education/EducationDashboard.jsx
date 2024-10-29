@@ -33,7 +33,7 @@ const EducationDashboard = ({ show }) => {
     <div className="p-4 flex flex-column gap-3">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Education
           </h1>
           {/* Dropdown for selecting education level */}
@@ -66,7 +66,7 @@ const EducationDashboard = ({ show }) => {
           </div>
         </div>
       )}
-      <h1 className="text-3xl text-theme font-semibold text-center mt-0 p-0 mb-2">
+      <h1 className="text-3xl text-theme font-medium text-center mt-0 p-0 mb-2">
         {selectedLevel} Level Education
       </h1>
 

@@ -52,7 +52,7 @@ const Community = ({ show }) => {
     <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-2xl text">
+         <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Community Engagement & Holisitic Well-Being
           </h1>
           <Button
