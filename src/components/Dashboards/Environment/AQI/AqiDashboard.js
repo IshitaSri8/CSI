@@ -20,6 +20,7 @@ import { Dialog } from "primereact/dialog";
 import AQIRecommendations from "./AQIRecommendations";
 import AQIReportPrint from "./AQIReportPrint";
 import { Tag } from "primereact/tag";
+import { Panel } from "primereact/panel";
 
 const AqiDashboard = ({
   onDataChange,
@@ -643,22 +644,42 @@ const AqiDashboard = ({
           />
         </div>
       </div>
-      <div className="flex justify-content-end">
-        <Button
-          label={
-            recommendationsVisible
-              ? "Close Recommendations"
-              : "View Recommendations"
-          }
-          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-          onClick={handleToggleRecommendations}
-          className="bg-theme text-white"
-          raised
-        />
-      </div>
+      {show && (
+        <Panel
+          toggleable
+          onToggle={handleToggleRecommendations}
+          headerTemplate={(options) => {
+            const toggleIcon = options.collapsed
+              ? "pi pi-chevron-right"
+              : "pi pi-chevron-down";
 
-      {recommendationsVisible && (
-        <AQIRecommendations aqi={aqiValue} pm25={pm25Value} pm10={pm10Value} />
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
+          {recommendationsVisible && (
+            <AQIRecommendations
+              aqi={aqiValue}
+              pm25={pm25Value}
+              pm10={pm10Value}
+            />
+          )}
+        </Panel>
       )}
 
       {/* {show && (

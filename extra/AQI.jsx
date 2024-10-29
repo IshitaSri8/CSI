@@ -4,9 +4,9 @@ import { TabView, TabPanel } from "primereact/tabview";
 import "primereact/resources/themes/saga-blue/theme.css"; // Choose your theme
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import AqiDashboard from "./AqiDashboard";
-import AQIRecommendations from "./AQIRecommendations";
-import AQIReportPrint from "./AQIReportPrint";
+import AqiDashboard from "../src/components/Dashboards/Environment/AQI/AqiDashboard";
+import AQIRecommendations from "../src/components/Dashboards/Environment/AQI/AQIRecommendations";
+import AQIReportPrint from "../src/components/Dashboards/Environment/AQI/AQIReportPrint";
 import GenerateAqiReport from "./GenerateAQIReport";
 
 const AQI = () => {

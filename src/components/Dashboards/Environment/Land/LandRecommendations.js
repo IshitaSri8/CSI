@@ -44,7 +44,9 @@ const LandRecommendations = () => {
           </li>
 
           <li>
-            <li className="font-bold text-theme">Sustainable Urban Expansion:</li>
+            <li className="font-bold text-theme">
+              Sustainable Urban Expansion:
+            </li>
             Direct new development towards designated growth corridors and areas
             that have existing infrastructure to support it. Avoid expansion
             into ecologically sensitive areas such as wetlands, forests, and
@@ -76,7 +78,13 @@ const LandRecommendations = () => {
   };
 
   const getBadge = () => {
-    return <Badge value="Measures for Land Usage" severity="Good" />;
+    return (
+      <Badge
+        value="Measures for Land Usage"
+        //severity="Good"
+        style={{ backgroundColor: "#1F8297" }}
+      />
+    );
   };
 
   return (

@@ -62,6 +62,7 @@ body {
   color: var(--text-secondary);
 }
 
+
 .bg-theme {
   background-color: var(--theme-primary-color);
 }
@@ -80,6 +81,10 @@ body {
 
 .text-primary1 {
   color: var(--text-primary);
+}
+
+.text-primary2 {
+  color: var(--text-primary-2);
 }
 
 .text-secondary2 {

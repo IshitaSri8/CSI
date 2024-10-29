@@ -132,7 +132,7 @@ const Culture = ({ show }) => {
 
       {/* Second Row */}
       <div className="flex align-items-center justify-content-center gap-3 w-full">
-        <Card className="w-full">
+           <div className="flex bg-white border-round align-items-center p-4 w-full">
           <CombinationChart
             title="Total Vs Maintained Cultural Sites Over Years"
             categories={categories}
@@ -140,16 +140,16 @@ const Culture = ({ show }) => {
             maintainedSites={maintainedSites}
             height={300}
           />
-        </Card>
-        <Card className="w-full">
+        </div>
+           <div className="flex bg-white border-round align-items-center p-4 w-full">
           <ColumnChart
             title="Funds Allocated Over Years (in Crore)"
             categories={categories}
             series={funds}
             height={300}
           />
-        </Card>
-        <Card className="w-full">
+        </div>
+           <div className="flex bg-white border-round align-items-center p-4 w-full">
           <GroupedBarChart
             title="Number of Tourists Over Years"
             labels={categories}
@@ -157,7 +157,7 @@ const Culture = ({ show }) => {
             height={300}
             dataPointWidth={20}
           />
-        </Card>
+        </div>
       </div>
       <div className="flex justify-content-end">
         <Button

@@ -63,9 +63,9 @@ const Employment = ({ show }) => {
           </Dialog>
         </div>
       )}
-      {/* First row with parameter cards */}
-      <div className="flex gap-3 justify-content-center align-items-stretch">
-        <Card className="w-full flex flex-column align-items-center justify-content-center">
+
+      <div className="flex gap-3">
+        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
           <i className="pi pi-info-circle text-theme w-full text-right employment text-sm"></i>
           <Tooltip target=".employment" position="right">
             <div className="w-13rem">
@@ -77,29 +77,29 @@ const Employment = ({ show }) => {
               />
             </div>
           </Tooltip>
-          <p className="text-lg font-semibold text-center">
+          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
             Total population Employed
           </p>
-          <p className="text-2xl font-bold text-center">123</p>
+          <p className="text-2xl font-bold text-center text-secondary2">123</p>
           <Divider />
-          <p className="text-lg font-semibold text-center">
+          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
             Percentage of Female Employment
           </p>
-          <p className="text-2xl font-bold text-center">12%</p>
-        </Card>
-        <Card className="w-full">
-          <p className="text-lg font-semibold text-center">
+          <p className="text-2xl font-bold text-center text-secondary2">12%</p>
+        </div>
+           <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
             Percentage of Unemployed Population
           </p>
-          <p className="text-2xl font-bold text-center">123%</p>
+          <p className="text-2xl font-bold text-center text-secondary2">123%</p>
           <Divider />
-          <p className="text-lg font-semibold text-center">
+          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
             Percentage of Unemployed Youth
           </p>
-          <p className="text-2xl font-bold text-center">23%</p>
-        </Card>
+          <p className="text-2xl font-bold text-center text-secondary2">23%</p>
+        </div>
 
-        <Card className="w-full">
+           <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
           <Doughnut
             title="Total no. of Industries"
             labels={industriesLables}
@@ -108,8 +108,8 @@ const Employment = ({ show }) => {
             fontColor={"black"}
             showNo={true}
           />
-        </Card>
-        <Card className="w-full">
+        </div>
+           <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
           <div className="flex flex-column align-items-center justify-content-center">
             <p className="text-lg font-semibold text-center">Average Salary</p>
             <div className="flex align-items-center justify-content-around">
@@ -124,40 +124,49 @@ const Employment = ({ show }) => {
               </div>
             </div>
           </div>
-        </Card>
+        </div>
       </div>
 
-      {/* Second row with corresponding charts */}
       <div className="flex gap-3">
-        <Card className="w-full">
-          <p className="text-lg font-semibold text-center">
+        <div
+          className="flex flex-column bg-white border-round align-items-center p-4 w-full"
+          style={{ flex: "30%" }}
+        >
+          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
             No. of Skill Programs
           </p>
-          <p className="text-2xl font-bold text-center">1234</p>
+          <p className="text-2xl font-bold text-center text-secondary2">1234</p>
           <Divider />
-          <p className="text-lg font-semibold text-center">
+          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
             No. of People Enrolled
           </p>
-          <p className="text-2xl font-bold text-center">123</p>
-        </Card>
-        <Card className="w-full">
+          <p className="text-2xl font-bold text-center text-secondary2">123</p>
+        </div>
+        <div
+          className="flex bg-white border-round align-items-center p-4 w-full"
+          style={{ flex: "70%" }}
+        >
           <GroupedColumnChart
             title="Job Trend"
             labels={years}
             dataSeries={jobTrendLabels}
-            dataPointWidth={40}
+            dataPointWidth={50}
             height={200}
           />
-        </Card>
+        </div>
       </div>
       <div className="flex justify-content-end">
-      <Button
-        label={recommendationsVisible ? "Close Recommendations" : "View Recommendations"}
-        icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-        onClick={handleToggleRecommendations}
-        className="bg-theme text-white"
-        raised
-      />
+        <Button
+          label={
+            recommendationsVisible
+              ? "Close Recommendations"
+              : "View Recommendations"
+          }
+          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
+          onClick={handleToggleRecommendations}
+          className="bg-theme text-white"
+          raised
+        />
       </div>
 
       {/* {recommendationsVisible && (

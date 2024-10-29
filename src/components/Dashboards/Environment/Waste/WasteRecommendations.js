@@ -3,8 +3,6 @@ import { Fieldset } from "primereact/fieldset";
 import { Badge } from "primereact/badge";
 
 const WasteRecommendations = () => {
-  //   console.log(temperature, humidity);
-
   const getRecommendationWaste = () => {
     return (
       <>
@@ -73,12 +71,17 @@ const WasteRecommendations = () => {
   };
 
   const getBadge = () => {
-    return <Badge value="Measures for Waste Management" severity="Good" />;
+    return (
+      <Badge
+        value="Measures for Waste Management"
+        style={{ backgroundColor: "#1F8297" }}
+      />
+    );
   };
 
   return (
-    <div>
-      <h1 className="text-left text-xl">Recommendations</h1>
+    <div className="p-4">
+      {/* <h1 className="text-left text-xl">Recommendations</h1> */}
       <Fieldset legend={getBadge()}>{getRecommendationWaste()}</Fieldset>
     </div>
   );

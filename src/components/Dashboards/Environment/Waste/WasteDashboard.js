@@ -1,20 +1,18 @@
 import React from "react";
-import { BarChart, ColumnChart, GroupedColumnChart } from "Layout/GraphVisuals";
-import "./Waste.css";
-import { Divider } from "primereact/divider";
+import {
+  BarChart,
+  ColumnChart,
+  ModifiedColumnChart,
+  ModifiedPieChart,
+  PieChart,
+} from "Layout/GraphVisuals";
 import CanvasJSReact from "@canvasjs/react-charts";
-import CommunityToiletIcon from "assets/waste/community_toilet.png";
-import PublicToiletIcon from "assets/waste/public-toilet.png";
-import WasteGeneratedIcon from "assets/waste/waste_generated.png";
-import WasteCollectedIcon from "assets/waste/waste_collected.png";
-import AvgWasteIcon from "assets/waste/avg_waste.png";
-import ConstructedIcon from "assets/waste/building.png";
-import UnderConstructedIcon from "assets/waste/under-construction.png";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import WasteReportPrint from "./WasteReportPrint";
 import { useState } from "react";
 import WasteRecommendations from "./WasteRecommendations";
+import { Panel } from "primereact/panel";
 
 const WasteDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -24,10 +22,10 @@ const WasteDashboard = ({ show }) => {
     setRecommendationsVisible(!recommendationsVisible);
   };
 
-  const solidWasteData = [181, 181, 181];
+  const solidWasteData = [182, 181, 183];
   const solidWasteLabels = [
-    "SW-Collection(TPD)",
     "SW-Generated(TPD)",
+    "SW-Collected(TPD)",
     "SW-Processed(TPD)",
   ];
 
@@ -38,76 +36,24 @@ const WasteDashboard = ({ show }) => {
     "Street Sweepings",
     "Institutional",
   ];
+  const colors = ["#166c7d", "#98C6CF", "#1F8297", "#5B98A4"];
 
-  const pieChartData = [55, 34, 179, 83];
-  const pieChartLabels = [
-    "Green Waste(Kg/d) 55k",
-    "Debris & Silt(Kg/d) 34k",
-    "Biodegradable(Kg/d) 179k",
-    "Recyclable(Kg/d) 83k",
+  const wasteCompositionData = [55300, 33700, 178500, 82750];
+  const wasteCompositionLabels = [
+    "Green Waste- 55300(Kg/d)",
+    "Debris & Silt- 33700(Kg/d)",
+    "Biodegradable- 178500(Kg/d)",
+    "Recyclable- 82750(Kg/d)",
   ];
 
-  const total = pieChartData.reduce((acc, value) => acc + value, 0);
-
-  const cardData = [
-    { title: "Waste Generated", value: "355 MTD", icon: WasteGeneratedIcon },
-    { title: "Waste Collected", value: "322 MTD", icon: WasteCollectedIcon },
-    { title: "Avg Waste Generated", value: "2.25 kg/day", icon: AvgWasteIcon },
+  const sanitationLabels = [
+    "Public Toilet",
+    "Individual Toilet",
+    "Open Defecation",
   ];
-  const colors = [
-    "#FFDD82",
-    "#47B881",
-    "#F7A47A",
-    "#98C6CF",
-    "#1F8297",
-    "#F64C4C",
-    "#0F4B57",
-    "#166c7d",
-    "#5B98A4",
-    "#8AB5BE",
-    "#B9D2D8",
-    "#E9F3F5",
-    "#26575D",
-    "#4D7479",
-    "#4C9BAC",
-  ];
+  const sanitationData = [7, 93, 0];
 
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-  const pieOptions = {
-    animationEnabled: true,
-    title: {
-      text: "Waste Composition",
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: "500",
-      fontColor: "black",
-      horizontalAlign: "left",
-    },
-
-    data: [
-      {
-        type: "pie",
-        startAngle: 20,
-        toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-        showInLegend: false,
-        color: colors,
-        indexLabel: "{label}- #percent%",
-        indexLabelFontSize: 8,
-        dataPoints: pieChartData.map((value, index) => ({
-          y: value,
-          label: pieChartLabels[index],
-          color: colors[index % colors.length],
-          percent: ((value / total) * 12).toFixed(2),
-        })),
-      },
-    ],
-    legend: {
-      fontSize: 10,
-      horizontalAlign: "center",
-      verticalAlign: "bottom",
-    },
-  };
 
   const CustomBar = {
     animationEnabled: true,
@@ -115,7 +61,7 @@ const WasteDashboard = ({ show }) => {
       text: "Waste Collection (in MT/day)",
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
+      fontWeight: 600,
       fontColor: "black",
       horizontalAlign: "left",
       padding: { bottom: 10 },
@@ -124,20 +70,25 @@ const WasteDashboard = ({ show }) => {
     axisY: {
       gridThickness: 0,
       labelFontSize: 8,
+      labelFontFamily: "Montserrat",
     },
     axisX: {
       gridThickness: 0,
       labelFontSize: 8,
+      labelFontFamily: "Montserrat",
     },
+    dataPointWidth: 8,
     data: [
       {
         type: "bar",
         name: "Other Sources",
         showInLegend: true,
-        color: colors[0],
-        indexLabel: `{y}`,
+        color: "#166c7d",
+        indexLabel: `{y} MT`,
         indexLabelFontSize: 8,
         indexLabelPlacement: "outside",
+        indexLabelFontFamily: "Montserrat",
+        indexLabelFontWeight: "bold",
         dataPoints: [
           { label: "Zone 1", y: 39 },
           { label: "Zone 2", y: 30 },
@@ -150,10 +101,12 @@ const WasteDashboard = ({ show }) => {
         type: "bar",
         name: "Community Bins",
         showInLegend: true,
-        color: colors[1],
-        indexLabel: `{y}`,
+        color: "#98C6CF",
+        indexLabel: `{y} MT`,
         indexLabelFontSize: 8,
         indexLabelPlacement: "outside",
+        indexLabelFontFamily: "Montserrat",
+        indexLabelFontWeight: "bold",
         dataPoints: [
           { label: "Zone 1", y: 31 },
           { label: "Zone 2", y: 24 },
@@ -166,10 +119,12 @@ const WasteDashboard = ({ show }) => {
         type: "bar",
         name: "Door-to-door Collection",
         showInLegend: true,
-        color: colors[2],
-        indexLabel: `{y}`,
+        color: "#1F8297",
+        indexLabel: `{y} MT`,
         indexLabelFontSize: 8,
         indexLabelPlacement: "outside",
+        indexLabelFontFamily: "Montserrat",
+        indexLabelFontWeight: "bold",
         dataPoints: [
           { label: "Zone 1", y: 2 },
           { label: "Zone 2", y: 1 },
@@ -180,7 +135,55 @@ const WasteDashboard = ({ show }) => {
       },
     ],
     legend: {
-      fontSize: 8,
+      fontSize: 10,
+      horizontalAlign: "center",
+      verticalAlign: "bottom",
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+    },
+  };
+
+  const total = estimatedSWGData.reduce((acc, value) => acc + value, 0);
+  const estimatedSWGChart = {
+    animationEnabled: true,
+    title: {
+      text: "Estimated Solid Waste Generation (SWG)",
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "black",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
+    },
+    axisY: {
+      labelFontSize: 0,
+      gridThickness: 0,
+      tickLength: 0,
+      lineThickness: 0,
+      maximum: total,
+    },
+    axisX: {
+      labelFontSize: 0,
+      gridThickness: 0,
+      tickLength: 0,
+      lineThickness: 0,
+    },
+    dataPointWidth: 40,
+    data: estimatedSWGLabels.map((label, index) => ({
+      type: "stackedBar",
+      name: label,
+      showInLegend: true,
+      color: colors[index], // Use the color from the colors array
+      indexLabelFontSize: 12,
+      indexLabelFontFamily: "Montserrat",
+      indexLabel: `${((estimatedSWGData[index] / total) * 100).toFixed(2)}%`,
+      //indexLabelFontWeight: "bold",
+      indexLabelFontColor: "white",
+      dataPoints: [{ label, y: estimatedSWGData[index] }], // Use dynamic values
+      legendText: "{label}: {y} MT",
+    })),
+    legend: {
+      fontSize: 10,
       horizontalAlign: "center",
       verticalAlign: "bottom",
     },
@@ -215,120 +218,177 @@ const WasteDashboard = ({ show }) => {
         </div>
       )}
 
-      <div className="flex w-full">
-       <div className="flex w-full gap-2">
-       {cardData.slice(0, 7).map((card, index) => (
-          <div
-            className="flex flex-column bg-white border-round p-4 gap-3"
-            key={card.value}
-          >
-            <p className="p-0 m-0 text-primary1 font-semibold ">{card.title}</p>
-            <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
-            <p className="p-0 m-0 text-tertiary3 font-medium text-lg">
-              {card.value}
+      <div className="flex w-full gap-4">
+        <div className="flex flex-column gap-4 w-full" style={{ flex: "18%" }}>
+          {/* Waste Generated */}
+          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 pb-5">
+            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+              Waste Generated{" "}
+              <span className="text-sm text-tertiary3 font-medium">/Day</span>
             </p>
-            </div>
+            <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
+              355 <span className="text-xl">MTD</span>
+            </p>
+            {/* <Chip
+            label="October 2024"
+            style={{
+              width: "fit-content",
+              backgroundColor: "#e9f3f5",
+              color: "#001F23",
+            }}
+          /> */}
           </div>
-        ))}
-       </div>
-        <div className="flex flex-column justify-content-between align-items-center w-full bg-white border-round p-4">
-          <p className="text-primary1 font-semibold p-0 m-0">
-            Community Toilets & Public Toilets
-          </p>
-        <div className="flex">
-        <div className="flex align-items-center justify-content-center flex-column gap-2">
-            <div className="flex align-items-center justify-content-center gap-2">
-              <img
-                src={ConstructedIcon}
-                style={{ height: "1.5rem", width: "1.5rem" }}
-                alt="constructed"
-              ></img>
-              <h1 className="p-0 m-0">Constructed</h1>
-            </div>
-            <div className="flex align-items-center justify-content-center gap-4">
-              <div className="flex align-items-center justify-content-center flex-column">
-                <h1 className="p-0 m-0">28400</h1>
-                <h1 className="text-sm p-0 m-0 text-green-500">Functional</h1>
-              </div>
-              <div className="flex align-items-center justify-content-center flex-column">
-                <h1 className=" p-0 m-0">331</h1>
-                <h1 className="text-sm p-0 m-0 text-green-500">
-                  Non-Functional
-                </h1>
-              </div>
-            </div>
-          </div>
-          <Divider layout="vertical" />
-          <div className="flex align-items-center justify-content-center flex-column gap-2">
-            <div className="flex align-items-center justify-content-center gap-2">
-              <img
-                src={UnderConstructedIcon}
-                style={{ height: "2rem", width: "2rem" }}
-                alt="constructed"
-              ></img>
-              <h1 className=" p-0 m-0">Under Construction</h1>
-            </div>
-            <div className="flex align-items-center justify-content-center gap-2">
-              <div className="flex align-items-center justify-content-center flex-column">
-                <h1 className="p-0 m-0">223</h1>
-                <h1 className="text-sm p-0 m-0 text-green-300">
-                  Under Construction
-                </h1>
-              </div>
-            </div>
+          {/* Waste Collected */}
+          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 pb-5">
+            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+              Waste Collected{" "}
+              <span className="text-sm text-tertiary3 font-medium">/Day</span>
+            </p>
+            <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
+              322 <span className="text-xl">MTD</span>
+            </p>
           </div>
         </div>
-        </div>
-      </div>
-
-      <div className="flex gap-3 w-full">
-        <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
-          <BarChart
-            categories={solidWasteLabels}
-            series={solidWasteData}
-            height={200}
-            title="Solid Waste Management"
-            colors={colors.slice(0, 3)}
-          />
-        </div>
-
-        <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
-          <ColumnChart
+        {/* Estimated Solid Waste Generated */}
+        <div
+          className="flex w-full bg-white border-round p-4"
+          style={{ flex: "32%" }}
+        >
+          {/* <CanvasJSChart
+            options={estimatedSWGChart}
+            containerProps={{ height: 100, width: "100%" }}
+          /> */}
+          <ModifiedColumnChart
             categories={estimatedSWGLabels}
             series={estimatedSWGData}
-            height={200}
+            height={180}
             title="Estimated Solid Waste Generated"
-            colors={colors.slice(0, 4)}
+            labelFontSize={8}
+            // colors={colors.slice(0, 4)}
           />
         </div>
-        <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
-          <CanvasJSChart
-            options={CustomBar}
-            containerProps={{ height: 200, width: "100%" }}
+        {/* Waste Composition */}
+        <div
+          className="flex flex-column gap-3 w-full bg-white border-round p-4"
+          style={{ flex: "32%" }}
+        >
+          <PieChart
+            categories={wasteCompositionLabels}
+            series={wasteCompositionData}
+            height={180}
+            title="Waste Composition"
+            vertical="center"
+            horizontal="right"
           />
         </div>
-        <div className="flex flex-column gap-3 w-full bg-white border-round p-4">
-          <CanvasJSChart
-            options={pieOptions}
-            containerProps={{ height: 200, width: "100%" }}
-          />
+        {/* CT/PT */}
+        <div
+          className="flex flex-column bg-white border-round p-4 gap-4 w-full justify-content-around"
+          style={{ flex: "18%" }}
+        >
+          <p className="text-primary1 font-semibold text-lg p-0 m-0">CT/PT</p>
+          <div className="flex flex-column  gap-4">
+            <div
+              className="flex flex-column w-full p-2 sec-theme gap-1"
+              style={{
+                borderLeft: "3px solid #1F8297", // Adjust thickness and color
+                height: "60px", // Adjust height
+              }}
+            >
+              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                500
+              </p>
+              <p className="text m-0 p-0 text-sm">Community Toilet</p>
+            </div>
+            <div
+              className="flex flex-column w-full p-2 sec-theme gap-2"
+              style={{
+                borderLeft: "3px solid #98C6CF", // Adjust thickness and color
+                height: "60px", // Adjust height
+              }}
+            >
+              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                700
+              </p>
+              <p className="text m-0 p-0 text-sm">Public Toilet</p>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="flex justify-content-end">
-        <Button
-          label={
-            recommendationsVisible
-              ? "Close Recommendations"
-              : "View Recommendations"
-          }
-          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-          onClick={handleToggleRecommendations}
-          className="bg-theme text-white"
-          raised
-        />
       </div>
 
-      {recommendationsVisible && <WasteRecommendations />}
+      <div className="flex gap-4 w-full">
+        <div
+          className="flex flex-column gap-3 w-full bg-white border-round p-4"
+          style={{ flex: "51%" }}
+        >
+          <CanvasJSChart
+            options={CustomBar}
+            containerProps={{ height: 250, width: "100%" }}
+          />
+        </div>
+        <div
+          className="flex w-full bg-white border-round p-4"
+          style={{ flex: "25%" }}
+        >
+          <ModifiedColumnChart
+            categories={solidWasteLabels}
+            series={solidWasteData}
+            height={220}
+            title="Solid Waste Management"
+            labelFontSize={6}
+            // colors={colors.slice(0, 3)}
+          />
+        </div>
+        <div
+          className="flex flex-column gap-3 w-full bg-white border-round p-4"
+          style={{ flex: "24%" }}
+        >
+          <PieChart
+            categories={sanitationLabels}
+            series={sanitationData}
+            height={220}
+            title="Sanitation Facility"
+            vertical="bottom"
+            horizontal="center"
+          />
+        </div>
+      </div>
+
+      <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
+        *Data updated till 2020. These numbers are subject to variation.
+      </p>
+
+      {show && (
+        <Panel
+          toggleable
+          onToggle={handleToggleRecommendations}
+          headerTemplate={(options) => {
+            const toggleIcon = options.collapsed
+              ? "pi pi-chevron-right"
+              : "pi pi-chevron-down";
+
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
+          {recommendationsVisible && <WasteRecommendations />}
+        </Panel>
+      )}
     </div>
   );
 };

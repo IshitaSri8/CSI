@@ -2,7 +2,11 @@ import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { Tooltip } from "primereact/tooltip";
 import React, { useState } from "react";
-import { BarChart, GroupedBarChart, GroupedColumnChart } from "Layout/GraphVisuals";
+import {
+  BarChart,
+  GroupedBarChart,
+  GroupedColumnChart,
+} from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import CommunityReportPrint from "./CommunityReportPrint";
@@ -73,90 +77,86 @@ const Community = ({ show }) => {
       )}
       {/* First Row */}
       <div className="flex align-items-center justify-content-center gap-2 flex-row w-full">
-        <Card className="w-full">
-          <div className="flex">
-            <i className="pi pi-info-circle text-cyan-800 text-right w-full text-sm cursor-pointer ngo"></i>
+        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
+            NGOs/Forums
+          </p>
+          <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
+            <p className="text-4xl font-semibold m-0 text-secondary2">215</p>
           </div>
-
-          <div className="flex align-items-center justify-content-center flex-row gap-2">
-            <div className="flex align-items-center justify-content-center gap-3 flex-column">
-              <h1 className="m-0 p-1 text-2xl text-cyan-800 text-center">
-                215
+          <i className="pi pi-info-circle text-theme w-full text-right ngo text-sm"></i>
+          <Tooltip target=".ngo" position="right">
+            <div className="flex align-items-start justify-content-start gap-4 p-2 w-full flex-column">
+              <h1 className="m-0 p-0 text-lg text-cyan-800 text-center">
+                List of NGOs/Forums
               </h1>
-              <p className="text-sm m-0 p-1 text-center">NGOs/Forums</p>
+              <ul>
+                <li>NGO1 (Work)</li>
+                <li>NGO2 (Work)</li>
+                <li>NGO3 (Work)</li>
+                <li>NGO4 (Work)</li>
+                <li>NGO5 (Work)</li>
+              </ul>
             </div>
+          </Tooltip>
+        </div>
+        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-4">
+            Annual Public Awareness Meetings/Workshops
+          </p>
+          <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
+            <p className="text-4xl font-semibold m-0 text-secondary2">26</p>
           </div>
-        </Card>
-        <Tooltip target=".ngo" position="right">
-          <div className="flex align-items-start justify-content-start gap-4 p-2 w-full flex-column">
-            <h1 className="m-0 p-0 text-lg text-cyan-800 text-center">
-              List of NGOs/Forums
-            </h1>
-            <ul>
-              <li>NGO1 (Work)</li>
-              <li>NGO2 (Work)</li>
-              <li>NGO3 (Work)</li>
-              <li>NGO4 (Work)</li>
-              <li>NGO5 (Work)</li>
-            </ul>
+        </div>
+        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
+            Feedback Survey Channels
+          </p>
+          <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
+            <p className="text-4xl font-semibold m-0 text-secondary2">58</p>
           </div>
-        </Tooltip>
-        <Card className="w-full">
-          <div className="flex align-items-center justify-content-center gap-1 flex-column p-2">
-            <h1 className="m-0 p-1 text-2xl text-cyan-800 text-center">26</h1>
-            <p className="text-base m-0 p-2 text-center">
-              Annual Public Awareness Meetings/Workshops
-            </p>
-          </div>
-        </Card>
-        <Card className="w-full">
-          <div className="flex">
-            <i className="pi pi-info-circle text-cyan-800 text-right w-full text-sm cursor-pointer feedback"></i>
-          </div>
-
-          <div className="flex align-items-center justify-content-center flex-row gap-2">
-            <div className="flex align-items-center justify-content-center gap-3 flex-column">
-              <h1 className="m-0 p-1 text-2xl text-cyan-800 text-center">58</h1>
-              <p className="text-sm m-0 p-1 text-center">
-                Feedback Survey Channels
-              </p>
+          <i className="pi pi-info-circle text-theme w-full text-right feedback text-sm"></i>
+          <Tooltip target=".feedback" position="bottom">
+            <div className="flex align-items-start justify-content-start gap-4 p-2 w-full flex-column">
+              <h1 className="m-0 p-0 text-lg text-cyan-800 text-center">
+                List of Feedback Survey Channels
+              </h1>
+              <ul>
+                <li>Healthcare: 16</li>
+                <li>Education: 26</li>
+                <li>Transport: 16</li>
+              </ul>
             </div>
-          </div>
-        </Card>
-        <Tooltip target=".feedback" position="bottom">
-          <div className="flex align-items-start justify-content-start gap-4 p-2 w-full flex-column">
-            <h1 className="m-0 p-0 text-lg text-cyan-800 text-center">
-              List of Feedback Survey Channels
-            </h1>
-            <ul>
-              <li>Healthcare: 16</li>
-              <li>Education: 26</li>
-              <li>Transport: 16</li>
-            </ul>
-          </div>
-        </Tooltip>
+          </Tooltip>
+        </div>
       </div>
 
       {/* Second Row */}
       <div className="flex align-items-center justify-content-center gap-2 w-full">
-        <Card className="w-4">
+        <div
+          className="flex bg-white border-round align-items-center p-4 w-full"
+          style={{ flex: "40%" }}
+        >
           <BarChart
             title="Number of NGOs/Forums Over Years"
             categories={categories}
             series={forums}
-            height={300}
+            height={200}
           />
-        </Card>
+        </div>
 
-        <Card className="w-8">
+        <div
+          className="flex bg-white border-round align-items-center p-4 w-full"
+          style={{ flex: "60%" }}
+        >
           <GroupedColumnChart
             title="Socio-Cultural Facilities"
             labels={facilitiesCategories}
             dataSeries={facilitiesData}
-            height={300}
+            height={200}
             dataPointWidth={40}
           />
-        </Card>
+        </div>
       </div>
       <div className="flex justify-content-end">
         <Button

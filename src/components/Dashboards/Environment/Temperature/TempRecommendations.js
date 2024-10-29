@@ -152,15 +152,18 @@ const TempRecommendations = ({ temperature }) => {
     return temp > 40 ? (
       <Badge value="Beat the Heat" severity="danger" />
     ) : (
-      <Badge value="Your Ultimate Temperature Tips" severity="warning" />
+      <Badge value="Your Ultimate Temperature Tips" 
+      //style={{ backgroundColor: '#1F8297'}}
+      //severity="warning" 
+      />
     );
   };
 
   const recommendations = getRecommendationTemp(temperature);
 
   return (
-    <div>
-      <h1 className="text-left text-xl">Recommendations</h1>
+    <div className="p-4">
+      {/* <h1 className="text-left text-xl">Recommendations</h1> */}
       <Fieldset legend={getBadge(temperature)}>
         {/* {recommendations.map((item, index) => (
           <div key={index} className="p-2">

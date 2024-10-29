@@ -7,7 +7,7 @@ import "primeicons/primeicons.css";
 
 import TempDashboard from "./TempDashboard";
 import TempRecommendations from "./TempRecommendations";
-import GenerateTempReport from "./GenerateTempReport";
+import GenerateTempReport from "../../../../../extra/GenerateTempReport";
 
 const TempMain = () => {
   const [tempValue, setTempValue] = useState(null);

@@ -122,7 +122,8 @@ const WaterRecommendations = () => {
     return (
       <Badge
         value="Measures to be taken for Water Treatment & Preservation"
-        severity="Good"
+        style={{ backgroundColor: '#1F8297'}}
+        // severity="Good"
       />
     );
   };

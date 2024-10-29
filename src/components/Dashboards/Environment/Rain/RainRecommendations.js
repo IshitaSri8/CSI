@@ -119,7 +119,8 @@ const RainRecommendations = () => {
     return (
       <Badge
         value="Measures to Improve Rainfall Retention and Management"
-        severity="Good"
+        style={{ backgroundColor: "#1F8297" }}
+        //severity="Good"
       />
     );
   };

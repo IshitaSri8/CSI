@@ -52,27 +52,25 @@ export default function LandReportPrint({ visible, toggleModalVisibility }) {
 
   return (
     <>
-      <div ref={contentRef}>
-        <div className="w-full sec-theme p-4">
-          <div className="flex flex-column gap-2 align-items-center w-full">
-            <h1
-              style={{ color: "#1F8297" }}
-              className="m-0 p-0 text-center text-2xl"
-            >
-              City Sustainability Index 2024
-            </h1>
-            <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
-            <h1 className="m-0 p-0 text-primary1 text-3xl text-semibold">
-              Land Usage
-            </h1>
-          </div>
-          <div className="w-full">
-            <Land show={false} />
-          </div>
-          <div className="w-full">
-            <h1 className="text-left text-xl">Recommendations</h1>
-            <LandRecommendations />
-          </div>
+      <div ref={contentRef} className="w-full print-container sec-theme p-4">
+        <div className="flex flex-column gap-2 align-items-center w-full">
+          <h1
+            style={{ color: "#1F8297" }}
+            className="m-0 p-0 text-center text-2xl"
+          >
+            City Sustainability Index 2024
+          </h1>
+          <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
+          <h1 className="m-0 p-0 text-primary1 text-3xl text-semibold">
+            Land Usage
+          </h1>
+        </div>
+        <div className="w-full">
+          <Land show={false} />
+        </div>
+        <div className="w-full">
+          <h1 className="text-left text-xl">Recommendations</h1>
+          <LandRecommendations />
         </div>
       </div>
       <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
@@ -82,6 +80,7 @@ export default function LandReportPrint({ visible, toggleModalVisibility }) {
           size="small"
           className="bg-cyan-700"
           onClick={handlePrint}
+          raised
         />
         <Button
           label="Export as PDF"
@@ -89,6 +88,7 @@ export default function LandReportPrint({ visible, toggleModalVisibility }) {
           size="small"
           className="bg-cyan-800"
           onClick={handleExport}
+          raised
         />
       </div>
     </>

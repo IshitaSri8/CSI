@@ -53,8 +53,7 @@ export default function WaterReportPrint({ visible, toggleModalVisibility }) {
 
   return (
     <>
-      <div ref={contentRef}>
-        <div className="w-full print-container sec-theme p-4">
+      <div ref={contentRef} className="w-full print-container sec-theme p-4">
           <div className="flex flex-column gap-2 align-items-center w-full">
             <h1 style={{ color: "#1F8297" }} className="m-0 p-0 text-center">
               City Sustainability Index 2024
@@ -68,9 +67,9 @@ export default function WaterReportPrint({ visible, toggleModalVisibility }) {
             <WaterDashboard />
           </div>
           <div className="w-full">
+          <h1 className="text-left text-xl">Recommendations</h1>
             <WaterRecommendations />
           </div>
-        </div>
       </div>
       <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
         <Button
@@ -79,6 +78,7 @@ export default function WaterReportPrint({ visible, toggleModalVisibility }) {
           size="small"
           className="bg-cyan-700"
           onClick={handlePrint}
+          raised
         />
         <Button
           label="Export as PDF"
@@ -86,6 +86,7 @@ export default function WaterReportPrint({ visible, toggleModalVisibility }) {
           size="small"
           className="bg-cyan-800"
           onClick={handleExport}
+          raised
         />
       </div>
     </>

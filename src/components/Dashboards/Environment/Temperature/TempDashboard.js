@@ -15,6 +15,7 @@ import { Tag } from "primereact/tag";
 import { Dialog } from "primereact/dialog";
 import TempRecommendations from "./TempRecommendations";
 import TempReportPrint from "./TempReportPrint";
+import { Panel } from "primereact/panel";
 
 // Define the helper functions here
 const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
@@ -212,7 +213,7 @@ const TempDashboard = ({
       setSelectedLocation(pSelectedLocation);
     }
   }, [show, pSelectedLocation]);
-  
+
   // {showPopup && (
   //   <FileUploadPopup
   //     onClose={() => setShowPopup(false)}
@@ -286,7 +287,9 @@ const TempDashboard = ({
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
         <div className="flex align-items-center justify-content-between">
-          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">Temperature</h1>
+          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">
+            Temperature
+          </h1>
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
               label="Filters"
@@ -528,30 +531,16 @@ const TempDashboard = ({
       </div>
 
       <div className="flex align-items-center justify-content-between w-full">
-          <Temperature
-            enviroDate={envirodate}
-            envirotime={envirotime}
-            temperature={temperature}
-            humidity={humidity}
-            enviroco2={enviroco2}
-            startDate={startDate}
-          />
-      </div>
-      <div className="flex justify-content-end">
-        <Button
-          label={
-            recommendationsVisible
-              ? "Close Recommendations"
-              : "View Recommendations"
-          }
-          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-          onClick={handleToggleRecommendations}
-          className="bg-theme text-white"
-          raised
+        <Temperature
+          enviroDate={envirodate}
+          envirotime={envirotime}
+          temperature={temperature}
+          humidity={humidity}
+          enviroco2={enviroco2}
+          startDate={startDate}
         />
       </div>
 
-      {recommendationsVisible && <TempRecommendations temperature={tempValue} humidity={humidityValue}/>}
       {/* <div className="w-100 flex align-items-center justify-content-center gap-1">
               <Card className="h-15rem w-17rem">
                 <PollutantChart
@@ -641,6 +630,43 @@ const TempDashboard = ({
               </div>
             </>
           )} */}
+
+      {show && (
+        <Panel
+          toggleable
+          onToggle={handleToggleRecommendations}
+          headerTemplate={(options) => {
+            const toggleIcon = options.collapsed
+              ? "pi pi-chevron-right"
+              : "pi pi-chevron-down";
+
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
+          {recommendationsVisible && (
+            <TempRecommendations
+              temperature={tempValue}
+              humidity={humidityValue}
+            />
+          )}
+        </Panel>
+      )}
     </div>
   );
 };

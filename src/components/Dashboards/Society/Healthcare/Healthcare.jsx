@@ -157,7 +157,7 @@ const Healthcare = ({ show }) => {
             <p className="text-4xl font-semibold m-0 text-secondary2">531</p>
           </div>
           <i className="pi pi-info-circle text-theme w-full text-right hospital text-sm"></i>
-          <Tooltip target=".hospital" position="left">
+          <Tooltip target=".hospital" position="bottom">
             <div className="w-10rem">
               <Doughnut
                 labels={Labels}
@@ -176,7 +176,7 @@ const Healthcare = ({ show }) => {
             <p className="text-4xl font-semibold m-0 text-secondary2">42</p>
           </div>
           <i className="pi pi-info-circle text-theme w-full text-right laboratories text-sm"></i>
-          <Tooltip target=".laboratories" position="left">
+          <Tooltip target=".laboratories" position="bottom">
             <div className="w-10rem">
               <Doughnut
                 labels={Labels}
@@ -190,7 +190,7 @@ const Healthcare = ({ show }) => {
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
-      {/* Healthcare Institutes Analysis */}
+        {/* Healthcare Institutes Analysis */}
         <div className="flex bg-white border-round p-4 w-full">
           <GroupedColumnChart
             title="Healthcare Institutes Analysis"
@@ -201,7 +201,7 @@ const Healthcare = ({ show }) => {
           />
         </div>
         <div className="flex flex-column gap-3 w-full p-4">
-        {/* No. of Beds Available */}
+          {/* No. of Beds Available */}
           <div className="flex bg-white border-round p-3 flex-column ">
             <p className="text-lg font-semibold text-center">
               No. of Beds Available
@@ -280,7 +280,7 @@ const Healthcare = ({ show }) => {
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
-      {/* PatientsRegisteredChart */}
+        {/* PatientsRegisteredChart */}
         <div className="flex bg-white border-round p-4 w-full">
           <PatientsRegisteredChart categories={years} series={doctorsData} />
         </div>
@@ -319,7 +319,7 @@ const Healthcare = ({ show }) => {
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
-      {/* Patients of Mental Illness */}
+        {/* Patients of Mental Illness */}
         <div className="flex bg-white border-round p-4 w-full">
           <BarChart
             title="Patients of Mental Illness"
@@ -337,7 +337,7 @@ const Healthcare = ({ show }) => {
             <p className="text-4xl font-semibold m-0 text-secondary2">15</p>
           </div>
           <i className="pi pi-info-circle text-theme w-full text-right rehab text-sm"></i>
-          <Tooltip target=".rehab" position="left">
+          <Tooltip target=".rehab" position="top">
             <div className="flex align-items-start justify-content-start gap-2 p-2 flex-column">
               <h1 className="m-0 p-0 text-lg text-cyan-800">
                 List of Rehab Centers

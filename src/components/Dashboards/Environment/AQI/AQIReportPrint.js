@@ -67,50 +67,58 @@ export default function AQIReportPrint({
 
   return (
     <>
-      <div ref={contentRef}>
-        <div className="w-full print-container gap-2">
-          <div className="flex flex-column gap-2 align-items-center w-full">
-            <h1
-              style={{ color: "#166c7d" }}
-              className="m-0 p-0 text-center text-2xl"
-            >
-              City Sustainability Index 2024
-            </h1>
-            <h4 className="m-0 p-0">{selectedLocation}</h4>
-            <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
+      <div ref={contentRef} className="w-full print-container sec-theme p-4">
+        <div className="flex flex-column gap-2 align-items-center w-full">
+          <h1
+            style={{ color: "#166c7d" }}
+            className="m-0 p-0 text-center text-2xl"
+          >
+            City Sustainability Index 2024
+          </h1>
+          <h1 className="m-0 p-0 text-primary1 text-3xl text-semibold">
+            Air Quality Index{" "}
+          </h1>
+          <h4 className="m-0 p-0">{selectedLocation}</h4>
 
-            <div className="flex align-items-center justify-content-center flex-row">
-              <p>
-                Date Range: &nbsp;{startDate?.toLocaleDateString()}&nbsp; to{" "}
-                {endDate?.toLocaleDateString()}
-              </p>
-            </div>
-          </div>
-          <div className="w-full">
-            <AqiDashboard
-              onDataChange={handleAqiData}
-              show={false}
-              pSelectedLocation={selectedLocation}
-              pSelectedStartDate={startDate}
-              pSelectedEndDate={endDate}
-            />
-          </div>
+          <p className="m-0 p-0">
+            Date Range: &nbsp;{startDate?.toLocaleDateString()}&nbsp; to{" "}
+            {endDate?.toLocaleDateString()}
+          </p>
+        </div>
+        <div className="w-full">
+          <AqiDashboard
+            onDataChange={handleAqiData}
+            show={false}
+            pSelectedLocation={selectedLocation}
+            pSelectedStartDate={startDate}
+            pSelectedEndDate={endDate}
+          />
+        </div>
+        <div className="w-full">
+        <h1 className="text-left text-xl">Recommendations</h1>
+          <AQIRecommendations
+            aqi={aqiValue}
+            pm25={pm25Value}
+            pm10={pm10Value}
+          />
         </div>
       </div>
-      <div className="flex align-items-center justify-content-end p-2 w-full">
+      <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
         <Button
           label="Print"
           icon="pi pi-print"
           size="small"
-          className="p-button-secondary mr-2"
+          className="bg-cyan-700"
           onClick={handlePrint}
+          raised
         />
         <Button
           label="Export as PDF"
           icon="pi pi-file-export"
           size="small"
-          className="p-button-success"
+          className="bg-cyan-800"
           onClick={handleExport}
+          raised
         />
       </div>
     </>
