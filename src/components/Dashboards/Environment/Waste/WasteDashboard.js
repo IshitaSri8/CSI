@@ -219,9 +219,9 @@ const WasteDashboard = ({ show }) => {
       )}
 
       <div className="flex w-full gap-4">
-        <div className="flex flex-column gap-4 w-full" style={{ flex: "18%" }}>
+        <div className="flex flex-column gap-2 w-full" style={{ flex: "18%" }}>
           {/* Waste Generated */}
-          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 pb-5">
+          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
             <p className="text-primary1 font-semibold text-lg p-0 m-0">
               Waste Generated{" "}
               <span className="text-sm text-tertiary3 font-medium">/Day</span>
@@ -239,7 +239,7 @@ const WasteDashboard = ({ show }) => {
           /> */}
           </div>
           {/* Waste Collected */}
-          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 pb-5">
+          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
             <p className="text-primary1 font-semibold text-lg p-0 m-0">
               Waste Collected{" "}
               <span className="text-sm text-tertiary3 font-medium">/Day</span>
@@ -261,7 +261,7 @@ const WasteDashboard = ({ show }) => {
           <ModifiedColumnChart
             categories={estimatedSWGLabels}
             series={estimatedSWGData}
-            height={180}
+            height={150}
             title="Estimated Solid Waste Generated"
             labelFontSize={8}
             // colors={colors.slice(0, 4)}
@@ -275,7 +275,7 @@ const WasteDashboard = ({ show }) => {
           <PieChart
             categories={wasteCompositionLabels}
             series={wasteCompositionData}
-            height={180}
+            height={165}
             title="Waste Composition"
             vertical="center"
             horizontal="right"
@@ -283,11 +283,11 @@ const WasteDashboard = ({ show }) => {
         </div>
         {/* CT/PT */}
         <div
-          className="flex flex-column bg-white border-round p-4 gap-4 w-full justify-content-around"
+          className="flex flex-column bg-white border-round p-4 gap-2 w-full justify-content-around"
           style={{ flex: "18%" }}
         >
           <p className="text-primary1 font-semibold text-lg p-0 m-0">CT/PT</p>
-          <div className="flex flex-column  gap-4">
+          <div className="flex flex-column gap-2">
             <div
               className="flex flex-column w-full p-2 sec-theme gap-1"
               style={{
