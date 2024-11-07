@@ -16,7 +16,7 @@ const Land = ({ show }) => {
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
 
   const handleToggleRecommendations = () => {
-    setRecommendationsVisible(!recommendationsVisible);
+    setRecommendationsVisible((prev) => !prev);
   };
 
   const deviationData = [
@@ -415,9 +415,9 @@ const Land = ({ show }) => {
           toggleable
           onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-down"; // Arrow pointing down when expanded
+            const toggleIcon =  recommendationsVisible
+              ? "pi pi-chevron-down" // Arrow pointing to the right when collapsed
+              : "pi pi-chevron-up"; // Arrow pointing down when expanded
 
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">

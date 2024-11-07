@@ -19,7 +19,7 @@ const WasteDashboard = ({ show }) => {
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
 
   const handleToggleRecommendations = () => {
-    setRecommendationsVisible(!recommendationsVisible);
+    setRecommendationsVisible((prev) => !prev);
   };
 
   const solidWasteData = [182, 181, 183];
@@ -363,9 +363,9 @@ const WasteDashboard = ({ show }) => {
           toggleable
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right"
-              : "pi pi-chevron-down";
+            const toggleIcon =  recommendationsVisible
+              ? "pi pi-chevron-down"
+              : "pi pi-chevron-up";
 
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">

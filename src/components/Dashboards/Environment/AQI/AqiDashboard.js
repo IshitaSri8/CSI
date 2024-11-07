@@ -64,7 +64,7 @@ const AqiDashboard = ({
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
 
   const handleToggleRecommendations = () => {
-    setRecommendationsVisible(!recommendationsVisible);
+    setRecommendationsVisible((prev) => !prev);
   };
   const [ReportVisible, setReportVisible] = useState(false);
   const handleLocationChange = (e) => {
@@ -330,10 +330,76 @@ const AqiDashboard = ({
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
         <div className="flex align-items-center justify-content-between">
-        <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Air Quality Index
           </h1>
           <div className="flex align-ites-center justify-content-end gap-2">
+            {/* <Panel
+              header="Filters"
+              className="bg-white text-cyan-800 border-1 border-cyan-800"
+              style={{ width: "25vw", padding: "0", cursor: "pointer" }}
+              onClick={() => setFilterVisible(!filterVisible)} // Toggle panel visibility
+            >
+              {filterVisible && (
+                <div className="flex flex-column align-items-end w-full gap-3">
+                  <div className="flex align-items-center justify-content-between w-full gap-3">
+                    <div className="flex flex-column">
+                      <label htmlFor="location" className="font-semibold">
+                        Location
+                      </label>
+                      <Dropdown
+                        value={selectedLocation}
+                        options={locations}
+                        optionLabel="label"
+                        optionValue="value"
+                        onChange={(e) => setSelectedLocation(e.value)}
+                        placeholder="Select Location"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <div className="p-field text-sm flex flex-column">
+                        <label htmlFor="start-date" className="font-semibold">
+                          Start Date
+                        </label>
+                        <Calendar
+                          id="start-date"
+                          value={startDate}
+                          onChange={handleStartDateChange}
+                          showIcon
+                          dateFormat="dd-mm-yy"
+                          placeholder="Select a start date"
+                          minDate={new Date("2024-01-01")} // Set the minimum selectable date
+                          maxDate={endDate} // Ensure the start date does not go beyond the end date
+                        />
+                      </div>
+                    </div>
+                    <div className="w-full">
+                      <div className="p-field text-sm flex flex-column">
+                        <label htmlFor="end-date" className="font-semibold">
+                          End Date{" "}
+                        </label>
+                        <Calendar
+                          id="end-date"
+                          value={endDate}
+                          onChange={handleEndDateChange}
+                          showIcon
+                          dateFormat="dd-mm-yy"
+                          placeholder="Select an end date"
+                          minDate={startDate} // Ensure the end date does not go before the start date
+                          maxDate={new Date("2024-08-13")} // Set the maximum selectable date
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <Button
+                    className="bg-cyan-800"
+                    label="Apply"
+                    icon="pi pi-search"
+                    onClick={handleSearch}
+                  />
+                </div>
+              )}
+            </Panel> */}
             <Button
               label="Filters"
               icon="pi pi-filter"
@@ -354,7 +420,7 @@ const AqiDashboard = ({
       )}
 
       <Dialog
-        header="Filter By"
+        header=""
         visible={filterVisible}
         style={{ width: "50vw" }}
         onHide={() => {
@@ -644,15 +710,15 @@ const AqiDashboard = ({
           />
         </div>
       </div>
+
       {show && (
         <Panel
           toggleable
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right"
-              : "pi pi-chevron-down";
-
+            const toggleIcon =  recommendationsVisible
+              ? "pi pi-chevron-down"
+              : "pi pi-chevron-up";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">
