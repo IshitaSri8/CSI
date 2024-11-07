@@ -270,7 +270,7 @@ body {
     padding: 0.5rem 0;
 }
 
-/* Custom row cell padding */
-.custom-row-padding .p-datatable-tbody > tr > td {
-  padding: 24px; /* Set the desired padding */
+.custom-padding .p-datatable .p-datatable-tbody > tr > td {
+  padding: 1rem;
 }
+

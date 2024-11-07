@@ -10,6 +10,8 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Tag } from "primereact/tag";
 import AqiMap from "assets/aqi/AqiMap";
+import DisasterRecommendations from "../Disaster Recommendations";
+import { Panel } from "primereact/panel";
 
 const Disaster = ({ show }) => {
   const dummyData = [
@@ -90,7 +92,7 @@ const Disaster = ({ show }) => {
 
   // Common header style template
   const HeaderStyle = {
-    fontSize: "1.2rem",
+    fontSize: "1.6rem",
     backgroundColor: "#166c7d",
     color: "white",
     padding: "5px", // Adjust padding as needed
@@ -136,7 +138,7 @@ const Disaster = ({ show }) => {
   };
 
   return (
-    <div className="flex gap-2 flex-column p-4">
+    <div className="flex flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
@@ -165,7 +167,7 @@ const Disaster = ({ show }) => {
 
       <div className="flex gap-3">
         {/* First Column */}
-        <div className="flex flex-column gap-3" style={{flex: "40%"}}>
+        <div className="flex flex-column gap-4" style={{ flex: "40%" }}>
           {/* Disaster Management Plan Availability */}
           <div className="flex justify-content-between bg-white border-round p-4 w-full">
             <div className="flex flex-column">
@@ -186,12 +188,12 @@ const Disaster = ({ show }) => {
             />
           </div>
           {/* Trained Responders Available */}
-          <div className="flex justify-content-between bg-white border-round p-4 w-full">
+          <div className="flex justify-content-between bg-white border-round p-2 w-full">
             <div className="flex flex-column gap-4">
               <p className="p-0 m-0 text font-medium text-lg text-left">
                 Trained Responders Available
               </p>
-              <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-0 text-center">
                 12000
               </p>
               <Chip
@@ -206,38 +208,42 @@ const Disaster = ({ show }) => {
             <img src={responders} alt="Trained Responders Available" />
           </div>
           <div className="flex w-full gap-3">
-            <div className="flex flex-column gap-2">
+            <div className="flex flex-column gap-3">
               <div className="flex flex-column bg-white border-round">
                 <AqiMap />
-                <p>
+                <p className="text p-0 m-0 mt-2">
                   Earthquake Prone Zone:{" "}
                   <span className="font-semibold">1</span>
                 </p>
               </div>
               <div className="flex flex-column bg-white border-round">
                 <AqiMap />
-                <p>
+                <p className="text p-0 m-0 mt-2">
                   Flood Prone Zone: <span className="font-semibold">1</span>
                 </p>
               </div>
             </div>
-            <div className="flex flex-column w-full gap-3">
-              <div className="flex justify-content-between bg-white border-round p-4 w-full">
+            <div className="flex flex-column w-full gap-1">
+              <div className="flex justify-content-between">
+                <p className="text p-0 m-0 font-semibold">Losses</p>{" "}
+                <span className="text-tertiary3">2010 to 2020</span>
+              </div>
+              <div className="flex justify-content-between bg-white border-round p-3 w-full">
                 <div className="flex flex-column w-full p-2 align-items-center">
-                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                  <p className="text-xl font-semibold m-0 text-secondary2 p-0">
                     1589
                   </p>
                   <p className="text p-0 m-0 mt-1">Casualties</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex flex-column w-full p-2 align-items-center">
-                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                  <p className="text-xl font-semibold m-0 text-secondary2 p-0">
                     2178
                   </p>
                   <p className="text p-0 m-0 mt-1">People Injured</p>
                 </div>
               </div>
-              <div className="flex border-round w-full gap-3">
+              <div className="flex border-round w-full gap-2 my-3">
                 <div
                   className="flex flex-column w-full pr-4 pl-2 py-3 bg-white"
                   style={{
@@ -245,7 +251,7 @@ const Disaster = ({ show }) => {
                     height: "60px", // Adjust height
                   }}
                 >
-                  <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                  <p className="text-xl font-semibold m-0 text-primary2 p-0">
                     576
                   </p>
                   <div className="flex align-items-center">
@@ -261,7 +267,7 @@ const Disaster = ({ show }) => {
                     height: "60px", // Adjust height
                   }}
                 >
-                  <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                  <p className="text-xl font-semibold m-0 text-primary2 p-0">
                     743
                   </p>
                   <div className="flex align-items-center">
@@ -271,30 +277,42 @@ const Disaster = ({ show }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-content-between bg-white border-round p-4 w-full">
-                <div className="flex flex-column w-full p-2 align-items-center">
-                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
-                    750 <span className="text-xl">Cr.</span>
-                  </p>
-                  <p className="text p-0 m-0 mt-1">Capital Loss</p>
-                </div>
-                <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center">
-                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
-                    1450 <span className="text-xl">Cr.</span>
-                  </p>
-                  <p className="text p-0 m-0 mt-1">Infrastructure Loss</p>
+              <div className="flex flex-column justify-content-between bg-white border-round p-2 w-full">
+                <p className="text p-0 m-0 mt-1 font-semibold">Economy</p>
+                <div className="flex w-full">
+                  <div className="flex flex-column w-full p-3 align-items-center">
+                    <p className="text-xl font-semibold m-0 text-secondary2 p-0">
+                      750 <span>Cr.</span>
+                    </p>
+                    <p className="text p-0 m-0 mt-1 text-sm">Capital Loss</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex flex-column w-full p-2 align-items-center">
+                    <p className="text-xl font-semibold m-0 text-secondary2 p-0">
+                      1450 <span>Cr.</span>
+                    </p>
+                    <p className="text p-0 m-0 mt-1 text-sm">
+                      Infrastructure Loss
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* Second Column */}
-        <div className="flex flex-column gap-2 bg-white border-round" style={{flex: "60%"}}>
+        <div
+          className="flex flex-column justify-content-between border-round"
+          style={{ flex: "60%" }}
+        >
+          <p className="p-0 m-0 text-xl font-semibold text">
+            Disastrous Events:{" "}
+            <span className="font-bold text-primary1 text-2xl">8</span>
+          </p>
           <DataTable
             value={dataTableData}
             //rowClassName={rowClassName}
-            className="custom-row-padding"
+            className="custom-padding"
             scrollable
             // scrollHeight="auto"
             style={{
@@ -309,7 +327,7 @@ const Disaster = ({ show }) => {
             <Column
               field="disastrousEvent"
               header="Disastrous Event"
-              className="font-semibold"
+              className="font-semibold text-lg text-primary1"
               style={{ width: "20%" }}
               headerStyle={HeaderStyle}
             ></Column>
@@ -324,7 +342,7 @@ const Disaster = ({ show }) => {
             <Column
               field="injured"
               header="Injured"
-              className="font-semibold"
+              className="font-semibold text-primary1"
               style={{ width: "10%" }}
               headerStyle={HeaderStyle}
             />
@@ -332,7 +350,7 @@ const Disaster = ({ show }) => {
             <Column
               field="deaths"
               header="Deaths"
-              className="font-semibold"
+              className="font-semibold text-primary1"
               style={{ width: "10%" }}
               headerStyle={HeaderStyle}
             ></Column>
@@ -340,7 +358,7 @@ const Disaster = ({ show }) => {
             <Column
               field="animalLoss"
               header="Animal Loss"
-              className="font-semibold"
+              className="font-semibold text-primary1"
               style={{ width: "10%" }}
               headerStyle={HeaderStyle}
             ></Column>
@@ -348,7 +366,7 @@ const Disaster = ({ show }) => {
             <Column
               field="vegetationLoss"
               header="Vegetation Loss"
-              className="font-semibold"
+              className="font-semibold text-primary1"
               style={{ width: "10%" }}
               headerStyle={HeaderStyle}
             ></Column>
@@ -364,58 +382,37 @@ const Disaster = ({ show }) => {
         </div>
       </div>
 
-      <Card className="w-full">
-        <h1 className="text-2xl text-cyan-800 text-center m-1 p-0">8</h1>
-        <p className="p-0 m-2 text-center">Disastrous Events</p>
-      </Card>
+      {show && (
+        <Panel
+          toggleable
+          onToggle={handleToggleRecommendations}
+          headerTemplate={(options) => {
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-down"
+              : "pi pi-chevron-up";
 
-      <div className="flex align-items-center justify-content-center gap-2 w-full">
-        <Card className="w-full">
-          <h1 className="m-0 p-0 text-cyan-800 text-xl">Measures Taken:</h1>
-          <ul className="text-xl">
-            <li>
-              1. Evacuation of Affected Areas: Safe and timely relocation of
-              people from high-risk zones.
-            </li>{" "}
-            <li>
-              {" "}
-              2. Search and Rescue Operations: Deployment of rescue teams to
-              find and assist trapped or missing individuals.
-            </li>{" "}
-            <li>
-              3. Medical Aid and Emergency Services: Setting up medical camps
-              and providing first aid to injured victims.
-            </li>
-            {""}
-            <li>
-              4. Shelter and Relief Camps: Establishment of temporary shelters
-              for displaced individuals with access to food, water, and basic
-              amenities.
-            </li>{" "}
-            <li>
-              5. Disaster Response Teams Deployment: Mobilization of National
-              Disaster Response Force (NDRF) and other emergency units.
-            </li>
-          </ul>
-        </Card>
-      </div>
-      <div className="flex justify-content-end">
-        <Button
-          label={
-            recommendationsVisible
-              ? "Close Recommendations"
-              : "View Recommendations"
-          }
-          icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
-          onClick={handleToggleRecommendations}
-          className="bg-theme text-white"
-          raised
-        />
-      </div>
-
-      {/* {recommendationsVisible && (
-        <DisasterRecommdations />
-      )} */}
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round mt-4">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
+          {recommendationsVisible && <DisasterRecommendations />}
+        </Panel>
+      )}
     </div>
   );
 };

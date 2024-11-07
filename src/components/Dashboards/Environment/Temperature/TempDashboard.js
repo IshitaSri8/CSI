@@ -458,6 +458,7 @@ const TempDashboard = ({
             <DataTable
               value={dataTableData}
               rowClassName={rowClassName}
+              className="custom-row"
               scrollable
               scrollHeight="16rem"
               style={{
@@ -483,7 +484,7 @@ const TempDashboard = ({
               <Column
                 field="time"
                 header="Time"
-                className="text-xs text-left"
+                className="text-sm text-left"
                 headerStyle={{
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
@@ -494,7 +495,7 @@ const TempDashboard = ({
               <Column
                 field="temp"
                 header="Temperature > 40°C"
-                className="text-xs text-left"
+                className="text-left"
                 headerStyle={{
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
@@ -505,7 +506,7 @@ const TempDashboard = ({
               <Column
                 field="deviationPercentage"
                 header="Outlier %"
-                className="text-sm font-semibold text-left"
+                className="font-semibold text-left"
                 headerStyle={{
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",

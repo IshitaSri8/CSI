@@ -233,7 +233,7 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
         ref={mapRef}
         style={{
           width: "15rem",
-          height: "8rem",
+          height: "9rem",
           overflow: "hidden",
         }}
       />
