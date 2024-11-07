@@ -22,7 +22,9 @@ const CityDemographics = () => {
           // }}
         >
           <div className="flex align-items-center justify-content-between w-full ">
-            <h1 className="m-0 p-0 text-white font-semibold">Geographical Overview</h1>
+            <h1 className="m-0 p-0 text-white font-semibold">
+              Geographical Overview
+            </h1>
             <i className="pi pi-map-marker text-white"></i>
           </div>
           <div className="flex align-items-center justify-content-center gap-3 p-2">
@@ -31,7 +33,6 @@ const CityDemographics = () => {
                 <div
                   className="flex align-items-center justify-content-center flex-column p-3 border-round w-full "
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
-                  
                 >
                   <h1 className="p-1 m-0 text-xl font-semibold text-white">
                     133.67 <span className="text-sm">sq.km</span>
@@ -114,7 +115,7 @@ const CityDemographics = () => {
                 </div>
               </div>
             </div>
-            <div className="flex align-items-center justify-content-center border-round-xl">
+            <div className="flex align-items-center justify-content-center border-round-xl p-2">
               <img src={geo_area} alt="area" className="h-12rem w-14rem" />
             </div>
           </div>
@@ -127,14 +128,16 @@ const CityDemographics = () => {
           }}
         >
           <div className="flex align-items-center justify-content-between">
-            <h1 className="m-0 p-0 text-white font-semibold">Population Insights</h1>
+            <h1 className="m-0 p-0 text-white font-semibold">
+              Population Insights
+            </h1>
             <i className="pi pi-users text-white"></i>
           </div>
           <div className="flex align-items-center justify-content-center gap-5 p-2">
             {/* waves */}
             <div
               className="flex align-items-center justify-content-between flex-column bg-theme my-2 border-round"
-             // style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+              // style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
               <div className="flex align-items-center justify-content-between bg-white border-round-top">
                 <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
@@ -206,7 +209,9 @@ const CityDemographics = () => {
             }}
           >
             <div className="flex align-items-center justify-content-between ">
-              <h1 className="m-0 p-0 text-white font-semibold">Civic Infrastructure</h1>
+              <h1 className="m-0 p-0 text-white font-semibold">
+                Civic Infrastructure
+              </h1>
               <Trash size={15} className="text-white" />
             </div>
             <div className="flex align-items-center justify-content-center flex-column gap-3 m-2">
@@ -255,7 +260,9 @@ const CityDemographics = () => {
             }}
           >
             <div className="flex align-items-center justify-content-between ">
-              <h1 className="m-0 p-0 text-white font-semibold">Public Utilities</h1>
+              <h1 className="m-0 p-0 text-white font-semibold">
+                Public Utilities
+              </h1>
               <Building2 className="text-white" size={15} />
             </div>
             <div className="flex align-items-center justify-content-center gap-2 m-2">
@@ -408,7 +415,9 @@ const CityDemographics = () => {
             }}
           >
             <div className="flex align-items-center justify-content-between ">
-              <h1 className="m-0 p-0 text-white font-semibold">Culture & Attractions</h1>
+              <h1 className="m-0 p-0 text-white font-semibold">
+                Culture & Attractions
+              </h1>
               <PartyPopper size={15} className="text-white" />
             </div>
             <div className="flex align-items-center justify-content-center m-2">
@@ -531,7 +540,7 @@ const CityDemographics = () => {
         </div>
       </div>
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
-      *These numbers are subject to variation.
+        *These numbers are subject to variation.
       </p>
     </div>
   );
