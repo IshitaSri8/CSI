@@ -61,7 +61,7 @@ const TempDashboard = ({
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
 
   const handleToggleRecommendations = () => {
-    setRecommendationsVisible(!recommendationsVisible);
+    setRecommendationsVisible((prev) => !prev);
   };
 
   const handleLocationChange = (e) => {
@@ -314,7 +314,7 @@ const TempDashboard = ({
         </div>
       )}
       <Dialog
-        header="Filter By"
+        header=""
         visible={filterVisible}
         style={{ width: "50vw" }}
         onHide={() => {
@@ -636,9 +636,9 @@ const TempDashboard = ({
           toggleable
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right"
-              : "pi pi-chevron-down";
+            const toggleIcon =  recommendationsVisible
+              ? "pi pi-chevron-down"
+              : "pi pi-chevron-up";
 
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">

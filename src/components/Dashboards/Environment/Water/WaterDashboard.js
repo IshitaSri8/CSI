@@ -16,7 +16,7 @@ const WaterDashboard = ({ show }) => {
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
 
   const handleToggleRecommendations = () => {
-    setRecommendationsVisible(!recommendationsVisible);
+    setRecommendationsVisible((prev) => !prev);
   };
   return (
     <div className="w-full p-4 flex gap-3 flex-column">
@@ -48,7 +48,7 @@ const WaterDashboard = ({ show }) => {
       )}
 
       <div className="w-full flex gap-4">
-      {/* Water Production */}
+        {/* Water Production */}
         <div
           className="flex flex-column bg-white border-round p-4 w-full gap-4"
           style={{ flex: "35%" }}
@@ -61,14 +61,14 @@ const WaterDashboard = ({ show }) => {
               className="flex flex-column w-full p-2"
               style={{
                 borderLeft: "3px solid #1F8297", // Adjust thickness and color
-                height: "60px", // Adjust height
+                height: "50px", // Adjust height
               }}
             >
-              <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                12 <span className="text-xl">MLD</span>
+              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                12 <span className="text-lg">MLD</span>
               </p>
-              <div className="flex align-items-center gap-2">
-                <p className="text m-0 p-0 mt-1">Natural Resources</p>
+              <div className="flex align-items-center">
+                <p className="text m-0 p-0 mt-1 text-sm">Natural Resources</p>
                 <i className="pi pi-info-circle text-theme natural text-sm p-0 m-0 mt-1"></i>
                 <Tooltip target=".natural" position="bottom">
                   <div className="flex align-items-start justify-content-start gap-2 p-2 flex-column">
@@ -89,14 +89,14 @@ const WaterDashboard = ({ show }) => {
               className="flex flex-column w-full p-2"
               style={{
                 borderLeft: "3px solid #98C6CF", // Adjust thickness and color
-                height: "60px", // Adjust height
+                height: "50px", // Adjust height
               }}
             >
-              <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                36 <span className="text-xl">MLD</span>
+              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                36 <span className="text-lg">MLD</span>
               </p>
               <div className="flex align-items-center gap-2">
-                <p className="text p-0 m-0 mt-1">Dams</p>
+                <p className="text p-0 m-0 mt-1  text-sm">Dams</p>
                 <i className="pi pi-info-circle text-theme dams text-sm p-0 m-0 mt-1"></i>
                 <Tooltip target=".dams" position="bottom">
                   <div className="flex align-items-start justify-content-start gap-2 p-2 flex-column">
@@ -115,31 +115,49 @@ const WaterDashboard = ({ show }) => {
         </div>
 
         {/* Water Supply */}
-        <div
-          className="flex gap-2 p-4 w-full border-round bg-white"
-          style={{ flex: "65%" }}
-        >
+        <div className="flex gap-2 p-4 w-full border-round bg-white">
           <div className="flex flex-column w-full gap-4">
             <p className="text-primary1 font-semibold text-lg p-0 m-0">
               Water Supply
             </p>
-            <div className="flex justify-content-between">
+            <div
+              className="flex justify-content-between"
+              style={{ flex: "30%" }}
+            >
               <div className="flex flex-column w-full p-2">
-                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  39.55 <span className="text-xl">MLD</span>
+                <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                  39.55 <span className="text-lg">MLD</span>
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm">Current Water Supply</p>
+                <p className="text p-0 m-0 mt-1 text-sm">
+                  Current Water Supply
+                </p>
               </div>
               <Divider layout="vertical" />
               <div className="flex flex-column w-full p-2">
-                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  49.68 <span className="text-xl">MLD</span>
+                <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                  49.68 <span className="text-lg">MLD</span>
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm">Required Water Supply</p>
+                <p className="text p-0 m-0 mt-1 text-sm">
+                  Required Water Supply
+                </p>
+              </div>
+              <Divider layout="vertical" />
+              <div className="flex flex-column w-full p-2">
+                {/* <p className="text-lg font-semibold m-0 text-secondary2 p-0">
+                  Gap: <span className="text-tertiary3">10.13 MLD</span>
+                </p> */}
+                <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                  107.47 <span className="text-lg">MLD</span>
+                </p>
+                <p className="text p-0 m-0 mt-1 text-sm">Target</p>
+                <p className="text-tertiary3 p-0 m-0 text-sm">By 2031</p>
               </div>
             </div>
           </div>
-          <div className="flex sec-theme gap-4 p-4 flex-column border-round align-items-center justify-content-center w-full">
+          <div
+            className="flex sec-theme gap-4 p-4 flex-column border-round align-items-center justify-content-center w-full"
+            style={{ flex: "45%" }}
+          >
             <ProgressBar
               value={79.58}
               style={{ height: "1.25rem" }} // Adjust the height
@@ -173,38 +191,12 @@ const WaterDashboard = ({ show }) => {
             Water Quality
           </p>
           <div className="flex align-items-center justify-content-between">
-            <div className="flex flex-column gap-4">
-              <div
-                className="flex flex-column w-full p-2 sec-theme gap-1"
-                style={{
-                  borderLeft: "3px solid #1F8297", // Adjust thickness and color
-                  height: "60px", // Adjust height
-                }}
-              >
-                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  1
-                </p>
-                <p className="text m-0 p-0 mt-1">STP</p>
-              </div>
-              <div
-                className="flex flex-column w-full p-2 sec-theme gap-2"
-                style={{
-                  borderLeft: "3px solid #98C6CF", // Adjust thickness and color
-                  height: "60px", // Adjust height
-                }}
-              >
-                <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                  12 <span className="text-xl">MLD</span>
-                </p>
-                <p className="text m-0 p-0 mt-1">Total STP Capacity</p>
-              </div>
-            </div>
-            <div className="flex flex-column align-items-center">
+          <div className="flex flex-column align-items-center">
               <Knob
                 value={83.04}
                 valueTemplate={"{value}%"}
                 readOnly
-                size={120}
+                size={150}
                 strokeWidth={5}
                 valueColor="#166c7d"
                 rangeColor="#E9F3F5"
@@ -216,8 +208,41 @@ const WaterDashboard = ({ show }) => {
                 Treated Reused Water
               </p>
             </div>
+            <div className="flex flex-column gap-2">
+              <div
+                className="flex flex-column w-full p-2 pr-4 sec-theme"
+                style={{
+                  borderLeft: "3px solid #1F8297", // Adjust thickness and color
+                  height: "50px", // Adjust height
+                }}
+              >
+                <p className="text m-0 p-0 font-medium">Total STPs</p>
+                <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                  1
+                </p>
+              </div>
+              <div
+                className="flex flex-column w-full p-2 pr-4 sec-theme"
+                style={{
+                  borderLeft: "3px solid #98C6CF", // Adjust thickness and color
+                  height: "120px", // Adjust height
+                }}
+              >
+                <p className="text m-0 p-0 mb-2 font-medium">Capacity</p>
+                <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                  12 <span>MLD</span>
+                </p>
+                <p className="text m-0 p-0 text-sm">Current</p>
+                <Divider />
+                <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                  109.95 <span>MLD</span>
+                </p>
+                <p className="text m-0 p-0 text-sm">Required</p>
+              </div>
+            </div>
+          
           </div>
-          <p className="text-secondary2 font-medium p-0 m-0 text-right">
+          <p className="text-secondary2 font-medium p-0 m-0 text-left">
             Total Reused Water:{" "}
             <span className="text-theme font-semibold">682.8 MLD</span>
           </p>
@@ -233,7 +258,7 @@ const WaterDashboard = ({ show }) => {
           </p>
           <div className="flex gap-3">
             <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
-              <div className="flex w-8rem custom-circular-progress">
+              <div className="flex w-10rem custom-circular-progress">
                 <CircularProgressbar
                   value={69.8}
                   text="69.80%"
@@ -254,7 +279,7 @@ const WaterDashboard = ({ show }) => {
               </p>
             </div>
             <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
-              <div className="flex w-8rem custom-circular-progress">
+              <div className="flex w-10rem custom-circular-progress">
                 <CircularProgressbar
                   value={37.8}
                   text="37.80%"
@@ -285,16 +310,16 @@ const WaterDashboard = ({ show }) => {
           <p className="text-primary1 font-semibold text-lg p-0 m-0">
             Water Preservation
           </p>
-          <div className="flex flex-column">
-            <div className="flex flex-column w-full p-2 justify-content-center">
-              <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
+          <div className="flex flex-column align-items-center justify-content-center">
+            <div className="flex flex-column w-full p-2">
+              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                 3500 <span className="text-2xl"> m&sup3;</span>
               </p>
               <p className="text p-0 m-0 mt-1">Total Volume Harvested</p>
             </div>
             <Divider />
-            <div className="flex flex-column w-full p-2 justify-content-center">
-              <p className="text-4xl font-semibold m-0 text-primary2 p-0">
+            <div className="flex flex-column w-full p-2">
+              <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                 144
               </p>
               <p className="text p-0 m-0 mt-1">No. of sites with RWHS</p>
@@ -312,9 +337,9 @@ const WaterDashboard = ({ show }) => {
           toggleable
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right"
-              : "pi pi-chevron-down";
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-down"
+              : "pi pi-chevron-up";
 
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">

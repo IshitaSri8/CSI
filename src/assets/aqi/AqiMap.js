@@ -11,13 +11,12 @@ import { Style, Fill, Stroke, Icon } from "ol/style";
 import { Feature } from "ol";
 import Point from "ol/geom/Point";
 import Overlay from "ol/Overlay";
-import airport from "../../assets/airport.webp";
-import railway from "../../assets/railway.avif";
-import school from "../../assets/tiny-school.jpg";
-import temple from "../../../components/KnowYourCity/KnowImages/ram.jpg";
-import Shahadat from "../../assets/shahadat.jpeg";
-import AQI from "../../assets/AQI.png";
-import ADABoundary from "../Maps/ADA_Boundary.json";
+import airport from "../aqi/airport.webp";
+import railway from "../aqi/railway.avif";
+import school from "../aqi/tiny-school.jpg";
+import temple from "../../assets/KYC/ram.jpg";
+import Shahadat from "../aqi/shahadat.jpeg";
+import ADABoundary from "components/Dashboards/Environment/Maps/ADA_Boundary.json";
 
 const AqiMap = ({ averageAQI, selectedLocation }) => {
   const mapRef = useRef();
@@ -233,8 +232,8 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
       <div
         ref={mapRef}
         style={{
-          width: "30rem",
-          height: "15rem",
+          width: "18rem",
+          height: "7rem",
           overflow: "hidden",
         }}
       />

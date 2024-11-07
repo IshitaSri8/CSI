@@ -95,6 +95,18 @@ body {
   color: var(--text-tertiary-3);
 }
 
+.success {
+  background-color: var(--bg-success);
+}
+
+.moderate {
+  background-color: var(--bg-moderate);
+}
+
+.danger {
+  background-color: var(--bg-danger);
+}
+
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
   background-color: var(--theme-primary-color);
 }
@@ -246,4 +258,19 @@ body {
 
 .p-panel .p-panel-header {
   border: none;
+}
+
+.p-divider.p-divider-horizontal {
+  margin: 0.5rem 0;
+  padding: 0 1.25rem;
+}
+
+.p-divider.p-divider-vertical {
+    margin: 0 0.5rem;
+    padding: 0.5rem 0;
+}
+
+/* Custom row cell padding */
+.custom-row-padding .p-datatable-tbody > tr > td {
+  padding: 24px; /* Set the desired padding */
 }

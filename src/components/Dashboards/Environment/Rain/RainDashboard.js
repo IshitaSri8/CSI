@@ -31,7 +31,7 @@ const RainDashboard = ({ show }) => {
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
 
   const handleToggleRecommendations = () => {
-    setRecommendationsVisible(!recommendationsVisible);
+    setRecommendationsVisible((prev) => !prev);
   };
 
   useEffect(() => {
@@ -214,6 +214,7 @@ const RainDashboard = ({ show }) => {
             />
           </div>
         </div>
+
         <img
           src={rain}
           alt="rain"
@@ -264,9 +265,9 @@ const RainDashboard = ({ show }) => {
           toggleable
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right"
-              : "pi pi-chevron-down";
+            const toggleIcon =  recommendationsVisible
+              ? "pi pi-chevron-down"
+              : "pi pi-chevron-up";
 
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
