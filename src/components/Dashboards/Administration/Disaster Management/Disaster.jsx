@@ -165,7 +165,7 @@ const Disaster = ({ show }) => {
 
       <div className="flex gap-3">
         {/* First Column */}
-        <div className="flex flex-column gap-3 w-full">
+        <div className="flex flex-column gap-3" style={{flex: "40%"}}>
           {/* Disaster Management Plan Availability */}
           <div className="flex justify-content-between bg-white border-round p-4 w-full">
             <div className="flex flex-column">
@@ -206,7 +206,7 @@ const Disaster = ({ show }) => {
             <img src={responders} alt="Trained Responders Available" />
           </div>
           <div className="flex w-full gap-3">
-            <div className="flex flex-column gap-3">
+            <div className="flex flex-column gap-2">
               <div className="flex flex-column bg-white border-round">
                 <AqiMap />
                 <p>
@@ -290,7 +290,7 @@ const Disaster = ({ show }) => {
           </div>
         </div>
         {/* Second Column */}
-        <div className="flex flex-column gap-2 w-full bg-white border-round">
+        <div className="flex flex-column gap-2 bg-white border-round" style={{flex: "60%"}}>
           <DataTable
             value={dataTableData}
             //rowClassName={rowClassName}
