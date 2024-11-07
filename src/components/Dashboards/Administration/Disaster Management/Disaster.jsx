@@ -1,6 +1,5 @@
-import { Card } from "primereact/card";
-import { Divider } from "primereact/divider";
 import React, { useState } from "react";
+import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import DisasterReportPrint from "./DisasterReportPrint";
@@ -278,7 +277,7 @@ const Disaster = ({ show }) => {
                 </div>
               </div>
               <div className="flex flex-column justify-content-between bg-white border-round p-2 w-full">
-                <p className="text p-0 m-0 mt-1 font-semibold">Economy</p>
+                <p className="text p-0 m-0 mt-1 font-semibold">Economic Loss</p>
                 <div className="flex w-full">
                   <div className="flex flex-column w-full p-3 align-items-center">
                     <p className="text-xl font-semibold m-0 text-secondary2 p-0">
