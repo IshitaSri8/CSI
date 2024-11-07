@@ -13,6 +13,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import GovernmentSidebar from "Layout/GovernmentSidebar";
 import CityProgress from "components/knowYourCity/CityProgress";
 import CitizenSidebar from "Layout/CitizenSidebar";
+import ChangeDetection from "extra/ChangeDetection";
 // import AqiDashboard from "../src/components/Dashboards/Environment/AQI/AqiDashboard";
 // import TempDashboard from "../src/components/Dashboards/Environment/Temperature/TempDashboard";
 // import RainDashboard from "../src/components/Dashboards/Environment/Rain/RainDashboard";
@@ -41,6 +42,7 @@ function App() {
       <Route path="/g-kyc" element={<GovernmentSidebar />} />
 
       <Route path="/c-kyc" element={<CitizenSidebar />} />
+      <Route path="/change" element={<ChangeDetection />} />
     </Routes>
   );
 }
