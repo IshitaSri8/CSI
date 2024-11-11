@@ -124,7 +124,7 @@ const Disaster = ({ show }) => {
     return (
       <Tag
         value={severity}
-        className={`px-3 py-1 border-round-3xl ${severityColors[severity]}`}
+        className={`px-2 border-round-3xl ${severityColors[severity]}`}
       />
     );
   };
@@ -174,11 +174,12 @@ const Disaster = ({ show }) => {
                 Disaster Management Plan Availability
               </p>
               <p className="p-0 m-0 text-tertiary3 font-medium">
-                Last Updated: <span>Date</span>
+                Last Updated: <span className="font-semibold">Date</span>
               </p>
             </div>
             <Chip
               label="Yes"
+              className="px-4"
               style={{
                 width: "fit-content",
                 backgroundColor: "#0C9D61",
@@ -197,7 +198,9 @@ const Disaster = ({ show }) => {
               </p>
               <Chip
                 label="Year: 2020"
+                className="p-0 px-1"
                 style={{
+                  fontSize: "0.75rem",
                   width: "fit-content",
                   backgroundColor: "#E7EAEA",
                   color: "#4c4c4c",
@@ -278,7 +281,7 @@ const Disaster = ({ show }) => {
               </div>
               <div className="flex flex-column justify-content-between bg-white border-round p-2 w-full">
                 <p className="text p-0 m-0 mt-1 font-semibold">Economic Loss</p>
-                <div className="flex w-full">
+                <div className="flex w-full align-items-center">
                   <div className="flex flex-column w-full p-3 align-items-center">
                     <p className="text-xl font-semibold m-0 text-secondary2 p-0">
                       750 <span>Cr.</span>
@@ -304,10 +307,13 @@ const Disaster = ({ show }) => {
           className="flex flex-column justify-content-between border-round"
           style={{ flex: "60%" }}
         >
-          <p className="p-0 m-0 text-xl font-semibold text">
-            Disastrous Events:{" "}
-            <span className="font-bold text-primary1 text-2xl">8</span>
-          </p>
+          <div className="flex justify-content-between align-items-center">
+            <p className="p-0 m-0 text-xl font-semibold text">
+              Disastrous Events:{" "}
+              <span className="font-bold text-primary1 text-2xl">8</span>
+            </p>
+            <p className="p-0 m-0 font-medium text">Year : From xx to yy</p>
+          </div>
           <DataTable
             value={dataTableData}
             //rowClassName={rowClassName}
@@ -316,7 +322,7 @@ const Disaster = ({ show }) => {
             // scrollHeight="auto"
             style={{
               width: "100%",
-              borderRadius: "12px",
+              borderRadius: "8px",
               overflow: "hidden",
               // scrollbarWidth: "none",
               // padding: 4,
@@ -326,8 +332,8 @@ const Disaster = ({ show }) => {
             <Column
               field="disastrousEvent"
               header="Disastrous Event"
-              className="font-semibold text-lg text-primary1"
-              style={{ width: "20%" }}
+              className="font-semibold text-primary1"
+              //style={{ width: "20%" }}
               headerStyle={HeaderStyle}
             ></Column>
             <Column
@@ -335,38 +341,38 @@ const Disaster = ({ show }) => {
               header="Date & Time"
               body={dateTimeTemplate} // Use custom template for date and time
               className="text-lg"
-              style={{ width: "20%" }}
+              // style={{ width: "20%" }}
               headerStyle={HeaderStyle}
             />
             <Column
               field="injured"
               header="Injured"
-              className="font-semibold text-primary1"
-              style={{ width: "10%" }}
+              className="font-semibold text-primary1 text-center"
+              // style={{ width: "10%" }}
               headerStyle={HeaderStyle}
             />
 
             <Column
               field="deaths"
               header="Deaths"
-              className="font-semibold text-primary1"
-              style={{ width: "10%" }}
+              className="font-semibold text-primary1 text-center"
+              // style={{ width: "10%" }}
               headerStyle={HeaderStyle}
             ></Column>
 
             <Column
               field="animalLoss"
               header="Animal Loss"
-              className="font-semibold text-primary1"
-              style={{ width: "10%" }}
+              className="font-semibold text-primary1 text-center"
+              // style={{ width: "10%" }}
               headerStyle={HeaderStyle}
             ></Column>
 
             <Column
               field="vegetationLoss"
               header="Vegetation Loss"
-              className="font-semibold text-primary1"
-              style={{ width: "10%" }}
+              className="font-semibold text-primary1 text-center"
+              // style={{ width: "10%" }}
               headerStyle={HeaderStyle}
             ></Column>
 
@@ -374,7 +380,7 @@ const Disaster = ({ show }) => {
               field="severity"
               header="Severity"
               body={severityTemplate}
-              style={{ width: "20%" }}
+              // style={{ width: "20%" }}
               headerStyle={HeaderStyle}
             ></Column>
           </DataTable>
