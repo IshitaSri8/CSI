@@ -185,9 +185,11 @@ export const BarChart = ({
         axisY: {
           title: ytitle,
           gridThickness: 0,
-          labelFontSize: 10,
-          labelFontFamily: "Montserrat",
+          labelFontSize: 0,
+          tickLength: 0,
+          lineThickness: 0,
         },
+        dataPointWidth: 25,
         data: [
           {
             type: "bar",
@@ -228,24 +230,27 @@ export const GroupedBarChart = ({
       fontWeight: 600,
       fontColor: "black",
       horizontalAlign: "left",
-      padding: { bottom: 20 },
+      padding: { bottom: 10 },
     },
     axisX: {
       title: xtitle,
       gridThickness: 0,
       labelFontSize: 8,
       labelFontFamily: "Montserrat",
+      lineThickness: 0.5,
     },
     axisY: {
       title: ytitle,
       gridThickness: 0,
-      labelFontSize: 8,
-      labelFontFamily: "Montserrat",
+      labelFontSize: 0,
+      tickLength: 0,
+      lineThickness: 0,
     },
     legend: {
       fontFamily: "Montserrat",
       fontWeight: 500,
       fontSize: 10,
+      horizontalAlign: "left",
     },
     toolTip: {
       shared: true, // Enable shared tooltip
@@ -273,13 +278,14 @@ export const GroupedBarChart = ({
       return {
         type: "bar",
         name: data.name,
-        color: colors[index + (2 % colors.length)],
+        color: colors[index + (4 % colors.length)],
         showInLegend: true,
         indexLabel: "{y}",
         indexLabelPlacement: "outside",
         indexLabelFontColor: "#00403c",
         indexLabelFontSize: 10,
         indexLabelFontFamily: "Montserrat",
+        indexLabelFontWeight: 500,
         dataPoints: data.data?.map((val, index) => ({
           label: labels[index],
           y: val,
@@ -331,11 +337,12 @@ export const StackedBarChart = ({
           fontFamily: "Montserrat",
           fontWeight: 500,
         },
+        dataPointWidth: 8,
         data: categories.map((category, index) => ({
           type: "stackedBar",
           name: category,
           showInLegend: true,
-          color: colors[index % colors.length],
+          color: colors[index + (4 % colors.length)],
           dataPoints: labels.map((year, i) => ({
             label: year,
             y: series[i][index],
@@ -587,10 +594,7 @@ export const ModifiedColumnChart = ({
       {/* Custom Legends */}
       <div className="flex gap-2">
         {series.map((value, index) => (
-          <div
-            key={index}
-            className="flex align-items-center"
-          >
+          <div key={index} className="flex align-items-center">
             <div
               className="mr-1 border-circle"
               style={{
@@ -632,12 +636,18 @@ export const GroupedColumnChart = ({
       gridThickness: 0,
       labelFontSize: 8,
       labelFontFamily: "Montserrat",
+      lineThickness: 0.5,
     },
     axisX: {
       // interval: 1,
       gridThickness: 0,
-      labelFontSize: 8,
+      labelFontSize: 10,
       labelFontFamily: "Montserrat",
+      tickLength: 0,
+      lineThickness: 0,
+      // labelFormatter: function () {
+      //   return " ";
+      // },
     },
 
     toolTip: {
@@ -658,13 +668,14 @@ export const GroupedColumnChart = ({
       return {
         type: "column",
         name: data.name,
-        color: colors[index + (2 % colors.length)],
+        color: colors[index + (4 % colors.length)],
         showInLegend: true,
         indexLabel: "{y}",
         indexLabelPlacement: "outside",
         indexLabelFontColor: "#00403c",
         indexLabelFontSize: 10,
         indexLabelFontFamily: "Montserrat",
+        indexLabelFontWeight: 600,
         dataPoints: data.data?.map((val, index) => ({
           label: labels[index],
           y: val,
@@ -966,7 +977,7 @@ export const PieChart = ({
           fontWeight: 600,
           fontColor: "black",
           horizontalAlign: "left",
-          padding: {bottom: 10}
+          padding: { bottom: 10 },
         },
 
         data: [

@@ -7,19 +7,11 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
   const colors = [
-    "#FFDD82", // Light Yellow
-    "#47B881", // Green
-    "#F7A47A", // Light Orange
-    "#4D7479", //Dusty Teal
-    "#98C6CF", // Light Blue
     "#1F8297", // Dark Cyan
-    "#166c7d", // Dark Teal
-    "#0F4B57", // Dark Slate Blue
-    "#5B98A4", // Slate Blue
-    "#F64C4C", // Red
-    "#8AB5BE", // Soft Blue-Green
-    "#B9D2D8", // Pale Cyan
-    "#E9F3F5", // Very Light Cyan
+    "#69ABB9",
+    "#26575D",
+    "#BAD8DF",
+    "#4D7479", //Dusty Teal
   ];
 
   const ageGroupData = {
@@ -73,7 +65,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
               text: "Registered Patients per Year",
               fontSize: 14,
               fontFamily: "Montserrat",
-              fontWeight: "500",
+              fontWeight: 600,
               fontColor: "black",
               horizontalAlign: "left",
               padding: { bottom: 20 },
@@ -87,7 +79,10 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
             axisX: {
               labelFontSize: 10,
               labelFontFamily: "Montserrat",
+              tickLength: 0,
+              lineThickness: 0,
             },
+            dataPointWidth: 40,
             data: [
               {
                 type: "column",
@@ -107,7 +102,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
           }}
           containerProps={{
             width: "100%",
-            height: 300,
+            height: 200,
           }}
         />
       ) : (
@@ -119,7 +114,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
               text: `Patients Registered in ${selectedYear} by Age Group`,
               fontSize: 14,
               fontFamily: "Montserrat",
-              fontWeight: 500,
+              fontWeight: 600,
               fontColor: "black",
               horizontalAlign: "left",
               padding: { bottom: 20 },
@@ -133,7 +128,10 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
             axisX: {
               labelFontSize: 10,
               labelFontFamily: "Montserrat",
+              tickLength: 0,
+              lineThickness: 0,
             },
+            dataPointWidth: 40,
             data: [
               {
                 type: "column",
@@ -152,7 +150,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
           }}
           containerProps={{
             width: "100%",
-            height: 170,
+            height: 80,
           }}
         />
       )}

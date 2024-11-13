@@ -9,8 +9,8 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Tag } from "primereact/tag";
 import AqiMap from "assets/aqi/AqiMap";
-import DisasterRecommendations from "../Disaster Recommendations";
 import { Panel } from "primereact/panel";
+import DisasterRecommendations from "./DisasterRecommendations";
 
 const Disaster = ({ show }) => {
   const dummyData = [
