@@ -1,0 +1,111 @@
+[
+  {
+    "Location_ID": 1,
+    "Location_Name": "Sohawal 224001, Uttar Pradesh",
+    "Latitude": 26.7520034571938,
+    "Longitude": 82.0262998322715
+  },
+  {
+    "Location_ID": 2,
+    "Location_Name": "Sohawal 224001, Uttar Pradesh",
+    "Latitude": 26.7514589752516,
+    "Longitude": 82.0425981108142
+  },
+  {
+    "Location_ID": 3,
+    "Location_Name": "Faizabad Road, Sohawal 224001, Uttar Pradesh",
+    "Latitude": 26.7567715439716,
+    "Longitude": 82.054096598779
+  },
+  {
+    "Location_ID": 4,
+    "Location_Name": "Faizabad Road, Sohawal 224001, Uttar Pradesh",
+    "Latitude": 26.7515085296949,
+    "Longitude": 82.066388991159
+  },
+  {
+    "Location_ID": 5,
+    "Location_Name": "Sohawal 224001, Uttar Pradesh",
+    "Latitude": 26.7516227435948,
+    "Longitude": 82.0748408368352
+  },
+  {
+    "Location_ID": 6,
+    "Location_Name": "Sohawal 224001, Uttar Pradesh",
+    "Latitude": 26.7473064096631,
+    "Longitude": 82.0762323344547
+  },
+  {
+    "Location_ID": 7,
+    "Location_Name": "Sohawal 224001, Uttar Pradesh",
+    "Latitude": 26.7387652541132,
+    "Longitude": 82.0665636035275
+  },
+  {
+    "Location_ID": 8,
+    "Location_Name": "Sohawal 224001, Uttar Pradesh",
+    "Latitude": 26.7312570382817,
+    "Longitude": 82.1048603838997
+  },
+  {
+    "Location_ID": 9,
+    "Location_Name": "Sadar 224001, Uttar Pradesh",
+    "Latitude": 26.7627156220284,
+    "Longitude": 82.1034308017901
+  },
+  {
+    "Location_ID": 10,
+    "Location_Name": "Faizabad Bypass Road, Paigapur, Sadar 224001, Uttar Pradesh",
+    "Latitude": 26.7629577824757,
+    "Longitude": 82.1105946177475
+  },
+  {
+    "Location_ID": 11,
+    "Location_Name": "Sadar 224135, Uttar Pradesh",
+    "Latitude": 26.6944596382018,
+    "Longitude": 82.1654750252522
+  },
+  {
+    "Location_ID": 12,
+    "Location_Name": "Sadar 224123, Uttar Pradesh",
+    "Latitude": 26.7304935480389,
+    "Longitude": 82.1842242765292
+  },
+  {
+    "Location_ID": 13,
+    "Location_Name": "Faizabad Bypass Road, Maqbara, Sadar 224123, Uttar Pradesh",
+    "Latitude": 26.7545891978249,
+    "Longitude": 82.1566815463426
+  },
+  {
+    "Location_ID": 14,
+    "Location_Name": "Sadar 224123, Uttar Pradesh",
+    "Latitude": 26.7556438076157,
+    "Longitude": 82.1857852549856
+  },
+  {
+    "Location_ID": 15,
+    "Location_Name": "NH135A, Sadar 224123, Uttar Pradesh",
+    "Latitude": 26.7627797391937,
+    "Longitude": 82.1884961776565
+  },
+  {
+    "Location_ID": 16,
+    "Location_Name": "Devkali Bypass Road, Sadar 224001, Uttar Pradesh",
+    "Latitude": 26.7736809181399,
+    "Longitude": 82.1876203126274
+  },
+  {
+    "Location_ID": 17,
+    "Location_Name": "Sadar 224123, Uttar Pradesh",
+    "Latitude": 26.7744819352931,
+    "Longitude": 82.1996980161506
+  },
+  {
+    "Location_ID": 18,
+    "Location_Name": "Devkali Bypass Road, Sadar 224123, Uttar Pradesh",
+    "Latitude": 26.7646985623888,
+    "Longitude": 82.2022239680617
+  }
+  
+]
