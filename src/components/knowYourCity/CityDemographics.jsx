@@ -37,7 +37,7 @@ const CityDemographics = () => {
                   <h1 className="p-1 m-0 text-xl font-semibold text-white">
                     133.67 <span className="text-sm">sq.km</span>
                   </h1>
-                  <p className="p-1 m-0 text-white text-sm">
+                  <p className="p-1 m-0 text-white text-xs">
                     Geographical Area
                   </p>
                 </div>
@@ -46,7 +46,7 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center border-round flex-column p-3"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-2xl font-semibold text-white">
+                  <h1 className="p-0 m-0 text-2xl font-semibold text-white">
                     11
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">Blocks</p>
@@ -55,7 +55,7 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center p-3 border-round flex-column"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-2xl font-semibold text-white">
+                  <h1 className="p-0 m-0 text-2xl font-semibold text-white">
                     60
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">Wards</p>
@@ -65,7 +65,7 @@ const CityDemographics = () => {
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
                   <i className="pi pi-info-circle text-white w-full text-right highway text-xs"></i>
-                  <h1 className="p-1 m-0 text-2xl font-semibold text-white">
+                  <h1 className="p-0 m-0 text-2xl font-semibold text-white mb-1">
                     1
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">Highways</p>
@@ -198,14 +198,14 @@ const CityDemographics = () => {
           </div>
         </div>
       </div>
-      {/* Civic Infrastructure */}
       <div className="flex align-items-center justify-content-center gap-3 w-full">
         <div className="flex align-items-center justify-content-center w-full">
+          {/* Civic Infrastructure */}
           <div
             className="w-full shadow-2 p-3 border-round-2xl"
             style={{
               background:
-                " linear-gradient(to left , #1F8297, #166C7D, #003940)",
+              " linear-gradient(to left , #1F8297, #166C7D, #003940)",
             }}
           >
             <div className="flex align-items-center justify-content-between ">

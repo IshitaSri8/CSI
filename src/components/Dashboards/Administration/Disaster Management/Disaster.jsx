@@ -137,7 +137,7 @@ const Disaster = ({ show }) => {
   };
 
   return (
-    <div className="flex flex-column p-4">
+    <div className="flex flex-column p-4 gap-3">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
@@ -148,7 +148,7 @@ const Disaster = ({ show }) => {
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
             //className="bg-white text-cyan-800 border-1 border-cyan-800"
-            className="mb-4 bg-theme text-white"
+            className="bg-theme text-white"
             raised
           />
           <Dialog
@@ -397,7 +397,7 @@ const Disaster = ({ show }) => {
               : "pi pi-chevron-up";
 
             return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round mt-4">
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">
                   View Recommendations
                 </p>

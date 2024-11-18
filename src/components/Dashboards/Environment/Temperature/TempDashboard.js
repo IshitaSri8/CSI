@@ -307,7 +307,7 @@ const TempDashboard = ({
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className=" bg-theme text-white"
+              className="bg-theme text-white"
               raised
             />
           </div>

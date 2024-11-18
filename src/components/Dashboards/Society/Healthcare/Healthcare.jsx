@@ -101,7 +101,7 @@ const Healthcare = ({ show }) => {
   const mentalPatientsData = [270, 328, 232, 150];
 
   return (
-    <div className="flex gap-3 flex-column p-4">
+    <div className="flex gap-3 flex-column p-4 gap-3">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
@@ -112,7 +112,7 @@ const Healthcare = ({ show }) => {
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
-            className="mb-4 bg-theme text-white"
+            className="bg-theme text-white"
             raised
           />
           <Dialog
@@ -134,21 +134,21 @@ const Healthcare = ({ show }) => {
               <img src={healthcare} alt="Healthcare" />
               <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                  12345
+                  748
                 </p>
                 <p className="text p-0 m-0 mt-1 text-lg font-medium">Doctors</p>
               </div>
               <Divider layout="vertical" />
               <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                  1234
+                  1375
                 </p>
                 <p className="text p-0 m-0 mt-1 text-lg font-medium">Nurses</p>
               </div>
               <Divider layout="vertical" />
               <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
                 <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                  123
+                  124
                 </p>
                 <p className="text p-0 m-0 mt-1 text-xs font-medium">
                   {" "}
@@ -163,7 +163,7 @@ const Healthcare = ({ show }) => {
             >
               <div className="flex flex-column w-full p-2 align-items-center">
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                  1589
+                  159
                 </p>
                 <p className="text p-0 m-0 mt-1 text-sm font-medium">
                   Healthcare Institutes
@@ -172,7 +172,7 @@ const Healthcare = ({ show }) => {
               <Divider layout="vertical" />
               <div className="flex flex-column w-full p-2 align-items-center">
                 <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                  2178
+                  78
                 </p>
                 <p className="text p-0 m-0 mt-1 text-sm font-medium">
                   Laboratories
@@ -188,7 +188,7 @@ const Healthcare = ({ show }) => {
               style={{ flex: "15%" }}
             >
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                1234
+                22750
               </p>
               <p className="text p-0 m-0 text-lg font-medium text-center">
                 Registered Patients
@@ -244,7 +244,7 @@ const Healthcare = ({ show }) => {
                 <p className="text p-0 m-0 mb-1 font-medium text-lg">
                   People Having Health Insurance
                 </p>
-                <div className="flex align-items-center justify-content-between">
+                <div className="flex align-items-center justify-content-around">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
                     1234
                   </p>

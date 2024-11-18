@@ -620,7 +620,7 @@ const GovernmentSidebar = () => {
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "6rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
-        {activeTab === "cityReportCard" && <CityReportCardGov />}
+        {activeTab === "cityReportCard" && <CityReportCardGov show={true}/>}
         {activeTab === "aqi" && <AqiDashboard show={true} />}
         {activeTab === "temperature" && <TempDashboard show={true} />}
         {activeTab === "rain" && <RainDashboard show={true} />}

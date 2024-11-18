@@ -61,27 +61,26 @@ export default function ReportPrint({ visible, toggleModalVisibility }) {
   };
 
   return (
-    <Dialog
-      header=""
-      visible={visible}
-      style={{ width: "95vw" }}
-      onHide={toggleModalVisibility}
-    >
-      <div ref={contentRef}>
-        <div className="w-full print-container">
-          <div className="flex flex-column gap-2 align-items-center w-full">
-            <h1 className="m-0 p-0 text-center text-theme mb-4 text-2xl">
-              City Sustainability Index 2024
-            </h1>
-            {/* <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4> */}
-          </div>
-          <div className="w-full">
-            <Report />
-          </div>
-          <div className="w-full">
-            <h1 className="m-0 p-0 text-900 mb-4 text-2xl">Recommendations</h1>
-            <Recommendations />
-          </div>
+    <>
+      <div ref={contentRef} className="w-full print-container sec-theme p-4">
+        <div className="flex flex-column gap-2 align-items-center w-full mb-2">
+        <h1
+            style={{ color: "#166c7d" }}
+            className="m-0 p-0 text-3xl font-semibold"
+          >
+            City Sustainability Index 2024
+          </h1>
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+            City Report Card
+          </h1>
+          {/* <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4> */}
+        </div>
+        <div className="w-full">
+          <Report />
+        </div>
+        <div className="w-full">
+        <h1 className="text-left text-xl mt-4">Recommendations</h1>
+          <Recommendations />
         </div>
       </div>
       <div className="flex align-items-center justify-content-end p-2 w-full">
@@ -100,6 +99,6 @@ export default function ReportPrint({ visible, toggleModalVisibility }) {
           onClick={handleExport}
         />
       </div>
-    </Dialog>
+    </>
   );
 }
