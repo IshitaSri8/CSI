@@ -4,19 +4,22 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import HealthcareReportPrint from "./HealthcareReportPrint";
 import {
-  Doughnut,
-  ColumnChart,
   StackedBarChart,
-  StackedColumnChart,
   GroupedColumnChart,
   BarChart,
+  PieChart,
+  GroupedBarChart,
+  Doughnut,
+  DonutChart,
 } from "Layout/GraphVisuals";
-import { Tooltip } from "primereact/tooltip";
 import { Divider } from "primereact/divider";
 import { PatientsRegisteredChart } from "./PatientsRegisteredChart";
 import { SuicideCasesChart } from "./SuicideCasesChart";
 import { Panel } from "primereact/panel";
 import LandRecommendations from "components/Dashboards/Environment/Land/LandRecommendations";
+import healthcare from "assets/healthcare.svg";
+import insurance from "assets/Health insurance.svg";
+import { ProgressBar } from "primereact/progressbar";
 
 const Healthcare = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -70,8 +73,8 @@ const Healthcare = ({ show }) => {
   // ];
 
   const institutionsAnalysisData = [
-    { name: "Target", data: [250, 300] },
-    { name: "Existing", data: [146, 198] },
+    { name: "Target by 2031", data: [250, 300] },
+    { name: "Current", data: [146, 198] },
   ];
 
   const mortalityData = [
@@ -98,7 +101,7 @@ const Healthcare = ({ show }) => {
   const mentalPatientsData = [270, 328, 232, 150];
 
   return (
-    <div className="flex gap-3 flex-column p-4">
+    <div className="flex gap-3 flex-column p-4 gap-3">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
@@ -109,7 +112,7 @@ const Healthcare = ({ show }) => {
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
-            className="mb-4 bg-theme text-white"
+            className="bg-theme text-white"
             raised
           />
           <Dialog
@@ -124,169 +127,236 @@ const Healthcare = ({ show }) => {
           </Dialog>
         </div>
       )}
-      <div className="flex w-full gap-3">
-        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
-          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
-            No. of Doctors
-          </p>
-          <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
-            <p className="text-4xl font-semibold m-0 text-secondary2">12345</p>
-          </div>
-        </div>
-        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
-          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
-            No. of Nurses
-          </p>
-          <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
-            <p className="text-4xl font-semibold m-0 text-secondary2">1234</p>
-          </div>
-        </div>
-        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
-          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
-            No. of other medical staff
-          </p>
-          <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
-            <p className="text-4xl font-semibold m-0 text-secondary2">123</p>
-          </div>
-        </div>
-        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
-          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
-            Total Healthcare Institutes
-          </p>
-          <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
-            <p className="text-4xl font-semibold m-0 text-secondary2">531</p>
-          </div>
-          <i className="pi pi-info-circle text-theme w-full text-right hospital text-sm"></i>
-          <Tooltip target=".hospital" position="bottom">
-            <div className="w-10rem">
-              <Doughnut
-                labels={Labels}
-                series={hospitalData}
-                height={100}
-                fontColor={"black"}
-              />
+      <div className="flex gap-3">
+        <div className="flex flex-column gap-3" style={{ flex: "75%" }}>
+          <div className="flex w-full gap-3">
+            <div className="flex bg-white border-round" style={{ flex: "65%" }}>
+              <img src={healthcare} alt="Healthcare" />
+              <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+                <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                  748
+                </p>
+                <p className="text p-0 m-0 mt-1 text-lg font-medium">Doctors</p>
+              </div>
+              <Divider layout="vertical" />
+              <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+                <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                  1375
+                </p>
+                <p className="text p-0 m-0 mt-1 text-lg font-medium">Nurses</p>
+              </div>
+              <Divider layout="vertical" />
+              <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+                <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                  124
+                </p>
+                <p className="text p-0 m-0 mt-1 text-xs font-medium">
+                  {" "}
+                  Other Medical Staff
+                </p>
+              </div>
             </div>
-          </Tooltip>
-        </div>
-        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
-          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
-            Total Laboratories
-          </p>
-          <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
-            <p className="text-4xl font-semibold m-0 text-secondary2">42</p>
-          </div>
-          <i className="pi pi-info-circle text-theme w-full text-right laboratories text-sm"></i>
-          <Tooltip target=".laboratories" position="bottom">
-            <div className="w-10rem">
-              <Doughnut
-                labels={Labels}
-                series={laboratoriesData}
-                height={100}
-                fontColor={"black"}
-              />
-            </div>
-          </Tooltip>
-        </div>
-      </div>
 
-      <div className="flex align-items-center justify-content-center gap-3 w-full">
+            <div
+              className="flex justify-content-between align-items-center bg-white border-round p-3"
+              style={{ flex: "35%" }}
+            >
+              <div className="flex flex-column w-full p-2 align-items-center">
+                <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                  159
+                </p>
+                <p className="text p-0 m-0 mt-1 text-sm font-medium">
+                  Healthcare Institutes
+                </p>
+              </div>
+              <Divider layout="vertical" />
+              <div className="flex flex-column w-full p-2 align-items-center">
+                <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                  78
+                </p>
+                <p className="text p-0 m-0 mt-1 text-sm font-medium">
+                  Laboratories
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex w-full gap-3">
+            {/* Registered Patients */}
+            <div
+              className="flex flex-column justify-content-center align-items-center bg-white border-round p-2 gap-3"
+              style={{ flex: "15%" }}
+            >
+              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                22750
+              </p>
+              <p className="text p-0 m-0 text-lg font-medium text-center">
+                Registered Patients
+              </p>
+            </div>
+            {/* Patient Doctor Ratio */}
+            <div
+              className="flex flex-column bg-white border-round p-3 justify-content-center"
+              style={{ flex: "30%" }}
+            >
+              <p className="text p-0 m-0 text-lg font-medium">
+                Patient Doctor Ratio
+              </p>
+              <div className="flex my-3">
+                <div className="flex flex-column w-full p-2 align-items-center">
+                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                    {ratioCurrent}
+                  </p>
+                  <p className="text p-0 m-0 mt-1 font-medium">Available</p>
+                </div>
+                <Divider layout="vertical" />
+                <div className="flex flex-column w-full p-2 align-items-center">
+                  <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                    {ratioTarget}
+                  </p>
+                  <p className="text p-0 m-0 mt-1 font-medium">Target</p>
+                </div>
+              </div>
+              <ProgressBar
+                value={((ratioCurrent - ratioTarget) / ratioCurrent) * 100}
+                style={{ height: "0.75rem" }} // Adjust the height
+                className="w-full" // Full width of its container
+                color="#E62225"
+                displayValueTemplate={() => null} // Hide the displayed value
+              />
+              <p className="text-tertiary3 p-0 m-0 mt-1 font-semibold">
+                Gap:{" "}
+                <span className="text-primary1">
+                  {(
+                    ((ratioCurrent - ratioTarget) / ratioCurrent) *
+                    100
+                  ).toFixed(2)}
+                  %
+                </span>
+              </p>
+            </div>
+            {/* People Having Health Insurance */}
+            <div
+              className="flex justify-content-center align-items-center bg-white border-round p-3"
+              style={{ flex: "25%" }}
+            >
+              <div className="flex flex-column">
+                <p className="text p-0 m-0 mb-1 font-medium text-lg">
+                  People Having Health Insurance
+                </p>
+                <div className="flex align-items-center justify-content-around">
+                  <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
+                    1234
+                  </p>
+                  <img src={insurance} alt="insurance" className="h-8rem" />
+                </div>
+              </div>
+            </div>
+            {/* No. of Beds Available */}
+            <div
+              className="flex flex-column bg-white border-round p-3 justify-content-center"
+              style={{ flex: "40%" }}
+            >
+              <p className="text p-0 m-0 text-lg font-medium">Hospital Beds</p>
+              <div className="flex my-3">
+                <div className="flex flex-column w-full p-2 align-items-center">
+                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                    {bedsCurrent}
+                  </p>
+                  <p className="text p-0 m-0 mt-1 font-medium">Available</p>
+                </div>
+                <Divider layout="vertical" />
+                <div className="flex flex-column w-full p-2 align-items-center">
+                  <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                    {bedsTarget}
+                  </p>
+                  <p className="text p-0 m-0 mt-1 font-medium">Target</p>
+                </div>
+              </div>
+              <ProgressBar
+                value={((bedsTarget - bedsCurrent) / bedsTarget) * 100}
+                style={{ height: "0.75rem" }} // Adjust the height
+                className="w-full" // Full width of its container
+                color="#E62225"
+                displayValueTemplate={() => null} // Hide the displayed value
+              />
+              <p className="text-tertiary3 p-0 m-0 mt-1 font-semibold">
+                Gap:{" "}
+                <span className="text-primary1">
+                  {" "}
+                  {((bedsTarget - bedsCurrent) / bedsTarget) * 100}%
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
         {/* Healthcare Institutes Analysis */}
-        <div className="flex bg-white border-round p-4 w-full">
+        <div className="flex bg-white border-round p-4" style={{ flex: "25%" }}>
           <GroupedColumnChart
             title="Healthcare Institutes Analysis"
             labels={Labels}
             dataSeries={institutionsAnalysisData}
-            dataPointWidth={40}
-            height={200}
-          />
-        </div>
-        <div className="flex flex-column gap-3 w-full p-4">
-          {/* No. of Beds Available */}
-          <div className="flex bg-white border-round p-3 flex-column ">
-            <p className="text-lg font-semibold text-center">
-              No. of Beds Available
-            </p>
-            <div className="flex align-items-center justify-content-around">
-              <div className="flex flex-column">
-                <p className="text-primary1 m-0 p-0 font-medium">
-                  Target:{bedsTarget}
-                </p>
-                <p className="text-primary1 m-0 p-0 font-medium">
-                  Current:{bedsCurrent}
-                </p>
-              </div>
-              <Divider
-                layout="vertical"
-                style={{
-                  height: "100px",
-                  backgroundColor: "#007bff",
-                  width: "5px",
-                }}
-              />
-              <div className="flex flex-column align-items-center">
-                <p className=" m-0 p-0 font-medium">
-                  {((bedsTarget - bedsCurrent) / bedsTarget) * 100}%
-                </p>
-                <p className="text-primary1 font-semibold text-sm p-0 m-0">
-                  Gap Percentage
-                </p>
-              </div>
-            </div>
-          </div>
-          {/* Patient Doctor Ratio */}
-          <div className="flex bg-white border-round p-3 flex-column ">
-            <p className="text-lg font-semibold text-center">
-              Patient Doctor Ratio
-            </p>
-            <div className="flex align-items-center justify-content-around">
-              <div className="flex flex-column">
-                <p className="text-primary1 m-0 p-0 font-medium">
-                  Target:{ratioTarget}
-                </p>
-                <p className="text-primary1 m-0 p-0 font-medium">
-                  Current:{ratioCurrent}
-                </p>
-              </div>
-              <Divider
-                layout="vertical"
-                style={{
-                  height: "100px",
-                  backgroundColor: "#007bff",
-                  width: "5px",
-                }}
-              />
-              <div className="flex flex-column align-items-center">
-                <p className=" m-0 p-0 font-medium">
-                  {((ratioTarget - ratioCurrent) / ratioTarget) * 100}%
-                </p>
-                <p className="text-primary1 text-sm font-semibold p-0 m-0">
-                  Gap Percentage
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Vaccination Facilities */}
-        <div className="flex bg-white border-round p-4 w-full">
-          <BarChart
-            title="Vaccination Facilities"
-            categories={vaccinationLabels}
-            series={vaccinationData}
-            height={200}
-            // xtitle="Vaccination Type"
-            // ytitle="Number of Vaccinations"
+            dataPointWidth={25}
+            height={260}
           />
         </div>
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
         {/* PatientsRegisteredChart */}
-        <div className="flex bg-white border-round p-4 w-full">
+        <div className="flex bg-white border-round p-4" style={{ flex: "50%" }}>
           <PatientsRegisteredChart categories={years} series={doctorsData} />
         </div>
 
+        {/* <div className="flex flex-column gap-3" style={{ flex: "14%" }}>
+          <div className="flex flex-column bg-white border-round p-4 gap-2">
+            <p className="text p-0 m-0 text-sm font-medium text-lg">
+              Total New Borns
+            </p>
+            <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
+              1234
+            </p>
+          </div>
+          <div className="flex flex-column bg-white border-round p-4 gap-2">
+            <p className="text p-0 m-0 text-sm font-medium text-lg">
+              Rehab Centers
+            </p>
+            <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
+              12
+            </p>
+          </div>
+        </div> */}
+
+        {/* Vaccination Facilities */}
+        <div className="flex bg-white border-round p-4" style={{ flex: "18%" }}>
+          <PieChart
+            categories={vaccinationLabels}
+            series={vaccinationData}
+            height={200}
+            title="Vaccination Facilities"
+            vertical="bottom"
+            horizontal="center"
+          />
+        </div>
+
+        {/* "Mortality Rate" */}
+        <div
+          className="flex flex-column bg-white border-round p-4"
+          style={{ flex: "35%" }}
+        >
+          <GroupedBarChart
+            title="Mortality Rate"
+            labels={years}
+            dataSeries={mortalityData}
+            dataPointWidth={8}
+            height={200}
+          />
+        </div>
+      </div>
+
+      <div className="flex align-items-center justify-content-center gap-3 w-full">
         {/* Chronic Diseases*/}
-        <div className="flex bg-white border-round p-4 w-full">
+        <div className="flex bg-white border-round p-4" style={{ flex: "51%" }}>
           {/* <GroupedColumnChart
             title="Prevailing Chronic Diseases"
             labels={years}
@@ -294,71 +364,37 @@ const Healthcare = ({ show }) => {
             dataPointWidth={10}
             height={200}
           /> */}
-          <StackedColumnChart
+          <StackedBarChart
             title="Chronic Disease Distribution"
             categories={chronicDiseases}
             series={chronicData}
             labels={years}
-            height={300}
+            height={200}
           />
+          {/* <ChronicDiseaseDistributionByYear/> */}
         </div>
 
-        {/* "Mortality Rate" */}
-        <div className="flex flex-column bg-white border-round p-4 w-full">
-          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
-            Total number of New Borns=2700
-          </p>
-          <GroupedColumnChart
-            title="Mortality Rate"
-            labels={years}
-            dataSeries={mortalityData}
-            dataPointWidth={25}
-            height={280}
-          />
-        </div>
-      </div>
-
-      <div className="flex align-items-center justify-content-center gap-3 w-full">
-        {/* Patients of Mental Illness */}
-        <div className="flex bg-white border-round p-4 w-full">
-          <BarChart
-            title="Patients of Mental Illness"
-            categories={mentalPatientsLabels}
-            series={mentalPatientsData}
-            height={300}
-          />
-        </div>
-        {/* No. of Rehab Centers */}
-        <div className="flex flex-column bg-white border-round p-4 w-full align-items-center gap-6">
-          <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
-            No. of Rehab Centers
-          </p>
-          <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-8rem h-8rem">
-            <p className="text-4xl font-semibold m-0 text-secondary2">15</p>
-          </div>
-          <i className="pi pi-info-circle text-theme w-full text-right rehab text-sm"></i>
-          <Tooltip target=".rehab" position="top">
-            <div className="flex align-items-start justify-content-start gap-2 p-2 flex-column">
-              <h1 className="m-0 p-0 text-lg text-cyan-800">
-                List of Rehab Centers
-              </h1>
-              <ul>
-                <li>Center: 1</li>
-                <li>Center: 2</li>
-                <li>Center: 3</li>
-                <li>Center: 4</li>
-              </ul>
-            </div>
-          </Tooltip>
-        </div>
         {/* SuicideCasesChart */}
-        <div className="flex bg-white border-round p-4 w-full">
+        <div className="flex bg-white border-round p-4" style={{ flex: "32%" }}>
           <SuicideCasesChart categories={years} series={suicideData} />
         </div>
+
+        {/* Patients of Mental Illness */}
+        <div className="flex bg-white border-round p-4" style={{ flex: "22%" }}>
+          <Doughnut
+            title="Patients of Mental Illness"
+            labels={mentalPatientsLabels}
+            series={mentalPatientsData}
+            height={200}
+            showNo={true}
+          />
+        </div>
       </div>
+
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p>
+
       {show && (
         <Panel
           //  header="View Recommendations"

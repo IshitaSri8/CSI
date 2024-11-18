@@ -303,7 +303,7 @@ const GovernmentSidebar = () => {
               overflowY: "auto", // Enable scrolling for the list items
               height: "calc(100vh - 8rem)", // Adjust the height to leave space for the toggle button
               scrollbarWidth: "none", // For Firefox
-             // msOverflowStyle: "none", // For Internet Explorer and Edge
+              // msOverflowStyle: "none", // For Internet Explorer and Edge
             }}
           >
             {/* Know Your City Section */}
@@ -620,7 +620,7 @@ const GovernmentSidebar = () => {
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "6rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
-        {activeTab === "cityReportCard" && <CityReportCardGov />}
+        {activeTab === "cityReportCard" && <CityReportCardGov show={true}/>}
         {activeTab === "aqi" && <AqiDashboard show={true} />}
         {activeTab === "temperature" && <TempDashboard show={true} />}
         {activeTab === "rain" && <RainDashboard show={true} />}

@@ -3,14 +3,13 @@ import { TabView, TabPanel } from "primereact/tabview";
 
 import CityDemographics from "../components/knowYourCity/CityDemographics";
 import CityProgress from "../components/knowYourCity/CityProgress";
-import { Card } from "primereact/card";
 
 const KnowYourCity = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
     <div className="px-0 py-4">
-      <h1 className="text-primary1 text-xl text-medium w-full m-0 p-0 ml-3">
+      <h1 className="m-0 p-0 text-primary1 text-2xl font-medium ml-3">
         Know Your City
       </h1>
       <TabView

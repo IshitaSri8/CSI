@@ -556,6 +556,7 @@ const AqiDashboard = ({
             <DataTable
               value={dataTableData}
               rowClassName={rowClassName}
+              className="custom-row"
               scrollable
               scrollHeight="15rem"
               style={{
@@ -570,7 +571,7 @@ const AqiDashboard = ({
               <Column
                 field="aqi"
                 header="AQI"
-                className="text-sm font-semibold text-left"
+                className="font-semibold text-left text-lg"
                 headerStyle={{
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
@@ -581,7 +582,7 @@ const AqiDashboard = ({
               <Column
                 field="date"
                 header="Date"
-                className="text-xs text-left"
+                className="text-left"
                 headerStyle={{
                   fontSize: "0.2rem",
                   backgroundColor: "#166c7d",
@@ -592,7 +593,7 @@ const AqiDashboard = ({
               <Column
                 field="time"
                 header="Time"
-                className="text-xs text-left"
+                className="text-left"
                 headerStyle={{
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
@@ -604,7 +605,7 @@ const AqiDashboard = ({
               <Column
                 field="deviationPercentage"
                 header="Outlier %"
-                className="text-sm font-semibold text-left"
+                className="text-lg font-semibold text-left"
                 style={{ width: "20%" }}
                 headerStyle={{
                   fontSize: "0.6rem",
@@ -716,7 +717,7 @@ const AqiDashboard = ({
           toggleable
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon =  recommendationsVisible
+            const toggleIcon = recommendationsVisible
               ? "pi pi-chevron-down"
               : "pi pi-chevron-up";
             return (
