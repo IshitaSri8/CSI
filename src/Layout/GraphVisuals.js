@@ -334,9 +334,10 @@ export const StackedBarChart = ({
           labelFontFamily: "Montserrat",
         },
         legend: {
-          fontSize: 12,
+          fontSize: 10,
           fontFamily: "Montserrat",
-          fontWeight: 500,
+          fontWeight: 400,
+          horizontalAlign: "left",
         },
         dataPointWidth: 16,
         data: categories.map((category, index) => ({

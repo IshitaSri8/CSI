@@ -116,7 +116,7 @@ const CityDemographics = () => {
               </div>
             </div>
             <div className="flex align-items-center justify-content-center border-round-xl p-2 surface-200">
-              <img src={geo_area} alt="area" className="h-12rem w-14rem" />
+              <img src={geo_area} alt="area" className="h-11rem w-14rem" />
             </div>
           </div>
         </div>
@@ -158,14 +158,14 @@ const CityDemographics = () => {
                 <p className="p-1 m-0 text-white text-sm">Current Population</p>
               </div>
             </div>{" "}
-            <div className="flex w-full bg-white align-items-center justify-content-center py-3 border-round flex-column gap-2">
-              <h1 className="p-0 m-0 text-cyan-800">Sex Ratio- 980</h1>
+            <div className="flex w-full bg-white justify-content-center p-3 border-round flex-column gap-2">
+              <p className="p-0 m-0 text-left font-semibold text-primary1">Sex Ratio- <span className="text font-medium">980</span></p>
 
               <Doughnut
                 title={""}
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
-                height={115}
+                height={100}
               />
             </div>
             {/* literacy-rate */}

@@ -6,15 +6,11 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Fare = () => {
   const colors = [
-    "#26575D",
-    "#1F8297",
-    "#4D7479",
-    "#4C9BAC",
-    "#98C6CF",
-    "#F7A47A",
-    "#47B881",
-    "#FFDD82",
-    "#F64C4C",
+    "#98C6CF", // Light Blue
+    "#1F8297", // Dark Cyan
+    "#166c7d", // Dark Teal
+    "#0F4B57", // Dark Slate Blue
+    "#5B98A4", // Slate Blue
   ];
   // 1. Average Fare per Transport Mode (Bar Chart)
   const averageFareOptions = {
@@ -30,14 +26,14 @@ const Fare = () => {
     },
     height: 150,
     axisY: {
-      // title: "Fare (in USD)",
       includeZero: false,
+      labelFontFamily: "Montserrat",
       gridThickness: 0,
       labelFontSize: 10,
     },
     axisX: {
-      // title: "Transport Modes",
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
 
     data: [
@@ -66,16 +62,15 @@ const Fare = () => {
       padding: { bottom: 10 },
     },
     height: 150,
-
     axisY: {
-      //title: "% of Income",
       includeZero: false,
       gridThickness: 0,
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
     axisX: {
-      // title: "Years",
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
     data: [
       {
@@ -110,17 +105,21 @@ const Fare = () => {
       includeZero: true,
       gridThickness: 0,
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
     axisX: {
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
     toolTip: {
       shared: true,
     },
     legend: {
-      // horizontalAlign: "right",
+      horizontalAlign: "left",
       // verticalAlign: "center",
       fontSize: 8,
+      fontFamily: "Montserrat",
+      fontWeight: 400,
     },
 
     data: [
@@ -128,7 +127,7 @@ const Fare = () => {
         type: "stackedBar",
         name: "Base Fare",
         showInLegend: true,
-        color: colors[5],
+        color: colors[0],
         dataPoints: [
           { label: "Road", y: 1.0 },
           { label: "Rail", y: 1.5 },
@@ -140,7 +139,7 @@ const Fare = () => {
         type: "stackedBar",
         name: "Peak Fare",
         showInLegend: true,
-        color: colors[4],
+        color: colors[1],
         dataPoints: [
           { label: "Road", y: 0.5 },
           { label: "Rail", y: 0.8 },

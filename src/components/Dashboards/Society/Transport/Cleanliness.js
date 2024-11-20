@@ -5,15 +5,11 @@ import { Card } from "primereact/card";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const colors = [
-  "#26575D",
-  "#1F8297",
-  "#4D7479",
-  "#4C9BAC",
-  "#98C6CF",
-  "#F7A47A",
-  "#47B881",
-  "#FFDD82",
-  "#F64C4C",
+  "#98C6CF", // Light Blue
+  "#1F8297", // Dark Cyan
+  "#166c7d", // Dark Teal
+  "#0F4B57", // Dark Slate Blue
+  "#5B98A4", // Slate Blue
 ];
 
 const cleanlinessOptions = {
@@ -21,7 +17,7 @@ const cleanlinessOptions = {
   cleanlinessRatingOptions: {
     animationEnabled: true,
     title: {
-      text: "Cleanliness Rating for Transport Modes",
+      text: "Rating for Transport Modes",
       fontSize: 14,
       fontFamily: "Montserrat",
       fontWeight: 500,
@@ -29,23 +25,22 @@ const cleanlinessOptions = {
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },
-    height:150,
+    height: 150,
     axisY: {
-    //  title: "Rating (0–10)",
       includeZero: true,
+      labelFontFamily: "Montserrat",
       maximum: 10,
       gridThickness: 0,
       labelFontSize: 10,
     },
     axisX: {
-    //  title: "Transport Modes",
       labelFontSize: 10,
-
+      labelFontFamily: "Montserrat",
     },
-   
+
     data: [
       {
-        type: "column",
+        type: "bar",
         dataPoints: [
           { label: "Road", y: 7, color: colors[0] },
           { label: "Rail", y: 8, color: colors[1] },
@@ -68,18 +63,18 @@ const cleanlinessOptions = {
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },
-    height:150,
+    height: 150,
     axisY: {
-    //  title: "Frequency (Number of Activities)",
       includeZero: true,
+      labelFontFamily: "Montserrat",
       gridThickness: 0,
       labelFontSize: 10,
     },
     axisX: {
-    //  title: "Months",
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
-   
+
     data: [
       {
         type: "line",
@@ -105,7 +100,7 @@ const cleanlinessOptions = {
   adherenceOptions: {
     animationEnabled: true,
     title: {
-      text: "Cleanliness Adherence Percentage per Transport Type",
+      text: "Adherence Percentage per Transport Type",
       fontSize: 14,
       fontFamily: "Montserrat",
       fontWeight: 500,
@@ -113,26 +108,26 @@ const cleanlinessOptions = {
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },
-    height:150,
+    height: 150,
     axisY: {
-    //  title: "Adherence Percentage (%)",
       includeZero: true,
+      labelFontFamily: "Montserrat",
       gridThickness: 0,
       labelFontSize: 10,
     },
     axisX: {
-      //title: "Transport Types",
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
-   
+
     data: [
       {
         type: "column",
         dataPoints: [
-          { label: "Road", y: 85, color: colors[5] },
-          { label: "Rail", y: 90, color: colors[6] },
-          { label: "Airways", y: 95, color: colors[7] },
-          { label: "Waterways", y: 80, color: colors[8] },
+          { label: "Road", y: 85, color: colors[3] },
+          { label: "Rail", y: 90, color: colors[2] },
+          { label: "Airways", y: 95, color: colors[1] },
+          { label: "Waterways", y: 80, color: colors[0] },
         ],
       },
     ],
@@ -147,12 +142,16 @@ const Cleanliness = () => {
         {/* 1. Cleanliness Rating */}
         <Card className="w-full">
           {/* <h1 className="m-0 p-1 text-lg">Cleanliness Rating for Transport Modes</h1> */}
-          <CanvasJSChart options={cleanlinessOptions.cleanlinessRatingOptions} />
+          <CanvasJSChart
+            options={cleanlinessOptions.cleanlinessRatingOptions}
+          />
         </Card>
 
         {/* 2. Frequency of Maintenance Activities */}
         <Card className="w-full">
-          <CanvasJSChart options={cleanlinessOptions.maintenanceFrequencyOptions} />
+          <CanvasJSChart
+            options={cleanlinessOptions.maintenanceFrequencyOptions}
+          />
         </Card>
 
         {/* 3. Cleanliness Adherence Percentage */}
