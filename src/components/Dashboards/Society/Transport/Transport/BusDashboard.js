@@ -147,12 +147,7 @@ const BusDashboard = () => {
           </Card>
         </div>
       </div>
-      <div className="flex w-full gap-3">
-        <BusTrend
-          totalBusesData={totalBusesData}
-          electricBusesData={electricBusesData}
-        />
-      </div>
+    
       <div className="flex gap-3 w-full">
         <Card className="w-full">
           <StackedBarChart />
@@ -175,6 +170,12 @@ const BusDashboard = () => {
             dataPointWidth={10}
           />
         </Card>
+      </div>
+      <div className="flex w-full gap-3">
+        <BusTrend
+          totalBusesData={totalBusesData}
+          electricBusesData={electricBusesData}
+        />
       </div>
     </div>
   );

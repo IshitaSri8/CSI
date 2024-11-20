@@ -17,10 +17,10 @@ const Accessibility = () => {
 
 
   const cardsData = [
-    { label: "Roadways Accessibility", value: 85, icon: Road },
-    { label: "Railways Accessibility", value: 73, icon: Rail },
-    { label: "Airways Accessibility", value: 42, icon: Air },
-    { label: "Waterways Accessibility", value: 35, icon: Water },
+    { label: "Roadways", value: 85, icon: Road },
+    { label: "Railways", value: 73, icon: Rail },
+    { label: "Airways", value: 42, icon: Air },
+    { label: "Waterways", value: 35, icon: Water },
   ];
 
   return (
@@ -32,12 +32,12 @@ const Accessibility = () => {
            <div className="flex w-full">
               {/* Left Column: Content */}
               <div className="flex w-full m-0 p-0 align-items-start justify-content-start flex-column">
-                <h1 className="m-0">{card.label}</h1>
-                <h1
-                  className="text-xl text-theme ml-0 mb-0"
+                <p className="m-0 p-o text-lg font-medium text">{card.label}</p>
+                <p
+                  className="text-xl text-primary1 ml-0 mb-0 font-semibold"
                 >
                   {card.value}%
-                </h1>
+                </p>
               </div>
 
               {/* Right Column: Icon */}
@@ -55,10 +55,9 @@ const Accessibility = () => {
               <ProgressBar
                 value={card.value}
                 showValue={false}
+                color= "#1f8297"
                 style={{
                   height: '0.4rem', // Adjust the height
-                  backgroundColor: '#d4edda', // Background color of the progress bar
-                  //borderRadius: '0.5rem', // Rounded corners
                 }}
                 className="w-full" // Make sure it takes full width of its container
               />
@@ -70,24 +69,24 @@ const Accessibility = () => {
                 style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
                 alt="increase"
               ></img>
-              <p className="text-red-400 text-xs p-0 m-0">
+              <p className="text-red-400 text-sm p-0 m-0">
                 10% decrease in last one year.
               </p>
             </div>
             <CustomTooltip
               content={
                 <div className="flex align-items-center justify-content-center gap-1 flex-column w-full">
-                  <p className="m-0 text-xs">
+                  <p className="m-0 text-sm">
                     Accessibility In Current Year: 60%
                   </p>
-                  <p className="m-0 text-xs">
+                  <p className="m-0 text-sm">
                     Accessibilty In Previous Year: 70%
                   </p>
                 </div>
               }
             >
               <InfoIcon
-                style={{ height: "1.2rem", width: "1.2rem", color: "red" }}
+                style={{ height: "1.2rem", width: "1.2rem", color: "#1f8297" }}
               />
             </CustomTooltip>
           </div>
@@ -108,7 +107,7 @@ const Accessibility = () => {
         </Card>
 
         <Card className="w-full">
-          <h1 className="m-0 p-1 text-lg">Heat Map</h1>
+          <p className="m-0 p-1 text-lg">Heat Map</p>
         </Card>
       </div>
     </div>

@@ -1,10 +1,7 @@
-import { Card } from "primereact/card";
-import { Divider } from "primereact/divider";
 import { Tooltip } from "primereact/tooltip";
 import React, { useState } from "react";
 import {
   BarChart,
-  GroupedBarChart,
   GroupedColumnChart,
 } from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
@@ -40,11 +37,6 @@ const Community = ({ show }) => {
     },
   ];
 
-  // Series data for existing and target values
-  const tseries = [
-    [88, 88, 29, 4, 4, 4, 1], // Existing values
-    [220, 220, 73, 11, 11, 11, 2], // Target values
-  ];
   const categories = ["2020", "2021", "2022", "2023", "2024"];
   const forums = [80, 90, 178, 148, 215]; // Funds allocated for each year (in crores)
 
@@ -52,7 +44,7 @@ const Community = ({ show }) => {
     <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-         <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Community Engagement & Holisitic Well-Being
           </h1>
           <Button

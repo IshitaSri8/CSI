@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TabView, TabPanel } from "primereact/tabview"; // Import TabView and TabPanel
+import { TabView, TabPanel } from "primereact/tabview"; 
 import { Doughnut, LineChart, GroupedColumnChart } from "Layout/GraphVisuals";
 import { primaryData } from "./PrimaryData";
 import { secondaryData } from "./SecondaryData";
@@ -44,7 +44,7 @@ const EducationDashboard = ({ show }) => {
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
-            className="bg-theme text-white"
+            className="bg-theme text-white mr-3"
             style={{ marginBottom: -60 }}
             raised
           />
@@ -71,7 +71,6 @@ const EducationDashboard = ({ show }) => {
             {/* <h1 className="text-3xl text-theme font-medium text-center mt-0 p-0 mb-2">
               {level} Level Education
             </h1> */}
-
             <div className="flex flex-column gap-3">
               {/* First row with parameter cards */}
               <div className="flex gap-3 justify-content-center align-items-stretch">

@@ -29,8 +29,8 @@ const Frequency = () => {
             <div className="flex w-full h-auto p-0 m-0">
               {/* Left Column: Content */}
               <div className="flex w-full m-0 p-0 align-items-start justify-content-start flex-column">
-                <h1 className="m-0 text-xs">{card.label}</h1>
-                <h1 className="text-xl text-theme ml-0 mb-0 ">{card.value}</h1>
+                <p className="m-0 text-lg font-medium text p-0">{card.label}</p>
+                <p className="text-xl text-primary1 font-semibold">{card.value}</p>
               </div>
 
               {/* Right Column: Icon */}
@@ -55,17 +55,17 @@ const Frequency = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
               <CustomTooltip
                 content={
                   <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Frequency In Current Year: 70%
                     </p>
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Frequency In Previous Year: 60%
                     </p>
                   </div>

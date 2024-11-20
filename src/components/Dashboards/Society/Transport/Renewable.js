@@ -91,10 +91,10 @@ const Renewable = () => {
       <div className="flex align-items-center justify-content-between flex-row gap-4 w-full">
         <Card className="w-full">
           <div className="flex align-items-center justify-content-center flex-column">
-            <h1 className="text-2xl text-theme text-bold m-0 p-0">38 %</h1>
-            <h1 className="text-xs text-semibold mt-3 p-0">
+            <p className="text-2xl text-primary1 font-semibold m-0 p-0">38 %</p>
+            <p className="text-lg font-medium text mt-3 p-0">
               Public Transport Using Renewable Energy
-            </h1>
+            </p>
             <div className="flex align-items-center justify-content-center flex-row w-full ">
               <div className="flex align-items-center justify-content-center flex-row">
                 <img
@@ -106,7 +106,7 @@ const Renewable = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
@@ -115,13 +115,12 @@ const Renewable = () => {
         </Card>
         <Card className="w-full">
           <div className="flex align-items-center justify-content-center flex-column">
-            <h1 className="text-2xl text-theme text-bold m-0 p-0">
-              {" "}
+            <p className="text-2xl text-primary1 font-semibold m-0 p-0">
               2579890 Litres
-            </h1>
-            <h1 className="text-xs text-semibold mt-3 p-0">
+            </p>
+            <p className="text-lg font-medium text mt-3 p-0">
               Total Fuel Saved Using Renewable Energy
-            </h1>
+            </p>
             <div className="flex align-items-center justify-content-center flex-row w-full ">
               <div className="flex align-items-center justify-content-center flex-row">
                 <img
@@ -133,7 +132,7 @@ const Renewable = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
@@ -143,10 +142,10 @@ const Renewable = () => {
 
         <Card className="w-full">
           <div className="flex align-items-center justify-content-center flex-column">
-            <h1 className="text-2xl text-theme text-bold m-0 p-0">22</h1>
-            <h1 className="text-xs text-semibold mt-3 p-0">
+          <p className="text-2xl text-primary1 font-semibold m-0 p-0">22</p>
+          <p className="text-lg font-medium text mt-3 p-0">
               No. of Renewable Energy Projects
-            </h1>
+            </p>
             <div className="flex align-items-start justify-content-between flex-row w-full ">
               <div className="flex align-items-start justify-content-start flex-row">
                 <img
@@ -158,7 +157,7 @@ const Renewable = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>

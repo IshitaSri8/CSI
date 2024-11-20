@@ -7,8 +7,6 @@ import {
   GroupedColumnChart,
   PieChart,
   GroupedBarChart,
-  Doughnut,
-  LineChart,
   ModifiedLineChart,
 } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
@@ -106,13 +104,13 @@ const Healthcare = ({ show }) => {
   // const ageGroup = ["0-18", "19-35", "36-60", "61+"];
   const suicideData = [270, 328, 232, 150, 450];
 
-  const mentalPatientsLabels = [
-    "Addiction",
-    "Depression",
-    "Anxiety",
-    "Schizophrenia",
-  ];
-  const mentalPatientsData = [270, 328, 232, 150];
+  // const mentalPatientsLabels = [
+  //   "Addiction",
+  //   "Depression",
+  //   "Anxiety",
+  //   "Schizophrenia",
+  // ];
+  // const mentalPatientsData = [270, 328, 232, 150];
 
   return (
     <div className="flex gap-3 flex-column p-4 gap-3">
@@ -244,7 +242,7 @@ const Healthcare = ({ show }) => {
                 value={((ratioCurrent - ratioTarget) / ratioCurrent) * 100}
                 style={{ height: "0.75rem" }} // Adjust the height
                 className="w-full" // Full width of its container
-                color="#E62225"
+                color="#FFAD0D"
                 displayValueTemplate={() => null} // Hide the displayed value
               />
               <p className="text-tertiary3 p-0 m-0 mt-1 font-semibold">
@@ -300,7 +298,7 @@ const Healthcare = ({ show }) => {
                 value={((bedsTarget - bedsCurrent) / bedsTarget) * 100}
                 style={{ height: "0.75rem" }} // Adjust the height
                 className="w-full" // Full width of its container
-                color="#FFAD0D"
+                color="#E62225"
                 displayValueTemplate={() => null} // Hide the displayed value
               />
               <p className="text-tertiary3 p-0 m-0 mt-1 font-semibold">

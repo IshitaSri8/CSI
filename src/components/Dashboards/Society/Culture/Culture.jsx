@@ -100,7 +100,9 @@ const Culture = ({ show }) => {
         </Card>
         <Card className="w-full">
           <div className="flex align-items-center justify-content-center gap-1 flex-column p-2">
-            <h1 className="m-0 p-0 text-2xl text-secondary2">100 <span className="text-xl font-medium">Cr</span></h1>
+            <h1 className="m-0 p-0 text-2xl text-secondary2">
+              100 <span className="text-xl font-medium">Cr</span>
+            </h1>
             <p className="text font-medium m-0 p-0">Fund Allocated</p>
           </div>
         </Card>

@@ -27,13 +27,13 @@ const Infrastructure = () => {
           <div className="flex flex-column gap-3">
             <div className="flex align-items-start justify-content-between w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 w-full">
-                <h1 className=" m-0 p-0">Roadways Condition</h1>
-                <h1
-                  className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
+                <p className="text-lg font-medium text m-0 p-0">Roadways</p>
+                <p
+                  className="m-0 px-3 py-1 font-semibold text-3xl text-theme border-circle"
                   style={{ backgroundColor: "#E9F3F5" }}
                 >
                   8
-                </h1>
+                </p>
               </div>
               <DirectionsCarIcon
                 style={{
@@ -58,7 +58,7 @@ const Infrastructure = () => {
               <i className="pi pi-star" style={{ color: "#1f8297" }} />
             </div>
             <div className="flex align-items-start justify-content-between w-full ">
-              <div className="flex align-items-start justify-content-start flex-row">
+              <div className="flex align-items-start justify-content-start">
                 <img
                   src={increase}
                   style={{
@@ -68,17 +68,17 @@ const Infrastructure = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   20% increase in last one year.
                 </p>
               </div>
               <CustomTooltip
                 content={
                   <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column w-full">
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Maintained Roadways In Current Year: 70%
                     </p>
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Maintained Roadways In Previous Year: 90%
                     </p>
                   </div>
@@ -99,13 +99,13 @@ const Infrastructure = () => {
           <div className="flex flex-column gap-3">
             <div className="flex align-items-start justify-content-between w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 w-full">
-                <h1 className=" m-0 p-0">Railways Condition</h1>
-                <h1
-                  className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
+                <p className="text-lg font-medium text m-0 p-0">Railways</p>
+                <p
+                  className=" m-0 px-3 py-1 font-semibold  text-3xl text-theme border-circle"
                   style={{ backgroundColor: "#E9F3F5" }}
                 >
                   7
-                </h1>
+                </p>
               </div>
               <TrainIcon
                 style={{
@@ -130,8 +130,8 @@ const Infrastructure = () => {
               <i className="pi pi-star" style={{ color: "#1f8297" }} />
             </div>
 
-            <div className="flex align-items-start justify-content-betweenw-full ">
-              <div className="flex align-items-start justify-content-start flex-row">
+            <div className="flex align-items-start justify-content-between w-full ">
+              <div className="flex align-items-start justify-content-start">
                 <img
                   src={decrease}
                   style={{
@@ -141,24 +141,24 @@ const Infrastructure = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-red-400 text-xs p-0 m-0">
+                <p className="text-red-400 text-sm p-0 m-0">
                   10% decrease in last one year.
                 </p>
               </div>
               <CustomTooltip
                 content={
                   <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Maintained Railways In Current Year: 60%
                     </p>
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Maintained Railways In Previous Year: 70%
                     </p>
                   </div>
                 }
               >
                 <InfoIcon
-                  style={{ height: "1.2rem", width: "1.2rem", color: "red" }}
+                  style={{ height: "1.2rem", width: "1.2rem", color: "#1f8297" }}
                 />
               </CustomTooltip>
             </div>
@@ -168,13 +168,13 @@ const Infrastructure = () => {
           <div className="flex flex-column gap-3">
             <div className="flex align-items-start justify-content-between w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 w-full">
-                <h1 className="m-0 p-0">Airways Condition</h1>
-                <h1
-                  className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
+                <p className="text-lg font-medium text m-0 p-0">Airways</p>
+                <p
+                  className=" m-0 px-3 py-1 font-semibold  text-3xl text-theme border-circle"
                   style={{ backgroundColor: "#E9F3F5" }}
                 >
                   9
-                </h1>
+                </p>
               </div>
               {/* <div className="border-circle border-2 border-solid border-theme"> */}
               <FlightIcon
@@ -187,7 +187,7 @@ const Infrastructure = () => {
               />
               {/* </div> */}
             </div>
-            <div className="flex align-items-start justify-content-startw-full ">
+            <div className="flex align-items-start justify-content-start w-full ">
               <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
               <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
               <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
@@ -200,8 +200,8 @@ const Infrastructure = () => {
               <i className="pi pi-star" style={{ color: "#1f8297" }} />
             </div>
 
-            <div className="flex align-items-start justify-content-betweenw-full ">
-              <div className="flex align-items-start justify-content-start flex-row">
+            <div className="flex align-items-start justify-content-between w-full ">
+              <div className="flex align-items-start justify-content-start">
                 <img
                   src={increase}
                   style={{
@@ -211,17 +211,17 @@ const Infrastructure = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
               <CustomTooltip
                 content={
                   <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Maintained Airways In Current Year: 70%
                     </p>
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Maintained Airways In Previous Year: 60%
                     </p>
                   </div>
@@ -242,13 +242,13 @@ const Infrastructure = () => {
           <div className="flex flex-column gap-3">
             <div className="flex align-items-start justify-content-between w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 w-full">
-                <h1 className=" m-0 p-0">Waterways Condition</h1>
-                <h1
-                  className=" m-0 pl-3 pr-3 pt-1 pb-1  text-3xl text-theme border-circle"
+                <p className="text-lg font-medium text m-0 p-0">Waterways</p>
+                <p
+                  className=" m-0 px-3 py-1 font-semibold  text-3xl text-theme border-circle"
                   style={{ backgroundColor: "#E9F3F5" }}
                 >
                   6
-                </h1>
+                </p>
               </div>
               {/* <div className="border-circle border-2 border-solid border-theme"> */}
               <DirectionsBoatIcon
@@ -261,7 +261,7 @@ const Infrastructure = () => {
               />
               {/* // </div> */}
             </div>
-            <div className="flex align-items-start justify-content-startw-full ">
+            <div className="flex align-items-start justify-content-start w-full ">
               <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
               <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
               <i className="pi pi-star-fill" style={{ color: "#1f8297" }} />
@@ -273,8 +273,8 @@ const Infrastructure = () => {
               <i className="pi pi-star" style={{ color: "#1f8297" }} />
               <i className="pi pi-star" style={{ color: "#1f8297" }} />
             </div>
-            <div className="flex align-items-start justify-content-betweenw-full ">
-              <div className="flex align-items-start justify-content-start flex-row">
+            <div className="flex align-items-start justify-content-between w-full ">
+              <div className="flex align-items-start justify-content-start">
                 <img
                   src={increase}
                   style={{
@@ -284,17 +284,17 @@ const Infrastructure = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
               <CustomTooltip
                 content={
                   <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Maintained Waterways In Current Year: 80%
                     </p>
-                    <p className="m-0 text-xs">
+                    <p className="m-0 text-sm">
                       Maintained Waterways In Previous Year: 70%
                     </p>
                   </div>

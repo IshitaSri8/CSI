@@ -5,7 +5,6 @@ import { Button } from "primereact/button";
 import "../components/landingPage/Landing.css";
 
 import KnowYourCity from "../pages/KnowYourCity";
-import TransportDashboard from "components/Dashboards/Society/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Society/Healthcare/Healthcare";
 import CityReportCardGov from "pages/CityReportCardGov";
 import { BreadCrumb } from "primereact/breadcrumb";
@@ -21,7 +20,6 @@ import {
   EarthLock,
   FileChartPie,
   HeartHandshake,
-  HeartPulse,
   Landmark,
   LandPlot,
   LogOut,
