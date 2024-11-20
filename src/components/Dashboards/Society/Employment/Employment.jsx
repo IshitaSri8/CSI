@@ -39,7 +39,7 @@ const Employment = ({ show }) => {
     <div className="gap-3 p-4 flex flex-column">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-        <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Employment Opportunity
           </h1>
 
@@ -76,29 +76,29 @@ const Employment = ({ show }) => {
               />
             </div>
           </Tooltip>
-          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
+          <p className="text-lg font-medium text-center p-0 m-0 text">
             Total population Employed
           </p>
-          <p className="text-2xl font-bold text-center text-secondary2">123</p>
+          <p className="text-2xl font-semibold text-center text-secondary2">123</p>
           <Divider />
-          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
+          <p className="text-lg font-medium text-center p-0 m-0 text">
             Percentage of Female Employment
           </p>
-          <p className="text-2xl font-bold text-center text-secondary2">12%</p>
+          <p className="text-2xl font-semibold text-center text-secondary2">12%</p>
         </div>
-           <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
-          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
+        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+          <p className="text-lg font-medium text-center p-0 m-0 text">
             Percentage of Unemployed Population
           </p>
-          <p className="text-2xl font-bold text-center text-secondary2">123%</p>
+          <p className="text-2xl font-semibold text-center text-secondary2">123%</p>
           <Divider />
-          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
+          <p className="text-lg font-medium text-center p-0 m-0 text">
             Percentage of Unemployed Youth
           </p>
-          <p className="text-2xl font-bold text-center text-secondary2">23%</p>
+          <p className="text-2xl font-semibold text-center text-secondary2">23%</p>
         </div>
 
-           <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
           <Doughnut
             title="Total no. of Industries"
             labels={industriesLables}
@@ -108,18 +108,18 @@ const Employment = ({ show }) => {
             showNo={true}
           />
         </div>
-           <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
           <div className="flex flex-column align-items-center justify-content-center">
-            <p className="text-lg font-semibold text-center">Average Salary</p>
-            <div className="flex align-items-center justify-content-around">
+            <p className="text-lg font-medium text text-center">Average Salary</p>
+            <div className="flex align-items-center justify-content-between">
               <div className="flex flex-column align-items-center">
-                <p className="text-xl m-0 p-0">15000</p>
-                <h1>City</h1>
+                <p className="text-xl m-0 p-0 text-secondary2 font-semibold">15000</p>
+                <h1 className="font-semibold text">City</h1>
               </div>
               <Divider layout="vertical" />
               <div className="flex flex-column align-items-center">
-                <p className="text-xl m-0 p-0">18000</p>
-                <h1>National</h1>
+                <p className="text-xl m-0 p-0 text-secondary2 font-semibold">18000</p>
+                <h1 className="font-semibold text">National</h1>
               </div>
             </div>
           </div>
@@ -131,15 +131,15 @@ const Employment = ({ show }) => {
           className="flex flex-column bg-white border-round align-items-center p-4 w-full"
           style={{ flex: "30%" }}
         >
-          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
+          <p className="text-lg font-medium text-center p-0 m-0 text">
             No. of Skill Programs
           </p>
-          <p className="text-2xl font-bold text-center text-secondary2">1234</p>
+          <p className="text-2xl font-semibold text-center text-secondary2">1234</p>
           <Divider />
-          <p className="text-lg font-semibold text-center p-0 m-0 text-primary1">
+          <p className="text-lg font-medium text-center p-0 m-0 text">
             No. of People Enrolled
           </p>
-          <p className="text-2xl font-bold text-center text-secondary2">123</p>
+          <p className="text-2xl font-semibold text-center text-secondary2">123</p>
         </div>
         <div
           className="flex bg-white border-round align-items-center p-4 w-full"

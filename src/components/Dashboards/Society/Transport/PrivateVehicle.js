@@ -4,9 +4,6 @@ import { DonutChart, GroupedColumnChart } from "Layout/GraphVisuals";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
 import increase from "assets/increase.png";
-import CanvasJSReact from "@canvasjs/react-charts";
-
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const PrivateVehicle = () => {
   const categories = ["Roadways", "Railways", "Airways", "Waterways"];
@@ -21,7 +18,6 @@ const PrivateVehicle = () => {
   ];
 
   return (
-    <>
       <div className="flex align-items-center justify-content-between gap-8 p-4">
         <div className="flex align-items-center justify-content-between flex-column gap-3">
         {/* Card 1: Number of Private Vehicles */}
@@ -110,7 +106,6 @@ const PrivateVehicle = () => {
           />
         </Card>
       </div>
-    </>
   );
 };
 
