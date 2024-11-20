@@ -1,15 +1,10 @@
 import { Card } from "primereact/card";
 import { ProgressBar } from 'primereact/progressbar';
 import React from "react";
-// import Road from "../../assets/road.png";
-// import Rail from "../../assets/rail.png";
-// import Air from "../../assets/air.png";
-// import Water from "../../assets/water.png";
 import Air from "@mui/icons-material/Flight";
 import Water from "@mui/icons-material/DirectionsBoat";
 import Rail from "@mui/icons-material/Train";
 import Road from "@mui/icons-material/DirectionsCar";
-import increase from "assets/increase.png";
 import decrease from "assets/decrease.png";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";

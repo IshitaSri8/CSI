@@ -1,11 +1,10 @@
 import React from "react";
 import { Card } from "primereact/card";
-import { Panel } from "primereact/panel";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
 import increase from "assets/increase.png";
 import CanvasJSReact from "@canvasjs/react-charts";
-import BusTrend from "./BusTrend";
+import BusTrend from "./Transport/BusTrend";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Renewable = () => {
   const Doughnut = ({ title, labels, series, height }) => {
@@ -53,31 +52,6 @@ const Renewable = () => {
         verticalAlign: "bottom",
       },
     };
-    const totalBusesData = [
-      { year: 2014, count: 1500 },
-      { year: 2015, count: 1550 },
-      { year: 2016, count: 1400 },
-      { year: 2017, count: 1650 },
-      { year: 2018, count: 1800 },
-      { year: 2019, count: 1750 },
-      { year: 2020, count: 1800 },
-      { year: 2021, count: 1050 },
-      { year: 2022, count: 1900 },
-      { year: 2023, count: 1950 },
-    ];
-
-    const electricBusesData = [
-      { year: 2014, count: 100 },
-      { year: 2015, count: 130 },
-      { year: 2016, count: 140 },
-      { year: 2017, count: 160 },
-      { year: 2018, count: 100 },
-      { year: 2019, count: 200 },
-      { year: 2020, count: 220 },
-      { year: 2021, count: 220 },
-      { year: 2022, count: 160 },
-      { year: 2023, count: 280 },
-    ];
     return (
       <CanvasJSChart
         options={options}
@@ -136,11 +110,6 @@ const Renewable = () => {
                   10% increase in last one year.
                 </p>
               </div>
-              {/* <CustomTooltip content={<div></div>}>
-                <InfoIcon
-                  style={{ height: "1.2rem", width: "1.2rem", color: "green" }}
-                />
-              </CustomTooltip> */}
             </div>
           </div>
         </Card>
@@ -168,11 +137,6 @@ const Renewable = () => {
                   10% increase in last one year.
                 </p>
               </div>
-              {/* <CustomTooltip content={<div></div>}>
-                <InfoIcon
-                  style={{ height: "1.2rem", width: "1.2rem", color: "green" }}
-                />
-              </CustomTooltip> */}
             </div>
           </div>
         </Card>
@@ -209,7 +173,11 @@ const Renewable = () => {
                 }
               >
                 <InfoIcon
-                  style={{ height: "1.2rem", width: "1.2rem", color: "#1f8297" }}
+                  style={{
+                    height: "1.2rem",
+                    width: "1.2rem",
+                    color: "#1f8297",
+                  }}
                 />
               </CustomTooltip>
             </div>
@@ -217,14 +185,6 @@ const Renewable = () => {
         </Card>
       </div>
       <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
-        {/* <Card className="w-full">
-          <Doughnut
-            title="Projects"
-            labels={projectLabels}
-            series={projectSeries}
-            height={100}
-          />
-        </Card> */}
         <Card className="w-full">
           <BusTrend
             totalBusesData={totalBusesData}

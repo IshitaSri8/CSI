@@ -1,20 +1,17 @@
 import { Card } from "primereact/card";
 import React from "react";
-import { DonutChart, BarChart } from "Layout/GraphVisuals";
-
+import { Doughnut, BarChart } from "Layout/GraphVisuals";
 import Air from "@mui/icons-material/Flight";
 import Water from "@mui/icons-material/DirectionsBoat";
 import Rail from "@mui/icons-material/Train";
 import Road from "@mui/icons-material/DirectionsCar";
-
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
 import increase from "assets/increase.png";
-import decrease from "assets/decrease.png";
 
 const Frequency = () => {
   const categories = ["Roadways", "Railways", "Airways", "Waterways"];
-  const waitseries = [[70, 80, 60, 50]];
+  const waitseries = [70, 80, 60, 50];
   const frequencyseries = [70, 80, 60, 50];
 
   const cardsData = [
@@ -91,16 +88,16 @@ const Frequency = () => {
           <BarChart
             categories={categories}
             series={waitseries}
-            height={200}
+            height={150}
             width={"100%"}
             title="Average wait time for different transport modes"
           />
         </Card>
         <Card className="w-full">
-          <DonutChart
+          <Doughnut
             labels={categories}
             series={frequencyseries}
-            height={200}
+            height={150}
             title="Average number of services per day"
           />
         </Card>

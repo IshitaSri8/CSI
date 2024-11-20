@@ -33,18 +33,25 @@ const StackedBarChart = () => {
     title: {
       text: "Percentage of Disabled-Friendly Buses Over the Past Decade",
       fontSize: 12,
-      fontFamily: "DM Sans",
-      fontWeight: "bold",
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
     axisX: {
       title: "",
       interval: 1,
+      labelFontFamily: "Montserrat",
+      labelFontSize: 8,
     },
     axisY: {
       title: "",
       interval: 50,
       suffix: "%",
       gridThickness: 0,
+      labelFontFamily: "Montserrat",
+      labelFontSize: 8,
     },
     toolTip: {
       shared: true, // To show both series in the tooltip

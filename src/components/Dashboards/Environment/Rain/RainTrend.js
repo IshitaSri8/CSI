@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
 import { Button } from "primereact/button";
-import { color } from "framer-motion";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const RainTrend = ({

@@ -1,8 +1,6 @@
 import React from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { Card } from "primereact/card";
-import CustomTooltip from "./CustomTooltip"; // Adjust path as needed
-import InfoIcon from "@mui/icons-material/Info";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -24,11 +22,14 @@ const cleanlinessOptions = {
     animationEnabled: true,
     title: {
       text: "Cleanliness Rating for Transport Modes",
-      fontFamily: "DM Sans",
-      fontWeight: 800,
-      fontSize: 12,
-      padding: { bottom: 20 },
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
+    height:150,
     axisY: {
     //  title: "Rating (0–10)",
       includeZero: true,
@@ -60,11 +61,14 @@ const cleanlinessOptions = {
     animationEnabled: true,
     title: {
       text: "Frequency of Maintenance Activities per Year",
-      fontFamily: "DM Sans",
-      fontWeight: 800,
-      fontSize: 12,
-      padding: { bottom: 20 },
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
+    height:150,
     axisY: {
     //  title: "Frequency (Number of Activities)",
       includeZero: true,
@@ -102,11 +106,14 @@ const cleanlinessOptions = {
     animationEnabled: true,
     title: {
       text: "Cleanliness Adherence Percentage per Transport Type",
-      fontFamily: "DM Sans",
-      fontWeight: 800,
-      fontSize: 12,
-      padding: { bottom: 20 },
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
+    height:150,
     axisY: {
     //  title: "Adherence Percentage (%)",
       includeZero: true,
@@ -146,11 +153,6 @@ const Cleanliness = () => {
         {/* 2. Frequency of Maintenance Activities */}
         <Card className="w-full">
           <CanvasJSChart options={cleanlinessOptions.maintenanceFrequencyOptions} />
-          {/* <div className="flex align-items-start justify-content-between flex-row w-full">
-            <CustomTooltip content={<CanvasJSChart options={cleanlinessOptions.maintenanceFrequencyOptions} />}>
-              <InfoIcon style={{ height: "1.2rem", width: "1.2rem", color: "#00a269" }} />
-            </CustomTooltip>
-          </div> */}
         </Card>
 
         {/* 3. Cleanliness Adherence Percentage */}

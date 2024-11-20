@@ -1,7 +1,7 @@
 export const higherEducationData = {
-  enrollment: "4600*",
-  institutions: 16,
-  parityIndex: 0.9,
+  // enrollment: "4600*",
+  // institutions: 16,
+  parityIndex: 0.4,
   
   enrollmentTarget: 44,
   enrollmentCurrent: 39,
@@ -15,10 +15,10 @@ export const higherEducationData = {
   teacherStudentRatioCurrentValue:1/36,
 
   genderLabels: ["Male", "Female"],
-  genderData: [67, 23],
+  genderData: [2500, 2100],
 
   institutionsLabels: ["Government", "Private"],
-  institutionsData: [36, 64],
+  institutionsData: [6, 10],
 
   years: ["2018", "2019", "2020", "2021"],
   enrollmentTrendData: [

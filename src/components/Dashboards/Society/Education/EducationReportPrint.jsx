@@ -3,7 +3,7 @@ import { Button } from "primereact/button";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import Education from "./EducationDashboard";
+import EducationDashboard from "./EducationDashboard";
 
 export default function EducationReportPrint() {
   const contentRef = useRef(null);
@@ -63,7 +63,7 @@ export default function EducationReportPrint() {
             <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
           </div>
           <div className="w-full">
-            <Education show={false} />
+            <EducationDashboard show={false} />
           </div>
         </div>
       </div>

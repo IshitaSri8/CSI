@@ -1,9 +1,6 @@
 import React from "react";
 import {
-  BarChart,
-  ColumnChart,
   ModifiedColumnChart,
-  ModifiedPieChart,
   PieChart,
 } from "Layout/GraphVisuals";
 import CanvasJSReact from "@canvasjs/react-charts";
@@ -279,6 +276,7 @@ const WasteDashboard = ({ show }) => {
             title="Waste Composition"
             vertical="center"
             horizontal="right"
+            fontSize={10}
           />
         </div>
         {/* CT/PT */}
@@ -350,6 +348,7 @@ const WasteDashboard = ({ show }) => {
             title="Sanitation Facility"
             vertical="bottom"
             horizontal="center"
+            fontSize={10}
           />
         </div>
       </div>

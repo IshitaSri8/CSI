@@ -79,6 +79,10 @@ body {
   color: var(--text-color);
 }
 
+.text-prime {
+  color: var(--text-color-theme);
+}
+
 .text-primary1 {
   color: var(--text-primary);
 }
@@ -133,15 +137,21 @@ body {
   color: var(--text-color-theme);
 }
 
-.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+ .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   border-color: var(--text-color-theme);
-  color: var(--text-color-theme);
-}
+  color: #003940;
+  font-family: "Montserrat";
+  font-size: x-large;
+  font-weight: 600;
+} 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
   background-color: transparent;
-  color: #000;
+  color: #8AA4A7;
   text-decoration: none;
-}
+  font-size: xx-large;
+  font-weight: 600;
+  font-family: "Montserrat";
+} 
 
 .text-active {
   /* color: #007ad9; Active color */

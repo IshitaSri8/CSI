@@ -34,7 +34,6 @@ import {
 import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
 import Arahas from "assets/arahas_logo.png";
 import TempDashboard from "components/Dashboards/Environment/Temperature/TempDashboard";
-import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
 import RainDashboard from "components/Dashboards/Environment/Rain/RainDashboard";
 import Culture from "components/Dashboards/Society/Culture/Culture";
 import Community from "components/Dashboards/Society/Community/Community";
@@ -43,6 +42,8 @@ import Employment from "components/Dashboards/Society/Employment/Employment";
 import WasteDashboard from "components/Dashboards/Environment/Waste/WasteDashboard";
 import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboard";
 import Land from "components/Dashboards/Environment/Land/Land";
+import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
+import Transport from "components/Dashboards/Society/Transport/Transport/Transport";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -620,7 +621,7 @@ const GovernmentSidebar = () => {
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "6rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
-        {activeTab === "cityReportCard" && <CityReportCardGov show={true}/>}
+        {activeTab === "cityReportCard" && <CityReportCardGov show={true} />}
         {activeTab === "aqi" && <AqiDashboard show={true} />}
         {activeTab === "temperature" && <TempDashboard show={true} />}
         {activeTab === "rain" && <RainDashboard show={true} />}
@@ -628,7 +629,8 @@ const GovernmentSidebar = () => {
         {activeTab === "water" && <WaterDashboard show={true} />}
         {activeTab === "waste" && <WasteDashboard show={true} />}
 
-        {activeTab === "transport" && <TransportDashboard show={true} />}
+{activeTab === "transport" && <Transport show={true} />}
+        {/* {activeTab === "transport" && <TransportDashboard show={true} />} */}
         {activeTab === "healthcare" && <Healthcare show={true} />}
         {activeTab === "education" && <EducationDashboard show={true} />}
         {activeTab === "cultural" && <Culture show={true} />}

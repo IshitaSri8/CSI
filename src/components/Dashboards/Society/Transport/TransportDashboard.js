@@ -23,10 +23,10 @@ const TransportDashboard = ({show}) => {
     setRecommendationsVisible(!recommendationsVisible);
   };
   return (
-    <div className="flex flex-column gap-3 p-4">
+    <div className="flex flex-column gap-3">
        {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-xl text-medium">Public Transport</h1>
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">Public Transport</h1>
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
               label="Generate Report"

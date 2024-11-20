@@ -33,10 +33,10 @@ export const DonutChart = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
+      fontWeight: 500,
       fontColor: fontColor,
       horizontalAlign: "left",
-      padding: { bottom: 20 },
+      padding: { bottom: 10 },
     },
     backgroundColor: bgColor,
     dataPointWidth: 12,
@@ -98,10 +98,10 @@ export const Doughnut = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "black",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
       horizontalAlign: "left",
-      padding: { bottom: 20 },
+      padding: { bottom: 10 },
     },
     labels: labels,
     backgroundColor: bgColor,
@@ -130,7 +130,7 @@ export const Doughnut = ({
       verticalAlign: "bottom",
       fontFamily: "Montserrat",
       fontWeight: 500,
-      fontColor: "black",
+      fontColor: "#4C4C4C",
     },
     subtitles: showNo
       ? [
@@ -141,7 +141,7 @@ export const Doughnut = ({
             dockInsidePlotArea: true,
             fontFamily: "Montserrat",
             fontWeight: 500,
-            fontColor: "black",
+            fontColor: "#4C4C4C",
           },
         ]
       : [],
@@ -162,6 +162,7 @@ export const BarChart = ({
   height,
   xtitle,
   ytitle,
+  dataPointWidth
 }) => {
   return (
     <CanvasJSChart
@@ -171,8 +172,8 @@ export const BarChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: 600,
-          fontColor: "black",
+          fontWeight: 500,
+          fontColor: "#4C4C4C",
           horizontalAlign: "left",
           padding: { bottom: 20 },
         },
@@ -189,7 +190,7 @@ export const BarChart = ({
           tickLength: 0,
           lineThickness: 0,
         },
-        dataPointWidth: 25,
+        dataPointWidth: dataPointWidth,
         data: [
           {
             type: "bar",
@@ -227,8 +228,8 @@ export const GroupedBarChart = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "black",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },
@@ -317,8 +318,8 @@ export const StackedBarChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: 600,
-          fontColor: "black",
+          fontWeight: 500,
+          fontColor: "#4C4C4C",
           horizontalAlign: "left",
           padding: { bottom: 20 },
         },
@@ -337,7 +338,7 @@ export const StackedBarChart = ({
           fontFamily: "Montserrat",
           fontWeight: 500,
         },
-        dataPointWidth: 8,
+        dataPointWidth: 16,
         data: categories.map((category, index) => ({
           type: "stackedBar",
           name: category,
@@ -345,7 +346,7 @@ export const StackedBarChart = ({
           color: colors[index + (4 % colors.length)],
           dataPoints: labels.map((year, i) => ({
             label: year,
-            y: series[i][index],
+            y: series[index][i],
           })),
         })),
       }}
@@ -390,7 +391,7 @@ export const ModifiedBarChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: 600,
+          fontWeight: 500,
           fontColor: "#4C4C4C",
           horizontalAlign: "left", // Left-align the title
           padding: { bottom: 20 },
@@ -437,7 +438,7 @@ export const ModifiedBarChart = ({
           fontFamily: "Montserrat",
           fontWeight: 500,
           fontSize: 10,
-          fontColor: "black",
+          fontColor: "#4C4C4C",
         },
       }}
       containerProps={{ height: height, width: "100%" }}
@@ -461,8 +462,8 @@ export const ColumnChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: 600,
-          fontColor: "black",
+          fontWeight: 500,
+          fontColor: "#4C4C4C",
           horizontalAlign: "left",
           padding: { bottom: 20 },
         },
@@ -522,8 +523,8 @@ export const ModifiedColumnChart = ({
               text: title,
               fontSize: 14,
               fontFamily: "Montserrat",
-              fontWeight: 600,
-              fontColor: "black",
+              fontWeight: 500,
+              fontColor: "#4C4C4C",
               horizontalAlign: "left",
               padding: { bottom: 10 },
             },
@@ -625,10 +626,10 @@ export const GroupedColumnChart = ({
     title: {
       text: title,
       fontFamily: "Montserrat",
-      fontWeight: 600,
+      fontWeight: 500,
       fontSize: 14,
       padding: { bottom: 20 },
-      fontColor: "black",
+      fontColor: "#4C4C4C",
       horizontalAlign: "left",
     },
     axisY: {
@@ -655,12 +656,12 @@ export const GroupedColumnChart = ({
       cornerRadius: 4,
     },
     legend: {
-      // horizontalAlign: "center",
+      horizontalAlign: "left",
       // verticalAlign: "bottom",
       fontFamily: "Montserrat",
       fontWeight: 500,
       fontSize: 10,
-      fontColor: "black",
+      fontColor: "#4C4C4C",
     },
     dataPointWidth: dataPointWidth,
     data: dataSeries.map((data, index) => {
@@ -675,7 +676,7 @@ export const GroupedColumnChart = ({
         indexLabelFontColor: "#00403c",
         indexLabelFontSize: 10,
         indexLabelFontFamily: "Montserrat",
-        indexLabelFontWeight: 600,
+        indexLabelFontWeight: 500,
         dataPoints: data.data?.map((val, index) => ({
           label: labels[index],
           y: val,
@@ -707,8 +708,8 @@ export const StackedColumnChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: 600,
-          fontColor: "black",
+          fontWeight: 500,
+          fontColor: "#4C4C4C",
           horizontalAlign: "left",
           padding: { bottom: 20 },
         },
@@ -760,8 +761,8 @@ export const CombinationChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: 600,
-          fontColor: "black",
+          fontWeight: 500,
+          fontColor: "#4C4C4C",
           horizontalAlign: "left",
           padding: { bottom: 20 },
         },
@@ -853,8 +854,8 @@ export const ParetoChart = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "black",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
       horizontalAlign: "left",
       padding: { bottom: 20 },
     },
@@ -907,7 +908,6 @@ export const LineChart = ({
   data,
   xtitle,
   ytitle,
-  fontColor,
 }) => {
   const options = {
     animationEnabled: true,
@@ -915,10 +915,10 @@ export const LineChart = ({
       text: title,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: fontColor,
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
       horizontalAlign: "left",
-      padding: { bottom: 20 },
+      padding: { bottom: 10 },
     },
     axisX: {
       title: xtitle,
@@ -951,7 +951,65 @@ export const LineChart = ({
     <div className="chart-container z-index">
       <CanvasJSChart
         options={options}
-        containerProps={{ height: 200, width: "100%" }}
+        containerProps={{ height: 150, width: "100%" }}
+      />
+    </div>
+  );
+};
+
+export const ModifiedLineChart = ({
+  title,
+  categories,
+  data,
+  labels,
+  series,
+  xtitle,
+  ytitle,
+  height,
+}) => {
+  const options = {
+    animationEnabled: true,
+    title: {
+      text: title,
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
+    },
+    axisX: {
+      title: xtitle,
+      labelFontSize: 10,
+      interval: 1,
+      labelFontFamily: "Montserrat",
+    },
+    axisY: {
+      title: ytitle,
+      labelFontSize: 10,
+      gridThickness: 0,
+      labelFontFamily: "Montserrat",
+    },
+
+    data: categories.map((category, index) => ({
+      type: "line",
+      name: category, // Each disease is a separate line
+      showInLegend: true,
+      markerType: "circle",
+      markerSize: 5,
+      dataPoints: labels.map((label, labelIndex) => ({
+        y: series[labelIndex][index], // Value for the disease in the year
+        label: label, // Year as label
+      })),
+      color: colors[index % colors.length], // Cycles through colors array
+    })),
+  };
+
+  return (
+    <div className="chart-container z-index">
+      <CanvasJSChart
+        options={options}
+        containerProps={{ height: height, width: "100%" }}
       />
     </div>
   );
@@ -964,6 +1022,7 @@ export const PieChart = ({
   height,
   horizontal,
   vertical,
+  fontSize,
 }) => {
   const total = series.reduce((acc, value) => acc + value, 0);
   return (
@@ -974,8 +1033,8 @@ export const PieChart = ({
           text: title,
           fontSize: 14,
           fontFamily: "Montserrat",
-          fontWeight: 600,
-          fontColor: "black",
+          fontWeight: 500,
+          fontColor: "#4C4C4C",
           horizontalAlign: "left",
           padding: { bottom: 10 },
         },
@@ -988,7 +1047,7 @@ export const PieChart = ({
             showInLegend: true,
             legendText: "{label}",
             color: colors,
-            indexLabelFontSize: 10,
+            indexLabelFontSize: fontSize,
             indexLabelPlacement: "inside",
             indexLabel: "#percent%",
             indexLabelFontColor: "white",
@@ -1002,12 +1061,12 @@ export const PieChart = ({
           },
         ],
         legend: {
-          fontSize: 10,
+          fontSize: fontSize,
           horizontalAlign: horizontal,
           verticalAlign: vertical,
           fontFamily: "Montserrat",
           fontWeight: 500,
-          fontColor: "black",
+          fontColor: "#4C4C4C",
         },
       }}
       containerProps={{ height: height, width: "100%" }}
@@ -1027,8 +1086,8 @@ export const ModifiedPieChart = ({ title, categories, series, height }) => {
               text: title,
               fontSize: 14,
               fontFamily: "Montserrat",
-              fontWeight: 600,
-              fontColor: "black",
+              fontWeight: 500,
+              fontColor: "#4C4C4C",
               horizontalAlign: "left",
               padding: { bottom: 40 },
             },
@@ -1114,7 +1173,7 @@ export const GaugeChart = ({ title, gaugeValue, maxValue, height }) => {
         fontSize: 14,
         fontFamily: "Montserrat",
         fontWeight: 500,
-        fontColor: "black",
+        fontColor: "#4C4C4C",
         horizontalAlign: "left",
       },
       backgroundColor: "transparent",
@@ -1125,7 +1184,7 @@ export const GaugeChart = ({ title, gaugeValue, maxValue, height }) => {
           fontSize: 14,
           fontFamily: "Montserrat",
           fontWeight: 500,
-          fontColor: "black",
+          fontColor: "#4C4C4C",
         },
       ],
       data: [

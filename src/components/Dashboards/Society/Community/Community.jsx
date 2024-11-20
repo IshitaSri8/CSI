@@ -60,7 +60,7 @@ const Community = ({ show }) => {
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
             //className="bg-white text-cyan-800 border-1 border-cyan-800"
-            className="mb-4 bg-theme text-white"
+            className="bg-theme text-white"
             raised
           />
           <Dialog
@@ -77,7 +77,7 @@ const Community = ({ show }) => {
       )}
       {/* First Row */}
       <div className="flex align-items-center justify-content-center gap-2 flex-row w-full">
-        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+        <div className="flex flex-column bg-white border-round align-items-center p-3 w-full">
           <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
             NGOs/Forums
           </p>
@@ -100,7 +100,7 @@ const Community = ({ show }) => {
             </div>
           </Tooltip>
         </div>
-        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+        <div className="flex flex-column bg-white border-round align-items-center p-3 w-full">
           <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-4">
             Annual Public Awareness Meetings/Workshops
           </p>
@@ -108,7 +108,7 @@ const Community = ({ show }) => {
             <p className="text-4xl font-semibold m-0 text-secondary2">26</p>
           </div>
         </div>
-        <div className="flex flex-column bg-white border-round align-items-center p-4 w-full">
+        <div className="flex flex-column bg-white border-round align-items-center p-3 w-full">
           <p className="text-primary1 font-semibold text-lg p-0 m-0 mb-2">
             Feedback Survey Channels
           </p>
@@ -135,29 +135,31 @@ const Community = ({ show }) => {
       <div className="flex align-items-center justify-content-center gap-2 w-full">
         <div
           className="flex bg-white border-round align-items-center p-4 w-full"
-          style={{ flex: "40%" }}
+          style={{ flex: "25%" }}
         >
           <BarChart
             title="Number of NGOs/Forums Over Years"
             categories={categories}
             series={forums}
-            height={200}
+            height={250}
+            dataPointWidth={20}
           />
         </div>
 
         <div
           className="flex bg-white border-round align-items-center p-4 w-full"
-          style={{ flex: "60%" }}
+          style={{ flex: "75%" }}
         >
           <GroupedColumnChart
             title="Socio-Cultural Facilities"
             labels={facilitiesCategories}
             dataSeries={facilitiesData}
-            height={200}
-            dataPointWidth={40}
+            height={250}
+            dataPointWidth={30}
           />
         </div>
       </div>
+
       <div className="flex justify-content-end">
         <Button
           label={

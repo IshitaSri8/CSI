@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Card } from "primereact/card";
 import { Doughnut, GroupedColumnChart } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
@@ -48,7 +47,7 @@ const Employment = ({ show }) => {
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
-            className="mb-4 bg-theme text-white"
+            className="bg-theme text-white"
             raised
           />
           <Dialog
