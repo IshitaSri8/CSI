@@ -10,6 +10,8 @@ import {
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import CultureReportPrint from "./CultureReportPrint";
+import DisasterRecommendations from "components/Dashboards/Administration/Disaster Management/DisasterRecommendations";
+import { Panel } from "primereact/panel";
 
 const Culture = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -152,7 +154,8 @@ const Culture = ({ show }) => {
           />
         </div>
       </div>
-      <div className="flex justify-content-end">
+
+      {/* <div className="flex justify-content-end">
         <Button
           label={
             recommendationsVisible
@@ -164,11 +167,44 @@ const Culture = ({ show }) => {
           className="bg-theme text-white"
           raised
         />
-      </div>
+      </div> */}
 
       {/* {recommendationsVisible && (
         <DisasterRecommdations />
       )} */}
+
+      {show && (
+        <Panel
+          //  header="View Recommendations"
+          toggleable
+          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          headerTemplate={(options) => {
+            const toggleIcon = options.collapsed
+              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
+              : "pi pi-chevron-down"; // Arrow pointing down when expanded
+
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
+          {recommendationsVisible && <DisasterRecommendations />}
+        </Panel>
+      )}
     </div>
   );
 };

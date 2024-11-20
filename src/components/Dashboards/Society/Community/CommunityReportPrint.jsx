@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Button } from "primereact/button";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import Community from "./Community";
+import CommunityRecommendations from "./CommunityRecommendations";
 
 export default function CommunityReportPrint() {
   const contentRef = useRef(null);
@@ -51,20 +52,25 @@ export default function CommunityReportPrint() {
 
   return (
     <>
-      <div ref={contentRef}>
-        <div className="w-full print-container">
-          <div className="flex flex-column gap-2 align-items-center w-full">
-            <h1
-              style={{ color: "#1F8297" }}
-              className="m-0 p-0 text-center text-2xl"
-            >
-              City Sustainability Index 2024
-            </h1>
-            <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
-          </div>
-          <div className="w-full">
-            <Community show={false} />
-          </div>
+      <div ref={contentRef} className="w-full print-container sec-theme p-4">
+        <div className="flex flex-column gap-2 align-items-center w-full">
+        <h1
+            style={{ color: "#166c7d" }}
+            className="m-0 p-0 text-3xl font-semibold"
+          >
+            City Sustainability Index 2024
+          </h1>
+          <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+          Community Engagement & Holisitic Well-Being
+          </h1>
+        </div>
+        <div className="w-full">
+          <Community show={false} />
+        </div>
+        <div className="w-full">
+          <h1 className="text-left text-xl">Recommendations</h1>
+          <CommunityRecommendations />
         </div>
       </div>
       <div className="flex align-items-center justify-content-end p-2 w-full gap-2">

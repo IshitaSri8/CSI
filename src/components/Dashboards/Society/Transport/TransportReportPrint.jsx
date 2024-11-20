@@ -3,10 +3,10 @@ import { Button } from "primereact/button";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import Employment from "./Employment";
-import EmploymentRecommendations from "./EmploymentRecommendations";
+import Transport from "./Transport/Transport";
+import TransportRecommendations from "./TransportRecommendations";
 
-export default function EmploymentReportPrint() {
+export default function TransportReportPrint() {
   const contentRef = useRef(null);
 
   const handlePrint = useReactToPrint({
@@ -62,15 +62,15 @@ export default function EmploymentReportPrint() {
           </h1>
           <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Employment Opportunity
+            Public Transport
           </h1>
         </div>
         <div className="w-full">
-          <Employment show={false} />
+          <Transport show={false} />
         </div>
         <div className="w-full">
           <h1 className="text-left text-xl">Recommendations</h1>
-          <EmploymentRecommendations />
+          <TransportRecommendations />
         </div>
       </div>
       <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
