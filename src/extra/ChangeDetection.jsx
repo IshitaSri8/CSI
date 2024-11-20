@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Card } from "primereact/card";
+
+import { Button } from "primereact/button";
+
 import {
   MapContainer,
   TileLayer,
@@ -27,6 +30,8 @@ import area_2020 from "./Assets/Water_2020_poly_withinA.json";
 import area_2016 from "./Assets/Water_2016_poly_withinA.json";
 import mark from "./Assets/Mark_WB_within_ADA.json";
 import { MoveDown, MoveUp } from "lucide-react";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 
 const ChangeDetection = () => {
   const mapCenter = [26.783869, 82.144132];
@@ -44,6 +49,23 @@ const ChangeDetection = () => {
       [year]: !prev[year],
     }));
   };
+  const river_data = [
+    {
+      area2016: "1200 sq. km",
+      area2024: "1000 sq. km",
+      changeInArea: "200 sq. km",
+      percentChange: ((200 / 1200) * 100).toFixed(2),
+    },
+  ];
+  const riverbed_data = [
+    {
+      area2016: "1200 sq. km",
+      area2024: "1000 sq. km",
+      changeInArea: "200 sq. km",
+      percentChange: ((200 / 1200) * 100).toFixed(2),
+    },
+  ];
+
   const locations = [
     {
       lat: 26.75362556,
@@ -79,6 +101,13 @@ const ChangeDetection = () => {
       area: 12.34,
       village: "Haripur Jalalabad",
       msg: " Analysis of Satellite imagery has revealed significant transformations in several river channels, with many sections drying out over time. The recent images show only the impressions or remnants of the river channels, with no active water flow, indicating the severity of the drying process.",
+    },
+    {
+      lat: 26.78043611,
+      lng: 82.11455444,
+      area: 12.34,
+      village: "Haripur Jalalabad",
+      msg: " Satellite imagery analysis has revealed a concerning trend: several river channels in the region have dried out over time. This change is visibly captured in comparative images, which show the gradual disappearance of water in these channels",
     },
     {
       lat: 26.78043611,
@@ -314,64 +343,227 @@ const ChangeDetection = () => {
   };
 
   return (
-    <Card className="w-full">
-      <MapContainer center={mapCenter} zoom={11} style={{ height: "50rem" }}>
-        <TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png" />
+    <>
+      <h1 className="m-2 p-2 text-cyan-700 text-center text-2xl ">
+        Ayodhya Waterbody Change Detection
+      </h1>
+      <div className="flex align-items-center justify-content-start gap-2 flex-row ml-4 mt-5">
+        <Button label="River" className="bg-cyan-700 text-xs p-2"></Button>
+        <Button label="Riverbed" className="bg-cyan-700 text-xs p-2"></Button>
+        <Button label="Canal" className="bg-cyan-700 text-xs p-2"></Button>
+        <Button label="Drainage" className="bg-cyan-700 text-xs p-2"></Button>
+        <Button
+          label="Waterbodies                                                              "
+          className="bg-cyan-700 text-xs p-2"
+        ></Button>
+      </div>
 
-        <GeoJSON data={ADABoundary} style={geoJsonStyleBoundary} />
+      <div className="flex align-items-center justify-content-center flex-row gap-4 p-4">
+        <Card className="w-full">
+          <MapContainer
+            center={mapCenter}
+            zoom={11}
+            style={{ height: "42rem" }}
+          >
+            <TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png" />
 
-        <LayersControl position="topright">
-          <LayersControl.Overlay name="Marked Area">
-            <GeoJSON data={mark} style={geoJsonStyleChange(2025)} />
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="Water 1975">
-            <GeoJSON
-              data={[river, riverbed, drainage, canal, watebody].reduce(
-                (acc, curr) => {
-                  if (curr && curr.features) {
-                    return acc.concat(curr.features);
-                  }
-                  return acc;
-                },
-                []
-              )}
-              style={geoJsonStyleChange(1975)}
-              onEachFeature={onEachFeature}
-            />
-          </LayersControl.Overlay>
-          {/* <LayersControl.Overlay name="Water 2016">
+            <GeoJSON data={ADABoundary} style={geoJsonStyleBoundary} />
+
+            <LayersControl position="topright">
+              <LayersControl.Overlay name="Marked Area">
+                <GeoJSON data={mark} style={geoJsonStyleChange(2025)} />
+              </LayersControl.Overlay>
+              {/* <LayersControl.Overlay name="Water 1975">
+                <GeoJSON
+                  data={[river, riverbed, drainage, canal, watebody].reduce(
+                    (acc, curr) => {
+                      if (curr && curr.features) {
+                        return acc.concat(curr.features);
+                      }
+                      return acc;
+                    },
+                    []
+                  )}
+                  style={geoJsonStyleChange(1975)}
+                  onEachFeature={onEachFeature}
+                />
+              </LayersControl.Overlay> */}
+              {/* <LayersControl.Overlay name="Water 2016">
             <GeoJSON data={water_layer_2016} style={geoJsonStyleChange(2016)} />
           </LayersControl.Overlay>
           <LayersControl.Overlay name="Water 2020" checked>
             <GeoJSON data={water_layer_2020} style={geoJsonStyleChange(2020)} />
           </LayersControl.Overlay> */}
-          <LayersControl.Overlay name="Water 2024" checked>
-            <GeoJSON
-              data={water_layer_2024}
-              style={geoJsonStyleChange(2024)}
-              onEachFeature={onEachFeature}
-            />
-          </LayersControl.Overlay>
-        </LayersControl>
+              <LayersControl.Overlay name="Water 2016" checked>
+                <GeoJSON
+                  data={water_layer_2016}
+                  style={geoJsonStyleChange(2016)}
+                  onEachFeature={onEachFeature}
+                />
+              </LayersControl.Overlay>
+              <LayersControl.Overlay name="Water 2024" checked>
+                <GeoJSON
+                  data={water_layer_2024}
+                  style={geoJsonStyleChange(2024)}
+                  onEachFeature={onEachFeature}
+                />
+              </LayersControl.Overlay>
+            </LayersControl>
 
-        {/* <FeatureGroup>
+            {/* <FeatureGroup>
           {renderMatchingMarkers(area_2016, area_2020, area_2024)}
         </FeatureGroup> */}
-        {locations.map((location, index) => (
-          <Marker
-            key={`marker-${index}`}
-            position={[location.lat, location.lng]}
-            icon={markerIcon}
-          >
-            <Tooltip direction="top">
-              <strong>Area: {location.area.toFixed(2)} sq. km</strong>
-              <p>Nearest Village: {location.village}</p>
-              <p className="text-xs">Reason: {location.msg}</p>
-            </Tooltip>
-          </Marker>
-        ))}
-      </MapContainer>
-    </Card>
+            {/* {locations.map((location, index) => (
+              <Marker
+                key={`marker-${index}`}
+                position={[location.lat, location.lng]}
+                icon={markerIcon}
+              >
+                <Tooltip direction="top">
+                  <strong>Area: {location.area.toFixed(2)} sq. km</strong>
+                  <p>Nearest Village: {location.village}</p>
+                  <p className="text-xs">Reason: {location.msg}</p>
+                </Tooltip>
+              </Marker>
+            ))} */}
+          </MapContainer>
+        </Card>
+        <Card className="w-full ">
+          <div className="flex align-items-center justify-content-center flex-column gap-1 bg-cyan-100 p-2">
+            <DataTable value={river_data} className="text-sm text-center">
+              <Column
+                field="area2016"
+                header="Area Covered by River (2016)"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="area2024"
+                header="Area Covered by River (2024) "
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="changeInArea"
+                header="Change in Hectares"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="percentChange"
+                header="% Change"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+            </DataTable>
+            <DataTable value={riverbed_data} className="text-sm text-center">
+              <Column
+                field="area2016"
+                header="Area Covered by Riverbed (2016)"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="area2024"
+                header="Area Covered by Riverbed (2024) "
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="changeInArea"
+                header="Change in Hectares"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="percentChange"
+                header="% Change"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+            </DataTable>
+            <DataTable value={riverbed_data} className="text-sm text-center">
+              <Column
+                field="area2016"
+                header="Area Covered by Canal (2016)"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="area2024"
+                header="Area Covered by Canal (2024) "
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="changeInArea"
+                header="Change in Hectares"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="percentChange"
+                header="% Change"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+            </DataTable>
+            <DataTable value={riverbed_data} className="text-sm text-center">
+              <Column
+                field="area2016"
+                header="Area Covered by Drain (2016)"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="area2024"
+                header="Area Covered by Drain (2024) "
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="changeInArea"
+                header="Change in Hectares"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="percentChange"
+                header="% Change"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+            </DataTable>
+            <DataTable value={riverbed_data} className="text-sm text-center">
+              <Column
+                field="area2016"
+                header="Area Covered by Waterbody (2016)"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="area2024"
+                header="Area Covered by Waterbody (2024) "
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="changeInArea"
+                header="Change in Hectares"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+              <Column
+                field="percentChange"
+                header="% Change"
+                headerStyle={{ fontSize: "1rem", textAlign: "center" }}
+                className="text-center"
+              ></Column>
+            </DataTable>
+          </div>
+        </Card>
+      </div>
+    </>
   );
 };
 
