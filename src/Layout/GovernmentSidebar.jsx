@@ -371,6 +371,47 @@ const GovernmentSidebar = () => {
                   </li>
                   <li>
                     <div
+                      style={getTabStyle("water")}
+                      onClick={() => handleTabClick("water")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <Droplet className="text-white mr-2" size={15} />
+                      {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
+                      <span className="font-medium text-sm text-white">
+                        Water Management
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      style={getTabStyle("land")}
+                      onClick={() => handleTabClick("land")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <LandPlot className="text-white mr-2" size={15} />
+                      {/* <i className="pi pi-map mr-2 text-xl text-white"></i> */}
+                      <span className="font-medium text-sm text-white">
+                        Land Usage
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      style={getTabStyle("waste")}
+                      onClick={() => handleTabClick("waste")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <Trash className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Waste Management
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+                  <li>
+                    <div
                       style={getTabStyle("temperature")}
                       onClick={() => handleTabClick("temperature")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
@@ -391,48 +432,6 @@ const GovernmentSidebar = () => {
                       <CloudHail className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
                         Rainfall
-                      </span>
-                      <Ripple />
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      style={getTabStyle("land")}
-                      onClick={() => handleTabClick("land")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
-                    >
-                      <LandPlot className="text-white mr-2" size={15} />
-                      {/* <i className="pi pi-map mr-2 text-xl text-white"></i> */}
-                      <span className="font-medium text-sm text-white">
-                        Land Usage
-                      </span>
-                      <Ripple />
-                    </div>
-                  </li>
-
-                  <li>
-                    <div
-                      style={getTabStyle("water")}
-                      onClick={() => handleTabClick("water")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
-                    >
-                      <Droplet className="text-white mr-2" size={15} />
-                      {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
-                      <span className="font-medium text-sm text-white">
-                        Water Management
-                      </span>
-                      <Ripple />
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      style={getTabStyle("waste")}
-                      onClick={() => handleTabClick("waste")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
-                    >
-                      <Trash className="text-white mr-2" size={15} />
-                      <span className="font-medium text-sm text-white">
-                        Waste Management
                       </span>
                       <Ripple />
                     </div>
@@ -623,11 +622,13 @@ const GovernmentSidebar = () => {
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCardGov show={true} />}
         {activeTab === "aqi" && <AqiDashboard show={true} />}
+
+        {activeTab === "water" && <WaterDashboard show={true} />}
+        {activeTab === "land" && <Land show={true} />}
+
+        {activeTab === "waste" && <WasteDashboard show={true} />}
         {activeTab === "temperature" && <TempDashboard show={true} />}
         {activeTab === "rain" && <RainDashboard show={true} />}
-        {activeTab === "land" && <Land show={true} />}
-        {activeTab === "water" && <WaterDashboard show={true} />}
-        {activeTab === "waste" && <WasteDashboard show={true} />}
 
 {activeTab === "transport" && <Transport show={true} />}
         {/* {activeTab === "transport" && <TransportDashboard show={true} />} */}

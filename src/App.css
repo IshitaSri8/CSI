@@ -62,7 +62,6 @@ body {
   color: var(--text-secondary);
 }
 
-
 .bg-theme {
   background-color: var(--theme-primary-color);
 }
@@ -276,11 +275,13 @@ body {
 }
 
 .p-divider.p-divider-vertical {
-    margin: 0 0.5rem;
-    padding: 0.5rem 0;
+  margin: 0 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .custom-padding .p-datatable .p-datatable-tbody > tr > td {
   padding: 1rem;
 }
-
+.leaflet-popup-content {
+  width: 30rem !important;
+}
