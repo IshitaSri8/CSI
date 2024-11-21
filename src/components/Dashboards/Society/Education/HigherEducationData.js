@@ -1,6 +1,6 @@
 export const higherEducationData = {
-  // enrollment: "4600*",
-  // institutions: 16,
+  enrollment: "4600*",
+  institutions: 16,
   parityIndex: 0.4,
   
   enrollmentTarget: 44,

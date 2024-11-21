@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
-import { Doughnut, LineChart, GroupedColumnChart } from "Layout/GraphVisuals";
+import {
+  LineChart,
+  GroupedColumnChart,
+} from "Layout/GraphVisuals";
 import { primaryData } from "./PrimaryData";
 import { secondaryData } from "./SecondaryData";
 import { higherEducationData } from "./HigherEducationData";
@@ -11,6 +14,8 @@ import EducationReportPrint from "./EducationReportPrint";
 import { ProgressBar } from "primereact/progressbar";
 import LandRecommendations from "components/Dashboards/Environment/Land/LandRecommendations";
 import { Panel } from "primereact/panel";
+import institutions from "assets/institutions.svg";
+import gender from "assets/gender.svg";
 
 const EducationDashboard = ({ show }) => {
   const [selectedLevel, setSelectedLevel] = useState(0); // Use index for selected level (0 = Primary, 1 = Secondary, 2 = Higher)
@@ -71,51 +76,41 @@ const EducationDashboard = ({ show }) => {
             {/* <h1 className="text-3xl text-theme font-medium text-center mt-0 p-0 mb-2">
               {level} Level Education
             </h1> */}
-            <div className="flex flex-column gap-3">
-              {/* First row with parameter cards */}
-              <div className="flex gap-3 justify-content-center align-items-stretch">
-                <div
-                  className="flex flex-column justify-content-center align-items-center bg-white border-round gap-3"
-                  style={{ flex: "25%" }}
-                >
-                  <Doughnut
-                    title="Total students enrolled"
-                    labels={educationData.genderLabels}
-                    series={educationData.genderData}
-                    height={150}
-                    fontColor={"black"}
-                    showNo={true}
-                  />
-                </div>
-                <div
-                  className="flex flex-column justify-content-center align-items-center bg-white border-round p-3"
-                  style={{ flex: "10%" }}
-                >
-                  <p className="text p-0 m-0 mb-1 font-medium text-lg">
-                    Gender Parity Index
-                  </p>
-                  <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
-                    {educationData.parityIndex}
-                  </p>
-                </div>
-                <div
-                  className="flex flex-column bg-white border-round p-3"
-                  style={{ flex: "25%" }}
-                >
-                  <Doughnut
-                    title="No. of Institutions"
-                    labels={educationData.institutionsLabels}
-                    series={educationData.institutionsData}
-                    height={150}
-                    fontColor={"black"}
-                    showNo={true}
+            <div className="flex gap-3">
+              <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
+                {/* Institutions */}
+                <div className="flex justify-content-between align-items-center bg-white border-round p-4 w-full">
+                  <div className="flex flex-column gap-3">
+                    <p
+                      className="text p-0 m-0 font-medium text-lg"
+                      // style={{ marginLeft: -10, marginTop: -10 }}
+                    >
+                      Institutions
+                    </p>
+                    <p className="text-4xl font-semibold m-0 text-secondary2 p-0 text-right">
+                      {educationData.institutions}
+                    </p>
+                  </div>
+                  <img
+                    src={institutions}
+                    alt="institutions"
+                    className="w-12rem"
                   />
                 </div>
 
-                <div
-                  className="flex flex-column bg-white border-round p-3 justify-content-between"
-                  style={{ flex: "40%" }}
-                >
+                {/* Institution Gap Analysis */}
+                <div className="flex bg-white border-round p-3 w-full">
+                  <GroupedColumnChart
+                    title="Institution Gap Analysis"
+                    labels={educationData.institutionsAnalysisLabels}
+                    dataSeries={educationData.institutionsAnalysisData}
+                    dataPointWidth={25}
+                    height={200}
+                  />
+                </div>
+
+                {/* Teacher vs Student Ratio */}
+                <div className="flex flex-column bg-white border-round p-3 justify-content-between w-full">
                   <p className="text p-0 m-0 text-lg font-medium">
                     Teacher vs Student Ratio
                   </p>
@@ -161,161 +156,240 @@ const EducationDashboard = ({ show }) => {
                   </p>
                 </div>
               </div>
+              <div className="flex flex-column gap-3" style={{ flex: "40%" }}>
+                <div className="flex gap-3 w-full">
+                  <div className="flex flex-column gap-3 w-full">
+                    {/* Students Enrolled */}
+                    <div className="flex flex-column bg-white border-round p-3 w-full">
+                      <div className="flex flex-column gap-2">
+                        <p className="text font-medium text-left p-0 m-0 text-lg">
+                          Students Enrolled
+                        </p>
 
-              {/* Second row with corresponding charts */}
-              <div className="flex gap-3">
-                <div
-                  className="flex flex-column bg-white border-round p-4"
-                  style={{ flex: "60%" }}
-                >
-                  <GroupedColumnChart
-                    title="Institution Gap Analysis"
-                    labels={educationData.institutionsAnalysisLabels}
-                    dataSeries={educationData.institutionsAnalysisData}
-                    dataPointWidth={50}
-                    height={150}
-                  />
+                        {/* Outer Circle */}
+                        <div
+                          className="flex flex-column align-items-center justify-content-center"
+                          style={{
+                            width: "14rem",
+                            height: "14rem",
+                            borderRadius: "50%",
+                            backgroundColor: "#E9F3F5", // Replace with your secondary theme color
+                            position: "relative",
+                            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                          }}
+                        >
+                          {/* Total Students */}
+                          <p className="text-4xl font-semibold m-0 text-secondary2">
+                            {educationData.enrollment}
+                          </p>
+
+                          {/* Inner Circles - Positioned Inside */}
+                          <div
+                            className="flex justify-content-between position-absolute"
+                            style={{
+                              // bottom: "15%", // Position closer to the bottom of the outer circle
+                              width: "80%",
+                              transform: "translateY(20%)",
+                            }}
+                          >
+                            {/* Inner Circle - Male */}
+                            <div
+                              className="flex flex-column align-items-center justify-content-center"
+                              style={{
+                                width: "7rem",
+                                height: "6rem",
+                                borderRadius: "50%",
+                                backgroundColor: "#F7A47A",
+                                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                                transform: "translateX(10%)", // Slight overlap towards the center
+                              }}
+                            >
+                              <p className="text-lg font-semibold m-0 text-secondary3">
+                                {educationData.genderData[0]}
+                              </p>
+                              <p className="font-semibold m-0 text text-sm">
+                                Male
+                              </p>
+                            </div>
+
+                            {/* Inner Circle - Female */}
+                            <div
+                              className="flex flex-column align-items-center justify-content-center"
+                              style={{
+                                width: "7rem",
+                                height: "6rem",
+                                borderRadius: "50%",
+                                backgroundColor: "#FFDD82",
+                                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                                transform: "translateX(-5%)", // Slight overlap towards the center
+                              }}
+                            >
+                              <p className="text-lg font-semibold m-0 text-secondary3">
+                                {educationData.genderData[1]}
+                              </p>
+                              <p className="font-semibold m-0 text text-sm">
+                                Female
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Gender Parity Index */}
+                    <div className="flex flex-column w-full justify-content-center bg-white border-round p-3">
+                      <p className="text p-0 m-0 mb-1 font-medium text-lg text-left">
+                        Gender Parity Index
+                      </p>
+                      <div className="flex justify-content-around align-items-center gap-4">
+                        <img src={gender} alt="gender" />
+                        <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
+                          {educationData.parityIndex}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-column gap-3 w-full">
+                    {/* Adjusted Net Enrollment Rate */}
+                    <div className="flex flex-column bg-white border-round p-4 justify-content-between w-full">
+                      <p className="text p-0 m-0 text-lg font-medium">
+                        Adjusted Net Enrollment Rate
+                      </p>
+                      <div className="flex my-2 py-2">
+                        <div className="flex flex-column w-full p-2 align-items-center">
+                          <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                            {educationData.enrollmentTarget}
+                          </p>
+                          <p className="text p-0 m-0 mt-1 font-medium">
+                            Target
+                          </p>
+                        </div>
+                        <Divider layout="vertical" />
+                        <div className="flex flex-column w-full p-2 align-items-center">
+                          <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                            {educationData.enrollmentCurrent}
+                          </p>
+                          <p className="text p-0 m-0 mt-1 font-medium">
+                            Current
+                          </p>
+                        </div>
+                      </div>
+                      <ProgressBar
+                        value={(
+                          educationData.enrollmentTarget -
+                          educationData.enrollmentCurrent
+                        ).toFixed(2)}
+                        style={{ height: "0.75rem" }} // Adjust the height
+                        className="w-full" // Full width of its container
+                        color="#FFAD0D"
+                        displayValueTemplate={() => null} // Hide the displayed value
+                      />
+                      <p className="text-tertiary3 p-0 m-0 font-semibold mt-2">
+                        Gap:{" "}
+                        <span className="text-primary1">
+                          {" "}
+                          {(
+                            educationData.enrollmentTarget -
+                            educationData.enrollmentCurrent
+                          ).toFixed(2)}
+                          %
+                        </span>
+                      </p>
+                    </div>
+                    {/* Dropout Rate */}
+                    <div className="flex flex-column w-full bg-white border-round p-4 justify-content-between">
+                      <p className="text p-0 m-0 text-lg font-medium">
+                        Dropout Rate
+                      </p>
+                      <div className="flex my-2 py-2">
+                        <div className="flex flex-column w-full p-2 align-items-center">
+                          <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                            {educationData.dropoutRatioTargetValue}
+                          </p>
+                          <p className="text p-0 m-0 mt-1 font-medium">
+                            Target
+                          </p>
+                        </div>
+                        <Divider layout="vertical" />
+                        <div className="flex flex-column w-full p-2 align-items-center">
+                          <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                            {educationData.dropoutRatioCurrentValue}
+                          </p>
+                          <p className="text p-0 m-0 mt-1 font-medium">
+                            Current
+                          </p>
+                        </div>
+                      </div>
+                      <ProgressBar
+                        value={(
+                          ((educationData.dropoutRatioCurrentValue -
+                            educationData.dropoutRatioTargetValue) /
+                            educationData.dropoutRatioTargetValue) *
+                          100
+                        ).toFixed(2)}
+                        style={{ height: "0.75rem" }} // Adjust the height
+                        className="w-full" // Full width of its container
+                        color="#FFAD0D"
+                        displayValueTemplate={() => null} // Hide the displayed value
+                      />
+                      <p className="text-tertiary3 p-0 m-0 font-semibold mt-2">
+                        Gap:{" "}
+                        <span className="text-primary1">
+                          {(
+                            ((educationData.dropoutRatioCurrentValue -
+                              educationData.dropoutRatioTargetValue) /
+                              educationData.dropoutRatioTargetValue) *
+                            100
+                          ).toFixed(2)}
+                          %
+                        </span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div
-                  className="flex flex-column bg-white border-round p-4"
-                  style={{ flex: "40%" }}
-                >
+                {/* No. of Students per Teacher */}
+                <div className="flex bg-white border-round p-3 w-full">
                   <LineChart
                     title="No. of Students per Teacher"
                     categories={educationData.years}
                     data={educationData.teacherStudentRatioTrend}
-                    fontColor={"black"}
+                    fontColor={"#4C4C4C"}
+                    height={130}
                   />
                 </div>
               </div>
 
-              <div className="flex w-full gap-3">
-                {/* Adjusted Net Enrollment Rate */}
-                <div
-                  className="flex flex-column bg-white border-round p-3 justify-content-between"
-                  style={{ flex: "10%" }}
-                >
-                  <p className="text p-0 m-0 text-lg font-medium">
-                    Adjusted Net Enrollment Rate
-                  </p>
-                  <div className="flex my-3">
-                    <div className="flex flex-column w-full p-2 align-items-center">
-                      <p className="text-xl font-semibold m-0 text-secondary2 p-0">
-                        {educationData.enrollmentTarget}
-                      </p>
-                      <p className="text p-0 m-0 mt-1 font-medium">Target</p>
-                    </div>
-                    <Divider layout="vertical" />
-                    <div className="flex flex-column w-full p-2 align-items-center">
-                      <p className="text-xl font-semibold m-0 text-primary2 p-0">
-                        {educationData.enrollmentCurrent}
-                      </p>
-                      <p className="text p-0 m-0 mt-1 font-medium">Current</p>
-                    </div>
-                  </div>
-                  <ProgressBar
-                    value={(
-                      educationData.enrollmentTarget -
-                      educationData.enrollmentCurrent
-                    ).toFixed(2)}
-                    style={{ height: "0.75rem" }} // Adjust the height
-                    className="w-full" // Full width of its container
-                    color="#FFAD0D"
-                    displayValueTemplate={() => null} // Hide the displayed value
-                  />
-                  <p className="text-tertiary3 p-0 m-0 font-semibold">
-                    Gap:{" "}
-                    <span className="text-primary1">
-                      {" "}
-                      {(
-                        educationData.enrollmentTarget -
-                        educationData.enrollmentCurrent
-                      ).toFixed(2)}
-                      %
-                    </span>
-                  </p>
-                </div>
-                <div
-                  className="flex flex-column bg-white border-round p-3"
-                  style={{ flex: "40%" }}
-                >
+              <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
+                {/* Enrollment Rate Trend */}
+                <div className="flex w-full bg-white border-round p-3">
                   <GroupedColumnChart
                     title="Enrollment Rate Trend"
                     labels={educationData.years}
                     dataSeries={educationData.enrollmentTrendData}
                     years={years}
-                    dataPointWidth={30}
-                    height={150}
+                    dataPointWidth={25}
+                    height={225}
                   />
                 </div>
-                {/* Dropout Rate */}
-                <div
-                  className="flex flex-column bg-white border-round p-3 justify-content-between"
-                  style={{ flex: "10%" }}
-                >
-                  <p className="text p-0 m-0 text-lg font-medium">
-                    Dropout Rate
-                  </p>
-                  <div className="flex my-3">
-                    <div className="flex flex-column w-full p-2 align-items-center">
-                      <p className="text-xl font-semibold m-0 text-secondary2 p-0">
-                        {educationData.dropoutRatioTargetValue}
-                      </p>
-                      <p className="text p-0 m-0 mt-1 font-medium">Target</p>
-                    </div>
-                    <Divider layout="vertical" />
-                    <div className="flex flex-column w-full p-2 align-items-center">
-                      <p className="text-xl font-semibold m-0 text-primary2 p-0">
-                        {educationData.dropoutRatioCurrentValue}
-                      </p>
-                      <p className="text p-0 m-0 mt-1 font-medium">Current</p>
-                    </div>
-                  </div>
-                  <ProgressBar
-                    value={(
-                      ((educationData.dropoutRatioCurrentValue -
-                        educationData.dropoutRatioTargetValue) /
-                        educationData.dropoutRatioTargetValue) *
-                      100
-                    ).toFixed(2)}
-                    style={{ height: "0.75rem" }} // Adjust the height
-                    className="w-full" // Full width of its container
-                    color="#FFAD0D"
-                    displayValueTemplate={() => null} // Hide the displayed value
-                  />
-                  <p className="text-tertiary3 p-0 m-0 font-semibold">
-                    Gap:{" "}
-                    <span className="text-primary1">
-                      {(
-                        ((educationData.dropoutRatioCurrentValue -
-                          educationData.dropoutRatioTargetValue) /
-                          educationData.dropoutRatioTargetValue) *
-                        100
-                      ).toFixed(2)}
-                      %
-                    </span>
-                  </p>
-                </div>
-                <div
-                  className="flex flex-column bg-white border-round p-3"
-                  style={{ flex: "40%" }}
-                >
+                {/* Dropout Rate Trend */}
+                <div className="flex w-full bg-white border-round p-3">
                   <GroupedColumnChart
                     title="Dropout Rate Trend"
                     labels={educationData.years}
                     dataSeries={educationData.dropoutTrendData}
                     years={years}
-                    dataPointWidth={30}
-                    height={150}
+                    dataPointWidth={25}
+                    height={225}
                   />
                 </div>
               </div>
+            </div>
 
+            <div className="mt-3">
               <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
                 *Data updated till 2020. These numbers are subject to variation.
               </p>
-
               {show && (
                 <Panel
                   //  header="View Recommendations"
@@ -325,9 +399,8 @@ const EducationDashboard = ({ show }) => {
                     const toggleIcon = options.collapsed
                       ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
                       : "pi pi-chevron-down"; // Arrow pointing down when expanded
-
                     return (
-                      <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                      <div className="flex justify-content-between align-items-center px-4 bg-white border-round mt-2">
                         <p className="text-primary1 font-semibold text-xl">
                           View Recommendations
                         </p>

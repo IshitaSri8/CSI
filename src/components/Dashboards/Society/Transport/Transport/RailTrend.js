@@ -80,6 +80,12 @@ const RailTrend = ({ totalTrainsData, electricTrainsData }) => {
       shared: true, // Allows shared tooltip for comparing data points
       content: "{name}: {y} trains",
     },
+    legend: {
+      fontFamily: "Montserrat",
+      horizontalAlign: "left",
+      fontWeight: 400,
+      fontSize: 10,
+    },
   };
 
   return (

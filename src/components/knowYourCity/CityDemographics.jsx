@@ -159,13 +159,18 @@ const CityDemographics = () => {
               </div>
             </div>{" "}
             <div className="flex w-full bg-white justify-content-center p-3 border-round flex-column gap-2">
-              <p className="p-0 m-0 text-left font-semibold text-primary1">Sex Ratio- <span className="text font-medium">980</span></p>
+              <p className="p-0 m-0 text-left font-semibold text-primary1">
+                Sex Ratio- <span className="text font-medium">980</span>
+              </p>
 
               <Doughnut
                 title={""}
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
                 height={100}
+                colorArray={["#98C6CF", "#1F8297"]}
+                horizontal={"center"}
+                vertical={"bottom"}
               />
             </div>
             {/* literacy-rate */}
@@ -206,7 +211,7 @@ const CityDemographics = () => {
             className="w-full shadow-2 p-3 border-round-2xl"
             style={{
               background:
-              " linear-gradient(to left , #1F8297, #166C7D, #003940)",
+                " linear-gradient(to left , #1F8297, #166C7D, #003940)",
             }}
           >
             <div className="flex align-items-center justify-content-between ">

@@ -4,17 +4,6 @@ import CanvasJSReact from "@canvasjs/react-charts"; // Import CanvasJS for chart
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const StackedBarChart = () => {
-  const colors = [
-    "#26575D",
-    "#1F8297",
-    "#4D7479",
-    "#4C9BAC",
-    "#98C6CF",
-    "#F7A47A",
-    "#47B881",
-    "#FFDD82",
-    "#F64C4C",
-  ];
   const data = [
     { year: "2015", total: 100, disabledFriendly: 20 },
     { year: "2016", total: 120, disabledFriendly: 30 },
@@ -57,14 +46,19 @@ const StackedBarChart = () => {
       shared: true, // To show both series in the tooltip
       content: "{name}: {y} buses", // Show percentage in tooltip
     },
-    color: colors,
+    legend: {
+      fontFamily: "Montserrat",
+      horizontalAlign: "left",
+      fontWeight: 400,
+      fontSize: 10,
+    },
     data: [
       {
         type: "stackedColumn",
         name: "Disabled-Friendly Buses",
         showInLegend: true,
         yValueFormatString: "#,###",
-        color: "#557C56",
+        color: "#1F8297",
         dataPoints: data.map((entry) => ({
           label: entry.year,
           y: entry.disabledFriendly,
@@ -74,7 +68,7 @@ const StackedBarChart = () => {
         type: "stackedColumn",
         name: "Other Buses",
         showInLegend: true,
-        color: "#90D26D",
+        color: "#98C6CF",
         yValueFormatString: "#,###",
         dataPoints: data.map((entry) => ({
           label: entry.year,

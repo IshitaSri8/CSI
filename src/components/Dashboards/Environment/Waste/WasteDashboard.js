@@ -50,6 +50,7 @@ const WasteDashboard = ({ show }) => {
 
   const CustomBar = {
     animationEnabled: true,
+    interactivityEnabled: false,
     title: {
       text: "Waste Collection (in MT/day)",
       fontSize: 14,
@@ -216,7 +217,7 @@ const WasteDashboard = ({ show }) => {
         </div>
         {/* Waste Composition */}
         <div
-          className="flex flex-column gap-3 w-full bg-white border-round p-4"
+          className="flex gap-3 w-full bg-white border-round p-4"
           style={{ flex: "32%" }}
         >
           <PieChart

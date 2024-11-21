@@ -79,6 +79,12 @@ const BusTrend = ({ totalBusesData, electricBusesData }) => {
       shared: true, // Allows shared tooltip for comparing data points
       content: "{name}: {y}",
     },
+    legend: {
+      fontFamily: "Montserrat",
+      horizontalAlign: "left",
+      fontWeight: 400,
+      fontSize: 10,
+    },
   };
 
   return (

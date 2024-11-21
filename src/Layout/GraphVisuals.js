@@ -13,10 +13,12 @@ const colors = [
   "#166c7d", // Dark Teal
   "#0F4B57", // Dark Slate Blue
   "#5B98A4", // Slate Blue
-  "#F64C4C", // Red
   "#8AB5BE", // Soft Blue-Green
   "#B9D2D8", // Pale Cyan
   "#E9F3F5", // Very Light Cyan
+  "#8AA4A7",
+  "#26575D",
+  "#F64C4C", // Red
 ];
 
 export const DonutChart = ({
@@ -29,6 +31,7 @@ export const DonutChart = ({
 }) => {
   const options = {
     animationEnabled: true,
+    interactivityEnabled: false,
     title: {
       text: title,
       fontSize: 14,
@@ -87,13 +90,16 @@ export const Doughnut = ({
   labels,
   series,
   height,
-  width,
   bgColor,
   showNo,
+  colorArray,
+  vertical,
+  horizontal
 }) => {
   const totalValue = series.reduce((acc, value) => acc + value, 0);
   const options = {
     animationEnabled: true,
+    interactivityEnabled: false,
     title: {
       text: title,
       fontSize: 14,
@@ -108,26 +114,25 @@ export const Doughnut = ({
     data: [
       {
         type: "doughnut",
-        startAngle: 20,
+        startAngle: 120,
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
         showInLegend: true,
-        color: colors,
         indexLabelPlacement: "inside",
         // indexLabel: "{label} - #percent%",
         indexLabelFontSize: 0,
-        indexLabelFontColor: "white",
         dataPoints: series.map((value, index) => ({
           y: value,
           label: labels[index],
           legendText: labels[index],
-          color: colors[index + (4 % colors.length)],
+          color: colorArray[index],
+          // color: colors[index + (4 % colors.length)],
         })),
       },
     ],
     legend: {
       fontSize: 12,
-      horizontalAlign: "center",
-      verticalAlign: "bottom",
+      horizontalAlign: horizontal,
+      verticalAlign: vertical,
       fontFamily: "Montserrat",
       fontWeight: 500,
       fontColor: "#4C4C4C",
@@ -162,12 +167,13 @@ export const BarChart = ({
   height,
   xtitle,
   ytitle,
-  dataPointWidth
+  dataPointWidth,
 }) => {
   return (
     <CanvasJSChart
       options={{
         animationEnabled: true,
+        interactivityEnabled: false,
         title: {
           text: title,
           fontSize: 14,
@@ -274,6 +280,7 @@ export const GroupedBarChart = ({
         return content; // Return the dynamically generated content
       },
     },
+    interactivityEnabled: false,
     dataPointWidth: dataPointWidth,
     data: dataSeries.map((data, index) => {
       return {
@@ -459,6 +466,7 @@ export const ColumnChart = ({
     <CanvasJSChart
       options={{
         animationEnabled: true,
+        interactivityEnabled: false,
         title: {
           text: title,
           fontSize: 14,
@@ -520,6 +528,7 @@ export const ModifiedColumnChart = ({
         <CanvasJSChart
           options={{
             animationEnabled: true,
+            interactivityEnabled: false,
             title: {
               text: title,
               fontSize: 14,
@@ -624,21 +633,21 @@ export const GroupedColumnChart = ({
   console.log(dataSeries);
   const options = {
     animationEnabled: true,
+    interactivityEnabled: false,
     title: {
       text: title,
       fontFamily: "Montserrat",
       fontWeight: 500,
       fontSize: 14,
-      padding: { bottom: 20 },
+      padding: { bottom: 10 },
       fontColor: "#4C4C4C",
       horizontalAlign: "left",
     },
     axisY: {
-      //title: "Score",
       gridThickness: 0,
-      labelFontSize: 8,
-      labelFontFamily: "Montserrat",
-      lineThickness: 0.5,
+      labelFontSize: 0,
+      lineThickness: 0.2,
+      tickLength: 0,
     },
     axisX: {
       // interval: 1,
@@ -903,13 +912,7 @@ export const ParetoChart = ({
   );
 };
 
-export const LineChart = ({
-  title,
-  categories,
-  data,
-  xtitle,
-  ytitle,
-}) => {
+export const LineChart = ({ title, categories, data, xtitle, ytitle, height }) => {
   const options = {
     animationEnabled: true,
     title: {
@@ -949,12 +952,10 @@ export const LineChart = ({
   };
 
   return (
-    <div className="chart-container z-index">
       <CanvasJSChart
         options={options}
-        containerProps={{ height: 150, width: "100%" }}
+        containerProps={{ height: height, width: "100%" }}
       />
-    </div>
   );
 };
 
@@ -1007,12 +1008,10 @@ export const ModifiedLineChart = ({
   };
 
   return (
-    <div className="chart-container z-index">
       <CanvasJSChart
         options={options}
         containerProps={{ height: height, width: "100%" }}
       />
-    </div>
   );
 };
 
@@ -1030,6 +1029,7 @@ export const PieChart = ({
     <CanvasJSChart
       options={{
         animationEnabled: true,
+        interactivityEnabled: false,
         title: {
           text: title,
           fontSize: 14,
@@ -1046,7 +1046,7 @@ export const PieChart = ({
             startAngle: 280,
             toolTipContent: "<b>{label}</b>: {y}",
             showInLegend: true,
-            legendText: "{label}",
+            legendText: "{label}: {y}",
             color: colors,
             indexLabelFontSize: fontSize,
             indexLabelPlacement: "inside",
@@ -1083,6 +1083,7 @@ export const ModifiedPieChart = ({ title, categories, series, height }) => {
         <CanvasJSChart
           options={{
             animationEnabled: true,
+            interactivityEnabled: false,
             title: {
               text: title,
               fontSize: 14,

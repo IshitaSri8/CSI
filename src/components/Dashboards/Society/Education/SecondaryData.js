@@ -1,6 +1,6 @@
 export const secondaryData = {
-  // enrollment: "55000*",
-  // institutions: 43,
+  enrollment: "55000*",
+  institutions: 43,
   parityIndex: 0.6,
   
   enrollmentTarget: 100,

@@ -1,6 +1,6 @@
 export const primaryData = {
-  // enrollment: "75000*",
-  // institutions: 196,
+  enrollment: "75000*",
+  institutions: 196,
   parityIndex: 0.8,
 
   enrollmentTarget: 100,

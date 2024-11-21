@@ -94,6 +94,10 @@ body {
   color: var(--text-secondary-2);
 }
 
+.text-secondary3 {
+  color: var(--text-secondary-3)
+}
+
 .text-tertiary3 {
   color: var(--text-tertiary-3);
 }
