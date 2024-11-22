@@ -9,6 +9,7 @@ import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
 import { StackedBarChart } from "Layout/GraphVisuals";
+import { Tooltip } from "primereact/tooltip";
 
 const years = ["2020", "2021", "2022", "2023", "2024"];
 const categories = ["Rail", "Road", "Air", "Water"];
@@ -57,26 +58,15 @@ const Passenger = () => {
                   20% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-base text-theme font-bold"> 50</p>
-                    <p className="m-0 text-sm font-semibold">
-                      Average Capacity
-                    </p>
-                    <p className="m-0 text-base text-theme font-bold"> 1500</p>
-                    <p className="m-0 text-sm font-semibold">Passenger Count</p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right roadways text-sm"></i>
+              <Tooltip target=".roadways" position="right">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-base text-theme font-bold"> 50</p>
+                  <p className="m-0 text-sm font-semibold">Average Capacity</p>
+                  <p className="m-0 text-base text-theme font-bold"> 1500</p>
+                  <p className="m-0 text-sm font-semibold">Passenger Count</p>
+                </div>
+              </Tooltip>
             </div>
           </div>
         </Card>
@@ -113,26 +103,15 @@ const Passenger = () => {
                   20% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-base text-theme font-bold"> 1200</p>
-                    <p className="m-0 text-sm font-semibold">
-                      Average Capacity
-                    </p>
-                    <p className="m-0 text-base text-theme font-bold"> 15000</p>
-                    <p className="m-0 text-sm font-semibold">Passenger Count</p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right railway text-sm"></i>
+              <Tooltip target=".railway" position="right">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-base text-theme font-bold"> 1200</p>
+                  <p className="m-0 text-sm font-semibold">Average Capacity</p>
+                  <p className="m-0 text-base text-theme font-bold"> 15000</p>
+                  <p className="m-0 text-sm font-semibold">Passenger Count</p>
+                </div>
+              </Tooltip>
             </div>
           </div>
         </Card>
@@ -169,26 +148,15 @@ const Passenger = () => {
                   20% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-base text-theme font-bold"> 150</p>
-                    <p className="m-0 text-sm font-semibold">
-                      Average Capacity
-                    </p>
-                    <p className="m-0 text-base text-theme font-bold"> 15000</p>
-                    <p className="m-0 text-sm font-semibold">Passenger Count</p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right airway text-sm"></i>
+              <Tooltip target=".airway" position="right">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-base text-theme font-bold"> 150</p>
+                  <p className="m-0 text-sm font-semibold">Average Capacity</p>
+                  <p className="m-0 text-base text-theme font-bold"> 15000</p>
+                  <p className="m-0 text-sm font-semibold">Passenger Count</p>
+                </div>
+              </Tooltip>
             </div>
           </div>
         </Card>
@@ -225,26 +193,15 @@ const Passenger = () => {
                   20% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-base text-theme font-bold"> 50</p>
-                    <p className="m-0 text-sm font-semibold">
-                      Average Capacity
-                    </p>
-                    <p className="m-0 text-base text-theme font-bold"> 15000</p>
-                    <p className="m-0 text-sm font-semibold">Passenger Count</p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right waterway text-sm"></i>
+              <Tooltip target=".waterway" position="bottom">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-base text-theme font-bold"> 50</p>
+                  <p className="m-0 text-sm font-semibold">Average Capacity</p>
+                  <p className="m-0 text-base text-theme font-bold"> 15000</p>
+                  <p className="m-0 text-sm font-semibold">Passenger Count</p>
+                </div>
+              </Tooltip>
             </div>
           </div>
         </Card>

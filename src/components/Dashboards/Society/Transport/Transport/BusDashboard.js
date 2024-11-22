@@ -65,19 +65,20 @@ const BusDashboard = () => {
             <i className="pi pi-info-circle text-theme w-full text-right buses text-sm"></i>
             <Tooltip target=".buses" position="right">
               <div className="w-12rem">
-              <Doughnut
-                title="Total Running buses"
-                labels={busLabels}
-                series={busSeries}
-                height={150}
-              />
+                <Doughnut
+                  title="Total Running buses"
+                  labels={busLabels}
+                  series={busSeries}
+                  height={150}
+                  horizontal={"center"}
+                  vertical={"bottom"}
+                  colorArray={["#98C6CF", "#0F4B57", "#1f8297"]}
+                />
               </div>
             </Tooltip>
             <div className="flex align-items-center justiy-content-center flex-column">
               <p className="m-0 text-2xl text-secondary2 font-semibold">303</p>
-              <p className="font-medium text">
-                Total Running buses
-              </p>
+              <p className="font-medium text">Total Running buses</p>
             </div>
           </Card>
           <Card className="w-full">
@@ -105,7 +106,9 @@ const BusDashboard = () => {
               </div>
             </Tooltip>
             <div className="flex align-items-center justiy-content-center flex-column">
-              <p className="m-0 text-2xl text-secondary2 font-semibold">5.69 %</p>
+              <p className="m-0 text-2xl text-secondary2 font-semibold">
+                5.69 %
+              </p>
               <p className="font-medium text">
                 Percentage that goes under maintenance checks
               </p>
@@ -114,20 +117,23 @@ const BusDashboard = () => {
           <Card className="w-full">
             <i className="pi pi-info-circle text-theme w-full text-right passenger text-sm"></i>
             <Tooltip target=".passenger" position="right">
-             <div className="w-12rem">
-             <Doughnut
-                title="Total passenger count"
-                labels={passengerLabels}
-                series={passengerSeries}
-                height={150}
-              />
-             </div>
+              <div className="w-12rem">
+                <Doughnut
+                  title="Total passenger count"
+                  labels={passengerLabels}
+                  series={passengerSeries}
+                  height={150}
+                  colorArray={["#98C6CF", "#0F4B57"]}
+                  horizontal={"center"}
+                  vertical={"bottom"}
+                />
+              </div>
             </Tooltip>
             <div className="flex align-items-center justiy-content-center flex-column">
-              <p className="m-0 text-2xl text-secondary2 font-semibold">1,72,997</p>
-              <p className="font-medium text">
-                Total passenger Count
+              <p className="m-0 text-2xl text-secondary2 font-semibold">
+                1,72,997
               </p>
+              <p className="font-medium text">Total passenger Count</p>
             </div>
           </Card>
           <Card className="w-full">
@@ -139,7 +145,9 @@ const BusDashboard = () => {
               </div>
             </Tooltip>
             <div className="flex align-items-center justiy-content-center flex-column">
-              <p className="m-0 text-2xl text-secondary2 font-semibold">55.33 %</p>
+              <p className="m-0 text-2xl text-secondary2 font-semibold">
+                55.33 %
+              </p>
               <p className="font-medium text">
                 Percentage availability of Traffic surveillance
               </p>
@@ -147,7 +155,7 @@ const BusDashboard = () => {
           </Card>
         </div>
       </div>
-    
+
       <div className="flex gap-3 w-full">
         <Card className="w-full">
           <StackedBarChart />
@@ -158,6 +166,9 @@ const BusDashboard = () => {
             labels={labels}
             series={series}
             height={200}
+            colorArray={["#98C6CF", "#0F4B57", "#1f8297"]}
+            horizontal={"center"}
+            vertical={"bottom"}
           />
         </Card>
         <Card className="w-full">

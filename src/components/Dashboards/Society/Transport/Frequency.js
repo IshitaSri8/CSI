@@ -8,6 +8,7 @@ import Road from "@mui/icons-material/DirectionsCar";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
 import increase from "assets/increase.png";
+import { Tooltip } from "primereact/tooltip";
 
 const Frequency = () => {
   const categories = ["Roadways", "Railways", "Airways", "Waterways"];
@@ -30,7 +31,9 @@ const Frequency = () => {
               {/* Left Column: Content */}
               <div className="flex w-full m-0 p-0 align-items-start justify-content-start flex-column">
                 <p className="m-0 text-lg font-medium text p-0">{card.label}</p>
-                <p className="text-xl text-primary1 font-semibold">{card.value}</p>
+                <p className="text-xl text-primary1 font-semibold">
+                  {card.value}
+                </p>
               </div>
 
               {/* Right Column: Icon */}
@@ -59,26 +62,13 @@ const Frequency = () => {
                   10% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-sm">
-                      Frequency In Current Year: 70%
-                    </p>
-                    <p className="m-0 text-sm">
-                      Frequency In Previous Year: 60%
-                    </p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right frequency text-sm"></i>
+              <Tooltip target=".frequency" position="right">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-sm">Frequency In Current Year: 70%</p>
+                  <p className="m-0 text-sm">Frequency In Previous Year: 60%</p>
+                </div>
+              </Tooltip>
             </div>
           </Card>
         ))}
@@ -99,6 +89,14 @@ const Frequency = () => {
             series={frequencyseries}
             height={150}
             title="Average number of services per day"
+            horizontal={"center"}
+            vertical={"bottom"}
+            colorArray={[
+              "#98C6CF", // Light Blue
+              "#1F8297", // Dark Cyan
+              "#166c7d", // Dark Teal
+              "#0F4B57",
+            ]}
           />
         </Card>
       </div>

@@ -10,6 +10,7 @@ import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomTooltip from "./CustomTooltip";
 import { StackedBarChart } from "Layout/GraphVisuals";
+import { Tooltip } from "primereact/tooltip";
 
 const Infrastructure = () => {
   const years = ["2020", "2021", "2022", "2023", "2024"];
@@ -72,26 +73,17 @@ const Infrastructure = () => {
                   20% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column w-full">
-                    <p className="m-0 text-sm">
-                      Maintained Roadways In Current Year: 70%
-                    </p>
-                    <p className="m-0 text-sm">
-                      Maintained Roadways In Previous Year: 90%
-                    </p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right road text-sm"></i>
+              <Tooltip target=".road" position="right">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column w-full">
+                  <p className="m-0 text-sm">
+                    Maintained Roadways In Current Year: 70%
+                  </p>
+                  <p className="m-0 text-sm">
+                    Maintained Roadways In Previous Year: 90%
+                  </p>
+                </div>
+              </Tooltip>
             </div>
           </div>
         </Card>
@@ -145,22 +137,17 @@ const Infrastructure = () => {
                   10% decrease in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-sm">
-                      Maintained Railways In Current Year: 60%
-                    </p>
-                    <p className="m-0 text-sm">
-                      Maintained Railways In Previous Year: 70%
-                    </p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{ height: "1.2rem", width: "1.2rem", color: "#1f8297" }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right rail text-sm"></i>
+              <Tooltip target=".rail" position="right">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-sm">
+                    Maintained Railways In Current Year: 60%
+                  </p>
+                  <p className="m-0 text-sm">
+                    Maintained Railways In Previous Year: 70%
+                  </p>
+                </div>
+              </Tooltip>
             </div>
           </div>
         </Card>
@@ -215,26 +202,17 @@ const Infrastructure = () => {
                   10% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-sm">
-                      Maintained Airways In Current Year: 70%
-                    </p>
-                    <p className="m-0 text-sm">
-                      Maintained Airways In Previous Year: 60%
-                    </p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right air text-sm"></i>
+              <Tooltip target=".air" position="right">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-sm">
+                    Maintained Airways In Current Year: 70%
+                  </p>
+                  <p className="m-0 text-sm">
+                    Maintained Airways In Previous Year: 60%
+                  </p>
+                </div>
+              </Tooltip>
             </div>
           </div>
         </Card>
@@ -288,26 +266,17 @@ const Infrastructure = () => {
                   10% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-sm">
-                      Maintained Waterways In Current Year: 80%
-                    </p>
-                    <p className="m-0 text-sm">
-                      Maintained Waterways In Previous Year: 70%
-                    </p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right water text-sm"></i>
+              <Tooltip target=".water" position="bottom">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-sm">
+                    Maintained Waterways In Current Year: 80%
+                  </p>
+                  <p className="m-0 text-sm">
+                    Maintained Waterways In Previous Year: 70%
+                  </p>
+                </div>
+              </Tooltip>
             </div>
           </div>
         </Card>

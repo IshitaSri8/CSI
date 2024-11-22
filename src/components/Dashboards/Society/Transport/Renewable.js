@@ -5,6 +5,7 @@ import CustomTooltip from "./CustomTooltip";
 import increase from "assets/increase.png";
 import CanvasJSReact from "@canvasjs/react-charts";
 import BusTrend from "./Transport/BusTrend";
+import { Tooltip } from "primereact/tooltip";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Renewable = () => {
   const Doughnut = ({ title, labels, series, height }) => {
@@ -161,25 +162,18 @@ const Renewable = () => {
                   10% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
+              <i className="pi pi-info-circle text-theme w-full text-right renewable text-sm"></i>
+            <Tooltip target=".renewable" position="bottom">
+              <div className="w-15rem">
                   <Doughnut
                     title=""
                     labels={projectLabels}
                     series={projectSeries}
                     height={100}
-                  />
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
-            </div>
+                    />
+                    </div>
+                    </Tooltip>
+                    </div>
           </div>
         </Card>
       </div>

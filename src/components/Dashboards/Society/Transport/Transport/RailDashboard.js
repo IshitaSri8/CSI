@@ -72,6 +72,9 @@ const RailDashboard = () => {
                 labels={trainlabels}
                 series={trainSeries}
                 height={150}
+                colorArray={["#98C6CF", "#0F4B57"]}
+                horizontal={"center"}
+                vertical={"bottom"}
               />
             </div>
           </Tooltip>
@@ -135,6 +138,9 @@ const RailDashboard = () => {
                 labels={passengerLabels}
                 series={passengerSeries}
                 height={150}
+                colorArray={["#98C6CF", "#0F4B57"]}
+                horizontal={"center"}
+                vertical={"bottom"}
               />
             </div>
           </Tooltip>
@@ -151,6 +157,9 @@ const RailDashboard = () => {
             labels={labels}
             series={series}
             height={180}
+            horizontal={"center"}
+            vertical={"bottom"}
+            colorArray={["#98C6CF", "#0F4B57", "#1f8297"]}
           />
         </div>
         <div className="flex w-full border-round">
