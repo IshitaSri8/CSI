@@ -1,14 +1,12 @@
 import React from "react";
 import "./App.css";
-import "primereact/resources/themes/lara-light-teal/theme.css"; // Theme
-import "primereact/resources/primereact.min.css"; // Core CSS
+import "primereact/resources/themes/lara-light-teal/theme.css"; 
+import "primereact/resources/primereact.min.css"; 
 import "primeicons/primeicons.css";
 import LandingScreen from "./pages/LandingScreen";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Citizen from "./pages/Citizen";
-import KnowYourCity from "./pages/KnowYourCity";
 import Government from "./pages/Government";
-
+import { Route, Routes } from "react-router-dom";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import GovernmentSidebar from "Layout/GovernmentSidebar";
 import CityProgress from "components/knowYourCity/CityProgress";
@@ -35,12 +33,9 @@ function App() {
       <Route path="/ourwork" element={<OurWork />} /> */}
       <Route path="/government" element={<Government />} />
       {/* <Route path="/report-card" element={<CityReportCard />} /> */}
-
       <Route path="/city" element={<CityProgress />} />
-
       {/* Routes with Sidebar */}
       <Route path="/g-kyc" element={<GovernmentSidebar />} />
-
       <Route path="/c-kyc" element={<CitizenSidebar />} />
       <Route path="/change" element={<ChangeDetection />} />
     </Routes>

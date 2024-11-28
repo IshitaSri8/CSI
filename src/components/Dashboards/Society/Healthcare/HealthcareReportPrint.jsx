@@ -46,13 +46,13 @@ export default function HealthcareReportPrint() {
         pdf.internal.pageSize.height - 10
       );
 
-      pdf.save("culture_summary_report.pdf");
+      pdf.save("healthcare_summary_report.pdf");
     }
   };
 
   return (
     <>
-      <div ref={contentRef} className="w-full print-container sec-theme p-4">
+      <div ref={contentRef} className="w-full print-container sec-theme py-4">
         <div className="flex flex-column gap-2 align-items-center w-full">
         <h1
             style={{ color: "#166c7d" }}

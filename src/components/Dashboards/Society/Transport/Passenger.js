@@ -6,8 +6,8 @@ import TrainIcon from "@mui/icons-material/Train";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import FlightIcon from "@mui/icons-material/Flight";
 import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
-import InfoIcon from "@mui/icons-material/Info";
-import CustomTooltip from "./CustomTooltip";
+// import InfoIcon from "@mui/icons-material/Info";
+// import CustomTooltip from "./CustomTooltip";
 import { StackedBarChart } from "Layout/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
 
@@ -22,13 +22,13 @@ const series = [
 
 const Passenger = () => {
   return (
-    <div className="flex align-items-center justify-content-between flex-column gap-4 w-full">
-      <div className="flex align-items-center justify-content-between gap-4 w-full">
+    <div className="flex align-items-center justify-content-between flex-column gap-2 w-full">
+      <div className="flex align-items-center justify-content-between gap-2 w-full">
         <Card className="w-full">
           <div className="flex flex-column gap-4">
             <div className="flex align-items-start justify-content-between w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 text-left w-full">
-                <h1 className=" m-0 p-0 text-sm">Roadways Passenger Load</h1>
+                <p className="text-primary1 font-semibold m-0 p-0">Roadways Passenger Load</p>
                 <h1 className=" m-0 text-xl text-theme border-circle">
                   3 Times Higher
                 </h1>
@@ -74,7 +74,7 @@ const Passenger = () => {
           <div className="flex flex-column gap-4">
             <div className="flex align-items-start justify-content-between  text-center w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-                <h1 className=" m-0 p-0 text-sm">Train Passenger Load</h1>
+                <p className="text-primary1 font-semibold m-0 p-0">Train Passenger Load</p>
                 <h1 className=" m-0 text-xl text-theme border-circle">
                   2 Times Higher
                 </h1>
@@ -119,7 +119,7 @@ const Passenger = () => {
           <div className="flex flex-column gap-4">
             <div className="flex align-items-start justify-content-between  text-center w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-                <h1 className=" m-0 p-0 text-sm">Plane Passenger Load</h1>
+                <p className="text-primary1 font-semibold m-0 p-0">Plane Passenger Load</p>
                 <h1 className=" m-0  text-xl text-theme border-circle">
                   1.5 Times Higher
                 </h1>
@@ -164,7 +164,7 @@ const Passenger = () => {
           <div className="flex flex-column gap-4">
             <div className="flex align-items-start justify-content-between  text-center w-full">
               <div className="flex align-items-start justify-content-start flex-column gap-3 text-center w-full">
-                <h1 className=" m-0 p-0 text-sm">Average Ship Capacity</h1>
+                <p className="text-primary1 font-semibold m-0 p-0">Average Ship Capacity</p>
                 <h1 className=" m-0 text-xl text-theme border-circle">
                   2 Times Higher
                 </h1>

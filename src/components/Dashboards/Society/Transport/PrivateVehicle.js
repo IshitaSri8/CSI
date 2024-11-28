@@ -1,8 +1,8 @@
 import { Card } from "primereact/card";
 import React from "react";
 import { DonutChart, GroupedColumnChart } from "Layout/GraphVisuals";
-import InfoIcon from "@mui/icons-material/Info";
-import CustomTooltip from "./CustomTooltip";
+// import InfoIcon from "@mui/icons-material/Info";
+// import CustomTooltip from "./CustomTooltip";
 import increase from "assets/increase.png";
 import { Tooltip } from "primereact/tooltip";
 
@@ -19,8 +19,8 @@ const PrivateVehicle = () => {
   ];
 
   return (
-    <div className="flex align-items-center justify-content-between gap-8 p-4">
-      <div className="flex align-items-center justify-content-between flex-column gap-3">
+    <div className="flex align-items-center justify-content-center gap-2 p-4">
+      <div className="flex align-items-center justify-content-between flex-column gap-2">
         {/* Card 1: Number of Private Vehicles */}
         <Card className="w-full ">
           <div className="flex flex-column align-items-center justify-content-between gap-3 ">
@@ -32,7 +32,7 @@ const PrivateVehicle = () => {
               {/* Tooltip with DonutChart Chart */}
               <i className="pi pi-info-circle text-theme w-full text-right vehicle text-sm"></i>
               <Tooltip target=".vehicle" position="right">
-                <div className="w-16rem">
+                <div className="w-20rem">
                   <DonutChart
                     title="Breakdown of private vehicles per transport mode"
                     labels={categories}
@@ -87,8 +87,8 @@ const PrivateVehicle = () => {
           title="Private-public partnership by percentage Over Years"
           labels={chartCategories}
           dataSeries={chartData}
-          dataPointWidth={25}
-          height={260}
+          dataPointWidth={30}
+          height={200}
         />
       </Card>
     </div>

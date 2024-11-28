@@ -46,7 +46,7 @@ export default function EducationReportPrint() {
         pdf.internal.pageSize.height - 10
       );
 
-      pdf.save("culture_summary_report.pdf");
+      pdf.save("education_summary_report.pdf");
     }
   };
 

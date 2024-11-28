@@ -102,6 +102,10 @@ body {
   color: var(--text-tertiary-3);
 }
 
+.text-moderate {
+  color: var(--text-moderate);
+}
+
 .success {
   background-color: var(--bg-success);
 }
@@ -232,8 +236,8 @@ body {
 }
 
 .p-dropdown-label {
-  color: var(--text-theme);
-  font-weight: bold;
+  color: var(--text-color);
+  font-weight: 500;
 }
 /* .p-menuitem,
 .p-menuitem-text,

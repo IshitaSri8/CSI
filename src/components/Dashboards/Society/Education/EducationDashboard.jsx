@@ -41,16 +41,26 @@ const EducationDashboard = ({ show }) => {
 
   return (
     <div className="flex flex-column">
-      {show && (
+      {/* Tab Panel for selecting education level */}
+      <TabView
+        activeIndex={selectedLevel}
+        onTabChange={(e) => setSelectedLevel(e.index)}
+      >
+        {levels.map((level, index) => (
+          <TabPanel header={level} key={index}>
+            {/* <h1 className="text-3xl text-theme font-semibold text-center mt-0 p-0 mb-2">
+              {level} Level Education
+            </h1> */}
+              {show && (
         <div className="flex align-items-center justify-content-end w-full">
-          {/* <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">Education</h1> */}
+          {/* <h1 className="m-0 p-0 text-primary1 text-2xl font-semibold">Education</h1> */}
 
           <Button
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
             className="bg-theme text-white mr-3"
-            style={{ marginBottom: -60 }}
+            style={{ marginTop: -60 }}
             raised
           />
           <Dialog
@@ -65,24 +75,13 @@ const EducationDashboard = ({ show }) => {
           </Dialog>
         </div>
       )}
-
-      {/* Tab Panel for selecting education level */}
-      <TabView
-        activeIndex={selectedLevel}
-        onTabChange={(e) => setSelectedLevel(e.index)}
-      >
-        {levels.map((level, index) => (
-          <TabPanel header={level} key={index}>
-            {/* <h1 className="text-3xl text-theme font-medium text-center mt-0 p-0 mb-2">
-              {level} Level Education
-            </h1> */}
             <div className="flex gap-3">
               <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
                 {/* Institutions */}
                 <div className="flex justify-content-between align-items-center bg-white border-round p-4 w-full">
                   <div className="flex flex-column gap-3">
                     <p
-                      className="text p-0 m-0 font-medium text-lg"
+                      className="text-primary1 p-0 m-0 font-semibold text-lg"
                       // style={{ marginLeft: -10, marginTop: -10 }}
                     >
                       Institutions
@@ -111,7 +110,7 @@ const EducationDashboard = ({ show }) => {
 
                 {/* Teacher vs Student Ratio */}
                 <div className="flex flex-column bg-white border-round p-3 justify-content-between w-full">
-                  <p className="text p-0 m-0 text-lg font-medium">
+                  <p className="text-primary1 p-0 m-0 text-lg font-semibold">
                     Teacher vs Student Ratio
                   </p>
                   <div className="flex my-3">
@@ -119,14 +118,14 @@ const EducationDashboard = ({ show }) => {
                       <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                         {educationData.teacherStudentRatioTarget}
                       </p>
-                      <p className="text p-0 m-0 mt-1 font-medium">Target</p>
+                      <p className="text p-0 m-0 mt-1 font-semibold">Target</p>
                     </div>
                     <Divider layout="vertical" />
                     <div className="flex flex-column w-full p-2 align-items-center">
                       <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                         {educationData.teacherStudentRatioCurrent}
                       </p>
-                      <p className="text p-0 m-0 mt-1 font-medium">Current</p>
+                      <p className="text p-0 m-0 mt-1 font-semibold">Current</p>
                     </div>
                   </div>
                   <ProgressBar
@@ -162,7 +161,7 @@ const EducationDashboard = ({ show }) => {
                     {/* Students Enrolled */}
                     <div className="flex flex-column bg-white border-round p-3 w-full">
                       <div className="flex flex-column gap-2">
-                        <p className="text font-medium text-left p-0 m-0 text-lg">
+                        <p className="text-primary1 font-semibold text-left p-0 m-0 text-lg">
                           Students Enrolled
                         </p>
 
@@ -237,7 +236,7 @@ const EducationDashboard = ({ show }) => {
                     </div>
                     {/* Gender Parity Index */}
                     <div className="flex flex-column w-full justify-content-center bg-white border-round p-3">
-                      <p className="text p-0 m-0 mb-1 font-medium text-lg text-left">
+                      <p className="text-primary1 p-0 m-0 mb-1 font-semibold text-lg text-left">
                         Gender Parity Index
                       </p>
                       <div className="flex justify-content-around align-items-center gap-4">
@@ -252,7 +251,7 @@ const EducationDashboard = ({ show }) => {
                   <div className="flex flex-column gap-3 w-full">
                     {/* Adjusted Net Enrollment Rate */}
                     <div className="flex flex-column bg-white border-round p-4 justify-content-between w-full">
-                      <p className="text p-0 m-0 text-lg font-medium">
+                      <p className="text-primary1 p-0 m-0 text-lg font-semibold">
                         Adjusted Net Enrollment Rate
                       </p>
                       <div className="flex my-2 py-2">
@@ -260,7 +259,7 @@ const EducationDashboard = ({ show }) => {
                           <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                             {educationData.enrollmentTarget}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-medium">
+                          <p className="text p-0 m-0 mt-1 font-semibold">
                             Target
                           </p>
                         </div>
@@ -269,7 +268,7 @@ const EducationDashboard = ({ show }) => {
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.enrollmentCurrent}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-medium">
+                          <p className="text p-0 m-0 mt-1 font-semibold">
                             Current
                           </p>
                         </div>
@@ -298,7 +297,7 @@ const EducationDashboard = ({ show }) => {
                     </div>
                     {/* Dropout Rate */}
                     <div className="flex flex-column w-full bg-white border-round p-4 justify-content-between">
-                      <p className="text p-0 m-0 text-lg font-medium">
+                      <p className="text-primary1 p-0 m-0 text-lg font-semibold">
                         Dropout Rate
                       </p>
                       <div className="flex my-2 py-2">
@@ -306,7 +305,7 @@ const EducationDashboard = ({ show }) => {
                           <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                             {educationData.dropoutRatioTargetValue}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-medium">
+                          <p className="text p-0 m-0 mt-1 font-semibold">
                             Target
                           </p>
                         </div>
@@ -315,7 +314,7 @@ const EducationDashboard = ({ show }) => {
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.dropoutRatioCurrentValue}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-medium">
+                          <p className="text p-0 m-0 mt-1 font-semibold">
                             Current
                           </p>
                         </div>

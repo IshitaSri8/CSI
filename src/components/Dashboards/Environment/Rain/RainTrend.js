@@ -105,8 +105,8 @@ const RainTrend = ({
           fontSize: 10,
           horizontalAlign: "left",
           fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "black",
+          fontWeight: 600,
+          fontColor: "#001F23",
         },
         title: {
           text: `Rainfall Trend Over Months for ${selectedYear}`,

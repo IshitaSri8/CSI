@@ -46,7 +46,7 @@ export default function EmploymentReportPrint() {
         pdf.internal.pageSize.height - 10
       );
 
-      pdf.save("culture_summary_report.pdf");
+      pdf.save("employment_summary_report.pdf");
     }
   };
 

@@ -53,7 +53,7 @@ const CitizenSidebar = () => {
       {!visible && (
         <div
           style={{
-            width: "6rem",
+            width: "5rem",
             backgroundColor: "#003940",
             height: "100vh",
             display: "flex",
@@ -63,7 +63,7 @@ const CitizenSidebar = () => {
             position: "fixed",
           }}
         >
-          <img src={Arahas} alt="Arahas" className="w-5rem mb-4" />
+          <img src={Arahas} alt="Arahas" className="w-4rem mb-4" />
           <Button
             icon={<Building size={18} />}
             onClick={() => handleTabClick("kyc")}

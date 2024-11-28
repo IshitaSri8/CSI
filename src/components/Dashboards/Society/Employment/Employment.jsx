@@ -74,7 +74,7 @@ const Employment = ({ show }) => {
           <div className="flex flex-column align-items-center bg-white border-round p-3 w-full gap-3">
             <div className="flex justify-content-between align-items-center gap-8">
               <div className="flex flex-column gap-3 align-items-start">
-                <p className="text p-0 m-0 font-medium text-lg">
+                <p className="text-primary1 p-0 m-0 font-semibold text-lg">
                   Total Population Employed
                 </p>
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
@@ -115,7 +115,7 @@ const Employment = ({ show }) => {
           <div className="flex gap-3 w-full">
             {/* Employed Females */}
             <div className="flex flex-column bg-white border-round-xl p-2 gap-2 align-items-center w-full">
-              <p className="text font-medium text-center text-lg p-0 m-0">
+              <p className="text-primary1 font-semibold text-center text-lg p-0 m-0">
                 Rate of Employed Females
               </p>
               <div className="flex w-10rem custom-circular-progress p-2">
@@ -124,7 +124,7 @@ const Employment = ({ show }) => {
                   text="32%"
                   strokeWidth={10}
                   styles={buildStyles({
-                    pathColor: "#1f8297",
+                    pathColor: "#FFAD0D",
                     textColor: "#001F23",
                     trailColor: "#E7EAEA",
                     textSize: "1.5rem",
@@ -136,7 +136,7 @@ const Employment = ({ show }) => {
             </div>
             {/* Unemployment Rate */}
             <div className="flex flex-column bg-white border-round-xl p-2 gap-2 align-items-center w-full">
-              <p className="text font-medium text-lg text-center p-0 m-0">
+              <p className="text-primary1 font-semibold text-lg text-center p-0 m-0">
                 Unemployed Population
               </p>
               <div className="flex w-10rem custom-circular-progress p-2">
@@ -156,7 +156,7 @@ const Employment = ({ show }) => {
               </div>
             </div>
             <div className="flex flex-column bg-white border-round-xl p-2 gap-2 align-items-center w-full">
-              <p className="text font-medium text-center text-lg p-0 m-0">
+              <p className="text-primary1 font-semibold text-center text-lg p-0 m-0">
                 Unemployed Youth
               </p>
               <div className="flex w-10rem custom-circular-progress p-2">
@@ -191,7 +191,7 @@ const Employment = ({ show }) => {
             <div className="flex flex-column gap-3">
               {/* Average Salary */}
               <div className="flex flex-column justify-content-center bg-white border-round p-4 w-full gap-3">
-                <p className="text p-0 m-0 font-medium text-lg">
+                <p className="text-primary1 p-0 m-0 font-semibold text-lg">
                   Average Salary
                 </p>
                 <div className="flex gap-3 align-items-center">
@@ -245,7 +245,9 @@ const Employment = ({ show }) => {
           </div>
         </div>
       </div>
-
+      <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
+        *Data updated till 2020. These numbers are subject to variation.
+      </p>
       {show && (
         <Panel
           //  header="View Recommendations"

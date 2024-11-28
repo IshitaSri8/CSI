@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Calendar } from "primereact/calendar";
 import axios from "axios";
-import { Card } from "primereact/card";
 import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -227,6 +226,12 @@ const AqiDashboard = ({
     }
   };
 
+  const resetFilters = () => {
+    setSelectedLocation(null);
+    setStartDate(null);
+    setEndDate(null);
+  };
+
   useEffect(() => {
     if (!show && pSelectedLocation) {
       setSelectedLocation(pSelectedLocation);
@@ -334,78 +339,73 @@ const AqiDashboard = ({
             Air Quality Index
           </h1>
           <div className="flex align-ites-center justify-content-end gap-2">
-            {/* <Panel
-              header="Filters"
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
-              style={{ width: "25vw", padding: "0", cursor: "pointer" }}
-              onClick={() => setFilterVisible(!filterVisible)} // Toggle panel visibility
-            >
-              {filterVisible && (
-                <div className="flex flex-column align-items-end w-full gap-3">
-                  <div className="flex align-items-center justify-content-between w-full gap-3">
-                    <div className="flex flex-column">
-                      <label htmlFor="location" className="font-semibold">
-                        Location
-                      </label>
-                      <Dropdown
-                        value={selectedLocation}
-                        options={locations}
-                        optionLabel="label"
-                        optionValue="value"
-                        onChange={(e) => setSelectedLocation(e.value)}
-                        placeholder="Select Location"
-                      />
-                    </div>
-                    <div className="w-full">
-                      <div className="p-field text-sm flex flex-column">
-                        <label htmlFor="start-date" className="font-semibold">
-                          Start Date
-                        </label>
-                        <Calendar
-                          id="start-date"
-                          value={startDate}
-                          onChange={handleStartDateChange}
-                          showIcon
-                          dateFormat="dd-mm-yy"
-                          placeholder="Select a start date"
-                          minDate={new Date("2024-01-01")} // Set the minimum selectable date
-                          maxDate={endDate} // Ensure the start date does not go beyond the end date
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full">
-                      <div className="p-field text-sm flex flex-column">
-                        <label htmlFor="end-date" className="font-semibold">
-                          End Date{" "}
-                        </label>
-                        <Calendar
-                          id="end-date"
-                          value={endDate}
-                          onChange={handleEndDateChange}
-                          showIcon
-                          dateFormat="dd-mm-yy"
-                          placeholder="Select an end date"
-                          minDate={startDate} // Ensure the end date does not go before the start date
-                          maxDate={new Date("2024-08-13")} // Set the maximum selectable date
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <Button
-                    className="bg-cyan-800"
-                    label="Apply"
-                    icon="pi pi-search"
-                    onClick={handleSearch}
-                  />
-                </div>
-              )}
-            </Panel> */}
             <Button
               label="Filters"
               icon="pi pi-filter"
-              onClick={() => setFilterVisible(true)}
+              onClick={() => setFilterVisible(!filterVisible)}
               className="bg-white text-cyan-800 border-1 border-cyan-800 "
             />
+            {filterVisible && (
+              <div
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2"
+                style={{
+                  zIndex: 1000, // Ensures the filter appears above other components
+                  position: "absolute", // Required for z-index to work
+                  transform: "translateY(15%) translateX(-70%)",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <div className="flex flex-column gap-3">
+                  <div className="flex flex-column">
+                    <label htmlFor="location" className="font-semibold text">
+                      Location
+                    </label>
+                    <Dropdown
+                      value={selectedLocation}
+                      options={locations}
+                      optionLabel="label"
+                      optionValue="value"
+                      onChange={(e) => setSelectedLocation(e.value)}
+                      placeholder="Select Location"
+                    />
+                  </div>
+                  <div className="p-field text-sm flex flex-column">
+                    <label htmlFor="dateRange" className="font-semibold text">
+                      Select Date Range
+                    </label>
+                    <Calendar
+                      id="dateRange"
+                      value={[startDate, endDate]} // Pass selected date range as an array
+                      onChange={(e) => {
+                        const [newStartDate, newEndDate] = e.value; // Destructure range
+                        setStartDate(newStartDate);
+                        setEndDate(newEndDate);
+                      }}
+                      selectionMode="range"
+                      showIcon
+                      dateFormat="dd-mm-yy"
+                      placeholder="Select date range"
+                      showButtonBar
+                      hideOnRangeSelection
+                    />
+                  </div>
+                  <div className="flex justify-content-between">
+                    <Button
+                      className="bg-white text-moderate border-none"
+                      label="Reset"
+                      // icon="pi pi-search"
+                      onClick={resetFilters}
+                    />
+                    <Button
+                      className="bg-white text-primary1 border-1"
+                      label="Apply"
+                      // icon="pi pi-search"
+                      onClick={handleSearch}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
 
             <Button
               label="Generate Report"
@@ -418,74 +418,6 @@ const AqiDashboard = ({
           </div>
         </div>
       )}
-
-      <Dialog
-        header=""
-        visible={filterVisible}
-        style={{ width: "50vw" }}
-        onHide={() => {
-          if (!filterVisible) return;
-          setFilterVisible(false);
-        }}
-      >
-        <div className="flex flex-column align-items-end w-full gap-3">
-          <div className="flex align-items-center justify-content-between w-full gap-3">
-            <div className="flex flex-column">
-              <label htmlFor="location" className="font-semibold">
-                Location
-              </label>
-              <Dropdown
-                value={selectedLocation}
-                options={locations}
-                optionLabel="label"
-                optionValue="value"
-                onChange={(e) => setSelectedLocation(e.value)}
-                placeholder="Select Location"
-              />
-            </div>
-            <div className="w-full">
-              <div className="p-field text-sm flex flex-column">
-                <label htmlFor="start-date" className="font-semibold">
-                  Start Date
-                </label>
-                <Calendar
-                  id="start-date"
-                  value={startDate}
-                  onChange={handleStartDateChange}
-                  showIcon
-                  dateFormat="dd-mm-yy"
-                  placeholder="Select a start date"
-                  minDate={new Date("2024-01-01")} // Set the minimum selectable date
-                  maxDate={endDate} // Ensure the start date does not go beyond the end date
-                />
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="p-field text-sm flex flex-column">
-                <label htmlFor="end-date" className="font-semibold">
-                  End Date{" "}
-                </label>
-                <Calendar
-                  id="end-date"
-                  value={endDate}
-                  onChange={handleEndDateChange}
-                  showIcon
-                  dateFormat="dd-mm-yy"
-                  placeholder="Select an end date"
-                  minDate={startDate} // Ensure the end date does not go before the start date
-                  maxDate={new Date("2024-08-13")} // Set the maximum selectable date
-                />
-              </div>
-            </div>
-          </div>
-          <Button
-            className="bg-cyan-800"
-            label="Apply"
-            icon="pi pi-search"
-            onClick={handleSearch}
-          />
-        </div>
-      </Dialog>
 
       <Dialog
         visible={ReportVisible}
@@ -566,7 +498,7 @@ const AqiDashboard = ({
                 // scrollbarWidth: "none",
                 padding: 2,
               }}
-              emptyMessage="No Outliear Days Found."
+              emptyMessage="No Outlier Days Found."
             >
               <Column
                 field="aqi"
@@ -618,14 +550,7 @@ const AqiDashboard = ({
           )}
         </div>
 
-        <div
-          pt={{
-            body: {
-              className: "p-0",
-            },
-          }}
-          className="w-full border-round-2xl"
-        >
+        <div className="w-full border-round-2xl">
           {/* <AqiReport
               selectedLocation={selectedLocation}
               startDate={startDate}

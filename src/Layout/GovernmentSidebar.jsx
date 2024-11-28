@@ -42,6 +42,7 @@ import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboa
 import Land from "components/Dashboards/Environment/Land/Land";
 import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
 import Transport from "components/Dashboards/Society/Transport/Transport/Transport";
+import { Divider } from "primereact/divider";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -189,7 +190,7 @@ const GovernmentSidebar = () => {
       {!visible && (
         <div
           style={{
-            width: "6rem", // Adjust the width for the collapsed sidebar
+            width: "5rem", // Adjust the width for the collapsed sidebar
             backgroundColor: "#003940",
             height: "100%",
             display: "flex",
@@ -199,7 +200,7 @@ const GovernmentSidebar = () => {
             position: "fixed", // For positioning the toggle button at the bottom
           }}
         >
-          <img src={Arahas} alt="Arahas" className="w-5rem mb-4" />
+          <img src={Arahas} alt="Arahas" className="w-4rem mb-4" />
           <Button
             icon={<Building size={18} />}
             onClick={() => handleTabClick("kyc")}
@@ -236,7 +237,7 @@ const GovernmentSidebar = () => {
             style={activeTabStyle("gov")}
             className="border-none border-round-lg"
           />
-
+          <Divider />
           <Button
             icon={<LogOut size={20} />}
             onClick={() => setVisible(true)}
@@ -258,10 +259,9 @@ const GovernmentSidebar = () => {
               color: "white",
               position: "fixed",
               bottom: "20px",
-              left: "4rem",
+              left: "3rem",
               fontSize: "1rem",
               cursor: "pointer",
-              //   border: "1px solid white",
             }}
           />
         </div>
@@ -644,12 +644,12 @@ const GovernmentSidebar = () => {
           zIndex: 1000, // Ensure it stays on top of other elements
           backgroundColor: "#fff", // Add a background color to prevent overlap issues
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Optional: Add a subtle shadow for separation
-          marginLeft: "6rem",
+          marginLeft: "5rem",
         }}
       />
 
       {/* Render components based on activeTab */}
-      <div className="content" style={{ marginLeft: "6rem" }}>
+      <div className="content" style={{ marginLeft: "5rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCardGov show={true} />}
         {activeTab === "aqi" && <AqiDashboard show={true} />}

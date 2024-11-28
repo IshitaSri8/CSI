@@ -6,8 +6,8 @@ import Water from "@mui/icons-material/DirectionsBoat";
 import Rail from "@mui/icons-material/Train";
 import Road from "@mui/icons-material/DirectionsCar";
 import decrease from "assets/decrease.png";
-import InfoIcon from "@mui/icons-material/Info";
-import CustomTooltip from "./CustomTooltip";
+// import InfoIcon from "@mui/icons-material/Info";
+// import CustomTooltip from "./CustomTooltip";
 import { Doughnut } from "Layout/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
 

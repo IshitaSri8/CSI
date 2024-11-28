@@ -170,9 +170,8 @@ const Healthcare = ({ show }) => {
                   <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                     124
                   </p>
-                  <p className="text p-0 m-0 mt-1 text-xs font-medium">
-                    {" "}
-                    Other Medical Staff
+                  <p className="text p-0 m-0 mt-1 text-lg font-medium">
+                    Medical Staff
                   </p>
                 </div>
               </div>
@@ -220,7 +219,7 @@ const Healthcare = ({ show }) => {
               className="flex flex-column bg-white border-round p-3 justify-content-center"
               style={{ flex: "30%" }}
             >
-              <p className="text p-0 m-0 text-lg font-medium">
+              <p className="text-primary1 p-0 m-0 text-lg font-semibold">
                 Patient Doctor Ratio
               </p>
               <div className="flex my-3">
@@ -262,8 +261,8 @@ const Healthcare = ({ show }) => {
               style={{ flex: "25%" }}
             >
               <div className="flex flex-column">
-                <p className="text p-0 m-0 mb-1 font-medium text-lg">
-                  People Having Health Insurance
+                <p className="text-primary1 p-0 m-0 mb-1 font-semibold text-lg">
+                  No. of Health Insurance
                 </p>
                 <div className="flex align-items-center justify-content-around">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
@@ -278,7 +277,7 @@ const Healthcare = ({ show }) => {
               className="flex flex-column bg-white border-round p-3 justify-content-center"
               style={{ flex: "40%" }}
             >
-              <p className="text p-0 m-0 text-lg font-medium">Hospital Beds</p>
+              <p className="text-primary1 p-0 m-0 text-lg font-semibold">Hospital Beds</p>
               <div className="flex my-3">
                 <div className="flex flex-column w-full p-2 align-items-center">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
@@ -392,7 +391,7 @@ const Healthcare = ({ show }) => {
           {/* Header Row */}
           <div className="flex justify-content-between align-items-center mb-2">
             {/* Constant Title on the Left */}
-            <h4 className="m-0 text-lg font-medium text">
+            <h4 className="m-0 text-lg font-semibold text-primary1">
               Chronic Disease Distribution
             </h4>
 
@@ -484,7 +483,7 @@ const Healthcare = ({ show }) => {
 
         <div className="flex flex-column" style={{ flex: "22%" }}>
           <div className="flex flex-column bg-white p-3 border-round-top-xl">
-            <p className="text p-0 m-0 mb-1 font-medium text-lg">
+            <p className="text-primary1 p-0 m-0 mb-1 font-semibold text-lg">
               Rehab Centers
             </p>
             <div className="flex align-items-center justify-content-around">

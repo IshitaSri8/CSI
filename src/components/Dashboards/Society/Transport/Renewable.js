@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "primereact/card";
-import InfoIcon from "@mui/icons-material/Info";
-import CustomTooltip from "./CustomTooltip";
+// import InfoIcon from "@mui/icons-material/Info";
+// import CustomTooltip from "./CustomTooltip";
 import increase from "assets/increase.png";
 import CanvasJSReact from "@canvasjs/react-charts";
 import BusTrend from "./Transport/BusTrend";
@@ -88,16 +88,16 @@ const Renewable = () => {
   const projectLabels = ["Completed", "Ongoing", "Planned"];
   const projectSeries = [4, 12, 4];
   return (
-    <div className="flex align-items-center justify-content-between flex-column gap-4 w-full">
-      <div className="flex align-items-center justify-content-between flex-row gap-4 w-full">
+    <div className="flex align-items-center justify-content-between flex-column gap-2 w-full">
+      <div className="flex align-items-center justify-content-between gap-2 w-full">
         <Card className="w-full">
-          <div className="flex align-items-center justify-content-center flex-column">
+          <div className="flex align-items-center justify-content-between gap-2 flex-column">
             <p className="text-2xl text-primary1 font-semibold m-0 p-0">38 %</p>
-            <p className="text-lg font-medium text mt-3 p-0">
+            <p className="text-lg font-medium text m-0 p-0">
               Public Transport Using Renewable Energy
             </p>
-            <div className="flex align-items-center justify-content-center flex-row w-full ">
-              <div className="flex align-items-center justify-content-center flex-row">
+            <div className="flex align-items-center justify-content-center w-full ">
+              <div className="flex align-items-center justify-content-center">
                 <img
                   src={increase}
                   style={{
@@ -115,15 +115,15 @@ const Renewable = () => {
           </div>
         </Card>
         <Card className="w-full">
-          <div className="flex align-items-center justify-content-center flex-column">
+          <div className="flex align-items-center justify-content-between gap-2 flex-column">
             <p className="text-2xl text-primary1 font-semibold m-0 p-0">
               2579890 Litres
             </p>
-            <p className="text-lg font-medium text mt-3 p-0">
+            <p className="text-lg font-medium text m-0 p-0">
               Total Fuel Saved Using Renewable Energy
             </p>
-            <div className="flex align-items-center justify-content-center flex-row w-full ">
-              <div className="flex align-items-center justify-content-center flex-row">
+            <div className="flex align-items-center justify-content-center w-full ">
+              <div className="flex align-items-center justify-content-center">
                 <img
                   src={increase}
                   style={{
@@ -142,13 +142,13 @@ const Renewable = () => {
         </Card>
 
         <Card className="w-full">
-          <div className="flex align-items-center justify-content-center flex-column">
-          <p className="text-2xl text-primary1 font-semibold m-0 p-0">22</p>
-          <p className="text-lg font-medium text mt-3 p-0">
+          <div className="flex align-items-center justify-content-between gap-2 flex-column">
+          <p className="text-xl text-primary1 font-semibold m-0 p-0">22</p>
+          <p className="font-medium text m-0 p-0">
               No. of Renewable Energy Projects
             </p>
-            <div className="flex align-items-start justify-content-between flex-row w-full ">
-              <div className="flex align-items-start justify-content-start flex-row">
+            <div className="flex align-items-start justify-content-between w-full ">
+              <div className="flex align-items-start justify-content-start">
                 <img
                   src={increase}
                   style={{
@@ -177,7 +177,7 @@ const Renewable = () => {
           </div>
         </Card>
       </div>
-      <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
+      <div className="flex align-items-center justify-content-between gap-1 w-full">
         <Card className="w-full">
           <BusTrend
             totalBusesData={totalBusesData}
