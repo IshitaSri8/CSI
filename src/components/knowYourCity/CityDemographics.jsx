@@ -451,8 +451,7 @@ const CityDemographics = () => {
               </h1>
               <PartyPopper size={15} className="text-white" />
             </div>
-            <div className="flex align-items-center justify-content-center m-2">
-              <div className="flex align-items-center justify-content-center flex-column gap-3 w-full">
+              <div className="flex align-items-center justify-content-center flex-column gap-2 w-full p-2">
                 <div
                   className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -566,7 +565,6 @@ const CityDemographics = () => {
                   </Tooltip>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
