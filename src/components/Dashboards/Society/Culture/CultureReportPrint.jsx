@@ -54,7 +54,7 @@ export default function CultureReportPrint() {
     <>
       <div ref={contentRef} className="w-full print-container sec-theme p-4">
         <div className="flex flex-column gap-2 align-items-center w-full">
-        <h1
+          <h1
             style={{ color: "#166c7d" }}
             className="m-0 p-0 text-3xl font-semibold"
           >
@@ -62,7 +62,7 @@ export default function CultureReportPrint() {
           </h1>
           <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-          Cultural Preservation
+            Cultural Preservation
           </h1>
         </div>
         <div className="w-full">

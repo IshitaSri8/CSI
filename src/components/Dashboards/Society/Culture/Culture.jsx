@@ -73,7 +73,7 @@ const Culture = ({ show }) => {
           <div className="flex flex-column bg-white border-round p-3 w-full">
             <div className="flex align-items-start">
               <p className="text-primary1 font-semibold text-lg p-0 m-0">
-                Cultural Sites
+                CulturalSites
               </p>
               <i className="pi pi-info-circle text-secondary2 text-right w-full text-sm cursor-pointer sites"></i>
               <Tooltip target=".sites" position="right">
@@ -96,7 +96,7 @@ const Culture = ({ show }) => {
             <ProgressBar
               value={10}
               style={{ height: "0.75rem" }} // Adjust the height
-              className="w-full mt-2" // Full width of its container
+              className="w-full mt-1" // Full width of its container
               color="#FFAD0D"
               displayValueTemplate={() => null} // Hide the displayed value
             />
@@ -141,7 +141,7 @@ const Culture = ({ show }) => {
               categories={categories}
               totalSites={totalSites}
               maintainedSites={maintainedSites}
-              height={258}
+              height={245}
             />
           </div>
 
@@ -187,7 +187,7 @@ const Culture = ({ show }) => {
               title="Number of Tourists Over Years"
               labels={categories}
               dataSeries={touristData}
-              height={340}
+              height={325}
               dataPointWidth={20}
             />
           </div>

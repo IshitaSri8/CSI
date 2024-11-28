@@ -160,7 +160,7 @@ const Community = ({ show }) => {
             title="Socio-Cultural Facilities"
             labels={facilitiesCategories}
             dataSeries={facilitiesData}
-            height={300}
+            height={275}
             dataPointWidth={10}
           />
         </div>
