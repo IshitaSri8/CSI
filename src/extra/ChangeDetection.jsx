@@ -51,73 +51,44 @@ const ChangeDetection = () => {
   };
   const river_data = [
     {
-      area2016: "1200 sq. km",
-      area2024: "1000 sq. km",
-      changeInArea: "200 sq. km",
-      percentChange: ((200 / 1200) * 100).toFixed(2),
+      area2016: "23.311 sq. km",
+      area2024: "31.2013 sq. km",
+      changeInArea: (23.311 - 31.2013).toFixed(2) + " sq. km",
+      percentChange: (((23.311 - 31.2013) / 23.311) * 100).toFixed(2) + " %",
     },
   ];
   const riverbed_data = [
     {
-      area2016: "1200 sq. km",
-      area2024: "1000 sq. km",
+      area2016: "44.0977 sq. km",
+      area2024: "43.7084 sq. km",
       changeInArea: "200 sq. km",
       percentChange: ((200 / 1200) * 100).toFixed(2),
     },
   ];
-
-  const locations = [
+  const canal_data = [
     {
-      lat: 26.75362556,
-      lng: 82.13201167,
-      area: 12.34,
-      village: "Usroo",
-      msg: "Remote sensing data analysis indicates a notable decline in both the surface area and volume of numerous waterbodies. In recent years, some of these waterbodies have dried out or reduced significantly in volume.",
-    },
-    {
-      lat: 26.75143417,
-      lng: 82.04260139,
-      area: 12.34,
-      village: "Salarpur",
-      msg: "The decline in water resources, likely driven by factors such as changes in land use, climate variations, and increased demand for water.",
-    },
-    {
-      lat: 26.73101278,
-      lng: 82.10468167,
-      area: 12.34,
-      village: "Mau Yaduvansh Pur",
-      msg: " An exceptional case has been identified where a new water body appears in satellite imagery, which is not represented in the old topographic map. This observation suggests significant hydrological changes in the region, potentially due to alterations in land use, climate variability, or other environmental factors.",
-    },
-    {
-      lat: 26.75677167,
-      lng: 82.05409667,
-      area: 12.34,
-      village: "Haripur Jalalabad",
-      msg: " An exceptional case has been identified where a new water body appears in satellite imagery, which is not represented in the old topographic map. This observation suggests significant hydrological changes in the region, potentially due to alterations in land use, climate variability, or other environmental factors.",
-    },
-    {
-      lat: 26.81128694,
-      lng: 82.07886528,
-      area: 12.34,
-      village: "Haripur Jalalabad",
-      msg: " Analysis of Satellite imagery has revealed significant transformations in several river channels, with many sections drying out over time. The recent images show only the impressions or remnants of the river channels, with no active water flow, indicating the severity of the drying process.",
-    },
-    {
-      lat: 26.78043611,
-      lng: 82.11455444,
-      area: 12.34,
-      village: "Haripur Jalalabad",
-      msg: " Satellite imagery analysis has revealed a concerning trend: several river channels in the region have dried out over time. This change is visibly captured in comparative images, which show the gradual disappearance of water in these channels",
-    },
-    {
-      lat: 26.78043611,
-      lng: 82.11455444,
-      area: 12.34,
-      village: "Haripur Jalalabad",
-      msg: " Satellite imagery analysis has revealed a concerning trend: several river channels in the region have dried out over time. This change is visibly captured in comparative images, which show the gradual disappearance of water in these channels",
+      area2016: "0.9661 sq. km",
+      area2024: "1.0033  sq. km",
+      changeInArea: "200 sq. km",
+      percentChange: ((200 / 1200) * 100).toFixed(2),
     },
   ];
-
+  const drain_data = [
+    {
+      area2016: "44.0977 sq. km",
+      area2024: "43.7084 sq. km",
+      changeInArea: "200 sq. km",
+      percentChange: ((200 / 1200) * 100).toFixed(2),
+    },
+  ];
+  const waterbody_data = [
+    {
+      area2016: "44.0977 sq. km",
+      area2024: "43.7084 sq. km",
+      changeInArea: "200 sq. km",
+      percentChange: ((200 / 1200) * 100).toFixed(2),
+    },
+  ];
   const markerIcon = L.divIcon({
     className: "custom-marker-icon",
     html: ` 
@@ -482,7 +453,7 @@ const ChangeDetection = () => {
                 className="text-center"
               ></Column>
             </DataTable>
-            <DataTable value={riverbed_data} className="text-sm text-center">
+            <DataTable value={canal_data} className="text-sm text-center">
               <Column
                 field="area2016"
                 header="Area Covered by Canal (2016)"
@@ -508,7 +479,7 @@ const ChangeDetection = () => {
                 className="text-center"
               ></Column>
             </DataTable>
-            <DataTable value={riverbed_data} className="text-sm text-center">
+            <DataTable value={drain_data} className="text-sm text-center">
               <Column
                 field="area2016"
                 header="Area Covered by Drain (2016)"
@@ -534,7 +505,7 @@ const ChangeDetection = () => {
                 className="text-center"
               ></Column>
             </DataTable>
-            <DataTable value={riverbed_data} className="text-sm text-center">
+            <DataTable value={waterbody_data} className="text-sm text-center">
               <Column
                 field="area2016"
                 header="Area Covered by Waterbody (2016)"
