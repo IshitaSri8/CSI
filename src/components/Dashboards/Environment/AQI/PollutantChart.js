@@ -80,9 +80,10 @@ const PollutantChart = ({
           text: `${pollutantName} Trend`,
           fontSize: 12,
           fontFamily: "Montserrat",
-          fontWeight: 500,
+          fontWeight: 600,
+          fontColor: "#001F23",
           horizontalAlign: "left",
-          padding: { bottom: 20 },
+          padding: { bottom: 10 },
         },
         axisX: {
           fontSize: 10,
@@ -134,9 +135,10 @@ const PollutantChart = ({
           text: `${pollutantName} Levels on ${selectedDate}`,
           fontSize: 12,
           fontFamily: "Montserrat",
-          fontWeight: 500,
+          fontColor: "#001F23",
+          fontWeight: 600,
           horizontalAlign: "left",
-          padding: { bottom: 20 },
+          padding: { bottom: 10 },
         },
         axisX: {
           gridThickness: 0, // Remove X-axis gridlines

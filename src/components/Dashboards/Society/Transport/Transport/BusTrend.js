@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const RailTrend = ({ totalTrainsData, electricTrainsData }) => {
+const BusTrend = ({ totalBusesData, electricBusesData }) => {
   const [chartData, setChartData] = useState({
     BaseChart: [],
   });
 
   useEffect(() => {
     // Map data to include only year in the label
-    const totalTrainsDataPoints = totalTrainsData.map(({ year, count }) => ({
+    const totalBusesDataPoints = totalBusesData.map(({ year, count }) => ({
       label: year.toString(),
       x: new Date(year, 0), // Set the month and day to zero to represent only the year
       y: parseFloat(count),
     }));
 
-    const electricTrainsDataPoints = electricTrainsData.map(
+    const electricBusesDataPoints = electricBusesData.map(
       ({ year, count }) => ({
         label: year.toString(),
         x: new Date(year, 0),
@@ -26,18 +26,18 @@ const RailTrend = ({ totalTrainsData, electricTrainsData }) => {
     const newChartData = {
       BaseChart: [
         {
-          name: "Total Trains",
+          name: "Total Public Transport",
           type: "splineArea",
           showInLegend: true,
-          dataPoints: totalTrainsDataPoints,
+          dataPoints: totalBusesDataPoints,
           color: "#26575D",
           markerSize: 5,
         },
         {
-          name: "Electric Trains",
+          name: "Public Transport Using Renewable Energy",
           type: "line",
           showInLegend: true,
-          dataPoints: electricTrainsDataPoints,
+          dataPoints: electricBusesDataPoints,
           color: "#98C6CF",
           markerSize: 5,
         },
@@ -45,48 +45,54 @@ const RailTrend = ({ totalTrainsData, electricTrainsData }) => {
     };
 
     setChartData(newChartData);
-  }, [totalTrainsData, electricTrainsData]);
+  }, [totalBusesData, electricBusesData]);
 
   const baseChartOptions = {
     animationEnabled: true,
     theme: "light2",
-    height: 300,
     title: {
-      text: "Trains Trend Over the Past Decade",
-      fontSize: 12,
-      fontFamily: "DM Sans",
-      fontWeight: "800",
+      text: "Transportion Trend Over the Past Decade",
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
     axisX: {
-      labelFontColor: "#717171",
-      lineColor: "#26575D",
-      tickColor: "#26575D",
+    //  labelFontColor: "#E9F3F5",
+      lineColor: "#a2a2a2",
+      tickColor: "#a2a2a2",
       valueFormatString: "YYYY", // Show only year
     },
     axisY: {
       gridThickness: 0,
       includeZero: false,
-      labelFontColor: "#717171",
-      lineColor: "#26575D",
-      tickColor: "#26575D",
+    //  labelFontColor: "#E9F3F5",
+      lineColor: "#a2a2a2",
+      tickColor: "#a2a2a2",
       lineThickness: 1,
       title: "",
     },
     data: chartData["BaseChart"] || [],
     toolTip: {
       shared: true, // Allows shared tooltip for comparing data points
-      content: "{name}: {y} trains",
+      content: "{name}: {y}",
+    },
+    legend: {
+      fontFamily: "Montserrat",
+      horizontalAlign: "left",
+      fontWeight: 400,
+      fontSize: 10,
     },
   };
 
   return (
-    <div className="rail-trend-chart">
       <CanvasJSChart
         options={baseChartOptions}
-        containerProps={{ width: "100%", height: "300px" }}
+        containerProps={{ width: "100%", height: 200 }}
       />
-    </div>
   );
 };
 
-export default RailTrend;
+export default BusTrend;

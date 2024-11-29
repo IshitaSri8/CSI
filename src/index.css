@@ -12,6 +12,7 @@
   --text-color: #4c4c4c;
   --text-secondary:#00403c;
   --text-secondary-2:#003940;
+  --text-secondary-3: #26575D;
   --text-primary: #001F23;
   --text-primary-2: #4D7479;
   --text-tertiary: #E7EAEA;
@@ -23,6 +24,7 @@
   --bg-success: #0C9D61;
   --bg-danger: #E62225;
   --bg-moderate: #FFAD0D;
+  --text-moderate: #F9C849;
 }
 
 body {

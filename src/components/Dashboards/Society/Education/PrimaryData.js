@@ -15,10 +15,10 @@ export const primaryData = {
   teacherStudentRatioCurrentValue:1/36,
 
   genderLabels: ["Male", "Female"],
-  genderData: [45, 55],
+  genderData: [45000, 30000],
 
   institutionsLabels: ["Government", "Private"],
-  institutionsData: [70, 30],
+  institutionsData: [150, 46],
 
   years: ["2018", "2019", "2020", "2021"],
   enrollmentTrendData: [

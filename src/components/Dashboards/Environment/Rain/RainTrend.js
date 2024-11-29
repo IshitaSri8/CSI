@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
 import { Button } from "primereact/button";
-import { color } from "framer-motion";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const RainTrend = ({
@@ -106,8 +105,8 @@ const RainTrend = ({
           fontSize: 10,
           horizontalAlign: "left",
           fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "black",
+          fontWeight: 600,
+          fontColor: "#001F23",
         },
         title: {
           text: `Rainfall Trend Over Months for ${selectedYear}`,

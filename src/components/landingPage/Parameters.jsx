@@ -19,7 +19,7 @@ const Parameters = () => {
         >
           <div className="flex flex-column align-items-left justify-content-start m-0 p-0 ">
             <img src={Nature} alt="Nature" className="w-full" />
-            <h3 className="text-3xl mb-0 mx-6 text-900">Nature</h3>
+            <h3 className="text-3xl mb-0 mx-6 text-primary1">Nature</h3>
             <p className="mx-6 mb-5 text-sm">
               Nature refers to the integrated environmental systems and
               ecological conditions within a city that impact both the natural
@@ -38,7 +38,7 @@ const Parameters = () => {
         >
           <div className="flex flex-column align-items-left justify-content-start ">
             <img src={Society} alt="Society" className="w-full" />
-            <h3 className="text-3xl mb-0 text-900 mx-6">Society</h3>
+            <h3 className="text-3xl mb-0 text-primary1 mx-6">Society</h3>
             <p className="mx-6 mb-5 text-sm">
               Society refers to the process of developing thriving and
               sustainable environments that enhance well-being. This involves
@@ -55,7 +55,7 @@ const Parameters = () => {
         >
           <div className="flex flex-column align-items-left justify-content-start ">
             <img src={Admin} alt="Admin" className="w-full" />
-            <h3 className="mx-6 text-3xl mb-0 text-900">Administration</h3>
+            <h3 className="mx-6 text-3xl mb-0 text-primary1">Administration</h3>
             <p className="mx-6 mb-5 text-sm">
               Administration refers to the governance mechanisms, institutional
               frameworks, and systems of accountability that manage a city's

@@ -233,21 +233,21 @@ const CityProgress = () => {
         </div>
       </div>
       <div
-        className="w-full border-round-2xl w-full p-2"
+        className="w-full border-round-2xl w-full"
         style={{
           background: "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
         }}
       >
         <div className="flex gap-2 w-full p-2">
-          <div className="flex flex-column gap-4 w-full">
-            <div className="flex flex-column align-items-center">
+          <div className="flex flex-column gap-3 w-full">
+            <div className="flex flex-column align-items-center gap-2">
               <p
                 className="text-lg font-medium m-0 text-center"
                 style={{ color: "#fff" }}
               >
                 Waste Management
               </p>
-              <img src={waste} alt="overall" className="w-4 mt-2" />
+              <img src={waste} alt="overall" className="w-5" />
             </div>
             <div
               className="border-round-2xl w-full"
@@ -315,7 +315,7 @@ const CityProgress = () => {
               </p>
             </div>
           </div>
-          <div className="flex flex-column gap-2 w-full">
+          <div className="flex flex-column gap-3 w-full">
             <div
               className="border-round-2xl w-full p-2"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}

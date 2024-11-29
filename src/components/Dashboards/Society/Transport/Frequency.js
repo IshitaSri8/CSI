@@ -1,20 +1,18 @@
 import { Card } from "primereact/card";
 import React from "react";
-import { DonutChart, BarChart } from "Layout/GraphVisuals";
-
+import { Doughnut, BarChart } from "Layout/GraphVisuals";
 import Air from "@mui/icons-material/Flight";
 import Water from "@mui/icons-material/DirectionsBoat";
 import Rail from "@mui/icons-material/Train";
 import Road from "@mui/icons-material/DirectionsCar";
-
-import InfoIcon from "@mui/icons-material/Info";
-import CustomTooltip from "./CustomTooltip";
+// import InfoIcon from "@mui/icons-material/Info";
+// import CustomTooltip from "./CustomTooltip";
 import increase from "assets/increase.png";
-import decrease from "assets/decrease.png";
+import { Tooltip } from "primereact/tooltip";
 
 const Frequency = () => {
   const categories = ["Roadways", "Railways", "Airways", "Waterways"];
-  const waitseries = [[70, 80, 60, 50]];
+  const waitseries = [70, 80, 60, 50];
   const frequencyseries = [70, 80, 60, 50];
 
   const cardsData = [
@@ -32,8 +30,10 @@ const Frequency = () => {
             <div className="flex w-full h-auto p-0 m-0">
               {/* Left Column: Content */}
               <div className="flex w-full m-0 p-0 align-items-start justify-content-start flex-column">
-                <h1 className="m-0 text-xs">{card.label}</h1>
-                <h1 className="text-xl text-theme ml-0 mb-0 ">{card.value}</h1>
+                <p className="m-0 text-lg font-medium text p-0">{card.label}</p>
+                <p className="text-xl text-primary1 font-semibold">
+                  {card.value}
+                </p>
               </div>
 
               {/* Right Column: Icon */}
@@ -58,30 +58,17 @@ const Frequency = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
-                  <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
-                    <p className="m-0 text-xs">
-                      Frequency In Current Year: 70%
-                    </p>
-                    <p className="m-0 text-xs">
-                      Frequency In Previous Year: 60%
-                    </p>
-                  </div>
-                }
-              >
-                <InfoIcon
-                  style={{
-                    height: "1.2rem",
-                    width: "1.2rem",
-                    color: "#1f8297",
-                  }}
-                />
-              </CustomTooltip>
+              <i className="pi pi-info-circle text-theme w-full text-right frequency text-sm"></i>
+              <Tooltip target=".frequency" position="right">
+                <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
+                  <p className="m-0 text-sm">Frequency In Current Year: 70%</p>
+                  <p className="m-0 text-sm">Frequency In Previous Year: 60%</p>
+                </div>
+              </Tooltip>
             </div>
           </Card>
         ))}
@@ -91,17 +78,25 @@ const Frequency = () => {
           <BarChart
             categories={categories}
             series={waitseries}
-            height={200}
+            height={150}
             width={"100%"}
             title="Average wait time for different transport modes"
           />
         </Card>
         <Card className="w-full">
-          <DonutChart
+          <Doughnut
             labels={categories}
             series={frequencyseries}
-            height={200}
+            height={150}
             title="Average number of services per day"
+            horizontal={"center"}
+            vertical={"bottom"}
+            colorArray={[
+              "#98C6CF", // Light Blue
+              "#1F8297", // Dark Cyan
+              "#166c7d", // Dark Teal
+              "#0F4B57",
+            ]}
           />
         </Card>
       </div>

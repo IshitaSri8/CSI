@@ -5,46 +5,45 @@ import { Card } from "primereact/card";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Fare = () => {
-    const colors = [
-      "#26575D",
-      "#1F8297",
-      "#4D7479",
-      "#4C9BAC",
-      "#98C6CF",
-      "#F7A47A",
-      "#47B881",
-      "#FFDD82",
-      "#F64C4C",
-      ];
+  const colors = [
+    "#98C6CF", // Light Blue
+    "#1F8297", // Dark Cyan
+    "#166c7d", // Dark Teal
+    "#0F4B57", // Dark Slate Blue
+    "#5B98A4", // Slate Blue
+  ];
   // 1. Average Fare per Transport Mode (Bar Chart)
   const averageFareOptions = {
     animationEnabled: true,
     title: {
       text: "Average Fare per Transport Mode",
-      fontFamily: "DM Sans",
-      fontWeight: 800,
-      fontSize: 12,
-      padding: { bottom: 20 },
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
+    height: 150,
     axisY: {
-     // title: "Fare (in USD)",
       includeZero: false,
+      labelFontFamily: "Montserrat",
       gridThickness: 0,
       labelFontSize: 10,
     },
     axisX: {
-     // title: "Transport Modes",
-     labelFontSize: 10,
+      labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
-   
+
     data: [
       {
         type: "column",
         dataPoints: [
-            { label: "Road", y: 100, color: colors[0] },
-            { label: "Rail", y: 550, color: colors[1] },
-            { label: "Airways", y: 1200, color: colors[2] },
-            { label: "Waterways", y: 1800, color: colors[3] },
+          { label: "Road", y: 100, color: colors[0] },
+          { label: "Rail", y: 550, color: colors[1] },
+          { label: "Airways", y: 1200, color: colors[2] },
+          { label: "Waterways", y: 1800, color: colors[3] },
         ],
       },
     ],
@@ -55,21 +54,23 @@ const Fare = () => {
     animationEnabled: true,
     title: {
       text: "Fare Affordability Index (as % of Average Income)",
-      fontFamily: "DM Sans",
-      fontWeight: 800,
-      fontSize: 12,
-      padding: { bottom: 20 },
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
-   
+    height: 150,
     axisY: {
-      //title: "% of Income",
       includeZero: false,
       gridThickness: 0,
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
     axisX: {
-     // title: "Years",
-     labelFontSize: 10,
+      labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
     data: [
       {
@@ -91,35 +92,42 @@ const Fare = () => {
     animationEnabled: true,
     title: {
       text: "Fare Structures Across Transport Modes",
-      fontFamily: "DM Sans",
-      fontWeight: 800,
-      fontSize: 12,
-      padding: { bottom: 20 },
+      fontSize: 14,
+      fontFamily: "Montserrat",
+      fontWeight: 500,
+      fontColor: "#4C4C4C",
+      horizontalAlign: "left",
+      padding: { bottom: 10 },
     },
+    height: 150,
     axisY: {
-     // title: "Fare (in USD)",
+      // title: "Fare (in USD)",
       includeZero: true,
       gridThickness: 0,
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
     axisX: {
-        labelFontSize: 10,
+      labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
     toolTip: {
       shared: true,
     },
     legend: {
-        // horizontalAlign: "right",
-        // verticalAlign: "center",
-        fontSize: 8,
-      },
-   
+      horizontalAlign: "left",
+      // verticalAlign: "center",
+      fontSize: 8,
+      fontFamily: "Montserrat",
+      fontWeight: 400,
+    },
+
     data: [
       {
         type: "stackedBar",
         name: "Base Fare",
         showInLegend: true,
-        color: colors[5],
+        color: colors[0],
         dataPoints: [
           { label: "Road", y: 1.0 },
           { label: "Rail", y: 1.5 },
@@ -131,7 +139,7 @@ const Fare = () => {
         type: "stackedBar",
         name: "Peak Fare",
         showInLegend: true,
-        color: colors[4],
+        color: colors[1],
         dataPoints: [
           { label: "Road", y: 0.5 },
           { label: "Rail", y: 0.8 },
@@ -150,21 +158,6 @@ const Fare = () => {
         <Card className="w-full">
           {/* <h1 className="m-0 p-1 text-lg">Average Fare per Transport Mode</h1> */}
           <CanvasJSChart options={averageFareOptions} />
-          {/* <div className="flex align-items-start justify-content-between w-full">
-            <div className="flex align-items-start justify-content-start">
-              <img
-                src={increase}
-                style={{ height: "1rem", width: "1rem", marginRight: "0.5rem" }}
-                alt="increase"
-              />
-              <p className="text-green-500 text-xs m-0">
-                5% increase in last one year.
-              </p>
-            </div>
-            <CustomTooltip content={<CanvasJSChart options={averageFareOptions} />}>
-              <InfoIcon style={{ height: "1.2rem", width: "1.2rem", color: "#00a269" }} />
-            </CustomTooltip>
-          </div> */}
         </Card>
 
         {/* 2. Fare Affordability Index */}

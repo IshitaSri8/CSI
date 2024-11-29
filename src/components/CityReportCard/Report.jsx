@@ -85,22 +85,27 @@ const CityReportCard = () => {
       text: "City Sustainability Metrics",
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: "500",
-      fontColor: "black",
+      fontWeight: 600,
+      fontColor: "#4c4c4c",
       horizontalAlign: "left",
-      padding: { bottom: 20 },
+      padding: { bottom: 10 },
     },
     axisY: {
       title: "Score",
       gridThickness: 0,
       labelFontSize: 10,
+      labelFontFamily: "Montserrat",
     },
     axisX: {
       interval: 1,
       labelFontSize: 10,
-      // labelFontFamily: "Montserrat",
+      labelFontFamily: "Montserrat",
     },
-
+legend: {
+fontFamily: "Montserrat",
+horizontalAlign: "left",
+fontWeight: 500,
+},
     toolTip: {
       shared: true,
       cornerRadius: 4,
@@ -116,6 +121,7 @@ const CityReportCard = () => {
         indexLabel: "{y}",
         indexLabelPlacement: "outside",
         indexLabelFontColor: "#26575D",
+        indexLabelFontFamily: "Montserrat",
         indexLabelFontSize: 10,
         dataPoints: categories.Environment.data.map((val, index) => ({
           label: months[index],
@@ -131,6 +137,7 @@ const CityReportCard = () => {
         indexLabel: "{y}",
         indexLabelPlacement: "outside",
         indexLabelFontColor: "#FFDD82",
+        indexLabelFontFamily: "Montserrat",
         indexLabelFontSize: 10,
         dataPoints: categories.Social.data.map((val, index) => ({
           label: months[index],
@@ -145,6 +152,7 @@ const CityReportCard = () => {
         indexLabel: "{y}",
         indexLabelPlacement: "outside",
         indexLabelFontColor: "#1f8297",
+        indexLabelFontFamily: "Montserrat",
         indexLabelFontSize: 10,
         dataPoints: categories.Governance.data.map((val, index) => ({
           label: months[index],

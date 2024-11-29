@@ -3,7 +3,7 @@ import "primeflex/primeflex.css";
 import waves from "assets/KYC/wave.svg";
 import geo_area from "assets/KYC/geographical.png";
 import { Divider } from "primereact/divider";
-import { CircularProgressbar } from "react-circular-progressbar";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Doughnut } from "Layout/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
@@ -34,7 +34,7 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center flex-column p-3 border-round w-full "
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-xl font-semibold text-white">
+                  <h1 className="p-1 m-0 text-xl font-medium text-white">
                     133.67 <span className="text-sm">sq.km</span>
                   </h1>
                   <p className="p-1 m-0 text-white text-xs">
@@ -46,7 +46,7 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center border-round flex-column p-3"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-0 m-0 text-2xl font-semibold text-white">
+                  <h1 className="p-0 m-0 text-2xl font-medium text-white">
                     11
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">Blocks</p>
@@ -55,7 +55,7 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center p-3 border-round flex-column"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-0 m-0 text-2xl font-semibold text-white">
+                  <h1 className="p-0 m-0 text-2xl font-medium text-white">
                     60
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">Wards</p>
@@ -65,7 +65,7 @@ const CityDemographics = () => {
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
                   <i className="pi pi-info-circle text-white w-full text-right highway text-xs"></i>
-                  <h1 className="p-0 m-0 text-2xl font-semibold text-white mb-1">
+                  <h1 className="p-0 m-0 text-2xl font-medium text-white mb-1">
                     1
                   </h1>
                   <p className="p-1 m-0 text-white text-sm">Highways</p>
@@ -92,21 +92,25 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center p-3 border-round flex-column w-full"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-xl text-white">5</h1>
+                  <h1 className="p-0 m-0 text-2xl text-white font-medium ">
+                    5
+                  </h1>
                   <p className="p-1 m-0 text-white text-sm">Water Bodies</p>
                 </div>
                 <div
                   className="flex align-items-center justify-content-center p-3 border-round flex-column"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-xl text-white">1</h1>
+                  <h1 className="p-0 m-0 text-2xl font-medium  text-white">
+                    1
+                  </h1>
                   <p className="p-1 m-0 text-white text-sm">Nallahs</p>
                 </div>
                 <div
                   className="flex align-items-center justify-content-center p-3 border-round flex-column w-full"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-xl text-white">
+                  <h1 className="p-0 m-0 text-2xl font-medium  text-white">
                     163.31 <span className="text-sm">ha</span>{" "}
                   </h1>
                   <p className="p-1 m-0 text-white text-xs">
@@ -116,7 +120,7 @@ const CityDemographics = () => {
               </div>
             </div>
             <div className="flex align-items-center justify-content-center border-round-xl p-2 surface-200">
-              <img src={geo_area} alt="area" className="h-12rem w-14rem" />
+              <img src={geo_area} alt="area" className="h-11rem w-14rem" />
             </div>
           </div>
         </div>
@@ -133,7 +137,7 @@ const CityDemographics = () => {
             </h1>
             <i className="pi pi-users text-white"></i>
           </div>
-          <div className="flex align-items-center justify-content-center gap-5 p-2">
+          <div className="flex align-items-center justify-content-center gap-4 p-2">
             {/* waves */}
             <div
               className="flex align-items-center justify-content-between flex-column bg-theme my-2 border-round"
@@ -141,36 +145,51 @@ const CityDemographics = () => {
             >
               <div className="flex align-items-center justify-content-between bg-white border-round-top">
                 <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
-                  <h1 className="p-1 m-0 text-xl text-theme">2,21,118</h1>
-                  <p className="p-0 m-0 text-600 text-xs">Census Population</p>
+                  <h1 className="p-1 m-0 text-2xl text-theme font-medium">
+                    2,21,118
+                  </h1>
+                  <p className="p-0 m-0 text text-xs font-medium ">
+                    Census Population
+                  </p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
-                  <h1 className="p-1 m-0 text-xl text-theme">25,669</h1>
-                  <p className="p-1 m-0 text-gray-600 text-xs">
+                  <h1 className="p-1 m-0 text-2xl font-medium text-theme">
+                    25,669
+                  </h1>
+                  <p className="p-0 m-0 text text-xs font-medium ">
                     Slum Population
                   </p>
                 </div>
               </div>
               {/* <img src={waves} className="p-0" alt="waves" /> */}
-              <div className="flex align-items-center justify-content-center flex-column p-3">
-                <h1 className="p-1 m-0 text-xl text-white">4,65,206</h1>
-                <p className="p-1 m-0 text-white text-sm">Current Population</p>
+              <div className="flex align-items-center justify-content-center flex-column p-3 gap-2">
+                <h1 className="p-1 m-0 text-2xl font-medium text-white">
+                  4,65,206
+                </h1>
+                <p className="p-0 font-medium m-0 text-white text-sm">
+                  Current Population
+                </p>
               </div>
             </div>{" "}
-            <div className="flex w-full bg-white align-items-center justify-content-center py-3 border-round flex-column gap-2">
-              <h1 className="p-0 m-0 text-cyan-800">Sex Ratio- 980</h1>
+            <div className="flex w-full bg-white justify-content-center p-3 border-round flex-column gap-2">
+              <p className="p-0 m-0 text-left font-semibold text-primary1">
+                Sex Ratio- <span className="text font-medium">980</span>
+              </p>
 
               <Doughnut
                 title={""}
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
-                height={115}
+                height={100}
+                colorArray={["#98C6CF", "#1F8297"]}
+                horizontal={"center"}
+                vertical={"bottom"}
               />
             </div>
             {/* literacy-rate */}
             <div className="flex align-items-center justify-content-center flex-column gap-2">
-              <div className="flex align-items-center justify-content-center p-2 bg-white border-round w-full gap-1">
+              <div className="flex align-items-center justify-content-center p-2 bg-white border-round w-full">
                 <div
                   style={{
                     width: "4rem",
@@ -181,17 +200,28 @@ const CityDemographics = () => {
                   <CircularProgressbar
                     value={73}
                     text="73%"
-                    className="m-0 p-0 "
+                    className="m-0 p-0 font-medium"
+                    strokeWidth={12}
+                    styles={buildStyles({
+                      pathColor: "#1f8297",
+                      textColor: "#001F23",
+                      trailColor: "#E7EAEA",
+                      textSize: "2rem",
+                      pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                      transform: "rotate(2.25turn)",
+                    })}
                   />
                 </div>
-                <p className="p-0 m-0 text-600 text-xs text-center">
+                <p className="p-0 m-0 text text-xs text-center font-medium ">
                   Literacy Rate
                 </p>
               </div>
 
               <div className="flex align-items-center justify-content-center p-3 flex-column bg-white border-round w-full">
-                <h1 className="p-0 m-0 text-lg text-theme">980/sq.km</h1>
-                <p className="p-1 m-0 text-600 text-sm text-center">
+                <h1 className="p-0 m-0 text-2xl text-theme font-medium">
+                  980<span className="text-lg">/sq.km</span>
+                </h1>
+                <p className="p-1 m-0 text font-medium text-xs text-center">
                   Population Density
                 </p>
               </div>
@@ -206,7 +236,7 @@ const CityDemographics = () => {
             className="w-full shadow-2 p-3 border-round-2xl"
             style={{
               background:
-              " linear-gradient(to left , #1F8297, #166C7D, #003940)",
+                " linear-gradient(to left , #1F8297, #166C7D, #003940)",
             }}
           >
             <div className="flex align-items-center justify-content-between ">
@@ -221,7 +251,7 @@ const CityDemographics = () => {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full text-xs cursor-pointer sewage"></i>
-                <h1 className="text-white p-1 m-0 text-2xl">1</h1>
+                <h1 className="text-white p-1 m-0 text-2xl font-medium ">1</h1>
                 <p className="text-white p-1 m-0">Sewage Treatment Plants</p>
                 <Tooltip
                   target=".sewage"
@@ -245,7 +275,7 @@ const CityDemographics = () => {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full text-xs"></i>
-                <h1 className="text-white p-1 m-0 text-2xl">0</h1>
+                <h1 className="text-white p-1 m-0 text-2xl font-medium ">0</h1>
                 <p className="text-white p-1 m-0">Landfills & Dumpsites</p>
               </div>
             </div>
@@ -272,7 +302,7 @@ const CityDemographics = () => {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full hospitals cursor-pointer text-xs"></i>
-                <h1 className="text-white p-1 m-0 text-2xl">188</h1>
+                <h1 className="text-white p-1 m-0 text-2xl font-medium">188</h1>
                 <p className="text-white p-1 m-0 text-sm">Hospitals</p>
                 <Tooltip target=".hospitals" position="right">
                   <p className="text-left font-bold m-0 p-0">
@@ -293,7 +323,7 @@ const CityDemographics = () => {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right education cursor-pointer text-xs w-full"></i>
-                <h1 className="text-white p-1 m-0 text-2xl">252</h1>
+                <h1 className="text-white p-1 m-0 text-2xl font-medium">252</h1>
                 <p className="text-white p-1 m-0 text-sm">
                   Educational Facilities
                 </p>
@@ -312,7 +342,7 @@ const CityDemographics = () => {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right hotels cursor-pointer text-xs w-full"></i>
-                <h1 className="text-white p-1 m-0 text-2xl">17</h1>
+                <h1 className="text-white p-1 m-0 font-medium text-2xl">17</h1>
                 <p className="text-white p-1 m-0 text-sm">Hotels</p>
                 <Tooltip
                   target=".hotels"
@@ -350,7 +380,7 @@ const CityDemographics = () => {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right dharamshala cursor-pointer text-xs w-full"></i>
-                <h1 className="text-white p-1 m-0 text-2xl">70</h1>
+                <h1 className="text-white p-1 m-0 font-medium text-2xl">70</h1>
                 <p className="text-white p-1 m-0 text-sm">Dharamshalas</p>
                 <Tooltip
                   target=".dharamshala"
@@ -380,7 +410,7 @@ const CityDemographics = () => {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full text-xs market"></i>
-                <h1 className="text-white p-1 m-0 text-2xl">1</h1>
+                <h1 className="text-white p-1 m-0 font-medium text-2xl">1</h1>
                 <p className="text-white p-1 m-0 text-sm">A.P.M.C. Markets</p>
                 <Tooltip
                   target=".market"
@@ -421,8 +451,7 @@ const CityDemographics = () => {
               </h1>
               <PartyPopper size={15} className="text-white" />
             </div>
-            <div className="flex align-items-center justify-content-center m-2">
-              <div className="flex align-items-center justify-content-center flex-column gap-3 w-full">
+              <div className="flex align-items-center justify-content-center flex-column gap-2 w-full p-2">
                 <div
                   className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -433,7 +462,7 @@ const CityDemographics = () => {
                     </p>
                     <i className="pi pi-info-circle attractions text-white text-xs" />
                   </div>
-                  <h1 className="p-1 m-0 text-white text-lg">9</h1>
+                  <h1 className="p-1 m-0 text-white font-medium text-xl">9</h1>
                   <Tooltip
                     target=".attractions"
                     position="top"
@@ -472,7 +501,7 @@ const CityDemographics = () => {
                     </p>
                     <i className="pi pi-info-circle fairs cursor-pointer text-xs text-white text-xs" />
                   </div>
-                  <h1 className="p-1 m-0 text-white  text-lg">4</h1>
+                  <h1 className="p-1 m-0 text-white font-medium text-xl">4</h1>
                   <Tooltip
                     target=".fairs"
                     position="top"
@@ -508,7 +537,7 @@ const CityDemographics = () => {
                     </p>
                     <i className="pi pi-info-circle text-white socio-culture cursor-pointer text-xs text-xs" />
                   </div>
-                  <h1 className="p-1 m-0 text-white  text-lg">7</h1>
+                  <h1 className="p-1 m-0 text-white font-medium text-xl">7</h1>
                   <Tooltip
                     target=".socio-culture"
                     position="top"
@@ -536,7 +565,6 @@ const CityDemographics = () => {
                   </Tooltip>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

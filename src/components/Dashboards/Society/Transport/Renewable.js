@@ -1,11 +1,11 @@
 import React from "react";
 import { Card } from "primereact/card";
-import { Panel } from "primereact/panel";
-import InfoIcon from "@mui/icons-material/Info";
-import CustomTooltip from "./CustomTooltip";
+// import InfoIcon from "@mui/icons-material/Info";
+// import CustomTooltip from "./CustomTooltip";
 import increase from "assets/increase.png";
 import CanvasJSReact from "@canvasjs/react-charts";
-import BusTrend from "./BusTrend";
+import BusTrend from "./Transport/BusTrend";
+import { Tooltip } from "primereact/tooltip";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Renewable = () => {
   const Doughnut = ({ title, labels, series, height }) => {
@@ -53,31 +53,6 @@ const Renewable = () => {
         verticalAlign: "bottom",
       },
     };
-    const totalBusesData = [
-      { year: 2014, count: 1500 },
-      { year: 2015, count: 1550 },
-      { year: 2016, count: 1400 },
-      { year: 2017, count: 1650 },
-      { year: 2018, count: 1800 },
-      { year: 2019, count: 1750 },
-      { year: 2020, count: 1800 },
-      { year: 2021, count: 1050 },
-      { year: 2022, count: 1900 },
-      { year: 2023, count: 1950 },
-    ];
-
-    const electricBusesData = [
-      { year: 2014, count: 100 },
-      { year: 2015, count: 130 },
-      { year: 2016, count: 140 },
-      { year: 2017, count: 160 },
-      { year: 2018, count: 100 },
-      { year: 2019, count: 200 },
-      { year: 2020, count: 220 },
-      { year: 2021, count: 220 },
-      { year: 2022, count: 160 },
-      { year: 2023, count: 280 },
-    ];
     return (
       <CanvasJSChart
         options={options}
@@ -113,16 +88,16 @@ const Renewable = () => {
   const projectLabels = ["Completed", "Ongoing", "Planned"];
   const projectSeries = [4, 12, 4];
   return (
-    <div className="flex align-items-center justify-content-between flex-column gap-4 w-full">
-      <div className="flex align-items-center justify-content-between flex-row gap-4 w-full">
+    <div className="flex align-items-center justify-content-between flex-column gap-2 w-full">
+      <div className="flex align-items-center justify-content-between gap-2 w-full">
         <Card className="w-full">
-          <div className="flex align-items-center justify-content-center flex-column">
-            <h1 className="text-2xl text-theme text-bold m-0 p-0">38 %</h1>
-            <h1 className="text-xs text-semibold mt-3 p-0">
+          <div className="flex align-items-center justify-content-between gap-2 flex-column">
+            <p className="text-2xl text-primary1 font-semibold m-0 p-0">38 %</p>
+            <p className="text-lg font-medium text m-0 p-0">
               Public Transport Using Renewable Energy
-            </h1>
-            <div className="flex align-items-center justify-content-center flex-row w-full ">
-              <div className="flex align-items-center justify-content-center flex-row">
+            </p>
+            <div className="flex align-items-center justify-content-center w-full ">
+              <div className="flex align-items-center justify-content-center">
                 <img
                   src={increase}
                   style={{
@@ -132,29 +107,23 @@ const Renewable = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
-              {/* <CustomTooltip content={<div></div>}>
-                <InfoIcon
-                  style={{ height: "1.2rem", width: "1.2rem", color: "green" }}
-                />
-              </CustomTooltip> */}
             </div>
           </div>
         </Card>
         <Card className="w-full">
-          <div className="flex align-items-center justify-content-center flex-column">
-            <h1 className="text-2xl text-theme text-bold m-0 p-0">
-              {" "}
+          <div className="flex align-items-center justify-content-between gap-2 flex-column">
+            <p className="text-2xl text-primary1 font-semibold m-0 p-0">
               2579890 Litres
-            </h1>
-            <h1 className="text-xs text-semibold mt-3 p-0">
+            </p>
+            <p className="text-lg font-medium text m-0 p-0">
               Total Fuel Saved Using Renewable Energy
-            </h1>
-            <div className="flex align-items-center justify-content-center flex-row w-full ">
-              <div className="flex align-items-center justify-content-center flex-row">
+            </p>
+            <div className="flex align-items-center justify-content-center w-full ">
+              <div className="flex align-items-center justify-content-center">
                 <img
                   src={increase}
                   style={{
@@ -164,27 +133,22 @@ const Renewable = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
-              {/* <CustomTooltip content={<div></div>}>
-                <InfoIcon
-                  style={{ height: "1.2rem", width: "1.2rem", color: "green" }}
-                />
-              </CustomTooltip> */}
             </div>
           </div>
         </Card>
 
         <Card className="w-full">
-          <div className="flex align-items-center justify-content-center flex-column">
-            <h1 className="text-2xl text-theme text-bold m-0 p-0">22</h1>
-            <h1 className="text-xs text-semibold mt-3 p-0">
+          <div className="flex align-items-center justify-content-between gap-2 flex-column">
+          <p className="text-xl text-primary1 font-semibold m-0 p-0">22</p>
+          <p className="font-medium text m-0 p-0">
               No. of Renewable Energy Projects
-            </h1>
-            <div className="flex align-items-start justify-content-between flex-row w-full ">
-              <div className="flex align-items-start justify-content-start flex-row">
+            </p>
+            <div className="flex align-items-start justify-content-between w-full ">
+              <div className="flex align-items-start justify-content-start">
                 <img
                   src={increase}
                   style={{
@@ -194,37 +158,26 @@ const Renewable = () => {
                   }}
                   alt="increase"
                 ></img>
-                <p className="text-theme text-xs p-0 m-0">
+                <p className="text-theme text-sm p-0 m-0">
                   10% increase in last one year.
                 </p>
               </div>
-              <CustomTooltip
-                content={
+              <i className="pi pi-info-circle text-theme w-full text-right renewable text-sm"></i>
+            <Tooltip target=".renewable" position="bottom">
+              <div className="w-15rem">
                   <Doughnut
                     title=""
                     labels={projectLabels}
                     series={projectSeries}
                     height={100}
-                  />
-                }
-              >
-                <InfoIcon
-                  style={{ height: "1.2rem", width: "1.2rem", color: "#1f8297" }}
-                />
-              </CustomTooltip>
-            </div>
+                    />
+                    </div>
+                    </Tooltip>
+                    </div>
           </div>
         </Card>
       </div>
-      <div className="flex align-items-center justify-content-between flex-row gap-1 w-full">
-        {/* <Card className="w-full">
-          <Doughnut
-            title="Projects"
-            labels={projectLabels}
-            series={projectSeries}
-            height={100}
-          />
-        </Card> */}
+      <div className="flex align-items-center justify-content-between gap-1 w-full">
         <Card className="w-full">
           <BusTrend
             totalBusesData={totalBusesData}

@@ -87,6 +87,7 @@ const AqiMap = ({ averageAQI, selectedLocation }) => {
       center={[26.783869, 82.144132]}
       zoom={11}
       style={{ height: "15rem", width: "100%" }}
+      attributionControl={false}
     >
       <TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png" />
 

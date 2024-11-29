@@ -57,10 +57,10 @@ const LandingScreen = () => {
           <h2 className="text-4xl text-theme m-0 p-0">
             City Sustainability Index
           </h2>
-          <h2 className="text-4xl text-sec-theme m-0 p-0">
+          <h2 className="text-4xl text-primary1 m-0 p-0">
             Measuring and Boosting Urban Sustainability
           </h2>
-          <p className="text-xl" style={{ color: "#8AA4A7" }}>
+          <p className="text-xl text" style={{ color: "#8AA4A7" }}>
             Empowering governments, businesses, and citizens to track and
             improve urban sustainability for a greener future.
           </p>

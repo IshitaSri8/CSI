@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "primereact/card";
-
 import { Button } from "primereact/button";
-
 import {
   MapContainer,
   TileLayer,
@@ -10,24 +8,12 @@ import {
   Popup,
   GeoJSON,
   LayersControl,
-  FeatureGroup,
-  Tooltip,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import ADABoundary from "../components/Dashboards/Environment/Maps/ADA_Boundary.json";
 import water_layer_2016 from "./Assets/Water_2016.json";
-import water_layer_2020 from "./Assets/Water_2020.json";
 import water_layer_2024 from "./Assets/Water_2024_updated_1.json";
-import river from "./Assets/River_Toposheet.json";
-import riverbed from "./Assets/Riverbed_Toposheet.json";
-import drainage from "./Assets/Drainage_Toposheet.json";
-import canal from "./Assets/Canal_Toposheet.json";
-import watebody from "./Assets/Waterbody_Toposheet.json";
-import water_toposheet from "./Assets/Water_Toposheet_WB_withinA.json";
-import area_2024 from "./Assets/Water_2024_poly_withinA.json";
-import area_2020 from "./Assets/Water_2020_poly_withinA.json";
-import area_2016 from "./Assets/Water_2016_poly_withinA.json";
 import mark from "./Assets/Mark_WB_within_ADA.json";
 import { MoveDown, MoveUp } from "lucide-react";
 import { DataTable } from "primereact/datatable";

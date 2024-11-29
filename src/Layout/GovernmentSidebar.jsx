@@ -5,7 +5,6 @@ import { Button } from "primereact/button";
 import "../components/landingPage/Landing.css";
 
 import KnowYourCity from "../pages/KnowYourCity";
-import TransportDashboard from "components/Dashboards/Society/Transport/TransportDashboard";
 import Healthcare from "components/Dashboards/Society/Healthcare/Healthcare";
 import CityReportCardGov from "pages/CityReportCardGov";
 import { BreadCrumb } from "primereact/breadcrumb";
@@ -21,7 +20,6 @@ import {
   EarthLock,
   FileChartPie,
   HeartHandshake,
-  HeartPulse,
   Landmark,
   LandPlot,
   LogOut,
@@ -34,7 +32,6 @@ import {
 import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
 import Arahas from "assets/arahas_logo.png";
 import TempDashboard from "components/Dashboards/Environment/Temperature/TempDashboard";
-import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
 import RainDashboard from "components/Dashboards/Environment/Rain/RainDashboard";
 import Culture from "components/Dashboards/Society/Culture/Culture";
 import Community from "components/Dashboards/Society/Community/Community";
@@ -43,6 +40,9 @@ import Employment from "components/Dashboards/Society/Employment/Employment";
 import WasteDashboard from "components/Dashboards/Environment/Waste/WasteDashboard";
 import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboard";
 import Land from "components/Dashboards/Environment/Land/Land";
+import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
+import Transport from "components/Dashboards/Society/Transport/Transport/Transport";
+import { Divider } from "primereact/divider";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -78,92 +78,98 @@ const GovernmentSidebar = () => {
   const breadcrumbItems =
     activeTab === "kyc"
       ? [
-          { label: "CSI For Government", url: "/government" },
-          { label: "Know Your City" },
+          {
+            label: "CSI For Government",
+            url: "/government",
+            isSelected: false,
+          },
+          { label: "Know Your City", isSelected: true },
         ]
       : activeTab === "cityReportCard"
       ? [
           { label: "CSI For Government", url: "/government" },
-          { label: "City Report Card" },
+          { label: "City Report Card", isSelected: true },
         ]
       : activeTab === "aqi"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Nature" },
-          { label: "AQI" },
+          { label: "AQI", isSelected: true },
         ]
       : activeTab === "temperature"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Nature" },
-          { label: "Temperature" },
+          { label: "Temperature", isSelected: true },
         ]
       : activeTab === "rain"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Nature" },
-
-          { label: "Rainfall" },
+          { label: "Rainfall", isSelected: true },
         ]
       : activeTab === "land"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Nature" },
-          { label: "Land Usage" },
+          { label: "Land Usage", isSelected: true },
         ]
       : activeTab === "water"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Nature" },
-          { label: "Water Management" },
+          { label: "Water Management", isSelected: true },
         ]
       : activeTab === "waste"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Nature" },
-          { label: "Waste Management" },
+          { label: "Waste Management", isSelected: true },
         ]
       : activeTab === "transport"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Society" },
-          { label: "Transport" },
+          { label: "Transport", isSelected: true },
         ]
       : activeTab === "healthcare"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Society" },
-          { label: "Healthcare" },
+          { label: "Healthcare", isSelected: true },
         ]
       : activeTab === "education"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Society" },
-          { label: "Education" },
+          { label: "Education", isSelected: true },
         ]
       : activeTab === "employment"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Society" },
-          { label: "Employment Opportunity" },
+          { label: "Employment Opportunity", isSelected: true },
         ]
       : activeTab === "cultural"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Society" },
-          { label: "Cultural Preservation" },
+          { label: "Cultural Preservation", isSelected: true },
         ]
       : activeTab === "community"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Society" },
-          { label: "Community Enagagement & Holistic Well-Being" },
+          {
+            label: "Community Enagagement & Holistic Well-Being",
+            isSelected: true,
+          },
         ]
       : activeTab === "disaster"
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Administration" },
-          { label: "Disaster Management" },
+          { label: "Disaster Management", isSelected: true },
         ]
       : [];
 
@@ -184,7 +190,7 @@ const GovernmentSidebar = () => {
       {!visible && (
         <div
           style={{
-            width: "6rem", // Adjust the width for the collapsed sidebar
+            width: "5rem", // Adjust the width for the collapsed sidebar
             backgroundColor: "#003940",
             height: "100%",
             display: "flex",
@@ -194,7 +200,7 @@ const GovernmentSidebar = () => {
             position: "fixed", // For positioning the toggle button at the bottom
           }}
         >
-          <img src={Arahas} alt="Arahas" className="w-5rem mb-4" />
+          <img src={Arahas} alt="Arahas" className="w-4rem mb-4" />
           <Button
             icon={<Building size={18} />}
             onClick={() => handleTabClick("kyc")}
@@ -231,7 +237,7 @@ const GovernmentSidebar = () => {
             style={activeTabStyle("gov")}
             className="border-none border-round-lg"
           />
-
+          <Divider />
           <Button
             icon={<LogOut size={20} />}
             onClick={() => setVisible(true)}
@@ -253,10 +259,9 @@ const GovernmentSidebar = () => {
               color: "white",
               position: "fixed",
               bottom: "20px",
-              left: "4rem",
+              left: "3rem",
               fontSize: "1rem",
               cursor: "pointer",
-              //   border: "1px solid white",
             }}
           />
         </div>
@@ -354,6 +359,7 @@ const GovernmentSidebar = () => {
               </div>
               {activeSections.environment && (
                 <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
+                  {/* Air Quality Index */}
                   <li>
                     <div
                       style={getTabStyle("aqi")}
@@ -363,11 +369,13 @@ const GovernmentSidebar = () => {
                       {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
                       <Wind className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
-                        AQI
+                        Air Quality Index
                       </span>
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Water Management */}
                   <li>
                     <div
                       style={getTabStyle("water")}
@@ -382,6 +390,8 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Land Usage */}
                   <li>
                     <div
                       style={getTabStyle("land")}
@@ -396,6 +406,8 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Waste Management */}
                   <li>
                     <div
                       style={getTabStyle("waste")}
@@ -409,6 +421,8 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Temperature */}
                   <li>
                     <div
                       style={getTabStyle("temperature")}
@@ -422,6 +436,8 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Rainfall */}
                   <li>
                     <div
                       style={getTabStyle("rain")}
@@ -460,32 +476,37 @@ const GovernmentSidebar = () => {
               </div>
               {activeSections.society && (
                 <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
+                  {/* Community Engagement & Holistic Well-Being */}
                   <li>
                     <div
-                      style={getTabStyle("transport")}
-                      onClick={() => handleTabClick("transport")}
+                      style={getTabStyle("community")}
+                      onClick={() => handleTabClick("community")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <Bus className="text-white mr-2" size={15} />
+                      <HeartHandshake className="text-white mr-2" size={25} />
                       <span className="font-medium text-sm text-white">
-                        Public Transport
+                        Community Engagement & Holistic Well-Being
                       </span>
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Cultural Preservation */}
                   <li>
                     <div
-                      style={getTabStyle("healthcare")}
-                      onClick={() => handleTabClick("healthcare")}
+                      style={getTabStyle("cultural")}
+                      onClick={() => handleTabClick("cultural")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <Ambulance className="text-white mr-2" size={15} />
+                      <EarthLock className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
-                        Healthcare
+                        Cultural Preservation
                       </span>
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Education */}
                   <li>
                     <div
                       style={getTabStyle("education")}
@@ -499,6 +520,8 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Employment Opportunity */}
                   <li>
                     <div
                       style={getTabStyle("employment")}
@@ -515,28 +538,32 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Healthcare */}
                   <li>
                     <div
-                      style={getTabStyle("cultural")}
-                      onClick={() => handleTabClick("cultural")}
+                      style={getTabStyle("healthcare")}
+                      onClick={() => handleTabClick("healthcare")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <EarthLock className="text-white mr-2" size={15} />
+                      <Ambulance className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
-                        Cultural Preservation
+                        Healthcare
                       </span>
                       <Ripple />
                     </div>
                   </li>
+
+                  {/* Public Transport */}
                   <li>
                     <div
-                      style={getTabStyle("community")}
-                      onClick={() => handleTabClick("community")}
+                      style={getTabStyle("transport")}
+                      onClick={() => handleTabClick("transport")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <HeartHandshake className="text-white mr-2" size={25} />
+                      <Bus className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
-                        Community Engagement & Holistic Well-Being
+                        Public Transport
                       </span>
                       <Ripple />
                     </div>
@@ -605,19 +632,24 @@ const GovernmentSidebar = () => {
         model={breadcrumbItems.map((item) => ({
           ...item,
           command: () => onBreadcrumbClick(item.url),
-          // style: {
-          //   color: item.isSelected ? "#69ABB9" : "inherit", // Change color if selected
-          //   fontWeight: item.isSelected ? "bold" : "normal", // Optional: make the text bold
-          // },
+          style: {
+            color: item.isSelected ? "#69ABB9" : "inherit", // Change color if selected
+            fontWeight: item.isSelected ? "bold" : "normal", // Optional: make the text bold
+          },
         }))}
         home={home}
         style={{
-          marginLeft: "6rem",
+          position: "sticky", // Make it sticky
+          top: 0, // Stick to the top
+          zIndex: 1000, // Ensure it stays on top of other elements
+          backgroundColor: "#fff", // Add a background color to prevent overlap issues
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Optional: Add a subtle shadow for separation
+          marginLeft: "5rem",
         }}
       />
 
       {/* Render components based on activeTab */}
-      <div className="content" style={{ marginLeft: "6rem" }}>
+      <div className="content" style={{ marginLeft: "5rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCardGov show={true} />}
         {activeTab === "aqi" && <AqiDashboard show={true} />}
@@ -629,7 +661,8 @@ const GovernmentSidebar = () => {
         {activeTab === "temperature" && <TempDashboard show={true} />}
         {activeTab === "rain" && <RainDashboard show={true} />}
 
-        {activeTab === "transport" && <TransportDashboard show={true} />}
+        {activeTab === "transport" && <Transport show={true} />}
+        {/* {activeTab === "transport" && <TransportDashboard show={true} />} */}
         {activeTab === "healthcare" && <Healthcare show={true} />}
         {activeTab === "education" && <EducationDashboard show={true} />}
         {activeTab === "cultural" && <Culture show={true} />}

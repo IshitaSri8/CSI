@@ -113,7 +113,7 @@ const Testimonials = () => {
             alt=""
             style={{ width: "50px", height: "50px" }}
           />
-          <h1 className="text-5xl font-semibold mb-5">
+          <h1 className="text-5xl font-semibold mb-5 text-primary1">
             What People Say About Our Work
           </h1>
         </div>

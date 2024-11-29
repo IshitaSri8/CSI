@@ -387,6 +387,10 @@ const Disaster = ({ show }) => {
         </div>
       </div>
 
+      <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
+        *Data updated till 2020. These numbers are subject to variation.
+      </p>
+
       {show && (
         <Panel
           toggleable

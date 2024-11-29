@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  BarChart,
-  ColumnChart,
-  ModifiedColumnChart,
-  ModifiedPieChart,
-  PieChart,
-} from "Layout/GraphVisuals";
+import { ModifiedColumnChart, PieChart } from "Layout/GraphVisuals";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -36,7 +30,6 @@ const WasteDashboard = ({ show }) => {
     "Street Sweepings",
     "Institutional",
   ];
-  const colors = ["#166c7d", "#98C6CF", "#1F8297", "#5B98A4"];
 
   const wasteCompositionData = [55300, 33700, 178500, 82750];
   const wasteCompositionLabels = [
@@ -57,12 +50,13 @@ const WasteDashboard = ({ show }) => {
 
   const CustomBar = {
     animationEnabled: true,
+    interactivityEnabled: false,
     title: {
       text: "Waste Collection (in MT/day)",
       fontSize: 14,
       fontFamily: "Montserrat",
       fontWeight: 600,
-      fontColor: "black",
+      fontColor: "#001F23",
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },
@@ -140,52 +134,6 @@ const WasteDashboard = ({ show }) => {
       verticalAlign: "bottom",
       fontFamily: "Montserrat",
       fontWeight: 500,
-    },
-  };
-
-  const total = estimatedSWGData.reduce((acc, value) => acc + value, 0);
-  const estimatedSWGChart = {
-    animationEnabled: true,
-    title: {
-      text: "Estimated Solid Waste Generation (SWG)",
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "black",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
-    },
-    axisY: {
-      labelFontSize: 0,
-      gridThickness: 0,
-      tickLength: 0,
-      lineThickness: 0,
-      maximum: total,
-    },
-    axisX: {
-      labelFontSize: 0,
-      gridThickness: 0,
-      tickLength: 0,
-      lineThickness: 0,
-    },
-    dataPointWidth: 40,
-    data: estimatedSWGLabels.map((label, index) => ({
-      type: "stackedBar",
-      name: label,
-      showInLegend: true,
-      color: colors[index], // Use the color from the colors array
-      indexLabelFontSize: 12,
-      indexLabelFontFamily: "Montserrat",
-      indexLabel: `${((estimatedSWGData[index] / total) * 100).toFixed(2)}%`,
-      //indexLabelFontWeight: "bold",
-      indexLabelFontColor: "white",
-      dataPoints: [{ label, y: estimatedSWGData[index] }], // Use dynamic values
-      legendText: "{label}: {y} MT",
-    })),
-    legend: {
-      fontSize: 10,
-      horizontalAlign: "center",
-      verticalAlign: "bottom",
     },
   };
 
@@ -269,7 +217,7 @@ const WasteDashboard = ({ show }) => {
         </div>
         {/* Waste Composition */}
         <div
-          className="flex flex-column gap-3 w-full bg-white border-round p-4"
+          className="flex gap-3 w-full bg-white border-round p-4"
           style={{ flex: "32%" }}
         >
           <PieChart
@@ -279,6 +227,7 @@ const WasteDashboard = ({ show }) => {
             title="Waste Composition"
             vertical="center"
             horizontal="right"
+            fontSize={10}
           />
         </div>
         {/* CT/PT */}
@@ -350,6 +299,7 @@ const WasteDashboard = ({ show }) => {
             title="Sanitation Facility"
             vertical="bottom"
             horizontal="center"
+            fontSize={10}
           />
         </div>
       </div>
@@ -363,7 +313,7 @@ const WasteDashboard = ({ show }) => {
           toggleable
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon =  recommendationsVisible
+            const toggleIcon = recommendationsVisible
               ? "pi pi-chevron-down"
               : "pi pi-chevron-up";
 
