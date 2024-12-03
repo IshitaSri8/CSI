@@ -12,8 +12,8 @@ import { Building2, PartyPopper, Trash } from "lucide-react";
 
 const CityDemographics = () => {
   return (
-    <div className="flex flex-column gap-2">
-      <div className="flex align-items-center justify-content-center gap-4 w-full">
+    <div className="flex flex-column gap-3">
+      <div className="flex align-items-center justify-content-center gap-3 w-full">
         {/* Geographical Overview Card */}
         <div
           className="w-full shadow-2 p-3 border-round-2xl h-auto bg-demographics"
@@ -126,7 +126,7 @@ const CityDemographics = () => {
         </div>
         {/* Population Insights */}
         <div
-          className="w-full shadow-2 p-3 border-round-2xl"
+          className="w-full shadow-2 p-2 border-round-2xl"
           style={{
             background: "linear-gradient(to left , #1F8297, #166C7D, #003940)",
           }}
@@ -137,7 +137,7 @@ const CityDemographics = () => {
             </h1>
             <i className="pi pi-users text-white"></i>
           </div>
-          <div className="flex align-items-center justify-content-center gap-4 p-2">
+          <div className="flex align-items-center justify-content-center gap-3 p-2">
             {/* waves */}
             <div
               className="flex align-items-center justify-content-between flex-column bg-theme my-2 border-round"
@@ -245,13 +245,13 @@ const CityDemographics = () => {
               </h1>
               <Trash size={15} className="text-white" />
             </div>
-            <div className="flex align-items-center justify-content-center flex-column gap-3 m-2">
+            <div className="flex align-items-center justify-content-center flex-column gap-3 p-2">
               <div
                 className="flex align-items-center justify-content-center flex-column p-2 border-round w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full text-xs cursor-pointer sewage"></i>
-                <h1 className="text-white p-1 m-0 text-2xl font-medium ">1</h1>
+                <h1 className="text-white p-0 m-0 text-2xl font-medium ">1</h1>
                 <p className="text-white p-1 m-0">Sewage Treatment Plants</p>
                 <Tooltip
                   target=".sewage"
@@ -263,7 +263,7 @@ const CityDemographics = () => {
                     hideDelay: 101300,
                   }}
                 >
-                  <div className="flex align-items-start justify-content-start gap-4 p-2">
+                  <div className="flex align-items-start justify-content-start p-2">
                     <ul>
                       <li>Capacity: 12MLD</li>
                     </ul>
@@ -275,7 +275,7 @@ const CityDemographics = () => {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full text-xs"></i>
-                <h1 className="text-white p-1 m-0 text-2xl font-medium ">0</h1>
+                <h1 className="text-white p-0 m-0 text-2xl font-medium ">0</h1>
                 <p className="text-white p-1 m-0">Landfills & Dumpsites</p>
               </div>
             </div>
@@ -284,7 +284,7 @@ const CityDemographics = () => {
         <div className="flex align-items-center justify-content-center w-full">
           {/* Public Utilities */}
           <div
-            className="w-full shadow-2 p-4 border-round-2xl"
+            className="w-full shadow-2 p-3 border-round-2xl"
             style={{
               background:
                 " linear-gradient(to left , #1F8297, #166C7D, #003940)",
@@ -439,7 +439,7 @@ const CityDemographics = () => {
         <div className="flex align-items-center justify-content-center w-full">
           {/* Culture */}
           <div
-            className="w-full shadow-2 p-4 border-round-2xl"
+            className="w-full shadow-2 p-3 border-round-2xl"
             style={{
               background:
                 " linear-gradient(to left , #1F8297, #166C7D, #003940)",
@@ -451,120 +451,120 @@ const CityDemographics = () => {
               </h1>
               <PartyPopper size={15} className="text-white" />
             </div>
-              <div className="flex align-items-center justify-content-center flex-column gap-2 w-full p-2">
-                <div
-                  className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
-                  style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
-                >
-                  <div className="flex align-items-center justify-content-center gap-1">
-                    <p className="p-1 m-0 text-white text-lg">
-                      Major Attractions
-                    </p>
-                    <i className="pi pi-info-circle attractions text-white text-xs" />
-                  </div>
-                  <h1 className="p-1 m-0 text-white font-medium text-xl">9</h1>
-                  <Tooltip
-                    target=".attractions"
-                    position="top"
-                    style={{ backgroundColor: "white !important" }}
-                    tooltipOptions={{
-                      className: "hoverClass",
-                      showDelay: 500,
-                      hideDelay: 101300,
-                    }}
-                  >
-                    <div className="flex align-items-start justify-content-start gap-4   p-2">
-                      <ul>
-                        <li>Ram Mandir</li>
-                        <li> Gulab Bari</li>
-                        <li> Bahu Begum ka Maqbara</li>
-                        <li>Guptar Ghat</li>
-                        <li>Lakshman Kila</li>
-                      </ul>
-                      <Divider layout="vertical" className="h-12rem" />
-                      <ul>
-                        <li>Company Gardens</li>
-                        <li>Hanuman Ghari</li>
-                        <li>Kanak Bhawan</li>
-                        <li>Nageshwarnath Mandir</li>
-                      </ul>
-                    </div>
-                  </Tooltip>
+            <div className="flex align-items-center justify-content-center flex-column gap-2 w-full p-2">
+              <div
+                className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+              >
+                <div className="flex align-items-center justify-content-center gap-1">
+                  <p className="p-1 m-0 text-white text-lg">
+                    Major Attractions
+                  </p>
+                  <i className="pi pi-info-circle attractions text-white text-xs" />
                 </div>
-                <div
-                  className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
-                  style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+                <h1 className="p-1 m-0 text-white font-medium text-xl">9</h1>
+                <Tooltip
+                  target=".attractions"
+                  position="top"
+                  style={{ backgroundColor: "white !important" }}
+                  tooltipOptions={{
+                    className: "hoverClass",
+                    showDelay: 500,
+                    hideDelay: 101300,
+                  }}
                 >
-                  <div className="flex align-items-center justify-content-center gap-1">
-                    <p className="p-1 m-0 text-white text-lg">
-                      Fairs & Festivals
-                    </p>
-                    <i className="pi pi-info-circle fairs cursor-pointer text-xs text-white text-xs" />
+                  <div className="flex align-items-start justify-content-start gap-4   p-2">
+                    <ul>
+                      <li>Ram Mandir</li>
+                      <li> Gulab Bari</li>
+                      <li> Bahu Begum ka Maqbara</li>
+                      <li>Guptar Ghat</li>
+                      <li>Lakshman Kila</li>
+                    </ul>
+                    <Divider layout="vertical" className="h-12rem" />
+                    <ul>
+                      <li>Company Gardens</li>
+                      <li>Hanuman Ghari</li>
+                      <li>Kanak Bhawan</li>
+                      <li>Nageshwarnath Mandir</li>
+                    </ul>
                   </div>
-                  <h1 className="p-1 m-0 text-white font-medium text-xl">4</h1>
-                  <Tooltip
-                    target=".fairs"
-                    position="top"
-                    tooltipOptions={{
-                      className: "hoverClass",
-                      backgroundColor: "white",
-                      showDelay: 500,
-                      hideDelay: 101300,
-                    }}
-                    style={{ padding: "0" }}
-                  >
-                    <div className="flex align-items-start justify-content-start gap-4  p-2">
-                      <ul>
-                        <li>Ram Leela</li>
-
-                        <li>Ram Navmi Mela</li>
-                      </ul>
-                      <Divider layout="vertical" className="m-0 h-5rem" />
-                      <ul>
-                        <li>Sravan Jhula Mela</li>
-                        <li>Parikramas</li>
-                      </ul>
-                    </div>
-                  </Tooltip>
-                </div>
-                <div
-                  className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
-                  style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
-                >
-                  <div className="flex align-items-center justify-content-center gap-1">
-                    <p className="p-1 m-0 text-white  text-lg">
-                      Socio-Cultural Facilities
-                    </p>
-                    <i className="pi pi-info-circle text-white socio-culture cursor-pointer text-xs text-xs" />
-                  </div>
-                  <h1 className="p-1 m-0 text-white font-medium text-xl">7</h1>
-                  <Tooltip
-                    target=".socio-culture"
-                    position="top"
-                    style={{ backgroundColor: "white !importanat" }}
-                    tooltipOptions={{
-                      className: "hoverClass",
-                      showDelay: 500,
-                      hideDelay: 101300,
-                    }}
-                  >
-                    <div className="flex align-items-start justify-content-start gap-4   p-2">
-                      <ul>
-                        <li>Anganwari-Housing Area</li>
-                        <li> Community room </li>
-                        <li> Community hall and library</li>
-                        <li>Recreational club</li>
-                      </ul>
-                      <Divider layout="vertical" className="h-10rem m-0" />
-                      <ul>
-                        <li>Music, dance and drama center</li>
-                        <li>Meditation and spiritual center</li>
-                        <li>Old-age home</li>
-                      </ul>
-                    </div>
-                  </Tooltip>
-                </div>
+                </Tooltip>
               </div>
+              <div
+                className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+              >
+                <div className="flex align-items-center justify-content-center gap-1">
+                  <p className="p-1 m-0 text-white text-lg">
+                    Fairs & Festivals
+                  </p>
+                  <i className="pi pi-info-circle fairs cursor-pointer text-xs text-white text-xs" />
+                </div>
+                <h1 className="p-1 m-0 text-white font-medium text-xl">4</h1>
+                <Tooltip
+                  target=".fairs"
+                  position="top"
+                  tooltipOptions={{
+                    className: "hoverClass",
+                    backgroundColor: "white",
+                    showDelay: 500,
+                    hideDelay: 101300,
+                  }}
+                  style={{ padding: "0" }}
+                >
+                  <div className="flex align-items-start justify-content-start gap-4  p-2">
+                    <ul>
+                      <li>Ram Leela</li>
+
+                      <li>Ram Navmi Mela</li>
+                    </ul>
+                    <Divider layout="vertical" className="m-0 h-5rem" />
+                    <ul>
+                      <li>Sravan Jhula Mela</li>
+                      <li>Parikramas</li>
+                    </ul>
+                  </div>
+                </Tooltip>
+              </div>
+              <div
+                className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+              >
+                <div className="flex align-items-center justify-content-center gap-1">
+                  <p className="p-1 m-0 text-white  text-lg">
+                    Socio-Cultural Facilities
+                  </p>
+                  <i className="pi pi-info-circle text-white socio-culture cursor-pointer text-xs text-xs" />
+                </div>
+                <h1 className="p-1 m-0 text-white font-medium text-xl">7</h1>
+                <Tooltip
+                  target=".socio-culture"
+                  position="top"
+                  style={{ backgroundColor: "white !importanat" }}
+                  tooltipOptions={{
+                    className: "hoverClass",
+                    showDelay: 500,
+                    hideDelay: 101300,
+                  }}
+                >
+                  <div className="flex align-items-start justify-content-start gap-4   p-2">
+                    <ul>
+                      <li>Anganwari-Housing Area</li>
+                      <li> Community room </li>
+                      <li> Community hall and library</li>
+                      <li>Recreational club</li>
+                    </ul>
+                    <Divider layout="vertical" className="h-10rem m-0" />
+                    <ul>
+                      <li>Music, dance and drama center</li>
+                      <li>Meditation and spiritual center</li>
+                      <li>Old-age home</li>
+                    </ul>
+                  </div>
+                </Tooltip>
+              </div>
+            </div>
           </div>
         </div>
       </div>

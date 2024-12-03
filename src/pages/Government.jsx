@@ -2,7 +2,6 @@ import React from "react";
 import Header from "Layout/Header";
 import Laptop from "../assets/laptop.png";
 import { Tag } from "primereact/tag";
-import Screen from "../assets/screen.png";
 import SpaIcon from "@mui/icons-material/Spa";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
@@ -11,7 +10,6 @@ import crc from "../assets/Citizen/Report Card.png";
 import indicator from "../assets/indicator.png";
 import government from "../assets/Citizen/csi for gov.png";
 import report_ss from "assets/report_ss.png";
-import trend_ss from "assets/trend_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
 import indicator_ss from "assets/aqi_ss.png";
 const Government = () => {

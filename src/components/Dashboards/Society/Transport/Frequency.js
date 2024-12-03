@@ -63,7 +63,7 @@ const Frequency = () => {
                 </p>
               </div>
               <i className="pi pi-info-circle text-theme w-full text-right frequency text-sm"></i>
-              <Tooltip target=".frequency" position="right">
+              <Tooltip target=".frequency" position="bottom">
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
                   <p className="m-0 text-sm">Frequency In Current Year: 70%</p>
                   <p className="m-0 text-sm">Frequency In Previous Year: 60%</p>
