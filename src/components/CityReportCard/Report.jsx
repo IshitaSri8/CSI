@@ -235,22 +235,20 @@ fontWeight: 500,
             </div>
           ) : (
             <div>
-              <div className="flex flex-row align-items-start justify-content-between">
-                <div className="flex flex-column align-items-start justify-content-between">
-                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+              <div className="flex align-items-start justify-content-between">
+                <div className="flex flex-column align-items-start gap-2">
+                  <p className="text-xl font-medium text p-0 m-0">
                     Nature
-                  </h2>
-                  <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
+                  </p>
+                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">80</p>
                 </div>
                 <div className="flex align-items-start justify-content-end ml-5">
                   <img src={nature} alt="nature" className="w-4rem" />
                 </div>
               </div>
-              <div>
-                <p className="text-sm">
+                <p className="text-tertiary3">
                   Sustaining our planets for future generations.
                 </p>
-              </div>
             </div>
           )}
         </Card>
@@ -308,23 +306,21 @@ fontWeight: 500,
               </div>
             </div>
           ) : (
-            <div className="flex align-items-center justify-content-center flex-column w-full">
-              <div className="flex flex-row align-items-start justify-content-between w-full gap-8">
-                <div className="flex flex-column align-items-startjustify-content-between">
-                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+            <div>
+            <div className="flex align-items-start justify-content-between">
+              <div className="flex flex-column align-items-start gap-2">
+                  <p className="text-xl font-medium text p-0 m-0">
                     Society
-                  </h2>
-                  <p className="text-4xl font-bold text-theme mb-0 mt-1">80</p>
+                  </p>
+                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">80</p>
                 </div>
                 <div className="flex align-items-start justify-content-end">
                   <img src={society} alt="Admin" className="w-4rem" />
                 </div>
               </div>
-              <div className="w-full">
-                <p className="text-sm">
+                <p className="text-tertiary3">
                   Empowering sustainable change, enriching diverse lives.
                 </p>
-              </div>
             </div>
           )}
         </Card>
@@ -378,22 +374,20 @@ fontWeight: 500,
             </div>
           ) : (
             <div>
-              <div className="flex flex-row align-items-start justify-content-between">
-                <div className="flex flex-column align-items-startjustify-content-between">
-                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+              <div className="flex align-items-start justify-content-between">
+                <div className="flex flex-column align-items-start gap-2">
+                  <p className="text-xl font-medium text p-0 m-0">
                     Administration
-                  </h2>
-                  <p className="text-4xl font-bold text-theme mb-0 mt-1">60</p>
+                  </p>
+                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">60</p>
                 </div>
                 <div className="flex align-items-start justify-content-end">
                   <img src={admin} alt="Admin" className="w-4rem" />
                 </div>
               </div>
-              <div>
-                <p className="text-sm">
+                <p className="text-tertiary3">
                   Empowering responsible administration for lasting impact.
                 </p>
-              </div>
             </div>
           )}
         </Card>
@@ -420,22 +414,20 @@ fontWeight: 500,
             </div>
           ) : (
             <div>
-              <div className="flex flex-row align-items-start justify-content-between">
-                <div className="flex flex-column align-items-start">
-                  <h2 className="text-2xl font-semibold text-900 mb-0 mt-0">
+              <div className="flex align-items-start justify-content-between">
+                <div className="flex flex-column align-items-start gap-2">
+                  <p className="text-xl font-medium text p-0 m-0">
                     Overall Score
-                  </h2>
-                  <p className="text-4xl font-bold text-theme mt-1 mb-0">70</p>
+                  </p>
+                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">70</p>
                 </div>
                 <div className="flex align-items-start justify-content-end ml-3">
                   <img src={overall} alt="Overall Score" className="w-4rem" />
                 </div>
               </div>
-              <div>
-                <p className="text-sm">
+                <p className="text-tertiary3">
                   Shaping a Sustainable Future through NSA Dimensions.
                 </p>
-              </div>
             </div>
           )}
         </Card>

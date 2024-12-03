@@ -94,7 +94,8 @@ export const Doughnut = ({
   showNo,
   colorArray,
   vertical,
-  horizontal
+  horizontal, 
+  fontSize
 }) => {
   const totalValue = series.reduce((acc, value) => acc + value, 0);
   const options = {
@@ -130,7 +131,7 @@ export const Doughnut = ({
       },
     ],
     legend: {
-      fontSize: 12,
+      fontSize: fontSize,
       horizontalAlign: horizontal,
       verticalAlign: vertical,
       fontFamily: "Montserrat",

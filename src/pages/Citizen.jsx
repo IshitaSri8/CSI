@@ -2,11 +2,8 @@ import React from "react";
 import Header from "../Layout/Header";
 import Chatbot from "../components/Citizen/Chatbot";
 import Laptop from "../assets/laptop.png";
-import { Tag } from "primereact/tag";
-import Card1 from "../assets/card1.png";
-import Card2 from "../assets/card2.png";
 import Card3 from "../assets/card3.png";
-import citizen from "../assets/citizen_bg.jpg";
+import citizen from "../assets/citizen_bg1.jpg";
 import report_ss from "assets/report_ss.png";
 import trend_ss from "assets/trend_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
@@ -20,7 +17,7 @@ const Citizen = () => {
       <Header />
 
       <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
-        <img src={citizen} alt="citizen" className="w-screen" />
+        <img src={citizen} alt="citizen" className="w-screen bg-top" />
         <div
           className="border-round-xl m-0 mb-5 p-0"
           style={{
@@ -31,10 +28,10 @@ const Citizen = () => {
             position: "absolute",
             top: "65%",
             left: "50%",
-            transform: "translate(-50%, 160%)",
+            transform: "translate(-50%, 175%)",
           }}
         >
-          <h1 className="text-5xl text-white text-center font-medium">
+          <h1 className="text-4xl text-white text-center font-medium">
             Explore Your City’s Sustainability Performance With Arahas' CSI
           </h1>
           {/* <div className="flex align-items-center justify-content-center w-full flex-row">

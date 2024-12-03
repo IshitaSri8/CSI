@@ -78,8 +78,8 @@ const CSISteps = () => {
   return (
     <div className="flex align-items-center justify-content-center flex-column gap-3 px-5">
       {/* Heading */}
-      <h1 className="text-4xl text-theme">
-        " Understanding the City Sustainability Index in Simple Steps "
+      <h1 className="text-5xl text-theme">
+        Understanding the City Sustainability Index in Simple Steps
       </h1>
 
       <div className="flex align-items-center justify-content-between flex-row gap-2 w-full p-4 mt-10rem">

@@ -1,7 +1,7 @@
 import React from "react";
 import "primeflex/primeflex.css";
 import waves from "assets/KYC/wave.svg";
-import geo_area from "assets/KYC/geographical.png";
+import geo_area from "assets/KYC/geographical-removebg.png";
 import { Divider } from "primereact/divider";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -16,7 +16,11 @@ const CityDemographics = () => {
       <div className="flex align-items-center justify-content-center gap-3 w-full">
         {/* Geographical Overview Card */}
         <div
-          className="w-full shadow-2 p-3 border-round-2xl h-auto bg-demographics"
+          className="shadow-2 p-3 border-round-2xl h-auto"
+          style={{
+            flex: "55%",
+            background: "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
+          }}
           // style={{
           //   background: " linear-gradient(to left , #1F8297, #166C7D, #003940)",
           // }}
@@ -27,48 +31,50 @@ const CityDemographics = () => {
             </h1>
             <i className="pi pi-map-marker text-white"></i>
           </div>
-          <div className="flex align-items-center justify-content-center gap-3 p-2">
-            <div className="flex align-items-center justify-content-center flex-column w-full gap-3">
+          <div className="flex align-items-center justify-content-center gap-2 p-2">
+            <div className="flex align-items-center justify-content-center flex-column w-full gap-2">
               <div className="flex align-items-center justify-content-center w-full gap-2">
                 <div
-                  className="flex align-items-center justify-content-center flex-column p-3 border-round w-full "
+                  className="flex align-items-center justify-content-center flex-column p-3 border-round-xl w-full "
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
                   <h1 className="p-1 m-0 text-xl font-medium text-white">
                     133.67 <span className="text-sm">sq.km</span>
                   </h1>
-                  <p className="p-1 m-0 text-white text-xs">
+                  <p className="p-0 m-0 text-white text-sm">
                     Geographical Area
                   </p>
                 </div>
 
                 <div
-                  className="flex align-items-center justify-content-center border-round flex-column p-3"
+                  className="flex align-items-center justify-content-center border-round-xl flex-column p-3"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-0 m-0 text-2xl font-medium text-white">
+                  <h1 className="p-1 m-0 text-2xl font-medium text-white">
                     11
                   </h1>
-                  <p className="p-1 m-0 text-white text-sm">Blocks</p>
+                  <p className="p-0 m-0 text-white text-sm">Blocks</p>
                 </div>
                 <div
-                  className="flex align-items-center justify-content-center p-3 border-round flex-column"
+                  className="flex align-items-center justify-content-center p-3 border-round-xl flex-column"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-0 m-0 text-2xl font-medium text-white">
+                  <h1 className="p-1 m-0 text-2xl font-medium text-white">
                     60
                   </h1>
-                  <p className="p-1 m-0 text-white text-sm">Wards</p>
+                  <p className="p-0 m-0 text-white text-sm">Wards</p>
                 </div>
                 <div
-                  className="flex align-items-center justify-content-center p-2 border-round flex-column"
+                  className="flex align-items-center justify-content-center p-3 border-round-xl flex-column"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <i className="pi pi-info-circle text-white w-full text-right highway text-xs"></i>
-                  <h1 className="p-0 m-0 text-2xl font-medium text-white mb-1">
+                  <h1 className="p-1 m-0 text-2xl font-medium text-white">
                     1
                   </h1>
-                  <p className="p-1 m-0 text-white text-sm">Highways</p>
+                  <div className="flex justify-content-between align-items-center gap-2">
+                    <p className="p-0 m-0 text-white text-sm">Highways</p>
+                    <i className="pi pi-info-circle text-white w-full text-right highway text-xs"></i>
+                  </div>
                   <Tooltip
                     target=".highway"
                     position="right"
@@ -89,46 +95,55 @@ const CityDemographics = () => {
               </div>
               <div className="flex align-items-center justif-content-center w-full gap-2">
                 <div
-                  className="flex align-items-center justify-content-center p-3 border-round flex-column w-full"
+                  className="flex align-items-center justify-content-center p-3 border-round-xl flex-column w-full"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-0 m-0 text-2xl text-white font-medium ">
+                  <h1 className="p-1 m-0 text-2xl text-white font-medium ">
                     5
                   </h1>
-                  <p className="p-1 m-0 text-white text-sm">Water Bodies</p>
+                  <p className="p-0 m-0 text-white text-sm">Water Bodies</p>
                 </div>
                 <div
-                  className="flex align-items-center justify-content-center p-3 border-round flex-column"
+                  className="flex align-items-center justify-content-center p-3 border-round-xl flex-column"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-0 m-0 text-2xl font-medium  text-white">
+                  <h1 className="p-1 m-0 text-2xl font-medium  text-white">
                     1
                   </h1>
-                  <p className="p-1 m-0 text-white text-sm">Nallahs</p>
+                  <p className="p-0 m-0 text-white text-sm">Nallahs</p>
                 </div>
                 <div
-                  className="flex align-items-center justify-content-center p-3 border-round flex-column w-full"
+                  className="flex align-items-center justify-content-center p-3 border-round-xl flex-column w-full"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-0 m-0 text-2xl font-medium  text-white">
+                  <h1 className="p-1 m-0 text-2xl font-medium text-white">
                     163.31 <span className="text-sm">ha</span>{" "}
                   </h1>
-                  <p className="p-1 m-0 text-white text-xs">
+                  <p className="p-0 m-0 text-white text-sm">
                     Parks & Open Spaces
                   </p>
                 </div>
               </div>
             </div>
-            <div className="flex align-items-center justify-content-center border-round-xl p-2 surface-200">
-              <img src={geo_area} alt="area" className="h-11rem w-14rem" />
+            <div
+              className="flex align-items-center justify-content-center border-round-xl p-3"
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+            >
+              <img
+                src={geo_area}
+                alt="area"
+                className="h-9rem w-14rem surface-2"
+                // style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+              />
             </div>
           </div>
         </div>
         {/* Population Insights */}
         <div
-          className="w-full shadow-2 p-2 border-round-2xl"
+          className="shadow-2 p-3 border-round-2xl"
           style={{
-            background: "linear-gradient(to left , #1F8297, #166C7D, #003940)",
+            flex: "45%",
+            background: "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
           }}
         >
           <div className="flex align-items-center justify-content-between">
@@ -140,10 +155,10 @@ const CityDemographics = () => {
           <div className="flex align-items-center justify-content-center gap-3 p-2">
             {/* waves */}
             <div
-              className="flex align-items-center justify-content-between flex-column bg-theme my-2 border-round"
+              className="flex align-items-center justify-content-between flex-column bg-theme border-round-xl"
               // style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
-              <div className="flex align-items-center justify-content-between bg-white border-round-top">
+              <div className="flex align-items-center justify-content-between bg-white border-round-top-xl">
                 <div className="flex align-items-center justify-content-center p-3 flex-column text-center">
                   <h1 className="p-1 m-0 text-2xl text-theme font-medium">
                     2,21,118
@@ -163,16 +178,19 @@ const CityDemographics = () => {
                 </div>
               </div>
               {/* <img src={waves} className="p-0" alt="waves" /> */}
-              <div className="flex align-items-center justify-content-center flex-column p-3 gap-2">
+              <div className="flex align-items-center justify-content-center flex-column p-3">
                 <h1 className="p-1 m-0 text-2xl font-medium text-white">
                   4,65,206
                 </h1>
-                <p className="p-0 font-medium m-0 text-white text-sm">
+                <p className="p-1 font-medium m-0 text-white text-sm">
                   Current Population
                 </p>
               </div>
             </div>{" "}
-            <div className="flex w-full bg-white justify-content-center p-3 border-round flex-column gap-2">
+            <div
+              className="flex justify-content-center p-3 border-round-xl flex-column gap-2"
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+            >
               <p className="p-0 m-0 text-left font-semibold text-primary1">
                 Sex Ratio- <span className="text font-medium">980</span>
               </p>
@@ -181,15 +199,19 @@ const CityDemographics = () => {
                 title={""}
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
-                height={100}
+                height={90}
                 colorArray={["#98C6CF", "#1F8297"]}
                 horizontal={"center"}
                 vertical={"bottom"}
+                fontSize={8}
               />
             </div>
             {/* literacy-rate */}
             <div className="flex align-items-center justify-content-center flex-column gap-2">
-              <div className="flex align-items-center justify-content-center p-2 bg-white border-round w-full">
+              <div
+                className="flex align-items-center justify-content-center gap-1 p-2 border-round-xl w-full"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+              >
                 <div
                   style={{
                     width: "4rem",
@@ -203,8 +225,8 @@ const CityDemographics = () => {
                     className="m-0 p-0 font-medium"
                     strokeWidth={12}
                     styles={buildStyles({
-                      pathColor: "#1f8297",
-                      textColor: "#001F23",
+                      pathColor: "#003940",
+                      textColor: "#fff",
                       trailColor: "#E7EAEA",
                       textSize: "2rem",
                       pathTransition: "stroke-dashoffset 0.5s ease 0s",
@@ -212,16 +234,19 @@ const CityDemographics = () => {
                     })}
                   />
                 </div>
-                <p className="p-0 m-0 text text-xs text-center font-medium ">
+                <p className="p-0 m-0 text-white text-sm text-center font-medium ">
                   Literacy Rate
                 </p>
               </div>
 
-              <div className="flex align-items-center justify-content-center p-3 flex-column bg-white border-round w-full">
-                <h1 className="p-0 m-0 text-2xl text-theme font-medium">
+              <div
+                className="flex align-items-center justify-content-center p-3 flex-column border-round-xl w-full"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
+              >
+                <h1 className="p-0 m-0 text-2xl text-white font-medium">
                   980<span className="text-lg">/sq.km</span>
                 </h1>
-                <p className="p-1 m-0 text font-medium text-xs text-center">
+                <p className="p-1 m-0 text-white font-medium text-xs text-center">
                   Population Density
                 </p>
               </div>
@@ -236,7 +261,7 @@ const CityDemographics = () => {
             className="w-full shadow-2 p-3 border-round-2xl"
             style={{
               background:
-                " linear-gradient(to left , #1F8297, #166C7D, #003940)",
+                " linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
             }}
           >
             <div className="flex align-items-center justify-content-between ">
@@ -247,7 +272,7 @@ const CityDemographics = () => {
             </div>
             <div className="flex align-items-center justify-content-center flex-column gap-3 p-2">
               <div
-                className="flex align-items-center justify-content-center flex-column p-2 border-round w-full"
+                className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full text-xs cursor-pointer sewage"></i>
@@ -271,7 +296,7 @@ const CityDemographics = () => {
                 </Tooltip>
               </div>
               <div
-                className="flex align-items-center justify-content-center flex-column p-2 border-round w-full"
+                className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full text-xs"></i>
@@ -287,7 +312,7 @@ const CityDemographics = () => {
             className="w-full shadow-2 p-3 border-round-2xl"
             style={{
               background:
-                " linear-gradient(to left , #1F8297, #166C7D, #003940)",
+                " linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
             }}
           >
             <div className="flex align-items-center justify-content-between ">
@@ -298,7 +323,7 @@ const CityDemographics = () => {
             </div>
             <div className="flex align-items-center justify-content-center gap-2 m-2">
               <div
-                className="flex align-items-center justify-content-center flex-column p-2 border-round w-full"
+                className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full hospitals cursor-pointer text-xs"></i>
@@ -319,7 +344,7 @@ const CityDemographics = () => {
                 </Tooltip>
               </div>
               <div
-                className="flex align-items-center justify-content-center flex-column p-2 border-round w-full"
+                className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right education cursor-pointer text-xs w-full"></i>
@@ -338,7 +363,7 @@ const CityDemographics = () => {
             </div>
             <div className="flex align-items-center justify-content-center gap-2 m-2">
               <div
-                className="flex align-items-center justify-content-center flex-column p-2 border-round w-full"
+                className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right hotels cursor-pointer text-xs w-full"></i>
@@ -376,7 +401,7 @@ const CityDemographics = () => {
                 </Tooltip>
               </div>
               <div
-                className="flex align-items-center justify-content-center flex-column p-2 border-round w-full"
+                className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right dharamshala cursor-pointer text-xs w-full"></i>
@@ -406,7 +431,7 @@ const CityDemographics = () => {
                 </Tooltip>
               </div>
               <div
-                className="flex align-items-center justify-content-center flex-column p-2 border-round w-full"
+                className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <i className="pi pi-info-circle text-white text-right w-full text-xs market"></i>
@@ -442,7 +467,7 @@ const CityDemographics = () => {
             className="w-full shadow-2 p-3 border-round-2xl"
             style={{
               background:
-                " linear-gradient(to left , #1F8297, #166C7D, #003940)",
+                " linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
             }}
           >
             <div className="flex align-items-center justify-content-between ">
@@ -453,7 +478,7 @@ const CityDemographics = () => {
             </div>
             <div className="flex align-items-center justify-content-center flex-column gap-2 w-full p-2">
               <div
-                className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
+                className="flex align-items-center justify-content-between w-full border-round-xl p-2 m-1 gap-8"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <div className="flex align-items-center justify-content-center gap-1">
@@ -470,7 +495,6 @@ const CityDemographics = () => {
                   tooltipOptions={{
                     className: "hoverClass",
                     showDelay: 500,
-                    hideDelay: 101300,
                   }}
                 >
                   <div className="flex align-items-start justify-content-start gap-4   p-2">
@@ -492,7 +516,7 @@ const CityDemographics = () => {
                 </Tooltip>
               </div>
               <div
-                className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
+                className="flex align-items-center justify-content-between w-full border-round-xl p-2 m-1 gap-8"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <div className="flex align-items-center justify-content-center gap-1">
@@ -509,7 +533,6 @@ const CityDemographics = () => {
                     className: "hoverClass",
                     backgroundColor: "white",
                     showDelay: 500,
-                    hideDelay: 101300,
                   }}
                   style={{ padding: "0" }}
                 >
@@ -528,7 +551,7 @@ const CityDemographics = () => {
                 </Tooltip>
               </div>
               <div
-                className="flex align-items-center justify-content-between w-full border-round p-2 m-1 gap-8"
+                className="flex align-items-center justify-content-between w-full border-round-xl p-2 m-1 gap-8"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
                 <div className="flex align-items-center justify-content-center gap-1">
@@ -545,7 +568,6 @@ const CityDemographics = () => {
                   tooltipOptions={{
                     className: "hoverClass",
                     showDelay: 500,
-                    hideDelay: 101300,
                   }}
                 >
                   <div className="flex align-items-start justify-content-start gap-4   p-2">

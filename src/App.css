@@ -293,3 +293,13 @@ body {
 .leaflet-popup-content {
   width: 30rem !important;
 }
+
+@media (max-width: 768px) {
+  /* Adjust text box width for smaller screens */
+  .text-box {
+    font-size: 2rem; /* Adjust font size for smaller screens */
+    padding: 0.1rem; /* Reduce padding for smaller screens */
+    width: 90%; /* 90% of the screen width for mobile */
+  }
+}
+

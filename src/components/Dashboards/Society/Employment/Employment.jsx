@@ -94,6 +94,7 @@ const Employment = ({ show }) => {
                 colorArray={["#FFDD82", "#F7A47A", "#98C6CF", "#1F8297"]}
                 horizontal={"right"}
                 vertical={"center"}
+                fontSize={10}
               />
             </div>
           </div>
