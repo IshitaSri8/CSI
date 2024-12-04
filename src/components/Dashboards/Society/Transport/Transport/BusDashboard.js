@@ -73,6 +73,7 @@ const BusDashboard = () => {
                   horizontal={"center"}
                   vertical={"bottom"}
                   colorArray={["#98C6CF", "#0F4B57", "#1f8297"]}
+                  fontSize={8}
                 />
               </div>
             </Tooltip>
@@ -126,6 +127,7 @@ const BusDashboard = () => {
                   colorArray={["#98C6CF", "#0F4B57"]}
                   horizontal={"center"}
                   vertical={"bottom"}
+                  fontSize={8}
                 />
               </div>
             </Tooltip>
@@ -169,6 +171,7 @@ const BusDashboard = () => {
             colorArray={["#98C6CF", "#0F4B57", "#1f8297"]}
             horizontal={"center"}
             vertical={"bottom"}
+            fontSize={10}
           />
         </Card>
         <Card className="w-full">

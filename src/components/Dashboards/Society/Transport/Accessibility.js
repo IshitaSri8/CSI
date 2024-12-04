@@ -101,9 +101,10 @@ const Accessibility = () => {
             labels={usageLabels}
             series={usageSeries}
             height={150}
-            horizontal={"center"}
-            vertical={"bottom"}
+            horizontal={"right"}
+            vertical={"center"}
             colorArray={["#98C6CF", "#0F4B57", "#1f8297", "#166c7d"]}
+            fontSize={10}
           />
         </Card>
 

@@ -110,7 +110,7 @@ const Land = ({ show }) => {
               />
             </div>
             {/* Total Population */}
-            <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
+            {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
                 <p className="text-primary1 font-semibold text-lg p-0 m-0">
                   Total Population
@@ -122,10 +122,10 @@ const Land = ({ show }) => {
                   2,48,638
                 </p>
               </div>
-            </div>
+            </div> */}
 
             {/* Population Density */}
-            <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
+            {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
                 <p className="text-primary1 font-semibold text-lg p-0 m-0">
                   Population Density
@@ -143,9 +143,53 @@ const Land = ({ show }) => {
                   per Hectare
                 </p>
               </div>
-            </div>
+            </div> */}
 
-            
+            {/* Population */}
+            <div className="flex flex-column bg-white border-round p-4 gap-3 w-full align-items-center">
+              <div className="flex justify-content-between align-items-center w-full">
+                <p className="text-primary1 font-semibold text-lg p-0 m-0">
+                  Population
+                </p>
+                <LandPlot size={15} />
+              </div>
+
+              {/* Outer Circle */}
+              <div className="flex align-items-start justify-content-center w-15rem h-14rem border-circle sec-theme position-absolute">
+                <div
+                  className="flex flex-column align-items-center justify-content-center position-relative"
+                  style={{
+                    top: "0", // Align at the bottom of the outer circle
+                    left: "50%", // Center horizontally
+                    transform: "translate(25%, 80%)", // Adjust for correct positioning
+                  }}
+                >
+                  <p className="text-4xl font-semibold m-0 text-secondary2">
+                    2,48,638
+                  </p>
+                  <p className="font-semibold m-0 text-secondary2">
+                    Total Population
+                  </p>
+                </div>
+
+                {/* Inner Circle */}
+                <div
+                  className="flex flex-column align-items-center justify-content-center w-7rem h-6rem border-circle ter-theme position-relative"
+                  style={{
+                    bottom: "0", // Align at the bottom of the outer circle
+                    left: "50%", // Center horizontally
+                    transform: "translate(-65%, 120%)", // Adjust for correct positioning
+                  }}
+                >
+                  <p className="text-lg font-semibold m-0 text-secondary2">
+                    1,798
+                  </p>
+                  <p className="font-semibold m-0 text-secondary2 text-sm">
+                    /Hectare
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Developed Area VS Proposed Area */}
@@ -359,9 +403,11 @@ const Land = ({ show }) => {
           />
         </div>
       </div>
+
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p>
+
       {show && (
         <Panel
           //  header="View Recommendations"
