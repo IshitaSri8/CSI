@@ -86,7 +86,7 @@ const CitizenSidebar = () => {
               backgroundColor: "#69ABB9",
               position: "fixed",
               bottom: "5rem",
-              left: "2rem",
+              left: "1rem",
             }}
             tooltip="Logout"
           />
@@ -96,7 +96,7 @@ const CitizenSidebar = () => {
             style={{
               position: "fixed",
               bottom: "20px",
-              left: "4rem",
+              left: "3rem",
               cursor: "pointer",
             }}
           />
@@ -163,11 +163,11 @@ const CitizenSidebar = () => {
           command: () => onBreadcrumbClick(item.url),
         }))}
         home={home}
-        style={{ marginLeft: "6rem" }}
+        style={{ marginLeft: "5rem" }}
       />
 
       {/* Render components based on activeTab */}
-      <div className="content" style={{ marginLeft: "6rem" }}>
+      <div className="content" style={{ marginLeft: "5rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCardCitizen />}
       </div>

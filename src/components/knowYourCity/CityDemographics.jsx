@@ -68,9 +68,7 @@ const CityDemographics = () => {
                   className="flex align-items-center justify-content-center p-3 border-round-xl flex-column"
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 >
-                  <h1 className="p-1 m-0 text-2xl font-medium text-white">
-                    1
-                  </h1>
+                  <h1 className="p-1 m-0 text-2xl font-medium text-white">1</h1>
                   <div className="flex justify-content-between align-items-center gap-2">
                     <p className="p-0 m-0 text-white text-sm">Highways</p>
                     <i className="pi pi-info-circle text-white w-full text-right highway text-xs"></i>
@@ -467,7 +465,7 @@ const CityDemographics = () => {
             className="w-full shadow-2 p-3 border-round-2xl"
             style={{
               background:
-                " linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
+                "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
             }}
           >
             <div className="flex align-items-center justify-content-between ">

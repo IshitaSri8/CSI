@@ -237,7 +237,7 @@ const GovernmentSidebar = () => {
             style={activeTabStyle("gov")}
             className="border-none border-round-lg"
           />
-          <Divider />
+          {/* <Divider /> */}
           <Button
             icon={<LogOut size={20} />}
             onClick={() => setVisible(true)}

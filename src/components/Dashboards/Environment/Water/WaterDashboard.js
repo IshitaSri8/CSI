@@ -54,7 +54,7 @@ const WaterDashboard = ({ show }) => {
           style={{ flex: "35%" }}
         >
           <p className="text-primary1 font-semibold text-lg p-0 m-0">
-            Water Production
+            Water Sources
           </p>
           <div className="flex justify-content-between gap-8">
             <div
