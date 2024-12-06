@@ -75,20 +75,20 @@ export default function RainReportPrint() {
         </div>
       </div>
       <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
+      <Button
+          label="Export PDF"
+          icon="pi pi-file-export"
+          size="small"
+          className="bg-primary1"
+          onClick={handleExport}
+          raised
+        />
         <Button
           label="Print"
           icon="pi pi-print"
           size="small"
-          className="bg-cyan-700"
+          className="bg-white text-cyan-800"
           onClick={handlePrint}
-          raised
-        />
-        <Button
-          label="Export as PDF"
-          icon="pi pi-file-export"
-          size="small"
-          className="bg-cyan-800"
-          onClick={handleExport}
           raised
         />
       </div>

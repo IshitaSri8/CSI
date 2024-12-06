@@ -11,6 +11,7 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import rain from "assets/Rainfall Illustration.svg";
 import { Chip } from "primereact/chip";
 import { Panel } from "primereact/panel";
+import { ProgressBar } from "primereact/progressbar";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
@@ -147,7 +148,7 @@ const RainDashboard = ({ show }) => {
     <div className="flex flex-column gap-3 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-        <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Rainfall
           </h1>
           <div className="flex align-items-center justify-content-end gap-4">
@@ -155,7 +156,7 @@ const RainDashboard = ({ show }) => {
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-theme text-white"
+              className="bg-primary1 text-white"
               raised
             />
             <Dialog
@@ -177,20 +178,28 @@ const RainDashboard = ({ show }) => {
         <div className="flex flex-column bg-white border-round gap-3 p-2 px-4 w-full mr-3">
           <p className="text-primary1 font-semibold text-lg">Total Rainfall</p>
           <div className="flex justify-content-around align-items-center gap-3">
-            <div className="flex flex-column align-items-center px-5 sec-theme">
-              <p className="text-3xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
+            <div className="flex flex-column align-items-center px-5">
+              <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
                 {totalRainfall} <span className="text-xl">mm</span>
               </p>
-              <p className="text-primary1 font-medium text-lg px-0">Actual</p>
+              <p className="text-primary1 font-medium text-lg p-0 m-0">Actual</p>
             </div>
             <Divider layout="vertical" />
-            <div className="flex flex-column align-items-center px-5 sec-theme">
-              <p className="text-3xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
+            <div className="flex flex-column align-items-center px-5">
+              <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
                 {totalExpectedRainfall} <span className="text-xl">mm</span>
               </p>
-              <p className="text-primary1 font-medium text-lg px-0">Expected</p>
+              <p className="text-primary1 font-medium text-lg p-0 m-0">Expected</p>
             </div>
           </div>
+          <ProgressBar
+            value={80}
+            style={{ height: "0.5rem" }} // Adjust the height
+            className="w-full border-round mt-4" // Full width of its container
+            color="#FFAD0D"
+            displayValueTemplate={() => null} // Hide the displayed value
+          />
+           <p className="text-tertiary3 font-medium text-sm" style={{marginTop: -10}}> <span style={{color: "#0C9D61"}}>8.5%</span> Up from last year</p>
         </div>
 
         {/* Deviation from Expected */}
@@ -203,12 +212,12 @@ const RainDashboard = ({ show }) => {
               value={-deviationPercentage}
               text={`${deviationPercentage}%`}
               counterClockwise="true"
-              strokeWidth={6}
+              strokeWidth={8}
               styles={buildStyles({
                 pathColor: "#E62225",
                 textColor: "#001F23",
                 trailColor: "#E7EAEA",
-                textSize: "1.5rem",
+                textSize: "2rem",
                 pathTransition: "stroke-dashoffset 0.5s ease 0s",
               })}
             />
@@ -230,15 +239,16 @@ const RainDashboard = ({ show }) => {
           <p className="text-primary1 font-semibold text-lg">
             Maximum Rainfall
           </p>
-            <p className="text-3xl font-semibold m-0 text-secondary2 text-center">
-              {maxRainfall}  <span className="text-xl">mm</span>
-            </p>
+          <p className="text-4xl font-semibold m-0 text-secondary2 text-center">
+            {maxRainfall} <span className="text-xl">mm</span>
+          </p>
           <Chip
-            label={`${maxRainfallYear} (July)`}
+            label={`July ${maxRainfallYear}`}
             style={{
               width: "fit-content",
               backgroundColor: "#e9f3f5",
               color: "#001F23",
+              fontWeight: 600,
             }}
           />
         </div>
@@ -265,7 +275,7 @@ const RainDashboard = ({ show }) => {
           toggleable
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon =  recommendationsVisible
+            const toggleIcon = recommendationsVisible
               ? "pi pi-chevron-down"
               : "pi pi-chevron-up";
 

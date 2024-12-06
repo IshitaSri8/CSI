@@ -307,7 +307,8 @@ const TempDashboard = ({
               label="Filters"
               icon="pi pi-filter"
               onClick={() => setFilterVisible(!filterVisible)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800 "
+              className="bg-white text-secondary2"
+              raised
             />
             {filterVisible && (
               <div
@@ -354,17 +355,19 @@ const TempDashboard = ({
                     />
                   </div>
                   <div className="flex justify-content-between">
-                    <Button
+                  <Button
                       className="bg-white text-moderate border-none"
                       label="Reset"
                       // icon="pi pi-search"
                       onClick={resetFilters}
+                      raised
                     />
                     <Button
-                      className="bg-white text-primary1 border-1"
+                      className="bg-primary1"
                       label="Apply"
                       // icon="pi pi-search"
                       onClick={handleSearch}
+                      raised
                     />
                   </div>
                 </div>
@@ -376,7 +379,7 @@ const TempDashboard = ({
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
               // className="bg-white text-cyan-800 border-1 border-cyan-800"
-              className=" bg-theme text-white"
+              className=" bg-primary1 text-white"
               raised
             />
           </div>
