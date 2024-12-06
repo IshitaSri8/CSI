@@ -59,7 +59,7 @@ const EducationDashboard = ({ show }) => {
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
-            className="bg-theme text-white mr-3"
+            className="bg-primary1 text-white mr-3"
             style={{ marginTop: -60 }}
             raised
           />

@@ -52,7 +52,7 @@ const Community = ({ show }) => {
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
-            className="bg-theme text-white"
+            className="bg-primary1 text-white"
             raised
           />
           <Dialog
@@ -127,7 +127,7 @@ const Community = ({ show }) => {
         {/* Number of NGOs/Forums Over Years */}
         <div
           className="flex bg-white border-round align-items-center p-3"
-          style={{ flex: "45%" }}
+          style={{ flex: "42%" }}
         >
           <ColumnChart
             title="NGOs/Forums Over the Years"

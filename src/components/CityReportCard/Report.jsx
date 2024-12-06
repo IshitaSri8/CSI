@@ -101,11 +101,11 @@ const CityReportCard = () => {
       labelFontSize: 10,
       labelFontFamily: "Montserrat",
     },
-legend: {
-fontFamily: "Montserrat",
-horizontalAlign: "left",
-fontWeight: 500,
-},
+    legend: {
+      fontFamily: "Montserrat",
+      horizontalAlign: "left",
+      fontWeight: 500,
+    },
     toolTip: {
       shared: true,
       cornerRadius: 4,
@@ -237,18 +237,18 @@ fontWeight: 500,
             <div>
               <div className="flex align-items-start justify-content-between">
                 <div className="flex flex-column align-items-start gap-2">
-                  <p className="text-xl font-medium text p-0 m-0">
-                    Nature
+                  <p className="text-xl font-medium text p-0 m-0">Nature</p>
+                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">
+                    80
                   </p>
-                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">80</p>
                 </div>
                 <div className="flex align-items-start justify-content-end ml-5">
                   <img src={nature} alt="nature" className="w-4rem" />
                 </div>
               </div>
-                <p className="text-tertiary3">
-                  Sustaining our planets for future generations.
-                </p>
+              <p className="text-tertiary3">
+                Sustaining our planets for future generations.
+              </p>
             </div>
           )}
         </Card>
@@ -307,20 +307,20 @@ fontWeight: 500,
             </div>
           ) : (
             <div>
-            <div className="flex align-items-start justify-content-between">
-              <div className="flex flex-column align-items-start gap-2">
-                  <p className="text-xl font-medium text p-0 m-0">
-                    Society
+              <div className="flex align-items-start justify-content-between">
+                <div className="flex flex-column align-items-start gap-2">
+                  <p className="text-xl font-medium text p-0 m-0">Society</p>
+                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">
+                    80
                   </p>
-                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">80</p>
                 </div>
                 <div className="flex align-items-start justify-content-end">
                   <img src={society} alt="Admin" className="w-4rem" />
                 </div>
               </div>
-                <p className="text-tertiary3">
-                  Empowering sustainable change, enriching diverse lives.
-                </p>
+              <p className="text-tertiary3">
+                Empowering sustainable change, enriching diverse lives.
+              </p>
             </div>
           )}
         </Card>
@@ -379,15 +379,17 @@ fontWeight: 500,
                   <p className="text-xl font-medium text p-0 m-0">
                     Administration
                   </p>
-                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">60</p>
+                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">
+                    60
+                  </p>
                 </div>
                 <div className="flex align-items-start justify-content-end">
                   <img src={admin} alt="Admin" className="w-4rem" />
                 </div>
               </div>
-                <p className="text-tertiary3">
-                  Empowering responsible administration for lasting impact.
-                </p>
+              <p className="text-tertiary3">
+                Empowering responsible administration for lasting impact.
+              </p>
             </div>
           )}
         </Card>
@@ -419,15 +421,17 @@ fontWeight: 500,
                   <p className="text-xl font-medium text p-0 m-0">
                     Overall Score
                   </p>
-                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">70</p>
+                  <p className="text-4xl font-bold text-secondary2 p-0 m-0">
+                    70
+                  </p>
                 </div>
                 <div className="flex align-items-start justify-content-end ml-3">
                   <img src={overall} alt="Overall Score" className="w-4rem" />
                 </div>
               </div>
-                <p className="text-tertiary3">
-                  Shaping a Sustainable Future through NSA Dimensions.
-                </p>
+              <p className="text-tertiary3">
+                Shaping a Sustainable Future through NSA Dimensions.
+              </p>
             </div>
           )}
         </Card>

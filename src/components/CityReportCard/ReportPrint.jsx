@@ -64,7 +64,7 @@ export default function ReportPrint({ visible, toggleModalVisibility }) {
     <>
       <div ref={contentRef} className="w-full print-container sec-theme p-4">
         <div className="flex flex-column gap-2 align-items-center w-full mb-2">
-        <h1
+          <h1
             style={{ color: "#166c7d" }}
             className="m-0 p-0 text-3xl font-semibold"
           >
@@ -79,24 +79,26 @@ export default function ReportPrint({ visible, toggleModalVisibility }) {
           <Report />
         </div>
         <div className="w-full">
-        <h1 className="text-left text-xl mt-4">Recommendations</h1>
+          <h1 className="text-left text-xl mt-4">Recommendations</h1>
           <Recommendations />
         </div>
       </div>
-      <div className="flex align-items-center justify-content-end p-2 w-full">
+      <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
+        <Button
+          label="Export PDF"
+          icon="pi pi-file-export"
+          size="small"
+          className="bg-primary1"
+          onClick={handleExport}
+          raised
+        />
         <Button
           label="Print"
           icon="pi pi-print"
           size="small"
-          className="bg-cyan-700 mr-2"
-          onClick={handlePrint} // Call the print function from react-to-print
-        />
-        <Button
-          label="Export as PDF"
-          icon="pi pi-file-export"
-          size="small"
-          className="bg-cyan-800"
-          onClick={handleExport}
+          className="bg-white text-secondary2"
+          onClick={handlePrint}
+          raised
         />
       </div>
     </>
