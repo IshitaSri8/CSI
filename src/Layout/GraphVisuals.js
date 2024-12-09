@@ -94,7 +94,7 @@ export const Doughnut = ({
   showNo,
   colorArray,
   vertical,
-  horizontal
+  horizontal,
 }) => {
   const totalValue = series.reduce((acc, value) => acc + value, 0);
   const options = {
@@ -478,7 +478,7 @@ export const ColumnChart = ({
           horizontalAlign: "left",
           padding: { bottom: 20 },
         },
-        dataPointWidth: dataPointWidth, 
+        dataPointWidth: dataPointWidth,
         axisX: {
           title: xtitle,
           gridThickness: 0,
@@ -665,7 +665,7 @@ export const GroupedColumnChart = ({
       gridThickness: 0,
       labelFontSize: 10,
       labelFontFamily: "Montserrat",
-      // labelMaxWidth: 100, 
+      // labelMaxWidth: 100,
       // labelWrap: true,
       tickLength: 0,
       lineThickness: 0,
@@ -942,7 +942,14 @@ export const ParetoChart = ({
   );
 };
 
-export const LineChart = ({ title, categories, data, xtitle, ytitle, height }) => {
+export const LineChart = ({
+  title,
+  categories,
+  data,
+  xtitle,
+  ytitle,
+  height,
+}) => {
   const options = {
     animationEnabled: true,
     title: {
@@ -970,7 +977,6 @@ export const LineChart = ({ title, categories, data, xtitle, ytitle, height }) =
       labelFormatter: function () {
         return " ";
       },
-
     },
 
     data: data.map((series, index) => ({
@@ -992,10 +998,10 @@ export const LineChart = ({ title, categories, data, xtitle, ytitle, height }) =
   };
 
   return (
-      <CanvasJSChart
-        options={options}
-        containerProps={{ height: height, width: "100%" }}
-      />
+    <CanvasJSChart
+      options={options}
+      containerProps={{ height: height, width: "100%" }}
+    />
   );
 };
 
@@ -1048,10 +1054,10 @@ export const ModifiedLineChart = ({
   };
 
   return (
-      <CanvasJSChart
-        options={options}
-        containerProps={{ height: height, width: "100%" }}
-      />
+    <CanvasJSChart
+      options={options}
+      containerProps={{ height: height, width: "100%" }}
+    />
   );
 };
 
@@ -1183,6 +1189,60 @@ export const ModifiedPieChart = ({ title, categories, series, height }) => {
         ))}
       </div>
     </div>
+  );
+};
+export const ModifiedPieChartPercentage = ({
+  title,
+  categories,
+  series,
+  height,
+}) => {
+  const total = series.reduce((acc, value) => acc + value, 0);
+  return (
+    <CanvasJSChart
+      options={{
+        animationEnabled: true,
+        interactivityEnabled: false,
+        title: {
+          text: title,
+          fontFamily: "Montserrat",
+          fontWeight: 600,
+          fontColor: "#001F23",
+          horizontalAlign: "left",
+          padding: { bottom: 10 },
+        },
+
+        data: [
+          {
+            type: "pie",
+            startAngle: 280,
+            toolTipContent: "<b>{label}</b>: {y} %",
+            showInLegend: true,
+            legendText: "{label}",
+            color: colors,
+            indexLabelPlacement: "inside",
+            indexLabel: "#percent%",
+            indexLabelFontColor: "white",
+            dataPoints: series.map((value, index) => ({
+              y: value,
+              label: categories[index],
+              // color: colors[index % colors.length],
+              color: colors[index + (4 % colors.length)],
+              percent: ((value / total) * 12).toFixed(2),
+            })),
+          },
+        ],
+        legend: {
+          verticalAlign: "center",
+          horizontalAlign: "right",
+          fontSize: 9,
+          fontFamily: "Montserrat",
+          fontWeight: 600,
+          fontColor: "#001F23",
+        },
+      }}
+      containerProps={{ height: height, width: "100%" }}
+    />
   );
 };
 
