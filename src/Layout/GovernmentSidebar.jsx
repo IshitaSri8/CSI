@@ -476,31 +476,17 @@ const GovernmentSidebar = () => {
               </div>
               {activeSections.society && (
                 <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
-                  {/* Community Engagement & Holistic Well-Being */}
-                  <li>
-                    <div
-                      style={getTabStyle("community")}
-                      onClick={() => handleTabClick("community")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
-                    >
-                      <HeartHandshake className="text-white mr-2" size={25} />
-                      <span className="font-medium text-sm text-white">
-                        Community Engagement & Holistic Well-Being
-                      </span>
-                      <Ripple />
-                    </div>
-                  </li>
 
-                  {/* Cultural Preservation */}
-                  <li>
+                   {/* Healthcare */}
+                   <li>
                     <div
-                      style={getTabStyle("cultural")}
-                      onClick={() => handleTabClick("cultural")}
+                      style={getTabStyle("healthcare")}
+                      onClick={() => handleTabClick("healthcare")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <EarthLock className="text-white mr-2" size={15} />
+                      <Ambulance className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
-                        Cultural Preservation
+                        Healthcare
                       </span>
                       <Ripple />
                     </div>
@@ -521,8 +507,23 @@ const GovernmentSidebar = () => {
                     </div>
                   </li>
 
-                  {/* Employment Opportunity */}
+                  {/* Public Transport */}
                   <li>
+                    <div
+                      style={getTabStyle("transport")}
+                      onClick={() => handleTabClick("transport")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <Bus className="text-white mr-2" size={15} />
+                      <span className="font-medium text-sm text-white">
+                        Public Transport
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
+
+                    {/* Employment Opportunity */}
+                    <li>
                     <div
                       style={getTabStyle("employment")}
                       onClick={() => handleTabClick("employment")}
@@ -539,35 +540,36 @@ const GovernmentSidebar = () => {
                     </div>
                   </li>
 
-                  {/* Healthcare */}
-                  <li>
+                   {/* Cultural Preservation */}
+                   <li>
                     <div
-                      style={getTabStyle("healthcare")}
-                      onClick={() => handleTabClick("healthcare")}
+                      style={getTabStyle("cultural")}
+                      onClick={() => handleTabClick("cultural")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <Ambulance className="text-white mr-2" size={15} />
+                      <EarthLock className="text-white mr-2" size={15} />
                       <span className="font-medium text-sm text-white">
-                        Healthcare
+                        Cultural Preservation
                       </span>
                       <Ripple />
                     </div>
                   </li>
 
-                  {/* Public Transport */}
+                  {/* Community Engagement & Holistic Well-Being */}
                   <li>
                     <div
-                      style={getTabStyle("transport")}
-                      onClick={() => handleTabClick("transport")}
+                      style={getTabStyle("community")}
+                      onClick={() => handleTabClick("community")}
                       className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
                     >
-                      <Bus className="text-white mr-2" size={15} />
+                      <HeartHandshake className="text-white mr-2" size={25} />
                       <span className="font-medium text-sm text-white">
-                        Public Transport
+                        Community Engagement & Holistic Well-Being
                       </span>
                       <Ripple />
                     </div>
                   </li>
+
                 </ul>
               )}
             </li>

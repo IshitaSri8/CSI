@@ -69,7 +69,8 @@ const LandingScreen = () => {
           <Button
             label="Explore More"
             icon="pi pi-globe"
-            className="bg-theme mb-3"
+            className="bg-primary1 mb-3"
+            raised
             onClick={scrollToCSISteps} // Add onClick handler
           />
 
@@ -232,7 +233,8 @@ const LandingScreen = () => {
               ) : (
                 <Button
                   label="Get in Touch"
-                  className="w-12rem bg-theme"
+                  className="w-12rem bg-primary1"
+                  raised
                   onClick={handleGetInTouchClick}
                 />
               )}

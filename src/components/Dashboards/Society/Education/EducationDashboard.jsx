@@ -114,18 +114,18 @@ const EducationDashboard = ({ show }) => {
                     Teacher vs Student Ratio
                   </p>
                   <div className="flex my-3">
+                  <div className="flex flex-column w-full p-2 align-items-center">
+                      <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                        {educationData.teacherStudentRatioCurrent}
+                      </p>
+                      <p className="text p-0 m-0 mt-1 font-semibold">Current</p>
+                    </div>
+                    <Divider layout="vertical" />
                     <div className="flex flex-column w-full p-2 align-items-center">
                       <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                         {educationData.teacherStudentRatioTarget}
                       </p>
                       <p className="text p-0 m-0 mt-1 font-semibold">Target</p>
-                    </div>
-                    <Divider layout="vertical" />
-                    <div className="flex flex-column w-full p-2 align-items-center">
-                      <p className="text-2xl font-semibold m-0 text-primary2 p-0">
-                        {educationData.teacherStudentRatioCurrent}
-                      </p>
-                      <p className="text p-0 m-0 mt-1 font-semibold">Current</p>
                     </div>
                   </div>
                   <ProgressBar
@@ -256,20 +256,20 @@ const EducationDashboard = ({ show }) => {
                       </p>
                       <div className="flex my-2 py-2">
                         <div className="flex flex-column w-full p-2 align-items-center">
-                          <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
-                            {educationData.enrollmentTarget}
-                          </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
-                            Target
-                          </p>
-                        </div>
-                        <Divider layout="vertical" />
-                        <div className="flex flex-column w-full p-2 align-items-center">
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.enrollmentCurrent}
                           </p>
                           <p className="text p-0 m-0 mt-1 font-semibold">
                             Current
+                          </p>
+                        </div>
+                        <Divider layout="vertical" />
+                        <div className="flex flex-column w-full p-2 align-items-center">
+                          <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                            {educationData.enrollmentTarget}
+                          </p>
+                          <p className="text p-0 m-0 mt-1 font-semibold">
+                            Target
                           </p>
                         </div>
                       </div>
@@ -302,20 +302,20 @@ const EducationDashboard = ({ show }) => {
                       </p>
                       <div className="flex my-2 py-2">
                         <div className="flex flex-column w-full p-2 align-items-center">
-                          <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
-                            {educationData.dropoutRatioTargetValue}
-                          </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
-                            Target
-                          </p>
-                        </div>
-                        <Divider layout="vertical" />
-                        <div className="flex flex-column w-full p-2 align-items-center">
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.dropoutRatioCurrentValue}
                           </p>
                           <p className="text p-0 m-0 mt-1 font-semibold">
                             Current
+                          </p>
+                        </div>
+                        <Divider layout="vertical" />
+                        <div className="flex flex-column w-full p-2 align-items-center">
+                          <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                            {educationData.dropoutRatioTargetValue}
+                          </p>
+                          <p className="text p-0 m-0 mt-1 font-semibold">
+                            Target
                           </p>
                         </div>
                       </div>

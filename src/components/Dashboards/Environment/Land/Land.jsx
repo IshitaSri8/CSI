@@ -22,7 +22,7 @@ const Land = ({ show }) => {
   const deviationData = [
     { title: "Residential", value: 47, target: 46.91 },
     { title: "Industrial", value: 5, target: 7.33 },
-    { title: "Commercial", value: 4, target: 3.36 },
+    { title: "Commercial", value: 4, target: 4.61 },
     { title: "Public and Semi-Public", value: 15, target: 9.57 },
     { title: "Transportation", value: 19, target: 18.2 },
     { title: "Parks & Opens Spaces", value: 5, target: 13.38 },
@@ -100,7 +100,7 @@ const Land = ({ show }) => {
                   className="text-lg font-semibold m-0 text-secondary2"
                   style={{ marginTop: "0" }}
                 >
-                  sq km
+                  sq. km
                 </p>
               </div>
               <Tag
@@ -181,11 +181,11 @@ const Land = ({ show }) => {
                     transform: "translate(-65%, 120%)", // Adjust for correct positioning
                   }}
                 >
-                  <p className="text-lg font-semibold m-0 text-secondary2">
-                    1,798
+                  <p className="text-xl font-semibold m-0 text-secondary2">
+                    1,038
                   </p>
-                  <p className="font-semibold m-0 text-secondary2 text-sm">
-                    /Hectare
+                  <p className="font-semibold m-0 text-secondary2">
+                    /sq. km
                   </p>
                 </div>
               </div>
@@ -195,7 +195,7 @@ const Land = ({ show }) => {
           {/* Developed Area VS Proposed Area */}
           <div className="flex flex-column bg-white border-round p-5 gap-3">
             <p className="p-0 m-0 text-primary1 font-semibold text-lg">
-              Area Proposed for 2031 VS Area Developed
+              Land Usage: Targets vs Achievements
             </p>
             <div className="flex gap-4">
               {/* First Column */}

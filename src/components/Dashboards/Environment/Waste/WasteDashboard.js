@@ -16,27 +16,28 @@ const WasteDashboard = ({ show }) => {
     setRecommendationsVisible((prev) => !prev);
   };
 
-  const solidWasteData = [182, 181, 183];
+  const solidWasteData = [190, 181, 180];
   const solidWasteLabels = [
-    "SW-Generated(TPD)",
-    "SW-Collected(TPD)",
-    "SW-Processed(TPD)",
+    "SW-Generated",
+    "SW-Collected",
+    "SW-Processed",
   ];
 
-  const estimatedSWGData = [358261, 119420, 59700, 59700]; // Example data
+  const estimatedSWGData = [358.261, 119.420, 59.700, 59.700]; // Example data
   const estimatedSWGLabels = [
     "Residential",
     "Commercial",
-    "Street Sweepings",
+    // "Street Sweepings",
     "Institutional",
+    "Others",
   ];
 
-  const wasteCompositionData = [55300, 33700, 178500, 82750];
+  const wasteCompositionData = [55.300, 33.700, 178.500, 82.750];
   const wasteCompositionLabels = [
-    "Green Waste- 55300(Kg/d)",
-    "Debris & Silt- 33700(Kg/d)",
-    "Biodegradable- 178500(Kg/d)",
-    "Recyclable- 82750(Kg/d)",
+    "Green Waste",
+    "Debris & Silt",
+    "Biodegradable",
+    "Recyclable",
   ];
 
   const sanitationLabels = [
@@ -52,7 +53,7 @@ const WasteDashboard = ({ show }) => {
     animationEnabled: true,
     interactivityEnabled: false,
     title: {
-      text: "Waste Collection (in MT/day)",
+      text: "Waste Collection (in TPD)",
       fontSize: 14,
       fontFamily: "Montserrat",
       fontWeight: 600,
@@ -75,10 +76,10 @@ const WasteDashboard = ({ show }) => {
     data: [
       {
         type: "bar",
-        name: "Other Sources",
+        name: "Door-to-door Collection",
         showInLegend: true,
-        color: "#166c7d",
-        indexLabel: `{y} MT`,
+        color: "#1F8297",
+        indexLabel: `{y}`,
         indexLabelFontSize: 8,
         indexLabelPlacement: "outside",
         indexLabelFontFamily: "Montserrat",
@@ -95,8 +96,8 @@ const WasteDashboard = ({ show }) => {
         type: "bar",
         name: "Community Bins",
         showInLegend: true,
-        color: "#98C6CF",
-        indexLabel: `{y} MT`,
+        color: "#BAD8DF",
+        indexLabel: `{y}`,
         indexLabelFontSize: 8,
         indexLabelPlacement: "outside",
         indexLabelFontFamily: "Montserrat",
@@ -111,10 +112,10 @@ const WasteDashboard = ({ show }) => {
       },
       {
         type: "bar",
-        name: "Door-to-door Collection",
+        name: "Other Sources",
         showInLegend: true,
-        color: "#1F8297",
-        indexLabel: `{y} MT`,
+        color: "#69ABB9",
+        indexLabel: `{y}`,
         indexLabelFontSize: 8,
         indexLabelPlacement: "outside",
         indexLabelFontFamily: "Montserrat",
@@ -130,7 +131,7 @@ const WasteDashboard = ({ show }) => {
     ],
     legend: {
       fontSize: 10,
-      horizontalAlign: "center",
+      horizontalAlign: "left",
       verticalAlign: "bottom",
       fontFamily: "Montserrat",
       fontWeight: 500,
@@ -172,7 +173,7 @@ const WasteDashboard = ({ show }) => {
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
             <p className="text-primary1 font-semibold text-lg p-0 m-0">
               Waste Generated{" "}
-              <span className="text-sm text-tertiary3 font-medium">/Day</span>
+              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
               355 <span className="text-xl">MTD</span>
@@ -190,17 +191,31 @@ const WasteDashboard = ({ show }) => {
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
             <p className="text-primary1 font-semibold text-lg p-0 m-0">
               Waste Collected{" "}
-              <span className="text-sm text-tertiary3 font-medium">/Day</span>
+              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
               322 <span className="text-xl">MTD</span>
             </p>
           </div>
         </div>
+        {/* Solid Waste Management (in TPD) */}
+        <div
+          className="flex w-full bg-white border-round p-4"
+          style={{ flex: "27%" }}
+        >
+          <ModifiedColumnChart
+            categories={solidWasteLabels}
+            series={solidWasteData}
+            height={150}
+            title="Solid Waste Management (in TPD)"
+            labelFontSize={6}
+            // colors={colors.slice(0, 3)}
+          />
+        </div>
         {/* Estimated Solid Waste Generated */}
         <div
           className="flex w-full bg-white border-round p-4"
-          style={{ flex: "32%" }}
+          style={{ flex: "37%" }}
         >
           {/* <CanvasJSChart
             options={estimatedSWGChart}
@@ -210,29 +225,14 @@ const WasteDashboard = ({ show }) => {
             categories={estimatedSWGLabels}
             series={estimatedSWGData}
             height={150}
-            title="Estimated Solid Waste Generated"
+            title="Estimated Waste Generated (in TPD)"
             labelFontSize={8}
             // colors={colors.slice(0, 4)}
           />
         </div>
-        {/* Waste Composition */}
-        <div
-          className="flex gap-3 w-full bg-white border-round p-4"
-          style={{ flex: "32%" }}
-        >
-          <PieChart
-            categories={wasteCompositionLabels}
-            series={wasteCompositionData}
-            height={165}
-            title="Waste Composition"
-            vertical="center"
-            horizontal="right"
-            fontSize={10}
-          />
-        </div>
-        {/* CT/PT */}
-        <div
-          className="flex flex-column bg-white border-round p-4 gap-2 w-full justify-content-around"
+         {/* CT/PT */}
+         <div
+          className="flex flex-column bg-white border-round p-4 w-full justify-content-around"
           style={{ flex: "18%" }}
         >
           <p className="text-primary1 font-semibold text-lg p-0 m-0">CT/PT</p>
@@ -266,29 +266,33 @@ const WasteDashboard = ({ show }) => {
       </div>
 
       <div className="flex gap-3 w-full">
+        {/* Waste Composition */}
+        <div
+          className="flex gap-3 w-full bg-white border-round p-4"
+          style={{ flex: "25%" }}
+        >
+          <PieChart
+            categories={wasteCompositionLabels}
+            series={wasteCompositionData}
+            height={250}
+            title="Waste Composition (in TPD)"
+            vertical="bottom"
+            horizontal="center"
+            fontSize={10}
+          />
+        </div>
         <div
           className="flex flex-column gap-3 w-full bg-white border-round p-4"
-          style={{ flex: "51%" }}
+          style={{ flex: "70%" }}
         >
           <CanvasJSChart
             options={CustomBar}
             containerProps={{ height: 250, width: "100%" }}
           />
         </div>
-        <div
-          className="flex w-full bg-white border-round p-4"
-          style={{ flex: "25%" }}
-        >
-          <ModifiedColumnChart
-            categories={solidWasteLabels}
-            series={solidWasteData}
-            height={220}
-            title="Solid Waste Management"
-            labelFontSize={6}
-            // colors={colors.slice(0, 3)}
-          />
-        </div>
-        <div
+       
+       
+        {/* <div
           className="flex flex-column gap-3 w-full bg-white border-round p-4"
           style={{ flex: "24%" }}
         >
@@ -301,7 +305,7 @@ const WasteDashboard = ({ show }) => {
             horizontal="center"
             fontSize={10}
           />
-        </div>
+        </div> */}
       </div>
 
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">

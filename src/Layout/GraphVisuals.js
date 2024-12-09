@@ -571,8 +571,9 @@ export const ModifiedColumnChart = ({
             },
             legend: {
               fontFamily: "Montserrat",
-              fontWeight: 600,
+              fontWeight: 500,
               fontSize: 10,
+              horizontalAlign: "left",
             },
             dataPointWidth: 50,
             // data: categories.map((category, index) => ({
@@ -1107,8 +1108,8 @@ export const PieChart = ({
           horizontalAlign: horizontal,
           verticalAlign: vertical,
           fontFamily: "Montserrat",
-          fontWeight: 600,
-          fontColor: "#001F23",
+          fontWeight: 500,
+          // fontColor: "#8D9595",
         },
       }}
       containerProps={{ height: height, width: "100%" }}

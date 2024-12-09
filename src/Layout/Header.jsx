@@ -116,8 +116,9 @@ const Header = () => {
     <Button
       label="Sign in"
       icon="pi pi-user"
-      className="bg-theme p-ml-auto"
+      className="bg-primary1 p-ml-auto"
       onClick={handleSignInClick}
+      raised
     />
   ) : null; // Show button only for specific routes
 
