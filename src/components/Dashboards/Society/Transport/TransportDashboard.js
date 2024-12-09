@@ -33,7 +33,7 @@ const TransportDashboard = ({ show }) => {
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-theme text-white"
+              className="bg-primary1 text-white"
               raised
             />
             <Dialog
@@ -98,7 +98,7 @@ const TransportDashboard = ({ show }) => {
           }
           icon={recommendationsVisible ? "pi pi-times" : "pi pi-check-square"}
           onClick={handleToggleRecommendations}
-          className="bg-theme text-white"
+          className="bg-primary1 text-white"
           raised
         />
       </div>

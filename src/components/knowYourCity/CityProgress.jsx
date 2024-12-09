@@ -45,6 +45,7 @@ const CityProgress = () => {
   return (
     <div className="flex gap-3">
       <div className="flex flex-column gap-3 w-full">
+        {/* Water Management */}
         <div
           className="flex flex-column border-round-2xl w-full h-auto p-2"
           style={{
@@ -145,7 +146,9 @@ const CityProgress = () => {
             </div>
           </div>
         </div>
+
         <div className="flex gap-3">
+          {/* Housing */}
           <div
             className="border-round-2xl w-full p-3"
             style={{
@@ -209,6 +212,7 @@ const CityProgress = () => {
             </div>
           </div>
 
+          {/* Power Consumption */}
           <div
             className="border-round-2xl w-full p-4"
             style={{
@@ -232,6 +236,8 @@ const CityProgress = () => {
           </div>
         </div>
       </div>
+
+      {/* Waste Management */}
       <div
         className="w-full border-round-2xl w-full"
         style={{

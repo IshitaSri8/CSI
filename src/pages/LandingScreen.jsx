@@ -61,7 +61,7 @@ const LandingScreen = () => {
             Measuring and Boosting Urban Sustainability
           </h2>
           <p className="text-xl text" style={{ color: "#8AA4A7" }}>
-            Empowering governments, businesses, and citizens to track and
+            Empowering governments, businesses and citizens to track and
             improve urban sustainability for a greener future.
           </p>
 
@@ -242,8 +242,8 @@ const LandingScreen = () => {
           {/* Pass handleSuccess as a prop to UserDialog */}
           <UserDialog ref={userDialogRef} onSuccess={handleSuccess} />
         </div>
-
         <Footer />
+
       </div>
     </div>
   );

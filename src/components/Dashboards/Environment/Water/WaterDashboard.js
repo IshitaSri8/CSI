@@ -45,7 +45,7 @@ const WaterDashboard = ({ show }) => {
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-theme text-white"
+              className="bg-primary1 text-white"
               raised
             />
             <Dialog

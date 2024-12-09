@@ -75,6 +75,7 @@ const RailDashboard = () => {
                 colorArray={["#98C6CF", "#0F4B57"]}
                 horizontal={"center"}
                 vertical={"bottom"}
+                fontSize={8}
               />
             </div>
           </Tooltip>
@@ -141,6 +142,7 @@ const RailDashboard = () => {
                 colorArray={["#98C6CF", "#0F4B57"]}
                 horizontal={"center"}
                 vertical={"bottom"}
+                fontSize={8}
               />
             </div>
           </Tooltip>
@@ -160,6 +162,7 @@ const RailDashboard = () => {
             horizontal={"center"}
             vertical={"bottom"}
             colorArray={["#98C6CF", "#0F4B57", "#1f8297"]}
+            fontSize={10}
           />
         </div>
         <div className="flex w-full border-round">

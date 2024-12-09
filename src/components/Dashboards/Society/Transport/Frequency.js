@@ -63,7 +63,7 @@ const Frequency = () => {
                 </p>
               </div>
               <i className="pi pi-info-circle text-theme w-full text-right frequency text-sm"></i>
-              <Tooltip target=".frequency" position="right">
+              <Tooltip target=".frequency" position="bottom">
                 <div className="p-2 flex align-items-center justify-content-center gap-1 flex-column h-5rem w-full">
                   <p className="m-0 text-sm">Frequency In Current Year: 70%</p>
                   <p className="m-0 text-sm">Frequency In Previous Year: 60%</p>
@@ -89,14 +89,15 @@ const Frequency = () => {
             series={frequencyseries}
             height={150}
             title="Average number of services per day"
-            horizontal={"center"}
-            vertical={"bottom"}
+            horizontal={"right"}
+            vertical={"center"}
             colorArray={[
               "#98C6CF", // Light Blue
               "#1F8297", // Dark Cyan
               "#166c7d", // Dark Teal
               "#0F4B57",
             ]}
+            fontSize={10}
           />
         </Card>
       </div>

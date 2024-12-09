@@ -149,7 +149,7 @@ const WasteDashboard = ({ show }) => {
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-theme text-white"
+              className="bg-primary1 text-white"
               raised
             />
             <Dialog
@@ -166,7 +166,7 @@ const WasteDashboard = ({ show }) => {
         </div>
       )}
 
-      <div className="flex w-full gap-4">
+      <div className="flex w-full gap-3">
         <div className="flex flex-column gap-2 w-full" style={{ flex: "18%" }}>
           {/* Waste Generated */}
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
@@ -265,7 +265,7 @@ const WasteDashboard = ({ show }) => {
         </div>
       </div>
 
-      <div className="flex gap-4 w-full">
+      <div className="flex gap-3 w-full">
         <div
           className="flex flex-column gap-3 w-full bg-white border-round p-4"
           style={{ flex: "51%" }}

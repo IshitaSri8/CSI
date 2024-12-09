@@ -52,7 +52,7 @@ const Employment = ({ show }) => {
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
-            className="bg-theme text-white"
+            className="bg-primary1 text-white"
             raised
           />
           <Dialog
@@ -94,6 +94,7 @@ const Employment = ({ show }) => {
                 colorArray={["#FFDD82", "#F7A47A", "#98C6CF", "#1F8297"]}
                 horizontal={"right"}
                 vertical={"center"}
+                fontSize={10}
               />
             </div>
           </div>

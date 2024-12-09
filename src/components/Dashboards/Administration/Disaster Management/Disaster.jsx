@@ -148,7 +148,7 @@ const Disaster = ({ show }) => {
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
             //className="bg-white text-cyan-800 border-1 border-cyan-800"
-            className="bg-theme text-white"
+            className="bg-primary1 text-white"
             raised
           />
           <Dialog

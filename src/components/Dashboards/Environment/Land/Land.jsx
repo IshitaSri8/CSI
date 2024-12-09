@@ -64,7 +64,7 @@ const Land = ({ show }) => {
               label="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-theme text-white"
+              className="bg-primary1 text-white"
               raised
             />
             <Dialog
@@ -109,45 +109,42 @@ const Land = ({ show }) => {
                 icon="pi pi-info-circle"
               />
             </div>
-            {/* Developed Area */}
-            <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
+            {/* Total Population */}
+            {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
                 <p className="text-primary1 font-semibold text-lg p-0 m-0">
-                  Developed Area
+                  Total Population
                 </p>
                 <LandPlot size={15} />
               </div>
-              <div className="flex w-13rem custom-circular-progress">
-                <CircularProgressbar
-                  value={devArea}
-                  text={`${devArea}%`}
-                  strokeWidth={4}
-                  styles={buildStyles({
-                    pathColor: "#1f8297",
-                    textColor: "#001F23",
-                    trailColor: "#E7EAEA",
-                    textSize: "1.2rem",
-                    pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                    transform: "rotate(2.25turn)",
-                  })}
-                />
-              </div>
-              {/* <div className="flex align-items-center justify-content-start">
-                <img
-                  src={increase}
-                  style={{
-                    height: "1.5rem",
-                    width: "1.5rem",
-                    marginRight: "0.5rem",
-                  }}
-                  alt="increase"
-                />
-                <p className="text-tertiary3 text-sm p-0 m-0 font-semibold">
-                  <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
-                  year.
+              <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
+                <p className="text-4xl font-semibold m-0 text-secondary2">
+                  2,48,638
                 </p>
-              </div> */}
-            </div>
+              </div>
+            </div> */}
+
+            {/* Population Density */}
+            {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
+              <div className="flex justify-content-between align-items-center w-full">
+                <p className="text-primary1 font-semibold text-lg p-0 m-0">
+                  Population Density
+                </p>
+                <LandPlot size={15} />
+              </div>
+              <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
+                <p className="text-4xl font-semibold m-0 text-secondary2">
+                  1798
+                </p>
+                <p
+                  className="text-lg font-semibold m-0 text-secondary2"
+                  style={{ marginTop: "0" }}
+                >
+                  per Hectare
+                </p>
+              </div>
+            </div> */}
+
             {/* Population */}
             <div className="flex flex-column bg-white border-round p-4 gap-3 w-full align-items-center">
               <div className="flex justify-content-between align-items-center w-full">
@@ -158,7 +155,7 @@ const Land = ({ show }) => {
               </div>
 
               {/* Outer Circle */}
-              <div className="flex align-items-start justify-content-center w-13rem h-13rem border-circle sec-theme position-absolute">
+              <div className="flex align-items-start justify-content-center w-15rem h-14rem border-circle sec-theme position-absolute">
                 <div
                   className="flex flex-column align-items-center justify-content-center position-relative"
                   style={{
@@ -177,11 +174,11 @@ const Land = ({ show }) => {
 
                 {/* Inner Circle */}
                 <div
-                  className="flex flex-column align-items-center justify-content-center w-7rem h-5rem border-circle ter-theme position-relative"
+                  className="flex flex-column align-items-center justify-content-center w-7rem h-6rem border-circle ter-theme position-relative"
                   style={{
                     bottom: "0", // Align at the bottom of the outer circle
                     left: "50%", // Center horizontally
-                    transform: "translate(-90%, 150%)", // Adjust for correct positioning
+                    transform: "translate(-65%, 120%)", // Adjust for correct positioning
                   }}
                 >
                   <p className="text-lg font-semibold m-0 text-secondary2">
@@ -406,16 +403,18 @@ const Land = ({ show }) => {
           />
         </div>
       </div>
+
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p>
+
       {show && (
         <Panel
           //  header="View Recommendations"
           toggleable
           onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
           headerTemplate={(options) => {
-            const toggleIcon =  recommendationsVisible
+            const toggleIcon = recommendationsVisible
               ? "pi pi-chevron-down" // Arrow pointing to the right when collapsed
               : "pi pi-chevron-up"; // Arrow pointing down when expanded
 

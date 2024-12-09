@@ -8,17 +8,16 @@ const Parameters = () => {
   return (
     <div className="flex align-items-center justify-content-center flex-column px-8 gap-6">
       {/* Heading */}
-      <h1 className="text-4xl text-theme text-center">
+      <h1 className="text-5xl text-theme text-center">
         Dimensions of City Sustainability Index
       </h1>
 
-      <div className="flex align-items-center justify-content-center flex-row gap-2 w-full ">
+      <div className="flex align-items-center justify-content-center flex-row gap-3 w-full ">
         <div
-          className="sec-theme w-full h-full shadow-none mx-4"
+          className="sec-theme w-full h-full shadow-none mx-4 flex flex-column align-items-left justify-content-start m-0 p-0 border-round-xl"
           // style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
         >
-          <div className="flex flex-column align-items-left justify-content-start m-0 p-0 ">
-            <img src={Nature} alt="Nature" className="w-full" />
+            <img src={Nature} alt="Nature" className="w-full border-round-top-xl" />
             <h3 className="text-3xl mb-0 mx-6 text-primary1">Nature</h3>
             <p className="mx-6 mb-5 text-sm">
               Nature refers to the integrated environmental systems and
@@ -29,15 +28,13 @@ const Parameters = () => {
               determine the health, resilience, and sustainability of the urban
               environment.
             </p>
-          </div>
         </div>
 
         <div
-          className="sec-theme w-full h-full shadow-none mx-4 pb-4"
+          className="sec-theme w-full h-full shadow-none mx-4 p-0 m-0 flex flex-column align-items-left justify-content-start border-round-xl"
           // style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
         >
-          <div className="flex flex-column align-items-left justify-content-start ">
-            <img src={Society} alt="Society" className="w-full" />
+            <img src={Society} alt="Society" className="w-full border-round-top-xl" />
             <h3 className="text-3xl mb-0 text-primary1 mx-6">Society</h3>
             <p className="mx-6 mb-5 text-sm">
               Society refers to the process of developing thriving and
@@ -46,15 +43,13 @@ const Parameters = () => {
               and work. Social sustainability merges the design of the physical
               environment with the creation of a supportive social framework.
             </p>
-          </div>
         </div>
 
         <div
-          className="sec-theme w-full h-full shadow-none mx-4"
+          className="flex flex-column align-items-left justify-content-start sec-theme w-full h-full shadow-none mx-4 border-round-xl p-0 m-0"
           // style={{ border: "1.5px solid #166c7d", borderRadius: "0.75rem" }}
         >
-          <div className="flex flex-column align-items-left justify-content-start ">
-            <img src={Admin} alt="Admin" className="w-full" />
+            <img src={Admin} alt="Admin" className="w-full border-round-top-xl" />
             <h3 className="mx-6 text-3xl mb-0 text-primary1">Administration</h3>
             <p className="mx-6 mb-5 text-sm">
               Administration refers to the governance mechanisms, institutional
@@ -66,7 +61,6 @@ const Parameters = () => {
               development.
             </p>
           </div>
-        </div>
       </div>
     </div>
   );

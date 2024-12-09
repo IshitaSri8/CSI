@@ -30,7 +30,7 @@ const Transport = ({ show }) => {
             label="Generate Report"
             icon="pi pi-file"
             onClick={() => setReportVisible(true)}
-            className="bg-theme text-white mr-4"
+            className="bg-primary1 text-white mr-4"
             style={{ marginBottom: -60 }}
             raised
           />

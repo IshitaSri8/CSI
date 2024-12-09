@@ -2,7 +2,6 @@ import React from "react";
 import Header from "Layout/Header";
 import Laptop from "../assets/laptop.png";
 import { Tag } from "primereact/tag";
-import Screen from "../assets/screen.png";
 import SpaIcon from "@mui/icons-material/Spa";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
@@ -11,7 +10,6 @@ import crc from "../assets/Citizen/Report Card.png";
 import indicator from "../assets/indicator.png";
 import government from "../assets/Citizen/csi for gov.png";
 import report_ss from "assets/report_ss.png";
-import trend_ss from "assets/trend_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
 import indicator_ss from "assets/aqi_ss.png";
 const Government = () => {
@@ -19,22 +17,22 @@ const Government = () => {
     <div className="flex flex-column w-full">
       {/* Header */}
       <Header />
-      <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
-        <img src={government} alt="government" className="w-screen " />
+      <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen relative">
+        <img src={government} alt="government" className="w-full " />
         <div
-          className="border-round-xl p-5"
+          className="border-round-xl p-2"
           style={{
             // backgroundColor: "rgba(247, 164, 122, 0.7)",
             background:
               "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
             width: "65rem",
             position: "absolute",
-            top: "50%",
+            top: "60%",
             left: "50%",
-            transform: "translate(-50%, 160%)",
+            transform: "translate(-50%, 175%)",
           }}
         >
-          <h1 className="text-4xl text-white font-medium text-center">
+          <h1 className="text-4xl text-white font-medium text-center text-box">
             Strengthen Your City's Sustainability Leadership
           </h1>
         </div>
