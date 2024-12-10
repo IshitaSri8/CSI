@@ -17,13 +17,9 @@ const WasteDashboard = ({ show }) => {
   };
 
   const solidWasteData = [190, 181, 180];
-  const solidWasteLabels = [
-    "SW-Generated",
-    "SW-Collected",
-    "SW-Processed",
-  ];
+  const solidWasteLabels = ["SW-Generated", "SW-Collected", "SW-Processed"];
 
-  const estimatedSWGData = [358.261, 119.420, 59.700, 59.700]; // Example data
+  const estimatedSWGData = [358.261, 119.42, 59.7, 59.7]; // Example data
   const estimatedSWGLabels = [
     "Residential",
     "Commercial",
@@ -32,7 +28,7 @@ const WasteDashboard = ({ show }) => {
     "Others",
   ];
 
-  const wasteCompositionData = [55.300, 33.700, 178.500, 82.750];
+  const wasteCompositionData = [55.3, 33.7, 178.5, 82.75];
   const wasteCompositionLabels = [
     "Green Waste",
     "Debris & Silt",
@@ -176,7 +172,7 @@ const WasteDashboard = ({ show }) => {
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
-              355 <span className="text-xl">MTD</span>
+              355 <span className="text-xl">TPD</span>
             </p>
             {/* <Chip
             label="October 2024"
@@ -194,7 +190,7 @@ const WasteDashboard = ({ show }) => {
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
-              322 <span className="text-xl">MTD</span>
+              322 <span className="text-xl">TPD</span>
             </p>
           </div>
         </div>
@@ -214,24 +210,32 @@ const WasteDashboard = ({ show }) => {
         </div>
         {/* Estimated Solid Waste Generated */}
         <div
-          className="flex w-full bg-white border-round p-4"
+          className="flex flex-column w-full bg-white border-round p-4"
           style={{ flex: "37%" }}
         >
           {/* <CanvasJSChart
             options={estimatedSWGChart}
             containerProps={{ height: 100, width: "100%" }}
           /> */}
+         <div className="flex justify-content-between">
+         <p className="text-primary1 font-semibold text-lg p-0 m-0">
+            Estimated Solid Waste Generated (in TPD)
+          </p>
+          <p className="text-sm text-tertiary3 font-medium p-0 m-0">
+            by 2031
+          </p>
+         </div>
           <ModifiedColumnChart
             categories={estimatedSWGLabels}
             series={estimatedSWGData}
             height={150}
-            title="Estimated Waste Generated (in TPD)"
+            // title="Estimated Solid Waste Generated (in TPD)"
             labelFontSize={8}
             // colors={colors.slice(0, 4)}
           />
         </div>
-         {/* CT/PT */}
-         <div
+        {/* CT/PT */}
+        <div
           className="flex flex-column bg-white border-round p-4 w-full justify-content-around"
           style={{ flex: "18%" }}
         >
@@ -290,8 +294,7 @@ const WasteDashboard = ({ show }) => {
             containerProps={{ height: 250, width: "100%" }}
           />
         </div>
-       
-       
+
         {/* <div
           className="flex flex-column gap-3 w-full bg-white border-round p-4"
           style={{ flex: "24%" }}

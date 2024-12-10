@@ -110,7 +110,7 @@ const Land = ({ show }) => {
               />
             </div>
             {/* Total Population */}
-            {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
+            <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
                 <p className="text-primary1 font-semibold text-lg p-0 m-0">
                   Total Population
@@ -122,10 +122,10 @@ const Land = ({ show }) => {
                   2,48,638
                 </p>
               </div>
-            </div> */}
+            </div>
 
             {/* Population Density */}
-            {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
+            <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
                 <p className="text-primary1 font-semibold text-lg p-0 m-0">
                   Population Density
@@ -134,19 +134,19 @@ const Land = ({ show }) => {
               </div>
               <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
                 <p className="text-4xl font-semibold m-0 text-secondary2">
-                  1798
+                  1038
                 </p>
                 <p
                   className="text-lg font-semibold m-0 text-secondary2"
                   style={{ marginTop: "0" }}
                 >
-                  per Hectare
+                  per sq. km
                 </p>
               </div>
-            </div> */}
+            </div>
 
             {/* Population */}
-            <div className="flex flex-column bg-white border-round p-4 gap-3 w-full align-items-center">
+            {/* <div className="flex flex-column bg-white border-round p-4 gap-3 w-full align-items-center">
               <div className="flex justify-content-between align-items-center w-full">
                 <p className="text-primary1 font-semibold text-lg p-0 m-0">
                   Population
@@ -154,7 +154,7 @@ const Land = ({ show }) => {
                 <LandPlot size={15} />
               </div>
 
-              {/* Outer Circle */}
+              Outer Circle
               <div className="flex align-items-start justify-content-center w-15rem h-14rem border-circle sec-theme position-absolute">
                 <div
                   className="flex flex-column align-items-center justify-content-center position-relative"
@@ -172,7 +172,7 @@ const Land = ({ show }) => {
                   </p>
                 </div>
 
-                {/* Inner Circle */}
+                Inner Circle
                 <div
                   className="flex flex-column align-items-center justify-content-center w-7rem h-6rem border-circle ter-theme position-relative"
                   style={{
@@ -189,7 +189,7 @@ const Land = ({ show }) => {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Developed Area VS Proposed Area */}

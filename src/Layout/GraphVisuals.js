@@ -569,12 +569,6 @@ export const ModifiedColumnChart = ({
                 return " ";
               },
             },
-            legend: {
-              fontFamily: "Montserrat",
-              fontWeight: 500,
-              fontSize: 10,
-              horizontalAlign: "left",
-            },
             dataPointWidth: 50,
             // data: categories.map((category, index) => ({
             //   type: "column",
@@ -616,7 +610,7 @@ export const ModifiedColumnChart = ({
         />
       </div>
       {/* Custom Legends */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 justify-content-start w-full">
         {series.map((value, index) => (
           <div key={index} className="flex align-items-center">
             <div
@@ -627,7 +621,7 @@ export const ModifiedColumnChart = ({
                 backgroundColor: colors[index + (4 % colors.length)],
               }}
             ></div>
-            <span className="text-xs text-center">{categories[index]}</span>
+            <span className="text-xs text-left">{categories[index]}</span>
           </div>
         ))}
       </div>
