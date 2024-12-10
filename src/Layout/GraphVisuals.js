@@ -1117,6 +1117,66 @@ export const PieChart = ({
   );
 };
 
+export const ModPieChart = ({
+  title,
+  categories,
+  series,
+  height,
+  horizontal,
+  vertical,
+  fontSize,
+}) => {
+  const total = series.reduce((acc, value) => acc + value, 0);
+  return (
+    <CanvasJSChart
+      options={{
+        animationEnabled: true,
+        interactivityEnabled: false,
+        title: {
+          text: title,
+          fontSize: 14,
+          fontFamily: "Montserrat",
+          fontWeight: 600,
+          fontColor: "#001F23",
+          horizontalAlign: "left",
+          padding: { bottom: 10 },
+        },
+
+        data: [
+          {
+            type: "pie",
+            startAngle: 90,
+            toolTipContent: "<b>{label}</b>: {y}",
+            showInLegend: true,
+            legendText: "{label}",
+            color: colors,
+            indexLabelFontSize: fontSize,
+            indexLabelPlacement: "inside",
+            indexLabel: "#percent%",
+            indexLabelFontColor: "white",
+            dataPoints: series.map((value, index) => ({
+              y: value,
+              label: categories[index],
+              // color: colors[index % colors.length],
+              color: colors[index  % colors.length],
+              percent: ((value / total) * 12).toFixed(2),
+            })),
+          },
+        ],
+        legend: {
+          fontSize: fontSize,
+          horizontalAlign: horizontal,
+          verticalAlign: vertical,
+          fontFamily: "Montserrat",
+          fontWeight: 500,
+          fontColor: "#4c4c4c",
+        },
+      }}
+      containerProps={{ height: height, width: "100%" }}
+    />
+  );
+};
+
 export const ModifiedPieChart = ({ title, categories, series, height }) => {
   const total = series.reduce((acc, value) => acc + value, 0);
   return (

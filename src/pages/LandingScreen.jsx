@@ -54,15 +54,15 @@ const LandingScreen = () => {
           className="flex flex-column gap-1 mt-5 align-items-center md:flex-wrap"
           style={{ textAlign: "center" }}
         >
-          <h2 className="text-4xl text-theme m-0 p-0">
+          <p className="text-4xl text-primary1 m-0 p-0 font-bold">
             City Sustainability Index
-          </h2>
-          <h2 className="text-4xl text-primary1 m-0 p-0">
+          </p>
+          <p className="text-4xl text-primary1 m-0 p-0 font-medium">
             Measuring and Boosting Urban Sustainability
-          </h2>
-          <p className="text-xl text" style={{ color: "#8AA4A7" }}>
-            Empowering governments, businesses and citizens to track and
-            improve urban sustainability for a greener future.
+          </p>
+          <p className="text-xl text font-medium">
+            Empowering governments, businesses and citizens to track and improve
+            urban sustainability for a greener future.
           </p>
 
           {/* Know Your City Button */}
@@ -110,7 +110,7 @@ const LandingScreen = () => {
 
         <div className="flex bg-theme text-white h-screen">
           <Questions
-          textTheme="white"
+            textTheme="white"
             question="What is the City Sustainability Index (CSI)?"
             points={[
               {
@@ -212,7 +212,14 @@ const LandingScreen = () => {
         <div className="flex sec-theme p-8">
           <Testimonials />
         </div>
-
+        {/* <iframe
+          title="Temp. Dashboard"
+          width="1240"
+          height="541.25"
+          src="https://app.powerbi.com/reportEmbed?reportId=c681af69-5780-4ecc-af1f-48049fb683cb&autoAuth=true&ctid=e25b7a25-9cae-4302-a16e-1fa1d5211fae"
+          frameborder="0"
+          allowFullScreen="true"
+        ></iframe> */}
         <div
           className="px-8"
           style={{
@@ -220,7 +227,9 @@ const LandingScreen = () => {
           }}
         >
           <div className="border-round bg-white p-6 align-items-center justify-content-center">
-            <h3 className="text-center text-3xl mb-5">Still have questions?</h3>
+            <h3 className="text-center text-3xl mb-5 text-primary1">
+              Still have questions?
+            </h3>
             <p className="text-lg text-center mb-5" style={{ marginTop: -10 }}>
               Can’t find the answer you’re looking for? Please connect with our
               team.
@@ -245,7 +254,6 @@ const LandingScreen = () => {
           <UserDialog ref={userDialogRef} onSuccess={handleSuccess} />
         </div>
         <Footer />
-
       </div>
     </div>
   );
