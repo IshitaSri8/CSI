@@ -36,8 +36,8 @@ const Healthcare = ({ show }) => {
   const bedsTarget = 20;
   const bedsCurrent = 5;
 
-  const ratioTarget = 12;
-  const ratioCurrent = 18;
+  const ratioTarget = 20;
+  const ratioCurrent = 45;
 
   const years = ["2020", "2021", "2022", "2023", "2024"];
   const doctorsData = [4000, 6300, 7000, 7600, 9000];
@@ -150,7 +150,7 @@ const Healthcare = ({ show }) => {
               <div className="flex py-6 w-full">
                 <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                    748
+                    754
                   </p>
                   <p className="text p-0 m-0 mt-1 text-lg font-medium">
                     Doctors
@@ -183,7 +183,7 @@ const Healthcare = ({ show }) => {
             >
               <div className="flex flex-column w-full p-2 align-items-center">
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                  159
+                  344
                 </p>
                 <p className="text p-0 m-0 mt-1 text-sm font-medium">
                   Healthcare Institutes
@@ -208,7 +208,7 @@ const Healthcare = ({ show }) => {
               style={{ flex: "15%" }}
             >
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                22750
+                33,900
               </p>
               <p className="text p-0 m-0 text-lg font-medium text-center">
                 Registered Patients
@@ -266,7 +266,7 @@ const Healthcare = ({ show }) => {
                 </p>
                 <div className="flex align-items-center justify-content-around">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
-                    1234
+                    12500
                   </p>
                   <img src={insurance} alt="insurance" className="h-8rem" />
                 </div>
@@ -318,6 +318,7 @@ const Healthcare = ({ show }) => {
             dataSeries={institutionsAnalysisData}
             dataPointWidth={25}
             height={260}
+            fontSize={10}
           />
         </div>
       </div>

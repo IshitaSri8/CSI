@@ -105,6 +105,7 @@ const EducationDashboard = ({ show }) => {
                     dataSeries={educationData.institutionsAnalysisData}
                     dataPointWidth={25}
                     height={200}
+                    fontSize={7}
                   />
                 </div>
 
@@ -369,6 +370,7 @@ const EducationDashboard = ({ show }) => {
                     years={years}
                     dataPointWidth={25}
                     height={225}
+                    fontSize={10}
                   />
                 </div>
                 {/* Dropout Rate Trend */}
@@ -380,6 +382,7 @@ const EducationDashboard = ({ show }) => {
                     years={years}
                     dataPointWidth={25}
                     height={225}
+                    fontSize={10}
                   />
                 </div>
               </div>

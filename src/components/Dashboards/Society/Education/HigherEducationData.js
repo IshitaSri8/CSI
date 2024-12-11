@@ -1,7 +1,7 @@
 export const higherEducationData = {
   enrollment: "4600*",
   institutions: 16,
-  parityIndex: 0.4,
+  parityIndex: 0.84,
   
   enrollmentTarget: 44,
   enrollmentCurrent: 39,
@@ -29,7 +29,7 @@ export const higherEducationData = {
     { name: "Male", data: [5, 4, 6, 8] },
     { name: "Female", data: [8, 6, 3, 5] },
   ],
-  teacherStudentRatioTrend: [40, 45, 60, 52],
+  teacherStudentRatioTrend: [40, 45, 60, 36],
 
   institutionsAnalysisLabels: ["Degree College", "Engineering College", "Medical College", "Dental College"],
   institutionsAnalysisData: [

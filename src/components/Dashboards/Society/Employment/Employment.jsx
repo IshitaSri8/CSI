@@ -187,6 +187,7 @@ const Employment = ({ show }) => {
                 dataSeries={jobTrendLabels}
                 dataPointWidth={20}
                 height={250}
+                fontSize={10}
               />
             </div>
             <div className="flex flex-column gap-3">

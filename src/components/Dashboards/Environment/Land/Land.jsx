@@ -51,6 +51,8 @@ const Land = ({ show }) => {
   ];
 
   const devArea = 91.03;
+  const totalArea = 133.67;
+  const population = 248638;
 
   return (
     <div className="flex gap-3 flex-column p-4">
@@ -94,7 +96,7 @@ const Land = ({ show }) => {
               </div>
               <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
                 <p className="text-4xl font-semibold m-0 text-secondary2">
-                  239.638
+                  {totalArea}
                 </p>
                 <p
                   className="text-lg font-semibold m-0 text-secondary2"
@@ -119,7 +121,7 @@ const Land = ({ show }) => {
               </div>
               <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
                 <p className="text-4xl font-semibold m-0 text-secondary2">
-                  2,48,638
+                  {population}
                 </p>
               </div>
             </div>
@@ -134,7 +136,7 @@ const Land = ({ show }) => {
               </div>
               <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
                 <p className="text-4xl font-semibold m-0 text-secondary2">
-                  1038
+                  {(population/totalArea).toFixed(2)}
                 </p>
                 <p
                   className="text-lg font-semibold m-0 text-secondary2"

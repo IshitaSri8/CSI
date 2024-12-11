@@ -190,7 +190,7 @@ const WasteDashboard = ({ show }) => {
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
-              322 <span className="text-xl">TPD</span>
+              303 <span className="text-xl">TPD</span>
             </p>
           </div>
         </div>

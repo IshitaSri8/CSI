@@ -635,6 +635,7 @@ export const GroupedColumnChart = ({
   labels,
   dataPointWidth,
   height,
+  fontSize,
 }) => {
   // const colors = ["#98C6CF", "#1F8297", "#166c7d", "#e9f3f5"];
   console.log(dataSeries);
@@ -659,7 +660,7 @@ export const GroupedColumnChart = ({
     axisX: {
       // interval: 1,
       gridThickness: 0,
-      labelFontSize: 10,
+      labelFontSize: fontSize,
       labelFontFamily: "Montserrat",
       // labelMaxWidth: 100,
       // labelWrap: true,
@@ -693,7 +694,7 @@ export const GroupedColumnChart = ({
         indexLabel: "{y}",
         indexLabelPlacement: "outside",
         indexLabelFontColor: "#00403c",
-        indexLabelFontSize: 10,
+        // indexLabelFontSize: fontSize,
         indexLabelFontFamily: "Montserrat",
         indexLabelFontWeight: 600,
         dataPoints: data.data?.map((val, index) => ({

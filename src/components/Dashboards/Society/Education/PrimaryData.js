@@ -1,7 +1,7 @@
 export const primaryData = {
   enrollment: "75000*",
-  institutions: 196,
-  parityIndex: 0.8,
+  institutions: 246,
+  parityIndex: 0.67,
 
   enrollmentTarget: 100,
   enrollmentCurrent: 77.8,
@@ -29,7 +29,7 @@ export const primaryData = {
     { name: "Male", data: [10, 9, 8, 7] },
     { name: "Female", data: [7, 4, 9, 5] },
   ],
-  teacherStudentRatioTrend: [40, 45, 60, 52],
+  teacherStudentRatioTrend: [40, 45, 60, 36],
 
   institutionsAnalysisLabels: ["Nursery", "Primary", "Aanganwari"],
   institutionsAnalysisData: [

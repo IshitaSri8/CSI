@@ -89,6 +89,7 @@ const PrivateVehicle = () => {
           dataSeries={chartData}
           dataPointWidth={30}
           height={200}
+          fontSize={8}
         />
       </Card>
     </div>
