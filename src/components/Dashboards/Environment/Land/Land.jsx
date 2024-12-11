@@ -43,11 +43,13 @@ const Land = ({ show }) => {
     "Parks and Open Spaces",
     "Transportation",
     "Recreational",
+    "Agricultural",
+    "Wet Lands",
     "Miscellaneous",
   ];
 
   const distributionData = [
-    1466, 124.46, 143.09, 470.3, 163.31, 580.98, 75.9, 137.19,
+    1466, 124.46, 143.09, 470.3, 163.31, 580.98, 75.9, 9324.30, 950.29, 137.19,
   ];
 
   const devArea = 91.03;
