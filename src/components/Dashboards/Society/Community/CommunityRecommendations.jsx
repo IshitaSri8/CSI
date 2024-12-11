@@ -1,12 +1,13 @@
 import React from "react";
 import { Fieldset } from "primereact/fieldset";
 import { Badge } from "primereact/badge";
+import recom from "assets/recommendations.svg";
 
 const CommunityRecommendations = () => {
-  const getRecommendationLand = () => {
+  const getRecommendation = () => {
     return (
       <>
-        <ul className="text-xl">
+        <ul className="font-medium text p-0 m-0">
             <li>
               1. Evacuation of Affected Areas: Safe and timely relocation of
               people from high-risk zones.
@@ -27,8 +28,8 @@ const CommunityRecommendations = () => {
               amenities.
             </li>{" "}
             <li>
-              5. Communitye Teams Deployment: Mobilization of National
-              Communitye Force (NDRF) and other emergency units.
+              5. Disaster Response Teams Deployment: Mobilization of National
+              Disaster Response Force (NDRF) and other emergency units.
             </li>
           </ul>
       </>
@@ -38,7 +39,7 @@ const CommunityRecommendations = () => {
   const getBadge = () => {
     return (
       <Badge
-        value="Measures Taken for Disaster Management"
+        value="Measures for Disaster Management"
         //severity="Good"
         style={{ backgroundColor: "#1F8297" }}
       />
@@ -46,9 +47,10 @@ const CommunityRecommendations = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="flex align-items-center justify-content-around p-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge()}>{getRecommendationLand()}</Fieldset>
+      <Fieldset legend={getBadge()}>{getRecommendation()}</Fieldset>
+      <img src={recom} alt="recommendations" />
     </div>
   );
 };

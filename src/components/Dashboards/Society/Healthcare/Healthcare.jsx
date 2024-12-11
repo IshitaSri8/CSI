@@ -13,13 +13,13 @@ import { Divider } from "primereact/divider";
 import { PatientsRegisteredChart } from "./PatientsRegisteredChart";
 import { SuicideCasesChart } from "./SuicideCasesChart";
 import { Panel } from "primereact/panel";
-import LandRecommendations from "components/Dashboards/Environment/Land/LandRecommendations";
 import healthcare from "assets/healthcare.svg";
 import insurance from "assets/Health insurance.svg";
 import rehab from "assets/rehab.svg";
 import { ProgressBar } from "primereact/progressbar";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import HealthcareRecommendations from "./HealthcareRecommendations";
 
 const Healthcare = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -551,7 +551,7 @@ const Healthcare = ({ show }) => {
             );
           }}
         >
-          {recommendationsVisible && <LandRecommendations />}
+          {recommendationsVisible && <HealthcareRecommendations />}
         </Panel>
       )}
     </div>

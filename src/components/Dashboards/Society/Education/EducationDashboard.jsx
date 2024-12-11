@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
-import {
-  LineChart,
-  GroupedColumnChart,
-} from "Layout/GraphVisuals";
+import { LineChart, GroupedColumnChart } from "Layout/GraphVisuals";
 import { primaryData } from "./PrimaryData";
 import { secondaryData } from "./SecondaryData";
 import { higherEducationData } from "./HigherEducationData";
@@ -12,10 +9,10 @@ import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import EducationReportPrint from "./EducationReportPrint";
 import { ProgressBar } from "primereact/progressbar";
-import LandRecommendations from "components/Dashboards/Environment/Land/LandRecommendations";
 import { Panel } from "primereact/panel";
 import institutions from "assets/institutions.svg";
 import gender from "assets/gender.svg";
+import EducationRecommendations from "./EducationRecommendations";
 
 const EducationDashboard = ({ show }) => {
   const [selectedLevel, setSelectedLevel] = useState(0); // Use index for selected level (0 = Primary, 1 = Secondary, 2 = Higher)
@@ -51,30 +48,30 @@ const EducationDashboard = ({ show }) => {
             {/* <h1 className="text-3xl text-theme font-semibold text-center mt-0 p-0 mb-2">
               {level} Level Education
             </h1> */}
-              {show && (
-        <div className="flex align-items-center justify-content-end w-full">
-          {/* <h1 className="m-0 p-0 text-primary1 text-2xl font-semibold">Education</h1> */}
+            {show && (
+              <div className="flex align-items-center justify-content-end w-full">
+                {/* <h1 className="m-0 p-0 text-primary1 text-2xl font-semibold">Education</h1> */}
 
-          <Button
-            label="Generate Report"
-            icon="pi pi-file"
-            onClick={() => setReportVisible(true)}
-            className="bg-primary1 text-white mr-3"
-            style={{ marginTop: -60 }}
-            raised
-          />
-          <Dialog
-            visible={ReportVisible}
-            style={{ width: "100rem" }}
-            onHide={() => {
-              if (!ReportVisible) return;
-              setReportVisible(false);
-            }}
-          >
-            <EducationReportPrint />
-          </Dialog>
-        </div>
-      )}
+                <Button
+                  label="Generate Report"
+                  icon="pi pi-file"
+                  onClick={() => setReportVisible(true)}
+                  className="bg-primary1 text-white mr-3"
+                  style={{ marginTop: -60 }}
+                  raised
+                />
+                <Dialog
+                  visible={ReportVisible}
+                  style={{ width: "100rem" }}
+                  onHide={() => {
+                    if (!ReportVisible) return;
+                    setReportVisible(false);
+                  }}
+                >
+                  <EducationReportPrint />
+                </Dialog>
+              </div>
+            )}
             <div className="flex gap-3">
               <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
                 {/* Institutions */}
@@ -115,7 +112,7 @@ const EducationDashboard = ({ show }) => {
                     Teacher vs Student Ratio
                   </p>
                   <div className="flex my-3">
-                  <div className="flex flex-column w-full p-2 align-items-center">
+                    <div className="flex flex-column w-full p-2 align-items-center">
                       <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                         {educationData.teacherStudentRatioCurrent}
                       </p>
@@ -420,7 +417,7 @@ const EducationDashboard = ({ show }) => {
                     );
                   }}
                 >
-                  {recommendationsVisible && <LandRecommendations />}
+                  {recommendationsVisible && <EducationRecommendations />}
                 </Panel>
               )}
             </div>
