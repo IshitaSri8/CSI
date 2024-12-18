@@ -119,9 +119,7 @@ const Transport = ({ show }) => {
           {/* EV Trend */}
           <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
             <div className="flex justify-content-between">
-              <p className="card-title font-medium text-lg p-0 m-0">
-                EV Trend
-              </p>
+              <p className="card-title font-medium text-lg p-0 m-0">EV Trend</p>
               <p className="text-sm text-tertiary3 font-medium p-0 m-0">2024</p>
             </div>
             <LineChart
@@ -219,17 +217,15 @@ const Transport = ({ show }) => {
       </p>
       {show && (
         <Panel
-          //  header="View Recommendations"
           toggleable
-          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-down" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-right"; // Arrow pointing down when expanded
-
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="card-title font-semibold text-xl">
+                <p className="text-primary1 font-semibold text-xl">
                   View Recommendations
                 </p>
                 <button

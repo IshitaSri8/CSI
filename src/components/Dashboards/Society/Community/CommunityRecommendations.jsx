@@ -56,7 +56,7 @@ const CommunityRecommendations = () => {
       {/* <Fieldset legend={getBadge()}> */}
       {getRecommendation()}
       {/* </Fieldset> */}
-      <img src={recom} alt="recommendations" className="h-22rem" />
+      <img src={recom} alt="recommendations" className="h-22rem py-2" />
     </div>
   );
 };

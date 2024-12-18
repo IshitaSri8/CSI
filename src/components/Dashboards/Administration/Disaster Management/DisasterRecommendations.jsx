@@ -47,11 +47,13 @@ const DisasterRecommendations = () => {
   };
 
   return (
-    <div className="flex align-items-center justify-content-around p-5">
-      {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge()}>{getRecommendation()}</Fieldset>
-      <img src={recom} alt="recommendations" />
-    </div>
+     <div className="flex align-items-center justify-content-around px-5">
+     {/* <h1 className="text-left text-xl">Recommendations</h1> */}
+     {/* <Fieldset legend={getBadge()}> */}
+     {getRecommendation()}
+     {/* </Fieldset> */}
+     <img src={recom} alt="recommendations" className="h-16rem py-2"/>
+   </div>
   );
 };
 

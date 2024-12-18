@@ -8,30 +8,40 @@ const EducationRecommendations = () => {
     return (
       <>
         <ul className="font-medium text p-0 m-0">
-            <li>
-              1. Evacuation of Affected Areas: Safe and timely relocation of
-              people from high-risk zones.
-            </li>{" "}
-            <li>
-              {" "}
-              2. Search and Rescue Operations: Deployment of rescue teams to
-              find and assist trapped or missing individuals.
-            </li>{" "}
-            <li>
-              3. Medical Aid and Emergency Services: Setting up medical camps
-              and providing first aid to injured victims.
-            </li>
-            {""}
-            <li>
-              4. Shelter and Relief Camps: Establishment of temporary shelters
-              for displaced individuals with access to food, water, and basic
-              amenities.
-            </li>{" "}
-            <li>
-              5. Disaster Response Teams Deployment: Mobilization of National
-              Disaster Response Force (NDRF) and other emergency units.
-            </li>
-          </ul>
+          <li>
+            Build more grade-wise (primary, secondary, higher, university)
+            educational institutions in underserved areas to ensure access to
+            education for all students.
+          </li>{" "}
+          <li>
+            Increase funding for institutes focused on research and innovation
+            to foster a research-driven culture in universities and colleges.
+          </li>{" "}
+          <li>
+            Provide more scholarships and financial aid for economically
+            disadvantaged students to improve access to higher education and
+            post-graduate studies.
+          </li>
+          <li>
+            Regularly update and revise the curriculum across all grades to
+            reflect global best practices and to include technology and
+            entrepreneurship.
+          </li>{" "}
+          <li>
+            Develop infrastructure and resources for students with special
+            needs, ensuring inclusivity at all levels of education.
+          </li>
+          <li>
+            Provide research fellowships and grants to post-graduate and PhD
+            students, focusing on local and global challenges like
+            sustainability, technology, and health.
+          </li>
+          <li>
+            Establish comprehensive student counseling services in all schools
+            and colleges, focusing on career guidance, mental health support,
+            and academic advising.
+          </li>
+        </ul>
       </>
     );
   };
@@ -47,10 +57,12 @@ const EducationRecommendations = () => {
   };
 
   return (
-    <div className="flex align-items-center justify-content-around p-5">
+    <div className="flex align-items-center justify-content-around px-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge()}>{getRecommendation()}</Fieldset>
-      <img src={recom} alt="recommendations" />
+      {/* <Fieldset legend={getBadge()}> */}
+      {getRecommendation()}
+      {/* </Fieldset> */}
+      <img src={recom} alt="recommendations" className="h-22rem" />
     </div>
   );
 };

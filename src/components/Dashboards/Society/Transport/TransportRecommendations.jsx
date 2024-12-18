@@ -9,37 +9,43 @@ const TransportRecommendations = () => {
       <>
         <ul className="font-medium text p-0 m-0">
           <li>
-            Ensure that job advertisements are accessible to all, including
-            individuals with disabilities, and promote equal opportunity
-            employment.
+            Invest in modernizing bus and train stations, ensuring they are
+            well-designed, safe, and equipped with necessary facilities like
+            seating and signage.
           </li>
           <li>
-            Organize job fairs that connect local employers with job seekers,
-            facilitating direct engagement and networking.
+            Implement fare subsidies for low-income individuals and families,
+            ensuring affordability for all socio-economic groups.
           </li>
           <li>
-            Implement programs that support and formalize informal businesses,
-            providing them with access to financing and legal resources.
+            Enhance service frequency during peak and off-peak hours to reduce
+            waiting times and improve user convenience.
           </li>
           <li>
-            Develop apprenticeship programs in partnership with local industries
-            to provide hands-on experience and facilitate job placements.
+            Develop an integrated ticketing system that allows seamless
+            transfers between different modes of public transport, simplifying
+            fare payment.
           </li>
           <li>
-            Encourage companies to adopt diverse hiring practices, promoting
-            representation of various groups in the workforce.
+            Implement passenger load monitoring systems to adjust services based
+            on demand and avoid overcrowding, especially during peak hours.
           </li>
           <li>
-            Establish vocational training centers that focus on high-demand
-            skills, ensuring alignment with local job market needs.
+            Ensure all public transport vehicles and stations are accessible for
+            people with disabilities, including ramps, elevators, and designated
+            seating.
           </li>
           <li>
-            Provide tax breaks or grants to companies that create jobs in
-            high-unemployment areas, encouraging local hiring.
+            Extend public transport routes to underserved areas, ensuring that
+            all neighborhoods have access to reliable and efficient
+            transportation.
           </li>
           <li>
-            Create incubation centers that offer resources and mentorship to new
-            businesses, fostering entrepreneurship and job creation.
+            Implement discounted fares for senior citizens to encourage their
+            use of public transport and ensure mobility for all age
+            groups.Implement a regular maintenance schedule for all public
+            transport vehicles and infrastructure to ensure safety and
+            reliability for users.
           </li>
         </ul>
       </>
@@ -62,7 +68,7 @@ const TransportRecommendations = () => {
       {/* <Fieldset legend={getBadge()}> */}
       {getRecommendation()}
       {/* </Fieldset> */}
-      <img src={recom} alt="recommendations" className="h-22rem"/>
+      <img src={recom} alt="recommendations" className="h-25rem" />
     </div>
   );
 };
