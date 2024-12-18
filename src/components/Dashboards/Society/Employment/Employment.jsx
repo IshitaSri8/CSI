@@ -95,7 +95,7 @@ const Employment = ({ show }) => {
                 colorArray={["#FFDD82", "#F7A47A", "#98C6CF", "#1F8297"]}
                 horizontal={"right"}
                 vertical={"center"}
-                fontSize={10}
+                fontColor={"#6F7070"}
               />
             </div>
           </div>
@@ -147,7 +147,7 @@ const Employment = ({ show }) => {
                   }}
                   alt="increase"
                 />
-                <p className="text-tertiary3 text-sm p-0 m-0 font-medium">
+                <p className="text-tertiary3 p-0 m-0 font-medium">
                   <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
                   year.
                 </p>
@@ -185,7 +185,7 @@ const Employment = ({ show }) => {
                   }}
                   alt="increase"
                 />
-                <p className="text-tertiary3 text-sm p-0 m-0 font-medium">
+                <p className="text-tertiary3 font-medium p-0 m-0 ">
                   <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
                   year.
                 </p>
@@ -223,7 +223,7 @@ const Employment = ({ show }) => {
                   }}
                   alt="increase"
                 />
-                <p className="text-tertiary3 text-sm p-0 m-0 font-medium">
+                <p className="text-tertiary3 p-0 m-0 font-medium">
                   <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
                   year.
                 </p>
@@ -251,21 +251,21 @@ const Employment = ({ show }) => {
                 </p>
                 <div className="flex gap-3 align-items-center">
                   <img src={salary} alt="salary" className="w-12rem" />
-                  <div className="flex justify-content-between align-items-center">
-                    <div className="flex flex-column w-full p-2 align-items-center">
+                  <div className="flex justify-content-between">
+                    <div className="flex flex-column w-full p-2 align-items-center gap-1">
                       <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                         25000
                       </p>
-                      <p className="text p-0 m-0 mt-1 text-sm font-medium">
+                      <p className="card-text p-0 m-0">
                         City
                       </p>
                     </div>
                     <Divider layout="vertical" />
-                    <div className="flex flex-column w-full p-2 align-items-center">
+                    <div className="flex flex-column w-full p-2 align-items-center gap-1">
                       <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                         17500
                       </p>
-                      <p className="text p-0 m-0 mt-1 text-sm font-medium">
+                      <p className="card-text p-0 m-0">
                         National
                       </p>
                     </div>
@@ -275,21 +275,21 @@ const Employment = ({ show }) => {
 
               {/* Skill Programs */}
               <div className="flex bg-white border-round-xl p-2 w-full align-items-center justify-content-around">
-                <div className="flex align-items-start">
-                  <div className="flex flex-column w-full align-items-center">
+                <div className="flex">
+                  <div className="flex flex-column w-full align-items-center gap-1">
                     <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                       47
                     </p>
-                    <p className="text p-0 m-0 mt-1 text-sm font-medium">
+                    <p className="p-0 m-0 card-text">
                       Skill Programs
                     </p>
                   </div>
                   <Divider layout="vertical" />
-                  <div className="flex flex-column w-full align-items-center">
+                  <div className="flex flex-column w-full align-items-center gap-1">
                     <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                       3750
                     </p>
-                    <p className="text p-0 m-0 mt-1 text-sm font-medium">
+                    <p className="p-0 m-0 card-text">
                       PeopleEnrolled
                     </p>
                   </div>

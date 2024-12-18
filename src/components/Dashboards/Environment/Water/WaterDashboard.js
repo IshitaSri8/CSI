@@ -79,28 +79,22 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column gap-3 p-4 border-round bg-white"
             style={{ flex: "35%" }}
           >
-            <p className="card-title p-0 m-0">
-              Water Supply
-            </p>
+            <p className="card-title p-0 m-0">Water Supply</p>
             <div className="flex my-2">
-              <div className="flex flex-column w-full p-2 align-items-center">
+              <div className="flex flex-column w-full p-2 align-items-center gap-1">
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                   {waterSupply.currentSupply}{" "}
                   <span className="text-lg">MLD</span>
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm">
-                  Current Water Supply
-                </p>
+                <p className="p-0 m-0 card-text">Current Water Supply</p>
               </div>
               <Divider layout="vertical" />
-              <div className="flex flex-column w-full p-2 align-items-center">
+              <div className="flex flex-column w-full p-2 align-items-center gap-1">
                 <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                   {waterSupply.requiredSupply}{" "}
                   <span className="text-lg">MLD</span>
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm">
-                  Required Water Supply
-                </p>
+                <p className="p-0 m-0 card-text">Required Water Supply</p>
               </div>
             </div>
             <ProgressBar
@@ -120,9 +114,7 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column bg-white border-round p-4 gap-2 justify-content-start"
             style={{ flex: "30%" }}
           >
-            <p className="card-title p-0 m-0">
-              Water Sources
-            </p>
+            <p className="card-title p-0 m-0">Water Sources</p>
             <div className="flex align-items-center justify-content-center flex-column gap-2">
               <ModPieChart
                 categories={waterSupplyLabels}
@@ -141,29 +133,27 @@ const WaterDashboard = ({ show }) => {
             style={{ flex: "35%" }}
           >
             <div className="flex flex-column w-full gap-3">
-              <p className="card-title p-0 m-0">
-                Water Supply Sources
-              </p>
+              <p className="card-title p-0 m-0">Water Supply Sources</p>
               <div className="flex">
                 <div className="flex w-full px-2 flex-column">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                     {waterSources.handpumps}
                   </p>
-                  <p className="text text-sm m-0 p-0">Handpumps</p>
+                  <p className="p-0 m-0 card-text">Handpumps</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex w-full px-2 flex-column">
                   <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                     {waterSources.tanks}
                   </p>
-                  <p className="text text-sm m-0 p-0">Tanks/Ponds</p>
+                  <p className="p-0 m-0 card-text">Tanks/Ponds</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex w-full px-2 flex-column">
                   <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                     {waterSources.rivers}
                   </p>
-                  <p className="text text-sm m-0 p-0">River/Canal</p>
+                  <p className="p-0 m-0 card-text">River/Canal</p>
                 </div>
               </div>
             </div>
@@ -182,9 +172,7 @@ const WaterDashboard = ({ show }) => {
             maxValue={100}
             height={100}
           /> */}
-              <p className="text-sm font-medium p-0 m-0">
-                Households with Water Supply
-              </p>
+              <p className="p-0 m-0 card-text">Households with Water Supply</p>
             </div>
           </div>
         </div>
@@ -214,7 +202,7 @@ const WaterDashboard = ({ show }) => {
                     })}
                   />
                 </div>
-                <p className="text font-medium text-sm text-center p-0 m-0">
+                <p className="p-0 m-0 card-text text-center">
                   {/* Houses with Connections but no Water Meter */}
                   Houses with Metered Connections
                 </p>
@@ -235,7 +223,7 @@ const WaterDashboard = ({ show }) => {
                     })}
                   />
                 </div>
-                <p className="text font-medium text-center text-sm p-0 m-0">
+                <p className="text-center p-0 m-0 card-text">
                   Bill Payment Rate
                   {/* Total Bill Generated being Paid */}
                 </p>
@@ -247,9 +235,7 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column bg-white border-round p-4 gap-3"
             style={{ flex: "35%" }}
           >
-            <p className="card-title p-0 m-0">
-              Water Treatment
-            </p>
+            <p className="card-title p-0 m-0">Water Treatment</p>
             <div className="flex align-items-start justify-content-around">
               <div className="flex flex-column align-items-center">
                 <Knob
@@ -261,10 +247,7 @@ const WaterDashboard = ({ show }) => {
                   valueColor="#166c7d"
                   rangeColor="#E9F3F5"
                 />
-                <p
-                  className="text font-medium p-0 text-sm"
-                  style={{ marginTop: -10 }}
-                >
+                <p className="p-0 card-text" style={{ marginTop: -10 }}>
                   Treated Reused Water
                 </p>
               </div>
@@ -276,7 +259,7 @@ const WaterDashboard = ({ show }) => {
                     height: "50px", // Adjust height
                   }}
                 >
-                  <p className="text m-0 p-0 font-medium text-sm">Total STPs</p>
+                  <p className="p-0 m-0 card-text">Total STPs</p>
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
                     {waterTreatment.totalSTPs}
                   </p>
@@ -288,18 +271,20 @@ const WaterDashboard = ({ show }) => {
                     // height: "120px", // Adjust height
                   }}
                 >
-                  <p className="text m-0 p-0 mb-2 font-medium text-sm">
-                    Capacity
-                  </p>
+                  <p className="mb-2 p-0 m-0 card-text">Capacity</p>
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
                     {waterTreatment.capacity.current} <span>MLD</span>
                   </p>
-                  <p className="text m-0 p-0 text-xs text-center">Current</p>
+                  <p className="text-sm text-center p-0 m-0 card-text">
+                    Current
+                  </p>
                   <Divider />
                   <p className="text-2xl font-semibold m-0 text-primary2 p-0 text-center">
                     {waterTreatment.capacity.required} <span>MLD</span>
                   </p>
-                  <p className="text m-0 p-0 text-xs text-center">Required</p>
+                  <p className="text-sm text-center p-0 m-0 card-text">
+                    Required
+                  </p>
                 </div>
               </div>
             </div>
@@ -309,26 +294,22 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column bg-white border-round p-4 gap-3"
             style={{ flex: "25%" }}
           >
-            <p className="card-title p-0 m-0">
-              Water Preservation
-            </p>
+            <p className="card-title p-0 m-0">Water Preservation</p>
             <div className="flex flex-column align-items-center justify-content-center">
-              <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+              <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                   {waterPreservation.totalVolume}{" "}
                   <span className="text-xl"> m&sup3;</span>
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm">
-                  Total Volume Harvested
-                </p>
+                <p className="p-0 m-0 card-text">Total Volume Harvested</p>
               </div>
               <Divider />
-              <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+              <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                 <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                   {waterPreservation.sitesWithRWH}
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm">
-                  Sites with Rain Water Harvesting System
+                <p className="p-0 m-0 card-text text-sm">
+                  Sites with Rainwater Harvesting System
                 </p>
               </div>
             </div>

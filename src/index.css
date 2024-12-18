@@ -18,7 +18,8 @@
   --text-tertiary: #E7EAEA;
   --text-tertiary-2: #B0BABA;
   --text-tertiary-3: #8d9595;
-  --text-card-title: #737474;
+  /* --text-card-title: #737474; */
+  --text-card-title: #6F7070;
   --border-radius: 5px;
   --box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;

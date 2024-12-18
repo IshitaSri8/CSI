@@ -355,7 +355,7 @@ const TempDashboard = ({
                     />
                   </div>
                   <div className="flex justify-content-between">
-                  <Button
+                    <Button
                       className="bg-white text-moderate border-none"
                       label="Reset"
                       // icon="pi pi-search"
@@ -639,31 +639,31 @@ const TempDashboard = ({
 
       {show && (
         <Panel
-        toggleable
-        onToggle={handleToggleRecommendations}
-        headerTemplate={(options) => {
-          const toggleIcon = recommendationsVisible
-            ? "pi pi-chevron-up"
-            : "pi pi-chevron-down";
-          return (
-            <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-              <p className="text-primary1 font-semibold text-xl">
-                View Recommendations
-              </p>
-              <button
-                className={`p-link ${toggleIcon}`}
-                onClick={options.onTogglerClick}
-                style={{
-                  background: "none",
-                  // border: "none",
-                  cursor: "pointer",
-                  color: "#001F23",
-                }}
-              />
-            </div>
-          );
-        }}
-      >
+          toggleable
+          onToggle={handleToggleRecommendations}
+          headerTemplate={(options) => {
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
           {recommendationsVisible && (
             <TempRecommendations
               temperature={tempValue}

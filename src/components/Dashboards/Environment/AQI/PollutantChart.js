@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
 import { Button } from "primereact/button";
+import { commonChartOptions } from "Layout/chartOptions";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -78,23 +79,14 @@ const PollutantChart = ({
         theme: "light2",
         title: {
           text: `${pollutantName} Trend`,
-          fontSize: 12,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
-          horizontalAlign: "left",
-          padding: { bottom: 10 },
+          ...commonChartOptions.title,
         },
         axisX: {
-          fontSize: 10,
-          gridThickness: 0, // Remove X-axis gridlines
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisX,
         },
         axisY: {
           includeZero: false,
-          gridThickness: 0, // Remove Y-axis gridlines
-          labelFontSize: 10, // Adjust Y-axis labels font size
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisY,
           stripLines: [
             {
               value: safeLimit,
@@ -133,23 +125,14 @@ const PollutantChart = ({
         theme: "light2",
         title: {
           text: `${pollutantName} Levels on ${selectedDate}`,
-          fontSize: 12,
-          fontFamily: "Montserrat",
-          fontColor: "#737474",
-          fontWeight: 500,
-          horizontalAlign: "left",
-          padding: { bottom: 10 },
+          ...commonChartOptions.title,
         },
         axisX: {
-          gridThickness: 0, // Remove X-axis gridlines
-          labelFontSize: 10, 
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisX,
         },
         axisY: {
           includeZero: false,
-          gridThickness: 0, // Remove Y-axis gridlines
-          labelFontSize: 10, // Adjust Y-axis labels font size
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisY,
           stripLines: [
             {
               value: safeLimit,

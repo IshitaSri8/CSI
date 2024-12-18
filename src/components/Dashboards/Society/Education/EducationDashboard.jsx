@@ -57,7 +57,7 @@ const EducationDashboard = ({ show }) => {
                   icon="pi pi-file"
                   onClick={() => setReportVisible(true)}
                   className="bg-primary1 text-white mr-3"
-                  style={{ marginTop: -60 }}
+                  style={{ marginTop: -80 }}
                   raised
                 />
                 <Dialog
@@ -156,7 +156,7 @@ const EducationDashboard = ({ show }) => {
                     {/* Students Enrolled */}
                     <div className="flex flex-column bg-white border-round p-3 w-full">
                       <div className="flex flex-column gap-2">
-                        <p className="card-titl text-left p-0 m-0">
+                        <p className="card-title text-left p-0 m-0">
                           Students Enrolled
                         </p>
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
+import { commonChartOptions } from "Layout/chartOptions";
 
 export const PatientsRegisteredChart = ({ categories, series }) => {
   const [selectedYear, setSelectedYear] = useState(null);
@@ -63,24 +64,13 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
             animationEnabled: true,
             title: {
               text: "Registered Patients per Year",
-              fontSize: 14,
-              fontFamily: "Montserrat",
-              fontWeight: 500,
-              fontColor: "#737474",
-              horizontalAlign: "left",
-              padding: { bottom: 20 },
+              ...commonChartOptions.title,
             },
             axisY: {
-              includeZero: true,
-              gridThickness: 0,
-              labelFontSize: 10,
-              labelFontFamily: "Montserrat",
+              ...commonChartOptions.axisY,
             },
             axisX: {
-              labelFontSize: 10,
-              labelFontFamily: "Montserrat",
-              tickLength: 0,
-              lineThickness: 0,
+              ...commonChartOptions.axisX,
             },
             dataPointWidth: 40,
             data: [
@@ -93,9 +83,15 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
                   y: series[index],
                   color: colors[index % colors.length],
                   indexLabel: `{y}`,
-                  indexLabelFontSize: 10,
                   indexLabelPlacement: "outside",
-                  indexLabelFontFamily: "Montserrat",
+                  indexLabelFontColor:
+                    commonChartOptions.indexLabelOptions.fontColor, // Use common options
+                  indexLabelFontSize:
+                    commonChartOptions.indexLabelOptions.fontSize, // Use common options
+                  indexLabelFontFamily:
+                    commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+                  indexLabelFontWeight:
+                    commonChartOptions.indexLabelOptions.fontWeight, // Use common options
                 })),
               },
             ],
@@ -112,24 +108,13 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
             animationEnabled: true,
             title: {
               text: `Patients Registered in ${selectedYear} by Age Group`,
-              fontSize: 14,
-              fontFamily: "Montserrat",
-              fontWeight: 500,
-              fontColor: "#737474",
-              horizontalAlign: "left",
-              padding: { bottom: 20 },
+              ...commonChartOptions.title,
             },
             axisY: {
-              includeZero: true,
-              gridThickness: 0,
-              labelFontSize: 10,
-              labelFontFamily: "Montserrat",
+              ...commonChartOptions.axisY,
             },
             axisX: {
-              labelFontSize: 10,
-              labelFontFamily: "Montserrat",
-              tickLength: 0,
-              lineThickness: 0,
+              ...commonChartOptions.axisX,
             },
             dataPointWidth: 40,
             data: [
@@ -140,9 +125,15 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
                   label: group.ageGroup,
                   y: group.count,
                   indexLabel: `{y}`,
-                  indexLabelFontSize: 10,
                   indexLabelPlacement: "outside",
-                  indexLabelFontFamily: "Montserrat",
+                  indexLabelFontColor:
+                    commonChartOptions.indexLabelOptions.fontColor, // Use common options
+                  indexLabelFontSize:
+                    commonChartOptions.indexLabelOptions.fontSize, // Use common options
+                  indexLabelFontFamily:
+                    commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+                  indexLabelFontWeight:
+                    commonChartOptions.indexLabelOptions.fontWeight, // Use common options
                   color: colors[group % colors.length],
                 })),
               },

@@ -201,7 +201,7 @@ const CityDemographics = () => {
                 colorArray={["#98C6CF", "#1F8297"]}
                 horizontal={"center"}
                 vertical={"bottom"}
-                fontSize={8}
+                fontColor={"#fff"}
               />
             </div>
             {/* literacy-rate */}

@@ -1,6 +1,5 @@
 import React from "react";
-import { ModifiedColumnChart, PieChart } from "Layout/GraphVisuals";
-import CanvasJSReact from "@canvasjs/react-charts";
+import { ColumnChart, GroupedBarChart, PieChart } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import WasteReportPrint from "./WasteReportPrint";
@@ -43,96 +42,13 @@ const WasteDashboard = ({ show }) => {
   ];
   const sanitationData = [7, 93, 0];
 
-  const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+  const Zones = ["Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5"];
 
-  const CustomBar = {
-    animationEnabled: true,
-    interactivityEnabled: false,
-    title: {
-      text: "Waste Collection (in TPD)",
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "#737474",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
-    },
-
-    axisY: {
-      gridThickness: 0,
-      labelFontSize: 8,
-      labelFontFamily: "Montserrat",
-    },
-    axisX: {
-      gridThickness: 0,
-      labelFontSize: 8,
-      labelFontFamily: "Montserrat",
-    },
-    dataPointWidth: 8,
-    data: [
-      {
-        type: "bar",
-        name: "Door-to-door Collection",
-        showInLegend: true,
-        color: "#1F8297",
-        indexLabel: `{y}`,
-        indexLabelFontSize: 8,
-        indexLabelPlacement: "outside",
-        indexLabelFontFamily: "Montserrat",
-        indexLabelFontWeight: "bold",
-        dataPoints: [
-          { label: "Zone 1", y: 39 },
-          { label: "Zone 2", y: 30 },
-          { label: "Zone 3", y: 38 },
-          { label: "Zone 4", y: 29 },
-          { label: "Zone 5", y: 30 },
-        ],
-      },
-      {
-        type: "bar",
-        name: "Community Bins",
-        showInLegend: true,
-        color: "#BAD8DF",
-        indexLabel: `{y}`,
-        indexLabelFontSize: 8,
-        indexLabelPlacement: "outside",
-        indexLabelFontFamily: "Montserrat",
-        indexLabelFontWeight: "bold",
-        dataPoints: [
-          { label: "Zone 1", y: 31 },
-          { label: "Zone 2", y: 24 },
-          { label: "Zone 3", y: 29 },
-          { label: "Zone 4", y: 22 },
-          { label: "Zone 5", y: 21 },
-        ],
-      },
-      {
-        type: "bar",
-        name: "Other Sources",
-        showInLegend: true,
-        color: "#69ABB9",
-        indexLabel: `{y}`,
-        indexLabelFontSize: 8,
-        indexLabelPlacement: "outside",
-        indexLabelFontFamily: "Montserrat",
-        indexLabelFontWeight: "bold",
-        dataPoints: [
-          { label: "Zone 1", y: 2 },
-          { label: "Zone 2", y: 1 },
-          { label: "Zone 3", y: 2 },
-          { label: "Zone 4", y: 2 },
-          { label: "Zone 5", y: 3 },
-        ],
-      },
-    ],
-    legend: {
-      fontSize: 10,
-      horizontalAlign: "left",
-      verticalAlign: "bottom",
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-    },
-  };
+  const collectionData = [
+    { name: "Door-to-door Collection", data: [39, 30, 38, 29, 30] },
+    { name: "Community Bins", data: [31, 24, 29, 22, 21] },
+    { name: "Other Sources", data: [2, 1, 2, 2, 3] },
+  ];
 
   return (
     <div className="flex flex-column gap-3 p-4">
@@ -199,7 +115,7 @@ const WasteDashboard = ({ show }) => {
           className="flex w-full bg-white border-round p-4"
           style={{ flex: "27%" }}
         >
-          <ModifiedColumnChart
+          <ColumnChart
             categories={solidWasteLabels}
             series={solidWasteData}
             height={150}
@@ -217,15 +133,15 @@ const WasteDashboard = ({ show }) => {
             options={estimatedSWGChart}
             containerProps={{ height: 100, width: "100%" }}
           /> */}
-         <div className="flex justify-content-between">
-         <p className="card-title p-0 m-0">
-            Estimated Solid Waste Generated (in TPD)
-          </p>
-          <p className="text-sm text-tertiary3 font-medium p-0 m-0">
-            by 2031
-          </p>
-         </div>
-          <ModifiedColumnChart
+          <div className="flex justify-content-between">
+            <p className="card-title p-0 m-0">
+              Estimated Solid Waste Generated (in TPD)
+            </p>
+            <p className="text-sm text-tertiary3 font-medium p-0 m-0">
+              by 2031
+            </p>
+          </div>
+          <ColumnChart
             categories={estimatedSWGLabels}
             series={estimatedSWGData}
             height={150}
@@ -251,7 +167,7 @@ const WasteDashboard = ({ show }) => {
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                 500
               </p>
-              <p className="text m-0 p-0 text-sm">Community Toilet</p>
+              <p className="p-0 m-0 card-text">Community Toilet</p>
             </div>
             <div
               className="flex flex-column w-full p-2 sec-theme gap-2"
@@ -263,7 +179,7 @@ const WasteDashboard = ({ show }) => {
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                 700
               </p>
-              <p className="text m-0 p-0 text-sm">Public Toilet</p>
+              <p className="p-0 m-0 card-text">Public Toilet</p>
             </div>
           </div>
         </div>
@@ -289,9 +205,12 @@ const WasteDashboard = ({ show }) => {
           className="flex flex-column gap-3 w-full bg-white border-round p-4"
           style={{ flex: "70%" }}
         >
-          <CanvasJSChart
-            options={CustomBar}
-            containerProps={{ height: 250, width: "100%" }}
+          <GroupedBarChart
+            title="Waste Collection (in TPD)"
+            labels={Zones}
+            dataSeries={collectionData}
+            dataPointWidth={8}
+            height={250}
           />
         </div>
 
@@ -317,31 +236,31 @@ const WasteDashboard = ({ show }) => {
 
       {show && (
         <Panel
-        toggleable
-        onToggle={handleToggleRecommendations}
-        headerTemplate={(options) => {
-          const toggleIcon = recommendationsVisible
-            ? "pi pi-chevron-up"
-            : "pi pi-chevron-down";
-          return (
-            <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-              <p className="text-primary1 font-semibold text-xl">
-                View Recommendations
-              </p>
-              <button
-                className={`p-link ${toggleIcon}`}
-                onClick={options.onTogglerClick}
-                style={{
-                  background: "none",
-                  // border: "none",
-                  cursor: "pointer",
-                  color: "#001F23",
-                }}
-              />
-            </div>
-          );
-        }}
-      >
+          toggleable
+          onToggle={handleToggleRecommendations}
+          headerTemplate={(options) => {
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
           {recommendationsVisible && <WasteRecommendations />}
         </Panel>
       )}

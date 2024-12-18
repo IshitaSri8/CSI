@@ -103,7 +103,7 @@ body {
 }
 
 .text-secondary3 {
-  color: var(--text-secondary-3)
+  color: var(--text-secondary-3);
 }
 
 .text-tertiary3 {
@@ -117,7 +117,13 @@ body {
 .card-title {
   color: var(--text-card-title);
   font-weight: 500;
-  font-size: small;
+  font-size: 14px !important;
+}
+
+.card-text {
+  color: var(--text-card-title);
+  font-weight: 450;
+  font-size: 12px !important;
 }
 
 .success {
@@ -158,21 +164,21 @@ body {
   color: var(--text-color-theme);
 }
 
- .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   border-color: var(--text-color-theme);
   color: #003940;
   font-family: "Montserrat";
   font-size: x-large;
   font-weight: 600;
-} 
+}
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
   background-color: transparent;
-  color: #8AA4A7;
+  color: #8aa4a7;
   text-decoration: none;
   font-size: xx-large;
   font-weight: 600;
   font-family: "Montserrat";
-} 
+}
 
 .text-active {
   /* color: #007ad9; Active color */
@@ -323,7 +329,8 @@ body {
   border: none;
   /* padding: 0.5rem 1rem; */
   /* font-size: 1rem; */
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
   /* border-radius: 3px; */
 }
 
@@ -334,4 +341,3 @@ body {
 .p-fieldset .p-fieldset-content {
   padding: 0;
 }
-

@@ -90,9 +90,7 @@ const Land = ({ show }) => {
             {/* Total Area */}
             <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
-                <p className="card-title p-0 m-0">
-                  Total Area
-                </p>
+                <p className="card-title p-0 m-0">Total Area</p>
                 <LandPlot size={15} />
               </div>
               <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
@@ -115,9 +113,7 @@ const Land = ({ show }) => {
             {/* Total Population */}
             <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
-                <p className="card-title p-0 m-0">
-                  Total Population
-                </p>
+                <p className="card-title p-0 m-0">Total Population</p>
                 <LandPlot size={15} />
               </div>
               <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
@@ -130,9 +126,7 @@ const Land = ({ show }) => {
             {/* Population Density */}
             <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
-                <p className="card-title p-0 m-0">
-                  Population Density
-                </p>
+                <p className="card-title p-0 m-0">Population Density</p>
                 <LandPlot size={15} />
               </div>
               <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">

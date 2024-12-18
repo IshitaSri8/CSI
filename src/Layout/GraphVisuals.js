@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
+import { commonChartOptions } from "./chartOptions";
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -21,6 +22,7 @@ const colors = [
   "#F64C4C", // Red
 ];
 
+//city progress, diff. color
 export const DonutChart = ({
   title,
   labels,
@@ -31,18 +33,14 @@ export const DonutChart = ({
 }) => {
   const options = {
     animationEnabled: true,
+    ...commonChartOptions,
     interactivityEnabled: false,
     title: {
       text: title,
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
       fontColor: fontColor,
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
+      ...commonChartOptions.title1,
     },
     backgroundColor: bgColor,
-    dataPointWidth: 12,
     data: [
       {
         indexLabelPlacement: "inside",
@@ -65,10 +63,8 @@ export const DonutChart = ({
     legend: {
       horizontalAlign: "right",
       verticalAlign: "center",
-      fontFamily: "Montserrat",
-      fontWeight: 400,
-      fontSize: 10,
       fontColor: fontColor,
+      ...commonChartOptions.legend,
     },
   };
 
@@ -85,6 +81,7 @@ export const DonutChart = ({
   );
 };
 
+//employment, transport, demographics
 export const Doughnut = ({
   title,
   labels,
@@ -95,20 +92,16 @@ export const Doughnut = ({
   colorArray,
   vertical,
   horizontal,
-  fontSize,
+  fontColor,
 }) => {
   const totalValue = series.reduce((acc, value) => acc + value, 0);
   const options = {
+    ...commonChartOptions,
     animationEnabled: true,
     interactivityEnabled: false,
     title: {
+      ...commonChartOptions.title,
       text: title,
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "#737474",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
     },
     labels: labels,
     backgroundColor: bgColor,
@@ -131,12 +124,10 @@ export const Doughnut = ({
       },
     ],
     legend: {
-      fontSize: fontSize,
       horizontalAlign: horizontal,
       verticalAlign: vertical,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "#737474",
+      fontColor: fontColor,
+      ...commonChartOptions.legend,
     },
     subtitles: showNo
       ? [
@@ -145,9 +136,7 @@ export const Doughnut = ({
             verticalAlign: "center",
             fontSize: 14,
             dockInsidePlotArea: true,
-            fontFamily: "Montserrat",
-            fontWeight: 500,
-            fontColor: "#737474",
+            ...commonChartOptions.legend,
           },
         ]
       : [],
@@ -161,6 +150,7 @@ export const Doughnut = ({
   );
 };
 
+//used nowhere currently
 export const BarChart = ({
   title,
   categories,
@@ -177,18 +167,10 @@ export const BarChart = ({
         interactivityEnabled: false,
         title: {
           text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
-          horizontalAlign: "left",
-          padding: { bottom: 20 },
+          ...commonChartOptions.title,
         },
         axisX: {
-          title: xtitle,
-          gridThickness: 0,
-          labelFontSize: 10,
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisX,
         },
         axisY: {
           title: ytitle,
@@ -203,12 +185,10 @@ export const BarChart = ({
             type: "bar",
             showInLegend: false,
             dataPoints: series.map((value, index) => ({
+              ...commonChartOptions.data,
               y: value,
               label: categories[index],
               indexLabel: `{y}`,
-              indexLabelFontSize: 10,
-              indexLabelPlacement: "outside",
-              indexLabelFontFamily: "Montserrat",
               //color: colors[index % colors.length],
               color: colors[index + (4 % colors.length)],
             })),
@@ -220,6 +200,7 @@ export const BarChart = ({
   );
 };
 
+//community, culture, healthcare
 export const GroupedBarChart = ({
   title,
   dataSeries,
@@ -233,12 +214,7 @@ export const GroupedBarChart = ({
     animationEnabled: true,
     title: {
       text: title,
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "#737474",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
+      ...commonChartOptions.title,
     },
     axisX: {
       title: xtitle,
@@ -256,9 +232,7 @@ export const GroupedBarChart = ({
       lineThickness: 0,
     },
     legend: {
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontSize: 10,
+      ...commonChartOptions.legend,
       horizontalAlign: "left",
     },
     toolTip: {
@@ -292,10 +266,10 @@ export const GroupedBarChart = ({
         showInLegend: true,
         indexLabel: "{y}",
         indexLabelPlacement: "outside",
-        indexLabelFontColor: "#00403c",
-        indexLabelFontSize: 10,
-        indexLabelFontFamily: "Montserrat",
-        indexLabelFontWeight: 500,
+        indexLabelFontColor: commonChartOptions.indexLabelOptions.fontColor, // Use common options
+        indexLabelFontSize: commonChartOptions.indexLabelOptions.fontSize, // Use common options
+        indexLabelFontFamily: commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+        indexLabelFontWeight: commonChartOptions.indexLabelOptions.fontWeight, // Use common options
         dataPoints: data.data?.map((val, index) => ({
           label: labels[index],
           y: val,
@@ -312,6 +286,7 @@ export const GroupedBarChart = ({
   );
 };
 
+//used nowhere currently
 export const StackedBarChart = ({
   title,
   categories,
@@ -325,27 +300,17 @@ export const StackedBarChart = ({
         animationEnabled: true,
         title: {
           text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
-          horizontalAlign: "left",
-          padding: { bottom: 20 },
+          ...commonChartOptions.title,
         },
         axisY: {
-          includeZero: true,
-          gridThickness: 0,
-          labelFontSize: 10,
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisY,
         },
         axisX: {
           labelFontSize: 10,
           labelFontFamily: "Montserrat",
         },
         legend: {
-          fontSize: 10,
-          fontFamily: "Montserrat",
-          fontWeight: 400,
+          ...commonChartOptions.legend,
           horizontalAlign: "left",
         },
         dataPointWidth: 16,
@@ -365,6 +330,7 @@ export const StackedBarChart = ({
   );
 };
 
+//for land distribution
 export const ModifiedBarChart = ({
   title,
   categories,
@@ -399,12 +365,7 @@ export const ModifiedBarChart = ({
         animationEnabled: true,
         title: {
           text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
-          horizontalAlign: "left", // Left-align the title
-          padding: { bottom: 20 },
+          ...commonChartOptions.title,
         },
         backgroundColor: "transparent",
         dataPointWidth: 20,
@@ -456,6 +417,7 @@ export const ModifiedBarChart = ({
   );
 };
 
+//community-ngo
 export const ColumnChart = ({
   title,
   categories,
@@ -472,21 +434,12 @@ export const ColumnChart = ({
         interactivityEnabled: false,
         title: {
           text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
-          horizontalAlign: "left",
-          padding: { bottom: 20 },
+          ...commonChartOptions.title,
         },
         dataPointWidth: dataPointWidth,
         axisX: {
           title: xtitle,
-          gridThickness: 0,
-          labelFontSize: 10,
-          tickLength: 0,
-          lineThickness: 0,
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisX,
         },
         axisY: {
           title: ytitle,
@@ -499,9 +452,7 @@ export const ColumnChart = ({
           },
         },
         legend: {
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontSize: 10,
+          ...commonChartOptions.legend,
         },
         data: [
           {
@@ -511,11 +462,14 @@ export const ColumnChart = ({
               y: value,
               label: categories[index],
               indexLabel: `{y}`,
-              indexLabelFontSize: 12,
               indexLabelPlacement: "outside",
-              indexLabelFontFamily: "Montserrat",
-              indexLabelFontWeight: 500,
-              indexLabelFontColor: "#737474",
+              indexLabelFontColor:
+                commonChartOptions.indexLabelOptions.fontColor, // Use common options
+              indexLabelFontSize: commonChartOptions.indexLabelOptions.fontSize, // Use common options
+              indexLabelFontFamily:
+                commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+              indexLabelFontWeight:
+                commonChartOptions.indexLabelOptions.fontWeight, // Use common options
               // color: colors[index % colors.length],
               color: colors[index + (4 % colors.length)],
             })),
@@ -527,6 +481,7 @@ export const ColumnChart = ({
   );
 };
 
+//with custom legends, used nowhere currently
 export const ModifiedColumnChart = ({
   title,
   categories,
@@ -543,12 +498,7 @@ export const ModifiedColumnChart = ({
             interactivityEnabled: false,
             title: {
               text: title,
-              fontSize: 14,
-              fontFamily: "Montserrat",
-              fontWeight: 500,
-              fontColor: "#737474",
-              horizontalAlign: "left",
-              padding: { bottom: 10 },
+              ...commonChartOptions.title,
             },
             axisX: {
               // title: xtitle,
@@ -629,6 +579,7 @@ export const ModifiedColumnChart = ({
   );
 };
 
+//healthcare, employment, education
 export const GroupedColumnChart = ({
   title,
   dataSeries,
@@ -644,12 +595,7 @@ export const GroupedColumnChart = ({
     interactivityEnabled: false,
     title: {
       text: title,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontSize: 14,
-      padding: { bottom: 10 },
-      fontColor: "#737474",
-      horizontalAlign: "left",
+      ...commonChartOptions.title,
     },
     axisY: {
       gridThickness: 0,
@@ -678,9 +624,7 @@ export const GroupedColumnChart = ({
     legend: {
       horizontalAlign: "left",
       // verticalAlign: "bottom",
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontSize: 10,
+      ...commonChartOptions.legend,
       fontColor: "#737474",
     },
     dataPointWidth: dataPointWidth,
@@ -693,10 +637,10 @@ export const GroupedColumnChart = ({
         showInLegend: true,
         indexLabel: "{y}",
         indexLabelPlacement: "outside",
-        indexLabelFontColor: "#00403c",
-        // indexLabelFontSize: fontSize,
-        indexLabelFontFamily: "Montserrat",
-        indexLabelFontWeight: 500,
+        indexLabelFontColor: commonChartOptions.indexLabelOptions.fontColor, // Use common options
+        indexLabelFontSize: commonChartOptions.indexLabelOptions.fontSize, // Use common options
+        indexLabelFontFamily: commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+        indexLabelFontWeight: commonChartOptions.indexLabelOptions.fontWeight, // Use common options
         dataPoints: data.data?.map((val, index) => ({
           label: labels[index],
           y: val,
@@ -713,6 +657,7 @@ export const GroupedColumnChart = ({
   );
 };
 
+//used nowhere currently
 export const StackedColumnChart = ({
   title,
   categories,
@@ -726,27 +671,16 @@ export const StackedColumnChart = ({
         animationEnabled: true,
         title: {
           text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
-          horizontalAlign: "left",
-          padding: { bottom: 20 },
+          ...commonChartOptions.title,
         },
         axisY: {
-          includeZero: true,
-          gridThickness: 0,
-          labelFontSize: 10,
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisY,
         },
         axisX: {
-          labelFontSize: 10,
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisX,
         },
         legend: {
-          fontSize: 12,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
+          ...commonChartOptions.legend,
         },
         data: categories.map((category, index) => ({
           type: "stackedColumn",
@@ -764,6 +698,7 @@ export const StackedColumnChart = ({
   );
 };
 
+//cultural sites
 export const CombinationChart = ({
   title,
   categories,
@@ -779,17 +714,10 @@ export const CombinationChart = ({
         animationEnabled: true,
         title: {
           text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
-          horizontalAlign: "left",
-          padding: { bottom: 10 },
+          ...commonChartOptions.title,
         },
         axisX: {
-          gridThickness: 0,
-          labelFontSize: 10,
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisX,
         },
         axisY: {
           gridThickness: 0,
@@ -804,9 +732,7 @@ export const CombinationChart = ({
           shared: true,
         },
         legend: {
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontSize: 10,
+          ...commonChartOptions.legend,
           horizontalAlign: "left",
         },
         data: [
@@ -819,11 +745,14 @@ export const CombinationChart = ({
               y: value,
               label: categories[i],
               indexLabel: `{y}`,
-              indexLabelFontSize: 10,
               indexLabelPlacement: "outside",
-              indexLabelFontFamily: "Montserrat",
-              indexLabelFontColor: "#737474",
-              indexLabelFontWeight: 500,
+              indexLabelFontColor:
+                commonChartOptions.indexLabelOptions.fontColor, // Use common options
+              indexLabelFontSize: commonChartOptions.indexLabelOptions.fontSize, // Use common options
+              indexLabelFontFamily:
+                commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+              indexLabelFontWeight:
+                commonChartOptions.indexLabelOptions.fontWeight, // Use common options
             })),
           },
           {
@@ -837,11 +766,13 @@ export const CombinationChart = ({
               y: value,
               label: categories[i],
               indexLabel: `{y}`,
-              indexLabelFontSize: 10,
               indexLabelPlacement: "outside",
-              indexLabelFontFamily: "Montserrat",
+              indexLabelFontSize: commonChartOptions.indexLabelOptions.fontSize, // Use common options
+              indexLabelFontFamily:
+                commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+              indexLabelFontWeight:
+                commonChartOptions.indexLabelOptions.fontWeight, // Use common options
               indexLabelFontColor: "white",
-              indexLabelFontWeight: 500,
             })),
           },
         ],
@@ -851,6 +782,7 @@ export const CombinationChart = ({
   );
 };
 
+//used nowhere currently
 export const ParetoChart = ({
   title,
   categories,
@@ -889,12 +821,7 @@ export const ParetoChart = ({
     animationEnabled: true,
     title: {
       text: title,
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "#737474",
-      horizontalAlign: "left",
-      padding: { bottom: 20 },
+      ...commonChartOptions.title,
     },
     axisX: {
       title: xtitle,
@@ -912,9 +839,10 @@ export const ParetoChart = ({
         showInLegend: true,
         indexLabel: "{y}",
         indexLabelPlacement: "inside",
-        indexLabelFontWeight: "bold",
-        indexLabelFontSize: 10,
-        indexLabelFontFamily: "Montserrat",
+        indexLabelFontColor: commonChartOptions.indexLabelOptions.fontColor, // Use common options
+        indexLabelFontSize: commonChartOptions.indexLabelOptions.fontSize, // Use common options
+        indexLabelFontFamily: commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+        indexLabelFontWeight: commonChartOptions.indexLabelOptions.fontWeight, // Use common options
         dataPoints: chartData,
         color: colors[2],
       },
@@ -923,9 +851,10 @@ export const ParetoChart = ({
         name: "Trend",
         showInLegend: true,
         indexLabelPlacement: "outside",
-        indexLabelFontWeight: "bold",
-        indexLabelFontSize: 10,
-        indexLabelFontFamily: "Montserrat",
+        indexLabelFontColor: commonChartOptions.indexLabelOptions.fontColor, // Use common options
+        indexLabelFontSize: commonChartOptions.indexLabelOptions.fontSize, // Use common options
+        indexLabelFontFamily: commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+        indexLabelFontWeight: commonChartOptions.indexLabelOptions.fontWeight, // Use common options,
         dataPoints: lineDataPoints,
         color: colors[4],
       },
@@ -939,6 +868,7 @@ export const ParetoChart = ({
   );
 };
 
+//culture, education, transport
 export const LineChart = ({
   title,
   categories,
@@ -951,12 +881,7 @@ export const LineChart = ({
     animationEnabled: true,
     title: {
       text: title,
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "#737474",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
+      ...commonChartOptions.title,
     },
     axisX: {
       title: xtitle,
@@ -986,9 +911,11 @@ export const LineChart = ({
         y: value,
         label: categories[i], // Assuming categories array represents labels on the X-axis
         indexLabel: `{y}`,
-        indexLabelFontSize: 10,
         indexLabelPlacement: "outside",
-        indexLabelFontFamily: "Montserrat",
+        indexLabelFontColor: commonChartOptions.indexLabelOptions.fontColor, // Use common options
+        indexLabelFontSize: commonChartOptions.indexLabelOptions.fontSize, // Use common options
+        indexLabelFontFamily: commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+        indexLabelFontWeight: commonChartOptions.indexLabelOptions.fontWeight, // Use common options
       })),
       color: colors[index % colors.length], // Cycles through colors array
     })),
@@ -1002,6 +929,7 @@ export const LineChart = ({
   );
 };
 
+//healthcare- chronic disease
 export const ModifiedLineChart = ({
   title,
   categories,
@@ -1016,17 +944,12 @@ export const ModifiedLineChart = ({
     animationEnabled: true,
     title: {
       text: title,
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "#737474",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
+      ...commonChartOptions.title,
     },
     axisX: {
+      interval: 1,
       title: xtitle,
       labelFontSize: 10,
-      interval: 1,
       labelFontFamily: "Montserrat",
     },
     axisY: {
@@ -1058,6 +981,7 @@ export const ModifiedLineChart = ({
   );
 };
 
+//waste, employment, healthcare, transport
 export const PieChart = ({
   title,
   categories,
@@ -1075,12 +999,7 @@ export const PieChart = ({
         interactivityEnabled: false,
         title: {
           text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
-          horizontalAlign: "left",
-          padding: { bottom: 10 },
+          ...commonChartOptions.title,
         },
 
         data: [
@@ -1091,6 +1010,7 @@ export const PieChart = ({
             showInLegend: true,
             legendText: "{label}: {y}",
             color: colors,
+            indexLabelFontFamily: "Montserrat",
             indexLabelFontSize: fontSize,
             indexLabelPlacement: "inside",
             indexLabel: "#percent%",
@@ -1108,9 +1028,8 @@ export const PieChart = ({
           fontSize: fontSize,
           horizontalAlign: horizontal,
           verticalAlign: vertical,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          // fontColor: "#8D9595",
+          fontColor: "#6F7070",
+          ...commonChartOptions.legend,
         },
       }}
       containerProps={{ height: height, width: "100%" }}
@@ -1118,6 +1037,7 @@ export const PieChart = ({
   );
 };
 
+//water dashboard- color change
 export const ModPieChart = ({
   title,
   categories,
@@ -1135,12 +1055,7 @@ export const ModPieChart = ({
         interactivityEnabled: false,
         title: {
           text: title,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
-          horizontalAlign: "left",
-          padding: { bottom: 10 },
+          ...commonChartOptions.title,
         },
 
         data: [
@@ -1159,18 +1074,16 @@ export const ModPieChart = ({
               y: value,
               label: categories[index],
               // color: colors[index % colors.length],
-              color: colors[index  % colors.length],
+              color: colors[index % colors.length],
               percent: ((value / total) * 12).toFixed(2),
             })),
           },
         ],
         legend: {
-          fontSize: fontSize,
           horizontalAlign: horizontal,
           verticalAlign: vertical,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#4c4c4c",
+          fontColor: "#6F7070",
+          ...commonChartOptions.legend,
         },
       }}
       containerProps={{ height: height, width: "100%" }}
@@ -1178,6 +1091,7 @@ export const ModPieChart = ({
   );
 };
 
+//land distribution
 export const ModifiedPieChart = ({ title, categories, series, height }) => {
   const total = series.reduce((acc, value) => acc + value, 0);
   return (
@@ -1189,11 +1103,7 @@ export const ModifiedPieChart = ({ title, categories, series, height }) => {
             interactivityEnabled: false,
             title: {
               text: title,
-              fontSize: 14,
-              fontFamily: "Montserrat",
-              fontWeight: 500,
-              fontColor: "#737474",
-              horizontalAlign: "left",
+              ...commonChartOptions.title,
               padding: { bottom: 40 },
             },
             backgroundColor: "transparent",
@@ -1249,6 +1159,7 @@ export const ModifiedPieChart = ({ title, categories, series, height }) => {
   );
 };
 
+//used nowhere currently
 export const GaugeChart = ({ title, gaugeValue, maxValue, height }) => {
   const createGaugeOptions = () => {
     // Calculation for the unoccupied (remaining) value

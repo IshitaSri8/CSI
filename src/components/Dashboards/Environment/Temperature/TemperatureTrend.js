@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
 import TempHeatMap from "./TempHeatMap";
+import { commonChartOptions } from "Layout/chartOptions";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const TemperatureTrend = ({
@@ -109,18 +110,12 @@ const TemperatureTrend = ({
     theme: "lightblue",
     height: 250,
     legend: {
-      fontSize: 10,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
+      ...commonChartOptions.legend,
+      horizontalAlign: "left",
     },
     title: {
       text: "Temperature and CO2 Trend",
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "#737474",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
+      ...commonChartOptions.title,
     },
     axisX: {
       labelFontColor: "#717171",
@@ -281,24 +276,25 @@ const TemperatureTrend = ({
     animationEnabled: true,
     title: {
       text: `Temperature and CO2 Levels for ${selectedDate}`,
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-      fontColor: "#737474",
+      ...commonChartOptions.title,
+    },
+    legend: {
+      ...commonChartOptions.legend,
       horizontalAlign: "left",
-      padding: { bottom: 10 },
     },
     height: 200,
     theme: "light2",
     axisX: {
-      labelFontColor: "#717171",
+      labelFontColor: "#6F7070",
+      labelFontFamily: "Montserrat",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
     },
     axisY: {
       gridThickness: 0,
       includeZero: false,
-      labelFontColor: "black",
+      labelFontColor: "#6F7070",
+      labelFontFamily: "Montserrat",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
       lineThickness: 1,
@@ -307,7 +303,8 @@ const TemperatureTrend = ({
     axisY2: {
       gridThickness: 0,
       includeZero: false,
-      labelFontColor: "black",
+      labelFontColor: "#6F7070",
+      labelFontFamily: "Montserrat",
       lineColor: "#a2a2a2",
       tickColor: "#a2a2a2",
       lineThickness: 1,

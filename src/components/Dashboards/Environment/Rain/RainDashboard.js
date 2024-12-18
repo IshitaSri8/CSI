@@ -182,14 +182,14 @@ const RainDashboard = ({ show }) => {
               <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
                 {totalRainfall} <span className="text-xl">mm</span>
               </p>
-              <p className="text-primary1 font-medium text-lg p-0 m-0">Actual</p>
+              <p className="p-0 m-0 card-text">Actual</p>
             </div>
             <Divider layout="vertical" />
             <div className="flex flex-column align-items-center px-5">
               <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
                 {totalExpectedRainfall} <span className="text-xl">mm</span>
               </p>
-              <p className="text-primary1 font-medium text-lg p-0 m-0">Expected</p>
+              <p className="p-0 m-0 card-text">Expected</p>
             </div>
           </div>
           <ProgressBar
@@ -199,14 +199,18 @@ const RainDashboard = ({ show }) => {
             color="#FFAD0D"
             displayValueTemplate={() => null} // Hide the displayed value
           />
-           <p className="text-tertiary3 font-medium text-sm" style={{marginTop: -10}}> <span style={{color: "#0C9D61"}}>8.5%</span> Up from last year</p>
+          <p
+            className="text-tertiary3 font-medium text-sm"
+            style={{ marginTop: -10 }}
+          >
+            {" "}
+            <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last year
+          </p>
         </div>
 
         {/* Deviation from Expected */}
         <div className="flex flex-column align-items-center bg-white border-round p-2 px-4 w-full mr-3">
-          <p className="card-title">
-            Deviation from Expected
-          </p>
+          <p className="card-title">Deviation from Expected</p>
           <div className="flex w-10rem custom-circular-progress">
             <CircularProgressbar
               value={-deviationPercentage}
@@ -236,9 +240,7 @@ const RainDashboard = ({ show }) => {
           className="flex flex-column bg-white w-full p-2 px-4 gap-6 align-items-stretch"
           style={{ borderRadius: "0 10px 10px 0" }}
         >
-          <p className="card-title">
-            Maximum Rainfall
-          </p>
+          <p className="card-title">Maximum Rainfall</p>
           <p className="text-4xl font-semibold m-0 text-secondary2 text-center">
             {maxRainfall} <span className="text-xl">mm</span>
           </p>
@@ -270,32 +272,32 @@ const RainDashboard = ({ show }) => {
       </p>
 
       {show && (
-       <Panel
-       toggleable
-       onToggle={handleToggleRecommendations}
-       headerTemplate={(options) => {
-         const toggleIcon = recommendationsVisible
-           ? "pi pi-chevron-up"
-           : "pi pi-chevron-down";
-         return (
-           <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-             <p className="text-primary1 font-semibold text-xl">
-               View Recommendations
-             </p>
-             <button
-               className={`p-link ${toggleIcon}`}
-               onClick={options.onTogglerClick}
-               style={{
-                 background: "none",
-                 // border: "none",
-                 cursor: "pointer",
-                 color: "#001F23",
-               }}
-             />
-           </div>
-         );
-       }}
-     >
+        <Panel
+          toggleable
+          onToggle={handleToggleRecommendations}
+          headerTemplate={(options) => {
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
           {recommendationsVisible && <RainRecommendations />}
         </Panel>
       )}
