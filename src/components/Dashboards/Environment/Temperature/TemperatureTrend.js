@@ -117,8 +117,8 @@ const TemperatureTrend = ({
       text: "Temperature and CO2 Trend",
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
+      fontWeight: 500,
+      fontColor: "#737474",
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },
@@ -208,7 +208,7 @@ const TemperatureTrend = ({
         let content = "";
 
         // Display date and average temp
-        content += `<div style="font-size: 1vw; font-weight: 600; text-align: center; padding: 0.5vw;">`;
+        content += `<div style="font-size: 1vw; font-weight: 500; text-align: center; padding: 0.5vw;">`;
         content += `${selectedDate}<br/>`; // Line break after the date
         content += `Average Temperature : ${dailyAverageTemp[selectedDate]}</br>`; // Line break after temperature
         content += `Average CO2 : ${dailyAverageCo2[selectedDate]}`; // Line break after CO2
@@ -283,8 +283,8 @@ const TemperatureTrend = ({
       text: `Temperature and CO2 Levels for ${selectedDate}`,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
+      fontWeight: 500,
+      fontColor: "#737474",
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },

@@ -130,9 +130,11 @@ const WaterRecommendations = () => {
   };
 
   return (
-    <div className="flex align-items-center justify-content-around p-5">
+    <div className="flex align-items-center justify-content-around px-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge()}>{getRecommendationWater()}</Fieldset>
+      {/* <Fieldset legend={getBadge()}> */}
+        {getRecommendationWater()}
+        {/* </Fieldset> */}
       <img src={recom} alt="recommendations" />
     </div>
   );

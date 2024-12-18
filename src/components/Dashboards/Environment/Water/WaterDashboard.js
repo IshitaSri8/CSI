@@ -79,7 +79,7 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column gap-3 p-4 border-round bg-white"
             style={{ flex: "35%" }}
           >
-            <p className="text-primary1 p-0 m-0 text-lg font-semibold">
+            <p className="card-title p-0 m-0">
               Water Supply
             </p>
             <div className="flex my-2">
@@ -120,7 +120,7 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column bg-white border-round p-4 gap-2 justify-content-start"
             style={{ flex: "30%" }}
           >
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Water Sources
             </p>
             <div className="flex align-items-center justify-content-center flex-column gap-2">
@@ -141,7 +141,7 @@ const WaterDashboard = ({ show }) => {
             style={{ flex: "35%" }}
           >
             <div className="flex flex-column w-full gap-3">
-              <p className="text-primary1 font-semibold text-lg p-0 m-0">
+              <p className="card-title p-0 m-0">
                 Water Supply Sources
               </p>
               <div className="flex">
@@ -194,7 +194,7 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column bg-white border-round p-4 gap-3"
             style={{ flex: "40%" }}
           >
-            <p className="text-primary1 font-semibold text-lg p-0 m-0 text-left">
+            <p className="card-title p-0 m-0 text-left">
               Water Usage Management
             </p>
             <div className="flex gap-3">
@@ -247,7 +247,7 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column bg-white border-round p-4 gap-3"
             style={{ flex: "35%" }}
           >
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Water Treatment
             </p>
             <div className="flex align-items-start justify-content-around">
@@ -309,7 +309,7 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column bg-white border-round p-4 gap-3"
             style={{ flex: "25%" }}
           >
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Water Preservation
             </p>
             <div className="flex flex-column align-items-center justify-content-center">
@@ -328,7 +328,7 @@ const WaterDashboard = ({ show }) => {
                   {waterPreservation.sitesWithRWH}
                 </p>
                 <p className="text p-0 m-0 mt-1 text-sm">
-                  No. of sites with Rain Water Harvesting System
+                  Sites with Rain Water Harvesting System
                 </p>
               </div>
             </div>
@@ -346,9 +346,8 @@ const WaterDashboard = ({ show }) => {
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
             const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-down"
-              : "pi pi-chevron-up";
-
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">

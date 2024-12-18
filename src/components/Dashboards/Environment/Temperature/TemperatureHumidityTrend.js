@@ -132,8 +132,8 @@ const TemperatureHumidityTrend = ({
       text: "Temperature and Feels Like Temperature Trend",
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
+      fontWeight: 500,
+      fontColor: "#737474",
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },
@@ -245,7 +245,7 @@ const TemperatureHumidityTrend = ({
         );
         console.log(feelsLikeMap);
 
-        let content = `<div style="font-size: 1vw; font-weight: 600; text-align: center; padding: 0.5vw;">`;
+        let content = `<div style="font-size: 1vw; font-weight: 500; text-align: center; padding: 0.5vw;">`;
         content += `${selectedDate}<br/>`;
         content += `Average Temperature: ${dailyAverageTemp[selectedDate]}<br/>`;
         content += `Average Humidity: ${dailyAveragehumidity[selectedDate]}<br/>`;
@@ -315,8 +315,8 @@ const TemperatureHumidityTrend = ({
       text: `Temperature and Humidity Trend for ${selectedDate}`,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
+      fontWeight: 500,
+      fontColor: "#737474",
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },

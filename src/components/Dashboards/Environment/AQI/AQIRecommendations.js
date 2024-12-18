@@ -412,10 +412,15 @@ const AQIRecommendations = ({ aqi, pm25, pm10 }) => {
   };
 
   return (
-    <div className="flex align-items-center justify-content-around p-5">
+    <div className="p-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge(aqi)}>{getRecommendation(aqi)}</Fieldset>
-      <img src={recom} alt="recommendations" />
+      <Fieldset legend={getBadge(aqi)}>
+        <div className="flex align-items-center justify-content-around">
+        {getRecommendation(aqi)}
+        <img src={recom} alt="recommendations" className="h-18rem"/>
+        </div>
+        </Fieldset>
+      
     </div>
   );
 };

@@ -8,30 +8,34 @@ const CommunityRecommendations = () => {
     return (
       <>
         <ul className="font-medium text p-0 m-0">
-            <li>
-              1. Evacuation of Affected Areas: Safe and timely relocation of
-              people from high-risk zones.
-            </li>{" "}
-            <li>
-              {" "}
-              2. Search and Rescue Operations: Deployment of rescue teams to
-              find and assist trapped or missing individuals.
-            </li>{" "}
-            <li>
-              3. Medical Aid and Emergency Services: Setting up medical camps
-              and providing first aid to injured victims.
-            </li>
-            {""}
-            <li>
-              4. Shelter and Relief Camps: Establishment of temporary shelters
-              for displaced individuals with access to food, water, and basic
-              amenities.
-            </li>{" "}
-            <li>
-              5. Disaster Response Teams Deployment: Mobilization of National
-              Disaster Response Force (NDRF) and other emergency units.
-            </li>
-          </ul>
+          <li>
+            Organize regular public forums and town hall meetings to encourage
+            citizen participation in local decision-making processes.
+          </li>
+          <li>
+            Involve residents in the budget allocation process for local
+            projects, enabling them to have a direct say in how resources are
+            distributed.
+          </li>
+          <li>
+            Organize workshops on topics like mindfulness, stress management,
+            and mental well-being, integrating traditional and modern practices.
+          </li>
+          <li>
+            Launch city-wide fitness initiatives such as walkathons, marathons,
+            or cycling events to promote physical health and foster social
+            bonding.
+          </li>
+          <li>
+            Implement mobile health services to increase access to healthcare in
+            underserved areas of the city, especially for mental health support.
+          </li>
+          <li>
+            Run awareness campaigns and training programs to empower residents
+            with the knowledge and skills needed to actively engage in civic
+            life.
+          </li>
+        </ul>
       </>
     );
   };
@@ -47,10 +51,12 @@ const CommunityRecommendations = () => {
   };
 
   return (
-    <div className="flex align-items-center justify-content-around p-5">
+    <div className="flex align-items-center justify-content-around px-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge()}>{getRecommendation()}</Fieldset>
-      <img src={recom} alt="recommendations" />
+      {/* <Fieldset legend={getBadge()}> */}
+      {getRecommendation()}
+      {/* </Fieldset> */}
+      <img src={recom} alt="recommendations" className="h-22rem" />
     </div>
   );
 };

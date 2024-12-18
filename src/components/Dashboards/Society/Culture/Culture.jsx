@@ -8,11 +8,11 @@ import {
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import CultureReportPrint from "./CultureReportPrint";
-import DisasterRecommendations from "components/Dashboards/Administration/Disaster Management/DisasterRecommendations";
 import { Panel } from "primereact/panel";
 import { ProgressBar } from "primereact/progressbar";
 import festival from "assets/Festival Illustration.svg";
 import cultural from "assets/Cultural Sites.svg";
+import CultureRecommendations from "./CultureRecommendations";
 
 const Culture = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -72,7 +72,7 @@ const Culture = ({ show }) => {
           {/* Cultural Sites */}
           <div className="flex flex-column bg-white border-round p-3 w-full">
             <div className="flex align-items-start">
-              <p className="text-primary1 font-semibold text-lg p-0 m-0">
+             <p className="card-title p-0 m-0">
                 CulturalSites
               </p>
               <i className="pi pi-info-circle text-secondary2 text-right w-full text-sm cursor-pointer sites"></i>
@@ -107,10 +107,10 @@ const Culture = ({ show }) => {
 
           {/* Cultural Festivals/Events */}
           <div className="flex flex-column bg-white border-round p-3 w-full">
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+           <p className="card-title p-0 m-0">
               Cultural Festivals & Events
             </p>
-            <div className="flex align-items-center">
+            <div className="flex align-items-center justify-content-around">
               <p className="text-4xl font-semibold m-0 text-secondary2 p-4">
                 26
               </p>
@@ -120,7 +120,7 @@ const Culture = ({ show }) => {
 
           {/* Fund Allocated */}
           <div className="flex flex-column bg-white border-round p-3 w-full">
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+           <p className="card-title p-0 m-0 ">
               Funds Allocated
             </p>
             <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
@@ -163,7 +163,7 @@ const Culture = ({ show }) => {
           <div className="flex align-items-center justify-content-center gap-3 w-full">
             {/* Tourists */}
             <div className="flex flex-column bg-white border-round p-3 w-full">
-              <p className="text-primary1 font-semibold p-0 m-0 text-lg">
+            <p className="card-title p-0 m-0 ">
                 Tourists
               </p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-4 text-center">
@@ -172,7 +172,7 @@ const Culture = ({ show }) => {
             </div>
             {/* Schools Offering Courses in Local Languages */}
             <div className="flex flex-column bg-white border-round p-3 w-full">
-              <p className="text-primary1 font-semibold p-0 m-0">
+            <p className="card-title p-0 m-0 ">
                 Schools Offering Courses in Local Languages
               </p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
@@ -223,7 +223,7 @@ const Culture = ({ show }) => {
             );
           }}
         >
-          {recommendationsVisible && <DisasterRecommendations />}
+          {recommendationsVisible && <CultureRecommendations />}
         </Panel>
       )}
     </div>
@@ -231,7 +231,3 @@ const Culture = ({ show }) => {
 };
 
 export default Culture;
-
-
-
-

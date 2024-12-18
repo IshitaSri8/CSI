@@ -8,30 +8,41 @@ const CultureRecommendations = () => {
     return (
       <>
         <ul className="font-medium text p-0 m-0">
-            <li>
-              1. Evacuation of Affected Areas: Safe and timely relocation of
-              people from high-risk zones.
-            </li>{" "}
-            <li>
-              {" "}
-              2. Search and Rescue Operations: Deployment of rescue teams to
-              find and assist trapped or missing individuals.
-            </li>{" "}
-            <li>
-              3. Medical Aid and Emergency Services: Setting up medical camps
-              and providing first aid to injured victims.
-            </li>
-            {""}
-            <li>
-              4. Shelter and Relief Camps: Establishment of temporary shelters
-              for displaced individuals with access to food, water, and basic
-              amenities.
-            </li>{" "}
-            <li>
-              5. Disaster Response Teams Deployment: Mobilization of National
-              Disaster Response Force (NDRF) and other emergency units.
-            </li>
-          </ul>
+          <li>
+            Create cultural trails and tours that guide residents and tourists
+            through key heritage sites, museums, and historical districts.
+          </li>
+          <li>
+            Repurpose historic buildings for modern use while maintaining their
+            cultural significance, blending heritage with urban development.
+          </li>
+          <li>
+            Develop mobile apps or interactive websites that provide virtual
+            tours, historical insights, and cultural trivia to enhance visitor
+            engagement with heritage sites.
+          </li>
+          <li>
+            Conduct periodic audits of heritage sites to assess their condition,
+            ensuring timely conservation actions are taken.
+          </li>
+          <li>
+            Partner with neighboring cities to develop regional cultural tourism
+            packages that highlight the unique heritage of each area.
+          </li>
+          <li>
+            Integrate eco-friendly practices, such as solar power and rainwater
+            harvesting, into the conservation efforts of heritage sites to make
+            them sustainable.
+          </li>
+          <li>
+            Use digital platforms to document and archive historical sites and
+            artifacts, ensuring their preservation for future generations.
+          </li>
+          <li>
+            Establish funding and partnerships to restore and maintain
+            historical buildings, monuments, and other cultural landmarks.
+          </li>
+        </ul>
       </>
     );
   };
@@ -47,10 +58,12 @@ const CultureRecommendations = () => {
   };
 
   return (
-    <div className="flex align-items-center justify-content-around p-5">
+    <div className="flex align-items-center justify-content-around px-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge()}>{getRecommendation()}</Fieldset>
-      <img src={recom} alt="recommendations" />
+      {/* <Fieldset legend={getBadge()}> */}
+      {getRecommendation()}
+      {/* </Fieldset> */}
+      <img src={recom} alt="recommendations" className="h-23rem"/>
     </div>
   );
 };

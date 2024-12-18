@@ -6,7 +6,7 @@ import recom from "assets/recommendations.svg";
 const WasteRecommendations = () => {
   const getRecommendationWaste = () => {
     return (
-      <>
+      <ul>
           <li className="font-medium text">
             Distribute color-coded bins to households and commercial
             establishments to facilitate proper segregation. Launch city-wide
@@ -65,7 +65,7 @@ const WasteRecommendations = () => {
             water-saving toilets, such as bio-toilets, waterless urinals, and
             composting toilets.
           </li>
-      </>
+      </ul>
     );
   };
 
@@ -79,9 +79,11 @@ const WasteRecommendations = () => {
   };
 
   return (
-    <div className="flex align-items-center justify-content-around p-5">
+    <div className="flex align-items-center justify-content-around px-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge()}>{getRecommendationWaste()}</Fieldset>
+      {/* <Fieldset legend={getBadge()}> */}
+        {getRecommendationWaste()}
+        {/* </Fieldset> */}
       <img src={recom} alt="recommendations" />
     </div>
   );

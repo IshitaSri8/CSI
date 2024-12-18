@@ -5,7 +5,6 @@ import { Button } from "primereact/button";
 import LandReportPrint from "./LandReportPrint";
 import { Dialog } from "primereact/dialog";
 import { LandPlot } from "lucide-react";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { ProgressBar } from "primereact/progressbar";
 import { ModifiedPieChart } from "Layout/GraphVisuals";
 import { Tag } from "primereact/tag";
@@ -43,13 +42,13 @@ const Land = ({ show }) => {
     "Parks and Open Spaces",
     "Transportation",
     "Recreational",
-    "Agricultural",
-    "Wet Lands",
+    // "Agricultural",
+    // "Wet Lands", 9324.30, 950.29,
     "Miscellaneous",
   ];
 
   const distributionData = [
-    1466, 124.46, 143.09, 470.3, 163.31, 580.98, 75.9, 9324.30, 950.29, 137.19,
+    1466, 124.46, 143.09, 470.3, 163.31, 580.98, 75.9, 137.19,
   ];
 
   const devArea = 91.03;
@@ -91,7 +90,7 @@ const Land = ({ show }) => {
             {/* Total Area */}
             <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
-                <p className="text-primary1 font-semibold text-lg p-0 m-0">
+                <p className="card-title p-0 m-0">
                   Total Area
                 </p>
                 <LandPlot size={15} />
@@ -116,7 +115,7 @@ const Land = ({ show }) => {
             {/* Total Population */}
             <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
-                <p className="text-primary1 font-semibold text-lg p-0 m-0">
+                <p className="card-title p-0 m-0">
                   Total Population
                 </p>
                 <LandPlot size={15} />
@@ -131,14 +130,14 @@ const Land = ({ show }) => {
             {/* Population Density */}
             <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
               <div className="flex justify-content-between align-items-center w-full">
-                <p className="text-primary1 font-semibold text-lg p-0 m-0">
+                <p className="card-title p-0 m-0">
                   Population Density
                 </p>
                 <LandPlot size={15} />
               </div>
               <div className="flex flex-column border-circle sec-theme align-items-center justify-content-center w-12rem h-12rem">
                 <p className="text-4xl font-semibold m-0 text-secondary2">
-                  {(population/totalArea).toFixed(2)}
+                  {(population / totalArea).toFixed(2)}
                 </p>
                 <p
                   className="text-lg font-semibold m-0 text-secondary2"
@@ -152,7 +151,7 @@ const Land = ({ show }) => {
             {/* Population */}
             {/* <div className="flex flex-column bg-white border-round p-4 gap-3 w-full align-items-center">
               <div className="flex justify-content-between align-items-center w-full">
-                <p className="text-primary1 font-semibold text-lg p-0 m-0">
+                <p className="card-title p-0 m-0">
                   Population
                 </p>
                 <LandPlot size={15} />
@@ -198,7 +197,7 @@ const Land = ({ show }) => {
 
           {/* Developed Area VS Proposed Area */}
           <div className="flex flex-column bg-white border-round p-5 gap-3">
-            <p className="p-0 m-0 text-primary1 font-semibold text-lg">
+            <p className="p-0 m-0 card-title">
               Land Usage: Targets vs Achievements
             </p>
             <div className="flex gap-4">
@@ -393,11 +392,11 @@ const Land = ({ show }) => {
             </div>
           </div>
         </div>
+        {/* Land Distribution */}
         <div
           className="flex gap-3 w-full bg-white border-round p-4"
           style={{ flex: "45%" }}
         >
-          {/* Land Distribution */}
           <ModifiedPieChart
             title="Land Distribution"
             categories={distributionSeries}
@@ -414,14 +413,12 @@ const Land = ({ show }) => {
 
       {show && (
         <Panel
-          //  header="View Recommendations"
           toggleable
-          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
             const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-down" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-up"; // Arrow pointing down when expanded
-
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">

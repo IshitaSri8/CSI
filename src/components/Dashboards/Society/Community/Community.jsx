@@ -3,11 +3,11 @@ import { ColumnChart, GroupedBarChart } from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import CommunityReportPrint from "./CommunityReportPrint";
-import DisasterRecommendations from "components/Dashboards/Administration/Disaster Management/DisasterRecommendations";
 import { Panel } from "primereact/panel";
 import workshop from "assets/workshop.svg";
 import ngo from "assets/ngo.svg";
 import survey from "assets/Survey Illustration.svg";
+import CommunityRecommendations from "./CommunityRecommendations";
 
 const Community = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -72,7 +72,7 @@ const Community = ({ show }) => {
           {/* NGOs/Forums */}
           <div className="flex bg-white border-round align-items-center justify-content-around w-full">
             <div className="flex flex-column p-4">
-              <p className="text-primary1 font-semibold text-lg p-0 m-0">
+              <p className="card-title p-0 m-0">
                 NGOs/Forums
               </p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-2 text-center">
@@ -100,7 +100,7 @@ const Community = ({ show }) => {
           {/* Feedback Survey Channels */}
           <div className="flex bg-white border-round align-items-center justify-content-around p-3 w-full">
             <div className="flex flex-column">
-              <p className="text-primary1 font-semibold text-lg p-0 m-0">
+              <p className="card-title p-0 m-0">
                 Feedback Survey Channels
               </p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-2 text-center">
@@ -140,10 +140,10 @@ const Community = ({ show }) => {
 
         {/* Annual Public Awareness Meetings/Workshops */}
         <div
-          className="flex flex-column bg-white border-round align-items-center p-3"
+          className="flex flex-column bg-white border-round align-items-center p-3 gap-2"
           style={{ flex: "20%" }}
         >
-          <p className="text-primary1 font-semibold text-lg p-0 m-0">
+          <p className="card-title p-0 m-0">
             Annual Public Awareness Meetings & Workshops
           </p>
           <div className="flex justify-content-around">
@@ -213,7 +213,7 @@ const Community = ({ show }) => {
             );
           }}
         >
-          {recommendationsVisible && <DisasterRecommendations />}
+          {recommendationsVisible && <CommunityRecommendations />}
         </Panel>
       )}
     </div>

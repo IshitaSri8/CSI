@@ -189,8 +189,8 @@ const CityDemographics = () => {
               className="flex justify-content-center p-3 border-round-xl flex-column gap-2"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
-              <p className="p-0 m-0 text-left font-semibold text-primary1">
-                Sex Ratio- <span className="text font-medium">980</span>
+              <p className="p-0 m-0 text-left font-semibold text-white text-sm">
+                Sex Ratio- <span className="text-white font-medium">980</span>
               </p>
 
               <Doughnut

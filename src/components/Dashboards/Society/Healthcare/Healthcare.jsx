@@ -219,9 +219,7 @@ const Healthcare = ({ show }) => {
               className="flex flex-column bg-white border-round p-3 justify-content-center"
               style={{ flex: "30%" }}
             >
-              <p className="text-primary1 p-0 m-0 text-lg font-semibold">
-                Patient Doctor Ratio
-              </p>
+              <p className="card-title p-0 m-0">Patient Doctor Ratio</p>
               <div className="flex my-3">
                 <div className="flex flex-column w-full p-2 align-items-center">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
@@ -261,9 +259,7 @@ const Healthcare = ({ show }) => {
               style={{ flex: "25%" }}
             >
               <div className="flex flex-column">
-                <p className="text-primary1 p-0 m-0 mb-1 font-semibold text-lg">
-                  No. of Health Insurance
-                </p>
+                <p className="card-title p-0 m-0 ">No. of Health Insurance</p>
                 <div className="flex align-items-center justify-content-around">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
                     12500
@@ -277,7 +273,7 @@ const Healthcare = ({ show }) => {
               className="flex flex-column bg-white border-round p-3 justify-content-center"
               style={{ flex: "40%" }}
             >
-              <p className="text-primary1 p-0 m-0 text-lg font-semibold">Hospital Beds</p>
+              <p className="card-title p-0 m-0">Hospital Beds</p>
               <div className="flex my-3">
                 <div className="flex flex-column w-full p-2 align-items-center">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
@@ -392,9 +388,7 @@ const Healthcare = ({ show }) => {
           {/* Header Row */}
           <div className="flex justify-content-between align-items-center mb-2">
             {/* Constant Title on the Left */}
-            <h4 className="m-0 text-lg font-semibold text-primary1">
-              Chronic Disease Distribution
-            </h4>
+            <p className="card-title p-0 m-0">Chronic Disease Distribution</p>
 
             {/* Icons for Tab Switching on the Right */}
             <div className="flex gap-1">
@@ -408,7 +402,8 @@ const Healthcare = ({ show }) => {
                 style={{
                   // fontSize: "1.125rem",
                   // padding: 2,
-                  backgroundColor: activeIndex === 0 ? "#e9f3f5" : "transparent",
+                  backgroundColor:
+                    activeIndex === 0 ? "#e9f3f5" : "transparent",
                   borderBottom:
                     activeIndex === 0 ? "2px solid #166c7d" : "none",
                 }}
@@ -420,7 +415,8 @@ const Healthcare = ({ show }) => {
                 }`}
                 title="Data Table"
                 style={{
-                  backgroundColor: activeIndex === 1 ? "#e9f3f5" : "transparent",
+                  backgroundColor:
+                    activeIndex === 1 ? "#e9f3f5" : "transparent",
                   borderBottom:
                     activeIndex === 1 ? "2px solid #166c7d" : "none",
                 }}
@@ -484,9 +480,7 @@ const Healthcare = ({ show }) => {
 
         <div className="flex flex-column" style={{ flex: "22%" }}>
           <div className="flex flex-column bg-white p-3 border-round-top-xl">
-            <p className="text-primary1 p-0 m-0 mb-1 font-semibold text-lg">
-              Rehab Centers
-            </p>
+            <p className="card-title p-0 m-0">Rehab Centers</p>
             <div className="flex align-items-center justify-content-around">
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
                 2

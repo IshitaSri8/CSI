@@ -3,8 +3,8 @@ import { Button } from "primereact/button";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import Transport from "./Transport/Transport";
 import TransportRecommendations from "./TransportRecommendations";
-import Transport from "./Transport";
 
 export default function TransportReportPrint() {
   const contentRef = useRef(null);
@@ -46,7 +46,7 @@ export default function TransportReportPrint() {
         pdf.internal.pageSize.height - 10
       );
 
-      pdf.save("employment_summary_report.pdf");
+      pdf.save("culture_summary_report.pdf");
     }
   };
 

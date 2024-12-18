@@ -397,8 +397,8 @@ const Disaster = ({ show }) => {
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
             const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-down"
-              : "pi pi-chevron-up";
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
 
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">

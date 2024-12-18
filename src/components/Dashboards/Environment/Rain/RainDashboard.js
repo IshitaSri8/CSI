@@ -176,7 +176,7 @@ const RainDashboard = ({ show }) => {
       <div className="flex align-items-stretch justify-content-center w-full">
         {/* total Rainfall */}
         <div className="flex flex-column bg-white border-round gap-3 p-2 px-4 w-full mr-3">
-          <p className="text-primary1 font-semibold text-lg">Total Rainfall</p>
+          <p className="card-title">Total Rainfall</p>
           <div className="flex justify-content-around align-items-center gap-3">
             <div className="flex flex-column align-items-center px-5">
               <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
@@ -204,7 +204,7 @@ const RainDashboard = ({ show }) => {
 
         {/* Deviation from Expected */}
         <div className="flex flex-column align-items-center bg-white border-round p-2 px-4 w-full mr-3">
-          <p className="text-primary1 font-semibold text-lg">
+          <p className="card-title">
             Deviation from Expected
           </p>
           <div className="flex w-10rem custom-circular-progress">
@@ -236,7 +236,7 @@ const RainDashboard = ({ show }) => {
           className="flex flex-column bg-white w-full p-2 px-4 gap-6 align-items-stretch"
           style={{ borderRadius: "0 10px 10px 0" }}
         >
-          <p className="text-primary1 font-semibold text-lg">
+          <p className="card-title">
             Maximum Rainfall
           </p>
           <p className="text-4xl font-semibold m-0 text-secondary2 text-center">
@@ -270,34 +270,32 @@ const RainDashboard = ({ show }) => {
       </p>
 
       {show && (
-        <Panel
-          //  header="View Recommendations"
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-down"
-              : "pi pi-chevron-up";
-
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
+       <Panel
+       toggleable
+       onToggle={handleToggleRecommendations}
+       headerTemplate={(options) => {
+         const toggleIcon = recommendationsVisible
+           ? "pi pi-chevron-up"
+           : "pi pi-chevron-down";
+         return (
+           <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+             <p className="text-primary1 font-semibold text-xl">
+               View Recommendations
+             </p>
+             <button
+               className={`p-link ${toggleIcon}`}
+               onClick={options.onTogglerClick}
+               style={{
+                 background: "none",
+                 // border: "none",
+                 cursor: "pointer",
+                 color: "#001F23",
+               }}
+             />
+           </div>
+         );
+       }}
+     >
           {recommendationsVisible && <RainRecommendations />}
         </Panel>
       )}

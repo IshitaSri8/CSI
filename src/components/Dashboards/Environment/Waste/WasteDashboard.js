@@ -52,8 +52,8 @@ const WasteDashboard = ({ show }) => {
       text: "Waste Collection (in TPD)",
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
+      fontWeight: 500,
+      fontColor: "#737474",
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },
@@ -167,7 +167,7 @@ const WasteDashboard = ({ show }) => {
         <div className="flex flex-column gap-2 w-full" style={{ flex: "18%" }}>
           {/* Waste Generated */}
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Waste Generated{" "}
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
@@ -185,7 +185,7 @@ const WasteDashboard = ({ show }) => {
           </div>
           {/* Waste Collected */}
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Waste Collected{" "}
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
@@ -218,7 +218,7 @@ const WasteDashboard = ({ show }) => {
             containerProps={{ height: 100, width: "100%" }}
           /> */}
          <div className="flex justify-content-between">
-         <p className="text-primary1 font-semibold text-lg p-0 m-0">
+         <p className="card-title p-0 m-0">
             Estimated Solid Waste Generated (in TPD)
           </p>
           <p className="text-sm text-tertiary3 font-medium p-0 m-0">
@@ -239,7 +239,7 @@ const WasteDashboard = ({ show }) => {
           className="flex flex-column bg-white border-round p-4 w-full justify-content-around"
           style={{ flex: "18%" }}
         >
-          <p className="text-primary1 font-semibold text-lg p-0 m-0">CT/PT</p>
+          <p className="card-title p-0 m-0">CT/PT</p>
           <div className="flex flex-column gap-2">
             <div
               className="flex flex-column w-full p-2 sec-theme gap-1"
@@ -317,32 +317,31 @@ const WasteDashboard = ({ show }) => {
 
       {show && (
         <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-down"
-              : "pi pi-chevron-up";
-
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
+        toggleable
+        onToggle={handleToggleRecommendations}
+        headerTemplate={(options) => {
+          const toggleIcon = recommendationsVisible
+            ? "pi pi-chevron-up"
+            : "pi pi-chevron-down";
+          return (
+            <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+              <p className="text-primary1 font-semibold text-xl">
+                View Recommendations
+              </p>
+              <button
+                className={`p-link ${toggleIcon}`}
+                onClick={options.onTogglerClick}
+                style={{
+                  background: "none",
+                  // border: "none",
+                  cursor: "pointer",
+                  color: "#001F23",
+                }}
+              />
+            </div>
+          );
+        }}
+      >
           {recommendationsVisible && <WasteRecommendations />}
         </Panel>
       )}

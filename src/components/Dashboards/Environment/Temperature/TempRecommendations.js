@@ -170,15 +170,20 @@ const TempRecommendations = ({ temperature }) => {
   return (
     <div className="flex align-items-center justify-content-around p-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge(temperature)}>{recommendations}</Fieldset>
-      <img src={recom} alt="recommendations" />
+      <Fieldset legend={getBadge(temperature)}>
+        <div className="flex align-items-center justify-content-around">
+          {recommendations}
+          <img src={recom} alt="recommendations" className="h-25rem" />
+        </div>
+      </Fieldset>
     </div>
   );
 };
 
 export default TempRecommendations;
 
-{/* {recommendations.map((item, index) => (
+{
+  /* {recommendations.map((item, index) => (
           <div key={index} className="p-2">
             <h2 className="text-theme">{item.title}</h2>
             <ul className="ml-4">
@@ -189,4 +194,5 @@ export default TempRecommendations;
               ))}
             </ul>
           </div>
-        ))} */}
+        ))} */
+}

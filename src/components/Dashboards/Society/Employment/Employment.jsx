@@ -4,12 +4,13 @@ import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import EmploymentReportPrint from "./EmploymentReportPrint";
-import DisasterRecommendations from "components/Dashboards/Administration/Disaster Management/DisasterRecommendations";
 import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import employment from "assets/employment.svg";
 import salary from "assets/salary.svg";
 import brain from "assets/brain.svg";
+import EmploymentRecommendations from "./EmploymentRecommendations";
+import increase from "assets/increase.png";
 
 const Employment = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -69,12 +70,12 @@ const Employment = ({ show }) => {
       )}
 
       <div className="flex gap-3">
-        <div className="flex gap-3 flex-column" style={{ flex: "35%" }}>
+        <div className="flex gap-3 flex-column" style={{ flex: "37%" }}>
           {/* Total population Employed */}
-          <div className="flex flex-column align-items-center bg-white border-round p-3 w-full gap-3">
+          <div className="flex flex-column align-items-center bg-white border-round-xl p-3 w-full gap-3">
             <div className="flex justify-content-between align-items-center gap-8">
               <div className="flex flex-column gap-3 align-items-start">
-                <p className="text-primary1 p-0 m-0 font-semibold text-lg">
+              <p className="card-title p-0 m-0">
                   Total Population Employed
                 </p>
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
@@ -90,7 +91,7 @@ const Employment = ({ show }) => {
                 title="Types of Employment"
                 labels={employmentLables}
                 series={employmentData}
-                height={140}
+                height={160}
                 colorArray={["#FFDD82", "#F7A47A", "#98C6CF", "#1F8297"]}
                 horizontal={"right"}
                 vertical={"center"}
@@ -99,12 +100,12 @@ const Employment = ({ show }) => {
             </div>
           </div>
           {/* Total no. of Industries */}
-          <div className="flex bg-white border-round p-2 w-full">
+          <div className="flex bg-white border-round-xl p-2 w-full">
             <PieChart
               title="Total Industries"
               categories={industriesLables}
               series={industriesData}
-              height={140}
+              height={205}
               vertical="center"
               horizontal="right"
               fontSize={10}
@@ -112,92 +113,144 @@ const Employment = ({ show }) => {
           </div>
         </div>
 
-        <div className="flex gap-3 flex-column" style={{ flex: "65%" }}>
-          <div className="flex gap-3 w-full">
+        <div className="flex gap-3 flex-column" style={{ flex: "63%" }}>
+          <div className="flex gap-3 w-full ">
             {/* Employed Females */}
-            <div className="flex flex-column bg-white border-round-xl p-2 gap-2 align-items-center w-full">
-              <p className="text-primary1 font-semibold text-center text-lg p-0 m-0">
-                Rate of Employed Females
+            <div className="flex flex-column bg-white border-round-xl p-4 gap-4 w-full">
+            <p className="card-title p-0 m-0">
+                Employed Females
               </p>
-              <div className="flex w-10rem custom-circular-progress p-2">
-                <CircularProgressbar
-                  value={32}
-                  text="32%"
-                  strokeWidth={10}
-                  styles={buildStyles({
-                    pathColor: "#FFAD0D",
-                    textColor: "#001F23",
-                    trailColor: "#E7EAEA",
-                    textSize: "1.5rem",
-                    pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                    transform: "rotate(2.25turn)",
-                  })}
+              <div className="flex align-content-center justify-content-center">
+                <div className=" w-10rem custom-circular-progress ">
+                  <CircularProgressbar
+                    value={32}
+                    text="32%"
+                    strokeWidth={8}
+                    styles={buildStyles({
+                      pathColor: "#FFAD0D",
+                      textColor: "#001F23",
+                      trailColor: "#E7EAEA",
+                      textSize: "1.5rem",
+                      pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                      transform: "rotate(2.25turn)",
+                    })}
+                  />
+                </div>
+              </div>
+              <div className="flex align-items-center justify-content-start">
+                <img
+                  src={increase}
+                  style={{
+                    height: "1.5rem",
+                    width: "1.5rem",
+                    marginRight: "0.5rem",
+                  }}
+                  alt="increase"
                 />
+                <p className="text-tertiary3 text-sm p-0 m-0 font-medium">
+                  <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
+                  year.
+                </p>
               </div>
             </div>
             {/* Unemployment Rate */}
-            <div className="flex flex-column bg-white border-round-xl p-2 gap-2 align-items-center w-full">
-              <p className="text-primary1 font-semibold text-lg text-center p-0 m-0">
+            <div className="flex flex-column bg-white border-round-xl p-4 gap-4 w-full">
+            <p className="card-title p-0 m-0">
                 Unemployed Population
               </p>
-              <div className="flex w-10rem custom-circular-progress p-2">
-                <CircularProgressbar
-                  value={53}
-                  text="53%"
-                  strokeWidth={10}
-                  styles={buildStyles({
-                    pathColor: "#E62225",
-                    textColor: "#001F23",
-                    trailColor: "#E7EAEA",
-                    textSize: "1.5rem",
-                    pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                    transform: "rotate(2.25turn)",
-                  })}
+              <div className="flex align-content-center justify-content-center">
+                <div className="w-10rem custom-circular-progress">
+                  <CircularProgressbar
+                    value={53}
+                    text="53%"
+                    strokeWidth={8}
+                    styles={buildStyles({
+                      pathColor: "#E62225",
+                      textColor: "#001F23",
+                      trailColor: "#E7EAEA",
+                      textSize: "1.5rem",
+                      pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                      transform: "rotate(2.25turn)",
+                    })}
+                  />
+                </div>
+              </div>
+              <div className="flex align-items-center justify-content-start">
+                <img
+                  src={increase}
+                  style={{
+                    height: "1.5rem",
+                    width: "1.5rem",
+                    marginRight: "0.5rem",
+                  }}
+                  alt="increase"
                 />
+                <p className="text-tertiary3 text-sm p-0 m-0 font-medium">
+                  <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
+                  year.
+                </p>
               </div>
             </div>
-            <div className="flex flex-column bg-white border-round-xl p-2 gap-2 align-items-center w-full">
-              <p className="text-primary1 font-semibold text-center text-lg p-0 m-0">
+            {/* Unemployed Youth */}
+            <div className="flex flex-column bg-white border-round-xl p-4 gap-4 w-full">
+            <p className="card-title p-0 m-0">
                 Unemployed Youth
               </p>
-              <div className="flex w-10rem custom-circular-progress p-2">
-                <CircularProgressbar
-                  value={65}
-                  text="65%"
-                  strokeWidth={10}
-                  styles={buildStyles({
-                    pathColor: "#E62225",
-                    textColor: "#001F23",
-                    trailColor: "#E7EAEA",
-                    textSize: "1.5rem",
-                    pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                    transform: "rotate(2.25turn)",
-                  })}
+              <div className="flex align-content-center justify-content-center">
+                <div className="w-10rem custom-circular-progress">
+                  <CircularProgressbar
+                    value={65}
+                    text="65%"
+                    strokeWidth={8}
+                    styles={buildStyles({
+                      pathColor: "#E62225",
+                      textColor: "#001F23",
+                      trailColor: "#E7EAEA",
+                      textSize: "1.5rem",
+                      pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                      transform: "rotate(2.25turn)",
+                    })}
+                  />
+                </div>
+              </div>
+              <div className="flex align-items-center justify-content-start">
+                <img
+                  src={increase}
+                  style={{
+                    height: "1.5rem",
+                    width: "1.5rem",
+                    marginRight: "0.5rem",
+                  }}
+                  alt="increase"
                 />
+                <p className="text-tertiary3 text-sm p-0 m-0 font-medium">
+                  <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
+                  year.
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="flex gap-3 w-full">
+          <div className="flex gap-3" style={{ flex: "40%" }}>
             {/* Job Trend Over the years */}
-            <div className="flex bg-white border-round p-2 w-full">
+            <div className="flex bg-white border-round-xl p-2 w-full">
               <GroupedColumnChart
-                title="Job Trend Over the years"
+                title="Job Trend Over the Years"
                 labels={years}
                 dataSeries={jobTrendLabels}
                 dataPointWidth={20}
-                height={250}
+                height={260}
                 fontSize={10}
               />
             </div>
-            <div className="flex flex-column gap-3">
+            <div className="flex flex-column gap-3" style={{ flex: "60%" }}>
               {/* Average Salary */}
-              <div className="flex flex-column justify-content-center bg-white border-round p-4 w-full gap-3">
-                <p className="text-primary1 p-0 m-0 font-semibold text-lg">
+              <div className="flex flex-column justify-content-center bg-white border-round-xl p-4 w-full gap-3">
+              <p className="card-title p-0 m-0">
                   Average Salary
                 </p>
                 <div className="flex gap-3 align-items-center">
-                  <img src={salary} alt="salary" className="w-10rem" />
+                  <img src={salary} alt="salary" className="w-12rem" />
                   <div className="flex justify-content-between align-items-center">
                     <div className="flex flex-column w-full p-2 align-items-center">
                       <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
@@ -221,7 +274,7 @@ const Employment = ({ show }) => {
               </div>
 
               {/* Skill Programs */}
-              <div className="flex bg-white border-round p-2 w-full align-items-center justify-content-around">
+              <div className="flex bg-white border-round-xl p-2 w-full align-items-center justify-content-around">
                 <div className="flex align-items-start">
                   <div className="flex flex-column w-full align-items-center">
                     <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
@@ -257,8 +310,8 @@ const Employment = ({ show }) => {
           onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
           headerTemplate={(options) => {
             const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-down"; // Arrow pointing down when expanded
+              ? "pi pi-chevron-down" // Arrow pointing to the right when collapsed
+              : "pi pi-chevron-right"; // Arrow pointing down when expanded
 
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
@@ -279,7 +332,7 @@ const Employment = ({ show }) => {
             );
           }}
         >
-          {recommendationsVisible && <DisasterRecommendations />}
+          {recommendationsVisible && <EmploymentRecommendations />}
         </Panel>
       )}
     </div>

@@ -77,10 +77,7 @@ const EducationDashboard = ({ show }) => {
                 {/* Institutions */}
                 <div className="flex justify-content-between align-items-center bg-white border-round p-4 w-full">
                   <div className="flex flex-column gap-3">
-                    <p
-                      className="text-primary1 p-0 m-0 font-semibold text-lg"
-                      // style={{ marginLeft: -10, marginTop: -10 }}
-                    >
+                    <p className="card-title p-0 m-0">
                       Institutions
                     </p>
                     <p className="text-4xl font-semibold m-0 text-secondary2 p-0 text-right">
@@ -108,7 +105,7 @@ const EducationDashboard = ({ show }) => {
 
                 {/* Teacher vs Student Ratio */}
                 <div className="flex flex-column bg-white border-round p-3 justify-content-between w-full">
-                  <p className="text-primary1 p-0 m-0 text-lg font-semibold">
+                  <p className="card-title p-0 m-0">
                     Teacher vs Student Ratio
                   </p>
                   <div className="flex my-3">
@@ -159,7 +156,7 @@ const EducationDashboard = ({ show }) => {
                     {/* Students Enrolled */}
                     <div className="flex flex-column bg-white border-round p-3 w-full">
                       <div className="flex flex-column gap-2">
-                        <p className="text-primary1 font-semibold text-left p-0 m-0 text-lg">
+                        <p className="card-titl text-left p-0 m-0">
                           Students Enrolled
                         </p>
 
@@ -233,8 +230,8 @@ const EducationDashboard = ({ show }) => {
                       </div>
                     </div>
                     {/* Gender Parity Index */}
-                    <div className="flex flex-column w-full justify-content-center bg-white border-round p-3">
-                      <p className="text-primary1 p-0 m-0 mb-1 font-semibold text-lg text-left">
+                    <div className="flex flex-column w-full justify-content-center bg-white border-round p-3 gap-2">
+                      <p className="card-title p-0 m-0 mb-1 text-left">
                         Gender Parity Index
                       </p>
                       <div className="flex justify-content-around align-items-center gap-4">
@@ -249,7 +246,7 @@ const EducationDashboard = ({ show }) => {
                   <div className="flex flex-column gap-3 w-full">
                     {/* Adjusted Net Enrollment Rate */}
                     <div className="flex flex-column bg-white border-round p-4 justify-content-between w-full">
-                      <p className="text-primary1 p-0 m-0 text-lg font-semibold">
+                      <p className="card-title p-0 m-0">
                         Adjusted Net Enrollment Rate
                       </p>
                       <div className="flex my-2 py-2">
@@ -295,7 +292,7 @@ const EducationDashboard = ({ show }) => {
                     </div>
                     {/* Dropout Rate */}
                     <div className="flex flex-column w-full bg-white border-round p-4 justify-content-between">
-                      <p className="text-primary1 p-0 m-0 text-lg font-semibold">
+                      <p className="card-title p-0 m-0">
                         Dropout Rate
                       </p>
                       <div className="flex my-2 py-2">

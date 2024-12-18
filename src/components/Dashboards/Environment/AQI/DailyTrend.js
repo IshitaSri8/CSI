@@ -98,8 +98,8 @@ const DailyTrend = ({
       text: "AQI Trend",
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
+      fontWeight: 500,
+      fontColor: "#737474",
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },
@@ -157,7 +157,7 @@ const DailyTrend = ({
         let content = "";
 
         // Display date and average AQI
-        content += `<div style="font-size: 1vw; font-weight:600; text-align:center; padding:0.5vw">`;
+        content += `<div style="font-size: 1vw; font-weight:500; text-align:center; padding:0.5vw">`;
         content += `Average AQI for ${selectedDate} is ${dailyAverage[selectedDate]}`;
         content += "</div>";
 
@@ -224,8 +224,8 @@ const DailyTrend = ({
       text: "AQI Level for" + selectedDate,
       fontSize: 14,
       fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
+      fontWeight: 500,
+      fontColor: "#737474",
       horizontalAlign: "left",
       padding: { bottom: 10 },
     },

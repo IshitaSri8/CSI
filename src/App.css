@@ -114,6 +114,12 @@ body {
   color: var(--text-moderate);
 }
 
+.card-title {
+  color: var(--text-card-title);
+  font-weight: 500;
+  font-size: small;
+}
+
 .success {
   background-color: var(--bg-success);
 }
@@ -323,5 +329,9 @@ body {
 
 .p-button-label {
   font-weight: 500;
+}
+
+.p-fieldset .p-fieldset-content {
+  padding: 0;
 }
 
