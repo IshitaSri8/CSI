@@ -6,51 +6,49 @@ import recom from "assets/recommendations.svg";
 const HealthcareRecommendations = () => {
   const getRecommendation = () => {
     return (
-      <>
-        <ul className="font-medium text p-0 m-0">
-          <li>
+      <div className="flex flex-column">
+          <li className="font-medium text p-0 m-0">
             Expand the number of registered (NABH accredited) private and
             government hospitals and dispensaries across the city.
           </li>{" "}
-          <li>
+          <li className="font-medium text p-0 m-0">
             Ensure all healthcare facilities, nursing homes, and private
             hospitals are NABH accredited to guarantee safety and quality
             standards.
           </li>{" "}
-          <li>
+          <li className="font-medium text p-0 m-0">
             Enhance access to vaccination centers, especially for newborns and
             high-risk groups (e.g., flu, cervical cancer).
           </li>
           {""}
-          <li>
+          <li className="font-medium text p-0 m-0">
             Establish mobile health clinics to serve underserved and remote
             areas, especially for vulnerable populations.
           </li>{" "}
-          <li>
+          <li className="font-medium text p-0 m-0">
             Create 24/7 helplines and digital platforms for mental health
             support, addressing issues like addiction, depression, and
             professional/social stress.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Increase health insurance coverage per capita by promoting
             affordable public health insurance schemes.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Enhance the number and quality of rehabilitation centers for
             addiction recovery and mental health support.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Implement city-wide digital health record systems to track patient
             history, which can be accessed by certified doctors for better
             diagnosis and treatment.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Run public campaigns to educate residents on preventative care,
             mental health awareness, and the importance of regular health
             checkups.
           </li>
-        </ul>
-      </>
+       </div>
     );
   };
 
@@ -70,7 +68,7 @@ const HealthcareRecommendations = () => {
       {/* <Fieldset legend={getBadge()}> */}
       {getRecommendation()}
       {/* </Fieldset> */}
-      <img src={recom} alt="recommendations" className="h-25rem py-2" />
+      <img src={recom} alt="recommendations" className="h-20rem py-2" />
     </div>
   );
 };
