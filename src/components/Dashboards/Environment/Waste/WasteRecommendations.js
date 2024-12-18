@@ -6,7 +6,7 @@ import recom from "assets/recommendations.svg";
 const WasteRecommendations = () => {
   const getRecommendationWaste = () => {
     return (
-      <ul>
+      <div className="flex flex-column">
           <li className="font-medium text">
             Distribute color-coded bins to households and commercial
             establishments to facilitate proper segregation. Launch city-wide
@@ -65,7 +65,7 @@ const WasteRecommendations = () => {
             water-saving toilets, such as bio-toilets, waterless urinals, and
             composting toilets.
           </li>
-      </ul>
+      </div>
     );
   };
 

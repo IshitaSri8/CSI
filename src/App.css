@@ -117,13 +117,13 @@ body {
 .card-title {
   color: var(--text-card-title);
   font-weight: 500;
-  font-size: 14px !important;
+  font-size: 15px !important;
 }
 
 .card-text {
   color: var(--text-card-title);
   font-weight: 450;
-  font-size: 12px !important;
+  font-size: 13px !important;
 }
 
 .success {

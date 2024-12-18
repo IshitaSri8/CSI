@@ -6,44 +6,42 @@ import recom from "assets/recommendations.svg";
 const CultureRecommendations = () => {
   const getRecommendation = () => {
     return (
-      <>
-        <ul className="font-medium text p-0 m-0">
-          <li>
+      <div className="flex flex-column">
+          <li className="font-medium text p-0 m-0">
             Create cultural trails and tours that guide residents and tourists
             through key heritage sites, museums, and historical districts.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Repurpose historic buildings for modern use while maintaining their
             cultural significance, blending heritage with urban development.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Develop mobile apps or interactive websites that provide virtual
             tours, historical insights, and cultural trivia to enhance visitor
             engagement with heritage sites.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Conduct periodic audits of heritage sites to assess their condition,
             ensuring timely conservation actions are taken.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Partner with neighboring cities to develop regional cultural tourism
             packages that highlight the unique heritage of each area.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Integrate eco-friendly practices, such as solar power and rainwater
             harvesting, into the conservation efforts of heritage sites to make
             them sustainable.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Use digital platforms to document and archive historical sites and
             artifacts, ensuring their preservation for future generations.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Establish funding and partnerships to restore and maintain
             historical buildings, monuments, and other cultural landmarks.
           </li>
-        </ul>
-      </>
+      </div>
     );
   };
 
@@ -63,7 +61,7 @@ const CultureRecommendations = () => {
       {/* <Fieldset legend={getBadge()}> */}
       {getRecommendation()}
       {/* </Fieldset> */}
-      <img src={recom} alt="recommendations" className="h-23rem"/>
+      <img src={recom} alt="recommendations" className="h-22rem py-2"/>
     </div>
   );
 };

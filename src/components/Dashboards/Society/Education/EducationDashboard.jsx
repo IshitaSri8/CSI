@@ -104,7 +104,7 @@ const EducationDashboard = ({ show }) => {
                 {/* Teacher vs Student Ratio */}
                 <div className="flex flex-column bg-white border-round p-3 justify-content-between w-full">
                   <p className="card-title p-0 m-0">Teacher vs Student Ratio</p>
-                  <div className="flex my-3">
+                  <div className="flex my-2 py-2">
                     <div className="flex flex-column w-full p-2 align-items-center gap-1">
                       <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                         {educationData.teacherStudentRatioCurrent}
@@ -131,7 +131,7 @@ const EducationDashboard = ({ show }) => {
                     color="#FFAD0D"
                     displayValueTemplate={() => null} // Hide the displayed value
                   />
-                  <p className="text-tertiary3 p-0 m-0 font-semibold">
+                  <p className="text-tertiary3 p-0 m-0 font-semibold mt-2">
                     Gap:{" "}
                     <span className="text-primary1">
                       {" "}

@@ -14,7 +14,7 @@ import { PatientsRegisteredChart } from "./PatientsRegisteredChart";
 import { SuicideCasesChart } from "./SuicideCasesChart";
 import { Panel } from "primereact/panel";
 import healthcare from "assets/healthcare.svg";
-import insurance from "assets/Health insurance.svg";
+import insurance from "assets/insurance.svg";
 import rehab from "assets/rehab.svg";
 import { ProgressBar } from "primereact/progressbar";
 import { DataTable } from "primereact/datatable";
@@ -152,27 +152,21 @@ const Healthcare = ({ show }) => {
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                     754
                   </p>
-                  <p className="p-0 m-0 card-text">
-                    Doctors
-                  </p>
+                  <p className="p-0 m-0 card-text">Doctors</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                     1375
                   </p>
-                  <p className="p-0 m-0 card-text">
-                    Nurses
-                  </p>
+                  <p className="p-0 m-0 card-text">Nurses</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                   <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                     124
                   </p>
-                  <p className="p-0 m-0 card-text">
-                    Medical Staff
-                  </p>
+                  <p className="p-0 m-0 card-text">Medical Staff</p>
                 </div>
               </div>
             </div>
@@ -185,18 +179,14 @@ const Healthcare = ({ show }) => {
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                   344
                 </p>
-                <p className="p-0 m-0 card-text">
-                  Healthcare Institutes
-                </p>
+                <p className="p-0 m-0 card-text">Healthcare Institutes</p>
               </div>
               <Divider layout="vertical" />
               <div className="flex flex-column w-full p-2 align-items-center gap-1">
                 <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                   78
                 </p>
-                <p className="tp-0 m-0 card-text">
-                  Laboratories
-                </p>
+                <p className="tp-0 m-0 card-text">Laboratories</p>
               </div>
             </div>
           </div>
@@ -259,7 +249,7 @@ const Healthcare = ({ show }) => {
               style={{ flex: "25%" }}
             >
               <div className="flex flex-column">
-                <p className="card-title p-0 m-0 ">No. of Health Insurance</p>
+                <p className="card-title p-0 m-0 ">Health Insurance Coverage</p>
                 <div className="flex align-items-center justify-content-around">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
                     12500
@@ -439,8 +429,14 @@ const Healthcare = ({ show }) => {
             <DataTable
               value={tableData}
               className="p-datatable-sm"
-              stripedRows
+              // stripedRows
               responsiveLayout="scroll"
+              rowStyle={{ backgroundColor: "#f3f5f5" }}
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                overflow: "hidden",
+              }}
             >
               <Column
                 field="disease"
@@ -479,7 +475,7 @@ const Healthcare = ({ show }) => {
         </div>
 
         <div className="flex flex-column" style={{ flex: "22%" }}>
-        {/* Rehab Centers */}
+          {/* Rehab Centers */}
           <div className="flex flex-column bg-white p-3 border-round-top-xl">
             <p className="card-title p-0 m-0">Rehab Centers</p>
             <div className="flex align-items-center justify-content-around">

@@ -6,43 +6,41 @@ import recom from "assets/recommendations.svg";
 const EmploymentRecommendations = () => {
   const getRecommendation = () => {
     return (
-      <>
-        <ul className="font-medium text p-0 m-0">
-          <li>
+      <div className="flex flex-column">
+          <li className="font-medium text p-0 m-0">
             Ensure that job advertisements are accessible to all, including
             individuals with disabilities, and promote equal opportunity
             employment.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Organize job fairs that connect local employers with job seekers,
             facilitating direct engagement and networking.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Implement programs that support and formalize informal businesses,
             providing them with access to financing and legal resources.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Develop apprenticeship programs in partnership with local industries
             to provide hands-on experience and facilitate job placements.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Encourage companies to adopt diverse hiring practices, promoting
             representation of various groups in the workforce.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Establish vocational training centers that focus on high-demand
             skills, ensuring alignment with local job market needs.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Provide tax breaks or grants to companies that create jobs in
             high-unemployment areas, encouraging local hiring.
           </li>
-          <li>
+          <li className="font-medium text p-0 m-0">
             Create incubation centers that offer resources and mentorship to new
             businesses, fostering entrepreneurship and job creation.
           </li>
-        </ul>
-      </>
+      </div>
     );
   };
 
@@ -62,7 +60,7 @@ const EmploymentRecommendations = () => {
       {/* <Fieldset legend={getBadge()}> */}
       {getRecommendation()}
       {/* </Fieldset> */}
-      <img src={recom} alt="recommendations" className="h-22rem py-2"/>
+      <img src={recom} alt="recommendations" className="h-18rem py-2"/>
     </div>
   );
 };
