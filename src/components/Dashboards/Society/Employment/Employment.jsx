@@ -75,9 +75,7 @@ const Employment = ({ show }) => {
           <div className="flex flex-column align-items-center bg-white border-round-xl p-3 w-full gap-3">
             <div className="flex justify-content-between align-items-center gap-8">
               <div className="flex flex-column gap-3 align-items-start">
-              <p className="card-title p-0 m-0">
-                  Total Population Employed
-                </p>
+                <p className="card-title p-0 m-0">Total Population Employed</p>
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
                   14500
                 </p>
@@ -117,9 +115,7 @@ const Employment = ({ show }) => {
           <div className="flex gap-3 w-full ">
             {/* Employed Females */}
             <div className="flex flex-column bg-white border-round-xl p-4 gap-4 w-full">
-            <p className="card-title p-0 m-0">
-                Employed Females
-              </p>
+              <p className="card-title p-0 m-0">Employed Females</p>
               <div className="flex align-content-center justify-content-center">
                 <div className=" w-10rem custom-circular-progress ">
                   <CircularProgressbar
@@ -155,9 +151,7 @@ const Employment = ({ show }) => {
             </div>
             {/* Unemployment Rate */}
             <div className="flex flex-column bg-white border-round-xl p-4 gap-4 w-full">
-            <p className="card-title p-0 m-0">
-                Unemployed Population
-              </p>
+              <p className="card-title p-0 m-0">Unemployed Population</p>
               <div className="flex align-content-center justify-content-center">
                 <div className="w-10rem custom-circular-progress">
                   <CircularProgressbar
@@ -193,9 +187,7 @@ const Employment = ({ show }) => {
             </div>
             {/* Unemployed Youth */}
             <div className="flex flex-column bg-white border-round-xl p-4 gap-4 w-full">
-            <p className="card-title p-0 m-0">
-                Unemployed Youth
-              </p>
+              <p className="card-title p-0 m-0">Unemployed Youth</p>
               <div className="flex align-content-center justify-content-center">
                 <div className="w-10rem custom-circular-progress">
                   <CircularProgressbar
@@ -246,9 +238,7 @@ const Employment = ({ show }) => {
             <div className="flex flex-column gap-3" style={{ flex: "60%" }}>
               {/* Average Salary */}
               <div className="flex flex-column justify-content-center bg-white border-round-xl p-4 w-full gap-3">
-              <p className="card-title p-0 m-0">
-                  Average Salary
-                </p>
+                <p className="card-title p-0 m-0">Average Salary</p>
                 <div className="flex gap-3 align-items-center">
                   <img src={salary} alt="salary" className="w-12rem" />
                   <div className="flex justify-content-between">
@@ -256,18 +246,14 @@ const Employment = ({ show }) => {
                       <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                         25000
                       </p>
-                      <p className="card-text p-0 m-0">
-                        City
-                      </p>
+                      <p className="card-text p-0 m-0">City</p>
                     </div>
                     <Divider layout="vertical" />
                     <div className="flex flex-column w-full p-2 align-items-center gap-1">
                       <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                         17500
                       </p>
-                      <p className="card-text p-0 m-0">
-                        National
-                      </p>
+                      <p className="card-text p-0 m-0">National</p>
                     </div>
                   </div>
                 </div>
@@ -280,18 +266,14 @@ const Employment = ({ show }) => {
                     <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                       47
                     </p>
-                    <p className="p-0 m-0 card-text">
-                      Skill Programs
-                    </p>
+                    <p className="p-0 m-0 card-text">Skill Programs</p>
                   </div>
                   <Divider layout="vertical" />
                   <div className="flex flex-column w-full align-items-center gap-1">
                     <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                       3750
                     </p>
-                    <p className="p-0 m-0 card-text">
-                      PeopleEnrolled
-                    </p>
+                    <p className="p-0 m-0 card-text">PeopleEnrolled</p>
                   </div>
                 </div>
                 <img src={brain} alt="brain" className="w-8rem" />
@@ -305,14 +287,12 @@ const Employment = ({ show }) => {
       </p>
       {show && (
         <Panel
-          //  header="View Recommendations"
           toggleable
-          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-down" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-right"; // Arrow pointing down when expanded
-
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">

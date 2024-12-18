@@ -72,9 +72,7 @@ const Culture = ({ show }) => {
           {/* Cultural Sites */}
           <div className="flex flex-column bg-white border-round p-3 w-full">
             <div className="flex align-items-start">
-             <p className="card-title p-0 m-0">
-                CulturalSites
-              </p>
+              <p className="card-title p-0 m-0">CulturalSites</p>
               <i className="pi pi-info-circle text-secondary2 text-right w-full text-sm cursor-pointer sites"></i>
               <Tooltip target=".sites" position="right">
                 <div className="flex align-items-start justify-content-start gap-4 p-2">
@@ -107,9 +105,7 @@ const Culture = ({ show }) => {
 
           {/* Cultural Festivals/Events */}
           <div className="flex flex-column bg-white border-round p-3 w-full">
-           <p className="card-title p-0 m-0">
-              Cultural Festivals & Events
-            </p>
+            <p className="card-title p-0 m-0">Cultural Festivals & Events</p>
             <div className="flex align-items-center justify-content-around">
               <p className="text-4xl font-semibold m-0 text-secondary2 p-4">
                 26
@@ -120,9 +116,7 @@ const Culture = ({ show }) => {
 
           {/* Fund Allocated */}
           <div className="flex flex-column bg-white border-round p-3 w-full">
-           <p className="card-title p-0 m-0 ">
-              Funds Allocated
-            </p>
+            <p className="card-title p-0 m-0 ">Funds Allocated</p>
             <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
               {" "}
               100 <span className="text-xl">Cr</span>
@@ -163,16 +157,14 @@ const Culture = ({ show }) => {
           <div className="flex align-items-center justify-content-center gap-3 w-full">
             {/* Tourists */}
             <div className="flex flex-column bg-white border-round p-3 w-full">
-            <p className="card-title p-0 m-0 ">
-                Tourists
-              </p>
+              <p className="card-title p-0 m-0 ">Tourists</p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-4 text-center">
                 1,15,000
               </p>
             </div>
             {/* Schools Offering Courses in Local Languages */}
             <div className="flex flex-column bg-white border-round p-3 w-full">
-            <p className="card-title p-0 m-0 ">
+              <p className="card-title p-0 m-0 ">
                 Schools Offering Courses in Local Languages
               </p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
@@ -196,14 +188,12 @@ const Culture = ({ show }) => {
 
       {show && (
         <Panel
-          //  header="View Recommendations"
           toggleable
-          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-down"; // Arrow pointing down when expanded
-
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">

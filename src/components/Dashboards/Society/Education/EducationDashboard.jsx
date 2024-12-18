@@ -77,9 +77,7 @@ const EducationDashboard = ({ show }) => {
                 {/* Institutions */}
                 <div className="flex justify-content-between align-items-center bg-white border-round p-4 w-full">
                   <div className="flex flex-column gap-3">
-                    <p className="card-title p-0 m-0">
-                      Institutions
-                    </p>
+                    <p className="card-title p-0 m-0">Institutions</p>
                     <p className="text-4xl font-semibold m-0 text-secondary2 p-0 text-right">
                       {educationData.institutions}
                     </p>
@@ -105,22 +103,20 @@ const EducationDashboard = ({ show }) => {
 
                 {/* Teacher vs Student Ratio */}
                 <div className="flex flex-column bg-white border-round p-3 justify-content-between w-full">
-                  <p className="card-title p-0 m-0">
-                    Teacher vs Student Ratio
-                  </p>
+                  <p className="card-title p-0 m-0">Teacher vs Student Ratio</p>
                   <div className="flex my-3">
-                    <div className="flex flex-column w-full p-2 align-items-center">
+                    <div className="flex flex-column w-full p-2 align-items-center gap-1">
                       <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                         {educationData.teacherStudentRatioCurrent}
                       </p>
-                      <p className="text p-0 m-0 mt-1 font-semibold">Current</p>
+                      <p className="p-0 m-0 card-text">Current</p>
                     </div>
                     <Divider layout="vertical" />
-                    <div className="flex flex-column w-full p-2 align-items-center">
+                    <div className="flex flex-column w-full p-2 align-items-center gap-1">
                       <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                         {educationData.teacherStudentRatioTarget}
                       </p>
-                      <p className="text p-0 m-0 mt-1 font-semibold">Target</p>
+                      <p className="p-0 m-0 card-text">Target</p>
                     </div>
                   </div>
                   <ProgressBar
@@ -231,7 +227,7 @@ const EducationDashboard = ({ show }) => {
                     </div>
                     {/* Gender Parity Index */}
                     <div className="flex flex-column w-full justify-content-center bg-white border-round p-3 gap-2">
-                      <p className="card-title p-0 m-0 mb-1 text-left">
+                      <p className="card-title p-0 m-0 text-left">
                         Gender Parity Index
                       </p>
                       <div className="flex justify-content-around align-items-center gap-4">
@@ -250,20 +246,20 @@ const EducationDashboard = ({ show }) => {
                         Adjusted Net Enrollment Rate
                       </p>
                       <div className="flex my-2 py-2">
-                        <div className="flex flex-column w-full p-2 align-items-center">
+                        <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.enrollmentCurrent}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
+                          <p className="p-0 m-0 card-text">
                             Current
                           </p>
                         </div>
                         <Divider layout="vertical" />
-                        <div className="flex flex-column w-full p-2 align-items-center">
+                        <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                             {educationData.enrollmentTarget}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
+                          <p className="p-0 m-0 card-text">
                             Target
                           </p>
                         </div>
@@ -292,24 +288,22 @@ const EducationDashboard = ({ show }) => {
                     </div>
                     {/* Dropout Rate */}
                     <div className="flex flex-column w-full bg-white border-round p-4 justify-content-between">
-                      <p className="card-title p-0 m-0">
-                        Dropout Rate
-                      </p>
+                      <p className="card-title p-0 m-0">Dropout Rate</p>
                       <div className="flex my-2 py-2">
-                        <div className="flex flex-column w-full p-2 align-items-center">
+                        <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.dropoutRatioCurrentValue}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
+                          <p className="p-0 m-0 card-text">
                             Current
                           </p>
                         </div>
                         <Divider layout="vertical" />
-                        <div className="flex flex-column w-full p-2 align-items-center">
+                        <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                             {educationData.dropoutRatioTargetValue}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
+                          <p className="p-0 m-0 card-text">
                             Target
                           </p>
                         </div>
@@ -348,7 +342,6 @@ const EducationDashboard = ({ show }) => {
                     title="No. of Students per Teacher"
                     categories={educationData.years}
                     data={educationData.teacherStudentRatioTrend}
-                    fontColor={"#4C4C4C"}
                     height={130}
                   />
                 </div>
@@ -388,15 +381,14 @@ const EducationDashboard = ({ show }) => {
               </p>
               {show && (
                 <Panel
-                  //  header="View Recommendations"
                   toggleable
-                  onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+                  onToggle={handleToggleRecommendations}
                   headerTemplate={(options) => {
-                    const toggleIcon = options.collapsed
-                      ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-                      : "pi pi-chevron-down"; // Arrow pointing down when expanded
+                    const toggleIcon = recommendationsVisible
+                      ? "pi pi-chevron-up"
+                      : "pi pi-chevron-down";
                     return (
-                      <div className="flex justify-content-between align-items-center px-4 bg-white border-round mt-2">
+                      <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                         <p className="text-primary1 font-semibold text-xl">
                           View Recommendations
                         </p>

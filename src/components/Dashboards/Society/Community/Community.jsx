@@ -72,9 +72,7 @@ const Community = ({ show }) => {
           {/* NGOs/Forums */}
           <div className="flex bg-white border-round align-items-center justify-content-around w-full">
             <div className="flex flex-column p-4">
-              <p className="card-title p-0 m-0">
-                NGOs/Forums
-              </p>
+              <p className="card-title p-0 m-0">NGOs/Forums</p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-2 text-center">
                 215
               </p>
@@ -100,9 +98,7 @@ const Community = ({ show }) => {
           {/* Feedback Survey Channels */}
           <div className="flex bg-white border-round align-items-center justify-content-around p-3 w-full">
             <div className="flex flex-column">
-              <p className="card-title p-0 m-0">
-                Feedback Survey Channels
-              </p>
+              <p className="card-title p-0 m-0">Feedback Survey Channels</p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-2 text-center">
                 58
               </p>
@@ -186,14 +182,12 @@ const Community = ({ show }) => {
 
       {show && (
         <Panel
-          //  header="View Recommendations"
           toggleable
-          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-down"; // Arrow pointing down when expanded
-
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">

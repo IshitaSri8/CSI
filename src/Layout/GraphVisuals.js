@@ -958,7 +958,12 @@ export const ModifiedLineChart = ({
       gridThickness: 0,
       labelFontFamily: "Montserrat",
     },
-
+    legend: {
+      horizontalAlign: "left",
+      // verticalAlign: "bottom",
+      ...commonChartOptions.legend,
+      fontColor: "#737474",
+    },
     data: categories.map((category, index) => ({
       type: "line",
       name: category, // Each disease is a separate line

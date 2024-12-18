@@ -148,29 +148,29 @@ const Healthcare = ({ show }) => {
             >
               <img src={healthcare} alt="Healthcare" />
               <div className="flex py-6 w-full">
-                <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                     754
                   </p>
-                  <p className="text p-0 m-0 mt-1 text-lg font-medium">
+                  <p className="p-0 m-0 card-text">
                     Doctors
                   </p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                     1375
                   </p>
-                  <p className="text p-0 m-0 mt-1 text-lg font-medium">
+                  <p className="p-0 m-0 card-text">
                     Nurses
                   </p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                   <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                     124
                   </p>
-                  <p className="text p-0 m-0 mt-1 text-lg font-medium">
+                  <p className="p-0 m-0 card-text">
                     Medical Staff
                   </p>
                 </div>
@@ -181,20 +181,20 @@ const Healthcare = ({ show }) => {
               className="flex justify-content-between align-items-center bg-white border-round p-3 py-6"
               style={{ flex: "35%" }}
             >
-              <div className="flex flex-column w-full p-2 align-items-center">
+              <div className="flex flex-column w-full p-0 align-items-center gap-1">
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                   344
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm font-medium">
+                <p className="p-0 m-0 card-text">
                   Healthcare Institutes
                 </p>
               </div>
               <Divider layout="vertical" />
-              <div className="flex flex-column w-full p-2 align-items-center">
+              <div className="flex flex-column w-full p-2 align-items-center gap-1">
                 <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                   78
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm font-medium">
+                <p className="tp-0 m-0 card-text">
                   Laboratories
                 </p>
               </div>
@@ -210,7 +210,7 @@ const Healthcare = ({ show }) => {
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                 33,900
               </p>
-              <p className="text p-0 m-0 text-lg font-medium text-center">
+              <p className="p-0 m-0 card-title text-center">
                 Registered Patients
               </p>
             </div>
@@ -221,18 +221,18 @@ const Healthcare = ({ show }) => {
             >
               <p className="card-title p-0 m-0">Patient Doctor Ratio</p>
               <div className="flex my-3">
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                     {ratioCurrent}
                   </p>
-                  <p className="text p-0 m-0 mt-1 font-medium">Available</p>
+                  <p className="p-0 m-0 card-text">Available</p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                     {ratioTarget}
                   </p>
-                  <p className="text p-0 m-0 mt-1 font-medium">Target</p>
+                  <p className="p-0 m-0 card-text">Target</p>
                 </div>
               </div>
               <ProgressBar
@@ -275,18 +275,18 @@ const Healthcare = ({ show }) => {
             >
               <p className="card-title p-0 m-0">Hospital Beds</p>
               <div className="flex my-3">
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                     {bedsCurrent}
                   </p>
-                  <p className="text p-0 m-0 mt-1 font-medium">Available</p>
+                  <p className="p-0 m-0 card-text">Available</p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                     {bedsTarget}
                   </p>
-                  <p className="text p-0 m-0 mt-1 font-medium">Target</p>
+                  <p className="p-0 m-0 card-text">Target</p>
                 </div>
               </div>
               <ProgressBar
@@ -479,6 +479,7 @@ const Healthcare = ({ show }) => {
         </div>
 
         <div className="flex flex-column" style={{ flex: "22%" }}>
+        {/* Rehab Centers */}
           <div className="flex flex-column bg-white p-3 border-round-top-xl">
             <p className="card-title p-0 m-0">Rehab Centers</p>
             <div className="flex align-items-center justify-content-around">
@@ -518,14 +519,12 @@ const Healthcare = ({ show }) => {
 
       {show && (
         <Panel
-          //  header="View Recommendations"
           toggleable
-          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-down"; // Arrow pointing down when expanded
-
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">
