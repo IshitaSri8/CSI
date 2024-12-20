@@ -90,11 +90,9 @@ export const Doughnut = ({
   bgColor,
   showNo,
   colorArray,
-  vertical,
-  horizontal,
-  fontColor,
 }) => {
   const totalValue = series.reduce((acc, value) => acc + value, 0);
+
   const options = {
     ...commonChartOptions,
     animationEnabled: true,
@@ -110,25 +108,23 @@ export const Doughnut = ({
         type: "doughnut",
         startAngle: 120,
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-        showInLegend: true,
+        showInLegend: false,
         indexLabelPlacement: "inside",
-        // indexLabel: "{label} - #percent%",
         indexLabelFontSize: 0,
         dataPoints: series.map((value, index) => ({
           y: value,
           label: labels[index],
           legendText: labels[index],
           color: colorArray[index],
-          // color: colors[index + (4 % colors.length)],
         })),
       },
     ],
-    legend: {
-      horizontalAlign: horizontal,
-      verticalAlign: vertical,
-      fontColor: fontColor,
-      ...commonChartOptions.legend,
-    },
+    // legend: {
+    //   horizontalAlign: horizontal,
+    //   verticalAlign: vertical,
+    //   fontColor: fontColor,
+    //   ...commonChartOptions.legend,
+    // },
     subtitles: showNo
       ? [
           {
@@ -143,10 +139,38 @@ export const Doughnut = ({
   };
 
   return (
-    <CanvasJSChart
-      options={options}
-      containerProps={{ height: height, width: "100%", bgColor: bgColor }}
-    />
+    <div className="flex align-items-center w-full">
+      <div className="flex w-full">
+        <CanvasJSChart
+          options={options}
+          containerProps={{ height: height, width: "100%", bgColor: bgColor }}
+        />
+      </div>
+
+      {/* Custom Legends */}
+      <div className="flex flex-column">
+        {series.map((value, index) => (
+          <div
+            key={index}
+            className="flex gap-2 justify-content-between"
+            style={{ width: "100%" }}
+          >
+            <div className="flex align-items-center">
+              <div
+                className="mr-2 border-circle"
+                style={{
+                  width: "0.6rem",
+                  height: "0.6rem",
+                  backgroundColor: colorArray[index % colorArray.length],
+                }}
+              ></div>
+              <span className="card-text text-sm">{labels[index]}</span>
+            </div>
+            <div className="font-semibold">{value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
@@ -986,113 +1010,149 @@ export const ModifiedLineChart = ({
   );
 };
 
-//waste, employment, healthcare, transport
-export const PieChart = ({
+//water, employment
+export const PieChartRow = ({
   title,
   categories,
   series,
   height,
-  horizontal,
-  vertical,
   fontSize,
 }) => {
   const total = series.reduce((acc, value) => acc + value, 0);
-  return (
-    <CanvasJSChart
-      options={{
-        animationEnabled: true,
-        interactivityEnabled: false,
-        title: {
-          text: title,
-          ...commonChartOptions.title,
-        },
 
-        data: [
-          {
-            type: "pie",
-            startAngle: 280,
-            toolTipContent: "<b>{label}</b>: {y}",
-            showInLegend: true,
-            legendText: "{label}: {y}",
-            color: colors,
-            indexLabelFontFamily: "Montserrat",
-            indexLabelFontSize: fontSize,
-            indexLabelPlacement: "inside",
-            indexLabel: "#percent%",
-            indexLabelFontColor: "white",
-            dataPoints: series.map((value, index) => ({
-              y: value,
-              label: categories[index],
-              // color: colors[index % colors.length],
-              color: colors[index + (4 % colors.length)],
-              percent: ((value / total) * 12).toFixed(2),
-            })),
-          },
-        ],
-        legend: {
-          fontSize: fontSize,
-          horizontalAlign: horizontal,
-          verticalAlign: vertical,
-          fontColor: "#6F7070",
-          ...commonChartOptions.legend,
-        },
-      }}
-      containerProps={{ height: height, width: "100%" }}
-    />
+  return (
+    <div className="flex align-items-center w-full">
+      <div className="flex w-full">
+        <CanvasJSChart
+          options={{
+            animationEnabled: true,
+            interactivityEnabled: false,
+            title: {
+              text: title,
+              ...commonChartOptions.title,
+            },
+            data: [
+              {
+                type: "pie",
+                startAngle: 280,
+                toolTipContent: "<b>{label}</b>: {y}",
+                showInLegend: false,
+                indexLabelFontFamily: "Montserrat",
+                indexLabelFontSize: fontSize,
+                indexLabelPlacement: "inside",
+                indexLabel: "#percent%",
+                indexLabelFontColor: "white",
+                dataPoints: series.map((value, index) => ({
+                  y: value,
+                  label: categories[index],
+                  // color: colors[index % colors.length], // Use modulus for consistent color assignment
+                  color: colors[index + (4 % colors.length)],
+                  percent: ((value / total) * 100).toFixed(2), // Corrected percentage calculation
+                })),
+              },
+            ],
+          }}
+          containerProps={{ height: height, width: "100%" }}
+        />
+      </div>
+
+      {/* Custom Legends */}
+      <div className="flex flex-column">
+        {series.map((value, index) => (
+          <div
+            key={index}
+            className="flex gap-2 justify-content-between"
+            style={{ width: "100%" }}
+          >
+            <div className="flex align-items-center">
+              <div
+                className="mr-2 border-circle"
+                style={{
+                  width: "0.5rem",
+                  height: "0.5rem",
+                  backgroundColor: colors[index + (4 % colors.length)], // Ensure consistent color usage here as well
+                }}
+              ></div>
+              <span className="card-text text-sm">{categories[index]}</span>
+            </div>
+            <div className="font-semibold">{value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
-//water dashboard- color change
-export const ModPieChart = ({
+//healthcare, waste
+export const PieChartColumn = ({
   title,
   categories,
   series,
   height,
-  horizontal,
-  vertical,
   fontSize,
 }) => {
   const total = series.reduce((acc, value) => acc + value, 0);
-  return (
-    <CanvasJSChart
-      options={{
-        animationEnabled: true,
-        interactivityEnabled: false,
-        title: {
-          text: title,
-          ...commonChartOptions.title,
-        },
 
-        data: [
-          {
-            type: "pie",
-            startAngle: 90,
-            toolTipContent: "<b>{label}</b>: {y}",
-            showInLegend: true,
-            legendText: "{label}",
-            color: colors,
-            indexLabelFontSize: fontSize,
-            indexLabelPlacement: "inside",
-            indexLabel: "#percent%",
-            indexLabelFontColor: "white",
-            dataPoints: series.map((value, index) => ({
-              y: value,
-              label: categories[index],
-              // color: colors[index % colors.length],
-              color: colors[index % colors.length],
-              percent: ((value / total) * 12).toFixed(2),
-            })),
-          },
-        ],
-        legend: {
-          horizontalAlign: horizontal,
-          verticalAlign: vertical,
-          fontColor: "#6F7070",
-          ...commonChartOptions.legend,
-        },
-      }}
-      containerProps={{ height: height, width: "100%" }}
-    />
+  return (
+    <div className="flex flex-column align-items-center w-full">
+      <div className="flex w-full">
+        <CanvasJSChart
+          options={{
+            animationEnabled: true,
+            interactivityEnabled: false,
+            title: {
+              text: title,
+              ...commonChartOptions.title,
+            },
+            data: [
+              {
+                type: "pie",
+                startAngle: 280,
+                toolTipContent: "<b>{label}</b>: {y}",
+                showInLegend: false,
+                indexLabelFontFamily: "Montserrat",
+                indexLabelFontSize: fontSize,
+                indexLabelPlacement: "inside",
+                indexLabel: "#percent%",
+                indexLabelFontColor: "white",
+                dataPoints: series.map((value, index) => ({
+                  y: value,
+                  label: categories[index],
+                  // color: colors[index % colors.length], // Use modulus for consistent color assignment
+                  color: colors[index + (4 % colors.length)],
+                  percent: ((value / total) * 100).toFixed(2), // Corrected percentage calculation
+                })),
+              },
+            ],
+          }}
+          containerProps={{ height: height, width: "100%" }}
+        />
+      </div>
+
+      {/* Custom Legends */}
+      <div className="flex flex-wrap">
+        {series.map((value, index) => (
+          <div
+            key={index}
+            className="flex justify-content-between"
+            style={{ width: "80%" }}
+          >
+            <div className="flex align-items-center">
+              <div
+                className="mr-2 border-circle"
+                style={{
+                  width: "0.5rem",
+                  height: "0.5rem",
+                  backgroundColor: colors[index + (4 % colors.length)], // Ensure consistent color usage here as well
+                }}
+              ></div>
+              <span className="card-text text-xs">{categories[index]}</span>
+            </div>
+            <div className="font-semibold text-sm">{value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

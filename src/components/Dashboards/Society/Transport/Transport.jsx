@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  Doughnut,
-  GroupedColumnChart,
-  LineChart,
-  PieChart,
-} from "Layout/GraphVisuals";
+import { Doughnut, LineChart } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
@@ -15,6 +10,7 @@ import bus from "assets/bus.svg";
 import TransportRecommendations from "./TransportRecommendations";
 import TransportReportPrint from "./TransportReportPrint";
 import increase from "assets/increase.png";
+import AccidentMap from "./AccidentMap";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -36,6 +32,30 @@ const Transport = ({ show }) => {
     { name: "Private", data: [7, 4, 9, 5] },
   ];
   const years = [2021, 2022, 2023, 2024];
+
+  const accidentData = [
+    {
+      location: "Location A",
+      lat: 26.774794,
+      lon: 82.134539,
+      severity: "severe",
+      count: 5,
+    },
+    {
+      location: "Location B",
+      lat: 26.767421,
+      lon: 82.09535,
+      severity: "moderate",
+      count: 3,
+    },
+    {
+      location: "Location C",
+      lat: 26.764028,
+      lon: 82.133778,
+      severity: "low",
+      count: 1,
+    },
+  ];
 
   return (
     <div className="gap-3 p-4 flex flex-column">
@@ -66,10 +86,7 @@ const Transport = ({ show }) => {
       )}
 
       <div className="flex gap-3">
-        <div
-          className="flex gap-3 flex-column"
-          // style={{ flex: "35%" }}
-        >
+        <div className="flex gap-3 flex-column" style={{ flex: "35%" }}>
           {/* Total Buses in Operation*/}
           <div className="flex flex-column align-items-center bg-white border-round p-3 w-full gap-3">
             <div className="flex justify-content-between align-items-center gap-8">
@@ -92,9 +109,6 @@ const Transport = ({ show }) => {
                 series={vehicleData}
                 height={140}
                 colorArray={["#FFDD82", "#F7A47A", "#98C6CF", "#1F8297"]}
-                horizontal={"right"}
-                vertical={"center"}
-                fontColor={"#6F7070"}
               />
             </div>
           </div>
@@ -102,18 +116,16 @@ const Transport = ({ show }) => {
             className="flex justify-content-between align-items-center bg-white border-round p-3"
             // style={{ flex: "35%" }}
           >
-            <div className="flex flex-column w-full p-2 align-items-center">
+            <div className="flex flex-column w-full p-2 align-items-center gap-1">
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                 344
               </p>
-              <p className="text p-0 m-0 mt-1 text-sm font-medium">Public</p>
+              <p className="p-0 m-0 card-text">Public</p>
             </div>
             <Divider layout="vertical" />
-            <div className="flex flex-column w-full p-2 align-items-center">
+            <div className="flex flex-column w-full p-2 align-items-center gap-1">
               <p className="text-3xl font-semibold m-0 text-primary2 p-0">78</p>
-              <p className="text p-0 m-0 mt-1 text-sm font-medium">
-                Semi Public
-              </p>
+              <p className="p-0 m-0 card-text">Semi Public</p>
             </div>
           </div>
           {/* EV Trend */}
@@ -131,7 +143,7 @@ const Transport = ({ show }) => {
             />
           </div>
         </div>
-        <div className="flex gap-3 flex-column">
+        <div className="flex gap-3 flex-column" style={{ flex: "20%" }}>
           {/* Average Passenger Count */}
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
             <p className="card-title font-medium text-lg p-0 m-0">
@@ -172,8 +184,9 @@ const Transport = ({ show }) => {
               <span className="text-lg text-tertiary3 font-medium">/Day</span>
             </p>
           </div>
+
           {/* Maintenance of Public Vehicle*/}
-          <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
+          {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
             <div className="flex justify-content-between align-items-center w-full">
               <p className="card-title font-medium text-lg p-0 m-0">
                 Maintenance of Public Vehicle
@@ -209,7 +222,10 @@ const Transport = ({ show }) => {
                 year.
               </p>
             </div>
-          </div>
+          </div> */}
+        </div>
+        <div className="flex flex-column" style={{ flex: "45%" }}>
+          <AccidentMap accidentData={accidentData} />
         </div>
       </div>
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">

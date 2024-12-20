@@ -9,7 +9,7 @@ import { Divider } from "primereact/divider";
 import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { ProgressBar } from "primereact/progressbar";
-import { ModPieChart } from "Layout/GraphVisuals";
+import { PieChartRow } from "Layout/GraphVisuals";
 
 const WaterDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -116,13 +116,11 @@ const WaterDashboard = ({ show }) => {
           >
             <p className="card-title p-0 m-0">Water Sources</p>
             <div className="flex align-items-center justify-content-center flex-column gap-2">
-              <ModPieChart
+              <PieChartRow
                 categories={waterSupplyLabels}
                 series={waterSupplyData}
-                height={120}
+                height={130}
                 // title="Water Sources"
-                vertical="center"
-                horizontal="right"
                 fontSize={11}
               />
             </div>

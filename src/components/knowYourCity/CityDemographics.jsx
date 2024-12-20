@@ -186,10 +186,10 @@ const CityDemographics = () => {
               </div>
             </div>{" "}
             <div
-              className="flex justify-content-center p-3 border-round-xl flex-column gap-2"
+              className="flex justify-content-center border-round-xl p-1 flex-column w-full"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
-              <p className="p-0 m-0 text-left font-semibold text-white text-sm">
+              <p className="p-1 m-0 text-left font-semibold text-white text-sm">
                 Sex Ratio- <span className="text-white font-medium">980</span>
               </p>
 
@@ -197,7 +197,7 @@ const CityDemographics = () => {
                 title={""}
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
-                height={90}
+                height={120}
                 colorArray={["#98C6CF", "#1F8297"]}
                 horizontal={"center"}
                 vertical={"bottom"}

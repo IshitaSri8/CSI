@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Doughnut, GroupedColumnChart, PieChart } from "Layout/GraphVisuals";
+import { Doughnut, GroupedColumnChart, PieChartRow } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
@@ -84,28 +84,25 @@ const Employment = ({ show }) => {
             </div>
 
             {/* Types of Employment */}
-            <div className="flex sec-theme border-round-xl align-items-center p-2 w-full">
+            <div className="flex flex-column sec-theme border-round-xl align-items-start p-3 w-full">
+              <p className="card-title p-0 m-0">Types of Employment</p>
               <Doughnut
-                title="Types of Employment"
+                // title="Types of Employment"
                 labels={employmentLables}
                 series={employmentData}
-                height={160}
+                height={120}
                 colorArray={["#FFDD82", "#F7A47A", "#98C6CF", "#1F8297"]}
-                horizontal={"right"}
-                vertical={"center"}
-                fontColor={"#6F7070"}
               />
             </div>
           </div>
           {/* Total no. of Industries */}
-          <div className="flex bg-white border-round-xl p-2 w-full">
-            <PieChart
-              title="Total Industries"
+          <div className="flex flex-column bg-white border-round-xl align-items-start p-3 w-full">
+            <p className="card-title p-0 m-0">Total Industries</p>
+            <PieChartRow
+              // title="Total Industries"
               categories={industriesLables}
               series={industriesData}
-              height={205}
-              vertical="center"
-              horizontal="right"
+              height={150}
               fontSize={10}
             />
           </div>
@@ -231,7 +228,7 @@ const Employment = ({ show }) => {
                 labels={years}
                 dataSeries={jobTrendLabels}
                 dataPointWidth={20}
-                height={260}
+                height={220}
                 fontSize={10}
               />
             </div>
@@ -239,8 +236,8 @@ const Employment = ({ show }) => {
               {/* Average Salary */}
               <div className="flex flex-column justify-content-center bg-white border-round-xl p-4 w-full gap-3">
                 <p className="card-title p-0 m-0">Average Salary</p>
-                <div className="flex gap-3 align-items-center">
-                  <img src={salary} alt="salary" className="w-12rem" />
+                <div className="flex gap-2 align-items-center">
+                  <img src={salary} alt="salary" className="w-8rem" />
                   <div className="flex justify-content-between">
                     <div className="flex flex-column w-full p-2 align-items-center gap-1">
                       <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
@@ -260,13 +257,13 @@ const Employment = ({ show }) => {
               </div>
 
               {/* Skill Programs */}
-              <div className="flex bg-white border-round-xl p-2 w-full align-items-center justify-content-around">
+              <div className="flex bg-white border-round-xl p-3 w-full align-items-center justify-content-around">
                 <div className="flex">
                   <div className="flex flex-column w-full align-items-center gap-1">
                     <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                       47
                     </p>
-                    <p className="p-0 m-0 card-text">Skill Programs</p>
+                    <p className="p-0 m-0 card-text">SkillPrograms</p>
                   </div>
                   <Divider layout="vertical" />
                   <div className="flex flex-column w-full align-items-center gap-1">
@@ -276,7 +273,7 @@ const Employment = ({ show }) => {
                     <p className="p-0 m-0 card-text">PeopleEnrolled</p>
                   </div>
                 </div>
-                <img src={brain} alt="brain" className="w-8rem" />
+                <img src={brain} alt="brain" className="w-6rem" />
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ColumnChart, GroupedBarChart, PieChart } from "Layout/GraphVisuals";
+import { ColumnChart, GroupedBarChart, PieChartColumn } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import WasteReportPrint from "./WasteReportPrint";
@@ -191,7 +191,7 @@ const WasteDashboard = ({ show }) => {
           className="flex gap-3 w-full bg-white border-round p-4"
           style={{ flex: "25%" }}
         >
-          <PieChart
+          <PieChartColumn
             categories={wasteCompositionLabels}
             series={wasteCompositionData}
             height={250}

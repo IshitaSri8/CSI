@@ -5,9 +5,9 @@ import { Dialog } from "primereact/dialog";
 import HealthcareReportPrint from "./HealthcareReportPrint";
 import {
   GroupedColumnChart,
-  PieChart,
   GroupedBarChart,
   ModifiedLineChart,
+  PieChartColumn,
 } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
 import { PatientsRegisteredChart } from "./PatientsRegisteredChart";
@@ -171,7 +171,7 @@ const Healthcare = ({ show }) => {
             </div>
 
             <div
-              className="flex justify-content-between align-items-center bg-white border-round p-3 py-6"
+              className="flex justify-content-between align-items-center bg-white border-round py-6"
               style={{ flex: "35%" }}
             >
               <div className="flex flex-column w-full p-0 align-items-center gap-1">
@@ -206,7 +206,7 @@ const Healthcare = ({ show }) => {
             {/* Patient Doctor Ratio */}
             <div
               className="flex flex-column bg-white border-round p-3 justify-content-center"
-              style={{ flex: "30%" }}
+              style={{ flex: "28%" }}
             >
               <p className="card-title p-0 m-0">Patient Doctor Ratio</p>
               <div className="flex my-3">
@@ -245,7 +245,7 @@ const Healthcare = ({ show }) => {
             {/* People Having Health Insurance */}
             <div
               className="flex justify-content-center align-items-center bg-white border-round p-3"
-              style={{ flex: "25%" }}
+              style={{ flex: "27%" }}
             >
               <div className="flex flex-column">
                 <p className="card-title p-0 m-0 ">Health Insurance Coverage</p>
@@ -335,13 +335,11 @@ const Healthcare = ({ show }) => {
 
         {/* Vaccination Facilities */}
         <div className="flex bg-white border-round p-3" style={{ flex: "18%" }}>
-          <PieChart
+          <PieChartColumn
             categories={vaccinationLabels}
             series={vaccinationData}
-            height={200}
+            height={160}
             title="Vaccination Facilities"
-            vertical="bottom"
-            horizontal="center"
             fontSize={8}
           />
         </div>

@@ -13,6 +13,8 @@ import UserDialog from "../components/landingPage/UserDialog";
 import Header from "../Layout/Header";
 import Parameters from "../components/landingPage/Parameters";
 import FAQChatbot from "../components/landingPage/FAQChatbot";
+import { ScrollTop } from "primereact/scrolltop";
+import FloatingSidebar from "components/landingPage/FloatingSidebar";
 
 // Main LandingScreen component
 const LandingScreen = () => {
@@ -39,6 +41,16 @@ const LandingScreen = () => {
       csiStepsRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const sections = [
+    { id: "header", label: "Header" },
+    { id: "csi-steps", label: "CSI Steps" },
+    { id: "csi-video", label: "CSI Video" },
+    { id: "parameters", label: "Parameters" },
+    { id: "questions", label: "FAQs" },
+    { id: "testimonials", label: "Testimonials" },
+    { id: "footer", label: "Footer" },
+  ];
 
   return (
     <div className="flex flex-column w-full">
@@ -208,7 +220,7 @@ const LandingScreen = () => {
             ]}
           />
         </div>
-
+        <ScrollTop />
         <div className="flex sec-theme p-8">
           <Testimonials />
         </div>
@@ -255,6 +267,7 @@ const LandingScreen = () => {
         </div>
         <Footer />
       </div>
+      {/* <FloatingSidebar sections={sections} /> */}
     </div>
   );
 };
