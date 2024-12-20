@@ -86,28 +86,29 @@ const Transport = ({ show }) => {
       )}
 
       <div className="flex gap-3">
-        <div className="flex gap-3 flex-column" style={{ flex: "35%" }}>
+        <div className="flex gap-3 flex-column" style={{ flex: "33%" }}>
           {/* Total Buses in Operation*/}
           <div className="flex flex-column align-items-center bg-white border-round p-3 w-full gap-3">
-            <div className="flex justify-content-between align-items-center gap-8">
+            <div className="flex justify-content-between gap-6 align-items-center">
               <div className="flex flex-column gap-3 align-items-start">
-                <p className="card-title p-0 m-0 font-medium text-lg">
+                <p className="card-title p-0 m-0">
                   Buses in Operation
                 </p>
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
                   298
                 </p>
               </div>
-              <img src={bus} alt="bus" className="w-10rem" />
+              <img src={bus} alt="bus"  />
             </div>
 
             {/* Types of Vehicles */}
-            <div className="flex sec-theme border-round-xl align-items-center p-2 w-full">
+            <div className="flex flex-column sec-theme border-round-xl align-items-start p-2 w-full">
+            <p className="card-title p-0 m-0">Types of Vehicles</p>
               <Doughnut
-                title="Types of Vehicles"
+                // title="Types of Vehicles"
                 labels={vehicleLables}
                 series={vehicleData}
-                height={140}
+                height={125}
                 colorArray={["#FFDD82", "#F7A47A", "#98C6CF", "#1F8297"]}
               />
             </div>
@@ -131,7 +132,7 @@ const Transport = ({ show }) => {
           {/* EV Trend */}
           <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
             <div className="flex justify-content-between">
-              <p className="card-title font-medium text-lg p-0 m-0">EV Trend</p>
+              <p className="card-title p-0 m-0">EV Trend</p>
               <p className="text-sm text-tertiary3 font-medium p-0 m-0">2024</p>
             </div>
             <LineChart
@@ -139,14 +140,14 @@ const Transport = ({ show }) => {
               categories={labels}
               data={evTrend}
               fontColor={"#4C4C4C"}
-              height={130}
+              height={125}
             />
           </div>
         </div>
-        <div className="flex gap-3 flex-column" style={{ flex: "20%" }}>
+        <div className="flex gap-3 flex-column" style={{ flex: "22%" }}>
           {/* Average Passenger Count */}
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="card-title font-medium text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Average Passenger Count
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
@@ -165,7 +166,7 @@ const Transport = ({ show }) => {
           </div>
           {/*  Disable Friendly Buses*/}
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="card-title font-medium text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Disable Friendly Buses
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
@@ -175,7 +176,7 @@ const Transport = ({ show }) => {
           </div>
           {/* Availability of Bus */}
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="card-title font-medium text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Average Availability of Bus
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
@@ -188,7 +189,7 @@ const Transport = ({ show }) => {
           {/* Maintenance of Public Vehicle*/}
           {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
             <div className="flex justify-content-between align-items-center w-full">
-              <p className="card-title font-medium text-lg p-0 m-0">
+              <p className="card-title p-0 m-0">
                 Maintenance of Public Vehicle
               </p>
             </div>

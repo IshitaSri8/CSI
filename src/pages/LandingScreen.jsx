@@ -43,13 +43,13 @@ const LandingScreen = () => {
   };
 
   const sections = [
-    { id: "header", label: "Header" },
+    // { id: "header", label: "Header" },
     { id: "csi-steps", label: "CSI Steps" },
     { id: "csi-video", label: "CSI Video" },
     { id: "parameters", label: "Parameters" },
     { id: "questions", label: "FAQs" },
     { id: "testimonials", label: "Testimonials" },
-    { id: "footer", label: "Footer" },
+    // { id: "footer", label: "Footer" },
   ];
 
   return (
@@ -99,7 +99,8 @@ const LandingScreen = () => {
         {/* Card Section */}
         <div
           ref={csiStepsRef} // Set the ref here
-          className="flex justify-content-center gap-6 flex-nowrap w-full overflow-auto pl-5 pr-5 h-screen"
+          className="flex justify-content-center gap-6 flex-nowrap w-full overflow-auto pl-5 pr-5"
+          id="csi-steps"
         >
           {/* {cardData.map((card, index) => (
             <CardItem
@@ -112,116 +113,121 @@ const LandingScreen = () => {
           <CSISteps />
         </div>
 
-        <div className="flex sec-theme h-screen">
+        <div className="flex sec-theme" id="csi-video">
           <CSIVideo />
         </div>
 
-        <div className="flex h-screen justify-content-center w-full overflow-auto p-5">
+        <div
+          className="flex justify-content-center w-full overflow-auto p-5"
+          id="parameters"
+        >
           <Parameters />
         </div>
 
-        <div className="flex bg-theme text-white h-screen">
-          <Questions
-            textTheme="white"
-            question="What is the City Sustainability Index (CSI)?"
-            points={[
-              {
-                subheading: "Comprehensive evaluation tool",
-                content:
-                  "The CSI is designed to assess the overall sustainability performance of cities by monitoring various indicators across key sustainability dimensions.",
-              },
-              {
-                subheading: "Integration of ESG factors",
-                content:
-                  "The index incorporates three core dimensions—Nature, Society, and Administration (NSA) —which are critical to determining the overall sustainability of a city.",
-              },
-              {
-                subheading: "Benchmarking performance",
-                content:
-                  "Cities can use the CSI to compare their performance against other cities and global standards, allowing them to identify strengths and areas for improvement.",
-              },
-              {
-                subheading: "Actionable insights",
-                content:
-                  "By providing a cumulative sustainability score, the CSI offers city leaders, policymakers, and planners valuable data to support decision-making, enhance urban resilience, and drive sustainable growth.",
-              },
-              {
-                subheading: "Encouraging continuous improvement",
-                content:
-                  "The CSI not only evaluates current performance but also motivates cities to adopt long-term sustainable practices by highlighting progress over time and rewarding improvements.",
-              },
-            ]}
-          />
-        </div>
+        <div className="flex flex-column" id="questions">
+          <div className="flex bg-theme text-white">
+            <Questions
+              textTheme="white"
+              question="What is the City Sustainability Index (CSI)?"
+              points={[
+                {
+                  subheading: "Comprehensive evaluation tool",
+                  content:
+                    "The CSI is designed to assess the overall sustainability performance of cities by monitoring various indicators across key sustainability dimensions.",
+                },
+                {
+                  subheading: "Integration of ESG factors",
+                  content:
+                    "The index incorporates three core dimensions—Nature, Society, and Administration (NSA) —which are critical to determining the overall sustainability of a city.",
+                },
+                {
+                  subheading: "Benchmarking performance",
+                  content:
+                    "Cities can use the CSI to compare their performance against other cities and global standards, allowing them to identify strengths and areas for improvement.",
+                },
+                {
+                  subheading: "Actionable insights",
+                  content:
+                    "By providing a cumulative sustainability score, the CSI offers city leaders, policymakers, and planners valuable data to support decision-making, enhance urban resilience, and drive sustainable growth.",
+                },
+                {
+                  subheading: "Encouraging continuous improvement",
+                  content:
+                    "The CSI not only evaluates current performance but also motivates cities to adopt long-term sustainable practices by highlighting progress over time and rewarding improvements.",
+                },
+              ]}
+            />
+          </div>
 
-        <div className="flex sec-theme h-screen">
-          <Questions
-            question="Why is the CSI important for cities, and who benefits from it?"
-            points={[
-              {
-                subheading: "Standardized sustainability measurement",
-                content:
-                  "The CSI offers cities a uniform framework to measure and evaluate their sustainability efforts, aligning them with global benchmarks such as the United Nations’ 17 Sustainable Development Goals (SDGs).",
-              },
-              {
-                subheading: "Progress tracking and action planning",
-                content:
-                  "With detailed insights into their sustainability performance, cities can monitor progress, identify gaps, and develop informed action plans to create resilient, inclusive, and sustainable urban environments.",
-              },
-              {
-                subheading: "Fostering healthy competition",
-                content:
-                  "By enabling cities to compare their sustainability performance with peers, the CSI promotes healthy competition, motivating cities to improve and meet higher sustainability standards.",
-              },
-              {
-                subheading: "Encouraging knowledge exchange and innovation",
-                content:
-                  "The competitive environment fosters collaboration among cities, allowing them to share best practices and innovative solutions to common urban challenges, ultimately driving more sustainable urban development globally.",
-              },
-              {
-                subheading: "Beneficiaries of the CSI",
-                content:
-                  "City leaders, policymakers, urban planners, and citizens all gain valuable insights from the CSI, empowering them to address sustainability challenges and seize opportunities to enhance quality of life and environmental stewardship in their urban areas.",
-              },
-            ]}
-          />
-        </div>
+          <div className="flex sec-theme">
+            <Questions
+              question="Why is the CSI important for cities, and who benefits from it?"
+              points={[
+                {
+                  subheading: "Standardized sustainability measurement",
+                  content:
+                    "The CSI offers cities a uniform framework to measure and evaluate their sustainability efforts, aligning them with global benchmarks such as the United Nations’ 17 Sustainable Development Goals (SDGs).",
+                },
+                {
+                  subheading: "Progress tracking and action planning",
+                  content:
+                    "With detailed insights into their sustainability performance, cities can monitor progress, identify gaps, and develop informed action plans to create resilient, inclusive, and sustainable urban environments.",
+                },
+                {
+                  subheading: "Fostering healthy competition",
+                  content:
+                    "By enabling cities to compare their sustainability performance with peers, the CSI promotes healthy competition, motivating cities to improve and meet higher sustainability standards.",
+                },
+                {
+                  subheading: "Encouraging knowledge exchange and innovation",
+                  content:
+                    "The competitive environment fosters collaboration among cities, allowing them to share best practices and innovative solutions to common urban challenges, ultimately driving more sustainable urban development globally.",
+                },
+                {
+                  subheading: "Beneficiaries of the CSI",
+                  content:
+                    "City leaders, policymakers, urban planners, and citizens all gain valuable insights from the CSI, empowering them to address sustainability challenges and seize opportunities to enhance quality of life and environmental stewardship in their urban areas.",
+                },
+              ]}
+            />
+          </div>
 
-        <div className="flex bg-theme text-white h-screen">
-          <Questions
-            textTheme="white"
-            question="How can cities leverage CSI to enhance their sustainability efforts?"
-            points={[
-              {
-                subheading: "Pinpoint areas for improvement",
-                content:
-                  "Cities can utilize the CSI platform to identify specific gaps in their sustainability performance across the nature, society, and administration (NSA) dimensions, allowing for precise interventions.",
-              },
-              {
-                subheading: "Gain in-depth insights",
-                content:
-                  "The CSI provides detailed analyses for each dimension, equipping city leaders with a clear understanding of the root causes behind their scores and highlighting priority areas for action.",
-              },
-              {
-                subheading: "Create targeted action plans",
-                content:
-                  "With insights derived from the CSI, cities can develop focused strategies and policies that effectively address identified gaps, leading to a more systematic approach to sustainability enhancement.",
-              },
-              {
-                subheading: "Monitor performance in real-time",
-                content:
-                  "The platform’s real-time dashboards enable cities to track performance trends continuously, ensuring timely adjustments and demonstrating progress over time.",
-              },
-              {
-                subheading: "Implement tailored recommendations",
-                content:
-                  "Cities can take advantage of customized, actionable recommendations provided by the CSI to improve their sustainability scores, fostering a culture of ongoing improvement and commitment to long-term sustainability goals.",
-              },
-            ]}
-          />
+          <div className="flex bg-theme text-white">
+            <Questions
+              textTheme="white"
+              question="How can cities leverage CSI to enhance their sustainability efforts?"
+              points={[
+                {
+                  subheading: "Pinpoint areas for improvement",
+                  content:
+                    "Cities can utilize the CSI platform to identify specific gaps in their sustainability performance across the nature, society, and administration (NSA) dimensions, allowing for precise interventions.",
+                },
+                {
+                  subheading: "Gain in-depth insights",
+                  content:
+                    "The CSI provides detailed analyses for each dimension, equipping city leaders with a clear understanding of the root causes behind their scores and highlighting priority areas for action.",
+                },
+                {
+                  subheading: "Create targeted action plans",
+                  content:
+                    "With insights derived from the CSI, cities can develop focused strategies and policies that effectively address identified gaps, leading to a more systematic approach to sustainability enhancement.",
+                },
+                {
+                  subheading: "Monitor performance in real-time",
+                  content:
+                    "The platform’s real-time dashboards enable cities to track performance trends continuously, ensuring timely adjustments and demonstrating progress over time.",
+                },
+                {
+                  subheading: "Implement tailored recommendations",
+                  content:
+                    "Cities can take advantage of customized, actionable recommendations provided by the CSI to improve their sustainability scores, fostering a culture of ongoing improvement and commitment to long-term sustainability goals.",
+                },
+              ]}
+            />
+          </div>
         </div>
         <ScrollTop />
-        <div className="flex sec-theme p-8">
+        <div className="flex sec-theme p-8" id="testimonials">
           <Testimonials />
         </div>
         {/* <iframe
@@ -267,7 +273,7 @@ const LandingScreen = () => {
         </div>
         <Footer />
       </div>
-      {/* <FloatingSidebar sections={sections} /> */}
+      <FloatingSidebar sections={sections} />
     </div>
   );
 };

@@ -20,7 +20,7 @@ const Employment = ({ show }) => {
     setRecommendationsVisible(!recommendationsVisible);
   };
   const employmentLables = [
-    "Self employed",
+    "SelfEmployed",
     "Government",
     "Private",
     "Informal",

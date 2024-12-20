@@ -1,5 +1,9 @@
 import React from "react";
-import { ColumnChart, GroupedBarChart, PieChartColumn } from "Layout/GraphVisuals";
+import {
+  ColumnChart,
+  GroupedBarChart,
+  PieChartColumn,
+} from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import WasteReportPrint from "./WasteReportPrint";
@@ -112,14 +116,15 @@ const WasteDashboard = ({ show }) => {
         </div>
         {/* Solid Waste Management (in TPD) */}
         <div
-          className="flex w-full bg-white border-round p-4"
+          className="flex flex-column w-full bg-white border-round p-4"
           style={{ flex: "27%" }}
         >
+          <p className="card-title p-0 m-0">Solid Waste Management (in TPD)</p>
           <ColumnChart
             categories={solidWasteLabels}
             series={solidWasteData}
             height={150}
-            title="Solid Waste Management (in TPD)"
+            // title="Solid Waste Management (in TPD)"
             labelFontSize={6}
             // colors={colors.slice(0, 3)}
           />
@@ -188,14 +193,15 @@ const WasteDashboard = ({ show }) => {
       <div className="flex gap-3 w-full">
         {/* Waste Composition */}
         <div
-          className="flex gap-3 w-full bg-white border-round p-4"
+          className="flex flex-column gap-3 w-full bg-white border-round p-4"
           style={{ flex: "25%" }}
         >
+          <p className="card-title p-0 m-0">Waste Composition (in TPD)</p>
           <PieChartColumn
             categories={wasteCompositionLabels}
             series={wasteCompositionData}
-            height={250}
-            title="Waste Composition (in TPD)"
+            height={150}
+            // title="Waste Composition (in TPD)"
             vertical="bottom"
             horizontal="center"
             fontSize={10}
@@ -205,12 +211,13 @@ const WasteDashboard = ({ show }) => {
           className="flex flex-column gap-3 w-full bg-white border-round p-4"
           style={{ flex: "70%" }}
         >
+          <p className="card-title p-0 m-0">Waste Collection (in TPD)</p>
           <GroupedBarChart
-            title="Waste Collection (in TPD)"
+            // title="Waste Collection (in TPD)"
             labels={Zones}
             dataSeries={collectionData}
             dataPointWidth={8}
-            height={250}
+            height={200}
           />
         </div>
 

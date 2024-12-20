@@ -148,7 +148,7 @@ export const Doughnut = ({
       </div>
 
       {/* Custom Legends */}
-      <div className="flex flex-column">
+      <div className="flex flex-column gap-2">
         {series.map((value, index) => (
           <div
             key={index}
@@ -1057,7 +1057,7 @@ export const PieChartRow = ({
       </div>
 
       {/* Custom Legends */}
-      <div className="flex flex-column">
+      <div className="flex flex-column gap-2">
         {series.map((value, index) => (
           <div
             key={index}
