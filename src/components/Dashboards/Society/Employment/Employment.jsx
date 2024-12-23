@@ -74,7 +74,7 @@ const Employment = ({ show }) => {
           {/* Total population Employed */}
           <div className="flex flex-column align-items-center bg-white border-round-xl p-3 w-full gap-3">
             <div className="flex justify-content-between align-items-center gap-8">
-              <div className="flex flex-column gap-3 align-items-start">
+              <div className="flex flex-column gap-3">
                 <p className="card-title p-0 m-0">Total Population Employed</p>
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
                   14500

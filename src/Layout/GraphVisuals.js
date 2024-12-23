@@ -204,6 +204,7 @@ export const BarChart = ({
           lineThickness: 0,
         },
         dataPointWidth: dataPointWidth,
+        backgroundColor: "transparent",
         data: [
           {
             type: "bar",
@@ -240,6 +241,7 @@ export const GroupedBarChart = ({
       text: title,
       ...commonChartOptions.title,
     },
+    backgroundColor: "transparent",
     axisX: {
       title: xtitle,
       gridThickness: 0,
@@ -326,6 +328,7 @@ export const StackedBarChart = ({
           text: title,
           ...commonChartOptions.title,
         },
+        backgroundColor: "transparent",
         axisY: {
           ...commonChartOptions.axisY,
         },
@@ -478,6 +481,7 @@ export const ColumnChart = ({
         legend: {
           ...commonChartOptions.legend,
         },
+        backgroundColor: "transparent",
         data: [
           {
             type: "column",
@@ -543,6 +547,7 @@ export const ModifiedColumnChart = ({
                 return " ";
               },
             },
+            backgroundColor: "transparent",
             dataPointWidth: 50,
             // data: categories.map((category, index) => ({
             //   type: "column",
@@ -621,6 +626,7 @@ export const GroupedColumnChart = ({
       text: title,
       ...commonChartOptions.title,
     },
+    backgroundColor: "transparent",
     axisY: {
       gridThickness: 0,
       labelFontSize: 0,
@@ -697,6 +703,7 @@ export const StackedColumnChart = ({
           text: title,
           ...commonChartOptions.title,
         },
+        backgroundColor: "transparent",
         axisY: {
           ...commonChartOptions.axisY,
         },
@@ -740,6 +747,7 @@ export const CombinationChart = ({
           text: title,
           ...commonChartOptions.title,
         },
+        backgroundColor: "transparent",
         axisX: {
           ...commonChartOptions.axisX,
         },
@@ -855,7 +863,7 @@ export const ParetoChart = ({
       title: ytitle,
       gridThickness: 0,
     },
-
+    backgroundColor: "transparent",
     data: [
       {
         type: "column",
@@ -907,6 +915,7 @@ export const LineChart = ({
       text: title,
       ...commonChartOptions.title,
     },
+    backgroundColor: "transparent",
     axisX: {
       title: xtitle,
       labelFontSize: 10,
@@ -970,6 +979,7 @@ export const ModifiedLineChart = ({
       text: title,
       ...commonChartOptions.title,
     },
+    backgroundColor: "transparent",
     axisX: {
       interval: 1,
       title: xtitle,
@@ -1031,6 +1041,7 @@ export const PieChartRow = ({
               text: title,
               ...commonChartOptions.title,
             },
+            backgroundColor: "transparent",
             data: [
               {
                 type: "pie",
@@ -1104,6 +1115,7 @@ export const PieChartColumn = ({
               text: title,
               ...commonChartOptions.title,
             },
+            backgroundColor: "transparent",
             data: [
               {
                 type: "pie",
@@ -1251,11 +1263,7 @@ export const GaugeChart = ({ title, gaugeValue, maxValue, height }) => {
       animationEnabled: true,
       title: {
         text: title,
-        fontSize: 14,
-        fontFamily: "Montserrat",
-        fontWeight: 500,
-        fontColor: "#737474",
-        horizontalAlign: "left",
+        ...commonChartOptions.title,
       },
       backgroundColor: "transparent",
       subtitles: [

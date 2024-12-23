@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { Doughnut, LineChart } from "Layout/GraphVisuals";
+import { ColumnChart, Doughnut, LineChart } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import bus from "assets/bus.svg";
-
+import ayodhya from "assets/AYODHYA.png";
 import TransportRecommendations from "./TransportRecommendations";
 import TransportReportPrint from "./TransportReportPrint";
 import increase from "assets/increase.png";
 import AccidentMap from "./AccidentMap";
+import { Dropdown } from "primereact/dropdown";
+import { Card } from "primereact/card";
+import BusRoutes from "./BusRoutes";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -20,18 +23,15 @@ const Transport = ({ show }) => {
     setRecommendationsVisible(!recommendationsVisible);
   };
   const vehicleLables = ["Electric", "Hybrid", "Petrol", "Diesel"];
-  const vehicleData = [150, 270, 350, 500];
+  const vehicleData = [110, 75, 53, 60];
 
   const maintenance = 73;
+  const years = [2021, 2022, 2023, 2024];
 
   const evTrend = [40, 45, 60, 36];
   const labels = ["Q1", "Q2", "Q3", "Q4"];
 
-  const jobTrendLabels = [
-    { name: "Government", data: [10, 9, 8, 7] },
-    { name: "Private", data: [7, 4, 9, 5] },
-  ];
-  const years = [2021, 2022, 2023, 2024];
+  const buses = [80, 90, 178, 148]; // Buses in maintenance QUARTERWISE
 
   const accidentData = [
     {
@@ -86,72 +86,122 @@ const Transport = ({ show }) => {
       )}
 
       <div className="flex gap-3">
-        <div className="flex gap-3 flex-column" style={{ flex: "33%" }}>
+        <div
+          className="flex flex-column align-items-center justify-content-between bg-white border-round p-3"
+          style={{ flex: "30%" }}
+        >
           {/* Total Buses in Operation*/}
-          <div className="flex flex-column align-items-center bg-white border-round p-3 w-full gap-3">
-            <div className="flex justify-content-between gap-6 align-items-center">
-              <div className="flex flex-column gap-3 align-items-start">
-                <p className="card-title p-0 m-0">
-                  Buses in Operation
-                </p>
-                <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
-                  298
-                </p>
-              </div>
-              <img src={bus} alt="bus"  />
+          <div className="flex justify-content-between gap-6 align-items-center">
+            <div className="flex flex-column gap-2">
+              <p className="card-title p-0 m-0">Buses in Operation</p>
+              <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
+                298
+              </p>
             </div>
-
-            {/* Types of Vehicles */}
-            <div className="flex flex-column sec-theme border-round-xl align-items-start p-2 w-full">
-            <p className="card-title p-0 m-0">Types of Vehicles</p>
-              <Doughnut
-                // title="Types of Vehicles"
-                labels={vehicleLables}
-                series={vehicleData}
-                height={125}
-                colorArray={["#FFDD82", "#F7A47A", "#98C6CF", "#1F8297"]}
-              />
-            </div>
+            <img src={bus} alt="bus" className="w-10rem" />
           </div>
-          <div
-            className="flex justify-content-between align-items-center bg-white border-round p-3"
-            // style={{ flex: "35%" }}
-          >
-            <div className="flex flex-column w-full p-2 align-items-center gap-1">
-              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                344
+          <Divider />
+          {/* Public & Semi Public */}
+          <div className="flex justify-content-between align-items-center w-full">
+            <div className="flex flex-column w-full align-items-center gap-1">
+              <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                220
               </p>
               <p className="p-0 m-0 card-text">Public</p>
             </div>
             <Divider layout="vertical" />
-            <div className="flex flex-column w-full p-2 align-items-center gap-1">
-              <p className="text-3xl font-semibold m-0 text-primary2 p-0">78</p>
+            <div className="flex flex-column w-full align-items-center gap-1">
+              <p className="text-2xl font-semibold m-0 text-primary2 p-0">78</p>
               <p className="p-0 m-0 card-text">Semi Public</p>
             </div>
           </div>
-          {/* EV Trend */}
-          <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
-            <div className="flex justify-content-between">
-              <p className="card-title p-0 m-0">EV Trend</p>
-              <p className="text-sm text-tertiary3 font-medium p-0 m-0">2024</p>
-            </div>
-            <LineChart
-              //   title="EV Trend"
-              categories={labels}
-              data={evTrend}
-              fontColor={"#4C4C4C"}
-              height={125}
+          {/* Types of Vehicles */}
+          <div className="flex flex-column sec-theme border-round-xl align-items-start p-3 w-full">
+            <p className="card-title p-0 m-0">Types of Buses</p>
+            <Doughnut
+              // title="Types of Vehicles"
+              labels={vehicleLables}
+              series={vehicleData}
+              height={100}
+              colorArray={["#FFDD82", "#F7A47A", "#98C6CF", "#1F8297"]}
             />
           </div>
         </div>
-        <div className="flex gap-3 flex-column" style={{ flex: "22%" }}>
+
+        <div className="flex gap-3 flex-column" style={{ flex: "35%" }}>
+          <div className="flex gap-3">
+            {/*  Disable Friendly Buses*/}
+            <div
+              className="flex flex-column bg-white border-round p-3 gap-2"
+              style={{ flex: "40%" }}
+            >
+              <p className="card-title p-0 m-0">
+                Disable-Friendly Buses
+                {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+              </p>
+              <p className="text-3xl font-semibold m-0 p-0 text-secondary2 text-center">
+                56
+              </p>
+            </div>
+            {/* Buses older Than */}
+            <div
+              className="flex flex-column bg-white border-round p-3 gap-2"
+              style={{ flex: "60%" }}
+            >
+              <p className="card-title p-0 m-0">Buses older Than</p>
+              <div className="flex  justify-content-between align-items-center">
+                <div className="flex flex-column w-full align-items-center gap-1">
+                  <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                    25
+                  </p>
+                  <p className="p-0 m-0 card-text">7 Years</p>
+                </div>
+                <Divider layout="vertical" />
+                <div className="flex flex-column w-full align-items-center gap-1">
+                  <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                    18
+                  </p>
+                  <p className="p-0 m-0 card-text">5 Years</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Buses going for maintenance */}
+          <div className="flex flex-column bg-white border-round p-3">
+            <p className="card-title p-0 m-0">Buses going for Maintenance</p>
+            <ColumnChart
+              // title="Buses going for maintenance"
+              categories={labels}
+              series={buses}
+              height={150}
+              dataPointWidth={40}
+            />
+          </div>
+        </div>
+        {/* Bus Routes and Traffic analysis */}
+        <BusRoutes />
+      </div>
+
+      <div className="flex gap-3">
+        <div className="flex gap-3 flex-column" style={{ flex: "20%" }}>
+          {/* Availability of Bus */}
+          <div className="flex flex-column bg-white border-round w-full p-3 gap-2">
+            <p className="card-title p-0 m-0">
+              Average Availability of Bus
+              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+            </p>
+            <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
+              125{" "}
+              <span className="text-lg text-tertiary3 font-medium">/Day</span>
+            </p>
+          </div>
           {/* Average Passenger Count */}
-          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
+          <div className="flex flex-column bg-white border-round p-3 gap-2 w-full">
             <p className="card-title p-0 m-0">
               Average Passenger Count
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
-            <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
+            <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
               487{" "}
               <span className="text-lg text-tertiary3 font-medium">/Day</span>
             </p>
@@ -163,27 +213,6 @@ const Transport = ({ show }) => {
               color: "#001F23",
             }}
           /> */}
-          </div>
-          {/*  Disable Friendly Buses*/}
-          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="card-title p-0 m-0">
-              Disable Friendly Buses
-              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
-            </p>
-            <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
-              56
-            </p>
-          </div>
-          {/* Availability of Bus */}
-          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="card-title p-0 m-0">
-              Average Availability of Bus
-              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
-            </p>
-            <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
-              125{" "}
-              <span className="text-lg text-tertiary3 font-medium">/Day</span>
-            </p>
           </div>
 
           {/* Maintenance of Public Vehicle*/}
@@ -225,10 +254,53 @@ const Transport = ({ show }) => {
             </div>
           </div> */}
         </div>
-        <div className="flex flex-column" style={{ flex: "45%" }}>
+
+        {/* EV Trend */}
+        <div
+          className="flex flex-column bg-white border-round p-3 gap-2"
+          style={{ flex: "28%" }}
+        >
+          <div className="flex justify-content-between">
+            <p className="card-title p-0 m-0">EV Trend</p>
+            <p className="text-sm text-tertiary3 font-medium p-0 m-0">2024</p>
+          </div>
+          <LineChart
+            //   title="EV Trend"
+            categories={labels}
+            data={evTrend}
+            fontColor={"#4C4C4C"}
+            height={120}
+          />
+        </div>
+
+        <div className="flex flex-column gap-3" style={{ flex: "15%" }}>
+          {/*  Charging Stations*/}
+          <div className="flex flex-column bg-white border-round w-full p-3 gap-2">
+            <p className="card-title p-0 m-0">
+              Charging Stations
+              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+            </p>
+            <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
+              12
+            </p>
+          </div>
+          {/* Accidents*/}
+          <div className="flex flex-column bg-white border-round w-full p-3 gap-2">
+            <p className="card-title p-0 m-0">
+              Accidents
+              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+            </p>
+            <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
+              27
+            </p>
+          </div>
+        </div>
+
+        <div className="flex" style={{ flex: "28%" }}>
           <AccidentMap accidentData={accidentData} />
         </div>
       </div>
+
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p>
