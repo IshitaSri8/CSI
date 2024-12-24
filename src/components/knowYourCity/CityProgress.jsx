@@ -7,27 +7,29 @@ import { Divider } from "primereact/divider";
 
 const CityProgress = () => {
   const wasteGenerationData = {
-    title: "Waste Generation",
+    // title: "Waste Generation",
     labels: ["Residential", "Commercial", "Institutional"],
     series: [238800, 119400, 59700],
-    height: 150,
-    width: 250,
-    bgColor: "transparent",
+    height: 100,
+    horizontal: "right",
+    vertical: "center",
     fontColor: "white",
+    colorArray: ["#FFDD82", "#47B881", "#F7A47A"],
   };
 
   const solidWasteProcessedData = {
-    title: "Solid Waste Processed (in TPD)",
+    // title: "Solid Waste Processed (in TPD)",
     labels: ["Wet", "Dry", "Sanitary", "Domestic"],
     series: [99.53, 72.39, 3.62, 5.43],
-    height: 150,
-    width: 250,
-    bgColor: "transparent",
+    height: 100,
+    horizontal: "right",
+    vertical: "center",
     fontColor: "white",
+    colorArray: ["#FFDD82", "#47B881", "#F7A47A", "#4D7479"],
   };
 
   const electricityConsumptionData = {
-    title: "Power Consumption (kWH)",
+    // title: "Power Consumption (kWH)",
     labels: [
       "Residential",
       "Commercial",
@@ -36,10 +38,11 @@ const CityProgress = () => {
       "Others",
     ],
     series: [15343985, 2541529, 144440, 4675, 2100829],
-    height: 150,
-    width: 250,
-    bgColor: "transparent",
+    height: 110,
+    horizontal: "right",
+    vertical: "center",
     fontColor: "white",
+    colorArray: ["#FFDD82", "#47B881", "#F7A47A", "#4D7479", "#98C6CF"],
   };
 
   return (
@@ -200,25 +203,30 @@ const CityProgress = () => {
 
           {/* Power Consumption */}
           <div
-            className="border-round-2xl w-full p-5"
+            className="flex flex-column border-round-2xl w-full p-3 justify-content-between"
             style={{
               background:
                 "linear-gradient(-135deg , #1F8297, #166C7D, #003940)",
             }}
           >
+            <p className="text-lg font-medium text-white p-0 m-0">
+              Power Consumption (kWH)
+            </p>
             {DonutChart(electricityConsumptionData)}
-            <p
-              className="m-0 text-xs"
-              style={{ color: "var(--text-tertiary-2)" }}
-            >
-              Source:
-            </p>
-            <p
-              className="m-0 text-sm"
-              style={{ color: "var(--text-tertiary)" }}
-            >
-              Vidyut Vibhag Ayodhya
-            </p>
+            <div className="flex flex-column">
+              <p
+                className="m-0 text-xs"
+                style={{ color: "var(--text-tertiary-2)" }}
+              >
+                Source:
+              </p>
+              <p
+                className="m-0 text-sm"
+                style={{ color: "var(--text-tertiary)" }}
+              >
+                Vidyut Vibhag Ayodhya
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -280,12 +288,16 @@ const CityProgress = () => {
           </div>
 
           <div
-            className="border-round-2xl w-full p-2"
+            className="flex flex-column border-round-2xl w-full p-2 gap-2"
             style={{
               background: "rgba(255, 255, 255, 0.2)",
             }}
           >
+            <p className="text-lg font-medium text-white p-0 m-0">
+              Waste Generation
+            </p>
             {DonutChart(wasteGenerationData)}
+            <div className="flex flex-column">
             <p
               className="m-0 text-xs"
               style={{ color: "var(--text-tertiary-2)" }}
@@ -298,6 +310,7 @@ const CityProgress = () => {
             >
               Ayodhya Industrial Dept 2020
             </p>
+            </div>
           </div>
         </div>
         <div className="flex flex-column gap-3 w-full">
@@ -340,12 +353,16 @@ const CityProgress = () => {
             </div>
           </div>
           <div
-            className="border-round-2xl w-full p-2"
+            className="flex flex-column border-round-2xl w-full p-2 gap-2"
             style={{
               background: "rgba(255, 255, 255, 0.2)",
             }}
           >
+            <p className="text-lg font-medium text-white p-0 m-0">
+              Solid Waste Processed (in TPD)
+            </p>
             {DonutChart(solidWasteProcessedData)}
+            <div className="flex flex-column">
             <p
               className="m-0 text-xs"
               style={{ color: "var(--text-tertiary-2)" }}
@@ -358,6 +375,7 @@ const CityProgress = () => {
             >
               Swachh Bharat Mission
             </p>
+            </div>
           </div>
           <div
             className="border-round-2xl w-full p-2"

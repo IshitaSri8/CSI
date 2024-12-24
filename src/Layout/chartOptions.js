@@ -8,15 +8,6 @@ export const commonChartOptions = {
     horizontalAlign: "left",
     padding: { bottom: 20 },
   },
-
-  title1: {
-    fontSize: 14,
-    fontFamily: "Montserrat",
-    fontWeight: 500,
-    // fontColor: "#737474",
-    horizontalAlign: "left",
-    padding: { bottom: 20 },
-  },
   axisY: {
     includeZero: true,
     gridThickness: 0,
@@ -41,6 +32,6 @@ export const commonChartOptions = {
     fontColor: "#00403C",
     fontSize: 10,
     fontFamily: "Montserrat",
-    fontWeight: 500,
+    fontWeight: 600,
   },
 };

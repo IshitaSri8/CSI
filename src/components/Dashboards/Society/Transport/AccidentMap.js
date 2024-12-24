@@ -30,7 +30,7 @@ const AccidentMap = ({ accidentData }) => {
           height: 20px;
           background-color: ${getSeverityColor(severity)};
           border-radius: 50%;
-          border: 2px solid white;
+          border: 1px solid white;
         "></div>
       `,
       iconSize: [20, 20],

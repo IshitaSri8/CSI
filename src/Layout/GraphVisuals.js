@@ -11,8 +11,8 @@ const colors = [
   "#4D7479", //Dusty Teal
   "#98C6CF", // Light Blue
   "#1F8297", // Dark Cyan
-  "#166c7d", // Dark Teal
   "#0F4B57", // Dark Slate Blue
+  "#166c7d", // Dark Teal
   "#5B98A4", // Slate Blue
   "#8AB5BE", // Soft Blue-Green
   "#B9D2D8", // Pale Cyan
@@ -22,47 +22,47 @@ const colors = [
   "#F64C4C", // Red
 ];
 
-//city progress, diff. color
+//city progress, demographics diff. color
 export const DonutChart = ({
   title,
   labels,
   series,
   height,
-  bgColor,
   fontColor,
+  colorArray,
+  vertical,
+  horizontal,
 }) => {
   const options = {
     animationEnabled: true,
-    ...commonChartOptions,
+    // ...commonChartOptions,
     interactivityEnabled: false,
     title: {
       text: title,
-      fontColor: fontColor,
-      ...commonChartOptions.title1,
     },
-    backgroundColor: bgColor,
+    backgroundColor: "transparent",
     data: [
       {
         indexLabelPlacement: "inside",
         type: "doughnut",
-        innerRadius: "70%", // Increase this value to decrease the thickness
-        radius: "75%",
+        // innerRadius: "70%", // Increase this value to decrease the thickness
+        // radius: "75%",
         startAngle: 60,
         showInLegend: true,
         toolTipContent: "<b>{label}</b>: {y} (#percent%)",
         indexLabelFontColor: "transparent",
-        color: colors,
+        // color: colors,
         legendText: "{label}- #percent%",
         dataPoints: series.map((value, index) => ({
           y: value,
           label: labels[index],
-          color: colors[index % colors.length],
+          color: colorArray[index],
         })),
       },
     ],
     legend: {
-      horizontalAlign: "right",
-      verticalAlign: "center",
+      horizontalAlign: horizontal,
+      verticalAlign: vertical,
       fontColor: fontColor,
       ...commonChartOptions.legend,
     },
@@ -74,14 +74,12 @@ export const DonutChart = ({
       containerProps={{
         width: "100%",
         height: height,
-        bgColor: bgColor,
-        fontColor: fontColor,
       }}
     />
   );
 };
 
-//employment, transport, demographics
+//employment, transport
 export const Doughnut = ({
   title,
   labels,
@@ -245,7 +243,7 @@ export const GroupedBarChart = ({
     axisX: {
       title: xtitle,
       gridThickness: 0,
-      labelFontSize: 8,
+      labelFontSize: 10,
       labelFontFamily: "Montserrat",
       labelFontWeight: 500,
       lineThickness: 0.5,
@@ -346,6 +344,12 @@ export const StackedBarChart = ({
           name: category,
           showInLegend: true,
           color: colors[index + (4 % colors.length)],
+          indexLabel: "{y}",
+          indexLabelPlacement: "inside",
+          indexLabelFontColor: "#fff",
+          indexLabelFontSize: commonChartOptions.indexLabelOptions.fontSize, // Use common options
+          indexLabelFontFamily: commonChartOptions.indexLabelOptions.fontFamily, // Use common options
+          indexLabelFontWeight: commonChartOptions.indexLabelOptions.fontWeight, // Use common options
           dataPoints: labels.map((year, i) => ({
             label: year,
             y: series[index][i],
@@ -504,7 +508,16 @@ export const ColumnChart = ({
           },
         ],
       }}
-      containerProps={{ height: height, width: "100%" }}
+      containerProps={{
+        height: height,
+        width: "100%",
+        style: {
+          width: "100%",
+          height: `${height}px`,
+          transform: "scale(1)",
+          transformOrigin: "0 0",
+        },
+      }}
     />
   );
 };
@@ -926,7 +939,8 @@ export const LineChart = ({
     axisY: {
       title: ytitle,
       labelFontSize: 0,
-      gridThickness: 0.125,
+      gridThickness: 0.5,
+      gridDashType: "dash",
       tickLength: 0,
       lineThickness: 0,
       labelFormatter: function () {
@@ -950,14 +964,19 @@ export const LineChart = ({
         indexLabelFontFamily: commonChartOptions.indexLabelOptions.fontFamily, // Use common options
         indexLabelFontWeight: commonChartOptions.indexLabelOptions.fontWeight, // Use common options
       })),
-      color: colors[index % colors.length], // Cycles through colors array
+      color: "#1F8297", 
     })),
   };
 
   return (
     <CanvasJSChart
       options={options}
-      containerProps={{ height: height, width: "100%" }}
+      containerProps={{ height: height, width: "100%",  style: {
+        width: "100%",
+        height: `${height}px`,
+        transform: "scale(1)",
+        transformOrigin: "0 0",
+      }, }}
     />
   );
 };
@@ -1015,7 +1034,16 @@ export const ModifiedLineChart = ({
   return (
     <CanvasJSChart
       options={options}
-      containerProps={{ height: height, width: "100%" }}
+      containerProps={{
+        height: height,
+        width: "100%",
+        style: {
+          width: "100%",
+          height: `${height}px`,
+          transform: "scale(1)",
+          transformOrigin: "0 0",
+        },
+      }}
     />
   );
 };

@@ -310,9 +310,9 @@ body {
 .custom-padding .p-datatable .p-datatable-tbody > tr > td {
   padding: 1rem;
 }
-.leaflet-popup-content {
+/* .leaflet-popup-content {
   width: 30rem !important;
-}
+} */
 
 @media (max-width: 768px) {
   /* Adjust text box width for smaller screens */

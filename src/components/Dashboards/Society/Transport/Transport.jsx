@@ -104,19 +104,19 @@ const Transport = ({ show }) => {
           {/* Public & Semi Public */}
           <div className="flex justify-content-between align-items-center w-full">
             <div className="flex flex-column w-full align-items-center gap-1">
-              <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+              <p className="text-xl font-semibold m-0 text-secondary2 p-0">
                 220
               </p>
               <p className="p-0 m-0 card-text">Public</p>
             </div>
             <Divider layout="vertical" />
             <div className="flex flex-column w-full align-items-center gap-1">
-              <p className="text-2xl font-semibold m-0 text-primary2 p-0">78</p>
+              <p className="text-xl font-semibold m-0 text-primary2 p-0">78</p>
               <p className="p-0 m-0 card-text">Semi Public</p>
             </div>
           </div>
           {/* Types of Vehicles */}
-          <div className="flex flex-column sec-theme border-round-xl align-items-start p-3 w-full">
+          <div className="flex flex-column sec-theme border-round-xl align-items-start p-3 pr-4 w-full">
             <p className="card-title p-0 m-0">Types of Buses</p>
             <Doughnut
               // title="Types of Vehicles"
@@ -183,27 +183,27 @@ const Transport = ({ show }) => {
       </div>
 
       <div className="flex gap-3">
-        <div className="flex gap-3 flex-column" style={{ flex: "20%" }}>
+        <div className="flex gap-3 flex-column" style={{ flex: "18%" }}>
           {/* Availability of Bus */}
           <div className="flex flex-column bg-white border-round w-full p-3 gap-2">
             <p className="card-title p-0 m-0">
-              Average Availability of Bus
+              Avg. Availability of Bus
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
               125{" "}
-              <span className="text-lg text-tertiary3 font-medium">/Day</span>
+              <span className="text-tertiary3 font-medium">/Day</span>
             </p>
           </div>
           {/* Average Passenger Count */}
           <div className="flex flex-column bg-white border-round p-3 gap-2 w-full">
             <p className="card-title p-0 m-0">
-              Average Passenger Count
+              Avg. Passenger Count
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
               487{" "}
-              <span className="text-lg text-tertiary3 font-medium">/Day</span>
+              <span className="text-tertiary3 font-medium">/Day</span>
             </p>
             {/* <Chip
             label="October 2024"
@@ -258,7 +258,7 @@ const Transport = ({ show }) => {
         {/* EV Trend */}
         <div
           className="flex flex-column bg-white border-round p-3 gap-2"
-          style={{ flex: "28%" }}
+          style={{ flex: "35%" }}
         >
           <div className="flex justify-content-between">
             <p className="card-title p-0 m-0">EV Trend</p>
@@ -269,7 +269,7 @@ const Transport = ({ show }) => {
             categories={labels}
             data={evTrend}
             fontColor={"#4C4C4C"}
-            height={120}
+            height={125}
           />
         </div>
 
@@ -296,7 +296,7 @@ const Transport = ({ show }) => {
           </div>
         </div>
 
-        <div className="flex" style={{ flex: "28%" }}>
+        <div className="flex" style={{ flex: "32%" }}>
           <AccidentMap accidentData={accidentData} />
         </div>
       </div>

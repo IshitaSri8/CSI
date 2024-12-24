@@ -98,7 +98,7 @@ const Culture = ({ show }) => {
               color="#FFAD0D"
               displayValueTemplate={() => null} // Hide the displayed value
             />
-            <p className="text-secondary2 text-center text-lg font-medium p-0 m-0">
+            <p className="text-secondary2 text-center text-lg font-semibold p-0 m-0">
               10%
             </p>
           </div>
@@ -129,23 +129,29 @@ const Culture = ({ show }) => {
           style={{ flex: "40%" }}
         >
           {/* Total Vs Maintained Cultural Sites Over Years */}
-          <div className="flex bg-white border-round align-items-center p-4 w-full">
+          <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
+            <p className="card-title p-0 m-0">
+              Total Vs Maintained Cultural Sites Over Years
+            </p>
             <CombinationChart
-              title="Total Vs Maintained Cultural Sites Over Years"
+              // title="Total Vs Maintained Cultural Sites Over Years"
               categories={categories}
               totalSites={totalSites}
               maintainedSites={maintainedSites}
-              height={245}
+              height={240}
             />
           </div>
 
           {/* Funds Allocated Over Years */}
-          <div className="flex bg-white border-round align-items-center p-4 w-full">
+          <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
+            <p className="card-title p-0 m-0">
+              Funds Allocated Over Years (in Crore)
+            </p>
             <LineChart
-              title="Funds Allocated Over Years (in Crore)"
+              // title="Funds Allocated Over Years (in Crore)"
               categories={categories}
               data={funds}
-              height={150}
+              height={130}
             />
           </div>
         </div>
@@ -158,7 +164,7 @@ const Culture = ({ show }) => {
             {/* Tourists */}
             <div className="flex flex-column bg-white border-round p-3 w-full">
               <p className="card-title p-0 m-0 ">Tourists</p>
-              <p className="text-4xl font-semibold m-0 text-secondary2 p-4 text-center">
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-5 text-center">
                 1,15,000
               </p>
             </div>
@@ -167,19 +173,20 @@ const Culture = ({ show }) => {
               <p className="card-title p-0 m-0 ">
                 Schools Offering Courses in Local Languages
               </p>
-              <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-3 m-1 text-center">
                 180
               </p>
             </div>
           </div>
 
           {/* Number of Tourists Over Years */}
-          <div className="flex bg-white border-round align-items-center p-4 w-full">
+          <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
+            <p className="card-title p-0 m-0 ">Number of Tourists Over Years</p>
             <GroupedBarChart
-              title="Number of Tourists Over Years"
+              // title="Number of Tourists Over Years"
               labels={categories}
               dataSeries={touristData}
-              height={325}
+              height={300}
               dataPointWidth={20}
             />
           </div>

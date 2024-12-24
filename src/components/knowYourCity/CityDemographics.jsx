@@ -5,7 +5,7 @@ import geo_area from "assets/KYC/geographical-removebg.png";
 import { Divider } from "primereact/divider";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Doughnut } from "Layout/GraphVisuals";
+import { DonutChart, Doughnut } from "Layout/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
 import "./KYC.css";
 import { Building2, PartyPopper, Trash } from "lucide-react";
@@ -186,19 +186,19 @@ const CityDemographics = () => {
               </div>
             </div>{" "}
             <div
-              className="flex justify-content-center border-round-xl p-1 flex-column w-full"
+              className="flex justify-content-center border-round-xl p-1 flex-column w-full gap-2"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
             >
-              <p className="p-1 m-0 text-left font-semibold text-white text-sm">
-                Sex Ratio- <span className="text-white font-medium">980</span>
+              <p className="p-1 m-0 text-left font-medium text-white">
+                Sex Ratio- <span className="text-white font-semibold">980</span>
               </p>
 
-              <Doughnut
+              <DonutChart
                 title={""}
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
-                height={120}
-                colorArray={["#98C6CF", "#1F8297"]}
+                height={110}
+                colorArray={["#BAD8DF", "#003940"]}
                 horizontal={"center"}
                 vertical={"bottom"}
                 fontColor={"#fff"}
@@ -225,7 +225,7 @@ const CityDemographics = () => {
                     styles={buildStyles({
                       pathColor: "#003940",
                       textColor: "#fff",
-                      trailColor: "#E7EAEA",
+                      trailColor: "#BAD8DF",
                       textSize: "2rem",
                       pathTransition: "stroke-dashoffset 0.5s ease 0s",
                       transform: "rotate(2.25turn)",

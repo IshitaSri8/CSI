@@ -7,6 +7,7 @@ import buss from "assets/buss.svg";
 import rickshaw from "assets/rickshaw.svg";
 import bike from "assets/bike.svg";
 import { Divider } from "primereact/divider";
+import "./BusRoutes.css";
 
 const BusRoutes = () => {
   const [selectedRoute, setSelectedRoute] = useState(null);
@@ -152,6 +153,8 @@ const BusRoutes = () => {
           options={routes}
           onChange={handleRouteChange}
           placeholder="Select a Route"
+          panelClassName="custom-dropdown-panel"
+          style={{ width: "150px" }}
           //   className="w-full"
         />
 

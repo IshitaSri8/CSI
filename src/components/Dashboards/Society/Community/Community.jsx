@@ -122,14 +122,15 @@ const Community = ({ show }) => {
 
         {/* Number of NGOs/Forums Over Years */}
         <div
-          className="flex bg-white border-round align-items-center p-3"
+          className="flex flex-column bg-white border-round p-3"
           style={{ flex: "42%" }}
         >
+          <p className="card-title p-0 m-0">NGOs/Forums Over the Years</p>
           <ColumnChart
-            title="NGOs/Forums Over the Years"
+            // title="NGOs/Forums Over the Years"
             categories={categories}
             series={forums}
-            height={175}
+            height={160}
             dataPointWidth={40}
           />
         </div>
@@ -151,12 +152,13 @@ const Community = ({ show }) => {
 
       <div className="flex align-items-center justify-content-center gap-2 w-full">
         {/* Socio-Cultural Facilities */}
-        <div className="flex bg-white border-round align-items-center p-4 w-full">
+        <div className="flex flex-column bg-white border-round p-4 w-full">
+        <p className="card-title p-0 m-0">Socio-Cultural Facilities</p>
           <GroupedBarChart
-            title="Socio-Cultural Facilities"
+            // title="Socio-Cultural Facilities"
             labels={facilitiesCategories}
             dataSeries={facilitiesData}
-            height={275}
+            height={260}
             dataPointWidth={10}
           />
         </div>

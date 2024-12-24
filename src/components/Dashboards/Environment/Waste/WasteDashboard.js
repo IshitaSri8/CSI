@@ -1,7 +1,7 @@
 import React from "react";
 import {
   ColumnChart,
-  GroupedBarChart,
+  StackedBarChart,
   PieChartColumn,
 } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
@@ -47,12 +47,17 @@ const WasteDashboard = ({ show }) => {
   const sanitationData = [7, 93, 0];
 
   const Zones = ["Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5"];
-
-  const collectionData = [
-    { name: "Door-to-door Collection", data: [39, 30, 38, 29, 30] },
-    { name: "Community Bins", data: [31, 24, 29, 22, 21] },
-    { name: "Other Sources", data: [2, 1, 2, 2, 3] },
+  const collection = [
+    "Door-to-door Collection",
+    "Community Bins",
+    "Other Sources",
   ];
+  const collectionData = [ [39, 30, 38, 29, 30], [31, 24, 29, 22, 21], [2, 1, 2, 2, 3]]
+  // const collectionData = [
+  //   { name: "Door-to-door Collection", data: [39, 30, 38, 29, 30] },
+  //   { name: "Community Bins", data: [31, 24, 29, 22, 21] },
+  //   { name: "Other Sources", data: [2, 1, 2, 2, 3] },
+  // ];
 
   return (
     <div className="flex flex-column gap-3 p-4">
@@ -161,7 +166,7 @@ const WasteDashboard = ({ show }) => {
           style={{ flex: "18%" }}
         >
           <p className="card-title p-0 m-0">CT/PT</p>
-          <div className="flex flex-column gap-2">
+          <div className="flex flex-column gap-3">
             <div
               className="flex flex-column w-full p-2 sec-theme gap-1"
               style={{
@@ -175,7 +180,7 @@ const WasteDashboard = ({ show }) => {
               <p className="p-0 m-0 card-text">Community Toilet</p>
             </div>
             <div
-              className="flex flex-column w-full p-2 sec-theme gap-2"
+              className="flex flex-column w-full p-2 sec-theme gap-1"
               style={{
                 borderLeft: "3px solid #98C6CF", // Adjust thickness and color
                 height: "60px", // Adjust height
@@ -212,10 +217,12 @@ const WasteDashboard = ({ show }) => {
           style={{ flex: "70%" }}
         >
           <p className="card-title p-0 m-0">Waste Collection (in TPD)</p>
-          <GroupedBarChart
+          <StackedBarChart
             // title="Waste Collection (in TPD)"
             labels={Zones}
-            dataSeries={collectionData}
+            categories={collection}
+            series={collectionData}
+            // dataSeries={collectionData}
             dataPointWidth={8}
             height={200}
           />
