@@ -88,7 +88,7 @@ const Transport = ({ show }) => {
       <div className="flex gap-3">
         <div
           className="flex flex-column align-items-center justify-content-between bg-white border-round p-3"
-          style={{ flex: "30%" }}
+          style={{ flex: "25%" }}
         >
           {/* Total Buses in Operation*/}
           <div className="flex justify-content-between gap-6 align-items-center">
@@ -301,9 +301,9 @@ const Transport = ({ show }) => {
         </div>
       </div>
 
-      <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
+      {/* <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
-      </p>
+      </p> */}
       {show && (
         <Panel
           toggleable

@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import "primeflex/primeflex.css";
 import { Dropdown } from "primereact/dropdown";
 import { Dialog } from "primereact/dialog";
-import { Card } from "primereact/card";
 import ayodhya from "assets/AYODHYA.png";
 import buss from "assets/buss.svg";
 import rickshaw from "assets/rickshaw.svg";
 import bike from "assets/bike.svg";
 import { Divider } from "primereact/divider";
-import { Padding } from "@mui/icons-material";
 
 const BusRoutes = () => {
   const [selectedRoute, setSelectedRoute] = useState(null);
@@ -143,8 +141,8 @@ const BusRoutes = () => {
 
   return (
     <div
-      className="flex flex-column bg-white border-round p-3 gap-3 justify-content-between align-items-center"
-      style={{ flex: "30%" }}
+      className="flex flex-column bg-white border-round p-3 gap-3 justify-content-between"
+      style={{ flex: "40%" }}
     >
       <div className="flex justify-content-between align-items-center">
         <p className="card-text p-0 m-0">Bus Routes and Traffic analysis</p>
@@ -154,7 +152,7 @@ const BusRoutes = () => {
           options={routes}
           onChange={handleRouteChange}
           placeholder="Select a Route"
-        //   className="w-full"
+          //   className="w-full"
         />
 
         <Dialog
