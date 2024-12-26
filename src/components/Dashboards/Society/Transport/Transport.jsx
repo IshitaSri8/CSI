@@ -91,14 +91,14 @@ const Transport = ({ show }) => {
           style={{ flex: "25%" }}
         >
           {/* Total Buses in Operation*/}
-          <div className="flex justify-content-between gap-6 align-items-center">
+          <div className="flex justify-content-between align-items-center gap-4">
             <div className="flex flex-column gap-2">
               <p className="card-title p-0 m-0">Buses in Operation</p>
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
                 298
               </p>
             </div>
-            <img src={bus} alt="bus" className="w-10rem" />
+            <img src={bus} alt="bus" className="w-8rem" />
           </div>
           <Divider />
           {/* Public & Semi Public */}

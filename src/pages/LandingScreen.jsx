@@ -273,7 +273,7 @@ const LandingScreen = () => {
         </div>
         <Footer />
       </div>
-      <FloatingSidebar sections={sections} />
+      {/* <FloatingSidebar sections={sections} /> */}
     </div>
   );
 };

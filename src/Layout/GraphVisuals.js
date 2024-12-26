@@ -964,19 +964,23 @@ export const LineChart = ({
         indexLabelFontFamily: commonChartOptions.indexLabelOptions.fontFamily, // Use common options
         indexLabelFontWeight: commonChartOptions.indexLabelOptions.fontWeight, // Use common options
       })),
-      color: "#1F8297", 
+      color: "#1F8297",
     })),
   };
 
   return (
     <CanvasJSChart
       options={options}
-      containerProps={{ height: height, width: "100%",  style: {
+      containerProps={{
+        height: height,
         width: "100%",
-        height: `${height}px`,
-        transform: "scale(1)",
-        transformOrigin: "0 0",
-      }, }}
+        style: {
+          width: "100%",
+          height: `${height}px`,
+          transform: "scale(1)",
+          transformOrigin: "0 0",
+        },
+      }}
     />
   );
 };
