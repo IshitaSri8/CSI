@@ -173,20 +173,23 @@ const RainDashboard = ({ show }) => {
         </div>
       )}
 
-      <div className="flex align-items-stretch justify-content-center w-full">
+      <div className="flex align-items-center justify-content-center w-full">
         {/* total Rainfall */}
-        <div className="flex flex-column bg-white border-round gap-3 p-2 px-4 w-full mr-3">
-          <p className="card-title">Total Rainfall</p>
-          <div className="flex justify-content-around align-items-center gap-3">
+        <div
+          className="flex flex-column bg-white justify-content-between border-round gap-3 p-3"
+          style={{ flex: "30%" }}
+        >
+          <p className="card-title p-0 m-0">Total Rainfall</p>
+          <div className="flex gap-3">
             <div className="flex flex-column align-items-center px-5">
-              <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
+              <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center">
                 {totalRainfall} <span className="text-xl">mm</span>
               </p>
               <p className="p-0 m-0 card-text">Actual</p>
             </div>
             <Divider layout="vertical" />
             <div className="flex flex-column align-items-center px-5">
-              <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center gap-1">
+              <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center">
                 {totalExpectedRainfall} <span className="text-xl">mm</span>
               </p>
               <p className="p-0 m-0 card-text">Expected</p>
@@ -209,9 +212,13 @@ const RainDashboard = ({ show }) => {
         </div>
 
         {/* Deviation from Expected */}
-        <div className="flex flex-column align-items-center bg-white border-round p-2 px-4 w-full mr-3">
-          <p className="card-title">Deviation from Expected</p>
-          <div className="flex w-10rem custom-circular-progress">
+        <div
+          className="flex flex-column gap-3 bg-white border-round p-3 mx-3"
+          style={{ flex: "35%" }}
+        >
+          <p className="card-title p-0 m-0">Deviation from Expected</p>
+          <div className="flex align-items-center justify-content-center">
+          <div className="w-10rem custom-circular-progress">
             <CircularProgressbar
               value={-deviationPercentage}
               text={`${deviationPercentage}%`}
@@ -221,10 +228,11 @@ const RainDashboard = ({ show }) => {
                 pathColor: "#E62225",
                 textColor: "#001F23",
                 trailColor: "#E7EAEA",
-                textSize: "2rem",
+                textSize: "1.75rem",
                 pathTransition: "stroke-dashoffset 0.5s ease 0s",
               })}
             />
+          </div>
           </div>
         </div>
 
@@ -237,11 +245,11 @@ const RainDashboard = ({ show }) => {
 
         {/* Maximum Rainfall */}
         <div
-          className="flex flex-column bg-white w-full p-2 px-4 gap-6 align-items-stretch"
-          style={{ borderRadius: "0 10px 10px 0" }}
+          className="flex flex-column bg-white p-3 gap-6 align-items-stretch"
+          style={{ borderRadius: "0 10px 10px 0", flex: "35%" }}
         >
-          <p className="card-title">Maximum Rainfall</p>
-          <p className="text-4xl font-semibold m-0 text-secondary2 text-center">
+          <p className="card-title p-0 m-0">Maximum Rainfall</p>
+          <p className="text-4xl font-semibold m-1 text-secondary2 text-center">
             {maxRainfall} <span className="text-xl">mm</span>
           </p>
           <Chip
