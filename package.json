@@ -12,9 +12,10 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "aos": "^2.3.4",
     "axios": "^1.7.7",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.9.0",
+    "framer-motion": "^11.15.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
     "leaflet": "^1.9.4",
@@ -22,6 +23,7 @@
     "lottie-react": "^2.4.0",
     "lucide": "^0.451.0",
     "lucide-react": "^0.451.0",
+    "motion": "^11.15.0",
     "mui-one-time-password-input": "^2.0.3",
     "mui-otp-input": "^0.0.1-alpha1.1",
     "ol": "^10.2.1",
@@ -38,6 +40,7 @@
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "react-to-print": "^3.0.1",
+    "three": "^0.171.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

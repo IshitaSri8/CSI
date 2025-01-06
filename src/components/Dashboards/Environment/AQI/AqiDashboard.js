@@ -59,6 +59,8 @@ const AqiDashboard = ({
   const [enviroco2, setEnviroco2] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterVisible, setFilterVisible] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedAction, setSelectedAction] = useState("");
 
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
 
@@ -72,6 +74,11 @@ const AqiDashboard = ({
       setLoading(true); // Start loading when location changes
     }
   };
+  const handleActionSelect = (action) => {
+    setSelectedAction(action);
+    setShowPopup(true);
+  };
+
   const handleUpload = async (file) => {
     try {
       const formData = new FormData();

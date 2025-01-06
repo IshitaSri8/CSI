@@ -12,6 +12,7 @@ import GovernmentSidebar from "Layout/GovernmentSidebar";
 import CityProgress from "components/knowYourCity/CityProgress";
 import CitizenSidebar from "Layout/CitizenSidebar";
 import ChangeDetection from "extra/ChangeDetection";
+import Animation from "extra/Animation";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path="/g-kyc" element={<GovernmentSidebar />} />
       <Route path="/c-kyc" element={<CitizenSidebar />} />
       <Route path="/change" element={<ChangeDetection />} />
+      <Route path="/animations" element={<Animation />} />
     </Routes>
   );
 }

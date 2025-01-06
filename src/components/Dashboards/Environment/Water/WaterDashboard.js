@@ -10,6 +10,8 @@ import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { ProgressBar } from "primereact/progressbar";
 import { ModPieChart } from "Layout/GraphVisuals";
+import { Card } from "primereact/card";
+import WaterNew from "./WaterNew";
 
 const WaterDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -75,6 +77,7 @@ const WaterDashboard = ({ show }) => {
       <div className="flex flex-column align-items-center justify-content-between gap-3">
         <div className="w-full flex gap-3">
           {/* Water Supply */}
+
           <div
             className="flex flex-column gap-3 p-4 border-round bg-white"
             style={{ flex: "35%" }}
