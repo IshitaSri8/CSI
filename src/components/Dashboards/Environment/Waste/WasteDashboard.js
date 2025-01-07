@@ -1,6 +1,9 @@
 import React from "react";
-import { ModifiedColumnChart, PieChart } from "Layout/GraphVisuals";
-import CanvasJSReact from "@canvasjs/react-charts";
+import {
+  ColumnChart,
+  StackedBarChart,
+  PieChartColumn,
+} from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import WasteReportPrint from "./WasteReportPrint";
@@ -43,96 +46,18 @@ const WasteDashboard = ({ show }) => {
   ];
   const sanitationData = [7, 93, 0];
 
-  const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-  const CustomBar = {
-    animationEnabled: true,
-    interactivityEnabled: false,
-    title: {
-      text: "Waste Collection (in TPD)",
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
-    },
-
-    axisY: {
-      gridThickness: 0,
-      labelFontSize: 8,
-      labelFontFamily: "Montserrat",
-    },
-    axisX: {
-      gridThickness: 0,
-      labelFontSize: 8,
-      labelFontFamily: "Montserrat",
-    },
-    dataPointWidth: 8,
-    data: [
-      {
-        type: "bar",
-        name: "Door-to-door Collection",
-        showInLegend: true,
-        color: "#1F8297",
-        indexLabel: `{y}`,
-        indexLabelFontSize: 8,
-        indexLabelPlacement: "outside",
-        indexLabelFontFamily: "Montserrat",
-        indexLabelFontWeight: "bold",
-        dataPoints: [
-          { label: "Zone 1", y: 39 },
-          { label: "Zone 2", y: 30 },
-          { label: "Zone 3", y: 38 },
-          { label: "Zone 4", y: 29 },
-          { label: "Zone 5", y: 30 },
-        ],
-      },
-      {
-        type: "bar",
-        name: "Community Bins",
-        showInLegend: true,
-        color: "#BAD8DF",
-        indexLabel: `{y}`,
-        indexLabelFontSize: 8,
-        indexLabelPlacement: "outside",
-        indexLabelFontFamily: "Montserrat",
-        indexLabelFontWeight: "bold",
-        dataPoints: [
-          { label: "Zone 1", y: 31 },
-          { label: "Zone 2", y: 24 },
-          { label: "Zone 3", y: 29 },
-          { label: "Zone 4", y: 22 },
-          { label: "Zone 5", y: 21 },
-        ],
-      },
-      {
-        type: "bar",
-        name: "Other Sources",
-        showInLegend: true,
-        color: "#69ABB9",
-        indexLabel: `{y}`,
-        indexLabelFontSize: 8,
-        indexLabelPlacement: "outside",
-        indexLabelFontFamily: "Montserrat",
-        indexLabelFontWeight: "bold",
-        dataPoints: [
-          { label: "Zone 1", y: 2 },
-          { label: "Zone 2", y: 1 },
-          { label: "Zone 3", y: 2 },
-          { label: "Zone 4", y: 2 },
-          { label: "Zone 5", y: 3 },
-        ],
-      },
-    ],
-    legend: {
-      fontSize: 10,
-      horizontalAlign: "left",
-      verticalAlign: "bottom",
-      fontFamily: "Montserrat",
-      fontWeight: 500,
-    },
-  };
+  const Zones = ["Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5"];
+  const collection = [
+    "Door-to-door Collection",
+    "Community Bins",
+    "Other Sources",
+  ];
+  const collectionData = [ [39, 30, 38, 29, 30], [31, 24, 29, 22, 21], [2, 1, 2, 2, 3]]
+  // const collectionData = [
+  //   { name: "Door-to-door Collection", data: [39, 30, 38, 29, 30] },
+  //   { name: "Community Bins", data: [31, 24, 29, 22, 21] },
+  //   { name: "Other Sources", data: [2, 1, 2, 2, 3] },
+  // ];
 
   return (
     <div className="flex flex-column gap-3 p-4">
@@ -167,7 +92,7 @@ const WasteDashboard = ({ show }) => {
         <div className="flex flex-column gap-2 w-full" style={{ flex: "18%" }}>
           {/* Waste Generated */}
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Waste Generated{" "}
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
@@ -185,25 +110,26 @@ const WasteDashboard = ({ show }) => {
           </div>
           {/* Waste Collected */}
           <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
+            <p className="card-title p-0 m-0">
               Waste Collected{" "}
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
-              322 <span className="text-xl">TPD</span>
+              303 <span className="text-xl">TPD</span>
             </p>
           </div>
         </div>
         {/* Solid Waste Management (in TPD) */}
         <div
-          className="flex w-full bg-white border-round p-4"
+          className="flex flex-column w-full bg-white border-round p-4"
           style={{ flex: "27%" }}
         >
-          <ModifiedColumnChart
+          <p className="card-title p-0 m-0">Solid Waste Management (in TPD)</p>
+          <ColumnChart
             categories={solidWasteLabels}
             series={solidWasteData}
             height={150}
-            title="Solid Waste Management (in TPD)"
+            // title="Solid Waste Management (in TPD)"
             labelFontSize={6}
             // colors={colors.slice(0, 3)}
           />
@@ -217,15 +143,15 @@ const WasteDashboard = ({ show }) => {
             options={estimatedSWGChart}
             containerProps={{ height: 100, width: "100%" }}
           /> */}
-         <div className="flex justify-content-between">
-         <p className="text-primary1 font-semibold text-lg p-0 m-0">
-            Estimated Solid Waste Generated (in TPD)
-          </p>
-          <p className="text-sm text-tertiary3 font-medium p-0 m-0">
-            by 2031
-          </p>
-         </div>
-          <ModifiedColumnChart
+          <div className="flex justify-content-between">
+            <p className="card-title p-0 m-0">
+              Estimated Solid Waste Generated (in TPD)
+            </p>
+            <p className="text-sm text-tertiary3 font-medium p-0 m-0">
+              by 2031
+            </p>
+          </div>
+          <ColumnChart
             categories={estimatedSWGLabels}
             series={estimatedSWGData}
             height={150}
@@ -239,8 +165,8 @@ const WasteDashboard = ({ show }) => {
           className="flex flex-column bg-white border-round p-4 w-full justify-content-around"
           style={{ flex: "18%" }}
         >
-          <p className="text-primary1 font-semibold text-lg p-0 m-0">CT/PT</p>
-          <div className="flex flex-column gap-2">
+          <p className="card-title p-0 m-0">CT/PT</p>
+          <div className="flex flex-column gap-3">
             <div
               className="flex flex-column w-full p-2 sec-theme gap-1"
               style={{
@@ -251,10 +177,10 @@ const WasteDashboard = ({ show }) => {
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                 500
               </p>
-              <p className="text m-0 p-0 text-sm">Community Toilet</p>
+              <p className="p-0 m-0 card-text">Community Toilet</p>
             </div>
             <div
-              className="flex flex-column w-full p-2 sec-theme gap-2"
+              className="flex flex-column w-full p-2 sec-theme gap-1"
               style={{
                 borderLeft: "3px solid #98C6CF", // Adjust thickness and color
                 height: "60px", // Adjust height
@@ -263,7 +189,7 @@ const WasteDashboard = ({ show }) => {
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                 700
               </p>
-              <p className="text m-0 p-0 text-sm">Public Toilet</p>
+              <p className="p-0 m-0 card-text">Public Toilet</p>
             </div>
           </div>
         </div>
@@ -272,14 +198,15 @@ const WasteDashboard = ({ show }) => {
       <div className="flex gap-3 w-full">
         {/* Waste Composition */}
         <div
-          className="flex gap-3 w-full bg-white border-round p-4"
+          className="flex flex-column gap-3 w-full bg-white border-round p-4"
           style={{ flex: "25%" }}
         >
-          <PieChart
+          <p className="card-title p-0 m-0">Waste Composition (in TPD)</p>
+          <PieChartColumn
             categories={wasteCompositionLabels}
             series={wasteCompositionData}
-            height={250}
-            title="Waste Composition (in TPD)"
+            height={150}
+            // title="Waste Composition (in TPD)"
             vertical="bottom"
             horizontal="center"
             fontSize={10}
@@ -289,9 +216,15 @@ const WasteDashboard = ({ show }) => {
           className="flex flex-column gap-3 w-full bg-white border-round p-4"
           style={{ flex: "70%" }}
         >
-          <CanvasJSChart
-            options={CustomBar}
-            containerProps={{ height: 250, width: "100%" }}
+          <p className="card-title p-0 m-0">Waste Collection (in TPD)</p>
+          <StackedBarChart
+            // title="Waste Collection (in TPD)"
+            labels={Zones}
+            categories={collection}
+            series={collectionData}
+            // dataSeries={collectionData}
+            dataPointWidth={8}
+            height={200}
           />
         </div>
 
@@ -321,9 +254,8 @@ const WasteDashboard = ({ show }) => {
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
             const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-down"
-              : "pi pi-chevron-up";
-
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">

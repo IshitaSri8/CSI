@@ -355,7 +355,7 @@ const TempDashboard = ({
                     />
                   </div>
                   <div className="flex justify-content-between">
-                  <Button
+                    <Button
                       className="bg-white text-moderate border-none"
                       label="Reset"
                       // icon="pi pi-search"
@@ -421,7 +421,7 @@ const TempDashboard = ({
               border: `1px solid ${tempStatus.color}`,
             }}
           >
-            <h1 className="font-semibold text text-xl m-0 p-0">Temperature</h1>
+            <h1 className="card-title m-0 p-0">Temperature</h1>
             <div className="flex align-items-center justify-content-around">
               <h1
                 className="text-4xl font-medium p-0 m-0"
@@ -643,9 +643,8 @@ const TempDashboard = ({
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
             const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-down"
-              : "pi pi-chevron-up";
-
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">

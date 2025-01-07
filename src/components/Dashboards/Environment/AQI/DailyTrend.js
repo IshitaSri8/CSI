@@ -3,6 +3,7 @@ import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
 import HeatMap from "../Temperature/HeatMap";
 import { Button } from "primereact/button";
+import { commonChartOptions } from "Layout/chartOptions";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const DailyTrend = ({
@@ -90,18 +91,11 @@ const DailyTrend = ({
     theme: "lightblue",
     height: 200,
     legend: {
-      fontSize: 10,
-      fontFamily: "Montserrat",
-      fontWeight: 500,
+      ...commonChartOptions.legend,
     },
     title: {
       text: "AQI Trend",
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
+      ...commonChartOptions.title,
     },
     axisX: {
       labelFontColor: "#717171",
@@ -157,7 +151,7 @@ const DailyTrend = ({
         let content = "";
 
         // Display date and average AQI
-        content += `<div style="font-size: 1vw; font-weight:600; text-align:center; padding:0.5vw">`;
+        content += `<div style="font-size: 1vw; font-weight:500; text-align:center; padding:0.5vw">`;
         content += `Average AQI for ${selectedDate} is ${dailyAverage[selectedDate]}`;
         content += "</div>";
 
@@ -222,12 +216,7 @@ const DailyTrend = ({
     animationEnabled: true,
     title: {
       text: "AQI Level for" + selectedDate,
-      fontSize: 14,
-      fontFamily: "Montserrat",
-      fontWeight: 600,
-      fontColor: "#001F23",
-      horizontalAlign: "left",
-      padding: { bottom: 10 },
+      ...commonChartOptions.title,
     },
     height: 170,
     theme: "light2",

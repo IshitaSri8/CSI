@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -53,7 +52,7 @@ export default function RainReportPrint() {
 
   return (
     <>
-      <div ref={contentRef} className="w-full print-container sec-theme p-4">
+      <div ref={contentRef} className="w-full sec-theme py-4">
         <div className="flex flex-column gap-2 align-items-center w-full">
           <h1
             style={{ color: "#166c7d" }}
@@ -69,7 +68,7 @@ export default function RainReportPrint() {
         <div className="w-full">
           <RainDashboard show={false} />
         </div>
-        <div className="w-full">
+        <div className="w-full px-2">
           <h1 className="text-left text-xl">Recommendations</h1>
           <RainRecommendations />
         </div>

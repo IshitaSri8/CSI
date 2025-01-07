@@ -190,7 +190,7 @@ const Disaster = ({ show }) => {
           {/* Trained Responders Available */}
           <div className="flex justify-content-between bg-white border-round p-2 w-full">
             <div className="flex flex-column gap-4">
-              <p className="p-0 m-0 text font-medium text-lg text-left">
+              <p className="p-0 m-0 card-title text-left">
                 Trained Responders Available
               </p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-0 text-center">
@@ -210,90 +210,92 @@ const Disaster = ({ show }) => {
             <img src={responders} alt="Trained Responders Available" />
           </div>
           <div className="flex w-full gap-3">
+            {/* Prone Zone */}
             <div className="flex flex-column gap-3">
               <div className="flex flex-column bg-white border-round">
                 <AqiMap />
-                <p className="text p-0 m-0 mt-2">
+                <p className="card-text p-0 m-0">
                   Earthquake Prone Zone:{" "}
                   <span className="font-semibold">1</span>
                 </p>
               </div>
               <div className="flex flex-column bg-white border-round">
                 <AqiMap />
-                <p className="text p-0 m-0 mt-2">
+                <p className="card-text p-0 m-0">
                   Flood Prone Zone: <span className="font-semibold">1</span>
                 </p>
               </div>
             </div>
+            {/* Losses */}
             <div className="flex flex-column w-full gap-1">
               <div className="flex justify-content-between">
-                <p className="text p-0 m-0 font-semibold">Losses</p>{" "}
+                <p className="p-0 m-0 card-text">Losses</p>{" "}
                 <span className="text-tertiary3">2010 to 2020</span>
               </div>
               <div className="flex justify-content-between bg-white border-round p-3 w-full">
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-xl font-semibold m-0 text-secondary2 p-0">
                     1589
                   </p>
-                  <p className="text p-0 m-0 mt-1">Casualties</p>
+                  <p className="p-0 m-0 card-text">Casualties</p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-xl font-semibold m-0 text-secondary2 p-0">
                     2178
                   </p>
-                  <p className="text p-0 m-0 mt-1">People Injured</p>
+                  <p className="p-0 m-0 card-text">People Injured</p>
                 </div>
               </div>
               <div className="flex border-round w-full gap-2 my-3">
                 <div
-                  className="flex flex-column w-full pr-4 pl-2 py-3 bg-white"
+                  className="flex flex-column w-full pr-4 pl-2 py-3 bg-white gap-1"
                   style={{
                     borderLeft: "3px solid #1F8297", // Adjust thickness and color
-                    height: "60px", // Adjust height
+                    height: "55px", // Adjust height
                   }}
                 >
                   <p className="text-xl font-semibold m-0 text-primary2 p-0">
                     576
                   </p>
                   <div className="flex align-items-center">
-                    <p className="text m-0 p-0 mt-1 text-sm font-medium">
+                    <p className="p-0 m-0 card-text text-sm">
                       Loss of Animal Life
                     </p>
                   </div>
                 </div>
                 <div
-                  className="flex flex-column w-full pr-4 pl-2 py-3 bg-white"
+                  className="flex flex-column w-full pr-4 pl-2 py-3 bg-white gap-1"
                   style={{
                     borderLeft: "3px solid #1F8297", // Adjust thickness and color
-                    height: "60px", // Adjust height
+                    height: "55px", // Adjust height
                   }}
                 >
                   <p className="text-xl font-semibold m-0 text-primary2 p-0">
                     743
                   </p>
                   <div className="flex align-items-center">
-                    <p className="text m-0 p-0 mt-1 text-sm font-medium">
+                    <p className="p-0 m-0 card-text text-sm">
                       Loss of Vegetation
                     </p>
                   </div>
                 </div>
               </div>
               <div className="flex flex-column justify-content-between bg-white border-round p-2 w-full">
-                <p className="text p-0 m-0 mt-1 font-semibold">Economic Loss</p>
+                <p className="p-0 m-0 card-text">Economic Loss</p>
                 <div className="flex w-full align-items-center">
-                  <div className="flex flex-column w-full p-3 align-items-center">
+                  <div className="flex flex-column w-full p-3 align-items-center gap-1">
                     <p className="text-xl font-semibold m-0 text-secondary2 p-0">
                       750 <span>Cr.</span>
                     </p>
-                    <p className="text p-0 m-0 mt-1 text-sm">Capital Loss</p>
+                    <p className="p-0 m-0 card-text text-sm">Capital Loss</p>
                   </div>
                   <Divider layout="vertical" />
-                  <div className="flex flex-column w-full p-2 align-items-center">
+                  <div className="flex flex-column w-full p-2 align-items-center gap-1">
                     <p className="text-xl font-semibold m-0 text-secondary2 p-0">
                       1450 <span>Cr.</span>
                     </p>
-                    <p className="text p-0 m-0 mt-1 text-sm">
+                    <p className="p-0 m-0 card-text text-sm">
                       Infrastructure Loss
                     </p>
                   </div>
@@ -397,8 +399,8 @@ const Disaster = ({ show }) => {
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
             const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-down"
-              : "pi pi-chevron-up";
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
 
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">

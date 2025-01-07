@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
 import { Button } from "primereact/button";
+import { commonChartOptions } from "Layout/chartOptions";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const RainTrend = ({
@@ -35,24 +36,16 @@ const RainTrend = ({
       height: 200,
       backgroundColor: "transparent",
       legend: {
-        fontSize: 10,
         horizontalAlign: "left",
-        fontFamily: "Montserrat",
-        fontWeight: 500,
-        fontColor: "black",
+         ...commonChartOptions.legend,
+        fontColor: "#6F7070",
       },
       title: {
         text: "Rainfall Trend Over Years",
-        fontSize: 14,
-        fontFamily: "Montserrat",
-        fontWeight: 500,
-        fontColor: "black",
-        horizontalAlign: "left",
-        padding: { bottom: 14 },
+        ...commonChartOptions.title,
       },
       axisX: {
-        labelFontSize: 10,
-        labelFontFamily: "Montserrat",
+        ...commonChartOptions.axisX,
       },
       axisY: {
         gridThickness: 0.3,
@@ -102,24 +95,16 @@ const RainTrend = ({
         height: 200,
         backgroundColor: "transparent",
         legend: {
-          fontSize: 10,
           horizontalAlign: "left",
-          fontFamily: "Montserrat",
-          fontWeight: 600,
-          fontColor: "#001F23",
+          ...commonChartOptions.legend,
+          fontColor: "#6F7070",
         },
         title: {
           text: `Rainfall Trend Over Months for ${selectedYear}`,
-          fontSize: 14,
-          fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "black",
-          horizontalAlign: "left",
-          padding: { bottom: 14 },
+          ...commonChartOptions.title,
         },
         axisX: {
-          labelFontSize: 10,
-          labelFontFamily: "Montserrat",
+          ...commonChartOptions.axisX,
         },
         axisY: {
           gridThickness: 0.3,

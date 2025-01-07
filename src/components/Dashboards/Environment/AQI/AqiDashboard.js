@@ -454,7 +454,7 @@ const AqiDashboard = ({
               border: `1px solid ${aqiStatus.color}`,
             }}
           >
-            <h1 className="font-semibold text m-0 p-0">Air Quality Index</h1>
+            <h1 className="card-title m-0 p-0">Air Quality Index</h1>
             <div className="flex align-items-center justify-content-center p-2 gap-8">
               <h1
                 className="text-5xl font-medium p-0 m-0"
@@ -653,8 +653,8 @@ const AqiDashboard = ({
           onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
             const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-down"
-              : "pi pi-chevron-up";
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">

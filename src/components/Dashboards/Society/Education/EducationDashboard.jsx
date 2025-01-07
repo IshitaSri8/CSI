@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { TabView, TabPanel } from "primereact/tabview";
-import {
-  LineChart,
-  GroupedColumnChart,
-} from "Layout/GraphVisuals";
+import { LineChart, GroupedColumnChart } from "Layout/GraphVisuals";
 import { primaryData } from "./PrimaryData";
 import { secondaryData } from "./SecondaryData";
 import { higherEducationData } from "./HigherEducationData";
@@ -12,10 +9,10 @@ import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import EducationReportPrint from "./EducationReportPrint";
 import { ProgressBar } from "primereact/progressbar";
-import LandRecommendations from "components/Dashboards/Environment/Land/LandRecommendations";
 import { Panel } from "primereact/panel";
 import institutions from "assets/institutions.svg";
 import gender from "assets/gender.svg";
+import EducationRecommendations from "./EducationRecommendations";
 
 const EducationDashboard = ({ show }) => {
   const [selectedLevel, setSelectedLevel] = useState(0); // Use index for selected level (0 = Primary, 1 = Secondary, 2 = Higher)
@@ -51,41 +48,36 @@ const EducationDashboard = ({ show }) => {
             {/* <h1 className="text-3xl text-theme font-semibold text-center mt-0 p-0 mb-2">
               {level} Level Education
             </h1> */}
-              {show && (
-        <div className="flex align-items-center justify-content-end w-full">
-          {/* <h1 className="m-0 p-0 text-primary1 text-2xl font-semibold">Education</h1> */}
+            {show && (
+              <div className="flex align-items-center justify-content-end w-full">
+                {/* <h1 className="m-0 p-0 text-primary1 text-2xl font-semibold">Education</h1> */}
 
-          <Button
-            label="Generate Report"
-            icon="pi pi-file"
-            onClick={() => setReportVisible(true)}
-            className="bg-primary1 text-white mr-3"
-            style={{ marginTop: -60 }}
-            raised
-          />
-          <Dialog
-            visible={ReportVisible}
-            style={{ width: "100rem" }}
-            onHide={() => {
-              if (!ReportVisible) return;
-              setReportVisible(false);
-            }}
-          >
-            <EducationReportPrint />
-          </Dialog>
-        </div>
-      )}
+                <Button
+                  label="Generate Report"
+                  icon="pi pi-file"
+                  onClick={() => setReportVisible(true)}
+                  className="bg-primary1 text-white mr-3"
+                  style={{ marginTop: -80 }}
+                  raised
+                />
+                <Dialog
+                  visible={ReportVisible}
+                  style={{ width: "100rem" }}
+                  onHide={() => {
+                    if (!ReportVisible) return;
+                    setReportVisible(false);
+                  }}
+                >
+                  <EducationReportPrint />
+                </Dialog>
+              </div>
+            )}
             <div className="flex gap-3">
               <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
                 {/* Institutions */}
                 <div className="flex justify-content-between align-items-center bg-white border-round p-4 w-full">
                   <div className="flex flex-column gap-3">
-                    <p
-                      className="text-primary1 p-0 m-0 font-semibold text-lg"
-                      // style={{ marginLeft: -10, marginTop: -10 }}
-                    >
-                      Institutions
-                    </p>
+                    <p className="card-title p-0 m-0">Institutions</p>
                     <p className="text-4xl font-semibold m-0 text-secondary2 p-0 text-right">
                       {educationData.institutions}
                     </p>
@@ -105,27 +97,26 @@ const EducationDashboard = ({ show }) => {
                     dataSeries={educationData.institutionsAnalysisData}
                     dataPointWidth={25}
                     height={200}
+                    fontSize={7}
                   />
                 </div>
 
                 {/* Teacher vs Student Ratio */}
                 <div className="flex flex-column bg-white border-round p-3 justify-content-between w-full">
-                  <p className="text-primary1 p-0 m-0 text-lg font-semibold">
-                    Teacher vs Student Ratio
-                  </p>
-                  <div className="flex my-3">
-                  <div className="flex flex-column w-full p-2 align-items-center">
+                  <p className="card-title p-0 m-0">Teacher vs Student Ratio</p>
+                  <div className="flex my-2 py-2">
+                    <div className="flex flex-column w-full p-2 align-items-center gap-1">
                       <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                         {educationData.teacherStudentRatioCurrent}
                       </p>
-                      <p className="text p-0 m-0 mt-1 font-semibold">Current</p>
+                      <p className="p-0 m-0 card-text">Current</p>
                     </div>
                     <Divider layout="vertical" />
-                    <div className="flex flex-column w-full p-2 align-items-center">
+                    <div className="flex flex-column w-full p-2 align-items-center gap-1">
                       <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                         {educationData.teacherStudentRatioTarget}
                       </p>
-                      <p className="text p-0 m-0 mt-1 font-semibold">Target</p>
+                      <p className="p-0 m-0 card-text">Target</p>
                     </div>
                   </div>
                   <ProgressBar
@@ -140,7 +131,7 @@ const EducationDashboard = ({ show }) => {
                     color="#FFAD0D"
                     displayValueTemplate={() => null} // Hide the displayed value
                   />
-                  <p className="text-tertiary3 p-0 m-0 font-semibold">
+                  <p className="text-tertiary3 p-0 m-0 font-semibold mt-2">
                     Gap:{" "}
                     <span className="text-primary1">
                       {" "}
@@ -161,7 +152,7 @@ const EducationDashboard = ({ show }) => {
                     {/* Students Enrolled */}
                     <div className="flex flex-column bg-white border-round p-3 w-full">
                       <div className="flex flex-column gap-2">
-                        <p className="text-primary1 font-semibold text-left p-0 m-0 text-lg">
+                        <p className="card-title text-left p-0 m-0">
                           Students Enrolled
                         </p>
 
@@ -235,8 +226,8 @@ const EducationDashboard = ({ show }) => {
                       </div>
                     </div>
                     {/* Gender Parity Index */}
-                    <div className="flex flex-column w-full justify-content-center bg-white border-round p-3">
-                      <p className="text-primary1 p-0 m-0 mb-1 font-semibold text-lg text-left">
+                    <div className="flex flex-column w-full justify-content-center bg-white border-round p-3 gap-2">
+                      <p className="card-title p-0 m-0 text-left">
                         Gender Parity Index
                       </p>
                       <div className="flex justify-content-around align-items-center gap-4">
@@ -251,24 +242,24 @@ const EducationDashboard = ({ show }) => {
                   <div className="flex flex-column gap-3 w-full">
                     {/* Adjusted Net Enrollment Rate */}
                     <div className="flex flex-column bg-white border-round p-4 justify-content-between w-full">
-                      <p className="text-primary1 p-0 m-0 text-lg font-semibold">
+                      <p className="card-title p-0 m-0">
                         Adjusted Net Enrollment Rate
                       </p>
                       <div className="flex my-2 py-2">
-                        <div className="flex flex-column w-full p-2 align-items-center">
+                        <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.enrollmentCurrent}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
+                          <p className="p-0 m-0 card-text">
                             Current
                           </p>
                         </div>
                         <Divider layout="vertical" />
-                        <div className="flex flex-column w-full p-2 align-items-center">
+                        <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                             {educationData.enrollmentTarget}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
+                          <p className="p-0 m-0 card-text">
                             Target
                           </p>
                         </div>
@@ -297,24 +288,22 @@ const EducationDashboard = ({ show }) => {
                     </div>
                     {/* Dropout Rate */}
                     <div className="flex flex-column w-full bg-white border-round p-4 justify-content-between">
-                      <p className="text-primary1 p-0 m-0 text-lg font-semibold">
-                        Dropout Rate
-                      </p>
+                      <p className="card-title p-0 m-0">Dropout Rate</p>
                       <div className="flex my-2 py-2">
-                        <div className="flex flex-column w-full p-2 align-items-center">
+                        <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.dropoutRatioCurrentValue}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
+                          <p className="p-0 m-0 card-text">
                             Current
                           </p>
                         </div>
                         <Divider layout="vertical" />
-                        <div className="flex flex-column w-full p-2 align-items-center">
+                        <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                             {educationData.dropoutRatioTargetValue}
                           </p>
-                          <p className="text p-0 m-0 mt-1 font-semibold">
+                          <p className="p-0 m-0 card-text">
                             Target
                           </p>
                         </div>
@@ -353,7 +342,6 @@ const EducationDashboard = ({ show }) => {
                     title="No. of Students per Teacher"
                     categories={educationData.years}
                     data={educationData.teacherStudentRatioTrend}
-                    fontColor={"#4C4C4C"}
                     height={130}
                   />
                 </div>
@@ -369,6 +357,7 @@ const EducationDashboard = ({ show }) => {
                     years={years}
                     dataPointWidth={25}
                     height={225}
+                    fontSize={10}
                   />
                 </div>
                 {/* Dropout Rate Trend */}
@@ -380,26 +369,26 @@ const EducationDashboard = ({ show }) => {
                     years={years}
                     dataPointWidth={25}
                     height={225}
+                    fontSize={10}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="mt-3">
-              <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
+            <div className="">
+              <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic my-3">
                 *Data updated till 2020. These numbers are subject to variation.
               </p>
               {show && (
                 <Panel
-                  //  header="View Recommendations"
                   toggleable
-                  onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+                  onToggle={handleToggleRecommendations}
                   headerTemplate={(options) => {
-                    const toggleIcon = options.collapsed
-                      ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-                      : "pi pi-chevron-down"; // Arrow pointing down when expanded
+                    const toggleIcon = recommendationsVisible
+                      ? "pi pi-chevron-up"
+                      : "pi pi-chevron-down";
                     return (
-                      <div className="flex justify-content-between align-items-center px-4 bg-white border-round mt-2">
+                      <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                         <p className="text-primary1 font-semibold text-xl">
                           View Recommendations
                         </p>
@@ -417,7 +406,7 @@ const EducationDashboard = ({ show }) => {
                     );
                   }}
                 >
-                  {recommendationsVisible && <LandRecommendations />}
+                  {recommendationsVisible && <EducationRecommendations />}
                 </Panel>
               )}
             </div>

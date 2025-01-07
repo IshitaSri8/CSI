@@ -1,44 +1,53 @@
 import React from "react";
 import { Fieldset } from "primereact/fieldset";
 import { Badge } from "primereact/badge";
+import recom from "assets/recommendations.svg";
 
 const EmploymentRecommendations = () => {
-  const getRecommendationLand = () => {
+  const getRecommendation = () => {
     return (
-      <>
-        <ul className="text-xl">
-            <li>
-              1. Evacuation of Affected Areas: Safe and timely relocation of
-              people from high-risk zones.
-            </li>{" "}
-            <li>
-              {" "}
-              2. Search and Rescue Operations: Deployment of rescue teams to
-              find and assist trapped or missing individuals.
-            </li>{" "}
-            <li>
-              3. Medical Aid and Emergency Services: Setting up medical camps
-              and providing first aid to injured victims.
-            </li>
-            {""}
-            <li>
-              4. Shelter and Relief Camps: Establishment of temporary shelters
-              for displaced individuals with access to food, water, and basic
-              amenities.
-            </li>{" "}
-            <li>
-              5. Disaster Response Teams Deployment: Mobilization of National
-              Disaster Response Force (NDRF) and other emergency units.
-            </li>
-          </ul>
-      </>
+      <div className="flex flex-column">
+          <li className="font-medium text p-0 m-0">
+            Ensure that job advertisements are accessible to all, including
+            individuals with disabilities, and promote equal opportunity
+            employment.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Organize job fairs that connect local employers with job seekers,
+            facilitating direct engagement and networking.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Implement programs that support and formalize informal businesses,
+            providing them with access to financing and legal resources.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Develop apprenticeship programs in partnership with local industries
+            to provide hands-on experience and facilitate job placements.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Encourage companies to adopt diverse hiring practices, promoting
+            representation of various groups in the workforce.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Establish vocational training centers that focus on high-demand
+            skills, ensuring alignment with local job market needs.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Provide tax breaks or grants to companies that create jobs in
+            high-unemployment areas, encouraging local hiring.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Create incubation centers that offer resources and mentorship to new
+            businesses, fostering entrepreneurship and job creation.
+          </li>
+      </div>
     );
   };
 
   const getBadge = () => {
     return (
       <Badge
-        value="Measures Taken for Disaster Management"
+        value="Measures for Disaster Management"
         //severity="Good"
         style={{ backgroundColor: "#1F8297" }}
       />
@@ -46,9 +55,12 @@ const EmploymentRecommendations = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="flex align-items-center justify-content-around px-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge()}>{getRecommendationLand()}</Fieldset>
+      {/* <Fieldset legend={getBadge()}> */}
+      {getRecommendation()}
+      {/* </Fieldset> */}
+      <img src={recom} alt="recommendations" className="h-18rem py-2"/>
     </div>
   );
 };

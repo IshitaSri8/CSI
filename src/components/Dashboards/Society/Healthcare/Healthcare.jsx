@@ -5,21 +5,21 @@ import { Dialog } from "primereact/dialog";
 import HealthcareReportPrint from "./HealthcareReportPrint";
 import {
   GroupedColumnChart,
-  PieChart,
   GroupedBarChart,
   ModifiedLineChart,
+  PieChartColumn,
 } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
 import { PatientsRegisteredChart } from "./PatientsRegisteredChart";
 import { SuicideCasesChart } from "./SuicideCasesChart";
 import { Panel } from "primereact/panel";
-import LandRecommendations from "components/Dashboards/Environment/Land/LandRecommendations";
 import healthcare from "assets/healthcare.svg";
-import insurance from "assets/Health insurance.svg";
+import insurance from "assets/insurance.svg";
 import rehab from "assets/rehab.svg";
 import { ProgressBar } from "primereact/progressbar";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import HealthcareRecommendations from "./HealthcareRecommendations";
 
 const Healthcare = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -36,8 +36,8 @@ const Healthcare = ({ show }) => {
   const bedsTarget = 20;
   const bedsCurrent = 5;
 
-  const ratioTarget = 12;
-  const ratioCurrent = 18;
+  const ratioTarget = 20;
+  const ratioCurrent = 45;
 
   const years = ["2020", "2021", "2022", "2023", "2024"];
   const doctorsData = [4000, 6300, 7000, 7600, 9000];
@@ -113,13 +113,12 @@ const Healthcare = ({ show }) => {
   // const mentalPatientsData = [270, 328, 232, 150];
 
   return (
-    <div className="flex gap-3 flex-column p-4 gap-3">
+    <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Healthcare
           </h1>
-
           <Button
             label="Generate Report"
             icon="pi pi-file"
@@ -148,55 +147,45 @@ const Healthcare = ({ show }) => {
             >
               <img src={healthcare} alt="Healthcare" />
               <div className="flex py-6 w-full">
-                <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                    748
+                    754
                   </p>
-                  <p className="text p-0 m-0 mt-1 text-lg font-medium">
-                    Doctors
-                  </p>
+                  <p className="p-0 m-0 card-text">Doctors</p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
                     1375
                   </p>
-                  <p className="text p-0 m-0 mt-1 text-lg font-medium">
-                    Nurses
-                  </p>
+                  <p className="p-0 m-0 card-text">Nurses</p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center justify-content-center">
+                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
                   <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                     124
                   </p>
-                  <p className="text p-0 m-0 mt-1 text-lg font-medium">
-                    Medical Staff
-                  </p>
+                  <p className="p-0 m-0 card-text">Medical Staff</p>
                 </div>
               </div>
             </div>
 
             <div
-              className="flex justify-content-between align-items-center bg-white border-round p-3 py-6"
+              className="flex justify-content-between align-items-center bg-white border-round py-6"
               style={{ flex: "35%" }}
             >
-              <div className="flex flex-column w-full p-2 align-items-center">
+              <div className="flex flex-column w-full p-0 align-items-center gap-1">
                 <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                  159
+                  344
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm font-medium">
-                  Healthcare Institutes
-                </p>
+                <p className="p-0 m-0 card-text">Healthcare Institutes</p>
               </div>
               <Divider layout="vertical" />
-              <div className="flex flex-column w-full p-2 align-items-center">
+              <div className="flex flex-column w-full p-2 align-items-center gap-1">
                 <p className="text-3xl font-semibold m-0 text-primary2 p-0">
                   78
                 </p>
-                <p className="text p-0 m-0 mt-1 text-sm font-medium">
-                  Laboratories
-                </p>
+                <p className="tp-0 m-0 card-text">Laboratories</p>
               </div>
             </div>
           </div>
@@ -208,33 +197,31 @@ const Healthcare = ({ show }) => {
               style={{ flex: "15%" }}
             >
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                22750
+                33,900
               </p>
-              <p className="text p-0 m-0 text-lg font-medium text-center">
+              <p className="p-0 m-0 card-title text-center">
                 Registered Patients
               </p>
             </div>
             {/* Patient Doctor Ratio */}
             <div
               className="flex flex-column bg-white border-round p-3 justify-content-center"
-              style={{ flex: "30%" }}
+              style={{ flex: "28%" }}
             >
-              <p className="text-primary1 p-0 m-0 text-lg font-semibold">
-                Patient Doctor Ratio
-              </p>
+              <p className="card-title p-0 m-0">Patient Doctor Ratio</p>
               <div className="flex my-3">
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                     {ratioCurrent}
                   </p>
-                  <p className="text p-0 m-0 mt-1 font-medium">Available</p>
+                  <p className="p-0 m-0 card-text">Available</p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                     {ratioTarget}
                   </p>
-                  <p className="text p-0 m-0 mt-1 font-medium">Target</p>
+                  <p className="p-0 m-0 card-text">Target</p>
                 </div>
               </div>
               <ProgressBar
@@ -258,15 +245,13 @@ const Healthcare = ({ show }) => {
             {/* People Having Health Insurance */}
             <div
               className="flex justify-content-center align-items-center bg-white border-round p-3"
-              style={{ flex: "25%" }}
+              style={{ flex: "27%" }}
             >
               <div className="flex flex-column">
-                <p className="text-primary1 p-0 m-0 mb-1 font-semibold text-lg">
-                  No. of Health Insurance
-                </p>
+                <p className="card-title p-0 m-0 ">Health Insurance Coverage</p>
                 <div className="flex align-items-center justify-content-around">
                   <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
-                    1234
+                    12500
                   </p>
                   <img src={insurance} alt="insurance" className="h-8rem" />
                 </div>
@@ -277,20 +262,20 @@ const Healthcare = ({ show }) => {
               className="flex flex-column bg-white border-round p-3 justify-content-center"
               style={{ flex: "40%" }}
             >
-              <p className="text-primary1 p-0 m-0 text-lg font-semibold">Hospital Beds</p>
+              <p className="card-title p-0 m-0">Hospital Beds</p>
               <div className="flex my-3">
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                     {bedsCurrent}
                   </p>
-                  <p className="text p-0 m-0 mt-1 font-medium">Available</p>
+                  <p className="p-0 m-0 card-text">Available</p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center">
+                <div className="flex flex-column w-full p-2 align-items-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                     {bedsTarget}
                   </p>
-                  <p className="text p-0 m-0 mt-1 font-medium">Target</p>
+                  <p className="p-0 m-0 card-text">Target</p>
                 </div>
               </div>
               <ProgressBar
@@ -318,6 +303,7 @@ const Healthcare = ({ show }) => {
             dataSeries={institutionsAnalysisData}
             dataPointWidth={25}
             height={260}
+            fontSize={10}
           />
         </div>
       </div>
@@ -349,13 +335,11 @@ const Healthcare = ({ show }) => {
 
         {/* Vaccination Facilities */}
         <div className="flex bg-white border-round p-3" style={{ flex: "18%" }}>
-          <PieChart
+          <PieChartColumn
             categories={vaccinationLabels}
             series={vaccinationData}
-            height={200}
+            height={160}
             title="Vaccination Facilities"
-            vertical="bottom"
-            horizontal="center"
             fontSize={8}
           />
         </div>
@@ -391,9 +375,7 @@ const Healthcare = ({ show }) => {
           {/* Header Row */}
           <div className="flex justify-content-between align-items-center mb-2">
             {/* Constant Title on the Left */}
-            <h4 className="m-0 text-lg font-semibold text-primary1">
-              Chronic Disease Distribution
-            </h4>
+            <p className="card-title p-0 m-0">Chronic Disease Distribution</p>
 
             {/* Icons for Tab Switching on the Right */}
             <div className="flex gap-1">
@@ -407,7 +389,8 @@ const Healthcare = ({ show }) => {
                 style={{
                   // fontSize: "1.125rem",
                   // padding: 2,
-                  backgroundColor: activeIndex === 0 ? "#e9f3f5" : "transparent",
+                  backgroundColor:
+                    activeIndex === 0 ? "#e9f3f5" : "transparent",
                   borderBottom:
                     activeIndex === 0 ? "2px solid #166c7d" : "none",
                 }}
@@ -419,7 +402,8 @@ const Healthcare = ({ show }) => {
                 }`}
                 title="Data Table"
                 style={{
-                  backgroundColor: activeIndex === 1 ? "#e9f3f5" : "transparent",
+                  backgroundColor:
+                    activeIndex === 1 ? "#e9f3f5" : "transparent",
                   borderBottom:
                     activeIndex === 1 ? "2px solid #166c7d" : "none",
                 }}
@@ -442,8 +426,14 @@ const Healthcare = ({ show }) => {
             <DataTable
               value={tableData}
               className="p-datatable-sm"
-              stripedRows
+              // stripedRows
               responsiveLayout="scroll"
+              rowStyle={{ backgroundColor: "#f3f5f5" }}
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                overflow: "hidden",
+              }}
             >
               <Column
                 field="disease"
@@ -482,10 +472,9 @@ const Healthcare = ({ show }) => {
         </div>
 
         <div className="flex flex-column" style={{ flex: "22%" }}>
+          {/* Rehab Centers */}
           <div className="flex flex-column bg-white p-3 border-round-top-xl">
-            <p className="text-primary1 p-0 m-0 mb-1 font-semibold text-lg">
-              Rehab Centers
-            </p>
+            <p className="card-title p-0 m-0">Rehab Centers</p>
             <div className="flex align-items-center justify-content-around">
               <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
                 2
@@ -523,14 +512,12 @@ const Healthcare = ({ show }) => {
 
       {show && (
         <Panel
-          //  header="View Recommendations"
           toggleable
-          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-down"; // Arrow pointing down when expanded
-
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">
@@ -550,7 +537,7 @@ const Healthcare = ({ show }) => {
             );
           }}
         >
-          {recommendationsVisible && <LandRecommendations />}
+          {recommendationsVisible && <HealthcareRecommendations />}
         </Panel>
       )}
     </div>

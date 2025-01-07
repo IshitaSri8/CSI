@@ -1,44 +1,61 @@
 import React from "react";
 import { Fieldset } from "primereact/fieldset";
 import { Badge } from "primereact/badge";
+import recom from "assets/recommendations.svg";
 
 const HealthcareRecommendations = () => {
-  const getRecommendationLand = () => {
+  const getRecommendation = () => {
     return (
-      <>
-        <ul className="text-xl">
-            <li>
-              1. Evacuation of Affected Areas: Safe and timely relocation of
-              people from high-risk zones.
-            </li>{" "}
-            <li>
-              {" "}
-              2. Search and Rescue Operations: Deployment of rescue teams to
-              find and assist trapped or missing individuals.
-            </li>{" "}
-            <li>
-              3. Medical Aid and Emergency Services: Setting up medical camps
-              and providing first aid to injured victims.
-            </li>
-            {""}
-            <li>
-              4. Shelter and Relief Camps: Establishment of temporary shelters
-              for displaced individuals with access to food, water, and basic
-              amenities.
-            </li>{" "}
-            <li>
-              5. Disaster Response Teams Deployment: Mobilization of National
-              Disaster Response Force (NDRF) and other emergency units.
-            </li>
-          </ul>
-      </>
+      <div className="flex flex-column">
+          <li className="font-medium text p-0 m-0">
+            Expand the number of registered (NABH accredited) private and
+            government hospitals and dispensaries across the city.
+          </li>{" "}
+          <li className="font-medium text p-0 m-0">
+            Ensure all healthcare facilities, nursing homes, and private
+            hospitals are NABH accredited to guarantee safety and quality
+            standards.
+          </li>{" "}
+          <li className="font-medium text p-0 m-0">
+            Enhance access to vaccination centers, especially for newborns and
+            high-risk groups (e.g., flu, cervical cancer).
+          </li>
+          {""}
+          <li className="font-medium text p-0 m-0">
+            Establish mobile health clinics to serve underserved and remote
+            areas, especially for vulnerable populations.
+          </li>{" "}
+          <li className="font-medium text p-0 m-0">
+            Create 24/7 helplines and digital platforms for mental health
+            support, addressing issues like addiction, depression, and
+            professional/social stress.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Increase health insurance coverage per capita by promoting
+            affordable public health insurance schemes.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Enhance the number and quality of rehabilitation centers for
+            addiction recovery and mental health support.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Implement city-wide digital health record systems to track patient
+            history, which can be accessed by certified doctors for better
+            diagnosis and treatment.
+          </li>
+          <li className="font-medium text p-0 m-0">
+            Run public campaigns to educate residents on preventative care,
+            mental health awareness, and the importance of regular health
+            checkups.
+          </li>
+       </div>
     );
   };
 
   const getBadge = () => {
     return (
       <Badge
-        value="Measures Taken for Disaster Management"
+        value="Measures for Disaster Management"
         //severity="Good"
         style={{ backgroundColor: "#1F8297" }}
       />
@@ -46,9 +63,12 @@ const HealthcareRecommendations = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="flex align-items-center justify-content-around px-5">
       {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-      <Fieldset legend={getBadge()}>{getRecommendationLand()}</Fieldset>
+      {/* <Fieldset legend={getBadge()}> */}
+      {getRecommendation()}
+      {/* </Fieldset> */}
+      <img src={recom} alt="recommendations" className="h-20rem py-2" />
     </div>
   );
 };

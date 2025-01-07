@@ -3,7 +3,7 @@ import { Fieldset } from "primereact/fieldset";
 import { Badge } from "primereact/badge";
 import recom from "assets/recommendations.svg";
 
-const DisasterRecommendations = () => {
+const TransportRecommendations = () => {
   const getRecommendation = () => {
     return (
       <>
@@ -47,14 +47,12 @@ const DisasterRecommendations = () => {
   };
 
   return (
-     <div className="flex align-items-center justify-content-around px-5">
-     {/* <h1 className="text-left text-xl">Recommendations</h1> */}
-     {/* <Fieldset legend={getBadge()}> */}
-     {getRecommendation()}
-     {/* </Fieldset> */}
-     <img src={recom} alt="recommendations" className="h-16rem py-2"/>
-   </div>
+    <div className="flex align-items-center justify-content-around p-5">
+      {/* <h1 className="text-left text-xl">Recommendations</h1> */}
+      <Fieldset legend={getBadge()}>{getRecommendation()}</Fieldset>
+      <img src={recom} alt="recommendations" />
+    </div>
   );
 };
 
-export default DisasterRecommendations;
+export default TransportRecommendations;

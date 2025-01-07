@@ -8,11 +8,11 @@ import {
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import CultureReportPrint from "./CultureReportPrint";
-import DisasterRecommendations from "components/Dashboards/Administration/Disaster Management/DisasterRecommendations";
 import { Panel } from "primereact/panel";
 import { ProgressBar } from "primereact/progressbar";
 import festival from "assets/Festival Illustration.svg";
 import cultural from "assets/Cultural Sites.svg";
+import CultureRecommendations from "./CultureRecommendations";
 
 const Culture = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -72,9 +72,7 @@ const Culture = ({ show }) => {
           {/* Cultural Sites */}
           <div className="flex flex-column bg-white border-round p-3 w-full">
             <div className="flex align-items-start">
-              <p className="text-primary1 font-semibold text-lg p-0 m-0">
-                CulturalSites
-              </p>
+              <p className="card-title p-0 m-0">CulturalSites</p>
               <i className="pi pi-info-circle text-secondary2 text-right w-full text-sm cursor-pointer sites"></i>
               <Tooltip target=".sites" position="right">
                 <div className="flex align-items-start justify-content-start gap-4 p-2">
@@ -100,17 +98,15 @@ const Culture = ({ show }) => {
               color="#FFAD0D"
               displayValueTemplate={() => null} // Hide the displayed value
             />
-            <p className="text-secondary2 text-center text-lg font-medium p-0 m-0">
+            <p className="text-secondary2 text-center text-lg font-semibold p-0 m-0">
               10%
             </p>
           </div>
 
           {/* Cultural Festivals/Events */}
           <div className="flex flex-column bg-white border-round p-3 w-full">
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
-              Cultural Festivals & Events
-            </p>
-            <div className="flex align-items-center">
+            <p className="card-title p-0 m-0">Cultural Festivals & Events</p>
+            <div className="flex align-items-center justify-content-around">
               <p className="text-4xl font-semibold m-0 text-secondary2 p-4">
                 26
               </p>
@@ -120,9 +116,7 @@ const Culture = ({ show }) => {
 
           {/* Fund Allocated */}
           <div className="flex flex-column bg-white border-round p-3 w-full">
-            <p className="text-primary1 font-semibold text-lg p-0 m-0">
-              Funds Allocated
-            </p>
+            <p className="card-title p-0 m-0 ">Funds Allocated</p>
             <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
               {" "}
               100 <span className="text-xl">Cr</span>
@@ -135,23 +129,29 @@ const Culture = ({ show }) => {
           style={{ flex: "40%" }}
         >
           {/* Total Vs Maintained Cultural Sites Over Years */}
-          <div className="flex bg-white border-round align-items-center p-4 w-full">
+          <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
+            <p className="card-title p-0 m-0">
+              Total Vs Maintained Cultural Sites Over Years
+            </p>
             <CombinationChart
-              title="Total Vs Maintained Cultural Sites Over Years"
+              // title="Total Vs Maintained Cultural Sites Over Years"
               categories={categories}
               totalSites={totalSites}
               maintainedSites={maintainedSites}
-              height={245}
+              height={240}
             />
           </div>
 
           {/* Funds Allocated Over Years */}
-          <div className="flex bg-white border-round align-items-center p-4 w-full">
+          <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
+            <p className="card-title p-0 m-0">
+              Funds Allocated Over Years (in Crore)
+            </p>
             <LineChart
-              title="Funds Allocated Over Years (in Crore)"
+              // title="Funds Allocated Over Years (in Crore)"
               categories={categories}
               data={funds}
-              height={150}
+              height={130}
             />
           </div>
         </div>
@@ -163,31 +163,30 @@ const Culture = ({ show }) => {
           <div className="flex align-items-center justify-content-center gap-3 w-full">
             {/* Tourists */}
             <div className="flex flex-column bg-white border-round p-3 w-full">
-              <p className="text-primary1 font-semibold p-0 m-0 text-lg">
-                Tourists
-              </p>
-              <p className="text-4xl font-semibold m-0 text-secondary2 p-4 text-center">
+              <p className="card-title p-0 m-0 ">Tourists</p>
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-5 text-center">
                 1,15,000
               </p>
             </div>
             {/* Schools Offering Courses in Local Languages */}
             <div className="flex flex-column bg-white border-round p-3 w-full">
-              <p className="text-primary1 font-semibold p-0 m-0">
+              <p className="card-title p-0 m-0 ">
                 Schools Offering Courses in Local Languages
               </p>
-              <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
+              <p className="text-4xl font-semibold m-0 text-secondary2 p-3 m-1 text-center">
                 180
               </p>
             </div>
           </div>
 
           {/* Number of Tourists Over Years */}
-          <div className="flex bg-white border-round align-items-center p-4 w-full">
+          <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
+            <p className="card-title p-0 m-0 ">Number of Tourists Over Years</p>
             <GroupedBarChart
-              title="Number of Tourists Over Years"
+              // title="Number of Tourists Over Years"
               labels={categories}
               dataSeries={touristData}
-              height={325}
+              height={300}
               dataPointWidth={20}
             />
           </div>
@@ -196,14 +195,12 @@ const Culture = ({ show }) => {
 
       {show && (
         <Panel
-          //  header="View Recommendations"
           toggleable
-          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-down"; // Arrow pointing down when expanded
-
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">
@@ -223,7 +220,7 @@ const Culture = ({ show }) => {
             );
           }}
         >
-          {recommendationsVisible && <DisasterRecommendations />}
+          {recommendationsVisible && <CultureRecommendations />}
         </Panel>
       )}
     </div>
@@ -231,7 +228,3 @@ const Culture = ({ show }) => {
 };
 
 export default Culture;
-
-
-
-

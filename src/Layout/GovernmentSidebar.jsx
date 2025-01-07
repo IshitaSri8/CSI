@@ -41,7 +41,7 @@ import WasteDashboard from "components/Dashboards/Environment/Waste/WasteDashboa
 import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboard";
 import Land from "components/Dashboards/Environment/Land/Land";
 import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
-import Transport from "components/Dashboards/Society/Transport/Transport/Transport";
+import Transport from "components/Dashboards/Society/Transport/Transport";
 import { Divider } from "primereact/divider";
 import WaterNew from "components/Dashboards/Environment/Water/WaterNew";
 
@@ -131,7 +131,7 @@ const GovernmentSidebar = () => {
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "Society" },
-          { label: "Transport", isSelected: true },
+          { label: "Public Transport", isSelected: true },
         ]
       : activeTab === "healthcare"
       ? [
@@ -657,8 +657,8 @@ const GovernmentSidebar = () => {
           position: "sticky", // Make it sticky
           top: 0, // Stick to the top
           zIndex: 1000, // Ensure it stays on top of other elements
-          backgroundColor: "#fff", // Add a background color to prevent overlap issues
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Optional: Add a subtle shadow for separation
+          backgroundColor: "#f3f5f5", // Add a background color to prevent overlap issues
+          // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Optional: Add a subtle shadow for separation
           marginLeft: "5rem",
         }}
       />

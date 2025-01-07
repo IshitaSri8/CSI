@@ -3,11 +3,11 @@ import { ColumnChart, GroupedBarChart } from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import CommunityReportPrint from "./CommunityReportPrint";
-import DisasterRecommendations from "components/Dashboards/Administration/Disaster Management/DisasterRecommendations";
 import { Panel } from "primereact/panel";
 import workshop from "assets/workshop.svg";
 import ngo from "assets/ngo.svg";
 import survey from "assets/Survey Illustration.svg";
+import CommunityRecommendations from "./CommunityRecommendations";
 
 const Community = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -72,9 +72,7 @@ const Community = ({ show }) => {
           {/* NGOs/Forums */}
           <div className="flex bg-white border-round align-items-center justify-content-around w-full">
             <div className="flex flex-column p-4">
-              <p className="text-primary1 font-semibold text-lg p-0 m-0">
-                NGOs/Forums
-              </p>
+              <p className="card-title p-0 m-0">NGOs/Forums</p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-2 text-center">
                 215
               </p>
@@ -100,9 +98,7 @@ const Community = ({ show }) => {
           {/* Feedback Survey Channels */}
           <div className="flex bg-white border-round align-items-center justify-content-around p-3 w-full">
             <div className="flex flex-column">
-              <p className="text-primary1 font-semibold text-lg p-0 m-0">
-                Feedback Survey Channels
-              </p>
+              <p className="card-title p-0 m-0">Feedback Survey Channels</p>
               <p className="text-4xl font-semibold m-0 text-secondary2 p-2 text-center">
                 58
               </p>
@@ -126,24 +122,25 @@ const Community = ({ show }) => {
 
         {/* Number of NGOs/Forums Over Years */}
         <div
-          className="flex bg-white border-round align-items-center p-3"
+          className="flex flex-column bg-white border-round p-3"
           style={{ flex: "42%" }}
         >
+          <p className="card-title p-0 m-0">NGOs/Forums Over the Years</p>
           <ColumnChart
-            title="NGOs/Forums Over the Years"
+            // title="NGOs/Forums Over the Years"
             categories={categories}
             series={forums}
-            height={175}
+            height={160}
             dataPointWidth={40}
           />
         </div>
 
         {/* Annual Public Awareness Meetings/Workshops */}
         <div
-          className="flex flex-column bg-white border-round align-items-center p-3"
+          className="flex flex-column bg-white border-round align-items-center p-3 gap-2"
           style={{ flex: "20%" }}
         >
-          <p className="text-primary1 font-semibold text-lg p-0 m-0">
+          <p className="card-title p-0 m-0">
             Annual Public Awareness Meetings & Workshops
           </p>
           <div className="flex justify-content-around">
@@ -155,12 +152,13 @@ const Community = ({ show }) => {
 
       <div className="flex align-items-center justify-content-center gap-2 w-full">
         {/* Socio-Cultural Facilities */}
-        <div className="flex bg-white border-round align-items-center p-4 w-full">
+        <div className="flex flex-column bg-white border-round p-4 w-full">
+        <p className="card-title p-0 m-0">Socio-Cultural Facilities</p>
           <GroupedBarChart
-            title="Socio-Cultural Facilities"
+            // title="Socio-Cultural Facilities"
             labels={facilitiesCategories}
             dataSeries={facilitiesData}
-            height={275}
+            height={260}
             dataPointWidth={10}
           />
         </div>
@@ -186,14 +184,12 @@ const Community = ({ show }) => {
 
       {show && (
         <Panel
-          //  header="View Recommendations"
           toggleable
-          onToggle={handleToggleRecommendations} // Optional: if you want to perform an action on toggleheaderTemplate={(options) => {
+          onToggle={handleToggleRecommendations}
           headerTemplate={(options) => {
-            const toggleIcon = options.collapsed
-              ? "pi pi-chevron-right" // Arrow pointing to the right when collapsed
-              : "pi pi-chevron-down"; // Arrow pointing down when expanded
-
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
             return (
               <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
                 <p className="text-primary1 font-semibold text-xl">
@@ -213,7 +209,7 @@ const Community = ({ show }) => {
             );
           }}
         >
-          {recommendationsVisible && <DisasterRecommendations />}
+          {recommendationsVisible && <CommunityRecommendations />}
         </Panel>
       )}
     </div>
