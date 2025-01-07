@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import ADA_Boundary from "../../Environment/Maps/ADA_Boundary.json";
-import villageData from "../../Environment/Maps/ayodhya_village.json"; // Import village GeoJSON data
+import zones from "../../Environment/Water/GeoJson_Zone/Zone_Boundary_Merge.json";
 
 const AccidentMap = ({ accidentData }) => {
   // Function to determine color based on severity
@@ -65,7 +65,7 @@ const AccidentMap = ({ accidentData }) => {
       <GeoJSON data={ADA_Boundary} style={boundaryStyle} />
 
       {/* Render Village Boundaries */}
-      <GeoJSON data={villageData} style={villageStyle} />
+      <GeoJSON data={zones} style={villageStyle} />
 
       {/* Render accident markers */}
       {accidentData.map((accident, index) => (

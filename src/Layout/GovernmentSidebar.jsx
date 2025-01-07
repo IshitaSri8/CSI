@@ -43,6 +43,7 @@ import Land from "components/Dashboards/Environment/Land/Land";
 import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
 import Transport from "components/Dashboards/Society/Transport/Transport";
 import { Divider } from "primereact/divider";
+import WaterNew from "components/Dashboards/Environment/Water/WaterNew";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -390,6 +391,20 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
+                  <li>
+                    <div
+                      style={getTabStyle("water_new")}
+                      onClick={() => handleTabClick("water_new")}
+                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
+                    >
+                      <Droplet className="text-white mr-2" size={15} />
+                      {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
+                      <span className="font-medium text-sm text-white">
+                        Water New
+                      </span>
+                      <Ripple />
+                    </div>
+                  </li>
 
                   {/* Land Usage */}
                   <li>
@@ -476,9 +491,8 @@ const GovernmentSidebar = () => {
               </div>
               {activeSections.society && (
                 <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
-
-                   {/* Healthcare */}
-                   <li>
+                  {/* Healthcare */}
+                  <li>
                     <div
                       style={getTabStyle("healthcare")}
                       onClick={() => handleTabClick("healthcare")}
@@ -522,8 +536,8 @@ const GovernmentSidebar = () => {
                     </div>
                   </li>
 
-                    {/* Employment Opportunity */}
-                    <li>
+                  {/* Employment Opportunity */}
+                  <li>
                     <div
                       style={getTabStyle("employment")}
                       onClick={() => handleTabClick("employment")}
@@ -540,8 +554,8 @@ const GovernmentSidebar = () => {
                     </div>
                   </li>
 
-                   {/* Cultural Preservation */}
-                   <li>
+                  {/* Cultural Preservation */}
+                  <li>
                     <div
                       style={getTabStyle("cultural")}
                       onClick={() => handleTabClick("cultural")}
@@ -569,7 +583,6 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
-
                 </ul>
               )}
             </li>
@@ -655,7 +668,7 @@ const GovernmentSidebar = () => {
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCardGov show={true} />}
         {activeTab === "aqi" && <AqiDashboard show={true} />}
-
+        {activeTab === "water_new" && <WaterNew show={true}/>}
         {activeTab === "water" && <WaterDashboard show={true} />}
         {activeTab === "land" && <Land show={true} />}
 

@@ -5,14 +5,12 @@ import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
-import bus from "assets/bus.svg";
+import increase from "assets/increase.png";
 import ayodhya from "assets/AYODHYA.png";
+import bus from "assets/bus.svg";
 import TransportRecommendations from "./TransportRecommendations";
 import TransportReportPrint from "./TransportReportPrint";
-import increase from "assets/increase.png";
 import AccidentMap from "./AccidentMap";
-import { Dropdown } from "primereact/dropdown";
-import { Card } from "primereact/card";
 import BusRoutes from "./BusRoutes";
 
 const Transport = ({ show }) => {
@@ -164,11 +162,20 @@ const Transport = ({ show }) => {
                   <p className="p-0 m-0 card-text">5 Years</p>
                 </div>
               </div>
+              <p className="card-text text-xs p-0 m-0 text-right">
+                *Standard values
+              </p>
             </div>
           </div>
           {/* Buses going for maintenance */}
-          <div className="flex flex-column bg-white border-round p-3">
-            <p className="card-title p-0 m-0">Buses going for Maintenance</p>
+          <div className="flex flex-column bg-white border-round p-3 gap-2">
+            <div className="flex justify-content-between">
+              <p className="card-title p-0 m-0">
+                Buses going for Maintenance Quarterly
+              </p>
+              <p className="text-sm text-tertiary3 font-medium p-0 m-0">2024</p>
+            </div>
+            {/* <p className="card-title p-0 m-0">Buses going for Maintenance</p> */}
             <ColumnChart
               // title="Buses going for maintenance"
               categories={labels}
@@ -191,8 +198,7 @@ const Transport = ({ show }) => {
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
-              125{" "}
-              <span className="text-tertiary3 font-medium">/Day</span>
+              125 <span className="text-tertiary3 font-medium">/Day</span>
             </p>
           </div>
           {/* Average Passenger Count */}
@@ -202,8 +208,7 @@ const Transport = ({ show }) => {
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
-              487{" "}
-              <span className="text-tertiary3 font-medium">/Day</span>
+              487 <span className="text-tertiary3 font-medium">/Day</span>
             </p>
             {/* <Chip
             label="October 2024"
@@ -258,10 +263,12 @@ const Transport = ({ show }) => {
         {/* EV Trend */}
         <div
           className="flex flex-column bg-white border-round p-3 gap-2"
-          style={{ flex: "35%" }}
+          style={{ flex: "38%" }}
         >
           <div className="flex justify-content-between">
-            <p className="card-title p-0 m-0">EV Trend</p>
+            <p className="card-title p-0 m-0">
+              Quarterly EV Bus Deployment Trend
+            </p>
             <p className="text-sm text-tertiary3 font-medium p-0 m-0">2024</p>
           </div>
           <LineChart
@@ -273,24 +280,34 @@ const Transport = ({ show }) => {
           />
         </div>
 
-        <div className="flex flex-column gap-3" style={{ flex: "15%" }}>
+        <div className="flex flex-column gap-2" style={{ flex: "12%" }}>
           {/*  Charging Stations*/}
-          <div className="flex flex-column bg-white border-round w-full p-3 gap-2">
-            <p className="card-title p-0 m-0">
+          <div className="flex flex-column bg-white border-round w-full p-2 gap-2">
+            <p className="card-text p-0 m-0">
               Charging Stations
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
-            <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
+            <p className="text-xl font-semibold m-0 p-0 text-secondary2 text-center">
               12
             </p>
           </div>
+          {/* Petrol Pumps*/}
+          <div className="flex flex-column bg-white border-round w-full p-2 gap-2">
+            <p className="card-text p-0 m-0">
+              Petrol Pumps
+              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+            </p>
+            <p className="text-xl font-semibold m-0 p-0 text-secondary2 text-center">
+              27
+            </p>
+          </div>
           {/* Accidents*/}
-          <div className="flex flex-column bg-white border-round w-full p-3 gap-2">
-            <p className="card-title p-0 m-0">
+          <div className="flex flex-column bg-white border-round w-full p-2 gap-2">
+            <p className="card-text p-0 m-0">
               Accidents
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
-            <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
+            <p className="text-xl font-semibold m-0 p-0 text-secondary2 text-center">
               27
             </p>
           </div>
