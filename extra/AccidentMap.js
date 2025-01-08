@@ -90,3 +90,28 @@ const AccidentMap = ({ accidentData }) => {
 };
 
 export default AccidentMap;
+
+
+ const accidentData = [
+    {
+      location: "Location A",
+      lat: 26.774794,
+      lon: 82.134539,
+      severity: "severe",
+      count: 5,
+    },
+    {
+      location: "Location B",
+      lat: 26.767421,
+      lon: 82.09535,
+      severity: "moderate",
+      count: 3,
+    },
+    {
+      location: "Location C",
+      lat: 26.764028,
+      lon: 82.133778,
+      severity: "low",
+      count: 1,
+    },
+  ];

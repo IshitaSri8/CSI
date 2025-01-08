@@ -42,30 +42,6 @@ const Transport = ({ show }) => {
 
   const buses = [80, 90, 178, 148]; // Buses in maintenance QUARTERWISE
 
-  const accidentData = [
-    {
-      location: "Location A",
-      lat: 26.774794,
-      lon: 82.134539,
-      severity: "severe",
-      count: 5,
-    },
-    {
-      location: "Location B",
-      lat: 26.767421,
-      lon: 82.09535,
-      severity: "moderate",
-      count: 3,
-    },
-    {
-      location: "Location C",
-      lat: 26.764028,
-      lon: 82.133778,
-      severity: "low",
-      count: 1,
-    },
-  ];
-
   const [filterVisible, setFilterVisible] = useState(false);
   const [data, setData] = useState([]);
   const [selectedZone, setSelectedZone] = useState("Civil Lines");
@@ -363,54 +339,7 @@ const Transport = ({ show }) => {
             <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
               487 <span className="text-tertiary3 font-medium">/Day</span>
             </p>
-            {/* <Chip
-            label="October 2024"
-            style={{
-              width: "fit-content",
-              backgroundColor: "#e9f3f5",
-              color: "#001F23",
-            }}
-          /> */}
           </div>
-
-          {/* Maintenance of Public Vehicle*/}
-          {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
-            <div className="flex justify-content-between align-items-center w-full">
-              <p className="card-title p-0 m-0">
-                Maintenance of Public Vehicle
-              </p>
-            </div>
-            <div className="flex w-11rem custom-circular-progress">
-              <CircularProgressbar
-                value={maintenance}
-                text={`${maintenance}%`}
-                strokeWidth={8}
-                styles={buildStyles({
-                  pathColor: "#1f8297",
-                  textColor: "#001F23",
-                  trailColor: "#E7EAEA",
-                  textSize: "1.2rem",
-                  pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                  transform: "rotate(2.25turn)",
-                })}
-              />
-            </div>
-            <div className="flex align-items-center justify-content-start">
-              <img
-                src={increase}
-                style={{
-                  height: "1.5rem",
-                  width: "1.5rem",
-                  marginRight: "0.5rem",
-                }}
-                alt="increase"
-              />
-              <p className="text-tertiary3 text-sm p-0 m-0 font-medium">
-                <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
-                year.
-              </p>
-            </div>
-          </div> */}
         </div>
 
         {/* EV Trend */}
@@ -467,7 +396,7 @@ const Transport = ({ show }) => {
         </div>
 
         <div className="flex" style={{ flex: "32%" }}>
-          <AccidentMap accidentData={accidentData} />
+          <AccidentMap />
         </div>
       </div>
 
