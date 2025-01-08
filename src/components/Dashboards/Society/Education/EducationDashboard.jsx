@@ -7,12 +7,12 @@ import { higherEducationData } from "./HigherEducationData";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
-import EducationReportPrint from "./EducationReportPrint";
 import { ProgressBar } from "primereact/progressbar";
 import { Panel } from "primereact/panel";
 import institutions from "assets/institutions.svg";
 import gender from "assets/gender.svg";
 import EducationRecommendations from "./EducationRecommendations";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const EducationDashboard = ({ show }) => {
   const [selectedLevel, setSelectedLevel] = useState(0); // Use index for selected level (0 = Primary, 1 = Secondary, 2 = Higher)
@@ -35,6 +35,14 @@ const EducationDashboard = ({ show }) => {
   };
 
   const years = ["2021", "2022", "2023", "2024"];
+
+  const renderRecommendations = () => {
+    return <EducationRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <EducationDashboard show={false} />;
+  };
 
   return (
     <div className="flex flex-column">
@@ -68,7 +76,12 @@ const EducationDashboard = ({ show }) => {
                     setReportVisible(false);
                   }}
                 >
-                  <EducationReportPrint />
+                  <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"education"}
+                heading={"Education"}
+              />
                 </Dialog>
               </div>
             )}

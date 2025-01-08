@@ -4,18 +4,14 @@ import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import { Panel } from "primereact/panel";
-import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
-import increase from "assets/increase.png";
-import ayodhya from "assets/AYODHYA.png";
 import bus from "assets/bus.svg";
 import TransportRecommendations from "./TransportRecommendations";
-import TransportReportPrint from "./TransportReportPrint";
 import AccidentMap from "./AccidentMap";
 import BusRoutes from "./BusRoutes";
 import { Dropdown } from "primereact/dropdown";
 import { useEffect } from "react";
 import axios from "axios";
-import Upload from "../../../Popups/Upload";
+import Upload from "../../../DashboardUtility/Popups/Upload";
 
 import civil_lines from "assets/GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
 import shahadatganj from "assets/GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
@@ -23,6 +19,7 @@ import ranopali from "assets/GeoJson_Zone/2_Ayodhya_Ranopali.json";
 import bank_colony from "assets/GeoJson_Zone/3_Ayodhya_Bank_colony.json";
 import airport from "assets/GeoJson_Zone/4_Ayodhya_near_Airport.json";
 import all_locations from "assets/GeoJson_Zone/Zone_Boundary_Merge.json";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -101,6 +98,14 @@ const Transport = ({ show }) => {
     Ranopali: ranopali,
     "Bank Colony": bank_colony,
     "Airport Area": airport,
+  };
+
+  const renderRecommendations = () => {
+    return <TransportRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <Transport show={false} />;
   };
 
   return (
@@ -206,7 +211,12 @@ const Transport = ({ show }) => {
                 setReportVisible(false);
               }}
             >
-              <TransportReportPrint />
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"transport"}
+                heading={"Public Transport"}
+              />
             </Dialog>
           </div>
         </div>

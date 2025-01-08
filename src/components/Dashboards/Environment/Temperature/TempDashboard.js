@@ -16,6 +16,7 @@ import { Dialog } from "primereact/dialog";
 import TempRecommendations from "./TempRecommendations";
 import TempReportPrint from "./TempReportPrint";
 import { Panel } from "primereact/panel";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 // Define the helper functions here
 const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
@@ -289,6 +290,15 @@ const TempDashboard = ({
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 2 ? "red-row" : "";
   };
+
+  const renderRecommendations = () => {
+    return <TempRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <TempDashboard show={false} />;
+  };
+
   return (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
@@ -404,11 +414,17 @@ const TempDashboard = ({
           setReportVisible(false);
         }}
       >
-        <TempReportPrint
+        {/* <TempReportPrint
           show={true}
           selectedLocation={selectedLocation}
           startDate={startDate}
           endDate={endDate}
+        /> */}
+        <ReportPrint
+          renderDashboard={renderDashboard}
+          renderRecommendations={renderRecommendations}
+          parameter={"temperature"}
+          heading={"Temperature"}
         />
       </Dialog>
 

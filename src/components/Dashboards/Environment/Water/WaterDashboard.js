@@ -1,7 +1,6 @@
 import React from "react";
 import { Knob } from "primereact/knob";
 import WaterRecommendations from "./WaterRecommendations";
-import WaterReportPrint from "./WaterReportPrint";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { useState } from "react";
@@ -13,7 +12,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { Dropdown } from "primereact/dropdown";
 
-import Upload from "../../../Popups/Upload";
+import Upload from "../../../DashboardUtility/Popups/Upload";
 import civil_lines from "assets/GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
 import shahadatganj from "assets/GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
 import ranopali from "assets/GeoJson_Zone/2_Ayodhya_Ranopali.json";
@@ -24,10 +23,9 @@ import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { Card } from "primereact/card";
 import drains from "extra/Assets/Drainage_2024.json";
 import ADA from "./ADA_Boundary.json";
-
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const WaterDashboard = ({ show }) => {
-
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
@@ -39,7 +37,7 @@ const WaterDashboard = ({ show }) => {
   const [selectedData, setSelectedData] = useState(null);
   const [zoneWQIValues, setZoneWQIValues] = useState({});
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -134,7 +132,7 @@ const WaterDashboard = ({ show }) => {
     } else {
       setZoneWQIValues({});
     }
-  }, [selectedZone, filteredData]);
+  }, [selectedZone]);
 
   // Calculate total values if all zones are selected
   const totalValues = filteredData.reduce((acc, curr) => {
@@ -224,6 +222,15 @@ const WaterDashboard = ({ show }) => {
   const handleToggleRecommendations = () => {
     setRecommendationsVisible((prev) => !prev);
   };
+
+  const renderRecommendations = () => {
+    return <WaterRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <WaterDashboard show={false} />;
+  };
+
   return (
     <div className="w-full p-4 flex gap-3 flex-column">
       {show && (
@@ -325,7 +332,12 @@ const WaterDashboard = ({ show }) => {
                 setReportVisible(false);
               }}
             >
-              <WaterReportPrint show={false} />
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"water"}
+                heading={"Water Management"}
+              />
             </Dialog>
           </div>
         </div>

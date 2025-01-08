@@ -4,7 +4,6 @@ import RainTrend from "./RainTrend";
 import "../../Dash.css";
 import RainRecommendations from "./RainRecommendations";
 import { Button } from "primereact/button";
-import RainReportPrint from "./RainReportPrint";
 import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
@@ -12,6 +11,7 @@ import rain from "assets/Rainfall Illustration.svg";
 import { Chip } from "primereact/chip";
 import { Panel } from "primereact/panel";
 import { ProgressBar } from "primereact/progressbar";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
@@ -144,6 +144,14 @@ const RainDashboard = ({ show }) => {
     }
   }, [selectedYear, rainData]);
 
+  const renderRecommendations = () => {
+    return <RainRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <RainDashboard show={false} />;
+  };
+
   return (
     <div className="flex flex-column gap-3 p-4">
       {show && (
@@ -167,7 +175,12 @@ const RainDashboard = ({ show }) => {
                 setReportVisible(false);
               }}
             >
-              <RainReportPrint show={false} />
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"rain"}
+                heading={"Rainfall"}
+              />
             </Dialog>
           </div>
         </div>
@@ -218,21 +231,21 @@ const RainDashboard = ({ show }) => {
         >
           <p className="card-title p-0 m-0">Deviation from Expected</p>
           <div className="flex align-items-center justify-content-center">
-          <div className="w-10rem custom-circular-progress">
-            <CircularProgressbar
-              value={-deviationPercentage}
-              text={`${deviationPercentage}%`}
-              counterClockwise="true"
-              strokeWidth={8}
-              styles={buildStyles({
-                pathColor: "#E62225",
-                textColor: "#001F23",
-                trailColor: "#E7EAEA",
-                textSize: "1.75rem",
-                pathTransition: "stroke-dashoffset 0.5s ease 0s",
-              })}
-            />
-          </div>
+            <div className="w-10rem custom-circular-progress">
+              <CircularProgressbar
+                value={-deviationPercentage}
+                text={`${deviationPercentage}%`}
+                counterClockwise="true"
+                strokeWidth={8}
+                styles={buildStyles({
+                  pathColor: "#E62225",
+                  textColor: "#001F23",
+                  trailColor: "#E7EAEA",
+                  textSize: "1.75rem",
+                  pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                })}
+              />
+            </div>
           </div>
         </div>
 

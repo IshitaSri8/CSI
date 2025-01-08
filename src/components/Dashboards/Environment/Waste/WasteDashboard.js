@@ -6,10 +6,10 @@ import {
 } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import WasteReportPrint from "./WasteReportPrint";
 import { useState } from "react";
 import WasteRecommendations from "./WasteRecommendations";
 import { Panel } from "primereact/panel";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const WasteDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -52,12 +52,24 @@ const WasteDashboard = ({ show }) => {
     "Community Bins",
     "Other Sources",
   ];
-  const collectionData = [ [39, 30, 38, 29, 30], [31, 24, 29, 22, 21], [2, 1, 2, 2, 3]]
+  const collectionData = [
+    [39, 30, 38, 29, 30],
+    [31, 24, 29, 22, 21],
+    [2, 1, 2, 2, 3],
+  ];
   // const collectionData = [
   //   { name: "Door-to-door Collection", data: [39, 30, 38, 29, 30] },
   //   { name: "Community Bins", data: [31, 24, 29, 22, 21] },
   //   { name: "Other Sources", data: [2, 1, 2, 2, 3] },
   // ];
+
+  const renderRecommendations = () => {
+    return <WasteRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <WasteDashboard show={false} />;
+  };
 
   return (
     <div className="flex flex-column gap-3 p-4">
@@ -82,7 +94,12 @@ const WasteDashboard = ({ show }) => {
                 setReportVisible(false);
               }}
             >
-              <WasteReportPrint show={false} />
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"waste"}
+                heading={"Waste Management"}
+              />
             </Dialog>
           </div>
         </div>

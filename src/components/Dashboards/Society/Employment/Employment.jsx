@@ -3,7 +3,6 @@ import { Doughnut, GroupedColumnChart, PieChartRow } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
-import EmploymentReportPrint from "./EmploymentReportPrint";
 import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import employment from "assets/employment.svg";
@@ -11,6 +10,7 @@ import salary from "assets/salary.svg";
 import brain from "assets/brain.svg";
 import EmploymentRecommendations from "./EmploymentRecommendations";
 import increase from "assets/increase.png";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const Employment = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -41,6 +41,14 @@ const Employment = ({ show }) => {
   ];
   const years = [2021, 2022, 2023, 2024];
 
+  const renderRecommendations = () => {
+    return <EmploymentRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <Employment show={false} />;
+  };
+
   return (
     <div className="gap-3 p-4 flex flex-column">
       {show && (
@@ -64,7 +72,12 @@ const Employment = ({ show }) => {
               setReportVisible(false);
             }}
           >
-            <EmploymentReportPrint />
+            <ReportPrint
+              renderDashboard={renderDashboard}
+              renderRecommendations={renderRecommendations}
+              parameter={"employment"}
+              heading={"Employment Opportunity"}
+            />
           </Dialog>
         </div>
       )}
