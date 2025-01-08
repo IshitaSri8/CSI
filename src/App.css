@@ -117,7 +117,7 @@ body {
 .card-title {
   color: var(--text-card-title);
   font-weight: 500;
-  font-size: 15px !important;
+  font-size: 14px !important;
 }
 
 .card-text {

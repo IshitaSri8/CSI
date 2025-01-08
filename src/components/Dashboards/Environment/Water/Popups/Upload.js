@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 import { Dialog } from "primereact/dialog";
 import { FileUpload } from "primereact/fileupload";
 import React, { useState } from "react";
@@ -46,18 +47,24 @@ const Upload = ({ visible, onHide }) => {
       style={{ width: "50vw" }}
       onHide={onHide}
     >
-      <FileUpload
-        name="file"
-        auto
-        customUpload
-        cancelLabel="Clear file"
-        accept=".xlsx, .xls"
-        uploadHandler={(event) => {
-          setFile(event.files[0]);
-        }}
-        emptyTemplate={<p>Please upload the excel file</p>}
-      />
-      <Button onClick={handleUpload} label="Upload File"></Button>
+      <div className="w-full flex align-items-center justify-content-center gap-4 flex-column">
+        <FileUpload
+          name="file"
+          auto
+          customUpload
+          accept=".xlsx, .xls"
+          uploadHandler={(event) => {
+            setFile(event.files[0]);
+          }}
+          emptyTemplate={<p>Please upload the excel file</p>}
+          className="w-full"
+        />
+        <Button
+          onClick={handleUpload}
+          label="Upload File"
+          className="bg-cyan-800"
+        ></Button>
+      </div>
     </Dialog>
   );
 };
