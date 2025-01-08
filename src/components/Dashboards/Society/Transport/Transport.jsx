@@ -15,6 +15,7 @@ import BusRoutes from "./BusRoutes";
 import { Dropdown } from "primereact/dropdown";
 import { useEffect } from "react";
 import axios from "axios";
+import Upload from "../../../Popups/Upload";
 
 import civil_lines from "assets/GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
 import shahadatganj from "assets/GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
@@ -77,22 +78,41 @@ const Transport = ({ show }) => {
   const months = [...new Set(data.map((item) => item.Month))];
 
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://api-csi.arahas.com/data/transport"
-        );
+    handleApply();
 
-        console.log(response.data.data);
-        setData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleApply = async () => {
+    try {
+      // setLoading(true);
+      setFilterVisible(false);
+      const response = await axios.get(
+        "https://api-csi.arahas.com/data/transport"
+      );
+
+      console.log(response.data.data);
+      setData(response.data.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const resetFilters = () => {
+    setSelectedZone(null);
+    setSelectedYear(null);
+    setSelectedMonth(null);
+  };
+
+  const showUploadDialog = () => {
+    setUploadDialogVisible(true);
+  };
+
+  const hideUploadDialog = () => {
+    setUploadDialogVisible(false);
+  };
 
   const handleZoneChange = (e) => {
     setSelectedZone(e.value);
@@ -129,12 +149,12 @@ const Transport = ({ show }) => {
                 style={{
                   zIndex: 1000, // Ensures the filter appears above other components
                   position: "absolute", // Required for z-index to work
-                  transform: "translateY(60%) translateX(-60%)",
+                  transform: "translateY(60%) translateX(-200%)",
                   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                 }}
               >
                 <div className="flex flex-column gap-3">
-                  <div className="flex align-items-center justify-content-center gap-2 ">
+                  <div className="flex flex-column align-items-center justify-content-center gap-2 ">
                     <Dropdown
                       value={selectedZone}
                       onChange={handleZoneChange}
@@ -168,26 +188,33 @@ const Transport = ({ show }) => {
 
                     {/* <Button label="Modify Data" onClick={handleModify}></Button> */}
                   </div>
-                  {/* <div className="flex justify-content-between"> */}
-                  {/* <Button
+                  <div className="flex justify-content-between">
+                    <Button
                       className="bg-white text-moderate border-none"
                       label="Reset"
                       // icon="pi pi-search"
                       onClick={resetFilters}
                       raised
-                    /> */}
-                  {/* <Button
+                    />
+                    <Button
                       className="bg-primary1"
                       label="Apply"
                       // icon="pi pi-search"
-                      onClick={handleSearch}
+                      onClick={handleApply}
                       raised
-                    /> */}
-                  {/* </div> */}
+                    />
+                  </div>
                 </div>
               </div>
             )}
 
+            <Button label="Upload File" onClick={showUploadDialog} raised />
+            <Upload visible={uploadDialogVisible} onHide={hideUploadDialog} />
+            <Button
+              label="Modify Data"
+              // onClick={handleModify}
+              raised
+            />
             <Button
               label="Generate Report"
               icon="pi pi-file"
