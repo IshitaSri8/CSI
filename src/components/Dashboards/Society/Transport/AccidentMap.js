@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import ADA_Boundary from "../../Environment/Maps/ADA_Boundary.json";
-import zones from "../../Environment/Water/GeoJson_Zone/Zone_Boundary_Merge.json";
+import zones from "assets/GeoJson_Zone/Zone_Boundary_Merge.json";
 
 const AccidentMap = ({ accidentData }) => {
   // Function to determine color based on severity

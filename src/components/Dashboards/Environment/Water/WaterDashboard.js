@@ -14,21 +14,18 @@ import { useEffect } from "react";
 import axios from "axios";
 import { Dropdown } from "primereact/dropdown";
 import Upload from "./Popups/Upload";
-import civil_lines from "./GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
-import shahadatganj from "./GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
-import ranopali from "./GeoJson_Zone/2_Ayodhya_Ranopali.json";
-import bank_colony from "./GeoJson_Zone/3_Ayodhya_Bank_colony.json";
-import airport from "./GeoJson_Zone/4_Ayodhya_near_Airport.json";
-import all_locations from "./GeoJson_Zone/Zone_Boundary_Merge.json";
+import civil_lines from "assets/GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
+import shahadatganj from "assets/GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
+import ranopali from "assets/GeoJson_Zone/2_Ayodhya_Ranopali.json";
+import bank_colony from "assets/GeoJson_Zone/3_Ayodhya_Bank_colony.json";
+import airport from "assets/GeoJson_Zone/4_Ayodhya_near_Airport.json";
+import all_locations from "assets/GeoJson_Zone/Zone_Boundary_Merge.json";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { Card } from "primereact/card";
 const WaterDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
-  const waterSupplyData = [58, 40, 2];
-  const waterSupplyLabels = ["Groundwater", "Individual Taps", "Bore Well"];
   const [data, setData] = useState([]);
-  const [filterdata, setFilterData] = useState("");
   const [selectedZone, setSelectedZone] = useState("Civil Lines");
   const [selectedYear, setSelectedYear] = useState(2024);
   const [selectedMonth, setSelectedMonth] = useState(1);
@@ -119,6 +116,7 @@ const WaterDashboard = ({ show }) => {
             item.Year === selectedYear &&
             item.Month === selectedMonth
         );
+        
   // Calculate total values if all zones are selected
   const totalValues = filteredData.reduce((acc, curr) => {
     return {
@@ -189,14 +187,12 @@ const WaterDashboard = ({ show }) => {
     100
   ).toFixed(2);
 
-  const householdWaterSupplyPercent = 79.58;
   const waterUsage = { meteredConnections: 69.8, billPaymentRate: 37.8 };
   const waterTreatment = {
     reusedPercent: 83.04,
     totalSTPs: 1,
     capacity: { current: 12, required: 109.95 },
   };
-  const waterSources = { handpumps: 1939, tanks: 14, rivers: 1 };
   const waterPreservation = { totalVolume: 3500, sitesWithRWH: 144 };
 
   const handleToggleRecommendations = () => {

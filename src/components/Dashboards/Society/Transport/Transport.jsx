@@ -12,6 +12,16 @@ import TransportRecommendations from "./TransportRecommendations";
 import TransportReportPrint from "./TransportReportPrint";
 import AccidentMap from "./AccidentMap";
 import BusRoutes from "./BusRoutes";
+import { Dropdown } from "primereact/dropdown";
+import { useEffect } from "react";
+import axios from "axios";
+
+import civil_lines from "assets/GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
+import shahadatganj from "assets/GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
+import ranopali from "assets/GeoJson_Zone/2_Ayodhya_Ranopali.json";
+import bank_colony from "assets/GeoJson_Zone/3_Ayodhya_Bank_colony.json";
+import airport from "assets/GeoJson_Zone/4_Ayodhya_near_Airport.json";
+import all_locations from "assets/GeoJson_Zone/Zone_Boundary_Merge.json";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -55,6 +65,48 @@ const Transport = ({ show }) => {
     },
   ];
 
+  const [filterVisible, setFilterVisible] = useState(false);
+  const [data, setData] = useState([]);
+  const [selectedZone, setSelectedZone] = useState("Civil Lines");
+  const [selectedYear, setSelectedYear] = useState(2024);
+  const [selectedMonth, setSelectedMonth] = useState(1);
+  const [geoData, setGeoData] = useState(civil_lines);
+
+  const zones = [...new Set(data.map((item) => item.Divisions))];
+  const year = [...new Set(data.map((item) => item.Year))];
+  const months = [...new Set(data.map((item) => item.Month))];
+
+  const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api-csi.arahas.com/data/transport"
+        );
+
+        console.log(response.data.data);
+        setData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleZoneChange = (e) => {
+    setSelectedZone(e.value);
+    setGeoData(divisionsWithLocations[e.value] || all_locations);
+  };
+  const divisionsWithLocations = {
+    "All Zones": all_locations,
+    "Civil Lines": civil_lines,
+    Shahadatganj: shahadatganj,
+    Ranopali: ranopali,
+    "Bank Colony": bank_colony,
+    "Airport Area": airport,
+  };
+
   return (
     <div className="gap-3 p-4 flex flex-column">
       {show && (
@@ -63,23 +115,97 @@ const Transport = ({ show }) => {
             Public Transport
           </h1>
 
-          <Button
-            label="Generate Report"
-            icon="pi pi-file"
-            onClick={() => setReportVisible(true)}
-            className="bg-primary1 text-white"
-            raised
-          />
-          <Dialog
-            visible={ReportVisible}
-            style={{ width: "100rem" }}
-            onHide={() => {
-              if (!ReportVisible) return;
-              setReportVisible(false);
-            }}
-          >
-            <TransportReportPrint />
-          </Dialog>
+          <div className="flex align-items-center justify-content-end gap-2">
+            <Button
+              label="Filters"
+              icon="pi pi-filter"
+              onClick={() => setFilterVisible(!filterVisible)}
+              className="bg-white text-secondary2"
+              raised
+            />
+            {filterVisible && (
+              <div
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2"
+                style={{
+                  zIndex: 1000, // Ensures the filter appears above other components
+                  position: "absolute", // Required for z-index to work
+                  transform: "translateY(60%) translateX(-60%)",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <div className="flex flex-column gap-3">
+                  <div className="flex align-items-center justify-content-center gap-2 ">
+                    <Dropdown
+                      value={selectedZone}
+                      onChange={handleZoneChange}
+                      options={[
+                        { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
+                        ...zones.map((div) => ({ label: div, value: div })),
+                      ]}
+                      placeholder="Select Zones"
+                      className="w-full"
+                    />
+                    <Dropdown
+                      value={selectedYear}
+                      onChange={(e) => setSelectedYear(e.value)}
+                      options={year.map((year) => ({
+                        label: year,
+                        value: year,
+                      }))}
+                      placeholder="Select Year"
+                      className="w-full"
+                    />
+                    <Dropdown
+                      value={selectedMonth}
+                      onChange={(e) => setSelectedMonth(e.value)}
+                      options={months.map((month) => ({
+                        label: month,
+                        value: month,
+                      }))}
+                      placeholder="Select Month"
+                      className="w-full"
+                    />
+
+                    {/* <Button label="Modify Data" onClick={handleModify}></Button> */}
+                  </div>
+                  {/* <div className="flex justify-content-between"> */}
+                  {/* <Button
+                      className="bg-white text-moderate border-none"
+                      label="Reset"
+                      // icon="pi pi-search"
+                      onClick={resetFilters}
+                      raised
+                    /> */}
+                  {/* <Button
+                      className="bg-primary1"
+                      label="Apply"
+                      // icon="pi pi-search"
+                      onClick={handleSearch}
+                      raised
+                    /> */}
+                  {/* </div> */}
+                </div>
+              </div>
+            )}
+
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-primary1 text-white"
+              raised
+            />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <TransportReportPrint />
+            </Dialog>
+          </div>
         </div>
       )}
 
