@@ -10,16 +10,170 @@ import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { ProgressBar } from "primereact/progressbar";
 import { PieChartRow } from "Layout/GraphVisuals";
-import { ModPieChart } from "Layout/GraphVisuals";
+import { useEffect } from "react";
+import axios from "axios";
+import { Dropdown } from "primereact/dropdown";
+import Upload from "./Popups/Upload";
+import civil_lines from "./GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
+import shahadatganj from "./GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
+import ranopali from "./GeoJson_Zone/2_Ayodhya_Ranopali.json";
+import bank_colony from "./GeoJson_Zone/3_Ayodhya_Bank_colony.json";
+import airport from "./GeoJson_Zone/4_Ayodhya_near_Airport.json";
+import all_locations from "./GeoJson_Zone/Zone_Boundary_Merge.json";
+import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { Card } from "primereact/card";
-import WaterNew from "./WaterNew";
-
 const WaterDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
-
   const waterSupplyData = [58, 40, 2];
   const waterSupplyLabels = ["Groundwater", "Individual Taps", "Bore Well"];
+  const [data, setData] = useState([]);
+  const [filterdata, setFilterData] = useState("");
+  const [selectedZone, setSelectedZone] = useState("Civil Lines");
+  const [selectedYear, setSelectedYear] = useState(2024);
+  const [selectedMonth, setSelectedMonth] = useState(1);
+  const [geoData, setGeoData] = useState(civil_lines);
+  const [selectedData, setSelectedData] = useState(null);
+
+  const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api-csi.arahas.com/data/water"
+        );
+
+        console.log(response.data.data);
+        setData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  function style(value) {
+    return {
+      fillColor: getColor(value),
+      weight: 2,
+      opacity: 1,
+      color: "black",
+      fillOpacity: 0.7,
+    };
+  }
+  const getColor = (WQI) => {
+    if (WQI >= 91 && WQI <= 100) return "#399918";
+    if (WQI >= 71 && WQI <= 90) return "#A0D683";
+    if (WQI >= 51 && WQI <= 70) return "#FEFF9F";
+    if (WQI >= 26 && WQI <= 50) return "#E8B86D";
+    else return "#FF7777"; // Poor (0-25)
+  };
+
+  const Legend = () => {
+    return (
+      <div className="legend flex align-items-start justify-content-around flex-row ">
+        <div className="gap-2">
+          <svg width="20" height="20">
+            <rect width="20" height="20" fill="#FF7777" />
+          </svg>{" "}
+          <h1 className="m-0 p-0 text-sm font-semi-bold">Poor</h1>
+        </div>
+        <div className="gap-2">
+          <svg width="20" height="20">
+            <rect width="20" height="20" fill="#E8B86D" />
+          </svg>{" "}
+          <h1 className="m-0 p-0 text-xs">Fair</h1>
+        </div>
+        <div className="gap-2">
+          <svg width="20" height="20">
+            <rect width="20" height="20" fill="#FEFF9F" />
+          </svg>{" "}
+          <h1 className="m-0 p-0 text-xs">Average</h1>
+        </div>
+        <div className="gap-2">
+          <svg width="20" height="20">
+            <rect width="20" height="20" fill="#A0D683" />
+          </svg>{" "}
+          <h1 className="m-0 p-0 text-xs">Good</h1>
+        </div>
+        <div className="gap-2">
+          <svg width="20" height="20">
+            <rect width="20" height="20" fill="#72BF78" />
+          </svg>{" "}
+          <h1 className="m-0 p-0 text-xs"> Excellent </h1>
+        </div>
+      </div>
+    );
+  };
+
+  // Filter data based on selected zone, year, and month
+  const filteredData =
+    selectedZone === "All Zones"
+      ? data.filter(
+          (item) => item.Year === selectedYear && item.Month === selectedMonth
+        )
+      : data.filter(
+          (item) =>
+            item.Divisions === selectedZone &&
+            item.Year === selectedYear &&
+            item.Month === selectedMonth
+        );
+  // Calculate total values if all zones are selected
+  const totalValues = filteredData.reduce((acc, curr) => {
+    return {
+      ...acc,
+      Current_Supply_MLD:
+        (acc.Current_Supply_MLD || 0) + curr.Current_Supply_MLD,
+      Required_Supply_MLD:
+        (acc.Required_Supply_MLD || 0) + curr.Required_Supply_MLD,
+      Population: (acc.Population || 0) + curr.Population,
+      Awarness_Campaigns_Programs:
+        (acc.Awarness_Campaigns_Programs || 0) +
+        curr.Awarness_Campaigns_Programs,
+      Borewell: (acc.Borewell || 0) + curr.Borewell,
+      Canals: (acc.Canals || 0) + curr.Canals,
+      Handpumps: (acc.Handpumps || 0) + curr.Handpumps,
+      No_of_Households_with_Connections:
+        (acc.No_of_Households_with_Connections || 0) +
+        curr.No_of_Households_with_Connections,
+
+      Total_Households: (acc.Total_Households || 0) + curr.Total_Households,
+
+      Tanks: (acc.Tanks || 0) + curr.Tanks,
+      Ponds: (acc.Ponds || 0) + curr.Ponds,
+      No_of_Households_with_Meters:
+        (acc.No_of_Households_with_Meters || 0) +
+        curr.No_of_Households_with_Meters,
+    };
+  }, {});
+  // Determine which values to display
+  const displayValues =
+    selectedZone === "All Zones" ? totalValues : filteredData[0];
+
+  const zones = [...new Set(data.map((item) => item.Divisions))];
+  const years = [...new Set(data.map((item) => item.Year))];
+  const months = [...new Set(data.map((item) => item.Month))];
+
+  const showUploadDialog = () => {
+    setUploadDialogVisible(true);
+  };
+
+  const hideUploadDialog = () => {
+    setUploadDialogVisible(false);
+  };
+  const handleZoneChange = (e) => {
+    setSelectedZone(e.value);
+    setGeoData(divisionsWithLocations[e.value] || all_locations);
+  };
+  const divisionsWithLocations = {
+    "All Zones": all_locations,
+    "Civil Lines": civil_lines,
+    Shahadatganj: shahadatganj,
+    Ranopali: ranopali,
+    "Bank Colony": bank_colony,
+    "Airport Area": airport,
+  };
 
   const waterSupply = {
     currentSupply: 39.55, // MLD
@@ -28,8 +182,9 @@ const WaterDashboard = ({ show }) => {
     gapPercent: 0, // Placeholder
   };
 
-  waterSupply.gap = waterSupply.requiredSupply - waterSupply.currentSupply;
-  waterSupply.gapPercent = (
+  displayValues.gap =
+    displayValues.Required_Supply_MLD - displayValues.Current_Supply_MLD;
+  displayValues.gapPercent = (
     (waterSupply.gap / waterSupply.requiredSupply) *
     100
   ).toFixed(2);
@@ -50,272 +205,359 @@ const WaterDashboard = ({ show }) => {
   return (
     <div className="w-full p-4 flex gap-3 flex-column">
       {show && (
-        <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Water Management
-          </h1>
-          <div className="flex align-items-center justify-content-end gap-2">
-            <Button
-              label="Generate Report"
-              icon="pi pi-file"
-              onClick={() => setReportVisible(true)}
-              className="bg-primary1 text-white"
-              raised
-            />
-            <Dialog
-              visible={ReportVisible}
-              style={{ width: "100rem" }}
-              onHide={() => {
-                if (!ReportVisible) return;
-                setReportVisible(false);
-              }}
-            >
-              <WaterReportPrint show={false} />
-            </Dialog>
+        <div className="flex align-items-center justify-content-center w-full">
+          <div className="w-full">
+            <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+              Water Management
+            </h1>
+          </div>
+
+          <div className="flex align-items-center justify-content-center flex-row gap-2 w-full">
+            <div className="flex align-items-center justify-content-center gap-2 ">
+              <Dropdown
+                value={selectedZone}
+                onChange={handleZoneChange}
+                options={[
+                  { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
+                  ...zones.map((div) => ({ label: div, value: div })),
+                ]}
+                placeholder="Select Zones"
+                className="w-full"
+              />
+              <Dropdown
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.value)}
+                options={years.map((year) => ({ label: year, value: year }))}
+                placeholder="Select Year"
+                className="w-full"
+              />
+              <Dropdown
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(e.value)}
+                options={months.map((month) => ({
+                  label: month,
+                  value: month,
+                }))}
+                placeholder="Select Month"
+                className="w-full"
+              />
+
+              {/* <Button label="Modify Data" onClick={handleModify}></Button> */}
+            </div>
+            <div className="flex align-items-center justify-content-center gap-2">
+              <Button label="Upload File" onClick={showUploadDialog} />
+              <Upload visible={uploadDialogVisible} onHide={hideUploadDialog} />
+              <Button
+                label="Generate Report"
+                icon="pi pi-file"
+                onClick={() => setReportVisible(true)}
+                className="bg-primary1 text-white"
+                raised
+              />
+              <Dialog
+                visible={ReportVisible}
+                style={{ width: "100rem" }}
+                onHide={() => {
+                  if (!ReportVisible) return;
+                  setReportVisible(false);
+                }}
+              >
+                <WaterReportPrint show={false} />
+              </Dialog>
+            </div>
           </div>
         </div>
       )}
-      <div className="flex flex-column align-items-center justify-content-between gap-3">
-        <div className="w-full flex gap-3">
-          {/* Water Supply */}
+      <div className="flex  align-items-center justify-content-between gap-3 flex-row w-full">
+        <div className="flex flex-column align-items-center justify-content-between gap-3 w-full">
+          <div className="w-full flex gap-3">
+            {/* Water Supply */}
 
-          <div
-            className="flex flex-column gap-3 p-4 border-round bg-white"
-            style={{ flex: "35%" }}
-          >
-            <p className="card-title p-0 m-0">Water Supply</p>
-            <div className="flex my-2">
-              <div className="flex flex-column w-full p-2 align-items-center gap-1">
-                <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                  {waterSupply.currentSupply}{" "}
-                  <span className="text-lg">MLD</span>
-                </p>
-                <p className="p-0 m-0 card-text">Current Water Supply</p>
-              </div>
-              <Divider layout="vertical" />
-              <div className="flex flex-column w-full p-2 align-items-center gap-1">
-                <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                  {waterSupply.requiredSupply}{" "}
-                  <span className="text-lg">MLD</span>
-                </p>
-                <p className="p-0 m-0 card-text">Required Water Supply</p>
-              </div>
-            </div>
-            <ProgressBar
-              value={waterSupply.gapPercent}
-              style={{ height: "0.75rem" }} // Adjust the height
-              className="w-full" // Full width of its container
-              color="#FFAD0D"
-              displayValueTemplate={() => null} // Hide the displayed value
-            />
-            <p className="text-tertiary3 p-0 m-0 font-semibold">
-              Deficit:{" "}
-              <span className="text-primary1">{waterSupply.gapPercent}%</span>
-            </p>
-          </div>
-          {/* Water Sources */}
-          <div
-            className="flex flex-column bg-white border-round p-4 gap-2 justify-content-start"
-            style={{ flex: "30%" }}
-          >
-            <p className="card-title p-0 m-0">Water Sources</p>
-            <div className="flex align-items-center justify-content-center flex-column gap-2">
-              <PieChartRow
-                categories={waterSupplyLabels}
-                series={waterSupplyData}
-                height={130}
-                // title="Water Sources"
-                fontSize={11}
-              />
-            </div>
-          </div>
-          {/* Sources of Water Supply */}
-          <div
-            className="flex flex-column justify-content-start bg-white border-round p-4 gap-3 w-full"
-            style={{ flex: "35%" }}
-          >
-            <div className="flex flex-column w-full gap-3">
-              <p className="card-title p-0 m-0">Water Supply Sources</p>
-              <div className="flex">
-                <div className="flex w-full px-2 flex-column">
-                  <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                    {waterSources.handpumps}
-                  </p>
-                  <p className="p-0 m-0 card-text">Handpumps</p>
+            <div
+              className="flex flex-column gap-3 p-4 border-round bg-white"
+              style={{ flex: "45%" }}
+            >
+              <p className="card-title p-0 m-0">Water Supply</p>
+              {displayValues && (
+                <div className="flex my-2">
+                  <div className="flex flex-column w-full p-2 align-items-center gap-1">
+                    <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                      {displayValues.Current_Supply_MLD}
+                      <span className="text-lg"> MLD</span>
+                    </p>
+                    <p className="p-0 m-0  card-text">Current Water Supply</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex flex-column w-full p-2 align-items-center gap-1">
+                    <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                      {displayValues.Required_Supply_MLD}{" "}
+                      <span className="text-lg">MLD</span>
+                    </p>
+                    <p className="p-0 m-0 card-text">Required Water Supply</p>
+                  </div>
                 </div>
-                <Divider layout="vertical" />
-                <div className="flex w-full px-2 flex-column">
-                  <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                    {waterSources.tanks}
-                  </p>
-                  <p className="p-0 m-0 card-text">Tanks/Ponds</p>
-                </div>
-                <Divider layout="vertical" />
-                <div className="flex w-full px-2 flex-column">
-                  <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                    {waterSources.rivers}
-                  </p>
-                  <p className="p-0 m-0 card-text">River/Canal</p>
-                </div>
-              </div>
-            </div>
-            {/* Households with Water Supply */}
-            <div className="flex sec-theme gap-2 p-4 flex-column border-round align-items-center justify-content-center w-full">
+              )}
+
               <ProgressBar
-                value={householdWaterSupplyPercent}
-                style={{ height: "1rem" }} // Adjust the height
+                value={
+                  ((displayValues.Required_Supply_MLD -
+                    displayValues.Current_Supply_MLD) /
+                    displayValues.Required_Supply_MLD) *
+                  100
+                }
+                style={{ height: "0.75rem" }} // Adjust the height
                 className="w-full" // Full width of its container
-                color="#166c7d"
-                //  displayValueTemplate={() => null} // Hide the displayed value
+                color="#FFAD0D"
+                displayValueTemplate={() => null} // Hide the displayed value
               />
-              {/* <GaugeChart
+              <p className="text-tertiary3 p-0 m-0 font-semibold">
+                Deficit:{" "}
+                <span className="text-primary1">
+                  {" "}
+                  {((displayValues.Required_Supply_MLD -
+                    displayValues.Current_Supply_MLD) /
+                    displayValues.Required_Supply_MLD) *
+                    100}{" "}
+                  %
+                </span>
+              </p>
+            </div>
+
+            {/* Sources of Water Supply */}
+            <div
+              className="flex flex-column justify-content-start bg-white border-round p-4 gap-3 w-full"
+              style={{ flex: "30%" }}
+            >
+              <div className="flex flex-column w-full gap-3">
+                <p className="card-title p-0 m-0">Water Supply Sources</p>
+                <div className="flex">
+                  <div className="flex w-full px-2 flex-column">
+                    <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                      {displayValues.Handpumps}
+                    </p>
+                    <p className="p-0 m-0 card-text">Handpumps</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex w-full px-2 flex-column">
+                    <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                      {displayValues.Tanks}
+                    </p>
+                    <p className="p-0 m-0 card-text">Tanks</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex w-full px-2 flex-column">
+                    <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                      {displayValues.Ponds}
+                    </p>
+                    <p className="p-0 m-0 card-text">Ponds</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex w-full px-2 flex-column">
+                    <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                      1
+                    </p>
+                    <p className="p-0 m-0 card-text">Rivers</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex w-full px-2 flex-column">
+                    <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                      {displayValues.Canals}
+                    </p>
+                    <p className="p-0 m-0 card-text">Canals</p>
+                  </div>
+                </div>
+              </div>
+              {/* Households with Water Supply */}
+              <div className="flex sec-theme gap-2 p-4 flex-column border-round align-items-center justify-content-center w-full">
+                <ProgressBar
+                  value={(
+                    (displayValues.No_of_Households_with_Connections /
+                      displayValues.Total_Households) *
+                    100
+                  ).toFixed(2)}
+                  style={{ height: "1rem" }} // Adjust the height
+                  className="w-full" // Full width of its container
+                  color="#166c7d"
+                  //  displayValueTemplate={() => null} // Hide the displayed value
+                />
+                {/* <GaugeChart
             // title="Water Connections"
             gaugeValue={79.58}
             maxValue={100}
             height={100}
           /> */}
-              <p className="p-0 m-0 card-text">Households with Water Supply</p>
+                <p className="p-0 m-0 card-text">
+                  Households with Water Connections
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="w-full flex gap-3">
+            {/* Water Usage Management */}
+            <div
+              className="flex flex-column bg-white border-round p-4 gap-3"
+              style={{ flex: "40%" }}
+            >
+              <p className="card-title p-0 m-0 text-left">
+                Water Usage Management
+              </p>
+              <div className="flex gap-3">
+                <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
+                  <div className="flex w-8rem custom-circular-progress">
+                    <CircularProgressbar
+                      value={
+                        (displayValues.No_of_Households_with_Meters /
+                          displayValues.No_of_Households_with_Connections) *
+                        100
+                      }
+                      text={`${
+                        (displayValues.No_of_Households_with_Meters /
+                          displayValues.No_of_Households_with_Connections) *
+                        100
+                      }%`}
+                      strokeWidth={8}
+                      styles={buildStyles({
+                        pathColor: "#166c7d",
+                        textColor: "#001F23",
+                        trailColor: "#E7EAEA",
+                        textSize: "1.5rem",
+                        pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                        transform: "rotate(2.25turn)",
+                      })}
+                    />
+                  </div>
+                  <p className="p-0 m-0 card-text text-center">
+                    {/* Houses with Connections but no Water Meter */}
+                    Houses with Metered Connections
+                  </p>
+                </div>
+                <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
+                  <div className="flex w-8rem custom-circular-progress">
+                    <CircularProgressbar
+                      value={waterUsage.billPaymentRate}
+                      text={`${waterUsage.billPaymentRate}%`}
+                      strokeWidth={8}
+                      styles={buildStyles({
+                        pathColor: "#E62225",
+                        textColor: "#001F23",
+                        trailColor: "#E7EAEA",
+                        textSize: "1.5rem",
+                        pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                        transform: "rotate(2.25turn)",
+                      })}
+                    />
+                  </div>
+                  <p className="text-center p-0 m-0 card-text">
+                    Bill Payment Rate
+                    {/* Total Bill Generated being Paid */}
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* Water Treatment */}
+            <div
+              className="flex flex-column bg-white border-round p-4 gap-3"
+              style={{ flex: "35%" }}
+            >
+              <p className="card-title p-0 m-0">Water Treatment</p>
+              <div className="flex align-items-start justify-content-around">
+                <div className="flex flex-column align-items-center">
+                  <Knob
+                    value={waterTreatment.reusedPercent}
+                    valueTemplate={"{value}%"}
+                    readOnly
+                    size={120}
+                    strokeWidth={6}
+                    valueColor="#166c7d"
+                    rangeColor="#E9F3F5"
+                  />
+                  <p className="p-0 card-text" style={{ marginTop: -10 }}>
+                    Treated Reused Water
+                  </p>
+                </div>
+                <div className="flex flex-column gap-2">
+                  <div
+                    className="flex flex-column w-full p-2 pr-4 sec-theme gap-2"
+                    style={{
+                      borderLeft: "3px solid #1F8297", // Adjust thickness and color
+                      height: "50px", // Adjust height
+                    }}
+                  >
+                    <p className="p-0 m-0 card-text">Total STPs</p>
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
+                      {waterTreatment.totalSTPs}
+                    </p>
+                  </div>
+                  <div
+                    className="flex flex-column w-full p-2 pr-4 sec-theme"
+                    style={{
+                      borderLeft: "3px solid #98C6CF", // Adjust thickness and color
+                      // height: "120px", // Adjust height
+                    }}
+                  >
+                    <p className="mb-2 p-0 m-0 card-text">Capacity</p>
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
+                      {waterTreatment.capacity.current} <span>MLD</span>
+                    </p>
+                    <p className="text-sm text-center p-0 m-0 card-text">
+                      Current
+                    </p>
+                    <Divider />
+                    <p className="text-2xl font-semibold m-0 text-primary2 p-0 text-center">
+                      {waterTreatment.capacity.required} <span>MLD</span>
+                    </p>
+                    <p className="text-sm text-center p-0 m-0 card-text">
+                      Required
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Water Preservation */}
+            <div
+              className="flex flex-column bg-white border-round p-4 gap-3"
+              style={{ flex: "25%" }}
+            >
+              <p className="card-title p-0 m-0">Water Preservation</p>
+              <div className="flex flex-column align-items-center justify-content-center">
+                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
+                  <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
+                    {waterPreservation.totalVolume}{" "}
+                    <span className="text-xl"> m&sup3;</span>
+                  </p>
+                  <p className="p-0 m-0 card-text">Total Volume Harvested</p>
+                </div>
+                <Divider />
+                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
+                  <p className="text-3xl font-semibold m-0 text-primary2 p-0">
+                    {waterPreservation.sitesWithRWH}
+                  </p>
+                  <p className="p-0 m-0 card-text text-sm">
+                    Sites with Rainwater Harvesting System
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="w-full flex gap-3">
-          {/* Water Usage Management */}
-          <div
-            className="flex flex-column bg-white border-round p-4 gap-3"
-            style={{ flex: "40%" }}
-          >
-            <p className="card-title p-0 m-0 text-left">
-              Water Usage Management
-            </p>
-            <div className="flex gap-3">
-              <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
-                <div className="flex w-8rem custom-circular-progress">
-                  <CircularProgressbar
-                    value={waterUsage.meteredConnections}
-                    text={`${waterUsage.meteredConnections}%`}
-                    strokeWidth={8}
-                    styles={buildStyles({
-                      pathColor: "#166c7d",
-                      textColor: "#001F23",
-                      trailColor: "#E7EAEA",
-                      textSize: "1.5rem",
-                      pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                      transform: "rotate(2.25turn)",
-                    })}
-                  />
-                </div>
-                <p className="p-0 m-0 card-text text-center">
-                  {/* Houses with Connections but no Water Meter */}
-                  Houses with Metered Connections
-                </p>
-              </div>
-              <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
-                <div className="flex w-8rem custom-circular-progress">
-                  <CircularProgressbar
-                    value={waterUsage.billPaymentRate}
-                    text={`${waterUsage.billPaymentRate}%`}
-                    strokeWidth={8}
-                    styles={buildStyles({
-                      pathColor: "#E62225",
-                      textColor: "#001F23",
-                      trailColor: "#E7EAEA",
-                      textSize: "1.5rem",
-                      pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                      transform: "rotate(2.25turn)",
-                    })}
-                  />
-                </div>
-                <p className="text-center p-0 m-0 card-text">
-                  Bill Payment Rate
-                  {/* Total Bill Generated being Paid */}
-                </p>
-              </div>
-            </div>
-          </div>
-          {/* Water Treatment */}
-          <div
-            className="flex flex-column bg-white border-round p-4 gap-3"
-            style={{ flex: "35%" }}
-          >
-            <p className="card-title p-0 m-0">Water Treatment</p>
-            <div className="flex align-items-start justify-content-around">
-              <div className="flex flex-column align-items-center">
-                <Knob
-                  value={waterTreatment.reusedPercent}
-                  valueTemplate={"{value}%"}
-                  readOnly
-                  size={150}
-                  strokeWidth={6}
-                  valueColor="#166c7d"
-                  rangeColor="#E9F3F5"
-                />
-                <p className="p-0 card-text" style={{ marginTop: -10 }}>
-                  Treated Reused Water
-                </p>
-              </div>
-              <div className="flex flex-column gap-2">
-                <div
-                  className="flex flex-column w-full p-2 pr-4 sec-theme gap-2"
-                  style={{
-                    borderLeft: "3px solid #1F8297", // Adjust thickness and color
-                    height: "50px", // Adjust height
-                  }}
-                >
-                  <p className="p-0 m-0 card-text">Total STPs</p>
-                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
-                    {waterTreatment.totalSTPs}
-                  </p>
-                </div>
-                <div
-                  className="flex flex-column w-full p-2 pr-4 sec-theme"
-                  style={{
-                    borderLeft: "3px solid #98C6CF", // Adjust thickness and color
-                    // height: "120px", // Adjust height
-                  }}
-                >
-                  <p className="mb-2 p-0 m-0 card-text">Capacity</p>
-                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
-                    {waterTreatment.capacity.current} <span>MLD</span>
-                  </p>
-                  <p className="text-sm text-center p-0 m-0 card-text">
-                    Current
-                  </p>
-                  <Divider />
-                  <p className="text-2xl font-semibold m-0 text-primary2 p-0 text-center">
-                    {waterTreatment.capacity.required} <span>MLD</span>
-                  </p>
-                  <p className="text-sm text-center p-0 m-0 card-text">
-                    Required
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Water Preservation */}
-          <div
-            className="flex flex-column bg-white border-round p-4 gap-3"
-            style={{ flex: "25%" }}
-          >
-            <p className="card-title p-0 m-0">Water Preservation</p>
-            <div className="flex flex-column align-items-center justify-content-center">
-              <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
-                <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                  {waterPreservation.totalVolume}{" "}
-                  <span className="text-xl"> m&sup3;</span>
-                </p>
-                <p className="p-0 m-0 card-text">Total Volume Harvested</p>
-              </div>
-              <Divider />
-              <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
-                <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                  {waterPreservation.sitesWithRWH}
-                </p>
-                <p className="p-0 m-0 card-text text-sm">
-                  Sites with Rainwater Harvesting System
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-column align-items-center justify-content-between gap-3 w-full">
+          <Card className="w-full">
+            <MapContainer
+              center={[26.8, 82.2]}
+              zoom={11}
+              style={{ height: "20rem", width: "100%" }}
+            >
+              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+              <GeoJSON
+                key={selectedZone}
+                data={geoData}
+                style={style(selectedData)}
+              />
+            </MapContainer>
+            <Legend />
+          </Card>
+          <Card className="w-full" header="Insights"></Card>
         </div>
       </div>
 
