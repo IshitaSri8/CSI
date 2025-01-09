@@ -26,13 +26,11 @@ import RecommendationPanel from "components/DashboardUtility/RecommendationPanel
 const WaterDashboard = ({ show }) => {
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
-  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
   const [data, setData] = useState([]);
   const [selectedZone, setSelectedZone] = useState("Civil Lines");
   const [selectedYear, setSelectedYear] = useState(2024);
   const [selectedMonth, setSelectedMonth] = useState(1);
   const [geoData, setGeoData] = useState(civil_lines);
-  const [selectedData, setSelectedData] = useState(null);
   const [zoneWQIValues, setZoneWQIValues] = useState({});
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
 
@@ -212,10 +210,6 @@ const WaterDashboard = ({ show }) => {
     reusedPercent: 83.04,
     totalSTPs: 1,
     capacity: { current: 12, required: 109.95 },
-  };
-
-  const handleToggleRecommendations = () => {
-    setRecommendationsVisible((prev) => !prev);
   };
 
   const renderRecommendations = () => {
