@@ -21,7 +21,6 @@ import airport from "assets/GeoJson_Zone/4_Ayodhya_near_Airport.json";
 import all_locations from "assets/GeoJson_Zone/Zone_Boundary_Merge.json";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { Card } from "primereact/card";
-import drains from "extra/Assets/Drainage_2024.json";
 import ADA from "./ADA_Boundary.json";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 
@@ -308,7 +307,11 @@ const WaterDashboard = ({ show }) => {
             )}
 
             <Button label="Upload File" onClick={showUploadDialog} raised />
-            <Upload visible={uploadDialogVisible} onHide={hideUploadDialog} />
+            <Upload
+              visible={uploadDialogVisible}
+              onHide={hideUploadDialog}
+              parameter={"water"}
+            />
             <Button
               label="Modify Data"
               // onClick={handleModify}
