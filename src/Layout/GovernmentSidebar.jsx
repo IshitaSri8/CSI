@@ -679,7 +679,7 @@ const GovernmentSidebar = () => {
         {activeTab === "admin" && <Administration />}
 
         {activeTab === "aqi" && <AqiDashboard show={true} />}
-        {activeTab === "water_new" && <WaterNew show={true}/>}
+        {activeTab === "water_new" && <WaterNew show={true} />}
         {activeTab === "water" && <WaterDashboard show={true} />}
         {activeTab === "land" && <Land show={true} />}
 

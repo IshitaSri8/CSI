@@ -12,6 +12,7 @@ import { Chip } from "primereact/chip";
 import { Panel } from "primereact/panel";
 import { ProgressBar } from "primereact/progressbar";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
@@ -292,36 +293,10 @@ const RainDashboard = ({ show }) => {
         *Data updated till 2021. These numbers are subject to variation.
       </p>
 
-      {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && <RainRecommendations />}
-        </Panel>
-      )}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />
     </div>
   );
 };

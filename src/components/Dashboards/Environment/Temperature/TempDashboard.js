@@ -17,6 +17,7 @@ import TempRecommendations from "./TempRecommendations";
 import TempReportPrint from "./TempReportPrint";
 import { Panel } from "primereact/panel";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 // Define the helper functions here
 const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
@@ -292,7 +293,9 @@ const TempDashboard = ({
   };
 
   const renderRecommendations = () => {
-    return <TempRecommendations />;
+    return (
+      <TempRecommendations temperature={tempValue} humidity={humidityValue} />
+    );
   };
 
   const renderDashboard = () => {
@@ -427,7 +430,6 @@ const TempDashboard = ({
           heading={"Temperature"}
         />
       </Dialog>
-
       <div className="flex flex-wrap md:flex-nowrap align-items-center w-full gap-4">
         {selectedLocation && (
           <div
@@ -551,7 +553,6 @@ const TempDashboard = ({
           />
         </div>
       </div>
-
       <div className="flex align-items-center justify-content-between w-full">
         <Temperature
           enviroDate={envirodate}
@@ -562,7 +563,6 @@ const TempDashboard = ({
           startDate={startDate}
         />
       </div>
-
       {/* <div className="w-100 flex align-items-center justify-content-center gap-1">
               <Card className="h-15rem w-17rem">
                 <PollutantChart
@@ -625,7 +625,6 @@ const TempDashboard = ({
                 />
               </Card>
             </div> */}
-
       {/* {show && (
             <>
               <div className="flex align-items-center justify-content-start mt-2">
@@ -652,42 +651,10 @@ const TempDashboard = ({
               </div>
             </>
           )} */}
-
-      {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && (
-            <TempRecommendations
-              temperature={tempValue}
-              humidity={humidityValue}
-            />
-          )}
-        </Panel>
-      )}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />{" "}
     </div>
   );
 };
