@@ -5,7 +5,7 @@ import { Dialog } from "primereact/dialog";
 import { FileUpload } from "primereact/fileupload";
 import React, { useState } from "react";
 
-const Upload = ({ visible, onHide }) => {
+const Upload = ({ visible, onHide, parameter }) => {
   const [file, setFile] = useState(null);
 
   const handleUpload = async () => {
@@ -20,7 +20,8 @@ const Upload = ({ visible, onHide }) => {
       console.log(formData);
 
       const response = await axios.post(
-        "https://api-csi.arahas.com/upload/water",
+        // "https://api-csi.arahas.com/upload/water",
+        `http://localhost:8009/upload/${parameter}`,
         formData
       );
 

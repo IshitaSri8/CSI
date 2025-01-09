@@ -190,7 +190,11 @@ const Transport = ({ show }) => {
             )}
 
             <Button label="Upload File" onClick={showUploadDialog} raised />
-            <Upload visible={uploadDialogVisible} onHide={hideUploadDialog} />
+            <Upload
+              visible={uploadDialogVisible}
+              onHide={hideUploadDialog}
+              parameter={"transport"}
+            />
             <Button
               label="Modify Data"
               // onClick={handleModify}
