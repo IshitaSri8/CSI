@@ -359,7 +359,7 @@ const AqiDashboard = ({
             />
             {filterVisible && (
               <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2"
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2"
                 style={{
                   zIndex: 1000, // Ensures the filter appears above other components
                   position: "absolute", // Required for z-index to work

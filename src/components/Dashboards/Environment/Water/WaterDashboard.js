@@ -63,10 +63,10 @@ const WaterDashboard = ({ show }) => {
     };
   }
   const getColor = (WQI) => {
-    if (WQI >= 91 && WQI <= 100) return "#399918";
-    if (WQI >= 71 && WQI <= 90) return "#A0D683";
-    if (WQI >= 51 && WQI <= 70) return "#FEFF9F";
-    if (WQI >= 26 && WQI <= 50) return "#E8B86D";
+    if (WQI >= 91 && WQI <= 100) return "#399918"; //excellent
+    if (WQI >= 71 && WQI <= 90) return "#A0D683"; //good
+    if (WQI >= 51 && WQI <= 70) return "#FEFF9F"; //average
+    if (WQI >= 26 && WQI <= 50) return "#E8B86D"; //fair
     else return "#FF7777"; // Poor (0-25)
   };
 
@@ -247,11 +247,11 @@ const WaterDashboard = ({ show }) => {
             />
             {filterVisible && (
               <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2"
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2"
                 style={{
                   zIndex: 1000, // Ensures the filter appears above other components
                   position: "absolute", // Required for z-index to work
-                  transform: "translateY(60%) translateX(-200%)",
+                  transform: "translateY(60%) translateX(-20%)",
                   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                 }}
               >
@@ -740,6 +740,7 @@ const WaterDashboard = ({ show }) => {
                 <li className="card-text p-0 m-0">
                   The projected demand of 54 MLD exceeds the current supply
                   capacity of 39.55 MLD by ~14.45 MLD. This indicates a critical
+                  need to expand water supply infrastructure.
                 </li>
               </ul>
             </div>

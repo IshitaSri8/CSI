@@ -341,3 +341,12 @@ body {
 .p-fieldset .p-fieldset-content {
   padding: 0;
 }
+
+.cardMetric {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardMetric:hover {
+  transform: translateY(8px); /* Move the card up slightly */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}

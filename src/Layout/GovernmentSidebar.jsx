@@ -42,7 +42,6 @@ import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboa
 import Land from "components/Dashboards/Environment/Land/Land";
 import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
 import Transport from "components/Dashboards/Society/Transport/Transport";
-import { Divider } from "primereact/divider";
 import WaterNew from "components/Dashboards/Environment/Water/WaterNew";
 import Nature from "pages/Nature";
 import Society from "pages/Society";
@@ -61,11 +60,17 @@ const GovernmentSidebar = () => {
   const navigate = useNavigate(); // For navigation
   const toggleSection = (section) => {
     setActiveSections((prev) => ({ ...prev, [section]: !prev[section] }));
+    setActiveTab(section);
   };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab); // Set the clicked tab as active
-    setVisible(false); // Show the sidebar when a tab is clicked
+    setVisible(false);
+  };
+
+  const handleActions = (tab) => {
+    setVisible(true); // Set visibility to true
+    setActiveTab(tab); // Set the active tab
   };
 
   const getTabStyle = (tab) => ({
@@ -93,6 +98,21 @@ const GovernmentSidebar = () => {
       ? [
           { label: "CSI For Government", url: "/government" },
           { label: "City Report Card", isSelected: true },
+        ]
+      : activeTab === "nature"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Nature", isSelected: true },
+        ]
+      : activeTab === "society"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Society", isSelected: true },
+        ]
+      : activeTab === "admin"
+      ? [
+          { label: "CSI For Government", url: "/government" },
+          { label: "Administration", isSelected: true },
         ]
       : activeTab === "aqi"
       ? [
@@ -221,16 +241,14 @@ const GovernmentSidebar = () => {
           />
           <Button
             icon={<Sprout size={18} />}
-            // onClick={() => setVisible(true)}
-            onClick={() => handleTabClick("nature")}
+            onClick={() => handleActions("nature")}
             tooltip="Nature"
             style={activeTabStyle("nature")}
             className="border-none border-round-lg mb-2"
           />
           <Button
             icon={<Users size={18} />}
-            // onClick={() => setVisible(true)}
-            onClick={() => handleTabClick("society")}
+            onClick={() => handleActions("society")}
             tooltip="Society"
             style={activeTabStyle("society")}
             className="border-none border-round-lg mb-2"
@@ -238,8 +256,7 @@ const GovernmentSidebar = () => {
 
           <Button
             icon={<Landmark size={20} />}
-            // onClick={() => setVisible(true)}
-            onClick={() => handleTabClick("admin")}
+            onClick={() => handleActions("admin")}
             tooltip="Administration"
             style={activeTabStyle("admin")}
             className="border-none border-round-lg"

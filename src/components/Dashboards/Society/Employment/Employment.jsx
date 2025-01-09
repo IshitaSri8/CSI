@@ -3,7 +3,6 @@ import { Doughnut, GroupedColumnChart, PieChartRow } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
-import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import employment from "assets/employment.svg";
 import salary from "assets/salary.svg";
