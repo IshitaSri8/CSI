@@ -1,36 +1,35 @@
 import React from "react";
 import { Knob } from "primereact/knob";
-import WaterReportPrint from "./WaterReportPrint";
+import WaterRecommendations from "./WaterRecommendations";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { useState } from "react";
-import WaterRecommendations from "./WaterRecommendations";
 import { Divider } from "primereact/divider";
 import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { ProgressBar } from "primereact/progressbar";
-import { PieChartRow } from "Layout/GraphVisuals";
 import { useEffect } from "react";
 import axios from "axios";
 import { Dropdown } from "primereact/dropdown";
-import Upload from "./Popups/Upload";
-import civil_lines from "./GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
-import shahadatganj from "./GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
-import ranopali from "./GeoJson_Zone/2_Ayodhya_Ranopali.json";
-import bank_colony from "./GeoJson_Zone/3_Ayodhya_Bank_colony.json";
-import airport from "./GeoJson_Zone/4_Ayodhya_near_Airport.json";
-import all_locations from "./GeoJson_Zone/Zone_Boundary_Merge.json";
+
+import Upload from "../../../DashboardUtility/Popups/Upload";
+import civil_lines from "assets/GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
+import shahadatganj from "assets/GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
+import ranopali from "assets/GeoJson_Zone/2_Ayodhya_Ranopali.json";
+import bank_colony from "assets/GeoJson_Zone/3_Ayodhya_Bank_colony.json";
+import airport from "assets/GeoJson_Zone/4_Ayodhya_near_Airport.json";
+import all_locations from "assets/GeoJson_Zone/Zone_Boundary_Merge.json";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import { Card } from "primereact/card";
-import drains from "../../../../extra/assets/Drainage_2024.json";
+import drains from "extra/Assets/Drainage_2024.json";
 import ADA from "./ADA_Boundary.json";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
+
 const WaterDashboard = ({ show }) => {
+  const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
-  const waterSupplyData = [58, 40, 2];
-  const waterSupplyLabels = ["Groundwater", "Individual Taps", "Bore Well"];
   const [data, setData] = useState([]);
-  const [filterdata, setFilterData] = useState("");
   const [selectedZone, setSelectedZone] = useState("Civil Lines");
   const [selectedYear, setSelectedYear] = useState(2024);
   const [selectedMonth, setSelectedMonth] = useState(1);
@@ -38,6 +37,7 @@ const WaterDashboard = ({ show }) => {
   const [selectedData, setSelectedData] = useState(null);
   const [zoneWQIValues, setZoneWQIValues] = useState({});
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -132,7 +132,7 @@ const WaterDashboard = ({ show }) => {
     } else {
       setZoneWQIValues({});
     }
-  }, [selectedZone, filteredData]);
+  }, [selectedZone]);
 
   // Calculate total values if all zones are selected
   const totalValues = filteredData.reduce((acc, curr) => {
@@ -219,69 +219,123 @@ const WaterDashboard = ({ show }) => {
   const handleToggleRecommendations = () => {
     setRecommendationsVisible((prev) => !prev);
   };
+
+  const renderRecommendations = () => {
+    return <WaterRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <WaterDashboard show={false} />;
+  };
+
   return (
     <div className="w-full p-4 flex gap-3 flex-column">
       {show && (
-        <div className="flex align-items-center justify-content-center w-full">
-          <div className="w-full">
-            <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-              Water Management
-            </h1>
-          </div>
+        <div className="flex align-items-center justify-content-between w-full">
+          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+            Water Management
+          </h1>
 
-          <div className="flex align-items-center justify-content-center flex-row gap-2 w-full">
-            <div className="flex align-items-center justify-content-center gap-2 ">
-              <Dropdown
-                value={selectedZone}
-                onChange={handleZoneChange}
-                options={[
-                  { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
-                  ...zones.map((div) => ({ label: div, value: div })),
-                ]}
-                placeholder="Select Zones"
-                className="w-full"
-              />
-              <Dropdown
-                value={selectedYear}
-                onChange={(e) => setSelectedYear(e.value)}
-                options={years.map((year) => ({ label: year, value: year }))}
-                placeholder="Select Year"
-                className="w-full"
-              />
-              <Dropdown
-                value={selectedMonth}
-                onChange={(e) => setSelectedMonth(e.value)}
-                options={months.map((month) => ({
-                  label: month,
-                  value: month,
-                }))}
-                placeholder="Select Month"
-                className="w-full"
-              />
-
-              {/* <Button label="Modify Data" onClick={handleModify}></Button> */}
-            </div>
-            <div className="flex align-items-center justify-content-center gap-2">
-              <Button label="Upload File" onClick={showUploadDialog} />
-              <Upload visible={uploadDialogVisible} onHide={hideUploadDialog} />
-              <Button
-                label="Generate Report"
-                icon="pi pi-file"
-                onClick={() => setReportVisible(true)}
-                className="bg-primary1 text-white"
-                raised
-              />
-              <Dialog
-                visible={ReportVisible}
-                style={{ width: "100rem" }}
-                onHide={() => {
-                  if (!ReportVisible) return;
-                  setReportVisible(false);
+          <div className="flex align-items-center justify-content-end gap-2">
+            <Button
+              label="Filters"
+              icon="pi pi-filter"
+              onClick={() => setFilterVisible(!filterVisible)}
+              className="bg-white text-secondary2"
+              raised
+            />
+            {filterVisible && (
+              <div
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2"
+                style={{
+                  zIndex: 1000, // Ensures the filter appears above other components
+                  position: "absolute", // Required for z-index to work
+                  transform: "translateY(60%) translateX(-200%)",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                <WaterReportPrint show={false} />
-              </Dialog>
-            </div>
+                <div className="flex flex-column gap-3">
+                  <div className="flex flex-column align-items-center justify-content-center gap-2 ">
+                    <Dropdown
+                      value={selectedZone}
+                      onChange={handleZoneChange}
+                      options={[
+                        { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
+                        ...zones.map((div) => ({ label: div, value: div })),
+                      ]}
+                      placeholder="Select Zones"
+                      className="w-full"
+                    />
+                    <Dropdown
+                      value={selectedYear}
+                      onChange={(e) => setSelectedYear(e.value)}
+                      options={years.map((year) => ({
+                        label: year,
+                        value: year,
+                      }))}
+                      placeholder="Select Year"
+                      className="w-full"
+                    />
+                    <Dropdown
+                      value={selectedMonth}
+                      onChange={(e) => setSelectedMonth(e.value)}
+                      options={months.map((month) => ({
+                        label: month,
+                        value: month,
+                      }))}
+                      placeholder="Select Month"
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="flex justify-content-between">
+                    <Button
+                      className="bg-white text-moderate border-none"
+                      label="Reset"
+                      // icon="pi pi-search"
+                      // onClick={resetFilters}
+                      raised
+                    />
+                    <Button
+                      className="bg-primary1"
+                      label="Apply"
+                      // icon="pi pi-search"
+                      // onClick={handleApply}
+                      raised
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <Button label="Upload File" onClick={showUploadDialog} raised />
+            <Upload visible={uploadDialogVisible} onHide={hideUploadDialog} />
+            <Button
+              label="Modify Data"
+              // onClick={handleModify}
+              raised
+            />
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-primary1 text-white"
+              raised
+            />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"water"}
+                heading={"Water Management"}
+              />
+            </Dialog>
           </div>
         </div>
       )}

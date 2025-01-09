@@ -20,6 +20,7 @@ import AQIRecommendations from "./AQIRecommendations";
 import AQIReportPrint from "./AQIReportPrint";
 import { Tag } from "primereact/tag";
 import { Panel } from "primereact/panel";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const AqiDashboard = ({
   onDataChange,
@@ -338,6 +339,14 @@ const AqiDashboard = ({
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
   };
 
+  const renderRecommendations = () => {
+    return <AQIRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <AqiDashboard show={false} />;
+  };
+
   return (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
@@ -437,11 +446,17 @@ const AqiDashboard = ({
           setReportVisible(false);
         }}
       >
-        <AQIReportPrint
+        {/* <AQIReportPrint
           show={false}
           selectedLocation={selectedLocation}
           startDate={startDate}
           endDate={endDate}
+        /> */}
+        <ReportPrint
+          renderDashboard={renderDashboard}
+          renderRecommendations={renderRecommendations}
+          parameter={"aqi"}
+          heading={"Air Quality Index"}
         />
       </Dialog>
 

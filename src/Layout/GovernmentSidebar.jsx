@@ -44,16 +44,19 @@ import EducationDashboard from "components/Dashboards/Society/Education/Educatio
 import Transport from "components/Dashboards/Society/Transport/Transport";
 import { Divider } from "primereact/divider";
 import WaterNew from "components/Dashboards/Environment/Water/WaterNew";
+import Nature from "pages/Nature";
+import Society from "pages/Society";
+import Administration from "pages/Administration";
 
 const GovernmentSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
   const [visible, setVisible] = useState(false);
   const [activeSections, setActiveSections] = useState({
-    environment: false,
+    nature: false,
     knowYourCity: false,
     cityReportCard: false,
     society: false,
-    administration: false,
+    admin: false,
   });
   const navigate = useNavigate(); // For navigation
   const toggleSection = (section) => {
@@ -218,14 +221,16 @@ const GovernmentSidebar = () => {
           />
           <Button
             icon={<Sprout size={18} />}
-            onClick={() => setVisible(true)}
+            // onClick={() => setVisible(true)}
+            onClick={() => handleTabClick("nature")}
             tooltip="Nature"
-            style={activeTabStyle("environment")}
+            style={activeTabStyle("nature")}
             className="border-none border-round-lg mb-2"
           />
           <Button
             icon={<Users size={18} />}
-            onClick={() => setVisible(true)}
+            // onClick={() => setVisible(true)}
+            onClick={() => handleTabClick("society")}
             tooltip="Society"
             style={activeTabStyle("society")}
             className="border-none border-round-lg mb-2"
@@ -233,9 +238,10 @@ const GovernmentSidebar = () => {
 
           <Button
             icon={<Landmark size={20} />}
-            onClick={() => setVisible(true)}
+            // onClick={() => setVisible(true)}
+            onClick={() => handleTabClick("admin")}
             tooltip="Administration"
-            style={activeTabStyle("gov")}
+            style={activeTabStyle("admin")}
             className="border-none border-round-lg"
           />
           {/* <Divider /> */}
@@ -343,22 +349,22 @@ const GovernmentSidebar = () => {
               <div
                 onClick={() => {
                   setVisible(true);
-                  toggleSection("environment");
-                  // handleTabClick("environment");
+                  toggleSection("nature");
+                  // handleTabClick("nature");
                 }}
-                style={getTabStyle("environment")}
+                style={getTabStyle("nature")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"
               >
                 <Sprout className="text-white mr-2" size={20} />
                 <span className="font-medium text-white">Nature</span>
                 <i
                   className={`pi pi-chevron-${
-                    activeSections.environment ? "up" : "down"
+                    activeSections.nature ? "up" : "down"
                   } ml-auto text-white`}
                 ></i>
                 <Ripple />
               </div>
-              {activeSections.environment && (
+              {activeSections.nature && (
                 <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
                   {/* Air Quality Index */}
                   <li>
@@ -590,23 +596,23 @@ const GovernmentSidebar = () => {
             <li>
               <div
                 onClick={() => {
-                  toggleSection("administration");
+                  toggleSection("admin");
                   //  handleTabClick("administration");
                   setVisible(true);
                 }}
-                style={getTabStyle("administration")}
+                style={getTabStyle("admin")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
               >
                 <Landmark className="text-white mr-2" size={20} />
                 <span className="font-medium text-white">Admininstration</span>
                 <i
                   className={`pi pi-chevron-${
-                    activeSections.administration ? "up" : "down"
+                    activeSections.admin ? "up" : "down"
                   } ml-auto text-white`}
                 ></i>
                 <Ripple />
               </div>
-              {activeSections.administration && (
+              {activeSections.admin && (
                 <ul className="list-none py-0 pl-3 pr-0 m-0 mt-2">
                   <li>
                     <div
@@ -667,6 +673,11 @@ const GovernmentSidebar = () => {
       <div className="content" style={{ marginLeft: "5rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
         {activeTab === "cityReportCard" && <CityReportCardGov show={true} />}
+
+        {activeTab === "nature" && <Nature />}
+        {activeTab === "society" && <Society />}
+        {activeTab === "admin" && <Administration />}
+
         {activeTab === "aqi" && <AqiDashboard show={true} />}
         {activeTab === "water_new" && <WaterNew show={true}/>}
         {activeTab === "water" && <WaterDashboard show={true} />}

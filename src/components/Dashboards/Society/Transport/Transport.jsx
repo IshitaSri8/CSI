@@ -4,16 +4,22 @@ import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import { Panel } from "primereact/panel";
-import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import bus from "assets/bus.svg";
-import ayodhya from "assets/AYODHYA.png";
 import TransportRecommendations from "./TransportRecommendations";
-import TransportReportPrint from "./TransportReportPrint";
-import increase from "assets/increase.png";
 import AccidentMap from "./AccidentMap";
-import { Dropdown } from "primereact/dropdown";
-import { Card } from "primereact/card";
 import BusRoutes from "./BusRoutes";
+import { Dropdown } from "primereact/dropdown";
+import { useEffect } from "react";
+import axios from "axios";
+import Upload from "../../../DashboardUtility/Popups/Upload";
+
+import civil_lines from "assets/GeoJson_Zone/1_Ayodhya_Civil_line_Tiny_tots.json";
+import shahadatganj from "assets/GeoJson_Zone/5_Ayodhya_Shahadat_Ganj.json";
+import ranopali from "assets/GeoJson_Zone/2_Ayodhya_Ranopali.json";
+import bank_colony from "assets/GeoJson_Zone/3_Ayodhya_Bank_colony.json";
+import airport from "assets/GeoJson_Zone/4_Ayodhya_near_Airport.json";
+import all_locations from "assets/GeoJson_Zone/Zone_Boundary_Merge.json";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -33,29 +39,74 @@ const Transport = ({ show }) => {
 
   const buses = [80, 90, 178, 148]; // Buses in maintenance QUARTERWISE
 
-  const accidentData = [
-    {
-      location: "Location A",
-      lat: 26.774794,
-      lon: 82.134539,
-      severity: "severe",
-      count: 5,
-    },
-    {
-      location: "Location B",
-      lat: 26.767421,
-      lon: 82.09535,
-      severity: "moderate",
-      count: 3,
-    },
-    {
-      location: "Location C",
-      lat: 26.764028,
-      lon: 82.133778,
-      severity: "low",
-      count: 1,
-    },
-  ];
+  const [filterVisible, setFilterVisible] = useState(false);
+  const [data, setData] = useState([]);
+  const [selectedZone, setSelectedZone] = useState("Civil Lines");
+  const [selectedYear, setSelectedYear] = useState(2024);
+  const [selectedMonth, setSelectedMonth] = useState(1);
+  const [geoData, setGeoData] = useState(civil_lines);
+
+  const zones = [...new Set(data.map((item) => item.Divisions))];
+  const year = [...new Set(data.map((item) => item.Year))];
+  const months = [...new Set(data.map((item) => item.Month))];
+
+  const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+
+  useEffect(() => {
+    handleApply();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleApply = async () => {
+    try {
+      // setLoading(true);
+      setFilterVisible(false);
+      const response = await axios.get(
+        "https://api-csi.arahas.com/data/transport"
+      );
+
+      console.log(response.data.data);
+      setData(response.data.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const resetFilters = () => {
+    setSelectedZone(null);
+    setSelectedYear(null);
+    setSelectedMonth(null);
+  };
+
+  const showUploadDialog = () => {
+    setUploadDialogVisible(true);
+  };
+
+  const hideUploadDialog = () => {
+    setUploadDialogVisible(false);
+  };
+
+  const handleZoneChange = (e) => {
+    setSelectedZone(e.value);
+    setGeoData(divisionsWithLocations[e.value] || all_locations);
+  };
+  const divisionsWithLocations = {
+    "All Zones": all_locations,
+    "Civil Lines": civil_lines,
+    Shahadatganj: shahadatganj,
+    Ranopali: ranopali,
+    "Bank Colony": bank_colony,
+    "Airport Area": airport,
+  };
+
+  const renderRecommendations = () => {
+    return <TransportRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <Transport show={false} />;
+  };
 
   return (
     <div className="gap-3 p-4 flex flex-column">
@@ -65,23 +116,109 @@ const Transport = ({ show }) => {
             Public Transport
           </h1>
 
-          <Button
-            label="Generate Report"
-            icon="pi pi-file"
-            onClick={() => setReportVisible(true)}
-            className="bg-primary1 text-white"
-            raised
-          />
-          <Dialog
-            visible={ReportVisible}
-            style={{ width: "100rem" }}
-            onHide={() => {
-              if (!ReportVisible) return;
-              setReportVisible(false);
-            }}
-          >
-            <TransportReportPrint />
-          </Dialog>
+          <div className="flex align-items-center justify-content-end gap-2">
+            <Button
+              label="Filters"
+              icon="pi pi-filter"
+              onClick={() => setFilterVisible(!filterVisible)}
+              className="bg-white text-secondary2"
+              raised
+            />
+            {filterVisible && (
+              <div
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2"
+                style={{
+                  zIndex: 1000, // Ensures the filter appears above other components
+                  position: "absolute", // Required for z-index to work
+                  transform: "translateY(60%) translateX(-200%)",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <div className="flex flex-column gap-3">
+                  <div className="flex flex-column align-items-center justify-content-center gap-2 ">
+                    <Dropdown
+                      value={selectedZone}
+                      onChange={handleZoneChange}
+                      options={[
+                        { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
+                        ...zones.map((div) => ({ label: div, value: div })),
+                      ]}
+                      placeholder="Select Zones"
+                      className="w-full"
+                    />
+                    <Dropdown
+                      value={selectedYear}
+                      onChange={(e) => setSelectedYear(e.value)}
+                      options={year.map((year) => ({
+                        label: year,
+                        value: year,
+                      }))}
+                      placeholder="Select Year"
+                      className="w-full"
+                    />
+                    <Dropdown
+                      value={selectedMonth}
+                      onChange={(e) => setSelectedMonth(e.value)}
+                      options={months.map((month) => ({
+                        label: month,
+                        value: month,
+                      }))}
+                      placeholder="Select Month"
+                      className="w-full"
+                    />
+
+                    {/* <Button label="Modify Data" onClick={handleModify}></Button> */}
+                  </div>
+                  <div className="flex justify-content-between">
+                    <Button
+                      className="bg-white text-moderate border-none"
+                      label="Reset"
+                      // icon="pi pi-search"
+                      onClick={resetFilters}
+                      raised
+                    />
+                    <Button
+                      className="bg-primary1"
+                      label="Apply"
+                      // icon="pi pi-search"
+                      onClick={handleApply}
+                      raised
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <Button label="Upload File" onClick={showUploadDialog} raised />
+            <Upload visible={uploadDialogVisible} onHide={hideUploadDialog} />
+            <Button
+              label="Modify Data"
+              // onClick={handleModify}
+              raised
+            />
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-primary1 text-white"
+              raised
+            />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"transport"}
+                heading={"Public Transport"}
+              />
+            </Dialog>
+          </div>
         </div>
       )}
 
@@ -164,11 +301,20 @@ const Transport = ({ show }) => {
                   <p className="p-0 m-0 card-text">5 Years</p>
                 </div>
               </div>
+              <p className="card-text text-xs p-0 m-0 text-right">
+                *Standard values
+              </p>
             </div>
           </div>
           {/* Buses going for maintenance */}
-          <div className="flex flex-column bg-white border-round p-3">
-            <p className="card-title p-0 m-0">Buses going for Maintenance</p>
+          <div className="flex flex-column bg-white border-round p-3 gap-2">
+            <div className="flex justify-content-between">
+              <p className="card-title p-0 m-0">
+                Buses going for Maintenance Quarterly
+              </p>
+              <p className="text-sm text-tertiary3 font-medium p-0 m-0">2024</p>
+            </div>
+            {/* <p className="card-title p-0 m-0">Buses going for Maintenance</p> */}
             <ColumnChart
               // title="Buses going for maintenance"
               categories={labels}
@@ -191,8 +337,7 @@ const Transport = ({ show }) => {
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
-              125{" "}
-              <span className="text-tertiary3 font-medium">/Day</span>
+              125 <span className="text-tertiary3 font-medium">/Day</span>
             </p>
           </div>
           {/* Average Passenger Count */}
@@ -202,66 +347,20 @@ const Transport = ({ show }) => {
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
             <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
-              487{" "}
-              <span className="text-tertiary3 font-medium">/Day</span>
+              487 <span className="text-tertiary3 font-medium">/Day</span>
             </p>
-            {/* <Chip
-            label="October 2024"
-            style={{
-              width: "fit-content",
-              backgroundColor: "#e9f3f5",
-              color: "#001F23",
-            }}
-          /> */}
           </div>
-
-          {/* Maintenance of Public Vehicle*/}
-          {/* <div className="flex flex-column bg-white border-round align-items-center p-4 gap-3 w-full">
-            <div className="flex justify-content-between align-items-center w-full">
-              <p className="card-title p-0 m-0">
-                Maintenance of Public Vehicle
-              </p>
-            </div>
-            <div className="flex w-11rem custom-circular-progress">
-              <CircularProgressbar
-                value={maintenance}
-                text={`${maintenance}%`}
-                strokeWidth={8}
-                styles={buildStyles({
-                  pathColor: "#1f8297",
-                  textColor: "#001F23",
-                  trailColor: "#E7EAEA",
-                  textSize: "1.2rem",
-                  pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                  transform: "rotate(2.25turn)",
-                })}
-              />
-            </div>
-            <div className="flex align-items-center justify-content-start">
-              <img
-                src={increase}
-                style={{
-                  height: "1.5rem",
-                  width: "1.5rem",
-                  marginRight: "0.5rem",
-                }}
-                alt="increase"
-              />
-              <p className="text-tertiary3 text-sm p-0 m-0 font-medium">
-                <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
-                year.
-              </p>
-            </div>
-          </div> */}
         </div>
 
         {/* EV Trend */}
         <div
           className="flex flex-column bg-white border-round p-3 gap-2"
-          style={{ flex: "35%" }}
+          style={{ flex: "38%" }}
         >
           <div className="flex justify-content-between">
-            <p className="card-title p-0 m-0">EV Trend</p>
+            <p className="card-title p-0 m-0">
+              Quarterly EV Bus Deployment Trend
+            </p>
             <p className="text-sm text-tertiary3 font-medium p-0 m-0">2024</p>
           </div>
           <LineChart
@@ -273,31 +372,41 @@ const Transport = ({ show }) => {
           />
         </div>
 
-        <div className="flex flex-column gap-3" style={{ flex: "15%" }}>
+        <div className="flex flex-column gap-2" style={{ flex: "12%" }}>
           {/*  Charging Stations*/}
-          <div className="flex flex-column bg-white border-round w-full p-3 gap-2">
-            <p className="card-title p-0 m-0">
+          <div className="flex flex-column bg-white border-round w-full p-2 gap-2">
+            <p className="card-text p-0 m-0">
               Charging Stations
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
-            <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
+            <p className="text-xl font-semibold m-0 p-0 text-secondary2 text-center">
               12
             </p>
           </div>
+          {/* Petrol Pumps*/}
+          <div className="flex flex-column bg-white border-round w-full p-2 gap-2">
+            <p className="card-text p-0 m-0">
+              Petrol Pumps
+              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+            </p>
+            <p className="text-xl font-semibold m-0 p-0 text-secondary2 text-center">
+              27
+            </p>
+          </div>
           {/* Accidents*/}
-          <div className="flex flex-column bg-white border-round w-full p-3 gap-2">
-            <p className="card-title p-0 m-0">
+          <div className="flex flex-column bg-white border-round w-full p-2 gap-2">
+            <p className="card-text p-0 m-0">
               Accidents
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
-            <p className="text-3xl font-semibold m-0 p-1 text-secondary2 text-center">
+            <p className="text-xl font-semibold m-0 p-0 text-secondary2 text-center">
               27
             </p>
           </div>
         </div>
 
         <div className="flex" style={{ flex: "32%" }}>
-          <AccidentMap accidentData={accidentData} />
+          <AccidentMap />
         </div>
       </div>
 

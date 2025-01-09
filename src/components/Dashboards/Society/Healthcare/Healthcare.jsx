@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import HealthcareReportPrint from "./HealthcareReportPrint";
 import {
   GroupedColumnChart,
   GroupedBarChart,
@@ -20,6 +19,7 @@ import { ProgressBar } from "primereact/progressbar";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import HealthcareRecommendations from "./HealthcareRecommendations";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const Healthcare = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -112,6 +112,14 @@ const Healthcare = ({ show }) => {
   // ];
   // const mentalPatientsData = [270, 328, 232, 150];
 
+  const renderRecommendations = () => {
+    return <HealthcareRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <Healthcare show={false} />;
+  };
+
   return (
     <div className="flex gap-3 flex-column p-4">
       {show && (
@@ -134,7 +142,12 @@ const Healthcare = ({ show }) => {
               setReportVisible(false);
             }}
           >
-            <HealthcareReportPrint />
+            <ReportPrint
+              renderDashboard={renderDashboard}
+              renderRecommendations={renderRecommendations}
+              parameter={"healthcare"}
+              heading={"Healthcare"}
+            />
           </Dialog>
         </div>
       )}

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { ColumnChart, GroupedBarChart } from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import CommunityReportPrint from "./CommunityReportPrint";
 import { Panel } from "primereact/panel";
 import workshop from "assets/workshop.svg";
 import ngo from "assets/ngo.svg";
 import survey from "assets/Survey Illustration.svg";
 import CommunityRecommendations from "./CommunityRecommendations";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const Community = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -41,6 +41,14 @@ const Community = ({ show }) => {
   const categories = ["2020", "2021", "2022", "2023", "2024"];
   const forums = [80, 90, 178, 148, 215]; // Funds allocated for each year (in crores)
 
+  const renderRecommendations = () => {
+    return <CommunityRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <Community show={false} />;
+  };
+
   return (
     <div className="flex gap-3 flex-column p-4">
       {show && (
@@ -63,7 +71,12 @@ const Community = ({ show }) => {
               setReportVisible(false);
             }}
           >
-            <CommunityReportPrint />
+            <ReportPrint
+              renderDashboard={renderDashboard}
+              renderRecommendations={renderRecommendations}
+              parameter={"community"}
+              heading={"Community Engagement & Holisitic Well-Being"}
+            />
           </Dialog>
         </div>
       )}
@@ -153,7 +166,7 @@ const Community = ({ show }) => {
       <div className="flex align-items-center justify-content-center gap-2 w-full">
         {/* Socio-Cultural Facilities */}
         <div className="flex flex-column bg-white border-round p-4 w-full">
-        <p className="card-title p-0 m-0">Socio-Cultural Facilities</p>
+          <p className="card-title p-0 m-0">Socio-Cultural Facilities</p>
           <GroupedBarChart
             // title="Socio-Cultural Facilities"
             labels={facilitiesCategories}

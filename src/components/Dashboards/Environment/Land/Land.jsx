@@ -2,13 +2,13 @@ import React from "react";
 import { useState } from "react";
 import LandRecommendations from "./LandRecommendations";
 import { Button } from "primereact/button";
-import LandReportPrint from "./LandReportPrint";
 import { Dialog } from "primereact/dialog";
 import { LandPlot } from "lucide-react";
 import { ProgressBar } from "primereact/progressbar";
 import { ModifiedPieChart } from "Layout/GraphVisuals";
 import { Tag } from "primereact/tag";
 import { Panel } from "primereact/panel";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const Land = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -55,6 +55,14 @@ const Land = ({ show }) => {
   const totalArea = 133.67;
   const population = 248638;
 
+  const renderRecommendations = () => {
+    return <LandRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <Land show={false} />;
+  };
+
   return (
     <div className="flex gap-3 flex-column p-4">
       {show && (
@@ -78,7 +86,12 @@ const Land = ({ show }) => {
                 setReportVisible(false);
               }}
             >
-              <LandReportPrint show={false} />
+                <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"land"}
+                heading={"Land Usage"}
+              />
             </Dialog>
           </div>
         </div>

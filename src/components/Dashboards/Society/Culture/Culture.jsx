@@ -7,12 +7,12 @@ import {
 } from "Layout/GraphVisuals";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import CultureReportPrint from "./CultureReportPrint";
 import { Panel } from "primereact/panel";
 import { ProgressBar } from "primereact/progressbar";
 import festival from "assets/Festival Illustration.svg";
 import cultural from "assets/Cultural Sites.svg";
 import CultureRecommendations from "./CultureRecommendations";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const Culture = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -38,6 +38,14 @@ const Culture = ({ show }) => {
   const totalSites = [200, 150, 215, 290, 250]; // Example total cultural sites over years
   const maintainedSites = [20, 40, 50, 80, 180];
 
+  const renderRecommendations = () => {
+    return <CultureRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <Culture show={false} />;
+  };
+
   return (
     <div className="flex gap-3 flex-column p-4">
       {show && (
@@ -60,7 +68,12 @@ const Culture = ({ show }) => {
               setReportVisible(false);
             }}
           >
-            <CultureReportPrint />
+            <ReportPrint
+              renderDashboard={renderDashboard}
+              renderRecommendations={renderRecommendations}
+              parameter={"cultural"}
+              heading={"Cultural Preservation"}
+            />
           </Dialog>
         </div>
       )}

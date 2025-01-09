@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import DisasterReportPrint from "./DisasterReportPrint";
 import { Chip } from "primereact/chip";
 import responders from "assets/Group.png";
 import { DataTable } from "primereact/datatable";
@@ -11,6 +10,7 @@ import { Tag } from "primereact/tag";
 import AqiMap from "assets/aqi/AqiMap";
 import { Panel } from "primereact/panel";
 import DisasterRecommendations from "./DisasterRecommendations";
+import ReportPrint from "components/DashboardUtility/ReportPrint";
 
 const Disaster = ({ show }) => {
   const dummyData = [
@@ -136,6 +136,14 @@ const Disaster = ({ show }) => {
     setRecommendationsVisible(!recommendationsVisible);
   };
 
+  const renderRecommendations = () => {
+    return <DisasterRecommendations />;
+  };
+
+  const renderDashboard = () => {
+    return <Disaster show={false} />;
+  };
+
   return (
     <div className="flex flex-column p-4 gap-3">
       {show && (
@@ -159,7 +167,12 @@ const Disaster = ({ show }) => {
               setReportVisible(false);
             }}
           >
-            <DisasterReportPrint />
+            <ReportPrint
+              renderDashboard={renderDashboard}
+              renderRecommendations={renderRecommendations}
+              parameter={"disaster"}
+              heading={"Disaster Management"}
+            />
           </Dialog>
         </div>
       )}
