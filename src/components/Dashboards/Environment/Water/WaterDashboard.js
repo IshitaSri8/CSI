@@ -5,7 +5,6 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { useState } from "react";
 import { Divider } from "primereact/divider";
-import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { ProgressBar } from "primereact/progressbar";
 import { useEffect } from "react";
@@ -21,9 +20,8 @@ import bank_colony from "assets/GeoJson_Zone/3_Ayodhya_Bank_colony.json";
 import airport from "assets/GeoJson_Zone/4_Ayodhya_near_Airport.json";
 import all_locations from "assets/GeoJson_Zone/Zone_Boundary_Merge.json";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
-import { Card } from "primereact/card";
-import ADA from "./ADA_Boundary.json";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const WaterDashboard = ({ show }) => {
   const [filterVisible, setFilterVisible] = useState(false);
@@ -186,8 +184,8 @@ const WaterDashboard = ({ show }) => {
         ((displayValues.Population * 135) / 1000000).toFixed(2)) *
       100
     ).toFixed(2) < 0
-      ? "green"
-      : "red";
+      ? "0C9D61"
+      : "#E62225";
 
   const showUploadDialog = () => {
     setUploadDialogVisible(true);
@@ -238,7 +236,10 @@ const WaterDashboard = ({ show }) => {
 
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
-              label="Filters"
+              tooltip="Filters"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               icon="pi pi-filter"
               onClick={() => setFilterVisible(!filterVisible)}
               className="bg-white text-secondary2"
@@ -307,22 +308,37 @@ const WaterDashboard = ({ show }) => {
               </div>
             )}
 
-            <Button label="Upload File" onClick={showUploadDialog} raised />
+            <Button
+              tooltip="Upload File"
+              onClick={showUploadDialog}
+              raised
+              icon="pi pi-file-arrow-up"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
             <Upload
               visible={uploadDialogVisible}
               onHide={hideUploadDialog}
               parameter={"water"}
             />
             <Button
-              label="Modify Data"
+              tooltip="Modify Data"
               // onClick={handleModify}
               raised
+              icon="pi pi-file-edit"
+              tooltipOptions={{
+                position: "bottom",
+              }}
             />
             <Button
-              label="Generate Report"
+              tooltip="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
               className="bg-primary1 text-white"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               raised
             />
             <Dialog
@@ -734,36 +750,10 @@ const WaterDashboard = ({ show }) => {
         *Data updated till 2020. These numbers are subject to variation.
       </p>
 
-      {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && <WaterRecommendations />}
-        </Panel>
-      )}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />
     </div>
   );
 };

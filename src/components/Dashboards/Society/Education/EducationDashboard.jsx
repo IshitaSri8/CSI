@@ -13,6 +13,7 @@ import institutions from "assets/institutions.svg";
 import gender from "assets/gender.svg";
 import EducationRecommendations from "./EducationRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const EducationDashboard = ({ show }) => {
   const [selectedLevel, setSelectedLevel] = useState(0); // Use index for selected level (0 = Primary, 1 = Secondary, 2 = Higher)
@@ -77,11 +78,11 @@ const EducationDashboard = ({ show }) => {
                   }}
                 >
                   <ReportPrint
-                renderDashboard={renderDashboard}
-                renderRecommendations={renderRecommendations}
-                parameter={"education"}
-                heading={"Education"}
-              />
+                    renderDashboard={renderDashboard}
+                    renderRecommendations={renderRecommendations}
+                    parameter={"education"}
+                    heading={"Education"}
+                  />
                 </Dialog>
               </div>
             )}
@@ -263,18 +264,14 @@ const EducationDashboard = ({ show }) => {
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.enrollmentCurrent}
                           </p>
-                          <p className="p-0 m-0 card-text">
-                            Current
-                          </p>
+                          <p className="p-0 m-0 card-text">Current</p>
                         </div>
                         <Divider layout="vertical" />
                         <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                             {educationData.enrollmentTarget}
                           </p>
-                          <p className="p-0 m-0 card-text">
-                            Target
-                          </p>
+                          <p className="p-0 m-0 card-text">Target</p>
                         </div>
                       </div>
                       <ProgressBar
@@ -307,18 +304,14 @@ const EducationDashboard = ({ show }) => {
                           <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                             {educationData.dropoutRatioCurrentValue}
                           </p>
-                          <p className="p-0 m-0 card-text">
-                            Current
-                          </p>
+                          <p className="p-0 m-0 card-text">Current</p>
                         </div>
                         <Divider layout="vertical" />
                         <div className="flex flex-column w-full p-2 align-items-center gap-1">
                           <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                             {educationData.dropoutRatioTargetValue}
                           </p>
-                          <p className="p-0 m-0 card-text">
-                            Target
-                          </p>
+                          <p className="p-0 m-0 card-text">Target</p>
                         </div>
                       </div>
                       <ProgressBar
@@ -392,36 +385,10 @@ const EducationDashboard = ({ show }) => {
               <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic my-3">
                 *Data updated till 2020. These numbers are subject to variation.
               </p>
-              {show && (
-                <Panel
-                  toggleable
-                  onToggle={handleToggleRecommendations}
-                  headerTemplate={(options) => {
-                    const toggleIcon = recommendationsVisible
-                      ? "pi pi-chevron-up"
-                      : "pi pi-chevron-down";
-                    return (
-                      <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                        <p className="text-primary1 font-semibold text-xl">
-                          View Recommendations
-                        </p>
-                        <button
-                          className={`p-link ${toggleIcon}`}
-                          onClick={options.onTogglerClick}
-                          style={{
-                            background: "none",
-                            // border: "none",
-                            cursor: "pointer",
-                            color: "#001F23",
-                          }}
-                        />
-                      </div>
-                    );
-                  }}
-                >
-                  {recommendationsVisible && <EducationRecommendations />}
-                </Panel>
-              )}
+              <RecommendationPanel
+                show={true}
+                renderRecommendations={renderRecommendations}
+              />
             </div>
           </TabPanel>
         ))}

@@ -397,20 +397,6 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
-                  <li>
-                    <div
-                      style={getTabStyle("water_new")}
-                      onClick={() => handleTabClick("water_new")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
-                    >
-                      <Droplet className="text-white mr-2" size={15} />
-                      {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
-                      <span className="font-medium text-sm text-white">
-                        Water New
-                      </span>
-                      <Ripple />
-                    </div>
-                  </li>
 
                   {/* Land Usage */}
                   <li>
