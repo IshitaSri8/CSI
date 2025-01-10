@@ -10,6 +10,7 @@ import { useState } from "react";
 import WasteRecommendations from "./WasteRecommendations";
 import { Panel } from "primereact/panel";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const WasteDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -265,36 +266,10 @@ const WasteDashboard = ({ show }) => {
         *Data updated till 2020. These numbers are subject to variation.
       </p>
 
-      {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && <WasteRecommendations />}
-        </Panel>
-      )}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />
     </div>
   );
 };

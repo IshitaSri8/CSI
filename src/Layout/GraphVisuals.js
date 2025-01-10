@@ -1100,7 +1100,7 @@ export const PieChartRow = ({
       </div>
 
       {/* Custom Legends */}
-      <div className="flex flex-column gap-2">
+      <div className="flex flex-column gap-1">
         {series.map((value, index) => (
           <div
             key={index}

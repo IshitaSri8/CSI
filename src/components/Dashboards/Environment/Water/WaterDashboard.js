@@ -5,7 +5,6 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { useState } from "react";
 import { Divider } from "primereact/divider";
-import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { ProgressBar } from "primereact/progressbar";
 import { useEffect } from "react";
@@ -36,7 +35,6 @@ import { InputText } from "primereact/inputtext";
 const WaterDashboard = ({ show }) => {
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
-  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
   const [data, setData] = useState([]);
   const [selectedZone, setSelectedZone] = useState("All Zones");
   const [selectedYear, setSelectedYear] = useState(2024);
@@ -171,7 +169,7 @@ const WaterDashboard = ({ show }) => {
 
   const Legend = () => {
     return (
-      <div className="legend flex align-items-start justify-content-around flex-row ">
+      <div className="legend flex align-items-start justify-content-around ">
         <div className="gap-2">
           <svg width="20" height="20">
             <rect width="20" height="20" fill="#FF7777" />
@@ -285,8 +283,8 @@ const WaterDashboard = ({ show }) => {
         ((displayValues.Population * 135) / 1000000).toFixed(2)) *
       100
     ).toFixed(2) < 0
-      ? "green"
-      : "red";
+      ? "0C9D61"
+      : "#E62225";
 
   const showUploadDialog = () => {
     setUploadDialogVisible(true);
@@ -315,10 +313,6 @@ const WaterDashboard = ({ show }) => {
     capacity: { current: 12, required: 109.95 },
   };
 
-  const handleToggleRecommendations = () => {
-    setRecommendationsVisible((prev) => !prev);
-  };
-
   const renderRecommendations = () => {
     return <WaterRecommendations />;
   };
@@ -328,7 +322,7 @@ const WaterDashboard = ({ show }) => {
   };
 
   return (
-    <div className="w-full p-4 flex gap-3 flex-column">
+    <div className="w-full p-3 flex gap-3 flex-column">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
@@ -703,10 +697,13 @@ const WaterDashboard = ({ show }) => {
               </div>
             )}
             <Button
-              label="Generate Report"
+              tooltip="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
               className="bg-primary1 text-white"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               raised
             />
             <Dialog
@@ -735,9 +732,8 @@ const WaterDashboard = ({ show }) => {
           >
             <div className="w-full flex gap-3">
               {/* Water Supply */}
-
               <div
-                className="flex flex-column gap-3 p-4 border-round bg-white"
+                className="flex flex-column gap-3 p-3 border-round bg-white"
                 style={{ flex: "45%" }}
               >
                 <p className="card-title p-0 m-0">Water Supply</p>
@@ -808,12 +804,9 @@ const WaterDashboard = ({ show }) => {
                 </p>
               </div>
 
-              {/* Sources of Water Supply */}
-              <div
-                className="flex flex-column justify-content-start bg-white border-round p-4 gap-3 w-full"
-                style={{ flex: "30%" }}
-              >
-                <div className="flex flex-column w-full gap-3">
+              <div className="flex flex-column gap-3">
+                {/* Sources of Water Supply */}
+                <div className="flex flex-column justify-content-start bg-white border-round p-3 gap-3 w-full">
                   <p className="card-title p-0 m-0">Water Supply Sources</p>
                   <div className="flex">
                     <div className="flex w-full px-2 flex-column">
@@ -853,7 +846,7 @@ const WaterDashboard = ({ show }) => {
                   </div>
                 </div>
                 {/* Households with Water Supply */}
-                <div className="flex sec-theme gap-2 p-4 flex-column border-round align-items-center justify-content-center w-full">
+                <div className="flex sec-theme gap-2 p-3 flex-column border-round align-items-center justify-content-center w-full">
                   <ProgressBar
                     value={(
                       (displayValues.No_of_Households_with_Connections /
@@ -886,7 +879,7 @@ const WaterDashboard = ({ show }) => {
                   Water Usage Management
                 </p>
                 <div className="flex gap-3">
-                  <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
+                  <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
                     <div className="flex w-8rem custom-circular-progress">
                       <CircularProgressbar
                         value={
@@ -915,7 +908,7 @@ const WaterDashboard = ({ show }) => {
                       Houses with Metered Connections
                     </p>
                   </div>
-                  <div className="flex flex-column sec-theme border-round p-4 gap-2 align-items-center w-full">
+                  <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
                     <div className="flex w-8rem custom-circular-progress">
                       <CircularProgressbar
                         value={(
@@ -960,7 +953,7 @@ const WaterDashboard = ({ show }) => {
                       value={waterTreatment.reusedPercent}
                       valueTemplate={"{value}%"}
                       readOnly
-                      size={120}
+                      size={130}
                       strokeWidth={6}
                       valueColor="#166c7d"
                       rangeColor="#E9F3F5"
@@ -1011,7 +1004,7 @@ const WaterDashboard = ({ show }) => {
             <div className="w-full flex gap-3">
               {/* Water Preservation */}
               <div
-                className="flex flex-column bg-white border-round p-4 gap-3"
+                className="flex flex-column bg-white border-round p-3 gap-3"
                 style={{ flex: "25%" }}
               >
                 <p className="card-title p-0 m-0">Water Preservation</p>
@@ -1038,6 +1031,7 @@ const WaterDashboard = ({ show }) => {
               </div>
               <div
                 className="flex flex-column bg-white border-round p-3 gap-3"
+                className="flex flex-column bg-white border-round p-3 gap-3"
                 style={{ flex: "25%" }}
               >
                 <p className="card-title p-0 m-0">
@@ -1061,7 +1055,7 @@ const WaterDashboard = ({ show }) => {
               <MapContainer
                 center={[26.8, 82.2]}
                 zoom={10}
-                style={{ height: "20rem", width: "100%" }}
+                style={{ height: "30rem", width: "100%" }}
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
@@ -1285,36 +1279,10 @@ const WaterDashboard = ({ show }) => {
         *Data updated till 2020. These numbers are subject to variation.
       </p>
 
-      {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && <WaterRecommendations />}
-        </Panel>
-      )}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />
     </div>
   );
 };

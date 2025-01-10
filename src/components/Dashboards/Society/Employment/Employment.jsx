@@ -3,7 +3,6 @@ import { Doughnut, GroupedColumnChart, PieChartRow } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 import { Dialog } from "primereact/dialog";
-import { Panel } from "primereact/panel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import employment from "assets/employment.svg";
 import salary from "assets/salary.svg";
@@ -11,6 +10,7 @@ import brain from "assets/brain.svg";
 import EmploymentRecommendations from "./EmploymentRecommendations";
 import increase from "assets/increase.png";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const Employment = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -295,36 +295,10 @@ const Employment = ({ show }) => {
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p>
-      {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && <EmploymentRecommendations />}
-        </Panel>
-      )}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />
     </div>
   );
 };

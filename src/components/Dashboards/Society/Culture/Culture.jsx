@@ -13,6 +13,7 @@ import festival from "assets/Festival Illustration.svg";
 import cultural from "assets/Cultural Sites.svg";
 import CultureRecommendations from "./CultureRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const Culture = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -206,36 +207,10 @@ const Culture = ({ show }) => {
         </div>
       </div>
 
-      {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && <CultureRecommendations />}
-        </Panel>
-      )}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />
     </div>
   );
 };

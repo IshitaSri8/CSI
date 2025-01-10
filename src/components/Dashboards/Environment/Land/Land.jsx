@@ -7,16 +7,11 @@ import { LandPlot } from "lucide-react";
 import { ProgressBar } from "primereact/progressbar";
 import { ModifiedPieChart } from "Layout/GraphVisuals";
 import { Tag } from "primereact/tag";
-import { Panel } from "primereact/panel";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const Land = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
-  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
-
-  const handleToggleRecommendations = () => {
-    setRecommendationsVisible((prev) => !prev);
-  };
 
   const deviationData = [
     { title: "Residential", value: 47, target: 46.91 },
@@ -86,7 +81,7 @@ const Land = ({ show }) => {
                 setReportVisible(false);
               }}
             >
-                <ReportPrint
+              <ReportPrint
                 renderDashboard={renderDashboard}
                 renderRecommendations={renderRecommendations}
                 parameter={"land"}
@@ -418,36 +413,10 @@ const Land = ({ show }) => {
         *Data updated till 2020. These numbers are subject to variation.
       </p>
 
-      {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && <LandRecommendations />}
-        </Panel>
-      )}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />
     </div>
   );
 };

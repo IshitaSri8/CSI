@@ -20,6 +20,7 @@ import bank_colony from "assets/GeoJson_Zone/3_Ayodhya_Bank_colony.json";
 import airport from "assets/GeoJson_Zone/4_Ayodhya_near_Airport.json";
 import all_locations from "assets/GeoJson_Zone/Zone_Boundary_Merge.json";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -118,7 +119,10 @@ const Transport = ({ show }) => {
 
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
-              label="Filters"
+              tooltip="Filters"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               icon="pi pi-filter"
               onClick={() => setFilterVisible(!filterVisible)}
               className="bg-white text-secondary2"
@@ -126,7 +130,7 @@ const Transport = ({ show }) => {
             />
             {filterVisible && (
               <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2"
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2"
                 style={{
                   zIndex: 1000, // Ensures the filter appears above other components
                   position: "absolute", // Required for z-index to work
@@ -189,20 +193,35 @@ const Transport = ({ show }) => {
               </div>
             )}
 
-            <Button label="Upload File" onClick={showUploadDialog} raised />
+            <Button
+              tooltip="Upload File"
+              onClick={showUploadDialog}
+              raised
+              icon="pi pi-file-arrow-up"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
             <Upload
               visible={uploadDialogVisible}
               onHide={hideUploadDialog}
               parameter={"transport"}
             />
             <Button
-              label="Modify Data"
+              tooltip="Modify Data"
               // onClick={handleModify}
               raised
+              icon="pi pi-file-edit"
+              tooltipOptions={{
+                position: "bottom",
+              }}
             />
             <Button
-              label="Generate Report"
+              tooltip="Generate Report"
               icon="pi pi-file"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               onClick={() => setReportVisible(true)}
               className="bg-primary1 text-white"
               raised
@@ -417,36 +436,10 @@ const Transport = ({ show }) => {
       {/* <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p> */}
-      {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && <TransportRecommendations />}
-        </Panel>
-      )}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />
     </div>
   );
 };

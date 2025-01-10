@@ -17,10 +17,9 @@ import AQIChart from "./AQIChart";
 import AqiMap from "./AqiMap";
 import { Dialog } from "primereact/dialog";
 import AQIRecommendations from "./AQIRecommendations";
-import AQIReportPrint from "./AQIReportPrint";
 import { Tag } from "primereact/tag";
-import { Panel } from "primereact/panel";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const AqiDashboard = ({
   onDataChange,
@@ -62,12 +61,6 @@ const AqiDashboard = ({
   const [filterVisible, setFilterVisible] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedAction, setSelectedAction] = useState("");
-
-  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
-
-  const handleToggleRecommendations = () => {
-    setRecommendationsVisible((prev) => !prev);
-  };
   const [ReportVisible, setReportVisible] = useState(false);
   const handleLocationChange = (e) => {
     if (show) {
@@ -340,7 +333,9 @@ const AqiDashboard = ({
   };
 
   const renderRecommendations = () => {
-    return <AQIRecommendations />;
+    return (
+      <AQIRecommendations aqi={aqiValue} pm25={pm25Value} pm10={pm10Value} />
+    );
   };
 
   const renderDashboard = () => {
@@ -364,7 +359,7 @@ const AqiDashboard = ({
             />
             {filterVisible && (
               <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2"
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2"
                 style={{
                   zIndex: 1000, // Ensures the filter appears above other components
                   position: "absolute", // Required for z-index to work
@@ -662,7 +657,7 @@ const AqiDashboard = ({
         </div>
       </div>
 
-      {show && (
+      {/* {show && (
         <Panel
           toggleable
           onToggle={handleToggleRecommendations}
@@ -697,7 +692,11 @@ const AqiDashboard = ({
             />
           )}
         </Panel>
-      )}
+      )} */}
+      <RecommendationPanel
+        show={true}
+        renderRecommendations={renderRecommendations}
+      />
 
       {/* {show && (
             <>
