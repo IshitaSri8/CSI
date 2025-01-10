@@ -43,7 +43,6 @@ import Land from "components/Dashboards/Environment/Land/Land";
 import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
 import Transport from "components/Dashboards/Society/Transport/Transport";
 import { Divider } from "primereact/divider";
-import WaterNew from "components/Dashboards/Environment/Water/WaterNew";
 import Nature from "pages/Nature";
 import Society from "pages/Society";
 import Administration from "pages/Administration";
@@ -397,20 +396,6 @@ const GovernmentSidebar = () => {
                       <Ripple />
                     </div>
                   </li>
-                  <li>
-                    <div
-                      style={getTabStyle("water_new")}
-                      onClick={() => handleTabClick("water_new")}
-                      className="p-ripple flex align-items-center cursor-pointer p-2 ml-2 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors"
-                    >
-                      <Droplet className="text-white mr-2" size={15} />
-                      {/* <i className="pi pi-cloud mr-2 text-xl text-white"></i> */}
-                      <span className="font-medium text-sm text-white">
-                        Water New
-                      </span>
-                      <Ripple />
-                    </div>
-                  </li>
 
                   {/* Land Usage */}
                   <li>
@@ -679,7 +664,6 @@ const GovernmentSidebar = () => {
         {activeTab === "admin" && <Administration />}
 
         {activeTab === "aqi" && <AqiDashboard show={true} />}
-        {activeTab === "water_new" && <WaterNew show={true}/>}
         {activeTab === "water" && <WaterDashboard show={true} />}
         {activeTab === "land" && <Land show={true} />}
 
