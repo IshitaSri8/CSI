@@ -20,8 +20,8 @@ const Upload = ({ visible, onHide, parameter }) => {
       console.log(formData);
 
       const response = await axios.post(
-        // "https://api-csi.arahas.com/upload/water",
-        `https://api-csi.arahas.com/upload/${parameter}`,
+        // `https://api-csi.arahas.com/upload/${parameter}`,
+        `http://localhost:8009/upload/${parameter}`,
         formData
       );
 

@@ -146,7 +146,7 @@ const BusRoutes = () => {
       style={{ flex: "40%" }}
     >
       <div className="flex justify-content-between align-items-center">
-        <p className="card-text p-0 m-0">Bus Routes and Traffic analysis</p>
+        <p className="card-title p-0 m-0">Bus Routes and Traffic analysis</p>
 
         <Dropdown
           value={selectedRoute}

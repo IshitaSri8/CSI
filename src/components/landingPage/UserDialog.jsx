@@ -6,7 +6,11 @@ import { InputText } from "primereact/inputtext";
 // forwardRef to expose openDialog method to the parent component
 const UserDialog = forwardRef(({ onSuccess }, ref) => {
   const [visible, setVisible] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
   useImperativeHandle(ref, () => ({
     openDialog() {
@@ -36,14 +40,26 @@ const UserDialog = forwardRef(({ onSuccess }, ref) => {
 
   const footer = (
     <div>
-      <Button label="Submit" onClick={handleSubmit} className="bg-theme" raised />
-      <Button label="Cancel" onClick={closeDialog} className="p-button-secondary" raised />
+      <Button
+        label="Submit"
+        onClick={handleSubmit}
+        className="bg-theme"
+        raised
+      />
+      <Button
+        label="Cancel"
+        onClick={closeDialog}
+        className="text-primary2 bg-white"
+        raised
+      />
     </div>
   );
 
   const customHeader = (
     <div className="flex justify-content-between align-items-center">
-      <h3 className="text-theme text-xl m-0 font-bold">Get in Touch</h3>
+      <h3 className="text-theme text-xl m-0 font-bold text-primary1">
+        Get in Touch
+      </h3>
       {/* <Button icon="pi pi-times" onClick={closeDialog} className="p-button-rounded p-button-text" /> */}
     </div>
   );
@@ -53,7 +69,7 @@ const UserDialog = forwardRef(({ onSuccess }, ref) => {
       <Dialog
         header={customHeader}
         visible={visible}
-        style={{ width: "25vw"}}
+        style={{ width: "25vw" }}
         footer={footer}
         onHide={closeDialog}
       >

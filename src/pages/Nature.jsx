@@ -174,7 +174,7 @@ const Nature = () => {
               >
                 <div className="flex flex-column gap-3 align-items-center">
                   <img src={metric.img} alt={metric.title} />
-                  <p className="text-sm font-semibold text-secondary2 pb-5 m-0 text-lg">
+                  <p className="text-sm font-semibold text-secondary2 pb-2 m-0 text-lg">
                     {metric.title}
                   </p>
                 </div>

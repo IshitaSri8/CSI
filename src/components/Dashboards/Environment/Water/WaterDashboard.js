@@ -31,6 +31,7 @@ import { Card } from "primereact/card";
 import ADA from "./ADA_Boundary.json";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import { InputText } from "primereact/inputtext";
+import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 
 const WaterDashboard = ({ show }) => {
   const [filterVisible, setFilterVisible] = useState(false);
@@ -1031,7 +1032,6 @@ const WaterDashboard = ({ show }) => {
               </div>
               <div
                 className="flex flex-column bg-white border-round p-3 gap-3"
-                className="flex flex-column bg-white border-round p-3 gap-3"
                 style={{ flex: "25%" }}
               >
                 <p className="card-title p-0 m-0">
@@ -1279,10 +1279,10 @@ const WaterDashboard = ({ show }) => {
         *Data updated till 2020. These numbers are subject to variation.
       </p>
 
-      {/* <RecommendationPanel
+      <RecommendationPanel
         show={true}
         renderRecommendations={renderRecommendations}
-      /> */}
+      />
     </div>
   );
 };
