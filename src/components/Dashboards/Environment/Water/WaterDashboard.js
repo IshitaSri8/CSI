@@ -27,8 +27,6 @@ import {
   Marker,
   Tooltip,
 } from "react-leaflet";
-import { Card } from "primereact/card";
-import ADA from "./ADA_Boundary.json";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import { InputText } from "primereact/inputtext";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
@@ -37,28 +35,31 @@ const WaterDashboard = ({ show }) => {
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [data, setData] = useState([]);
-  const [selectedZone, setSelectedZone] = useState("All Zones");
-  const [selectedYear, setSelectedYear] = useState(2024);
-  const [selectedMonth, setSelectedMonth] = useState(1);
+  const [selectedValues, setSelectedValues] = useState({
+    zone: "All Zones",
+    year: 2024,
+    month: 1,
+  });
   const [geoData, setGeoData] = useState("");
   const [selectedData, setSelectedData] = useState(null);
   const [zoneWQIValues, setZoneWQIValues] = useState({});
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
-  // New state variables for temporary filter selection
   const [tempZone, setTempZone] = useState("All Zones");
   const [tempYear, setTempYear] = useState(2024);
   const [tempMonth, setTempMonth] = useState(1);
   const [editDialog, setEditDialog] = useState(false);
   const [modifyDialog, setModifyDialog] = useState(false);
+  const [displayValues, setDisplayValues] = useState("");
+  const [color, setColor] = useState("");
   const handleModify = () => {
     setModifyDialog(true);
   };
   const handleEdit = () => {
     const itemToEdit = data.find(
       (item) =>
-        item.Divisions === selectedZone &&
-        item.Year === selectedYear &&
-        item.Month === selectedMonth
+        item.Divisions === selectedValues.zone &&
+        item.Year === selectedValues.year &&
+        item.Month === selectedValues.month
     );
     if (itemToEdit) {
       setSelectedData(itemToEdit);
@@ -95,43 +96,14 @@ const WaterDashboard = ({ show }) => {
       );
     }
   };
-  useEffect(() => {
-    setFilterVisible(false);
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://api-csi.arahas.com/data/water"
-        );
 
-        console.log(response.data.data);
-        setData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-  // Function to apply filters
   const handleApply = () => {
-    setSelectedZone(tempZone);
-    setSelectedYear(tempYear);
-    setSelectedMonth(tempMonth);
-    setFilterVisible(false); // Close filter dialog after applying
-    // Fetch data based on new selections if necessary
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://api-csi.arahas.com/data/water"
-        );
-
-        console.log(response.data.data);
-        setData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData(); // Uncomment if you want to refetch data
+    setSelectedValues({
+      zone: tempZone,
+      year: tempYear,
+      month: tempMonth,
+    });
+    setFilterVisible(false);
   };
   const customIcon = L.icon({
     iconUrl: markerIcon, // Path to your custom marker image
@@ -145,10 +117,11 @@ const WaterDashboard = ({ show }) => {
     setTempZone("All Zones");
     setTempYear(2024);
     setTempMonth(1);
-    // Optionally reset selected values too
-    setSelectedZone("All Zones");
-    setSelectedYear(2024);
-    setSelectedMonth(1);
+    setSelectedValues({
+      zone: "All Zones",
+      year: 2024,
+      month: 1,
+    });
   };
   function style(value) {
     return {
@@ -171,33 +144,33 @@ const WaterDashboard = ({ show }) => {
   const Legend = () => {
     return (
       <div className="legend flex align-items-start justify-content-around ">
-        <div className="gap-2">
-          <svg width="20" height="20">
-            <rect width="20" height="20" fill="#FF7777" />
+        <div className="gap-1">
+          <svg width="25" height="25">
+            <circle cx="15" cy="15" r="8" fill="#FF7777" />
           </svg>{" "}
           <h1 className="m-0 p-0 text-sm font-semi-bold">Poor</h1>
         </div>
         <div className="gap-2">
-          <svg width="20" height="20">
-            <rect width="20" height="20" fill="#E8B86D" />
+          <svg width="25" height="25">
+            <circle cx="15" cy="15" r="8" fill="#E8B86D" />
           </svg>{" "}
           <h1 className="m-0 p-0 text-xs">Fair</h1>
         </div>
         <div className="gap-2">
-          <svg width="20" height="20">
-            <rect width="20" height="20" fill="#FEFF9F" />
+          <svg width="25" height="25">
+            <circle cx="15" cy="15" r="8" fill="#FEFF9F" />
           </svg>{" "}
           <h1 className="m-0 p-0 text-xs">Average</h1>
         </div>
         <div className="gap-2">
-          <svg width="20" height="20">
-            <rect width="20" height="20" fill="#A0D683" />
+          <svg width="25" height="25">
+            <circle cx="15" cy="15" r="8" fill="#A0D683" />
           </svg>{" "}
           <h1 className="m-0 p-0 text-xs">Good</h1>
         </div>
         <div className="gap-2">
-          <svg width="20" height="20">
-            <rect width="20" height="20" fill="#72BF78" />
+          <svg width="25" height="25">
+            <circle cx="15" cy="15" r="8" fill="#72BF78" />
           </svg>{" "}
           <h1 className="m-0 p-0 text-xs"> Excellent </h1>
         </div>
@@ -206,20 +179,92 @@ const WaterDashboard = ({ show }) => {
   };
 
   // Filter data based on selected zone, year, and month
-  const filteredData =
-    selectedZone === "All Zones"
-      ? data.filter(
-          (item) => item.Year === selectedYear && item.Month === selectedMonth
-        )
-      : data.filter(
-          (item) =>
-            item.Divisions === selectedZone &&
-            item.Year === selectedYear &&
-            item.Month === selectedMonth
-        );
 
   useEffect(() => {
-    if (selectedZone === "All Zones") {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api-csi.arahas.com/data/water"
+        );
+
+        console.log(response.data.data);
+        setData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+    const filteredData =
+      selectedValues.zone === "All Zones"
+        ? data.filter(
+            (item) =>
+              item.Year === selectedValues.year &&
+              item.Month === selectedValues.month
+          )
+        : data.filter(
+            (item) =>
+              item.Divisions === selectedValues.zone &&
+              item.Year === selectedValues.year &&
+              item.Month === selectedValues.month
+          );
+
+    // Calculate total values if all zones are selected
+    const totalValues = filteredData.reduce((acc, curr) => {
+      return {
+        ...acc,
+        Current_Supply_MLD:
+          (acc.Current_Supply_MLD || 0) + curr.Current_Supply_MLD,
+        Required_Supply_MLD:
+          (acc.Required_Supply_MLD || 0) + curr.Required_Supply_MLD,
+        Population: (acc.Population || 0) + curr.Population,
+        Awarness_Campaigns_Programs:
+          (acc.Awarness_Campaigns_Programs || 0) +
+          curr.Awarness_Campaigns_Programs,
+        Borewell: (acc.Borewell || 0) + curr.Borewell,
+        Canals: (acc.Canals || 0) + curr.Canals,
+        Handpumps: (acc.Handpumps || 0) + curr.Handpumps,
+        No_of_Households_with_Connections:
+          (acc.No_of_Households_with_Connections || 0) +
+          curr.No_of_Households_with_Connections,
+
+        Total_Households: (acc.Total_Households || 0) + curr.Total_Households,
+
+        Tanks: (acc.Tanks || 0) + curr.Tanks,
+        Ponds: (acc.Ponds || 0) + curr.Ponds,
+        No_of_Households_with_Meters:
+          (acc.No_of_Households_with_Meters || 0) +
+          curr.No_of_Households_with_Meters,
+
+        Sites_with_Rainwater_Harvesting_System:
+          (acc.Sites_with_Rainwater_Harvesting_System || 0) +
+          curr.Sites_with_Rainwater_Harvesting_System,
+        Total_Volume_Harvested:
+          (acc.Total_Volume_Harvested || 0) + curr.Total_Volume_Harvested,
+        Households_Bill_Payment:
+          (acc.Households_Bill_Payment || 0) + curr.Households_Bill_Payment,
+      };
+    }, {});
+
+    // Determine which values to display
+    const displayValues =
+      selectedValues.zone === "All Zones" ? totalValues : filteredData[0];
+
+    // Determine color based on calculated value
+    const color =
+      displayValues &&
+      (
+        ((((displayValues.Population * 135) / 1000000).toFixed(2) -
+          displayValues.Current_Supply_MLD) /
+          ((displayValues.Population * 135) / 1000000).toFixed(2)) *
+        100
+      ).toFixed(2) < 0
+        ? "0C9D61"
+        : "#E62225";
+
+    setColor(color);
+    setDisplayValues(displayValues);
+
+    if (selectedValues.zone === "All Zones") {
       const wqiValues = {};
       filteredData.forEach((item) => {
         wqiValues[item.Divisions] = item; // Store entire item for tooltip access
@@ -228,64 +273,11 @@ const WaterDashboard = ({ show }) => {
     } else {
       setZoneWQIValues({});
     }
-  }, [selectedZone]);
-
-  // Calculate total values if all zones are selected
-  const totalValues = filteredData.reduce((acc, curr) => {
-    return {
-      ...acc,
-      Current_Supply_MLD:
-        (acc.Current_Supply_MLD || 0) + curr.Current_Supply_MLD,
-      Required_Supply_MLD:
-        (acc.Required_Supply_MLD || 0) + curr.Required_Supply_MLD,
-      Population: (acc.Population || 0) + curr.Population,
-      Awarness_Campaigns_Programs:
-        (acc.Awarness_Campaigns_Programs || 0) +
-        curr.Awarness_Campaigns_Programs,
-      Borewell: (acc.Borewell || 0) + curr.Borewell,
-      Canals: (acc.Canals || 0) + curr.Canals,
-      Handpumps: (acc.Handpumps || 0) + curr.Handpumps,
-      No_of_Households_with_Connections:
-        (acc.No_of_Households_with_Connections || 0) +
-        curr.No_of_Households_with_Connections,
-
-      Total_Households: (acc.Total_Households || 0) + curr.Total_Households,
-
-      Tanks: (acc.Tanks || 0) + curr.Tanks,
-      Ponds: (acc.Ponds || 0) + curr.Ponds,
-      No_of_Households_with_Meters:
-        (acc.No_of_Households_with_Meters || 0) +
-        curr.No_of_Households_with_Meters,
-
-      Sites_with_Rainwater_Harvesting_System:
-        (acc.Sites_with_Rainwater_Harvesting_System || 0) +
-        curr.Sites_with_Rainwater_Harvesting_System,
-      Total_Volume_Harvested:
-        (acc.Total_Volume_Harvested || 0) + curr.Total_Volume_Harvested,
-      Households_Bill_Payment:
-        (acc.Households_Bill_Payment || 0) + curr.Households_Bill_Payment,
-    };
-  }, {});
-
-  // Determine which values to display
-  const displayValues =
-    selectedZone === "All Zones" ? totalValues : filteredData[0];
+  }, [data, selectedValues]);
 
   const zones = [...new Set(data.map((item) => item.Divisions))];
   const years = [...new Set(data.map((item) => item.Year))];
   const months = [...new Set(data.map((item) => item.Month))];
-
-  // Determine color based on calculated value
-  const color =
-    displayValues &&
-    (
-      ((((displayValues.Population * 135) / 1000000).toFixed(2) -
-        displayValues.Current_Supply_MLD) /
-        ((displayValues.Population * 135) / 1000000).toFixed(2)) *
-      100
-    ).toFixed(2) < 0
-      ? "0C9D61"
-      : "#E62225";
 
   const showUploadDialog = () => {
     setUploadDialogVisible(true);
@@ -346,8 +338,8 @@ const WaterDashboard = ({ show }) => {
             >
               <div className="flex align-items-center justify-content-start gap-2 flex-row">
                 <Dropdown
-                  value={selectedZone}
-                  onChange={(e) => setSelectedZone(e.value)}
+                  value={selectedValues.zone}
+                  onChange={(e) => setSelectedValues.zone(e.value)}
                   options={[
                     // Use null or a specific value to indicate 'All Zones'
                     ...zones.map((div) => ({ label: div, value: div })),
@@ -356,16 +348,16 @@ const WaterDashboard = ({ show }) => {
                   className="w-full md:w-14rem"
                 />
                 <Dropdown
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(e.value)}
+                  value={selectedValues.year}
+                  onChange={(e) => setSelectedValues.year(e.value)}
                   options={years.map((year) => ({ label: year, value: year }))}
                   placeholder="Select Year"
                   className="w-full md:w-14rem"
                 />
                 {/*  */}
                 <Dropdown
-                  value={selectedMonth}
-                  onChange={(e) => setSelectedMonth(e.value)}
+                  value={selectedValues.month}
+                  onChange={(e) => setSelectedValues.month(e.value)}
                   options={months.map((month) => ({
                     label: month,
                     value: month,
@@ -386,9 +378,15 @@ const WaterDashboard = ({ show }) => {
               onHide={() => setEditDialog(false)}
             >
               <div className="flex align-items-center justify-content-around flex-row gap-2">
-                <h1 className="text-base m-0 p-0">Zone: {selectedZone}</h1>
-                <h1 className="text-base m-0 p-0">Year: {selectedYear}</h1>
-                <h1 className="text-base m-0 p-0">Month: {selectedMonth}</h1>
+                <h1 className="text-base m-0 p-0">
+                  Zone: {selectedValues.zone}
+                </h1>
+                <h1 className="text-base m-0 p-0">
+                  Year: {selectedValues.year}
+                </h1>
+                <h1 className="text-base m-0 p-0">
+                  Month: {selectedValues.month}
+                </h1>
               </div>
 
               <div style={{ padding: "20px" }}>
@@ -759,7 +757,7 @@ const WaterDashboard = ({ show }) => {
                       Required Water Supply
                     </p>
                   </div>
-                  {selectedZone === "All Zones" && (
+                  {selectedValues.zone === "All Zones" && (
                     <>
                       <Divider layout="vertical" />
                       <div className="flex flex-column w-full p-2 align-items-center gap-1">
@@ -847,7 +845,7 @@ const WaterDashboard = ({ show }) => {
                   </div>
                 </div>
                 {/* Households with Water Supply */}
-                <div className="flex sec-theme gap-2 p-3 flex-column border-round align-items-center justify-content-center w-full">
+                <div className="flex bg-white gap-2 p-3 flex-column border-round align-items-center justify-content-center w-full">
                   <ProgressBar
                     value={(
                       (displayValues.No_of_Households_with_Connections /
@@ -1006,7 +1004,7 @@ const WaterDashboard = ({ show }) => {
               {/* Water Preservation */}
               <div
                 className="flex flex-column bg-white border-round p-3 gap-3"
-                style={{ flex: "25%" }}
+                style={{ flex: "60%" }}
               >
                 <p className="card-title p-0 m-0">Water Preservation</p>
                 <div className="flex flex-row align-items-center justify-content-center">
@@ -1032,7 +1030,7 @@ const WaterDashboard = ({ show }) => {
               </div>
               <div
                 className="flex flex-column bg-white border-round p-3 gap-3"
-                style={{ flex: "25%" }}
+                style={{ flex: "40%" }}
               >
                 <p className="card-title p-0 m-0">
                   Awarness Campaigns/Programs
@@ -1050,25 +1048,23 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column align-items-center justify-content-between gap-3 w-full"
             style={{ flex: "35%" }}
           >
-            <div className="flex flex-column bg-white border-round p-3 gap-3 w-full">
+            <div className="flex flex-column bg-white border-round p-3 gap-1 w-full">
               <p className="card-title p-0 m-0">Water Quality Index</p>
               <MapContainer
                 center={[26.8, 82.2]}
                 zoom={10}
-                style={{ height: "30rem", width: "100%" }}
+                style={{ height: "20rem", width: "100%" }}
               >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-                {selectedZone === "All Zones" &&
+                {selectedValues.zone === "All Zones" &&
                   Object.keys(zoneWQIValues).map((zone) => (
-                    <>
-                      <h1>Zone:{zone}</h1>
-                      <GeoJSON
-                        key={zone}
-                        data={divisionsWithLocations[zone]}
-                        style={style(zoneWQIValues[zone].WQI)}
-                        onEachFeature={(feature, layer) => {
-                          layer.bindTooltip(`
+                    <GeoJSON
+                      key={zone}
+                      data={divisionsWithLocations[zone]}
+                      style={style(zoneWQIValues[zone].WQI)}
+                      onEachFeature={(feature, layer) => {
+                        layer.bindTooltip(`
                                 <strong>Zone:</strong> ${zone}<br/>
                                 <strong>WQI:</strong> ${zoneWQIValues[zone].WQI}<br/>
                                   <strong>Temperature:</strong> ${zoneWQIValues[zone].Temperature}°C<br/>
@@ -1082,14 +1078,13 @@ const WaterDashboard = ({ show }) => {
                                 <strong>Contaminated Samples:</strong> ${zoneWQIValues[zone].Number_of_Samples_found_contaminated_in_laboratories}<br/>
                                 <strong>Testing Stations:</strong> ${zoneWQIValues[zone].Number_of_Testing_Stations}
                             `);
-                        }}
-                      />
-                    </>
+                      }}
+                    />
                   ))}
 
-                {selectedZone !== "All Zones" && (
+                {selectedValues.zone !== "All Zones" && (
                   <GeoJSON
-                    key={selectedZone}
+                    key={selectedValues.zone}
                     data={geoData}
                     style={style(displayValues.WQI)}
                     onEachFeature={(feature, layer) => {
@@ -1143,11 +1138,11 @@ const WaterDashboard = ({ show }) => {
 
               <Legend />
             </div>
-            <div className="flex flex-column bg-white border-round p-3 gap-3 w-full">
+            <div className="flex flex-column bg-white border-round p-3 gap-3 w-full h-15rem overflow-y-auto ">
               <div className="flex flex-column gap-2">
                 <p className="card-title p-0 m-0">Insights</p>
                 <div className="flex flex-column align-items-start justify-content-start gap-2">
-                  {selectedZone === "All Zones" && (
+                  {selectedValues.zone === "All Zones" && (
                     <div className="flex gap-2 align-items-start">
                       <i
                         className="pi pi-circle-fill text-primary2"
@@ -1191,7 +1186,7 @@ const WaterDashboard = ({ show }) => {
                       in water supply, which will worsen with population growth.
                     </h1>
                   </div>
-                  {selectedZone === "All Zones" && (
+                  {selectedValues.zone === "All Zones" && (
                     <>
                       <div className="flex gap-2 align-items-start">
                         <i

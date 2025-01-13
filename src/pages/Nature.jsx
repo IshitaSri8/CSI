@@ -164,7 +164,7 @@ const Nature = () => {
               </div>
             </div>
           </div>
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-4 flex-wrap w-full">
             {metrics.map((metric, index) => (
               <div
                 key={index}
