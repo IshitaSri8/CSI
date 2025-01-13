@@ -1279,10 +1279,10 @@ const WaterDashboard = ({ show }) => {
         *Data updated till 2020. These numbers are subject to variation.
       </p>
 
-      <RecommendationPanel
+      {/* <RecommendationPanel
         show={true}
         renderRecommendations={renderRecommendations}
-      />
+      /> */}
     </div>
   );
 };
