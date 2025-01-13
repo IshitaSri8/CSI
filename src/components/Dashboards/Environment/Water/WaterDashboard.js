@@ -1031,7 +1031,6 @@ const WaterDashboard = ({ show }) => {
               </div>
               <div
                 className="flex flex-column bg-white border-round p-3 gap-3"
-                className="flex flex-column bg-white border-round p-3 gap-3"
                 style={{ flex: "25%" }}
               >
                 <p className="card-title p-0 m-0">
