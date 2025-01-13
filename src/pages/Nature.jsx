@@ -179,16 +179,16 @@ const Nature = () => {
                   </p>
                 </div>
                 <div
-                  className="border-round-right-2xl px-4 py-2"
+                  className="flex border-round-right-2xl px-4 flex-column gap-8 py-2"
                   style={{
                     backgroundColor: getScoreBackgroundColor(metric.score),
                     // padding: "1.6rem",
                   }}
                 >
-                  <p className="font-medium p-0 m-0 text-white text-sm mb-8">
+                  <p className="font-medium p-0 m-0 text-white text-sm text-left">
                     SCORE
                   </p>
-                  <p className="text-5xl font-semibold text-white p-0 m-0">
+                  <p className="text-5xl font-semibold text-white p-0 m-0 text-center">
                     {metric.score}
                   </p>
                 </div>

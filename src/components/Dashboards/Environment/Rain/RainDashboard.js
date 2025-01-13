@@ -13,6 +13,7 @@ import { Panel } from "primereact/panel";
 import { ProgressBar } from "primereact/progressbar";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import increase from "assets/increase.png";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
@@ -209,20 +210,28 @@ const RainDashboard = ({ show }) => {
               <p className="p-0 m-0 card-text">Expected</p>
             </div>
           </div>
-          <ProgressBar
+          {/* <ProgressBar
             value={80}
             style={{ height: "0.5rem" }} // Adjust the height
             className="w-full border-round mt-4" // Full width of its container
             color="#FFAD0D"
             displayValueTemplate={() => null} // Hide the displayed value
-          />
-          <p
-            className="text-tertiary3 font-medium text-sm"
-            style={{ marginTop: -10 }}
-          >
-            {" "}
-            <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last year
-          </p>
+          /> */}
+          <Divider />
+          <div className="flex align-items-center justify-content-start">
+            <img
+              src={increase}
+              style={{
+                height: "1.5rem",
+                width: "1.5rem",
+                marginRight: "0.5rem",
+              }}
+              alt="increase"
+            />
+            <p className="text-tertiary3 p-0 m-0 font-medium">
+              <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last year.
+            </p>
+          </div>
         </div>
 
         {/* Deviation from Expected */}

@@ -432,7 +432,7 @@ const Temperature = ({
   };
 
   return (
-    <div className="flex align-items-center justify-content-center w-full gap-2">
+    <div className="flex flex-column align-items-center justify-content-center w-full gap-2">
       {chartData.length > 0 && (
         <>
           <div className="flex w-full bg-white border-round p-4">
