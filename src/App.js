@@ -22,13 +22,12 @@ function App() {
 
     <Routes>
       <Route path="/" element={<LandingScreen />} />
-      <Route path="/citizens" element={<Citizen />} />
+      <Route path="/citizen" element={<Citizen />} />
       <Route path="/government" element={<Government />} />
-      <Route path="/city" element={<CityProgress />} />
-      <Route path="/g-kyc" element={<GovernmentSidebar />} />
-      <Route path="/c-kyc" element={<CitizenSidebar />} />
-      <Route path="/change" element={<ChangeDetection />} />
-      <Route path="/animations" element={<Animation />} />
+      <Route path="/government/kyc" element={<GovernmentSidebar />} />
+      <Route path="/citizen/kyc" element={<CitizenSidebar />} />
+      {/* <Route path="/change" element={<ChangeDetection />} /> */}
+      {/* <Route path="/animations" element={<Animation />} /> */}
     </Routes>
   );
 }

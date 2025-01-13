@@ -329,9 +329,9 @@ const TemperatureTrend = ({
   };
 
   return (
-    <div>
-      <div className="main-graph">
-        <div className="btn-container">
+    <div className="flex w-full">
+      <div>
+        <div className="flex flex-column">
           <button
             className={backButtonClassName}
             onClick={backButtonClickHandler}
@@ -371,6 +371,7 @@ const TemperatureTrend = ({
         </div>
         <CanvasJSChart
           options={isDrilldown ? drilldownChartOptions : baseChartOptions}
+          containerProps={{ width: "100%" }}
         />
       </div>
       {showTable === true && fifteenDaysData.length > 0 && (
