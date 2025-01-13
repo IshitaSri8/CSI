@@ -49,6 +49,7 @@ const WaterDashboard = ({ show }) => {
   const [tempMonth, setTempMonth] = useState(1);
   const [editDialog, setEditDialog] = useState(false);
   const [modifyDialog, setModifyDialog] = useState(false);
+  
   const handleModify = () => {
     setModifyDialog(true);
   };
