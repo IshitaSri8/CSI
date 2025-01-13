@@ -42,7 +42,7 @@ import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboa
 import Land from "components/Dashboards/Environment/Land/Land";
 import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
 import Transport from "components/Dashboards/Society/Transport/Transport";
-import WaterNew from "components/Dashboards/Environment/Water/WaterNew";
+import { Divider } from "primereact/divider";
 import Nature from "pages/Nature";
 import Society from "pages/Society";
 import Administration from "pages/Administration";
@@ -682,7 +682,6 @@ const GovernmentSidebar = () => {
         {activeTab === "admin" && <Administration />}
 
         {activeTab === "aqi" && <AqiDashboard show={true} />}
-        {activeTab === "water_new" && <WaterNew show={true} />}
         {activeTab === "water" && <WaterDashboard show={true} />}
         {activeTab === "land" && <Land show={true} />}
 
