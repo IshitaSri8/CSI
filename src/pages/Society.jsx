@@ -46,7 +46,7 @@ const Society = () => {
               </div>
             </div>
             <div className="align-items-start justify-content-end ml-5">
-              <img src={society} alt="nature" className="w-4rem" />
+              <img src={society} alt="society" className="w-4rem" />
             </div>
           </div>
           <Divider />

@@ -12,7 +12,7 @@ const Administration = () => {
             <p className="text-4xl font-bold text-secondary2 p-0 m-0">80</p>
           </div>
           <div className="flex align-items-start justify-content-end ml-5">
-            <img src={admin} alt="nature" className="w-4rem" />
+            <img src={admin} alt="admin" className="w-4rem" />
           </div>
         </div>
       </Card>
