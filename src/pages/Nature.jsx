@@ -102,7 +102,7 @@ const Nature = () => {
                 <div className="flex flex-column gap-4">
                   <p className="card-title p-0 m-0 text-xl">Nature</p>
                   <p className="text-5xl font-semibold text-secondary2 p-0 m-0">
-                    80
+                    77
                   </p>
                   <div className="flex align-items-center justify-content-start">
                     <img
@@ -144,7 +144,7 @@ const Nature = () => {
               <div className="flex flex-column border-round-2xl bg-white p-3">
                 <p className="text-xl font-medium p-0 m-0">Summary</p>
                 <p>
-                  The score 70 is combined output of all the indicators falling
+                  The score 77 is combined output of all the indicators falling
                   under SDG 11.
                 </p>
                 <Divider />

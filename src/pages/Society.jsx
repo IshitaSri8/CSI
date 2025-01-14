@@ -144,7 +144,7 @@ const Society = () => {
               <div className="flex flex-column border-round-2xl bg-white p-3">
                 <p className="text-xl font-medium p-0 m-0">Summary</p>
                 <p>
-                  The score 70 is combined output of all the indicators falling
+                  The score 80 is combined output of all the indicators falling
                   under SDG 11.
                 </p>
                 <Divider />

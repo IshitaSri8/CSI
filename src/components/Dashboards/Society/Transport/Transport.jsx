@@ -176,6 +176,21 @@ const Transport = ({ show }) => {
     }
   };
 
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   return (
     <div className="gap-3 p-4 flex flex-column">
       {show && (
@@ -261,9 +276,9 @@ const Transport = ({ show }) => {
                       // }
                       value={tempMonth}
                       onChange={(e) => setTempMonth(e.value)}
-                      options={months.map((month) => ({
-                        label: month,
-                        value: month,
+                      options={monthNames.map((name, index) => ({
+                        label: name, // Display month name
+                        value: index + 1, // Store month number (1-12)
                       }))}
                       placeholder="Select Month"
                       className="w-full"
