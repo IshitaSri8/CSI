@@ -141,45 +141,13 @@ const WaterDashboard = ({ show }) => {
     else return "black"; // Poor (0-25)
   };
 
-  const Legend = () => {
-    return (
-      <div className="legend flex align-items-start justify-content-around ">
-        <div className="gap-1">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#FF7777" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-sm font-semi-bold">Poor</h1>
-        </div>
-        <div className="gap-2">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#E8B86D" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-xs">Fair</h1>
-        </div>
-        <div className="gap-2">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#FEFF9F" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-xs">Average</h1>
-        </div>
-        <div className="gap-2">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#A0D683" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-xs">Good</h1>
-        </div>
-        <div className="gap-2">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#72BF78" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-xs"> Excellent </h1>
-        </div>
-      </div>
-    );
-  };
-
-  // Filter data based on selected zone, year, and month
-
+  const colors = [
+    "#E62225", // Poor
+    "#F7A47A", // Fair
+    "#FFAD0D", // Average
+    "#A0D683", // Good
+    "#0C9D61", // Excellent
+  ];
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -313,23 +281,147 @@ const WaterDashboard = ({ show }) => {
   const renderDashboard = () => {
     return <WaterDashboard show={false} />;
   };
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   return (
     <div className="w-full p-3 flex gap-3 flex-column">
       {show && (
-        <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Water Management
-          </h1>
+        <div className="flex align-items-center justify-content-between w-full gap-3">
+          <div className="flex align-items-center justify-content-between w-full ">
+            <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+              Water Management
+            </h1>
+            <div className="flex align-items-start flex-column gap-1">
+              {/* loaction */}
+              <div className="flex align-items-center gap-1">
+                <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {selectedValues.zone}
+                </p>
+              </div>
+              <Divider className="m-0 p-0" />
+              {/* Date Range */}
+              <div className="flex align-items-center justify-content-start gap-1">
+                <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {monthNames[selectedValues.month - 1]}, {selectedValues.year}
+                </p>
+              </div>
+            </div>
+          </div>
 
           <div className="flex align-items-center justify-content-end gap-2">
-            <Button icon="pi pi-plus" onClick={showUploadDialog} raised />
+            <Button
+              label=""
+              icon="pi pi-filter"
+              onClick={() => setFilterVisible(!filterVisible)}
+              className="bg-white text-secondary2"
+              raised
+              tooltip="Filters"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
+            {filterVisible && (
+              <div
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2 "
+                style={{
+                  zIndex: 1000, // Ensures the filter appears above other components
+                  position: "absolute", // Required for z-index to work
+                  transform: "translateY(60%) translateX(-60%)",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <div className="flex flex-column gap-3">
+                  <div className="flex flex-column align-items-center justify-content-center gap-2 ">
+                    <Dropdown
+                      value={tempZone}
+                      onChange={handleZoneChange}
+                      options={[
+                        { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
+                        ...zones.map((div) => ({ label: div, value: div })),
+                      ]}
+                      placeholder="Select Zones"
+                      className="w-full"
+                    />
+                    <Dropdown
+                      value={tempYear}
+                      onChange={(e) => setTempYear(e.value)}
+                      options={years.map((year) => ({
+                        label: year,
+                        value: year,
+                      }))}
+                      placeholder="Select Year"
+                      className="w-full"
+                    />
+                    <Dropdown
+                      value={tempMonth}
+                      onChange={(e) => setTempMonth(e.value)}
+                      options={monthNames.map((name, index) => ({
+                        label: name, // Display month name
+                        value: index + 1, // Store month number (1-12)
+                      }))}
+                      placeholder="Select Month"
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="flex justify-content-between">
+                    <Button
+                      className="bg-white text-moderate border-none"
+                      label="Reset"
+                      icon="pi pi-undo"
+                      onClick={resetFilters}
+                      raised
+                    />
+                    <Button
+                      className="bg-primary1"
+                      label="Apply"
+                      // icon="pi pi-search"
+                      onClick={handleApply}
+                      raised
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            <Button
+              icon="pi pi-plus"
+              className="bg-white text-secondary2"
+              onClick={showUploadDialog}
+              raised
+              tooltip="Upload Data"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
             <Upload
               visible={uploadDialogVisible}
               onHide={hideUploadDialog}
               parameter={"water"}
             />
-            <Button icon="pi pi-file-edit" onClick={handleModify} raised />
+            <Button
+              icon="pi pi-file-edit"
+              className="bg-white text-secondary2"
+              onClick={handleModify}
+              raised
+              tooltip="Edit Data"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
             <Dialog
               header="Modify Data"
               visible={modifyDialog}
@@ -339,7 +431,9 @@ const WaterDashboard = ({ show }) => {
               <div className="flex align-items-center justify-content-start gap-2 flex-row">
                 <Dropdown
                   value={selectedValues.zone}
-                  onChange={(e) => setSelectedValues.zone(e.value)}
+                  onChange={(e) =>
+                    setSelectedValues({ ...selectedValues, zone: e.value })
+                  }
                   options={[
                     // Use null or a specific value to indicate 'All Zones'
                     ...zones.map((div) => ({ label: div, value: div })),
@@ -349,7 +443,9 @@ const WaterDashboard = ({ show }) => {
                 />
                 <Dropdown
                   value={selectedValues.year}
-                  onChange={(e) => setSelectedValues.year(e.value)}
+                  onChange={(e) =>
+                    setSelectedValues({ ...selectedValues, year: e.value })
+                  }
                   options={years.map((year) => ({ label: year, value: year }))}
                   placeholder="Select Year"
                   className="w-full md:w-14rem"
@@ -357,10 +453,12 @@ const WaterDashboard = ({ show }) => {
                 {/*  */}
                 <Dropdown
                   value={selectedValues.month}
-                  onChange={(e) => setSelectedValues.month(e.value)}
-                  options={months.map((month) => ({
-                    label: month,
-                    value: month,
+                  onChange={(e) =>
+                    setSelectedValues({ ...selectedValues, month: e.value })
+                  }
+                  options={monthNames.map((name, index) => ({
+                    label: name, // Display month name
+                    value: index + 1, // Store month number (1-12)
                   }))}
                   placeholder="Select Month"
                   className="w-full md:w-14rem"
@@ -371,34 +469,66 @@ const WaterDashboard = ({ show }) => {
             </Dialog>
             <Dialog
               header={
-                <h2 style={{ margin: 0, textAlign: "center" }}>Edit Data</h2>
+                <h2
+                  style={{ margin: 0, textAlign: "left" }}
+                  className="text-secondary2 text-lg"
+                >
+                  Edit Data
+                </h2>
               }
               visible={editDialog}
-              style={{ width: "80rem" }}
+              style={{ width: "60rem" }}
               onHide={() => setEditDialog(false)}
             >
-              <div className="flex align-items-center justify-content-around flex-row gap-2">
-                <h1 className="text-base m-0 p-0">
-                  Zone: {selectedValues.zone}
-                </h1>
-                <h1 className="text-base m-0 p-0">
-                  Year: {selectedValues.year}
-                </h1>
-                <h1 className="text-base m-0 p-0">
-                  Month: {selectedValues.month}
-                </h1>
+              <div className="flex align-items-start justify-content-between flex-row gap-8">
+                <div className="flex flex-column gap-2">
+                  <h1 className="text-surface text-sm m-0 p-0">Zone</h1>
+                  <h1 className="text-secondary2 m-0 p-0 text-base ">
+                    {" "}
+                    {selectedValues.zone}
+                  </h1>
+                </div>
+                <div className="flex flex-column gap-2">
+                  <h1 className="text-surface text-sm m-0 p-0">Year</h1>
+                  <h1 className="text-secondary2 m-0 p-0">
+                    {" "}
+                    {selectedValues.year}
+                  </h1>
+                </div>
+                <div className="flex flex-column gap-2">
+                  <h1 className="text-surface text-sm m-0 p-0">Month</h1>
+                  <h1 className="text-secondary2 m-0 p-0">
+                    {monthNames[selectedValues.month - 1]}
+                  </h1>
+                </div>
               </div>
+              <Divider />
 
-              <div style={{ padding: "20px" }}>
-                {/* Table 1: Water Supply Data */}
-                <h3>Water Supply Data</h3>
-                <table className="p-table">
-                  <tbody>
+              <div className="flex align-items-start flex-column gap-3">
+                <div>
+                  {/* Water Supply Data Header */}
+                  <h3>Water Supply Data</h3>
+
+                  <div className="w-full flex align-items-center justify-content-start gap-4">
                     {["Population", "Current_Supply_MLD"].map(
-                      (field, index) => (
-                        <tr key={index}>
-                          <td>{field}</td>
-                          <td>
+                      (field, index) => {
+                        // Mapping of field names to custom labels
+                        const customLabels = {
+                          Population: "Total Population",
+                          Current_Supply_MLD: "Current Water Supply (MLD)",
+                        };
+
+                        return (
+                          <div
+                            key={index}
+                            className="flex flex-column gap-2 w-full"
+                          >
+                            <label
+                              htmlFor={field.toLowerCase()}
+                              className="text-sm "
+                            >
+                              {customLabels[field]}
+                            </label>
                             <InputText
                               id={field.toLowerCase()}
                               value={selectedData?.[field]}
@@ -408,15 +538,17 @@ const WaterDashboard = ({ show }) => {
                                   [field]: e.target.value,
                                 })
                               }
-                              placeholder={`Enter ${field.toLowerCase()}`}
-                              type={field === "Population" ? "number" : "text"}
+                              placeholder={`Enter ${customLabels[
+                                field
+                              ].toLowerCase()}`}
+                              type={"number"}
                             />
-                          </td>
-                        </tr>
-                      )
+                          </div>
+                        );
+                      }
                     )}
-                  </tbody>
-                </table>
+                  </div>
+                </div>
 
                 {/* Table 2: Infrastructure Data */}
                 <h3>Infrastructure Data</h3>
@@ -626,80 +758,12 @@ const WaterDashboard = ({ show }) => {
                 />
               </div>
             </Dialog>
+
             <Button
-              label="Filters"
-              icon="pi pi-filter"
-              onClick={() => setFilterVisible(!filterVisible)}
-              className="bg-white text-secondary2"
-              raised
-            />
-            {filterVisible && (
-              <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2 "
-                style={{
-                  zIndex: 1000, // Ensures the filter appears above other components
-                  position: "absolute", // Required for z-index to work
-                  transform: "translateY(60%) translateX(-60%)",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <div className="flex flex-column gap-3">
-                  <div className="flex flex-column align-items-center justify-content-center gap-2 ">
-                    <Dropdown
-                      value={tempZone}
-                      onChange={handleZoneChange}
-                      options={[
-                        { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
-                        ...zones.map((div) => ({ label: div, value: div })),
-                      ]}
-                      placeholder="Select Zones"
-                      className="w-full"
-                    />
-                    <Dropdown
-                      value={tempYear}
-                      onChange={(e) => setTempYear(e.value)}
-                      options={years.map((year) => ({
-                        label: year,
-                        value: year,
-                      }))}
-                      placeholder="Select Year"
-                      className="w-full"
-                    />
-                    <Dropdown
-                      value={tempMonth}
-                      onChange={(e) => setTempMonth(e.value)}
-                      options={months.map((month) => ({
-                        label: month,
-                        value: month,
-                      }))}
-                      placeholder="Select Month"
-                      className="w-full"
-                    />
-                  </div>
-                  <div className="flex justify-content-between">
-                    <Button
-                      className="bg-white text-moderate border-none"
-                      label="Reset"
-                      icon="pi pi-undo"
-                      onClick={resetFilters}
-                      raised
-                    />
-                    <Button
-                      className="bg-primary1"
-                      label="Apply"
-                      // icon="pi pi-search"
-                      onClick={handleApply}
-                      raised
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-            <Button
-              tooltip="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
-              className="bg-primary1 text-white"
+              className="bg-primary1 text-primary1 text-white text-xs"
+              tooltip="Generate Report"
               tooltipOptions={{
                 position: "bottom",
               }}
@@ -724,20 +788,85 @@ const WaterDashboard = ({ show }) => {
         </div>
       )}
       {displayValues && (
-        <div className="flex  align-items-center justify-content-between gap-3 flex-row w-full">
-          <div
-            className="flex flex-column align-items-center justify-content-between gap-3 w-full"
-            style={{ flex: "65%" }}
-          >
-            <div className="w-full flex gap-3">
-              {/* Water Supply */}
-              <div
-                className="flex flex-column gap-3 p-3 border-round bg-white"
-                style={{ flex: "45%" }}
-              >
-                <p className="card-title p-0 m-0">Water Supply</p>
+        <div className="flex  align-items-center justify-content-between gap-3 flex-column w-full">
+          {/* Row 1 */}
+          <div className="flex align-items-center justify-content-center flex-row gap-3 w-full h-30rem">
+            {/* Water Supply & Supply Sources  */}
+            <div
+              className="flex align-items-center justify-content-center flex-column w-full gap-3 h-23rem"
+              style={{ flex: "30%" }}
+            >
+              <div className="flex flex-column gap-3">
+                {/* Sources of Water Supply */}
+                <div className="flex flex-column justify-content-start bg-white border-round p-3 gap-3 w-full">
+                  <p className="card-title p-0 m-0">Sources</p>
+                  <div className="flex">
+                    <div className="flex w-full px-2 flex-column">
+                      <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                        {displayValues.Handpumps}
+                      </p>
+                      <p className="p-0 m-0 card-text">Handpumps</p>
+                    </div>
+                    <Divider layout="vertical" />
+                    <div className="flex w-full px-2 flex-column">
+                      <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                        {displayValues.Tanks}
+                      </p>
+                      <p className="p-0 m-0 card-text">Tanks</p>
+                    </div>
+                    <Divider layout="vertical" />
+                    <div className="flex w-full px-2 flex-column">
+                      <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                        {displayValues.Ponds}
+                      </p>
+                      <p className="p-0 m-0 card-text">Ponds</p>
+                    </div>
+                    <Divider layout="vertical" />
+                    <div className="flex w-full px-2 flex-column">
+                      <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                        1
+                      </p>
+                      <p className="p-0 m-0 card-text">Rivers</p>
+                    </div>
+                    <Divider layout="vertical" />
+                    <div className="flex w-full px-2 flex-column">
+                      <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                        {displayValues.Canals}
+                      </p>
+                      <p className="p-0 m-0 card-text">Canals</p>
+                    </div>
+                  </div>
+                </div>
+                {/* Households with Water Supply */}
+                <div className="flex bg-white gap-2 p-3 flex-column border-round align-items-center justify-content-center w-full">
+                  <ProgressBar
+                    value={(
+                      (displayValues.No_of_Households_with_Connections /
+                        displayValues.Total_Households) *
+                      100
+                    ).toFixed(2)}
+                    style={{ height: "0.75rem" }} // Adjust the height
+                    className="w-full" // Full width of its container
+                    color={color}
+                    displayValueTemplate={() => null} // Hide the displayed value
+                  />
+                  <p className="text-tertiary3 p-0 m-0 font-semibold text-align-left w-full">
+                    Households with Water Connections:{" "}
+                    <span className="text-primary1">
+                      {(
+                        (displayValues.No_of_Households_with_Connections /
+                          displayValues.Total_Households) *
+                        100
+                      ).toFixed(2)}
+                      %
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-column gap-3 p-3 w-full border-round bg-white">
+                <p className="card-title p-0 m-0">Supply</p>
 
-                <div className="flex my-2">
+                <div className="flex w-full my-2">
                   <div className="flex flex-column w-full p-2 align-items-center gap-1">
                     <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                       {displayValues.Current_Supply_MLD}
@@ -802,269 +931,29 @@ const WaterDashboard = ({ show }) => {
                   </span>
                 </p>
               </div>
+            </div>
+            {/* WQI Map */}
+            <div
+              className="flex flex-column align-items-center justify-content-between gap-3 w-full"
+              style={{ flex: "40%" }}
+            >
+              <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
+                <p className="card-title p-0 m-0">Water Quality Index</p>
+                <MapContainer
+                  center={[26.8, 82.2]}
+                  zoom={10}
+                  style={{ height: "23rem", width: "100%" }}
+                >
+                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-              <div className="flex flex-column gap-3">
-                {/* Sources of Water Supply */}
-                <div className="flex flex-column justify-content-start bg-white border-round p-3 gap-3 w-full">
-                  <p className="card-title p-0 m-0">Water Supply Sources</p>
-                  <div className="flex">
-                    <div className="flex w-full px-2 flex-column">
-                      <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                        {displayValues.Handpumps}
-                      </p>
-                      <p className="p-0 m-0 card-text">Handpumps</p>
-                    </div>
-                    <Divider layout="vertical" />
-                    <div className="flex w-full px-2 flex-column">
-                      <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                        {displayValues.Tanks}
-                      </p>
-                      <p className="p-0 m-0 card-text">Tanks</p>
-                    </div>
-                    <Divider layout="vertical" />
-                    <div className="flex w-full px-2 flex-column">
-                      <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                        {displayValues.Ponds}
-                      </p>
-                      <p className="p-0 m-0 card-text">Ponds</p>
-                    </div>
-                    <Divider layout="vertical" />
-                    <div className="flex w-full px-2 flex-column">
-                      <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                        1
-                      </p>
-                      <p className="p-0 m-0 card-text">Rivers</p>
-                    </div>
-                    <Divider layout="vertical" />
-                    <div className="flex w-full px-2 flex-column">
-                      <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                        {displayValues.Canals}
-                      </p>
-                      <p className="p-0 m-0 card-text">Canals</p>
-                    </div>
-                  </div>
-                </div>
-                {/* Households with Water Supply */}
-                <div className="flex bg-white gap-2 p-3 flex-column border-round align-items-center justify-content-center w-full">
-                  <ProgressBar
-                    value={(
-                      (displayValues.No_of_Households_with_Connections /
-                        displayValues.Total_Households) *
-                      100
-                    ).toFixed(2)}
-                    style={{ height: "0.75rem" }} // Adjust the height
-                    className="w-full" // Full width of its container
-                    color={color}
-                    displayValueTemplate={() => null} // Hide the displayed value
-                  />
-                  <p className="text-tertiary3 p-0 m-0 font-semibold text-align-left w-full">
-                    Households with Water Connections:{" "}
-                    <span className="text-primary1">
-                      {(
-                        (displayValues.No_of_Households_with_Connections /
-                          displayValues.Total_Households) *
-                        100
-                      ).toFixed(2)}
-                      %
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="w-full flex gap-3">
-              {/* Water Usage Management */}
-              <div className="flex flex-column bg-white border-round p-4 gap-3 w-full">
-                <p className="card-title p-0 m-0 text-left">
-                  Water Usage Management
-                </p>
-                <div className="flex gap-3">
-                  <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
-                    <div className="flex w-8rem custom-circular-progress">
-                      <CircularProgressbar
-                        value={
-                          (displayValues.No_of_Households_with_Meters /
-                            displayValues.No_of_Households_with_Connections) *
-                          100
-                        }
-                        text={`${
-                          (displayValues.No_of_Households_with_Meters /
-                            displayValues.No_of_Households_with_Connections) *
-                          100
-                        }%`}
-                        strokeWidth={8}
-                        styles={buildStyles({
-                          pathColor: "#166c7d",
-                          textColor: "#001F23",
-                          trailColor: "#E7EAEA",
-                          textSize: "1.5rem",
-                          pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                          transform: "rotate(2.25turn)",
-                        })}
-                      />
-                    </div>
-                    <p className="p-0 m-0 card-text text-center">
-                      {/* Houses with Connections but no Water Meter */}
-                      Houses with Metered Connections
-                    </p>
-                  </div>
-                  <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
-                    <div className="flex w-8rem custom-circular-progress">
-                      <CircularProgressbar
-                        value={(
-                          100 -
-                          (displayValues.Households_Bill_Payment /
-                            displayValues.No_of_Households_with_Meters) *
-                            100
-                        ).toFixed(2)}
-                        text={`${(
-                          100 -
-                          (displayValues.Households_Bill_Payment /
-                            displayValues.No_of_Households_with_Meters) *
-                            100
-                        ).toFixed(2)}%`}
-                        strokeWidth={8}
-                        styles={buildStyles({
-                          pathColor: "#E62225",
-                          textColor: "#001F23",
-                          trailColor: "#E7EAEA",
-                          textSize: "1.5rem",
-                          pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                          transform: "rotate(2.25turn)",
-                        })}
-                      />
-                    </div>
-                    <p className="text-center p-0 m-0 card-text">
-                      Due Payment Rate
-                      {/* Total Bill Generated being Paid */}
-                    </p>
-                    <p className="text-center p-0 m-0 card-text text-xs">
-                      Target: 15%
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {/* Water Treatment */}
-              <div className="flex flex-column bg-white border-round p-4 gap-3 w-full">
-                <p className="card-title p-0 m-0">Water Treatment</p>
-                <div className="flex align-items-start justify-content-around">
-                  <div className="flex flex-column align-items-center">
-                    <Knob
-                      value={waterTreatment.reusedPercent}
-                      valueTemplate={"{value}%"}
-                      readOnly
-                      size={130}
-                      strokeWidth={6}
-                      valueColor="#166c7d"
-                      rangeColor="#E9F3F5"
-                    />
-                    <p className="p-0 card-text" style={{ marginTop: -10 }}>
-                      Treated Reused Water
-                    </p>
-                  </div>
-                  <div className="flex flex-column gap-2">
-                    <div
-                      className="flex flex-column w-full p-2 pr-4 sec-theme gap-2"
-                      style={{
-                        borderLeft: "3px solid #1F8297", // Adjust thickness and color
-                        height: "50px", // Adjust height
-                      }}
-                    >
-                      <p className="p-0 m-0 card-text">Total STPs</p>
-                      <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
-                        {waterTreatment.totalSTPs}
-                      </p>
-                    </div>
-                    <div
-                      className="flex flex-column w-full p-2 pr-4 sec-theme"
-                      style={{
-                        borderLeft: "3px solid #98C6CF", // Adjust thickness and color
-                        // height: "120px", // Adjust height
-                      }}
-                    >
-                      <p className="mb-2 p-0 m-0 card-text">Capacity</p>
-                      <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
-                        {waterTreatment.capacity.current} <span>MLD</span>
-                      </p>
-                      <p className="text-sm text-center p-0 m-0 card-text">
-                        Current
-                      </p>
-                      <Divider />
-                      <p className="text-2xl font-semibold m-0 text-primary2 p-0 text-center">
-                        {waterTreatment.capacity.required} <span>MLD</span>
-                      </p>
-                      <p className="text-sm text-center p-0 m-0 card-text">
-                        Required
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-full flex gap-3">
-              {/* Water Preservation */}
-              <div
-                className="flex flex-column bg-white border-round p-3 gap-3"
-                style={{ flex: "60%" }}
-              >
-                <p className="card-title p-0 m-0">Water Preservation</p>
-                <div className="flex flex-row align-items-center justify-content-center">
-                  <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-2">
-                    <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                      {displayValues.Total_Volume_Harvested}
-                      <span className="text-2xl p-0 m-0"> m&sup3;</span>
-                    </p>
-                    <p className="p-0 m-0 card-text text-center w-full">
-                      Total Volume Harvested
-                    </p>
-                  </div>
-                  <Divider layout="vertical" />
-                  <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-2">
-                    <p className="text-4xl font-semibold m-0 text-primary2 p-0 text-center w-full">
-                      {displayValues.Sites_with_Rainwater_Harvesting_System}
-                    </p>
-                    <p className="p-0 m-0 card-text text-center w-full">
-                      Sites with Rainwater Harvesting System
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="flex flex-column bg-white border-round p-3 gap-3"
-                style={{ flex: "40%" }}
-              >
-                <p className="card-title p-0 m-0">
-                  Awarness Campaigns/Programs
-                </p>
-                <div className="flex w-full align-items-center justify-content-around gap-1">
-                  <p className="text-4xl font-semibold m-0 text-secondary2 p-0">
-                    {displayValues.Awarness_Campaigns_Programs}
-                  </p>
-                  <img src={workshop} alt="workshop" className="w-10rem" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="flex flex-column align-items-center justify-content-between gap-3 w-full"
-            style={{ flex: "35%" }}
-          >
-            <div className="flex flex-column bg-white border-round p-3 gap-1 w-full">
-              <p className="card-title p-0 m-0">Water Quality Index</p>
-              <MapContainer
-                center={[26.8, 82.2]}
-                zoom={10}
-                style={{ height: "20rem", width: "100%" }}
-              >
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
-                {selectedValues.zone === "All Zones" &&
-                  Object.keys(zoneWQIValues).map((zone) => (
-                    <GeoJSON
-                      key={zone}
-                      data={divisionsWithLocations[zone]}
-                      style={style(zoneWQIValues[zone].WQI)}
-                      onEachFeature={(feature, layer) => {
-                        layer.bindTooltip(`
+                  {selectedValues.zone === "All Zones" &&
+                    Object.keys(zoneWQIValues).map((zone) => (
+                      <GeoJSON
+                        key={zone}
+                        data={divisionsWithLocations[zone]}
+                        style={style(zoneWQIValues[zone].WQI)}
+                        onEachFeature={(feature, layer) => {
+                          layer.bindTooltip(`
                                 <strong>Zone:</strong> ${zone}<br/>
                                 <strong>WQI:</strong> ${zoneWQIValues[zone].WQI}<br/>
                                   <strong>Temperature:</strong> ${zoneWQIValues[zone].Temperature}°C<br/>
@@ -1078,17 +967,17 @@ const WaterDashboard = ({ show }) => {
                                 <strong>Contaminated Samples:</strong> ${zoneWQIValues[zone].Number_of_Samples_found_contaminated_in_laboratories}<br/>
                                 <strong>Testing Stations:</strong> ${zoneWQIValues[zone].Number_of_Testing_Stations}
                             `);
-                      }}
-                    />
-                  ))}
+                        }}
+                      />
+                    ))}
 
-                {selectedValues.zone !== "All Zones" && (
-                  <GeoJSON
-                    key={selectedValues.zone}
-                    data={geoData}
-                    style={style(displayValues.WQI)}
-                    onEachFeature={(feature, layer) => {
-                      layer.bindTooltip(`
+                  {selectedValues.zone !== "All Zones" && (
+                    <GeoJSON
+                      key={selectedValues.zone}
+                      data={geoData}
+                      style={style(displayValues.WQI)}
+                      onEachFeature={(feature, layer) => {
+                        layer.bindTooltip(`
                                 <strong>Zone:</strong> ${
                                   displayValues.Divisions
                                 }<br/>
@@ -1122,23 +1011,56 @@ const WaterDashboard = ({ show }) => {
                                   displayValues.Number_of_Testing_Stations
                                 }
                             `);
-                    }}
-                  />
-                )}
-                <Marker position={[26.779664, 82.224486]} icon={customIcon}>
-                  <Tooltip>
-                    <span>
-                      Ramghat Sewage Treatment Plant
-                      <br />
-                      Capacity: 12 MLD
-                    </span>
-                  </Tooltip>
-                </Marker>
-              </MapContainer>
+                      }}
+                    />
+                  )}
+                  <Marker position={[26.779664, 82.224486]} icon={customIcon}>
+                    <Tooltip>
+                      <span>
+                        Ramghat Sewage Treatment Plant
+                        <br />
+                        Capacity: 12 MLD
+                      </span>
+                    </Tooltip>
+                  </Marker>
+                </MapContainer>
 
-              <Legend />
+                <div className="flex justify-content-between">
+                  {colors.map((color, index) => (
+                    <div className="flex align-items-center " key={index}>
+                      <div
+                        className="mr-2 border-circle"
+                        style={{
+                          width: "0.6rem",
+                          height: "0.6rem",
+                          backgroundColor: color,
+                          borderRadius: "50%", // Ensure it's circular
+                        }}
+                      ></div>
+                      <p
+                        className="m-0 p-0 font-medium text-primary1"
+                        // style={{ color: color }}
+                      >
+                        {index === 0
+                          ? "Poor"
+                          : index === 1
+                          ? "Fair"
+                          : index === 2
+                          ? "Average"
+                          : index === 3
+                          ? "Good"
+                          : "Excellent"}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>{" "}
             </div>
-            <div className="flex flex-column bg-white border-round p-3 gap-3 w-full h-15rem overflow-y-auto ">
+            {/* Insights */}
+            <div
+              className="flex flex-column bg-white border-round p-3 gap-3 w-full h-29rem overflow-y-auto "
+              style={{ flex: "30%" }}
+            >
               <div className="flex flex-column gap-2">
                 <p className="card-title p-0 m-0">Insights</p>
                 <div className="flex flex-column align-items-start justify-content-start gap-2">
@@ -1265,6 +1187,178 @@ const WaterDashboard = ({ show }) => {
                     </>
                   )}
                 </div>
+              </div>
+            </div>
+          </div>
+          {/* Row 2 */}
+          <div className="flex align-items-center justify-content-center flex-row gap-3">
+            {/* Water Treatment */}
+            <div
+              className="flex flex-column bg-white border-round p-4 gap-3 w-full  h-20rem"
+              style={{ flex: "31%" }}
+            >
+              <p className="card-title p-0 m-0">Treatment</p>
+              <div className="flex align-items-start justify-content-around">
+                <div className="flex flex-column align-items-center">
+                  <Knob
+                    value={waterTreatment.reusedPercent}
+                    valueTemplate={"{value}%"}
+                    readOnly
+                    size={130}
+                    strokeWidth={6}
+                    valueColor="#166c7d"
+                    rangeColor="#E9F3F5"
+                  />
+                  <p className="p-0 card-text" style={{ marginTop: -10 }}>
+                    Treated Reused Water
+                  </p>
+                </div>
+                <div className="flex flex-column gap-2">
+                  <div
+                    className="flex flex-column w-full p-2 pr-4 sec-theme gap-2"
+                    style={{
+                      borderLeft: "3px solid #1F8297", // Adjust thickness and color
+                      height: "50px", // Adjust height
+                    }}
+                  >
+                    <p className="p-0 m-0 card-text">Total STPs</p>
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
+                      {waterTreatment.totalSTPs}
+                    </p>
+                  </div>
+                  <div
+                    className="flex flex-column w-full p-2 pr-4 sec-theme"
+                    style={{
+                      borderLeft: "3px solid #98C6CF", // Adjust thickness and color
+                      // height: "120px", // Adjust height
+                    }}
+                  >
+                    <p className="mb-2 p-0 m-0 card-text">Capacity</p>
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
+                      {waterTreatment.capacity.current} <span>MLD</span>
+                    </p>
+                    <p className="text-sm text-center p-0 m-0 card-text">
+                      Current
+                    </p>
+                    <Divider />
+                    <p className="text-2xl font-semibold m-0 text-primary2 p-0 text-center">
+                      {waterTreatment.capacity.required} <span>MLD</span>
+                    </p>
+                    <p className="text-sm text-center p-0 m-0 card-text">
+                      Required
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Water Usage Mangagement */}
+            <div
+              className="flex flex-column bg-white border-round p-4 gap-3 w-full h-20rem"
+              style={{ flex: "35%" }}
+            >
+              <p className="card-title p-0 m-0 text-left">Usage Management</p>
+              <div className="flex gap-3">
+                <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
+                  <div className="flex w-8rem custom-circular-progress">
+                    <CircularProgressbar
+                      value={
+                        (displayValues.No_of_Households_with_Meters /
+                          displayValues.No_of_Households_with_Connections) *
+                        100
+                      }
+                      text={`${
+                        (displayValues.No_of_Households_with_Meters /
+                          displayValues.No_of_Households_with_Connections) *
+                        100
+                      }%`}
+                      strokeWidth={8}
+                      styles={buildStyles({
+                        pathColor: "#166c7d",
+                        textColor: "#001F23",
+                        trailColor: "#E7EAEA",
+                        textSize: "1.5rem",
+                        pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                        transform: "rotate(2.25turn)",
+                      })}
+                    />
+                  </div>
+                  <p className="p-0 m-0 card-text text-center">
+                    {/* Houses with Connections but no Water Meter */}
+                    Houses with Metered Connections
+                  </p>
+                </div>
+                <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
+                  <div className="flex w-8rem custom-circular-progress">
+                    <CircularProgressbar
+                      value={(
+                        100 -
+                        (displayValues.Households_Bill_Payment /
+                          displayValues.No_of_Households_with_Meters) *
+                          100
+                      ).toFixed(2)}
+                      text={`${(
+                        100 -
+                        (displayValues.Households_Bill_Payment /
+                          displayValues.No_of_Households_with_Meters) *
+                          100
+                      ).toFixed(2)}%`}
+                      strokeWidth={8}
+                      styles={buildStyles({
+                        pathColor: "#E62225",
+                        textColor: "#001F23",
+                        trailColor: "#E7EAEA",
+                        textSize: "1.5rem",
+                        pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                        transform: "rotate(2.25turn)",
+                      })}
+                    />
+                  </div>
+                  <p className="text-center p-0 m-0 card-text">
+                    Due Payment Rate
+                    {/* Total Bill Generated being Paid */}
+                  </p>
+                  <p className="text-center p-0 m-0 card-text text-xs">
+                    Target: 15%
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-column gap-3">
+              {/* Water Preservation */}
+              <div className="flex flex-column bg-white border-round p-3 gap-1">
+                <p className="card-title p-0 m-0">Water Preservation</p>
+                <div className="flex align-items-start">
+                  <div className="flex flex-column w-full p-2 text-left  gap-2">
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                      {displayValues.Total_Volume_Harvested}
+                      <span className="text-xl p-0 m-0"> m&sup3;</span>
+                    </p>
+                    <p className="p-0 m-0 card-text text-left w-full">
+                      Total Volume Harvested
+                    </p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex flex-column w-full p-2 text-left gap-2">
+                    <p className="text-2xl font-semibold m-0 text-primary2 p-0 w-full">
+                      {displayValues.Sites_with_Rainwater_Harvesting_System}
+                    </p>
+                    <p className="p-0 m-0 card-text w-full">
+                      Sites with Rainwater Harvesting System
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* Awareness Campign */}
+              <div className="flex bg-white border-round p-3 ">
+                <div className="flex w-full flex-column gap-5">
+                  <p className="card-title p-0 m-0 text-left">
+                    Awarness Campaigns
+                  </p>
+                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
+                    {displayValues.Awarness_Campaigns_Programs}
+                  </p>
+                </div>
+                <img src={workshop} alt="workshop" className="w-8rem" />
               </div>
             </div>
           </div>
