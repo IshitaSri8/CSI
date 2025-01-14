@@ -1,6 +1,5 @@
 import React from "react";
 import society from "assets/Report/Society.svg";
-import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { PieChart } from "Layout/GraphVisuals";
 import increase from "assets/increase.png";
@@ -172,9 +171,11 @@ const Society = () => {
               >
                 <div className="flex flex-column gap-3 align-items-center">
                   <img src={metric.img} alt={metric.title} />
-                  <p className="text-sm font-semibold text-secondary2 pb-2 m-0 text-lg flex flex-wrap">
-                    {metric.title}
-                  </p>
+                  <div>
+                    <p className="text-sm font-semibold text-secondary2 pb-2 m-0 text-lg flex flex-wrap">
+                      {metric.title}
+                    </p>
+                  </div>
                 </div>
                 <div
                   className="flex border-round-right-2xl px-4 flex-column gap-8 py-2"

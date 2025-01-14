@@ -15,13 +15,13 @@ import bike from "assets/bike.svg";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import TransportModify from "./TransportModify";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
 
   const vehicleLables = ["Electric", "Hybrid", "Petrol", "Diesel"];
 
-  const evTrend = [40, 45, 60, 36];
   const labels = ["Q1", "Q2", "Q3", "Q4"];
 
   const [filterVisible, setFilterVisible] = useState(false);
@@ -136,6 +136,17 @@ const Transport = ({ show }) => {
       month: 1,
     });
   };
+
+  const [modifyDialogVisible, setModifyDialogVisible] = useState(false);
+
+  const handleModify = () => {
+    setModifyDialogVisible(true); // Set state to true when button is clicked
+  };
+
+  const handleCloseModifyDialog = () => {
+    setModifyDialogVisible(false);
+  };
+
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
 
   const showUploadDialog = () => {
@@ -153,7 +164,7 @@ const Transport = ({ show }) => {
   const renderDashboard = () => {
     return <Transport show={false} />;
   };
-  const score = 90; 
+  const score = 90;
 
   const getColor = (score) => {
     if (score >= 81 && score <= 100) {
@@ -295,13 +306,19 @@ const Transport = ({ show }) => {
             />
             <Button
               tooltip="Modify Data"
-              // onClick={handleModify}
+              onClick={handleModify}
               raised
               className="bg-white text-secondary2"
               icon="pi pi-file-edit"
               tooltipOptions={{
                 position: "bottom",
               }}
+            />
+            {/* Pass props to TransportModify */}
+            <TransportModify
+              transportData={data}
+              isOpen={modifyDialogVisible}
+              onClose={handleCloseModifyDialog}
             />
             <Button
               tooltip="Generate Report"

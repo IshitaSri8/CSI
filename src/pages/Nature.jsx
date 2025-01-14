@@ -1,6 +1,5 @@
 import React from "react";
 import nature from "assets/Report/Nature.svg";
-import { Card } from "primereact/card";
 import { PieChart } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
 import increase from "assets/increase.png";

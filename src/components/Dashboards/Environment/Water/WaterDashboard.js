@@ -306,7 +306,7 @@ const WaterDashboard = ({ show }) => {
               Water Management
             </h1>
             <div className="flex align-items-start flex-column gap-1">
-              {/* loaction */}
+              {/* location */}
               <div className="flex align-items-center gap-1">
                 <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
                 <p className="m-0 p-0 text-primary1 font-medium text-sm">
@@ -469,7 +469,6 @@ const WaterDashboard = ({ show }) => {
                   onClick={handleEdit}
                   className="bg-cyan-700 text-white"
                 />
-                {/**/}
               </div>
             </Dialog>
             <Dialog
@@ -808,10 +807,7 @@ const WaterDashboard = ({ show }) => {
         <div className="flex align-items-center justify-content-between gap-3 flex-column w-full">
           {/* Row 1 */}
           <div className="flex gap-3 w-full align-items-center justify-content-center">
-            <div
-              className="flex flex-column gap-3"
-              style={{ flex: "30%" }}
-            >
+            <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
               <div className="flex flex-column gap-3">
                 {/* Sources of Water Supply */}
                 <div className="flex flex-column justify-content-start bg-white border-round p-3 gap-3 w-full">
@@ -1204,7 +1200,10 @@ const WaterDashboard = ({ show }) => {
                     Treated Reused Water
                   </p>
                 </div>
-                <div className="flex flex-column gap-2" style={{marginTop: -20}}>
+                <div
+                  className="flex flex-column gap-2"
+                  style={{ marginTop: -20 }}
+                >
                   <div
                     className="flex flex-column w-full p-2 pr-4 sec-theme gap-2"
                     style={{
