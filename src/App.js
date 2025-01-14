@@ -13,6 +13,8 @@ import CityProgress from "components/knowYourCity/CityProgress";
 import CitizenSidebar from "Layout/CitizenSidebar";
 import ChangeDetection from "extra/ChangeDetection";
 import Animation from "extra/Animation";
+import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
+import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboard";
 
 function App() {
   return (
@@ -24,6 +26,14 @@ function App() {
       <Route path="/" element={<LandingScreen />} />
       <Route path="/citizen" element={<Citizen />} />
       <Route path="/government" element={<Government />} />
+      <Route
+        path="/government/nature/aqi"
+        element={<AqiDashboard show={true} />}
+      />
+      <Route
+        path="/government/nature/water"
+        element={<WaterDashboard show={true} />}
+      />
       <Route path="/government/kyc" element={<GovernmentSidebar />} />
       <Route path="/citizen/kyc" element={<CitizenSidebar />} />
       {/* <Route path="/change" element={<ChangeDetection />} /> */}

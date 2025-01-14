@@ -20,6 +20,7 @@ import AQIRecommendations from "./AQIRecommendations";
 import { Tag } from "primereact/tag";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import Upload from "components/DashboardUtility/Popups/Upload";
 
 const AqiDashboard = ({
   onDataChange,
@@ -62,6 +63,7 @@ const AqiDashboard = ({
   const [showPopup, setShowPopup] = useState(false);
   const [selectedAction, setSelectedAction] = useState("");
   const [ReportVisible, setReportVisible] = useState(false);
+  const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
   const handleLocationChange = (e) => {
     if (show) {
       setSelectedLocation(e.value.code);
@@ -71,6 +73,13 @@ const AqiDashboard = ({
   const handleActionSelect = (action) => {
     setSelectedAction(action);
     setShowPopup(true);
+  };
+  const showUploadDialog = () => {
+    setUploadDialogVisible(true);
+  };
+
+  const hideUploadDialog = () => {
+    setUploadDialogVisible(false);
   };
 
   const handleUpload = async (file) => {
@@ -420,7 +429,21 @@ const AqiDashboard = ({
                 </div>
               </div>
             )}
-
+            <Button
+              icon="pi pi-plus"
+              className="bg-white text-secondary2"
+              onClick={showUploadDialog}
+              raised
+              tooltip="Upload Data"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
+            <Upload
+              visible={uploadDialogVisible}
+              onHide={hideUploadDialog}
+              parameter={"aqi"}
+            />
             <Button
               label="Generate Report"
               icon="pi pi-file"

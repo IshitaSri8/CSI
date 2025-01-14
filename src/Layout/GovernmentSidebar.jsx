@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar } from "primereact/sidebar";
 import { Ripple } from "primereact/ripple";
 import { Button } from "primereact/button";
@@ -8,7 +8,7 @@ import KnowYourCity from "../pages/KnowYourCity";
 import Healthcare from "components/Dashboards/Society/Healthcare/Healthcare";
 import CityReportCardGov from "pages/CityReportCardGov";
 import { BreadCrumb } from "primereact/breadcrumb";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Ambulance,
   BookOpenText,
@@ -62,6 +62,8 @@ const GovernmentSidebar = () => {
     setActiveSections((prev) => ({ ...prev, [section]: !prev[section] }));
     setActiveTab(section);
   };
+
+  // Update active tab based on the current route
 
   const handleTabClick = (tab) => {
     setActiveTab(tab); // Set the clicked tab as active
@@ -369,7 +371,7 @@ const GovernmentSidebar = () => {
                 onClick={() => {
                   setVisible(true);
                   toggleSection("nature");
-                  // handleTabClick("nature");
+                  handleTabClick("nature");
                 }}
                 style={getTabStyle("nature")}
                 className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 no-underline hover:bg-cyan-600 transition-duration-150 transition-colors w-full"

@@ -21,8 +21,13 @@ const Upload = ({ visible, onHide, parameter }) => {
 
       const response = await axios.post(
         // "https://api-csi.arahas.com/upload/water",
-        `https://api-csi.arahas.com/upload/${parameter}`,
-        formData
+        `http://localhost:8010/upload/${parameter}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       if (response.status === 200) {
