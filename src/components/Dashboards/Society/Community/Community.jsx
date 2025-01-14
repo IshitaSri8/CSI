@@ -9,6 +9,7 @@ import survey from "assets/Survey Illustration.svg";
 import CommunityRecommendations from "./CommunityRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 
 const Community = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -49,14 +50,42 @@ const Community = ({ show }) => {
   const renderDashboard = () => {
     return <Community show={false} />;
   };
+  const score = 90; // Example value; this can be "poor", "moderate", or "good"
+
+  const getColor = (score) => {
+    if (score >= 81 && score <= 100) {
+      return "#0C9D61"; // Green for good
+    } else if (score >= 41 && score <= 80) {
+      return "#FFAD0D"; // Yellow for moderate
+    } else if (score >= 0 && score <= 40) {
+      return "#E62225"; // Red for poor
+    }
+  };
 
   return (
     <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Community Engagement & Holisitic Well-Being
-          </h1>
+          <div className="flex p-2 w-30rem align-items-center justify-content-between bg-white border-round">
+            <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+              Community Engagement & Holisitic Well-Being
+            </h1>
+            <div className="flex w-4rem custom-circular-progress">
+              <CircularProgressbar
+                value={score}
+                text={`${score}`}
+                strokeWidth={12}
+                styles={buildStyles({
+                  pathColor: getColor(score),
+                  textColor: "#001F23",
+                  trailColor: "#E7EAEA",
+                  textSize: "2.5rem",
+                  pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                  transform: "rotate(2.25turn)",
+                })}
+              />
+            </div>
+          </div>
           <Button
             label="Generate Report"
             icon="pi pi-file"

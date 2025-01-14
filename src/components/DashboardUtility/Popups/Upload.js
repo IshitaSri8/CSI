@@ -17,17 +17,12 @@ const Upload = ({ visible, onHide, parameter }) => {
 
       const formData = new FormData();
       formData.append("file", file);
-      console.log(formData);
+      // console.log(formData);
 
       const response = await axios.post(
-        // "https://api-csi.arahas.com/upload/water",
-        `http://localhost:8010/upload/${parameter}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        // `http://localhost:8009/upload/${parameter}`,
+        `https://api-csi.arahas.com/upload/${parameter}`,
+        formData
       );
 
       if (response.status === 200) {

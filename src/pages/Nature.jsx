@@ -1,7 +1,7 @@
 import React from "react";
 import nature from "assets/Report/Nature.svg";
 import { Card } from "primereact/card";
-import { PieChartRow } from "Layout/GraphVisuals";
+import { PieChart } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
 import increase from "assets/increase.png";
 import aqi from "assets/illustration/aqi1.svg";
@@ -128,20 +128,18 @@ const Nature = () => {
               <Divider />
             </div>
             <div
-              className="flex flex-column bg-white border-round-2xl shadow-2 align-items-start justify-content-around p-4"
+              className="flex flex-column bg-white border-round-2xl shadow-2 align-items-start justify-content-between p-4"
               style={{ flex: "25%" }}
             >
-              <div className="flex flex-column align-items-start w-full gap-3">
-                <p className="card-title p-0 m-0 text-xl">
-                  Indicator Contribution
-                </p>
-                <PieChartRow
-                  categories={natureLables}
-                  series={natureData}
-                  height={120}
-                  fontSize={8}
-                />
-              </div>
+              <p className="card-title p-0 m-0 text-xl">
+                Indicator Contribution
+              </p>
+              <PieChart
+                categories={natureLables}
+                series={natureData}
+                height={140}
+                fontSize={8}
+              />
             </div>
             <div className="flex flex-column" style={{ flex: "50%" }}>
               <div className="flex flex-column border-round-2xl bg-white p-3">
