@@ -481,7 +481,7 @@ const WaterDashboard = ({ show }) => {
               style={{ width: "60rem" }}
               onHide={() => setEditDialog(false)}
             >
-              <div className="flex align-items-start justify-content-between flex-row gap-8">
+              <div className="flex align-items-start justify-content-between gap-8">
                 <div className="flex flex-column gap-2">
                   <h1 className="text-surface text-sm m-0 p-0">Zone</h1>
                   <h1 className="text-secondary2 m-0 p-0 text-base ">
@@ -789,12 +789,11 @@ const WaterDashboard = ({ show }) => {
         </div>
       )}
       {displayValues && (
-        <div className="flex  align-items-center justify-content-between gap-3 flex-column w-full">
+        <div className="flex align-items-center justify-content-between gap-3 flex-column w-full">
           {/* Row 1 */}
-          <div className="flex align-items-center justify-content-center flex-row gap-3 w-full h-30rem">
-            {/* Water Supply & Supply Sources  */}
+          <div className="flex gap-3 w-full align-items-center justify-content-center">
             <div
-              className="flex align-items-center justify-content-center flex-column w-full gap-3 h-23rem"
+              className="flex flex-column gap-3"
               style={{ flex: "30%" }}
             >
               <div className="flex flex-column gap-3">
@@ -839,7 +838,7 @@ const WaterDashboard = ({ show }) => {
                   </div>
                 </div>
                 {/* Households with Water Supply */}
-                <div className="flex bg-white gap-2 p-3 flex-column border-round align-items-center justify-content-center w-full">
+                <div className="flex bg-white gap-2 p-3 flex-column border-round align-items-start justify-content-center w-full">
                   <ProgressBar
                     value={(
                       (displayValues.No_of_Households_with_Connections /
@@ -851,9 +850,9 @@ const WaterDashboard = ({ show }) => {
                     color={color}
                     displayValueTemplate={() => null} // Hide the displayed value
                   />
-                  <p className="text-tertiary3 p-0 m-0 font-semibold text-align-left w-full">
+                  <p className="card-text p-0 m-0">
                     Households with Water Connections:{" "}
-                    <span className="text-primary1">
+                    <span className="text-primary1 font-semibold">
                       {(
                         (displayValues.No_of_Households_with_Connections /
                           displayValues.Total_Households) *
@@ -864,16 +863,16 @@ const WaterDashboard = ({ show }) => {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-column gap-3 p-3 w-full border-round bg-white">
+              {/* Water Supply */}
+              <div className="flex flex-column p-3 w-full border-round bg-white">
                 <p className="card-title p-0 m-0">Supply</p>
-
                 <div className="flex w-full my-2">
                   <div className="flex flex-column w-full p-2 align-items-center gap-1">
                     <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                       {displayValues.Current_Supply_MLD}
                       <span className="text-lg"> MLD</span>
                     </p>
-                    <p className="p-0 m-0  card-text text-sm">
+                    <p className="p-0 m-0 card-text text-sm">
                       Current Water Supply
                     </p>
                   </div>
@@ -902,23 +901,9 @@ const WaterDashboard = ({ show }) => {
                     </>
                   )}
                 </div>
-                <ProgressBar
-                  value={
-                    ((((displayValues.Population * 135) / 1000000).toFixed(2) -
-                      displayValues.Current_Supply_MLD) /
-                      ((displayValues.Population * 135) / 1000000).toFixed(2)) *
-                    100
-                  }
-                  style={{ height: "0.75rem" }} // Adjust the height
-                  className="w-full" // Full width of its container
-                  color={color}
-                  displayValueTemplate={() => null} // Hide the displayed value
-                />
-                <p className="text-tertiary3 p-0 m-0 font-semibold">
-                  Current Deficit:{" "}
-                  <span className="text-primary1">
-                    {" "}
-                    {(
+                <div className="flex flex-column gap-2">
+                  <ProgressBar
+                    value={
                       ((((displayValues.Population * 135) / 1000000).toFixed(
                         2
                       ) -
@@ -927,23 +912,43 @@ const WaterDashboard = ({ show }) => {
                           2
                         )) *
                       100
-                    ).toFixed(2)}{" "}
-                    %
-                  </span>
-                </p>
+                    }
+                    style={{ height: "0.75rem" }} // Adjust the height
+                    className="w-full" // Full width of its container
+                    color={color}
+                    displayValueTemplate={() => null} // Hide the displayed value
+                  />
+                  <p className="card-text p-0 m-0">
+                    Current Deficit:{" "}
+                    <span className="text-primary1 font-semibold">
+                      {" "}
+                      {(
+                        ((((displayValues.Population * 135) / 1000000).toFixed(
+                          2
+                        ) -
+                          displayValues.Current_Supply_MLD) /
+                          ((displayValues.Population * 135) / 1000000).toFixed(
+                            2
+                          )) *
+                        100
+                      ).toFixed(2)}{" "}
+                      %
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
             {/* WQI Map */}
             <div
-              className="flex flex-column align-items-center justify-content-between gap-3 w-full"
+              className="flex flex-column align-items-center justify-content-between gap-3"
               style={{ flex: "40%" }}
             >
-              <div className="flex flex-column bg-white border-round p-3 w-full gap-2">
+              <div className="flex flex-column bg-white border-round p-3 w-full gap-3">
                 <p className="card-title p-0 m-0">Water Quality Index</p>
                 <MapContainer
                   center={[26.8, 82.2]}
                   zoom={10}
-                  style={{ height: "23rem", width: "100%" }}
+                  style={{ height: "20rem", width: "100%" }}
                 >
                   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
@@ -1059,12 +1064,12 @@ const WaterDashboard = ({ show }) => {
             </div>
             {/* Insights */}
             <div
-              className="flex flex-column bg-white border-round p-3 gap-3 w-full h-29rem overflow-y-auto "
+              className="flex flex-column bg-white border-round p-3 gap-3 h-26rem overflow-y-auto "
               style={{ flex: "30%" }}
             >
               <div className="flex flex-column gap-2">
                 <p className="card-title p-0 m-0">Insights</p>
-                <div className="flex flex-column align-items-start justify-content-start gap-2 p-2">
+                <div className="flex flex-column align-items-start justify-content-start gap-2">
                   {selectedValues.zone === "All Zones" && (
                     <li className="p-0 m-0 text-primary1 font-medium">
                       By 2031, the projected demand of{" "}
@@ -1161,11 +1166,11 @@ const WaterDashboard = ({ show }) => {
             </div>
           </div>
           {/* Row 2 */}
-          <div className="flex align-items-center justify-content-center flex-row gap-3">
+          <div className="flex gap-3 w-full align-items-center justify-content-center">
             {/* Water Treatment */}
             <div
-              className="flex flex-column bg-white border-round p-4 gap-3 w-full  h-20rem"
-              style={{ flex: "31%" }}
+              className="flex flex-column bg-white border-round p-3 gap-3 w-full"
+              style={{ flex: "30%" }}
             >
               <p className="card-title p-0 m-0">Treatment</p>
               <div className="flex align-items-start justify-content-around">
@@ -1174,7 +1179,7 @@ const WaterDashboard = ({ show }) => {
                     value={waterTreatment.reusedPercent}
                     valueTemplate={"{value}%"}
                     readOnly
-                    size={130}
+                    size={140}
                     strokeWidth={6}
                     valueColor="#166c7d"
                     rangeColor="#E9F3F5"
@@ -1183,7 +1188,7 @@ const WaterDashboard = ({ show }) => {
                     Treated Reused Water
                   </p>
                 </div>
-                <div className="flex flex-column gap-2">
+                <div className="flex flex-column gap-2" style={{marginTop: -20}}>
                   <div
                     className="flex flex-column w-full p-2 pr-4 sec-theme gap-2"
                     style={{
@@ -1223,13 +1228,13 @@ const WaterDashboard = ({ show }) => {
             </div>
             {/* Water Usage Mangagement */}
             <div
-              className="flex flex-column bg-white border-round p-4 gap-3 w-full h-20rem"
-              style={{ flex: "35%" }}
+              className="flex flex-column bg-white border-round p-3 gap-3 w-full"
+              style={{ flex: "40%" }}
             >
-              <p className="card-title p-0 m-0 text-left">Usage Management</p>
+              <p className="card-title p-0 m-0">Usage Management</p>
               <div className="flex gap-3">
-                <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
-                  <div className="flex w-8rem custom-circular-progress">
+                <div className="flex flex-column sec-theme border-round p-2 gap-2 align-items-center w-full">
+                  <div className="flex w-9rem custom-circular-progress">
                     <CircularProgressbar
                       value={
                         (displayValues.No_of_Households_with_Meters /
@@ -1241,7 +1246,7 @@ const WaterDashboard = ({ show }) => {
                           displayValues.No_of_Households_with_Connections) *
                         100
                       }%`}
-                      strokeWidth={8}
+                      strokeWidth={7}
                       styles={buildStyles({
                         pathColor: "#166c7d",
                         textColor: "#001F23",
@@ -1257,8 +1262,8 @@ const WaterDashboard = ({ show }) => {
                     Houses with Metered Connections
                   </p>
                 </div>
-                <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
-                  <div className="flex w-8rem custom-circular-progress">
+                <div className="flex flex-column sec-theme border-round p-2 gap-2 align-items-center w-full">
+                  <div className="flex w-9rem custom-circular-progress">
                     <CircularProgressbar
                       value={(
                         100 -
@@ -1272,7 +1277,7 @@ const WaterDashboard = ({ show }) => {
                           displayValues.No_of_Households_with_Meters) *
                           100
                       ).toFixed(2)}%`}
-                      strokeWidth={8}
+                      strokeWidth={7}
                       styles={buildStyles({
                         pathColor: "#E62225",
                         textColor: "#001F23",
@@ -1293,33 +1298,31 @@ const WaterDashboard = ({ show }) => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-column gap-3">
+            <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
               {/* Water Preservation */}
-              <div className="flex flex-column bg-white border-round p-3 gap-1">
+              <div className="flex flex-column bg-white border-round p-3 gap-2">
                 <p className="card-title p-0 m-0">Water Preservation</p>
                 <div className="flex align-items-start">
-                  <div className="flex flex-column w-full p-2 text-left  gap-2">
+                  <div className="flex flex-column w-full align-items-center">
                     <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                       {displayValues.Total_Volume_Harvested}
                       <span className="text-xl p-0 m-0"> m&sup3;</span>
                     </p>
-                    <p className="p-0 m-0 card-text text-left w-full">
-                      Total Volume Harvested
-                    </p>
+                    <p className="p-0 m-0 card-text text-sm">Total Volume Harvested</p>
                   </div>
                   <Divider layout="vertical" />
-                  <div className="flex flex-column w-full p-2 text-left gap-2">
-                    <p className="text-2xl font-semibold m-0 text-primary2 p-0 w-full">
+                  <div className="flex flex-column w-full align-items-center">
+                    <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                       {displayValues.Sites_with_Rainwater_Harvesting_System}
                     </p>
-                    <p className="p-0 m-0 card-text w-full">
+                    <p className="p-0 m-0 card-text text-sm text-center">
                       Sites with Rainwater Harvesting System
                     </p>
                   </div>
                 </div>
               </div>
               {/* Awareness Campign */}
-              <div className="flex bg-white border-round p-3 ">
+              <div className="flex bg-white border-round p-3">
                 <div className="flex w-full flex-column gap-5">
                   <p className="card-title p-0 m-0 text-left">
                     Awarness Campaigns
@@ -1328,7 +1331,7 @@ const WaterDashboard = ({ show }) => {
                     {displayValues.Awarness_Campaigns_Programs}
                   </p>
                 </div>
-                <img src={workshop} alt="workshop" className="w-8rem" />
+                <img src={workshop} alt="workshop" className="w-7rem" />
               </div>
             </div>
           </div>
