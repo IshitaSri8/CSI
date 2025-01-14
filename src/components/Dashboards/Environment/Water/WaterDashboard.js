@@ -428,7 +428,7 @@ const WaterDashboard = ({ show }) => {
               style={{ width: "55rem" }}
               onHide={() => setModifyDialog(false)}
             >
-              <div className="flex align-items-center justify-content-start gap-2 flex-row">
+              <div className="flex align-items-center justify-content-start gap-2 flex-row p-2">
                 <Dropdown
                   value={selectedValues.zone}
                   onChange={(e) =>
@@ -463,7 +463,11 @@ const WaterDashboard = ({ show }) => {
                   placeholder="Select Month"
                   className="w-full md:w-14rem"
                 />
-                <Button label="Edit Data" onClick={handleEdit} />
+                <Button
+                  label="Edit Data"
+                  onClick={handleEdit}
+                  className="bg-cyan-700 text-white"
+                />
                 {/**/}
               </div>
             </Dialog>
@@ -477,7 +481,7 @@ const WaterDashboard = ({ show }) => {
                 </h2>
               }
               visible={editDialog}
-              style={{ width: "60rem" }}
+              style={{ width: "70rem" }}
               onHide={() => setEditDialog(false)}
             >
               <div className="flex align-items-start justify-content-between flex-row gap-8">
@@ -504,29 +508,22 @@ const WaterDashboard = ({ show }) => {
               </div>
               <Divider />
 
-              <div className="flex align-items-start flex-column gap-3">
-                <div>
+              <div className="flex align-items-start flex-column gap-3 w-full">
+                <div className="w-full flex flex-column">
                   {/* Water Supply Data Header */}
                   <h3>Water Supply Data</h3>
 
-                  <div className="w-full flex align-items-center justify-content-start gap-4">
+                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap w-full ">
                     {["Population", "Current_Supply_MLD"].map(
                       (field, index) => {
-                        // Mapping of field names to custom labels
                         const customLabels = {
                           Population: "Total Population",
                           Current_Supply_MLD: "Current Water Supply (MLD)",
                         };
 
                         return (
-                          <div
-                            key={index}
-                            className="flex flex-column gap-2 w-full"
-                          >
-                            <label
-                              htmlFor={field.toLowerCase()}
-                              className="text-sm "
-                            >
+                          <div key={index} className="flex flex-column gap-2 ">
+                            <label className="text-sm text-surface-500  ">
                               {customLabels[field]}
                             </label>
                             <InputText
@@ -549,16 +546,26 @@ const WaterDashboard = ({ show }) => {
                     )}
                   </div>
                 </div>
+                <div className="w-full flex flex-column">
+                  {/* Table 2: Infrastructure Data */}
 
-                {/* Table 2: Infrastructure Data */}
-                <h3>Infrastructure Data</h3>
-                <table className="p-table">
-                  <tbody>
+                  <h3>Infrastructure Data</h3>
+
+                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
                     {["Canals", "Tanks", "Ponds", "Handpumps"].map(
-                      (field, index) => (
-                        <tr key={index}>
-                          <td>{field}</td>
-                          <td>
+                      (field, index) => {
+                        const customLabels = {
+                          Canals: "Canals",
+                          Tanks: "Tanks",
+                          Ponds: "Ponds",
+                          Handpumps: "Handpumps",
+                        };
+
+                        return (
+                          <div key={index} className="flex flex-column gap-2">
+                            <label className="text-sm text-surface-500 ">
+                              {customLabels[field]}
+                            </label>
                             <InputText
                               id={field.toLowerCase()}
                               value={selectedData?.[field]}
@@ -568,28 +575,43 @@ const WaterDashboard = ({ show }) => {
                                   [field]: e.target.value,
                                 })
                               }
-                              placeholder={`Enter ${field.toLowerCase()}`}
+                              placeholder={`Enter ${customLabels[
+                                field
+                              ].toLowerCase()}`}
+                              type={"number"}
                             />
-                          </td>
-                        </tr>
-                      )
+                          </div>
+                        );
+                      }
                     )}
-                  </tbody>
-                </table>
+                  </div>
+                </div>
+                <div className="w-full flex flex-column">
+                  {/* Table 3: Household Data */}
+                  <h3>Household Data</h3>
 
-                {/* Table 3: Household Data */}
-                <h3>Household Data</h3>
-                <table className="p-table">
-                  <tbody>
+                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
                     {[
                       "Total_Households",
                       "No_of_Households_with_Connections",
                       "No_of_Households_with_Meters",
                       "Households_Bill_Payment",
-                    ].map((field, index) => (
-                      <tr key={index}>
-                        <td>{field}</td>
-                        <td>
+                    ].map((field, index) => {
+                      const customLabels = {
+                        Total_Households: "Total Households",
+                        No_of_Households_with_Connections:
+                          "Households with Connections",
+                        No_of_Households_with_Meters:
+                          "Households with Water Meters",
+                        Households_Bill_Payment:
+                          "Households Participating in Bill Payments",
+                      };
+
+                      return (
+                        <div key={index} className="flex flex-column gap-2">
+                          <label className="text-sm text-surface-500 ">
+                            {customLabels[field]}
+                          </label>
                           <InputText
                             id={field.toLowerCase()}
                             value={selectedData?.[field]}
@@ -599,60 +621,41 @@ const WaterDashboard = ({ show }) => {
                                 [field]: e.target.value,
                               })
                             }
-                            placeholder={`Enter ${field.toLowerCase()}`}
+                            placeholder={`Enter ${customLabels[
+                              field
+                            ].toLowerCase()}`}
+                            type={"number"}
                           />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
 
-                {/* Table 4: Water Reuse and Drainage Data */}
-                {/* <h3>Water Reuse and Drainage Data</h3>
-                <table className="p-table">
-                  <thead>
-                    <tr>
-                      <th>Field</th>
-                      <th>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      "Total_Reused_Water",
-                      "No_of_Tapped_Drains",
-                      "No_of_Untapped_Drains",
-                    ].map((field, index) => (
-                      <tr key={index}>
-                        <td>{field}</td>
-                        <td>
-                          <InputText
-                            id={field.toLowerCase()}
-                            value={selectedData?.[field]}
-                            onChange={(e) =>
-                              setSelectedData({
-                                ...selectedData,
-                                [field]: e.target.value,
-                              })
-                            }
-                            placeholder={`Enter ${field.toLowerCase()}`}
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table> */}
+                <div className="w-full flex flex-column">
+                  {/* Table 5: Rainwater Harvesting Data */}
+                  <h3>Rainwater Harvesting Data</h3>
 
-                {/* Table 5: Rainwater Harvesting Data */}
-                <h3>Rainwater Harvesting Data</h3>
-                <table className="p-table">
-                  <tbody>
+                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
                     {[
                       "Sites_with_Rainwater_Harvesting_System",
                       "Total_Volume_Harvested",
-                    ].map((field, index) => (
-                      <tr key={index}>
-                        <td>{field}</td>
-                        <td>
+                    ].map((field, index) => {
+                      const customLabels = {
+                        Sites_with_Rainwater_Harvesting_System:
+                          "Sites with Rain Water Harvesting System",
+                        Total_Volume_Harvested: "Harvested Water (m³)",
+                        No_of_Households_with_Meters:
+                          "Households with Water Meters",
+                        Households_Bill_Payment:
+                          "Households Participating in Bill Payments",
+                      };
+
+                      return (
+                        <div key={index} className="flex flex-column gap-2">
+                          <label className="text-sm text-surface-500 ">
+                            {customLabels[field]}
+                          </label>
                           <InputText
                             id={field.toLowerCase()}
                             value={selectedData?.[field]}
@@ -662,64 +665,57 @@ const WaterDashboard = ({ show }) => {
                                 [field]: e.target.value,
                               })
                             }
-                            placeholder={`Enter ${field.toLowerCase()}`}
+                            placeholder={`Enter ${customLabels[
+                              field
+                            ].toLowerCase()}`}
+                            type={"number"}
                           />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="w-full flex flex-column">
+                  {/* Table 6: Maintenance and Awareness Programs */}
+                  <h3>Awareness Programs</h3>
 
-                {/* Table 6: Maintenance and Awareness Programs */}
-                <h3>Awareness Programs</h3>
-                <table className="p-table">
-                  <tbody>
-                    {[
-                      "Awareness_Campaigns_Programs",
-                      // "Pipeline_Length",
-                      // "Maintenance_Status",
-                      // "Percentage_of_water_lost_due_to_leaks",
-                    ].map((field, index) => (
-                      <tr key={index}>
-                        <td>{field}</td>
-                        <td>
-                          {/* Use number type where applicable */}
-                          {field === "Percentage_of_water_lost_due_to_leaks" ? (
-                            <InputText
-                              id={field.toLowerCase()}
-                              value={selectedData?.[field]}
-                              onChange={(e) =>
-                                setSelectedData({
-                                  ...selectedData,
-                                  [field]: e.target.value,
-                                })
-                              }
-                              placeholder={`Enter ${field.toLowerCase()}`}
-                              type="number"
-                            />
-                          ) : (
-                            <InputText
-                              id={field.toLowerCase()}
-                              value={selectedData?.[field]}
-                              onChange={(e) =>
-                                setSelectedData({
-                                  ...selectedData,
-                                  [field]: e.target.value,
-                                })
-                              }
-                              placeholder={`Enter ${field.toLowerCase()}`}
-                            />
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
+                    {["Awarness_Campaigns_Programs"].map((field, index) => {
+                      const customLabels = {
+                        Awarness_Campaigns_Programs:
+                          "Awareness Campaigns Launched",
+                      };
 
-                {/* Table 7: Water Quality Testing */}
-                <h3>Water Quality Testing Data</h3>
-                <table className="p-table">
-                  <tbody>
+                      return (
+                        <div key={index} className="flex flex-column gap-2">
+                          <label className="text-sm text-surface-500 ">
+                            {customLabels[field]}
+                          </label>
+                          <InputText
+                            id={field.toLowerCase()}
+                            value={selectedData?.[field]}
+                            onChange={(e) =>
+                              setSelectedData({
+                                ...selectedData,
+                                [field]: e.target.value,
+                              })
+                            }
+                            placeholder={`Enter ${customLabels[
+                              field
+                            ].toLowerCase()}`}
+                            type={"number"}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="w-full flex flex-column">
+                  {/* Table 2: Infrastructure Data */}
+
+                  <h3>Infrastructure Data</h3>
+
+                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
                     {[
                       "Number_of_Testing_Stations",
                       "Number_of_Sample_Tested_in_Laboratories",
@@ -730,10 +726,26 @@ const WaterDashboard = ({ show }) => {
                       "DO",
                       "Conductivity",
                       "WQI",
-                    ].map((field, index) => (
-                      <tr key={index}>
-                        <td>{field}</td>
-                        <td>
+                    ].map((field, index) => {
+                      const customLabels = {
+                        Number_of_Testing_Stations: "Testing Stations",
+                        Number_of_Sample_Tested_in_Laboratories:
+                          "Samples Tested",
+                        Number_of_Samples_found_contaminated_in_laboratories:
+                          "Contaminated Samples",
+                        Temperature: "Temperature (°C)",
+                        BOD: "Biological Oxygen Demand (mg/L)",
+                        TSS: "Total Suspended Solids (mg/L)",
+                        DO: "Dissolved Oxygen (mg/L)",
+                        Conductivity: "Conductivity (μS/cm)",
+                        WQI: "Water Quality Index",
+                      };
+
+                      return (
+                        <div key={index} className="flex flex-column gap-2">
+                          <label className="text-sm text-surface-500 ">
+                            {customLabels[field]}
+                          </label>
                           <InputText
                             id={field.toLowerCase()}
                             value={selectedData?.[field]}
@@ -743,19 +755,23 @@ const WaterDashboard = ({ show }) => {
                                 [field]: e.target.value,
                               })
                             }
-                            placeholder={`Enter ${field.toLowerCase()}`}
-                            type="number"
+                            placeholder={`Enter ${customLabels[
+                              field
+                            ].toLowerCase()}`}
+                            type={"number"}
                           />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <Button
-                  label="Save"
-                  onClick={handleSave}
-                  style={{ marginTop: "20px" }}
-                />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="flex align-items-center justify-content-end  w-full">
+                  <Button
+                    label="Update"
+                    onClick={handleSave}
+                    className="bg-cyan-700 text-white"
+                  />
+                </div>
               </div>
             </Dialog>
 
@@ -1334,7 +1350,7 @@ const WaterDashboard = ({ show }) => {
                       <span className="text-xl p-0 m-0"> m&sup3;</span>
                     </p>
                     <p className="p-0 m-0 card-text text-left w-full">
-                      Total Volume Harvested
+                      Harvested Water
                     </p>
                   </div>
                   <Divider layout="vertical" />
@@ -1343,7 +1359,7 @@ const WaterDashboard = ({ show }) => {
                       {displayValues.Sites_with_Rainwater_Harvesting_System}
                     </p>
                     <p className="p-0 m-0 card-text w-full">
-                      Sites with Rainwater Harvesting System
+                      Rainwater Harvesting Sites
                     </p>
                   </div>
                 </div>
