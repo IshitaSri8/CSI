@@ -1,7 +1,6 @@
 import React from "react";
 import nature from "assets/Report/Nature.svg";
-import { Card } from "primereact/card";
-import { PieChartRow } from "Layout/GraphVisuals";
+import { PieChart } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
 import increase from "assets/increase.png";
 import aqi from "assets/illustration/aqi1.svg";
@@ -103,7 +102,7 @@ const Nature = () => {
                 <div className="flex flex-column gap-4">
                   <p className="card-title p-0 m-0 text-xl">Nature</p>
                   <p className="text-5xl font-semibold text-secondary2 p-0 m-0">
-                    80
+                    77
                   </p>
                   <div className="flex align-items-center justify-content-start">
                     <img
@@ -128,26 +127,24 @@ const Nature = () => {
               <Divider />
             </div>
             <div
-              className="flex flex-column bg-white border-round-2xl shadow-2 align-items-start justify-content-around p-4"
+              className="flex flex-column bg-white border-round-2xl shadow-2 align-items-start justify-content-between p-4"
               style={{ flex: "25%" }}
             >
-              <div className="flex flex-column align-items-start w-full gap-3">
-                <p className="card-title p-0 m-0 text-xl">
-                  Indicator Contribution
-                </p>
-                <PieChartRow
-                  categories={natureLables}
-                  series={natureData}
-                  height={120}
-                  fontSize={8}
-                />
-              </div>
+              <p className="card-title p-0 m-0 text-xl">
+                Indicator Contribution
+              </p>
+              <PieChart
+                categories={natureLables}
+                series={natureData}
+                height={140}
+                fontSize={8}
+              />
             </div>
             <div className="flex flex-column" style={{ flex: "50%" }}>
               <div className="flex flex-column border-round-2xl bg-white p-3">
                 <p className="text-xl font-medium p-0 m-0">Summary</p>
                 <p>
-                  The score 70 is combined output of all the indicators falling
+                  The score 77 is combined output of all the indicators falling
                   under SDG 11.
                 </p>
                 <Divider />
@@ -164,7 +161,7 @@ const Nature = () => {
               </div>
             </div>
           </div>
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-4 flex-wrap w-full">
             {metrics.map((metric, index) => (
               <div
                 key={index}

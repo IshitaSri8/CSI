@@ -67,7 +67,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-/* Legend Styles */
+/* Legend Styles
 .legend {
   display: flex;
   align-items: center;
@@ -94,7 +94,7 @@
   height: 1vw;
   margin-right: 0.5vw;
   border: 0.1vw solid black;
-}
+} */
 
 /* .canvasjs-chart-canvas{
     position: relative !important;

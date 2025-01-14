@@ -307,7 +307,8 @@ const GovernmentSidebar = () => {
         }
         style={{
           backgroundColor: "#003940",
-          overflowY: "auto", // Hide vertical scrollbar
+          overflowY: "auto",
+          // Hide vertical scrollbar
         }}
       >
         <div
@@ -315,7 +316,8 @@ const GovernmentSidebar = () => {
             backgroundColor: "#003940",
             padding: "1rem",
             height: "100vh",
-            position: "relative", // For positioning the toggle button
+            position: "relative",
+            // For positioning the toggle button
           }}
         >
           <img
@@ -665,7 +667,7 @@ const GovernmentSidebar = () => {
         style={{
           position: "sticky", // Make it sticky
           top: 0, // Stick to the top
-          zIndex: 1000, // Ensure it stays on top of other elements
+          // Ensure it stays on top of other elements
           backgroundColor: "#f3f5f5", // Add a background color to prevent overlap issues
           // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // Optional: Add a subtle shadow for separation
           marginLeft: "5rem",

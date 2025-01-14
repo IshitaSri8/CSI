@@ -1126,6 +1126,52 @@ export const PieChartRow = ({
   );
 };
 
+//nature, society
+export const PieChart = ({ title, categories, series, height, fontSize }) => {
+  const total = series.reduce((acc, value) => acc + value, 0);
+
+  return (
+    <CanvasJSChart
+      options={{
+        animationEnabled: true,
+        interactivityEnabled: false,
+        title: {
+          text: title,
+          ...commonChartOptions.title,
+        },
+        backgroundColor: "transparent",
+        legend: {
+          ...commonChartOptions.legend,
+          horizontalAlign: "right",
+          verticalAlign: "center",
+        },
+        data: [
+          {
+            type: "pie",
+            startAngle: 280,
+            toolTipContent: "<b>{label}</b>: {y}",
+            showInLegend: true,
+            legendText: "{label}",
+            indexLabelFontFamily: "Montserrat",
+            indexLabelFontSize: fontSize,
+            indexLabelPlacement: "inside",
+            indexLabel: "#percent%",
+            indexLabelFontColor: "white",
+            dataPoints: series.map((value, index) => ({
+              y: value,
+              label: categories[index],
+              // color: colors[index % colors.length], // Use modulus for consistent color assignment
+              color: colors[index + (4 % colors.length)],
+              percent: ((value / total) * 100).toFixed(2), // Corrected percentage calculation
+            })),
+          },
+        ],
+      }}
+      containerProps={{ height: height, width: "100%" }}
+    />
+  );
+};
+
 //healthcare, waste
 export const PieChartColumn = ({
   title,
