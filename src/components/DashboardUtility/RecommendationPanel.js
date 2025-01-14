@@ -9,11 +9,11 @@ const RecommendationPanel = ({ show, renderRecommendations }) => {
     setRecommendationsVisible(!recommendationsVisible);
   };
 
-  console.log(
-    "🚀 ~ RecommendationPanel ~ recommendationsVisible:",
-    recommendationsVisible
-  );
-  console.log(show);
+  // console.log(
+  //   "🚀 ~ RecommendationPanel ~ recommendationsVisible:",
+  //   recommendationsVisible
+  // );
+  // console.log(show);
 
   return (
     <div>

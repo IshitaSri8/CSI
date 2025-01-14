@@ -51,6 +51,7 @@ const WaterDashboard = ({ show }) => {
   const [modifyDialog, setModifyDialog] = useState(false);
   const [displayValues, setDisplayValues] = useState("");
   const [color, setColor] = useState("");
+
   const handleModify = () => {
     setModifyDialog(true);
   };
@@ -141,42 +142,13 @@ const WaterDashboard = ({ show }) => {
     else return "black"; // Poor (0-25)
   };
 
-  const Legend = () => {
-    return (
-      <div className="legend flex align-items-start justify-content-around ">
-        <div className="gap-1">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#FF7777" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-sm font-semi-bold">Poor</h1>
-        </div>
-        <div className="gap-2">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#E8B86D" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-xs">Fair</h1>
-        </div>
-        <div className="gap-2">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#FEFF9F" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-xs">Average</h1>
-        </div>
-        <div className="gap-2">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#A0D683" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-xs">Good</h1>
-        </div>
-        <div className="gap-2">
-          <svg width="25" height="25">
-            <circle cx="15" cy="15" r="8" fill="#72BF78" />
-          </svg>{" "}
-          <h1 className="m-0 p-0 text-xs"> Excellent </h1>
-        </div>
-      </div>
-    );
-  };
+  const colors = [
+    "#E62225", // Poor
+    "#F7A47A", // Fair
+    "#FFAD0D", // Average
+    "#A0D683", // Good
+    "#0C9D61", // Excellent
+  ];
 
   // Filter data based on selected zone, year, and month
 
@@ -323,13 +295,31 @@ const WaterDashboard = ({ show }) => {
           </h1>
 
           <div className="flex align-items-center justify-content-end gap-2">
-            <Button icon="pi pi-plus" onClick={showUploadDialog} raised />
+            <Button
+              icon="pi pi-plus"
+              onClick={showUploadDialog}
+              raised
+              className="bg-white text-secondary2"
+              tooltip="Upload"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
             <Upload
               visible={uploadDialogVisible}
               onHide={hideUploadDialog}
               parameter={"water"}
             />
-            <Button icon="pi pi-file-edit" onClick={handleModify} raised />
+            <Button
+              icon="pi pi-file-edit"
+              onClick={handleModify}
+              raised
+              className="bg-white text-secondary2"
+              tooltip="Modify"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
             <Dialog
               header="Modify Data"
               visible={modifyDialog}
@@ -627,11 +617,14 @@ const WaterDashboard = ({ show }) => {
               </div>
             </Dialog>
             <Button
-              label="Filters"
               icon="pi pi-filter"
               onClick={() => setFilterVisible(!filterVisible)}
               className="bg-white text-secondary2"
               raised
+              tooltip="Filters"
+              tooltipOptions={{
+                position: "bottom",
+              }}
             />
             {filterVisible && (
               <div
@@ -1048,7 +1041,7 @@ const WaterDashboard = ({ show }) => {
             className="flex flex-column align-items-center justify-content-between gap-3 w-full"
             style={{ flex: "35%" }}
           >
-            <div className="flex flex-column bg-white border-round p-3 gap-1 w-full">
+            <div className="flex flex-column bg-white border-round p-3 w-full gap-1">
               <p className="card-title p-0 m-0">Water Quality Index</p>
               <MapContainer
                 center={[26.8, 82.2]}
@@ -1136,45 +1129,63 @@ const WaterDashboard = ({ show }) => {
                 </Marker>
               </MapContainer>
 
-              <Legend />
+              <div className="flex justify-content-between">
+                {colors.map((color, index) => (
+                  <div className="flex align-items-center " key={index}>
+                    <div
+                      className="mr-2 border-circle"
+                      style={{
+                        width: "0.6rem",
+                        height: "0.6rem",
+                        backgroundColor: color,
+                        borderRadius: "50%", // Ensure it's circular
+                      }}
+                    ></div>
+                    <p
+                      className="m-0 p-0 font-medium text-primary1"
+                      // style={{ color: color }}
+                    >
+                      {index === 0
+                        ? "Poor"
+                        : index === 1
+                        ? "Fair"
+                        : index === 2
+                        ? "Average"
+                        : index === 3
+                        ? "Good"
+                        : "Excellent"}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-column bg-white border-round p-3 gap-3 w-full h-15rem overflow-y-auto ">
+            <div className="flex flex-column bg-white border-round p-3 gap-1 w-full h-23rem overflow-y-auto">
               <div className="flex flex-column gap-2">
                 <p className="card-title p-0 m-0">Insights</p>
-                <div className="flex flex-column align-items-start justify-content-start gap-2">
+                <div className="flex flex-column align-items-start justify-content-start gap-2 p-2">
                   {selectedValues.zone === "All Zones" && (
-                    <div className="flex gap-2 align-items-start">
-                      <i
-                        className="pi pi-circle-fill text-primary2"
-                        style={{ fontSize: "0.45rem", marginTop: "0.3rem" }}
-                      ></i>
-                      <h1 className="p-0 m-0 text-primary2 font-medium">
-                        By 2031, the projected demand of{" "}
-                        <span className="m-0 p-0 font-semibold">
-                          {" "}
-                          {((1194206 * 135) / 1000000).toFixed(2)} MLD
-                        </span>{" "}
-                        exceeds the current supply capacity of{" "}
-                        <span className="m-0 p-0 font-semibold">
-                          {displayValues.Current_Supply_MLD} MLD
-                        </span>{" "}
-                        by{" "}
-                        <span className="m-0 p-0 font-semibold text-red-500">
-                          {((1194206 * 135) / 1000000).toFixed(2) -
-                            displayValues.Current_Supply_MLD}{" "}
-                          MLD
-                        </span>
-                        . This indicates a critical need to expand water supply
-                        infrastructure.
-                      </h1>
-                    </div>
+                    <li className="p-0 m-0 text-primary1 font-medium">
+                      By 2031, the projected demand of{" "}
+                      <span className="m-0 p-0 font-semibold">
+                        {" "}
+                        {((1194206 * 135) / 1000000).toFixed(2)} MLD
+                      </span>{" "}
+                      exceeds the current supply capacity of{" "}
+                      <span className="m-0 p-0 font-semibold">
+                        {displayValues.Current_Supply_MLD} MLD
+                      </span>{" "}
+                      by{" "}
+                      <span className="m-0 p-0 font-semibold text-red-500">
+                        {((1194206 * 135) / 1000000).toFixed(2) -
+                          displayValues.Current_Supply_MLD}{" "}
+                        MLD
+                      </span>
+                      . This indicates a critical need to expand water supply
+                      infrastructure.
+                    </li>
                   )}
                   <div className="flex gap-2 align-items-start">
-                    <i
-                      className="pi pi-circle-fill text-primary2"
-                      style={{ fontSize: "0.45rem", marginTop: "0.3rem" }}
-                    ></i>
-                    <h1 className="p-0 m-0 text-primary2 font-medium">
+                    <li className="p-0 m-0 text-primary1 font-medium">
                       There is already a deficit of{" "}
                       <span className="p-0 m-0 text-red-500 font-semibold">
                         {(
@@ -1184,84 +1195,63 @@ const WaterDashboard = ({ show }) => {
                         MLD
                       </span>{" "}
                       in water supply, which will worsen with population growth.
-                    </h1>
+                    </li>
                   </div>
                   {selectedValues.zone === "All Zones" && (
                     <>
-                      <div className="flex gap-2 align-items-start">
-                        <i
-                          className="pi pi-circle-fill text-primary2"
-                          style={{ fontSize: "0.45rem", marginTop: "0.3rem" }}
-                        ></i>
-                        <h1 className="p-0 m-0 text-primary2 font-medium">
-                          Without proper infrastructure upgrades, per capita
-                          water availability will drop to{" "}
-                          <span className="m-0 p-0 font-semibold text-red-500">
-                            {(
-                              (displayValues.Current_Supply_MLD * 1000000) /
-                              1194206
-                            ).toFixed(2)}{" "}
-                            L/day/person
-                          </span>
-                          , well below the recommended{" "}
-                          <span className="m-0 p-0 font-semibold">
-                            135 L/day/person
-                          </span>
-                          , leading to severe water stress.
-                        </h1>
-                      </div>
-                      <div className="flex gap-2 align-items-start">
-                        <i
-                          className="pi pi-circle-fill text-primary2"
-                          style={{ fontSize: "0.45rem", marginTop: "0.3rem" }}
-                        ></i>
-                        <div className="flex flex-column gap-1">
-                          <h1 className="p-0 m-0 text-primary2 font-medium">
-                            The existing treatment plant is severely under
-                            capacity, with only{" "}
-                            <span className="m-0 p-0 font-semibold">
-                              {(
-                                ((12 * 0.9) /
-                                  (displayValues.Current_Supply_MLD * 0.8)) *
-                                100
-                              ).toFixed(2)}
-                              %
-                            </span>{" "}
-                            of wastewater treated. This indicates an urgent need
-                            to enhance sewerage infrastructure to prevent
-                            environmental hazards.
-                          </h1>
-                          <p className="p-0 m-0 text-primary2 font-medium text-sm">
-                            (Assuming water input to STP is 80% and STP
-                            efficiency of 90%.)
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex gap-2 align-items-start">
-                        <i
-                          className="pi pi-circle-fill text-primary2"
-                          style={{ fontSize: "0.45rem", marginTop: "0.3rem" }}
-                        ></i>
-                        <h1 className="p-0 m-0 text-primary2 font-medium">
-                          By 2031, the required sewerage treatment capacity will
-                          increase to{" "}
-                          <span className="m-0 p-0 font-semibold text-red-500">
-                            {" "}
-                            {(((1194206 * 135) / 1000000) * 0.8).toFixed(2)} MLD
-                          </span>
-                          , far exceeding the current capacity of{" "}
-                          <span className="m-0 p-0 font-semibold">12 MLD</span>.
-                          An approximate{" "}
-                          <span className="m-0 p-0 font-semibold text-red-500">
-                            {(
-                              (((1194206 * 135) / 1000000) * 0.8).toFixed(2) /
-                              12
-                            ).toFixed(0)}{" "}
-                            times
-                          </span>{" "}
-                          increase in treatment capacity will be necessary.
-                        </h1>
-                      </div>
+                      <li className="p-0 m-0 text-primary1 font-medium">
+                        Without proper infrastructure upgrades, per capita water
+                        availability will drop to{" "}
+                        <span className="m-0 p-0 font-semibold text-red-500">
+                          {(
+                            (displayValues.Current_Supply_MLD * 1000000) /
+                            1194206
+                          ).toFixed(2)}{" "}
+                          L/day/person
+                        </span>
+                        , well below the recommended{" "}
+                        <span className="m-0 p-0 font-semibold">
+                          135 L/day/person
+                        </span>
+                        , leading to severe water stress.
+                      </li>
+                      <li className="p-0 m-0 text-primary1 font-medium">
+                        The existing treatment plant is severely under capacity,
+                        with only{" "}
+                        <span className="m-0 p-0 font-semibold">
+                          {(
+                            ((12 * 0.9) /
+                              (displayValues.Current_Supply_MLD * 0.8)) *
+                            100
+                          ).toFixed(2)}
+                          %
+                        </span>{" "}
+                        of wastewater treated. This indicates an urgent need to
+                        enhance sewerage infrastructure to prevent environmental
+                        hazards.
+                      </li>
+                      <p className="p-0 m-0 text-primary1 font-medium">
+                        (Assuming water input to STP is 80% and STP efficiency
+                        of 90%.)
+                      </p>
+                      <li className="p-0 m-0 text-primary1 font-medium">
+                        By 2031, the required sewerage treatment capacity will
+                        increase to{" "}
+                        <span className="m-0 p-0 font-semibold text-red-500">
+                          {" "}
+                          {(((1194206 * 135) / 1000000) * 0.8).toFixed(2)} MLD
+                        </span>
+                        , far exceeding the current capacity of{" "}
+                        <span className="m-0 p-0 font-semibold">12 MLD</span>.
+                        An approximate{" "}
+                        <span className="m-0 p-0 font-semibold text-red-500">
+                          {(
+                            (((1194206 * 135) / 1000000) * 0.8).toFixed(2) / 12
+                          ).toFixed(0)}{" "}
+                          times
+                        </span>{" "}
+                        increase in treatment capacity will be necessary.
+                      </li>
                     </>
                   )}
                 </div>
