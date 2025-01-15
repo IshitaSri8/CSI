@@ -265,7 +265,10 @@ const WaterDashboard = ({ show }) => {
   };
 
   return loading ? (
-    <ProgressSpinner />
+    <div className="flex h-screen align-items-center justify-content-center flex-column">
+      <ProgressSpinner />
+      <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
+    </div>
   ) : (
     <div className="w-full p-3 flex gap-3 flex-column">
       {show && (
@@ -394,6 +397,7 @@ const WaterDashboard = ({ show }) => {
             />
             <WaterModify
               waterData={data}
+              waterSetData={setData}
               isOpen={modifyDialogVisible}
               onClose={handleCloseModifyDialog}
             />
@@ -982,11 +986,9 @@ const WaterDashboard = ({ show }) => {
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p>
-
-      <RecommendationPanel
-        show={true}
-        renderRecommendations={renderRecommendations}
-      />
+      {show && (
+        <RecommendationPanel renderRecommendations={renderRecommendations} />
+      )}
     </div>
   );
 };

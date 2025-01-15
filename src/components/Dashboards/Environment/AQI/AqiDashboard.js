@@ -20,6 +20,8 @@ import AQIRecommendations from "./AQIRecommendations";
 import { Tag } from "primereact/tag";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import { ProgressSpinner } from "primereact/progressspinner";
+import Upload from "components/DashboardUtility/Popups/Upload";
 
 const AqiDashboard = ({
   onDataChange,
@@ -32,7 +34,7 @@ const AqiDashboard = ({
     pSelectedStartDate ?? new Date("2024-01-01")
   );
   const [endDate, setEndDate] = useState(
-    pSelectedEndDate ?? new Date("2024-08-13")
+    pSelectedEndDate ?? new Date("2025-01-15")
   );
   const [selectedLocation, setSelectedLocation] = useState(
     pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
@@ -59,38 +61,8 @@ const AqiDashboard = ({
   const [enviroco2, setEnviroco2] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterVisible, setFilterVisible] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedAction, setSelectedAction] = useState("");
   const [ReportVisible, setReportVisible] = useState(false);
-  const handleLocationChange = (e) => {
-    if (show) {
-      setSelectedLocation(e.value.code);
-      setLoading(true); // Start loading when location changes
-    }
-  };
-  const handleActionSelect = (action) => {
-    setSelectedAction(action);
-    setShowPopup(true);
-  };
-
-  const handleUpload = async (file) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      await axios.post(
-        "https://api-csi.arahas.com/upload/environment",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
-  };
+  const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,9 +83,7 @@ const AqiDashboard = ({
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
-
     if (selectedLocation) {
       handleSearch();
     }
@@ -121,7 +91,6 @@ const AqiDashboard = ({
 
   useEffect(() => {
     handleSearch();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pSelectedLocation, pSelectedEndDate, pSelectedStartDate]);
 
@@ -138,7 +107,6 @@ const AqiDashboard = ({
       const filteredData = response.data.data;
       console.log(filteredData);
 
-      const time = [];
       const formattedDate = [];
       const formattedTime = [];
       const pm25 = [];
@@ -149,15 +117,17 @@ const AqiDashboard = ({
       const co2 = [];
 
       filteredData.forEach((item) => {
-        const dateObj = new Date(item.time).toLocaleDateString("en-CA");
-
+        const dateObj = new Date(item.date_time).toLocaleDateString("en-CA", {
+          timeZone: "Asia/Kolkata",
+        });
         formattedDate.push(dateObj);
 
-        const timeObj = new Date(item.time).toLocaleTimeString(
-          {},
-          { hourCycle: "h24" }
-        );
+        const timeObj = new Date(item.date_time).toLocaleTimeString("en-IN", {
+          hour12: false,
+        });
         formattedTime.push(timeObj);
+
+        console.log(dateObj, timeObj);
 
         pm25.push(item.pm25);
         pm10.push(item.pm10);
@@ -209,8 +179,8 @@ const AqiDashboard = ({
       const filteredDataWithDeviation = filteredData
         .filter((item) => item.AQI > 400)
         .map((item) => ({
-          date: formatDate(new Date(item.time)),
-          time: formatTimeToHHMMSS(new Date(item.time)),
+          date: formatDate(new Date(item.date_time)),
+          time: formatTimeToHHMMSS(new Date(item.date_time)),
           aqi: item.AQI,
           deviationPercentage:
             (((item.AQI - 400) / 400) * 100).toFixed(2) + "%",
@@ -219,8 +189,8 @@ const AqiDashboard = ({
       const uniqueDataTableData = Array.from(
         new Set(filteredDataWithDeviation.map(JSON.stringify))
       ).map(JSON.parse);
-
       setDataTableData(uniqueDataTableData);
+      setLoading(false);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -238,15 +208,6 @@ const AqiDashboard = ({
       setSelectedLocation(pSelectedLocation);
     }
   }, [show, pSelectedLocation]);
-  // {showPopup && (
-  //   <FileUploadPopup
-  //     onClose={() => setShowPopup(false)}
-  //     onUpload={handleUpload}
-  //     department={"environment"}
-  //     action={selectedAction}
-  //     subCategory={"Aqi"}
-  //   />
-  // )}
 
   useEffect(() => {
     if (!show && pSelectedStartDate) {
@@ -266,7 +227,9 @@ const AqiDashboard = ({
   }
 
   const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-CA");
+    return new Date(date).toLocaleDateString("en-CA", {
+      timeZone: "Asia/Kolkata",
+    });
   };
 
   const getAqiStatus = (aqi) => {
@@ -312,13 +275,6 @@ const AqiDashboard = ({
       };
     }
   };
-  const handleStartDateChange = (e) => {
-    setStartDate(e.value);
-  };
-
-  const handleEndDateChange = (e) => {
-    setEndDate(e.value);
-  };
   console.log(startDate, endDate);
 
   const {
@@ -331,6 +287,13 @@ const AqiDashboard = ({
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
   };
+  const showUploadDialog = () => {
+    setUploadDialogVisible(true);
+  };
+
+  const hideUploadDialog = () => {
+    setUploadDialogVisible(false);
+  };
 
   const renderRecommendations = () => {
     return (
@@ -342,13 +305,19 @@ const AqiDashboard = ({
     return <AqiDashboard show={false} />;
   };
 
-  return (
+  return loading ? (
+    <div className="flex h-screen align-items-center justify-content-center flex-column">
+      <ProgressSpinner />
+      <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
+    </div>
+  ) : (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
         <div className="flex align-items-center justify-content-between">
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Air Quality Index
           </h1>
+
           <div className="flex align-ites-center justify-content-end gap-2">
             <Button
               label="Filters"
@@ -420,7 +389,21 @@ const AqiDashboard = ({
                 </div>
               </div>
             )}
-
+            <Button
+              icon="pi pi-plus"
+              className="bg-white text-secondary2"
+              onClick={showUploadDialog}
+              raised
+              tooltip="Upload Data"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
+            <Upload
+              visible={uploadDialogVisible}
+              onHide={hideUploadDialog}
+              parameter={"aqi"}
+            />
             <Button
               label="Generate Report"
               icon="pi pi-file"

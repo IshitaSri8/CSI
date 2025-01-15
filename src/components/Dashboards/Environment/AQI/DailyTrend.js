@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
-import HeatMap from "../Temperature/HeatMap";
+import HeatMap from "./HeatMap";
 import { Button } from "primereact/button";
 import { commonChartOptions } from "Layout/chartOptions";
+import { classNames } from "primereact/utils";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const DailyTrend = ({
@@ -84,7 +85,9 @@ const DailyTrend = ({
   const lastFifteenClickHandler = () => {
     setShowTable(true);
   };
-  const backButtonClassName = isDrilldown ? "" : "invisible";
+  const backButtonClassName = classNames({
+    invisible: !isDrilldown,
+  });
 
   const baseChartOptions = {
     animationEnabled: true,
@@ -259,63 +262,32 @@ const DailyTrend = ({
   };
 
   return (
-    <>
-      <div className="btn-container">
-        
+    <div className="flex flex-column w-full">
+      <div className="flex align-items-start justify-content-start gap-2">
         {fifteenDaysData.length > 0 && (
-          <button
-            className={backButtonClassName}
+          <Button
+            className={`${backButtonClassName} bg-primary1 text-primary1 text-white text-xs`}
             onClick={lastFifteenClickHandler}
-            style={{
-              borderRadius: "10px",
-              padding: "0.5vw",
-              border: "none",
-              fontSize: "0.8vw",
-              backgroundColor: "#2eacd1",
-              color: "white",
-              cursor: "pointer",
-              margin: "0.5vw",
-              width: "10rem",
-            }}
-          >
-            View Previous Days Trend
-          </button>
+            label="View Previous Days Trend"
+            raised
+          />
         )}
-        {/* <Button label="Back" className="bg-white text-cyan-800 border-round" /> */}
-        <button
-          className={backButtonClassName}
+
+        <Button
+          className={`${backButtonClassName} bg-primary1 text-primary1 text-white text-xs`}
           onClick={backButtonClickHandler}
-          style={{
-            borderRadius: "10px",
-            padding: "0.5vw",
-            border: "none",
-            fontSize: "0.8vw",
-            backgroundColor: "#2eacd1",
-            color: "white",
-            cursor: "pointer",
-            margin: "0.5vw ",
-            width: "10rem",
-          }}
-        >
-          &lt; Back
-        </button>
+          label="Back"
+          raised
+        />
       </div>
       <CanvasJSChart
         options={isDrilldown ? drilldownChartOptions : baseChartOptions}
         containerProps={{ width: "100%" }}
       />
       {showTable === true && fifteenDaysData.length > 0 && (
-        <div className="main-graph">
-          <div className="graph-big">
-            <div className="graph">
-              <div className="graph-container">
-                <HeatMap data={fifteenDaysData} startDate={startDate} />
-              </div>
-            </div>
-          </div>
-        </div>
+        <HeatMap data={fifteenDaysData} startDate={startDate} />
       )}{" "}
-    </>
+    </div>
   );
 };
 

@@ -1,3 +1,4 @@
+import { Card } from "primereact/card";
 import React from "react";
 
 const HeatMap = ({ data }) => {
@@ -9,7 +10,7 @@ const HeatMap = ({ data }) => {
   // Generate time slots from 00:00:00 to 23:00:00
   const timeSlots = Array.from({ length: 24 }, (_, index) => {
     const hours = index < 10 ? `0${index}` : `${index}`;
-    return `${hours}:30:00`;
+    return `${hours}:00:00`;
   });
 
   // Prepare data for heatmap
@@ -43,9 +44,9 @@ const HeatMap = ({ data }) => {
   };
 
   return (
-    <div>
+    <div className="flex w-full">
       {data.length > 0 && (
-        <table className="table-container">
+        <table className="w-full">
           <thead>
             <tr>
               <th>Date</th>
@@ -57,7 +58,7 @@ const HeatMap = ({ data }) => {
           <tbody>
             {heatmapData.map((rowData, rowIndex) => (
               <tr key={rowIndex}>
-                <td>{dates[rowIndex]}</td>
+                <td className="p-1">{dates[rowIndex]}</td>
                 {rowData.map((entry, colIndex) => (
                   <td key={colIndex} className={getColorClass(entry.value)}>
                     {entry.value}
