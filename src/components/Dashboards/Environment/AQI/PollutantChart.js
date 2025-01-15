@@ -170,15 +170,20 @@ const PollutantChart = ({
 
   return (
     <div className="flex flex-column w-full">
+      <div>
+        {isDrilldown && (
+          <Button
+            onClick={handleBackButtonClick}
+            className="bg-primary1 text-white p-1 text-lg"
+            icon="pi pi-arrow-left"
+            raised
+          />
+        )}
+      </div>
       <CanvasJSChart
         options={chartOptions}
         containerProps={{ height: height, width: "100%" }}
       />
-      {isDrilldown && (
-        <Button onClick={handleBackButtonClick} className="pt-1 pb-1 pl-3 pr-3">
-          Back
-        </Button>
-      )}
     </div>
   );
 };

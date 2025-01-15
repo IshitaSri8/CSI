@@ -129,6 +129,7 @@ const Breadcrumbs = () => {
         position: "sticky", // Make it sticky
         top: 0, // Stick to the top
         backgroundColor: "#f3f5f5",
+        zIndex: 1000,
       }}
     />
   );

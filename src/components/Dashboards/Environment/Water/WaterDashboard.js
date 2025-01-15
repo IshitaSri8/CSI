@@ -384,6 +384,7 @@ const WaterDashboard = ({ show }) => {
               visible={uploadDialogVisible}
               onHide={hideUploadDialog}
               parameter={"water"}
+              file_name={"Water"}
             />
             <Button
               icon="pi pi-file-edit"
