@@ -606,7 +606,7 @@ const Transport = ({ show }) => {
             </div>
             {/* Insights */}
             <div
-              className="flex flex-column p-3 border-round bg-white"
+              className="flex flex-column p-3 border-round bg-white gap-3"
               style={{ flex: "27%" }}
             >
               <p className="card-text p-0 m-0">Insights:</p>

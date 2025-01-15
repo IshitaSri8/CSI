@@ -3,6 +3,8 @@ import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
 import TempHeatMap from "./TempHeatMap";
 import { commonChartOptions } from "Layout/chartOptions";
+import { Button } from "primereact/button";
+
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const TemperatureTrend = ({
@@ -329,61 +331,30 @@ const TemperatureTrend = ({
   };
 
   return (
-    <div className="flex w-full">
-      <div>
-        <div className="flex flex-column">
-          <button
-            className={backButtonClassName}
-            onClick={backButtonClickHandler}
-            style={{
-              borderRadius: "10px",
-              padding: "0.5vw",
-              border: "none",
-              fontSize: "0.8vw",
-              backgroundColor: "#FFD18E",
-              color: "black",
-              cursor: "pointer",
-              margin: "0.5vw ",
-              width: "10rem",
-            }}
-          >
-            &lt; Back
-          </button>
-          {fifteenDaysData.length > 0 && (
-            <button
-              className={backButtonClassName}
-              onClick={lastFifteenClickHandler}
-              style={{
-                borderRadius: "10px",
-                padding: "0.5vw",
-                border: "none",
-                fontSize: "0.8vw",
-                backgroundColor: "#FFD18E",
-                color: "black",
-                cursor: "pointer",
-                margin: "0.5vw",
-                width: "10rem",
-              }}
-            >
-              View Previous Days Trend
-            </button>
-          )}
-        </div>
-        <CanvasJSChart
-          options={isDrilldown ? drilldownChartOptions : baseChartOptions}
-          containerProps={{ width: "100%" }}
+    <div className="flex flex-column w-full">
+      <div className="flex align-items-start justify-content-start gap-2">
+        {fifteenDaysData.length > 0 && (
+          <Button
+            className={`${backButtonClassName} bg-primary1  text-white text-xs`}
+            onClick={lastFifteenClickHandler}
+            label="View Previous Days Trend"
+            raised
+          />
+        )}
+
+        <Button
+          className={`${backButtonClassName} bg-primary1  text-white text-xs`}
+          onClick={backButtonClickHandler}
+          label="Back"
+          raised
         />
       </div>
+      <CanvasJSChart
+        options={isDrilldown ? drilldownChartOptions : baseChartOptions}
+        containerProps={{ width: "100%" }}
+      />
       {showTable === true && fifteenDaysData.length > 0 && (
-        <div className="main-graph">
-          <div className="graph-big">
-            <div className="graph">
-              <div className="graph-container">
-                <TempHeatMap data={fifteenDaysData} startDate={startDate} />
-              </div>
-            </div>
-          </div>
-        </div>
+        <TempHeatMap data={fifteenDaysData} startDate={startDate} />
       )}
     </div>
   );
