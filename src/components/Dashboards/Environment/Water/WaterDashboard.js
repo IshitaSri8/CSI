@@ -265,7 +265,10 @@ const WaterDashboard = ({ show }) => {
   };
 
   return loading ? (
-    <ProgressSpinner />
+    <div className="flex h-screen align-items-center justify-content-center flex-column">
+      <ProgressSpinner />
+      <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
+    </div>
   ) : (
     <div className="w-full p-3 flex gap-3 flex-column">
       {show && (

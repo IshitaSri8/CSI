@@ -195,7 +195,10 @@ const Transport = ({ show }) => {
   ];
 
   return loading ? (
-    <ProgressSpinner />
+    <div className="flex h-screen align-items-center justify-content-center flex-column">
+      <ProgressSpinner />
+      <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
+    </div>
   ) : (
     <div className="gap-3 p-4 flex flex-column">
       {show && (
@@ -641,7 +644,7 @@ const Transport = ({ show }) => {
                 <div className="flex justify-content-between">
                   <p className="card-title p-0 m-0">EV Bus Deployment Trend</p>
                   <p className="text-sm text-tertiary3 font-medium p-0 m-0">
-                    2024
+                    {displayValues.Year}
                   </p>
                 </div>
                 <LineChart
