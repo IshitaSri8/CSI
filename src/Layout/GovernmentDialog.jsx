@@ -4,6 +4,7 @@ import signin_ani from "assets/animations/signin.json";
 import Lottie from "lottie-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
+import pathConstants from "pathConstants";
 
 const GovernmentDialog = ({ visible, onHide }) => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -18,7 +19,7 @@ const GovernmentDialog = ({ visible, onHide }) => {
     // Check if the entered username and password match the hardcoded credentials
     if (username === defaultUsername && password === defaultPassword) {
       setMessage("Login successful!");
-      navigate("/g-kyc"); // Navigate to the KYC page upon successful login
+      navigate(pathConstants.KYC); // Navigate to the KYC page upon successful login
     } else {
       setMessage("Invalid username or password. Please try again.");
     }

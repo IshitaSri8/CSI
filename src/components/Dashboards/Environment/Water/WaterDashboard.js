@@ -30,8 +30,10 @@ import {
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import WaterModify from "./WaterModify";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 const WaterDashboard = ({ show }) => {
+  const [loading, setLoading] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [data, setData] = useState([]);
@@ -105,97 +107,100 @@ const WaterDashboard = ({ show }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           "https://api-csi.arahas.com/data/water"
         );
+        const responseData = response.data.data;
+        const filteredData =
+          selectedValues.zone === "All Zones"
+            ? responseData.filter(
+                (item) =>
+                  item.Year === selectedValues.year &&
+                  item.Month === selectedValues.month
+              )
+            : responseData.filter(
+                (item) =>
+                  item.Divisions === selectedValues.zone &&
+                  item.Year === selectedValues.year &&
+                  item.Month === selectedValues.month
+              );
 
-        console.log(response.data.data);
+        // Calculate total values if all zones are selected
+        const totalValues = filteredData.reduce((acc, curr) => {
+          return {
+            ...acc,
+            Current_Supply_MLD:
+              (acc.Current_Supply_MLD || 0) + curr.Current_Supply_MLD,
+            Required_Supply_MLD:
+              (acc.Required_Supply_MLD || 0) + curr.Required_Supply_MLD,
+            Population: (acc.Population || 0) + curr.Population,
+            Awarness_Campaigns_Programs:
+              (acc.Awarness_Campaigns_Programs || 0) +
+              curr.Awarness_Campaigns_Programs,
+            Borewell: (acc.Borewell || 0) + curr.Borewell,
+            Canals: (acc.Canals || 0) + curr.Canals,
+            Handpumps: (acc.Handpumps || 0) + curr.Handpumps,
+            No_of_Households_with_Connections:
+              (acc.No_of_Households_with_Connections || 0) +
+              curr.No_of_Households_with_Connections,
+
+            Total_Households:
+              (acc.Total_Households || 0) + curr.Total_Households,
+
+            Tanks: (acc.Tanks || 0) + curr.Tanks,
+            Ponds: (acc.Ponds || 0) + curr.Ponds,
+            No_of_Households_with_Meters:
+              (acc.No_of_Households_with_Meters || 0) +
+              curr.No_of_Households_with_Meters,
+
+            Sites_with_Rainwater_Harvesting_System:
+              (acc.Sites_with_Rainwater_Harvesting_System || 0) +
+              curr.Sites_with_Rainwater_Harvesting_System,
+            Total_Volume_Harvested:
+              (acc.Total_Volume_Harvested || 0) + curr.Total_Volume_Harvested,
+            Households_Bill_Payment:
+              (acc.Households_Bill_Payment || 0) + curr.Households_Bill_Payment,
+          };
+        }, {});
+
+        // Determine which values to display
+        const displayValues =
+          selectedValues.zone === "All Zones" ? totalValues : filteredData[0];
+
+        // Determine color based on calculated value
+        const color =
+          displayValues &&
+          (
+            ((((displayValues.Population * 135) / 1000000).toFixed(2) -
+              displayValues.Current_Supply_MLD) /
+              ((displayValues.Population * 135) / 1000000).toFixed(2)) *
+            100
+          ).toFixed(2) < 0
+            ? "0C9D61"
+            : "#E62225";
+
+        setColor(color);
+        setDisplayValues(displayValues);
+
+        if (selectedValues.zone === "All Zones") {
+          const wqiValues = {};
+          filteredData.forEach((item) => {
+            wqiValues[item.Divisions] = item; // Store entire item for tooltip access
+          });
+          setZoneWQIValues(wqiValues);
+        } else {
+          setZoneWQIValues({});
+        }
         setData(response.data.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
     fetchData();
-    const filteredData =
-      selectedValues.zone === "All Zones"
-        ? data.filter(
-            (item) =>
-              item.Year === selectedValues.year &&
-              item.Month === selectedValues.month
-          )
-        : data.filter(
-            (item) =>
-              item.Divisions === selectedValues.zone &&
-              item.Year === selectedValues.year &&
-              item.Month === selectedValues.month
-          );
-
-    // Calculate total values if all zones are selected
-    const totalValues = filteredData.reduce((acc, curr) => {
-      return {
-        ...acc,
-        Current_Supply_MLD:
-          (acc.Current_Supply_MLD || 0) + curr.Current_Supply_MLD,
-        Required_Supply_MLD:
-          (acc.Required_Supply_MLD || 0) + curr.Required_Supply_MLD,
-        Population: (acc.Population || 0) + curr.Population,
-        Awarness_Campaigns_Programs:
-          (acc.Awarness_Campaigns_Programs || 0) +
-          curr.Awarness_Campaigns_Programs,
-        Borewell: (acc.Borewell || 0) + curr.Borewell,
-        Canals: (acc.Canals || 0) + curr.Canals,
-        Handpumps: (acc.Handpumps || 0) + curr.Handpumps,
-        No_of_Households_with_Connections:
-          (acc.No_of_Households_with_Connections || 0) +
-          curr.No_of_Households_with_Connections,
-
-        Total_Households: (acc.Total_Households || 0) + curr.Total_Households,
-
-        Tanks: (acc.Tanks || 0) + curr.Tanks,
-        Ponds: (acc.Ponds || 0) + curr.Ponds,
-        No_of_Households_with_Meters:
-          (acc.No_of_Households_with_Meters || 0) +
-          curr.No_of_Households_with_Meters,
-
-        Sites_with_Rainwater_Harvesting_System:
-          (acc.Sites_with_Rainwater_Harvesting_System || 0) +
-          curr.Sites_with_Rainwater_Harvesting_System,
-        Total_Volume_Harvested:
-          (acc.Total_Volume_Harvested || 0) + curr.Total_Volume_Harvested,
-        Households_Bill_Payment:
-          (acc.Households_Bill_Payment || 0) + curr.Households_Bill_Payment,
-      };
-    }, {});
-
-    // Determine which values to display
-    const displayValues =
-      selectedValues.zone === "All Zones" ? totalValues : filteredData[0];
-
-    // Determine color based on calculated value
-    const color =
-      displayValues &&
-      (
-        ((((displayValues.Population * 135) / 1000000).toFixed(2) -
-          displayValues.Current_Supply_MLD) /
-          ((displayValues.Population * 135) / 1000000).toFixed(2)) *
-        100
-      ).toFixed(2) < 0
-        ? "0C9D61"
-        : "#E62225";
-
-    setColor(color);
-    setDisplayValues(displayValues);
-
-    if (selectedValues.zone === "All Zones") {
-      const wqiValues = {};
-      filteredData.forEach((item) => {
-        wqiValues[item.Divisions] = item; // Store entire item for tooltip access
-      });
-      setZoneWQIValues(wqiValues);
-    } else {
-      setZoneWQIValues({});
-    }
-  }, [data, selectedValues]);
+  }, [selectedValues]);
 
   const zones = [...new Set(data.map((item) => item.Divisions))];
   const years = [...new Set(data.map((item) => item.Year))];
@@ -259,7 +264,9 @@ const WaterDashboard = ({ show }) => {
     setModifyDialogVisible(false);
   };
 
-  return (
+  return loading ? (
+    <ProgressSpinner />
+  ) : (
     <div className="w-full p-3 flex gap-3 flex-column">
       {show && (
         <div className="flex align-items-center justify-content-between w-full gap-3">
