@@ -695,22 +695,22 @@ const WaterDashboard = ({ show }) => {
               className="flex flex-column bg-white border-round p-3 gap-3 h-26rem overflow-y-auto "
               style={{ flex: "30%" }}
             >
-              <div className="flex flex-column gap-2">
+              <div className="flex flex-column gap-3">
                 <p className="card-title p-0 m-0">Insights</p>
                 <div className="flex flex-column align-items-start justify-content-start gap-2">
                   {selectedValues.zone === "All Zones" && (
-                    <li className="p-0 m-0 text-primary1 font-medium">
+                    <li className="p-0 m-0 text-primary1 font-medium text-sm">
                       By 2031, the projected demand of{" "}
-                      <span className="m-0 p-0 font-semibold">
+                      <span className="m-0 p-0 font-semibold text-sm">
                         {" "}
                         {((1194206 * 135) / 1000000).toFixed(2)} MLD
                       </span>{" "}
                       exceeds the current supply capacity of{" "}
-                      <span className="m-0 p-0 font-semibold">
+                      <span className="m-0 p-0 font-semibold text-sm">
                         {displayValues.Current_Supply_MLD} MLD
                       </span>{" "}
                       by{" "}
-                      <span className="m-0 p-0 font-semibold text-red-500">
+                      <span className="m-0 p-0 font-semibold text-red-500 text-sm">
                         {((1194206 * 135) / 1000000).toFixed(2) -
                           displayValues.Current_Supply_MLD}{" "}
                         MLD
@@ -720,9 +720,9 @@ const WaterDashboard = ({ show }) => {
                     </li>
                   )}
                   <div className="flex gap-2 align-items-start">
-                    <li className="p-0 m-0 text-primary1 font-medium">
+                    <li className="p-0 m-0 text-primary1 font-medium text-sm">
                       There is already a deficit of{" "}
-                      <span className="p-0 m-0 text-red-500 font-semibold">
+                      <span className="p-0 m-0 text-red-500 font-semibold text-sm">
                         {(
                           (displayValues.Population * 135) / 1000000 -
                           displayValues.Current_Supply_MLD
@@ -734,10 +734,10 @@ const WaterDashboard = ({ show }) => {
                   </div>
                   {selectedValues.zone === "All Zones" && (
                     <>
-                      <li className="p-0 m-0 text-primary1 font-medium">
+                      <li className="p-0 m-0 text-primary1 font-medium text-sm">
                         Without proper infrastructure upgrades, per capita water
                         availability will drop to{" "}
-                        <span className="m-0 p-0 font-semibold text-red-500">
+                        <span className="m-0 p-0 font-semibold text-red-500 text-sm">
                           {(
                             (displayValues.Current_Supply_MLD * 1000000) /
                             1194206
@@ -745,15 +745,15 @@ const WaterDashboard = ({ show }) => {
                           L/day/person
                         </span>
                         , well below the recommended{" "}
-                        <span className="m-0 p-0 font-semibold">
+                        <span className="m-0 p-0 font-semibold text-sm">
                           135 L/day/person
                         </span>
                         , leading to severe water stress.
                       </li>
-                      <li className="p-0 m-0 text-primary1 font-medium">
+                      <li className="p-0 m-0 text-primary1 font-medium text-sm">
                         The existing treatment plant is severely under capacity,
                         with only{" "}
-                        <span className="m-0 p-0 font-semibold">
+                        <span className="m-0 p-0 font-semibold text-sm">
                           {(
                             ((12 * 0.9) /
                               (displayValues.Current_Supply_MLD * 0.8)) *
@@ -765,21 +765,23 @@ const WaterDashboard = ({ show }) => {
                         enhance sewerage infrastructure to prevent environmental
                         hazards.
                       </li>
-                      <p className="p-0 m-0 text-primary1 font-medium">
+                      <p className="p-0 m-0 text-primary1 font-medium text-sm">
                         (Assuming water input to STP is 80% and STP efficiency
                         of 90%.)
                       </p>
-                      <li className="p-0 m-0 text-primary1 font-medium">
+                      <li className="p-0 m-0 text-primary1 font-medium text-sm">
                         By 2031, the required sewerage treatment capacity will
                         increase to{" "}
-                        <span className="m-0 p-0 font-semibold text-red-500">
+                        <span className="m-0 p-0 font-semibold text-red-500 text-sm">
                           {" "}
                           {(((1194206 * 135) / 1000000) * 0.8).toFixed(2)} MLD
                         </span>
                         , far exceeding the current capacity of{" "}
-                        <span className="m-0 p-0 font-semibold">12 MLD</span>.
-                        An approximate{" "}
-                        <span className="m-0 p-0 font-semibold text-red-500">
+                        <span className="m-0 p-0 font-semibold text-sm">
+                          12 MLD
+                        </span>
+                        . An approximate{" "}
+                        <span className="m-0 p-0 font-semibold text-red-500 text-sm">
                           {(
                             (((1194206 * 135) / 1000000) * 0.8).toFixed(2) / 12
                           ).toFixed(0)}{" "}
