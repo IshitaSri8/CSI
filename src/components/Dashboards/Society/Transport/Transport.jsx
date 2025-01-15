@@ -17,6 +17,7 @@ import RecommendationPanel from "components/DashboardUtility/RecommendationPanel
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import TransportModify from "./TransportModify";
 import { ProgressSpinner } from "primereact/progressspinner";
+import ThreeDotMenu from "components/DashboardUtility/ThreeDotMenu";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -366,6 +367,7 @@ const Transport = ({ show }) => {
               isOpen={modifyDialogVisible}
               onClose={handleCloseModifyDialog}
             />
+            <ThreeDotMenu/>
             <Button
               tooltip="Generate Report"
               icon="pi pi-file"
