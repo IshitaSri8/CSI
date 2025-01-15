@@ -12,14 +12,30 @@ const GovernmentDialog = ({ visible, onHide }) => {
   const [password, setPassword] = useState(""); // Password input state
   const [message, setMessage] = useState(""); // Message to display
 
-   const defaultUsername = "admin"; 
-   const defaultPassword = "2024";
+  const users = [
+    {
+      username: "admin",
+      password: "1234",
+    },
+    {
+      username: "user1",
+      password: "user123",
+    },
+    {
+      username: "user2",
+      password: "user456",
+    },
+  ];
 
   const handleSignIn = async () => {
     // Check if the entered username and password match the hardcoded credentials
-    if (username === defaultUsername && password === defaultPassword) {
+    const user = users.find(
+      (user) => user.username === username && user.password === password
+    );
+
+    if (user) {
       setMessage("Login successful!");
-      navigate(pathConstants.KYC); // Navigate to the KYC page upon successful login
+      navigate(pathConstants.KYC, { state: { username } }); // Pass username in state & Navigate to the KYC page upon successful login
     } else {
       setMessage("Invalid username or password. Please try again.");
     }

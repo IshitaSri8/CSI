@@ -53,7 +53,7 @@ const TempHeatMap = ({ data }) => {
   return (
     <div>
       {data.length > 0 && (
-        <table className="table-container">
+        <table className="w-full">
           <thead>
             <tr>
               <th>Date</th>

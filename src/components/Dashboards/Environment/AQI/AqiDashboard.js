@@ -554,12 +554,6 @@ const AqiDashboard = ({
         </div>
 
         <div className="w-full border-round-2xl">
-          {/* <AqiReport
-              selectedLocation={selectedLocation}
-              startDate={startDate}
-              endDate={endDate}
-              averageAQI={aqiValue}
-            /> */}
           <AqiMap averageAQI={aqiValue} selectedLocation={selectedLocation} />
         </div>
         <div

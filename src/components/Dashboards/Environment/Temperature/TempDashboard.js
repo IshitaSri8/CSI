@@ -247,15 +247,9 @@ const TempDashboard = ({
     setStartDate(e.value);
   };
 
-  const handleEndDateChange = (e) => {
-    setEndDate(e.value);
-  };
-  // console.log(startDate, endDate);
-
   const {
     status: tempStatusText,
-    color,
-    textColor,
+
     image: tempImage,
   } = tempStatus;
 
@@ -286,12 +280,6 @@ const TempDashboard = ({
             Temperature
           </h1>
           <div className="flex align-items-center justify-content-end gap-2">
-            {/* <Button
-              label="Recommendations"
-              icon="pi pi-align-center"
-              onClick={() => setRecommendationsVisible(true)}
-              className="bg-white text-cyan-800 border-1 border-cyan-800"
-            /> */}
             <Button
               label="Filters"
               icon="pi pi-filter"
@@ -406,19 +394,20 @@ const TempDashboard = ({
           heading={"Temperature"}
         />
       </Dialog>
-      <div className="flex flex-wrap md:flex-nowrap align-items-center w-full gap-4">
+      <div className="flex flex-wrap md:flex-nowrap align-items-center w-full gap-3">
         {selectedLocation && (
           <div
             className="border-round-xl p-2 w-full"
             style={{
               backgroundColor: tempStatus.bg_color,
               border: `1px solid ${tempStatus.color}`,
+              flex: "20%",
             }}
           >
             <h1 className="card-title m-0 p-0">Temperature</h1>
             <div className="flex align-items-center justify-content-around">
               <h1
-                className="text-4xl font-medium p-0 m-0"
+                className="text-3xl font-medium p-0 m-0"
                 style={{ color: tempStatus.color }}
               >
                 {tempValue !== null ? `${tempValue} °C` : "No Data Found."}
@@ -448,7 +437,7 @@ const TempDashboard = ({
             </Tag>
           </div>
         )}
-        <div className="w-full">
+        <div className="w-full" style={{ flex: "35%" }}>
           {loading ? (
             <div className="w-full">
               <TableSkeleton />
@@ -516,17 +505,17 @@ const TempDashboard = ({
             </DataTable>
           )}
         </div>
-        <div className="w-full border-round-2xl">
-          {/* <tempReport
-              selectedLocation={selectedLocation}
-              startDate={startDate}
-              endDate={endDate}
-              averagetemp={tempValue}
-            /> */}
+        <div className="w-full border-round-2xl" style={{ flex: "25%" }}>
           <TempMap
             averageTemp={tempValue}
             selectedLocation={selectedLocation}
           />
+        </div>
+        <div
+          className="flex flex-column bg-white border-round p-3 gap-3 overflow-y-auto"
+          style={{ flex: "20%" }}
+        >
+          <h1>Insights</h1>
         </div>
       </div>
       <div className="flex align-items-center justify-content-between w-full">
