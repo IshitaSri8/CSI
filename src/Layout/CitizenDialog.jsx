@@ -41,7 +41,7 @@ const CitizenDialog = ({ visible, onHide }) => {
         // User is registered, ask for OTP
         if (otp === "1234") {
           // Sample OTP check
-          navigate("/c-kyc"); // Navigate to KYC page
+          navigate("/citizen/kyc"); // Navigate to KYC page
         } else {
           setMessage("Invalid OTP. Please try again.");
         }
@@ -60,7 +60,7 @@ const CitizenDialog = ({ visible, onHide }) => {
       visible={visible}
       style={{ width: "50rem", textAlign: "center" }}
       onHide={onHide}
-    //   onHide={() => setVisible(false)}
+      //   onHide={() => setVisible(false)}
     >
       <div className="flex align-items-center justify-content-center flex-row gap-4 ">
         <Lottie

@@ -22,8 +22,19 @@ const AQIChart = ({
   const [dailyData, setDailyData] = useState(null);
   const [fifteenDaysData, setFifteenDaysData] = useState(null);
 
+  console.log(
+    enviroDate,
+    envirotime,
+    enviroPM25,
+    enviroPM10,
+    enviroSO2,
+    enviroAQI,
+    enviroNO2,
+    enviroco2,
+    startDate
+  );
   const getSelectedYear = () => {
-    return selectedDate.split("-")[0]; // Extract year from selectedDate
+    return new Date(selectedDate).getFullYear(); // Extract year from selectedDate
   };
 
   const calculateDailyAverages = () => {
@@ -80,23 +91,17 @@ const AQIChart = ({
       return [];
     }
 
-    const selectedDateParts = selectedDate.split("-").map(Number);
-    const selectedDateObj = new Date(
-      selectedDateParts[0],
-      selectedDateParts[1] - 1,
-      selectedDateParts[2]
-    );
-
     // Calculate date 15 days ago
-    const fifteenDaysAgo = new Date(selectedDateObj);
+    const fifteenDaysAgo = new Date(selectedDate);
 
-    fifteenDaysAgo.setDate(selectedDateObj.getDate() - 15);
-    console.log(selectedDateObj.getDate() - 15);
+    console.log(fifteenDaysAgo.getDate() - 15);
+    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
 
     // Filter data for the last 15 days
     const filteredData = enviroDate.reduce((acc, date, index) => {
       const dateObj = new Date(date);
-      if (dateObj >= fifteenDaysAgo && dateObj <= selectedDateObj) {
+      const selectedDateVal = new Date(selectedDate);
+      if (dateObj >= fifteenDaysAgo && dateObj <= selectedDateVal) {
         acc.push({
           date,
           time: envirotime[index],
@@ -110,6 +115,8 @@ const AQIChart = ({
       }
       return acc;
     }, []);
+
+    console.log("Filtered:", filteredData);
 
     // Remove duplicates and sort by date and time
     const uniqueData = Array.from(

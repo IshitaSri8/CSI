@@ -192,7 +192,7 @@ const Chatbot = () => {
         console.log(form);
         await submitFormData(form);
         if (params.userInput.toLowerCase() === "yes") {
-          navigate("/c-kyc"); // Redirect to KYC page if user says Yes
+          navigate("/citizen/kyc"); // Redirect to KYC page if user says Yes
         }
       },
       path: (params) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar } from "primereact/sidebar";
 import { Ripple } from "primereact/ripple";
 import { Button } from "primereact/button";
@@ -32,6 +32,8 @@ const GovernmentSidebar = () => {
     setActiveSections((prev) => ({ ...prev, [section]: !prev[section] }));
     // setActiveTab(section);
   };
+
+  // Update active tab based on the current route
 
   const handleTabClick = (url) => {
     navigate(url); // Set the clicked tab as active

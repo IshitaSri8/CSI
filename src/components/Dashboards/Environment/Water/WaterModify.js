@@ -7,15 +7,13 @@ import { InputText } from "primereact/inputtext";
 import React from "react";
 import { useState } from "react";
 
-const WaterModify = ({ waterData, isOpen, onClose }) => {
+const WaterModify = ({ waterData, waterSetData, isOpen, onClose }) => {
   const [editDialog, setEditDialog] = useState(false);
-  const [modifyDialog, setModifyDialog] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
-  const [data, setData] = useState([]);
   const [selectedValues, setSelectedValues] = useState({
-    zone: "All Zones",
-    year: 2024,
-    month: 1,
+    zone: "",
+    year: "",
+    month: "",
   });
   const zones = [...new Set(waterData.map((item) => item.Divisions))];
   const years = [...new Set(waterData.map((item) => item.Year))];
@@ -57,10 +55,10 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
       );
 
       if (response.data.success) {
-        setModifyDialog(false);
+        onClose();
         setEditDialog(false);
         alert("Data updated successfully");
-        setData((prevData) =>
+        waterSetData((prevData) =>
           prevData.map((item) =>
             item._id === response.data.data._id ? response.data.data : item
           )
@@ -83,10 +81,10 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
         isModal={true}
         visible={isOpen} // Control visibility with isOpen prop
         // close={onClose} // Handle close event
-        style={{ width: "55rem" }}
+        style={{ width: "20rem" }}
         onHide={onClose}
       >
-        <div className="flex align-items-center justify-content-start gap-2 p-2">
+        <div className="flex flex-column align-items-center gap-2">
           <Dropdown
             value={selectedValues.zone}
             onChange={(e) =>
@@ -96,7 +94,7 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
               // Use null or a specific value to indicate 'All Zones'
               ...zones.map((div) => ({ label: div, value: div })),
             ]}
-            placeholder="Select Division"
+            placeholder="Select Zone"
             className="w-full md:w-14rem"
           />
           <Dropdown
@@ -124,7 +122,8 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
           <Button
             label="Edit Data"
             onClick={handleEdit}
-            className="bg-cyan-700 text-white"
+            className="bg-primary1 text-primary1 text-white text-xs"
+            raised
           />
         </div>
       </Dialog>
@@ -163,10 +162,9 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
         <Divider />
 
         <div className="flex align-items-start flex-column gap-3 w-full">
+          {/* 1: Water Supply Data Header */}
           <div className="w-full flex flex-column">
-            {/* Water Supply Data Header */}
             <h3>Water Supply Data</h3>
-
             <div className="flex align-items-center justify-content-start gap-4 flex-wrap w-full ">
               {["Population", "Current_Supply_MLD"].map((field, index) => {
                 const customLabels = {
@@ -196,11 +194,9 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
               })}
             </div>
           </div>
+          {/* 2: Infrastructure Data */}
           <div className="w-full flex flex-column">
-            {/* Table 2: Infrastructure Data */}
-
             <h3>Infrastructure Data</h3>
-
             <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
               {["Canals", "Tanks", "Ponds", "Handpumps"].map((field, index) => {
                 const customLabels = {
@@ -232,10 +228,9 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
               })}
             </div>
           </div>
+          {/* 3: Household Data */}
           <div className="w-full flex flex-column">
-            {/* Table 3: Household Data */}
             <h3>Household Data</h3>
-
             <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
               {[
                 "Total_Households",
@@ -274,11 +269,9 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
               })}
             </div>
           </div>
-
+          {/* 4: Rainwater Harvesting Data */}
           <div className="w-full flex flex-column">
-            {/* Table 5: Rainwater Harvesting Data */}
             <h3>Rainwater Harvesting Data</h3>
-
             <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
               {[
                 "Sites_with_Rainwater_Harvesting_System",
@@ -315,16 +308,14 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
               })}
             </div>
           </div>
+          {/* 5: Maintenance and Awareness Programs */}
           <div className="w-full flex flex-column">
-            {/* Table 6: Maintenance and Awareness Programs */}
             <h3>Awareness Programs</h3>
-
             <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
               {["Awarness_Campaigns_Programs"].map((field, index) => {
                 const customLabels = {
                   Awarness_Campaigns_Programs: "Awareness Campaigns Launched",
                 };
-
                 return (
                   <div key={index} className="flex flex-column gap-2">
                     <label className="text-sm text-surface-500 ">
@@ -347,11 +338,9 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
               })}
             </div>
           </div>
+          {/* 6: Infrastructure Data */}
           <div className="w-full flex flex-column">
-            {/* Table 2: Infrastructure Data */}
-
             <h3>Infrastructure Data</h3>
-
             <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
               {[
                 "Number_of_Testing_Stations",
@@ -376,7 +365,6 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
                   Conductivity: "Conductivity (μS/cm)",
                   WQI: "Water Quality Index",
                 };
-
                 return (
                   <div key={index} className="flex flex-column gap-2">
                     <label className="text-sm text-surface-500 ">
@@ -403,7 +391,8 @@ const WaterModify = ({ waterData, isOpen, onClose }) => {
             <Button
               label="Update"
               onClick={handleSave}
-              className="bg-cyan-700 text-white"
+              className="bg-primary1 text-primary1 text-white text-xs"
+              raised
             />
           </div>
         </div>
