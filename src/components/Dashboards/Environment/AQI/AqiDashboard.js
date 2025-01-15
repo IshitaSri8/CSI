@@ -33,7 +33,7 @@ const AqiDashboard = ({
     pSelectedStartDate ?? new Date("2024-01-01")
   );
   const [endDate, setEndDate] = useState(
-    pSelectedEndDate ?? new Date("2024-08-13")
+    pSelectedEndDate ?? new Date("2025-01-15")
   );
   const [selectedLocation, setSelectedLocation] = useState(
     pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
@@ -67,7 +67,7 @@ const AqiDashboard = ({
   const handleLocationChange = (e) => {
     if (show) {
       setSelectedLocation(e.value.code);
-      setLoading(true); // Start loading when location changes
+      // Start loading when location changes
     }
   };
   const handleActionSelect = (action) => {
@@ -104,10 +104,12 @@ const AqiDashboard = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const locationsResponse = await axios.get(
           `https://api-csi.arahas.com/data/locations`
         );
         if (locationsResponse.data) {
+          setLoading(false);
           const locationOptions = locationsResponse.data.data.map((data) => ({
             label: data,
             value: data,
@@ -147,7 +149,6 @@ const AqiDashboard = ({
       const filteredData = response.data.data;
       console.log(filteredData);
 
-      const time = [];
       const formattedDate = [];
       const formattedTime = [];
       const pm25 = [];
@@ -158,15 +159,17 @@ const AqiDashboard = ({
       const co2 = [];
 
       filteredData.forEach((item) => {
-        const dateObj = new Date(item.time).toLocaleDateString("en-CA");
-
+        const dateObj = new Date(item.date_time).toLocaleDateString("en-CA", {
+          timeZone: "Asia/Kolkata",
+        });
         formattedDate.push(dateObj);
 
-        const timeObj = new Date(item.time).toLocaleTimeString(
-          {},
-          { hourCycle: "h24" }
-        );
+        const timeObj = new Date(item.date_time).toLocaleTimeString("en-IN", {
+          hour12: false,
+        });
         formattedTime.push(timeObj);
+
+        console.log(dateObj, timeObj);
 
         pm25.push(item.pm25);
         pm10.push(item.pm10);
@@ -218,8 +221,8 @@ const AqiDashboard = ({
       const filteredDataWithDeviation = filteredData
         .filter((item) => item.AQI > 400)
         .map((item) => ({
-          date: formatDate(new Date(item.time)),
-          time: formatTimeToHHMMSS(new Date(item.time)),
+          date: formatDate(new Date(item.date_time)),
+          time: formatTimeToHHMMSS(new Date(item.date_time)),
           aqi: item.AQI,
           deviationPercentage:
             (((item.AQI - 400) / 400) * 100).toFixed(2) + "%",
@@ -275,7 +278,9 @@ const AqiDashboard = ({
   }
 
   const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-CA");
+    return new Date(date).toLocaleDateString("en-CA", {
+      timeZone: "Asia/Kolkata",
+    });
   };
 
   const getAqiStatus = (aqi) => {

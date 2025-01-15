@@ -35,7 +35,7 @@ const TempDashboard = ({
     pSelectedStartDate ?? new Date("2024-01-01")
   );
   const [endDate, setEndDate] = useState(
-    pSelectedEndDate ?? new Date("2024-08-13")
+    pSelectedEndDate ?? new Date("2025-01-15")
   );
   const [selectedLocation, setSelectedLocation] = useState(
     pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
@@ -144,14 +144,14 @@ const TempDashboard = ({
       const humidity = [];
 
       filteredData.forEach((item) => {
-        const dateObj = new Date(item.time).toLocaleDateString("en-CA");
-
+        const dateObj = new Date(item.date_time).toLocaleDateString("en-CA", {
+          timeZone: "Asia/Kolkata",
+        });
         formattedDate.push(dateObj);
 
-        const timeObj = new Date(item.time).toLocaleTimeString(
-          {},
-          { hourCycle: "h24" }
-        );
+        const timeObj = new Date(item.date_time).toLocaleTimeString("en-IN", {
+          hourCycle: "h24",
+        });
         formattedTime.push(timeObj);
         co2.push(item.co2);
         temperature.push(item.temp);
@@ -192,8 +192,8 @@ const TempDashboard = ({
       const filteredDataWithDeviation = filteredData
         .filter((item) => item.temp > 40)
         .map((item) => ({
-          date: formatDate(new Date(item.time)),
-          time: formatTimeToHHMMSS(new Date(item.time)),
+          date: formatDate(new Date(item.date_time)),
+          time: formatTimeToHHMMSS(new Date(item.date_time)),
           temp: item.temp + ` °C`,
           deviationPercentage: (((item.temp - 40) / 40) * 100).toFixed(2) + "%",
         }));

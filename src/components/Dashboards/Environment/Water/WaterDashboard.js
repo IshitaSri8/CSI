@@ -306,7 +306,7 @@ const WaterDashboard = ({ show }) => {
               Water Management
             </h1>
             <div className="flex align-items-start flex-column gap-1">
-              {/* loaction */}
+              {/* location */}
               <div className="flex align-items-center gap-1">
                 <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
                 <p className="m-0 p-0 text-primary1 font-medium text-sm">
@@ -469,7 +469,6 @@ const WaterDashboard = ({ show }) => {
                   onClick={handleEdit}
                   className="bg-cyan-700 text-white"
                 />
-                {/**/}
               </div>
             </Dialog>
             <Dialog
