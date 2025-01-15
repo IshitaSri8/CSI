@@ -394,6 +394,7 @@ const WaterDashboard = ({ show }) => {
             />
             <WaterModify
               waterData={data}
+              waterSetData={setData}
               isOpen={modifyDialogVisible}
               onClose={handleCloseModifyDialog}
             />
@@ -982,11 +983,9 @@ const WaterDashboard = ({ show }) => {
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p>
-
-      <RecommendationPanel
-        show={true}
-        renderRecommendations={renderRecommendations}
-      />
+      {show && (
+        <RecommendationPanel renderRecommendations={renderRecommendations} />
+      )}
     </div>
   );
 };

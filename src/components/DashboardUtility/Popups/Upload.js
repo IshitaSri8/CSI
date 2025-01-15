@@ -63,7 +63,8 @@ const Upload = ({ visible, onHide, parameter }) => {
         <Button
           onClick={handleUpload}
           label="Upload File"
-          className="bg-cyan-800"
+          className="bg-primary1 text-primary1 text-white text-xs"
+          raised
         ></Button>
       </div>
     </Dialog>

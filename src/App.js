@@ -125,6 +125,7 @@ function App() {
           <Route key={index} path={route.path} element={route.element} />
         ))}
       </Route>
+      <Route path="/citizen/kyc" element={<CitizenSidebar />} />
       {/* <Route path="/change" element={<ChangeDetection />} /> */}
       {/* <Route path="/animations" element={<Animation />} /> */}
     </Routes>

@@ -199,25 +199,44 @@ const Transport = ({ show }) => {
   ) : (
     <div className="gap-3 p-4 flex flex-column">
       {show && (
-        <div className="flex align-items-center justify-content-between w-full">
-          <div className="flex p-2 w-30rem align-items-center justify-content-between bg-white border-round">
-            <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-              Public Transport
-            </h1>
-            <div className="flex w-4rem custom-circular-progress">
-              <CircularProgressbar
-                value={score}
-                text={`${score}`}
-                strokeWidth={12}
-                styles={buildStyles({
-                  pathColor: getColor(score),
-                  textColor: "#001F23",
-                  trailColor: "#E7EAEA",
-                  textSize: "2.5rem",
-                  pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                  transform: "rotate(2.25turn)",
-                })}
-              />
+        <div className="flex align-items-center justify-content-between w-full gap-3">
+          <div className="flex align-items-center justify-content-between w-full ">
+            <div className="flex p-2 w-30rem align-items-center justify-content-between bg-white border-round">
+              <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+                Public Transport
+              </h1>
+              <div className="flex w-4rem custom-circular-progress">
+                <CircularProgressbar
+                  value={score}
+                  text={`${score}`}
+                  strokeWidth={12}
+                  styles={buildStyles({
+                    pathColor: getColor(score),
+                    textColor: "#001F23",
+                    trailColor: "#E7EAEA",
+                    textSize: "2.5rem",
+                    pathTransition: "stroke-dashoffset 0.5s ease 0s",
+                    transform: "rotate(2.25turn)",
+                  })}
+                />
+              </div>
+            </div>
+            <div className="flex align-items-start flex-column gap-1">
+              {/* location */}
+              <div className="flex align-items-center gap-1">
+                <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {selectedValues.route}
+                </p>
+              </div>
+              <Divider className="m-0 p-0" />
+              {/* Date Range */}
+              <div className="flex align-items-center justify-content-start gap-1">
+                <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {monthNames[selectedValues.month - 1]}, {selectedValues.year}
+                </p>
+              </div>
             </div>
           </div>
           <div className="flex align-items-center justify-content-end gap-2">
@@ -340,6 +359,7 @@ const Transport = ({ show }) => {
             {/* Pass props to TransportModify */}
             <TransportModify
               transportData={data}
+              transportSetData={setData}
               isOpen={modifyDialogVisible}
               onClose={handleCloseModifyDialog}
             />
@@ -784,10 +804,9 @@ const Transport = ({ show }) => {
       {/* <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p> */}
-      <RecommendationPanel
-        show={true}
-        renderRecommendations={renderRecommendations}
-      />
+      {show && (
+        <RecommendationPanel renderRecommendations={renderRecommendations} />
+      )}
     </div>
   );
 };

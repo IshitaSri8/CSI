@@ -20,6 +20,7 @@ import AQIRecommendations from "./AQIRecommendations";
 import { Tag } from "primereact/tag";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 const AqiDashboard = ({
   onDataChange,
@@ -59,38 +60,7 @@ const AqiDashboard = ({
   const [enviroco2, setEnviroco2] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterVisible, setFilterVisible] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedAction, setSelectedAction] = useState("");
   const [ReportVisible, setReportVisible] = useState(false);
-  const handleLocationChange = (e) => {
-    if (show) {
-      setSelectedLocation(e.value.code);
-      setLoading(true); // Start loading when location changes
-    }
-  };
-  const handleActionSelect = (action) => {
-    setSelectedAction(action);
-    setShowPopup(true);
-  };
-
-  const handleUpload = async (file) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      await axios.post(
-        "https://api-csi.arahas.com/upload/environment",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,9 +81,7 @@ const AqiDashboard = ({
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
-
     if (selectedLocation) {
       handleSearch();
     }
@@ -121,7 +89,6 @@ const AqiDashboard = ({
 
   useEffect(() => {
     handleSearch();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pSelectedLocation, pSelectedEndDate, pSelectedStartDate]);
 
@@ -219,8 +186,8 @@ const AqiDashboard = ({
       const uniqueDataTableData = Array.from(
         new Set(filteredDataWithDeviation.map(JSON.stringify))
       ).map(JSON.parse);
-
       setDataTableData(uniqueDataTableData);
+      setLoading(false);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -312,13 +279,6 @@ const AqiDashboard = ({
       };
     }
   };
-  const handleStartDateChange = (e) => {
-    setStartDate(e.value);
-  };
-
-  const handleEndDateChange = (e) => {
-    setEndDate(e.value);
-  };
   console.log(startDate, endDate);
 
   const {
@@ -342,7 +302,9 @@ const AqiDashboard = ({
     return <AqiDashboard show={false} />;
   };
 
-  return (
+  return loading ? (
+    <ProgressSpinner />
+  ) : (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
         <div className="flex align-items-center justify-content-between">

@@ -7,16 +7,19 @@ import { InputText } from "primereact/inputtext";
 import React from "react";
 import { useState } from "react";
 
-const TransportModify = ({ transportData, isOpen, onClose }) => {
-  const [modifyDialog, setModifyDialog] = useState(false);
+const TransportModify = ({
+  transportData,
+  transportSetData,
+  isOpen,
+  onClose,
+}) => {
   const [selectedValues, setSelectedValues] = useState({
-    route: "Rikabgunj to Nihawa Road",
-    year: 2024,
-    month: 1,
+    route: "",
+    year: "",
+    month: "",
   });
   const [selectedData, setSelectedData] = useState(null);
   const [editDialog, setEditDialog] = useState(false);
-  const [data, setData] = useState([]);
   const routes = [...new Set(transportData.map((item) => item.Route_Name))];
   const years = [...new Set(transportData.map((item) => item.Year))];
   const monthNames = [
@@ -33,9 +36,6 @@ const TransportModify = ({ transportData, isOpen, onClose }) => {
     "November",
     "December",
   ];
-  const handleModify = () => {
-    setModifyDialog(true);
-  };
   const handleEdit = () => {
     console.log("Clicked");
     const itemToEdit = transportData.find(
@@ -61,10 +61,10 @@ const TransportModify = ({ transportData, isOpen, onClose }) => {
       );
 
       if (response.data.success) {
-        setModifyDialog(false);
         setEditDialog(false);
+        onClose();
         alert("Data updated successfully");
-        setData((prevData) =>
+        transportSetData((prevData) =>
           prevData.map((item) =>
             item._id === response.data.data._id ? response.data.data : item
           )
@@ -87,10 +87,10 @@ const TransportModify = ({ transportData, isOpen, onClose }) => {
         isModal={true}
         visible={isOpen} // Control visibility with isOpen prop
         // close={onClose} // Handle close event
-        style={{ width: "55rem" }}
+        style={{ width: "20rem" }}
         onHide={onClose}
       >
-        <div className="flex align-items-center justify-content-start gap-2 p-2">
+        <div className="flex flex-column align-items-center gap-2">
           <Dropdown
             value={selectedValues.route}
             onChange={(e) =>
@@ -128,7 +128,8 @@ const TransportModify = ({ transportData, isOpen, onClose }) => {
           <Button
             label="Edit Data"
             onClick={handleEdit}
-            className="bg-cyan-700 text-white"
+            className="bg-primary1 text-primary1 text-white text-xs"
+            raised
           />
         </div>
       </Dialog>
@@ -434,7 +435,8 @@ const TransportModify = ({ transportData, isOpen, onClose }) => {
             <Button
               label="Update"
               onClick={handleSave}
-              className="bg-cyan-700 text-white"
+              className="bg-primary1 text-primary1 text-white text-xs"
+              raised
             />
           </div>
         </div>
