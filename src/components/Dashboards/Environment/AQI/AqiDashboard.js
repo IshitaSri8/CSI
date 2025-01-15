@@ -67,12 +67,10 @@ const AqiDashboard = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
         const locationsResponse = await axios.get(
           `https://api-csi.arahas.com/data/locations`
         );
         if (locationsResponse.data) {
-          setLoading(false);
           const locationOptions = locationsResponse.data.data.map((data) => ({
             label: data,
             value: data,
@@ -317,7 +315,10 @@ const AqiDashboard = ({
   };
 
   return loading ? (
-    <ProgressSpinner />
+    <div className="flex h-screen align-items-center justify-content-center flex-column">
+      <ProgressSpinner />
+      <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
+    </div>
   ) : (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
