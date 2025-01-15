@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "../AQI/AqiReport.css";
-import HeatMap from "../Temperature/HeatMap";
+import HeatMap from "./HeatMap";
 import { Button } from "primereact/button";
 import { commonChartOptions } from "Layout/chartOptions";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
