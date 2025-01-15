@@ -28,10 +28,12 @@ import {
   Tooltip,
 } from "react-leaflet";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
-import { InputText } from "primereact/inputtext";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import WaterModify from "./WaterModify";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 const WaterDashboard = ({ show }) => {
+  const [loading, setLoading] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [data, setData] = useState([]);
@@ -41,62 +43,15 @@ const WaterDashboard = ({ show }) => {
     month: 1,
   });
   const [geoData, setGeoData] = useState("");
-  const [selectedData, setSelectedData] = useState(null);
+
   const [zoneWQIValues, setZoneWQIValues] = useState({});
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
   const [tempZone, setTempZone] = useState("All Zones");
   const [tempYear, setTempYear] = useState(2024);
   const [tempMonth, setTempMonth] = useState(1);
-  const [editDialog, setEditDialog] = useState(false);
-  const [modifyDialog, setModifyDialog] = useState(false);
+
   const [displayValues, setDisplayValues] = useState("");
   const [color, setColor] = useState("");
-
-  const handleModify = () => {
-    setModifyDialog(true);
-  };
-  const handleEdit = () => {
-    const itemToEdit = data.find(
-      (item) =>
-        item.Divisions === selectedValues.zone &&
-        item.Year === selectedValues.year &&
-        item.Month === selectedValues.month
-    );
-    if (itemToEdit) {
-      setSelectedData(itemToEdit);
-
-      setEditDialog(true);
-    } else {
-      alert("No data found for the selected filters.");
-    }
-  };
-  const handleSave = async () => {
-    try {
-      const response = await axios.put(
-        `https://api-csi.arahas.com/data/water/${selectedData._id}`,
-        selectedData,
-        { headers: { "Content-Type": "application/json" } } // Specify content type if necessary
-      );
-
-      if (response.data.success) {
-        setModifyDialog(false);
-        setEditDialog(false);
-        alert("Data updated successfully");
-        setData((prevData) =>
-          prevData.map((item) =>
-            item._id === response.data.data._id ? response.data.data : item
-          )
-        );
-      }
-    } catch (error) {
-      console.error("Error saving data:", error); // Log error for debugging
-      alert(
-        error.response
-          ? error.response.data.error
-          : "An unexpected error occurred"
-      );
-    }
-  };
 
   const handleApply = () => {
     setSelectedValues({
@@ -152,101 +107,103 @@ const WaterDashboard = ({ show }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           "https://api-csi.arahas.com/data/water"
         );
+        const responseData = response.data.data;
+        const filteredData =
+          selectedValues.zone === "All Zones"
+            ? responseData.filter(
+                (item) =>
+                  item.Year === selectedValues.year &&
+                  item.Month === selectedValues.month
+              )
+            : responseData.filter(
+                (item) =>
+                  item.Divisions === selectedValues.zone &&
+                  item.Year === selectedValues.year &&
+                  item.Month === selectedValues.month
+              );
 
-        console.log(response.data.data);
+        // Calculate total values if all zones are selected
+        const totalValues = filteredData.reduce((acc, curr) => {
+          return {
+            ...acc,
+            Current_Supply_MLD:
+              (acc.Current_Supply_MLD || 0) + curr.Current_Supply_MLD,
+            Required_Supply_MLD:
+              (acc.Required_Supply_MLD || 0) + curr.Required_Supply_MLD,
+            Population: (acc.Population || 0) + curr.Population,
+            Awarness_Campaigns_Programs:
+              (acc.Awarness_Campaigns_Programs || 0) +
+              curr.Awarness_Campaigns_Programs,
+            Borewell: (acc.Borewell || 0) + curr.Borewell,
+            Canals: (acc.Canals || 0) + curr.Canals,
+            Handpumps: (acc.Handpumps || 0) + curr.Handpumps,
+            No_of_Households_with_Connections:
+              (acc.No_of_Households_with_Connections || 0) +
+              curr.No_of_Households_with_Connections,
+
+            Total_Households:
+              (acc.Total_Households || 0) + curr.Total_Households,
+
+            Tanks: (acc.Tanks || 0) + curr.Tanks,
+            Ponds: (acc.Ponds || 0) + curr.Ponds,
+            No_of_Households_with_Meters:
+              (acc.No_of_Households_with_Meters || 0) +
+              curr.No_of_Households_with_Meters,
+
+            Sites_with_Rainwater_Harvesting_System:
+              (acc.Sites_with_Rainwater_Harvesting_System || 0) +
+              curr.Sites_with_Rainwater_Harvesting_System,
+            Total_Volume_Harvested:
+              (acc.Total_Volume_Harvested || 0) + curr.Total_Volume_Harvested,
+            Households_Bill_Payment:
+              (acc.Households_Bill_Payment || 0) + curr.Households_Bill_Payment,
+          };
+        }, {});
+
+        // Determine which values to display
+        const displayValues =
+          selectedValues.zone === "All Zones" ? totalValues : filteredData[0];
+
+        // Determine color based on calculated value
+        const color =
+          displayValues &&
+          (
+            ((((displayValues.Population * 135) / 1000000).toFixed(2) -
+              displayValues.Current_Supply_MLD) /
+              ((displayValues.Population * 135) / 1000000).toFixed(2)) *
+            100
+          ).toFixed(2) < 0
+            ? "0C9D61"
+            : "#E62225";
+
+        setColor(color);
+        setDisplayValues(displayValues);
+
+        if (selectedValues.zone === "All Zones") {
+          const wqiValues = {};
+          filteredData.forEach((item) => {
+            wqiValues[item.Divisions] = item; // Store entire item for tooltip access
+          });
+          setZoneWQIValues(wqiValues);
+        } else {
+          setZoneWQIValues({});
+        }
         setData(response.data.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
     fetchData();
-    const filteredData =
-      selectedValues.zone === "All Zones"
-        ? data.filter(
-            (item) =>
-              item.Year === selectedValues.year &&
-              item.Month === selectedValues.month
-          )
-        : data.filter(
-            (item) =>
-              item.Divisions === selectedValues.zone &&
-              item.Year === selectedValues.year &&
-              item.Month === selectedValues.month
-          );
-
-    // Calculate total values if all zones are selected
-    const totalValues = filteredData.reduce((acc, curr) => {
-      return {
-        ...acc,
-        Current_Supply_MLD:
-          (acc.Current_Supply_MLD || 0) + curr.Current_Supply_MLD,
-        Required_Supply_MLD:
-          (acc.Required_Supply_MLD || 0) + curr.Required_Supply_MLD,
-        Population: (acc.Population || 0) + curr.Population,
-        Awarness_Campaigns_Programs:
-          (acc.Awarness_Campaigns_Programs || 0) +
-          curr.Awarness_Campaigns_Programs,
-        Borewell: (acc.Borewell || 0) + curr.Borewell,
-        Canals: (acc.Canals || 0) + curr.Canals,
-        Handpumps: (acc.Handpumps || 0) + curr.Handpumps,
-        No_of_Households_with_Connections:
-          (acc.No_of_Households_with_Connections || 0) +
-          curr.No_of_Households_with_Connections,
-
-        Total_Households: (acc.Total_Households || 0) + curr.Total_Households,
-
-        Tanks: (acc.Tanks || 0) + curr.Tanks,
-        Ponds: (acc.Ponds || 0) + curr.Ponds,
-        No_of_Households_with_Meters:
-          (acc.No_of_Households_with_Meters || 0) +
-          curr.No_of_Households_with_Meters,
-
-        Sites_with_Rainwater_Harvesting_System:
-          (acc.Sites_with_Rainwater_Harvesting_System || 0) +
-          curr.Sites_with_Rainwater_Harvesting_System,
-        Total_Volume_Harvested:
-          (acc.Total_Volume_Harvested || 0) + curr.Total_Volume_Harvested,
-        Households_Bill_Payment:
-          (acc.Households_Bill_Payment || 0) + curr.Households_Bill_Payment,
-      };
-    }, {});
-
-    // Determine which values to display
-    const displayValues =
-      selectedValues.zone === "All Zones" ? totalValues : filteredData[0];
-
-    // Determine color based on calculated value
-    const color =
-      displayValues &&
-      (
-        ((((displayValues.Population * 135) / 1000000).toFixed(2) -
-          displayValues.Current_Supply_MLD) /
-          ((displayValues.Population * 135) / 1000000).toFixed(2)) *
-        100
-      ).toFixed(2) < 0
-        ? "0C9D61"
-        : "#E62225";
-
-    setColor(color);
-    setDisplayValues(displayValues);
-
-    if (selectedValues.zone === "All Zones") {
-      const wqiValues = {};
-      filteredData.forEach((item) => {
-        wqiValues[item.Divisions] = item; // Store entire item for tooltip access
-      });
-      setZoneWQIValues(wqiValues);
-    } else {
-      setZoneWQIValues({});
-    }
-  }, [data, selectedValues]);
+  }, [selectedValues]);
 
   const zones = [...new Set(data.map((item) => item.Divisions))];
   const years = [...new Set(data.map((item) => item.Year))];
-  const months = [...new Set(data.map((item) => item.Month))];
 
   const showUploadDialog = () => {
     setUploadDialogVisible(true);
@@ -297,7 +254,19 @@ const WaterDashboard = ({ show }) => {
     "December",
   ];
 
-  return (
+  const [modifyDialogVisible, setModifyDialogVisible] = useState(false);
+
+  const handleModify = () => {
+    setModifyDialogVisible(true); // Set state to true when button is clicked
+  };
+
+  const handleCloseModifyDialog = () => {
+    setModifyDialogVisible(false);
+  };
+
+  return loading ? (
+    <ProgressSpinner />
+  ) : (
     <div className="w-full p-3 flex gap-3 flex-column">
       {show && (
         <div className="flex align-items-center justify-content-between w-full gap-3">
@@ -423,357 +392,11 @@ const WaterDashboard = ({ show }) => {
                 position: "bottom",
               }}
             />
-            <Dialog
-              header="Modify Data"
-              visible={modifyDialog}
-              style={{ width: "55rem" }}
-              onHide={() => setModifyDialog(false)}
-            >
-              <div className="flex align-items-center justify-content-start gap-2 flex-row p-2">
-                <Dropdown
-                  value={selectedValues.zone}
-                  onChange={(e) =>
-                    setSelectedValues({ ...selectedValues, zone: e.value })
-                  }
-                  options={[
-                    // Use null or a specific value to indicate 'All Zones'
-                    ...zones.map((div) => ({ label: div, value: div })),
-                  ]}
-                  placeholder="Select Division"
-                  className="w-full md:w-14rem"
-                />
-                <Dropdown
-                  value={selectedValues.year}
-                  onChange={(e) =>
-                    setSelectedValues({ ...selectedValues, year: e.value })
-                  }
-                  options={years.map((year) => ({ label: year, value: year }))}
-                  placeholder="Select Year"
-                  className="w-full md:w-14rem"
-                />
-                {/*  */}
-                <Dropdown
-                  value={selectedValues.month}
-                  onChange={(e) =>
-                    setSelectedValues({ ...selectedValues, month: e.value })
-                  }
-                  options={monthNames.map((name, index) => ({
-                    label: name, // Display month name
-                    value: index + 1, // Store month number (1-12)
-                  }))}
-                  placeholder="Select Month"
-                  className="w-full md:w-14rem"
-                />
-                <Button
-                  label="Edit Data"
-                  onClick={handleEdit}
-                  className="bg-cyan-700 text-white"
-                />
-              </div>
-            </Dialog>
-            <Dialog
-              header={
-                <h2
-                  style={{ margin: 0, textAlign: "left" }}
-                  className="text-secondary2 text-lg"
-                >
-                  Edit Data
-                </h2>
-              }
-              visible={editDialog}
-              style={{ width: "70rem" }}
-              onHide={() => setEditDialog(false)}
-            >
-              <div className="flex align-items-start justify-content-between gap-8">
-                <div className="flex flex-column gap-2">
-                  <h1 className="text-surface text-sm m-0 p-0">Zone</h1>
-                  <h1 className="text-secondary2 m-0 p-0 text-base ">
-                    {" "}
-                    {selectedValues.zone}
-                  </h1>
-                </div>
-                <div className="flex flex-column gap-2">
-                  <h1 className="text-surface text-sm m-0 p-0">Year</h1>
-                  <h1 className="text-secondary2 m-0 p-0">
-                    {" "}
-                    {selectedValues.year}
-                  </h1>
-                </div>
-                <div className="flex flex-column gap-2">
-                  <h1 className="text-surface text-sm m-0 p-0">Month</h1>
-                  <h1 className="text-secondary2 m-0 p-0">
-                    {monthNames[selectedValues.month - 1]}
-                  </h1>
-                </div>
-              </div>
-              <Divider />
-
-              <div className="flex align-items-start flex-column gap-3 w-full">
-                <div className="w-full flex flex-column">
-                  {/* Water Supply Data Header */}
-                  <h3>Water Supply Data</h3>
-
-                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap w-full ">
-                    {["Population", "Current_Supply_MLD"].map(
-                      (field, index) => {
-                        const customLabels = {
-                          Population: "Total Population",
-                          Current_Supply_MLD: "Current Water Supply (MLD)",
-                        };
-
-                        return (
-                          <div key={index} className="flex flex-column gap-2 ">
-                            <label className="text-sm text-surface-500  ">
-                              {customLabels[field]}
-                            </label>
-                            <InputText
-                              id={field.toLowerCase()}
-                              value={selectedData?.[field]}
-                              onChange={(e) =>
-                                setSelectedData({
-                                  ...selectedData,
-                                  [field]: e.target.value,
-                                })
-                              }
-                              placeholder={`Enter ${customLabels[
-                                field
-                              ].toLowerCase()}`}
-                              type={"number"}
-                            />
-                          </div>
-                        );
-                      }
-                    )}
-                  </div>
-                </div>
-                <div className="w-full flex flex-column">
-                  {/* Table 2: Infrastructure Data */}
-
-                  <h3>Infrastructure Data</h3>
-
-                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
-                    {["Canals", "Tanks", "Ponds", "Handpumps"].map(
-                      (field, index) => {
-                        const customLabels = {
-                          Canals: "Canals",
-                          Tanks: "Tanks",
-                          Ponds: "Ponds",
-                          Handpumps: "Handpumps",
-                        };
-
-                        return (
-                          <div key={index} className="flex flex-column gap-2">
-                            <label className="text-sm text-surface-500 ">
-                              {customLabels[field]}
-                            </label>
-                            <InputText
-                              id={field.toLowerCase()}
-                              value={selectedData?.[field]}
-                              onChange={(e) =>
-                                setSelectedData({
-                                  ...selectedData,
-                                  [field]: e.target.value,
-                                })
-                              }
-                              placeholder={`Enter ${customLabels[
-                                field
-                              ].toLowerCase()}`}
-                              type={"number"}
-                            />
-                          </div>
-                        );
-                      }
-                    )}
-                  </div>
-                </div>
-                <div className="w-full flex flex-column">
-                  {/* Table 3: Household Data */}
-                  <h3>Household Data</h3>
-
-                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
-                    {[
-                      "Total_Households",
-                      "No_of_Households_with_Connections",
-                      "No_of_Households_with_Meters",
-                      "Households_Bill_Payment",
-                    ].map((field, index) => {
-                      const customLabels = {
-                        Total_Households: "Total Households",
-                        No_of_Households_with_Connections:
-                          "Households with Connections",
-                        No_of_Households_with_Meters:
-                          "Households with Water Meters",
-                        Households_Bill_Payment:
-                          "Households Participating in Bill Payments",
-                      };
-
-                      return (
-                        <div key={index} className="flex flex-column gap-2">
-                          <label className="text-sm text-surface-500 ">
-                            {customLabels[field]}
-                          </label>
-                          <InputText
-                            id={field.toLowerCase()}
-                            value={selectedData?.[field]}
-                            onChange={(e) =>
-                              setSelectedData({
-                                ...selectedData,
-                                [field]: e.target.value,
-                              })
-                            }
-                            placeholder={`Enter ${customLabels[
-                              field
-                            ].toLowerCase()}`}
-                            type={"number"}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div className="w-full flex flex-column">
-                  {/* Table 5: Rainwater Harvesting Data */}
-                  <h3>Rainwater Harvesting Data</h3>
-
-                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
-                    {[
-                      "Sites_with_Rainwater_Harvesting_System",
-                      "Total_Volume_Harvested",
-                    ].map((field, index) => {
-                      const customLabels = {
-                        Sites_with_Rainwater_Harvesting_System:
-                          "Sites with Rain Water Harvesting System",
-                        Total_Volume_Harvested: "Harvested Water (m³)",
-                        No_of_Households_with_Meters:
-                          "Households with Water Meters",
-                        Households_Bill_Payment:
-                          "Households Participating in Bill Payments",
-                      };
-
-                      return (
-                        <div key={index} className="flex flex-column gap-2">
-                          <label className="text-sm text-surface-500 ">
-                            {customLabels[field]}
-                          </label>
-                          <InputText
-                            id={field.toLowerCase()}
-                            value={selectedData?.[field]}
-                            onChange={(e) =>
-                              setSelectedData({
-                                ...selectedData,
-                                [field]: e.target.value,
-                              })
-                            }
-                            placeholder={`Enter ${customLabels[
-                              field
-                            ].toLowerCase()}`}
-                            type={"number"}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div className="w-full flex flex-column">
-                  {/* Table 6: Maintenance and Awareness Programs */}
-                  <h3>Awareness Programs</h3>
-
-                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
-                    {["Awarness_Campaigns_Programs"].map((field, index) => {
-                      const customLabels = {
-                        Awarness_Campaigns_Programs:
-                          "Awareness Campaigns Launched",
-                      };
-
-                      return (
-                        <div key={index} className="flex flex-column gap-2">
-                          <label className="text-sm text-surface-500 ">
-                            {customLabels[field]}
-                          </label>
-                          <InputText
-                            id={field.toLowerCase()}
-                            value={selectedData?.[field]}
-                            onChange={(e) =>
-                              setSelectedData({
-                                ...selectedData,
-                                [field]: e.target.value,
-                              })
-                            }
-                            placeholder={`Enter ${customLabels[
-                              field
-                            ].toLowerCase()}`}
-                            type={"number"}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div className="w-full flex flex-column">
-                  {/* Table 2: Infrastructure Data */}
-
-                  <h3>Infrastructure Data</h3>
-
-                  <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
-                    {[
-                      "Number_of_Testing_Stations",
-                      "Number_of_Sample_Tested_in_Laboratories",
-                      "Number_of_Samples_found_contaminated_in_laboratories",
-                      "Temperature",
-                      "BOD",
-                      "TSS",
-                      "DO",
-                      "Conductivity",
-                      "WQI",
-                    ].map((field, index) => {
-                      const customLabels = {
-                        Number_of_Testing_Stations: "Testing Stations",
-                        Number_of_Sample_Tested_in_Laboratories:
-                          "Samples Tested",
-                        Number_of_Samples_found_contaminated_in_laboratories:
-                          "Contaminated Samples",
-                        Temperature: "Temperature (°C)",
-                        BOD: "Biological Oxygen Demand (mg/L)",
-                        TSS: "Total Suspended Solids (mg/L)",
-                        DO: "Dissolved Oxygen (mg/L)",
-                        Conductivity: "Conductivity (μS/cm)",
-                        WQI: "Water Quality Index",
-                      };
-
-                      return (
-                        <div key={index} className="flex flex-column gap-2">
-                          <label className="text-sm text-surface-500 ">
-                            {customLabels[field]}
-                          </label>
-                          <InputText
-                            id={field.toLowerCase()}
-                            value={selectedData?.[field]}
-                            onChange={(e) =>
-                              setSelectedData({
-                                ...selectedData,
-                                [field]: e.target.value,
-                              })
-                            }
-                            placeholder={`Enter ${customLabels[
-                              field
-                            ].toLowerCase()}`}
-                            type={"number"}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div className="flex align-items-center justify-content-end  w-full">
-                  <Button
-                    label="Update"
-                    onClick={handleSave}
-                    className="bg-cyan-700 text-white"
-                  />
-                </div>
-              </div>
-            </Dialog>
+            <WaterModify
+              waterData={data}
+              isOpen={modifyDialogVisible}
+              onClose={handleCloseModifyDialog}
+            />
 
             <Button
               icon="pi pi-file"
@@ -1079,22 +702,22 @@ const WaterDashboard = ({ show }) => {
               className="flex flex-column bg-white border-round p-3 gap-3 h-26rem overflow-y-auto "
               style={{ flex: "30%" }}
             >
-              <div className="flex flex-column gap-2">
+              <div className="flex flex-column gap-3">
                 <p className="card-title p-0 m-0">Insights</p>
                 <div className="flex flex-column align-items-start justify-content-start gap-2">
                   {selectedValues.zone === "All Zones" && (
-                    <li className="p-0 m-0 text-primary1 font-medium">
+                    <li className="p-0 m-0 text-primary1 font-medium text-sm">
                       By 2031, the projected demand of{" "}
-                      <span className="m-0 p-0 font-semibold">
+                      <span className="m-0 p-0 font-semibold text-sm">
                         {" "}
                         {((1194206 * 135) / 1000000).toFixed(2)} MLD
                       </span>{" "}
                       exceeds the current supply capacity of{" "}
-                      <span className="m-0 p-0 font-semibold">
+                      <span className="m-0 p-0 font-semibold text-sm">
                         {displayValues.Current_Supply_MLD} MLD
                       </span>{" "}
                       by{" "}
-                      <span className="m-0 p-0 font-semibold text-red-500">
+                      <span className="m-0 p-0 font-semibold text-red-500 text-sm">
                         {((1194206 * 135) / 1000000).toFixed(2) -
                           displayValues.Current_Supply_MLD}{" "}
                         MLD
@@ -1104,9 +727,9 @@ const WaterDashboard = ({ show }) => {
                     </li>
                   )}
                   <div className="flex gap-2 align-items-start">
-                    <li className="p-0 m-0 text-primary1 font-medium">
+                    <li className="p-0 m-0 text-primary1 font-medium text-sm">
                       There is already a deficit of{" "}
-                      <span className="p-0 m-0 text-red-500 font-semibold">
+                      <span className="p-0 m-0 text-red-500 font-semibold text-sm">
                         {(
                           (displayValues.Population * 135) / 1000000 -
                           displayValues.Current_Supply_MLD
@@ -1118,10 +741,10 @@ const WaterDashboard = ({ show }) => {
                   </div>
                   {selectedValues.zone === "All Zones" && (
                     <>
-                      <li className="p-0 m-0 text-primary1 font-medium">
+                      <li className="p-0 m-0 text-primary1 font-medium text-sm">
                         Without proper infrastructure upgrades, per capita water
                         availability will drop to{" "}
-                        <span className="m-0 p-0 font-semibold text-red-500">
+                        <span className="m-0 p-0 font-semibold text-red-500 text-sm">
                           {(
                             (displayValues.Current_Supply_MLD * 1000000) /
                             1194206
@@ -1129,15 +752,15 @@ const WaterDashboard = ({ show }) => {
                           L/day/person
                         </span>
                         , well below the recommended{" "}
-                        <span className="m-0 p-0 font-semibold">
+                        <span className="m-0 p-0 font-semibold text-sm">
                           135 L/day/person
                         </span>
                         , leading to severe water stress.
                       </li>
-                      <li className="p-0 m-0 text-primary1 font-medium">
+                      <li className="p-0 m-0 text-primary1 font-medium text-sm">
                         The existing treatment plant is severely under capacity,
                         with only{" "}
-                        <span className="m-0 p-0 font-semibold">
+                        <span className="m-0 p-0 font-semibold text-sm">
                           {(
                             ((12 * 0.9) /
                               (displayValues.Current_Supply_MLD * 0.8)) *
@@ -1149,21 +772,23 @@ const WaterDashboard = ({ show }) => {
                         enhance sewerage infrastructure to prevent environmental
                         hazards.
                       </li>
-                      <p className="p-0 m-0 text-primary1 font-medium">
+                      <p className="p-0 m-0 text-primary1 font-medium text-sm">
                         (Assuming water input to STP is 80% and STP efficiency
                         of 90%.)
                       </p>
-                      <li className="p-0 m-0 text-primary1 font-medium">
+                      <li className="p-0 m-0 text-primary1 font-medium text-sm">
                         By 2031, the required sewerage treatment capacity will
                         increase to{" "}
-                        <span className="m-0 p-0 font-semibold text-red-500">
+                        <span className="m-0 p-0 font-semibold text-red-500 text-sm">
                           {" "}
                           {(((1194206 * 135) / 1000000) * 0.8).toFixed(2)} MLD
                         </span>
                         , far exceeding the current capacity of{" "}
-                        <span className="m-0 p-0 font-semibold">12 MLD</span>.
-                        An approximate{" "}
-                        <span className="m-0 p-0 font-semibold text-red-500">
+                        <span className="m-0 p-0 font-semibold text-sm">
+                          12 MLD
+                        </span>
+                        . An approximate{" "}
+                        <span className="m-0 p-0 font-semibold text-red-500 text-sm">
                           {(
                             (((1194206 * 135) / 1000000) * 0.8).toFixed(2) / 12
                           ).toFixed(0)}{" "}

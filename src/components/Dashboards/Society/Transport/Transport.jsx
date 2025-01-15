@@ -15,15 +15,12 @@ import bike from "assets/bike.svg";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import TransportModify from "./TransportModify";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
-
-  const vehicleLables = ["Electric", "Hybrid", "Petrol", "Diesel"];
-
-  const evTrend = [40, 45, 60, 36];
-  const labels = ["Q1", "Q2", "Q3", "Q4"];
-
+  const [loading, setLoading] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
   const [data, setData] = useState([]);
   const [displayValues, setDisplayValues] = useState("");
@@ -40,86 +37,92 @@ const Transport = ({ show }) => {
   const [busMaint, setBusMaint] = useState([]);
   const [busTypeData, setBusTypeData] = useState([]);
 
+  const vehicleLables = ["Electric", "Hybrid", "Petrol", "Diesel"];
+
+  const labels = ["Q1", "Q2", "Q3", "Q4"];
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           "https://api-csi.arahas.com/data/transport"
         );
 
         // console.log(response.data.data);
-        setData(response.data.data);
+
+        const responseData = response.data.data;
+
+        const filteredData = responseData.filter(
+          (item) =>
+            item.Route_Name === selectedValues.route &&
+            item.Year === selectedValues.year &&
+            item.Month === selectedValues.month
+        );
+        setDisplayValues(filteredData[0]);
+        console.log(filteredData);
+
+        if (filteredData.length > 0) {
+          setDisplayValues(filteredData[0]);
+
+          // Prepare vehicle data for Doughnut chart
+          const vehicleData = [
+            filteredData[0].Electric,
+            filteredData[0].Hybrid,
+            filteredData[0].Diesel,
+            filteredData[0].Petrol,
+          ];
+          setBusTypeData(vehicleData);
+          // console.log(vehicleData);
+        }
+
+        const filteredBusDataMonthly = responseData.filter(
+          (item1) =>
+            item1.Route_Name === selectedValues.route &&
+            item1.Year === selectedValues.year
+        );
+        // setBusData(filteredBusDataMonthly);
+        const processBusData = (monthlyData) => {
+          // Initialize an array to hold quarterly maintenance data
+          const quarterlyData = [
+            { quarter: 1, Buses_going_for_Maintenance: 0, Electric: 0 },
+            { quarter: 2, Buses_going_for_Maintenance: 0, Electric: 0 },
+            { quarter: 3, Buses_going_for_Maintenance: 0, Electric: 0 },
+            { quarter: 4, Buses_going_for_Maintenance: 0, Electric: 0 },
+          ];
+
+          // Iterate through the monthly data
+          monthlyData.forEach((item) => {
+            const month = item.Month; // Assuming Month is a number from 1 to 12
+
+            // Determine which quarter the month belongs to
+            const quarterIndex = Math.floor((month - 1) / 3); // Calculate quarter index (0 for Q1, ..., 3 for Q4)
+
+            // Aggregate the data for the corresponding quarter
+            quarterlyData[quarterIndex].Buses_going_for_Maintenance +=
+              item.Buses_going_for_Maintenance;
+            quarterlyData[quarterIndex].Electric += item.Electric;
+          });
+
+          return quarterlyData;
+        };
+
+        // Process the monthly data to get quarterly data
+        const quarterlyBusData = processBusData(filteredBusDataMonthly);
+        setBusMaint(quarterlyBusData);
+
+        setData(responseData);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
     fetchData();
-    const filteredData = data.filter(
-      (item) =>
-        item.Route_Name === selectedValues.route &&
-        item.Year === selectedValues.year &&
-        item.Month === selectedValues.month
-    );
-    setDisplayValues(filteredData[0]);
-    console.log(filteredData);
-
-    if (filteredData.length > 0) {
-      setDisplayValues(filteredData[0]);
-
-      // Prepare vehicle data for Doughnut chart
-      const vehicleData = [
-        filteredData[0].Electric,
-        filteredData[0].Hybrid,
-        filteredData[0].Diesel,
-        filteredData[0].Petrol,
-      ];
-      setBusTypeData(vehicleData);
-      // console.log(vehicleData);
-    }
-
-    const filteredBusDataMonthly = data.filter(
-      (item1) =>
-        item1.Route_Name === selectedValues.route &&
-        item1.Year === selectedValues.year
-    );
-    // setBusData(filteredBusDataMonthly);
-    const processBusData = (monthlyData) => {
-      // Initialize an array to hold quarterly maintenance data
-      const quarterlyData = [
-        { quarter: 1, Buses_going_for_Maintenance: 0, Electric: 0 },
-        { quarter: 2, Buses_going_for_Maintenance: 0, Electric: 0 },
-        { quarter: 3, Buses_going_for_Maintenance: 0, Electric: 0 },
-        { quarter: 4, Buses_going_for_Maintenance: 0, Electric: 0 },
-      ];
-
-      // Iterate through the monthly data
-      monthlyData.forEach((item) => {
-        const month = item.Month; // Assuming Month is a number from 1 to 12
-
-        // Determine which quarter the month belongs to
-        const quarterIndex = Math.floor((month - 1) / 3); // Calculate quarter index (0 for Q1, ..., 3 for Q4)
-
-        // Aggregate the data for the corresponding quarter
-        quarterlyData[quarterIndex].Buses_going_for_Maintenance +=
-          item.Buses_going_for_Maintenance;
-        quarterlyData[quarterIndex].Electric += item.Electric;
-      });
-
-      return quarterlyData;
-    };
-
-    // Process the monthly data to get quarterly data
-    const quarterlyBusData = processBusData(filteredBusDataMonthly);
-    setBusMaint(quarterlyBusData);
-
-    // console.log(filteredBusDataMonthly);
-  }, [data, selectedValues]);
+  }, [selectedValues]);
 
   const routes = [...new Set(data.map((item) => item.Route_Name))];
-  // console.log(routes);
   const year = [...new Set(data.map((item) => item.Year))];
-  const months = [...new Set(data.map((item) => item.Month))];
-  // console.log(displayValues);
 
   const handleApply = () => {
     setSelectedValues({
@@ -136,6 +139,17 @@ const Transport = ({ show }) => {
       month: 1,
     });
   };
+
+  const [modifyDialogVisible, setModifyDialogVisible] = useState(false);
+
+  const handleModify = () => {
+    setModifyDialogVisible(true); // Set state to true when button is clicked
+  };
+
+  const handleCloseModifyDialog = () => {
+    setModifyDialogVisible(false);
+  };
+
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
 
   const showUploadDialog = () => {
@@ -153,7 +167,7 @@ const Transport = ({ show }) => {
   const renderDashboard = () => {
     return <Transport show={false} />;
   };
-  const score = 90; 
+  const score = 90;
 
   const getColor = (score) => {
     if (score >= 81 && score <= 100) {
@@ -165,7 +179,24 @@ const Transport = ({ show }) => {
     }
   };
 
-  return (
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  return loading ? (
+    <ProgressSpinner />
+  ) : (
     <div className="gap-3 p-4 flex flex-column">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
@@ -224,7 +255,10 @@ const Transport = ({ show }) => {
                       onChange={(e) => setTempRoute(e.value)}
                       options={[
                         // Use null or a specific value to indicate 'All Zones'
-                        ...routes.map((div) => ({ label: div, value: div })),
+                        ...routes.map((div) => ({
+                          label: div,
+                          value: div,
+                        })),
                       ]}
                       placeholder="Select Route"
                       className="w-full"
@@ -250,9 +284,9 @@ const Transport = ({ show }) => {
                       // }
                       value={tempMonth}
                       onChange={(e) => setTempMonth(e.value)}
-                      options={months.map((month) => ({
-                        label: month,
-                        value: month,
+                      options={monthNames.map((name, index) => ({
+                        label: name, // Display month name
+                        value: index + 1, // Store month number (1-12)
                       }))}
                       placeholder="Select Month"
                       className="w-full"
@@ -295,13 +329,19 @@ const Transport = ({ show }) => {
             />
             <Button
               tooltip="Modify Data"
-              // onClick={handleModify}
+              onClick={handleModify}
               raised
               className="bg-white text-secondary2"
               icon="pi pi-file-edit"
               tooltipOptions={{
                 position: "bottom",
               }}
+            />
+            {/* Pass props to TransportModify */}
+            <TransportModify
+              transportData={data}
+              isOpen={modifyDialogVisible}
+              onClose={handleCloseModifyDialog}
             />
             <Button
               tooltip="Generate Report"

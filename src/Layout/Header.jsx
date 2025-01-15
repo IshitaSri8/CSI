@@ -56,7 +56,7 @@ const Header = () => {
       icon: "pi pi-users",
       template: itemRenderer,
       path: "/citizens",
-      command: () => navigate("/citizens"),
+      command: () => navigate("/citizen"),
     },
     {
       label: "CSI for Government",
@@ -97,11 +97,11 @@ const Header = () => {
 
   // Conditionally render the Sign in button only for '/citizens' and '/government'
   const showSignInButton =
-    location.pathname === "/citizens" || location.pathname === "/government";
+    location.pathname === "/citizen" || location.pathname === "/government";
 
   // Handle the "Sign in" button click based on the path
   const handleSignInClick = () => {
-    if (location.pathname === "/citizens") {
+    if (location.pathname === "/citizen") {
       setCitizenDialogVisible(true);
     } else if (location.pathname === "/government") {
       setGovernmentDialogVisible(true);

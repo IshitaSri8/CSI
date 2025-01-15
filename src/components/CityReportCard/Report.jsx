@@ -110,7 +110,6 @@ const CityReportCard = () => {
       shared: true,
       cornerRadius: 4,
     },
-
     dataPointWidth: 24,
     data: [
       {
@@ -319,7 +318,7 @@ const CityReportCard = () => {
                 </div>
               </div>
               <p className="text-tertiary3">
-                Empowering sustainable change, enriching diverse lives.
+                Empowering sustainable changes, enriching diverse lives.
               </p>
             </div>
           )}

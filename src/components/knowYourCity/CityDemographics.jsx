@@ -451,7 +451,7 @@ const CityDemographics = () => {
                     </ul>
                     <Divider layout="vertical" className="m-0" />
                     <ul>
-                      <li>Quantity (in Quintal): 2616387</li>
+                      <li>Quantity: 2616387 Quintals</li>
                     </ul>
                   </div>
                 </Tooltip>
@@ -577,7 +577,7 @@ const CityDemographics = () => {
                     </ul>
                     <Divider layout="vertical" className="h-10rem m-0" />
                     <ul>
-                      <li>Music, dance and drama center</li>
+                      <li>Music, dance, and drama center</li>
                       <li>Meditation and spiritual center</li>
                       <li>Old-age home</li>
                     </ul>
