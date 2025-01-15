@@ -18,6 +18,7 @@ import TempReportPrint from "./TempReportPrint";
 import { Panel } from "primereact/panel";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 // Define the helper functions here
 const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
@@ -59,37 +60,6 @@ const TempDashboard = ({
 
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
-
-  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
-
-  const handleToggleRecommendations = () => {
-    setRecommendationsVisible((prev) => !prev);
-  };
-
-  const handleLocationChange = (e) => {
-    if (show) {
-      setSelectedLocation(e.value.code);
-      setLoading(true); // Start loading when location changes
-    }
-  };
-  const handleUpload = async (file) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      await axios.post(
-        "https://api-csi.arahas.com/upload/environment",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -203,6 +173,7 @@ const TempDashboard = ({
       ).map(JSON.parse);
       console.log(uniqueDataTableData);
       setDataTableData(uniqueDataTableData);
+      setLoading(false);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -302,7 +273,12 @@ const TempDashboard = ({
     return <TempDashboard show={false} />;
   };
 
-  return (
+  return loading ? (
+    <div className="flex h-screen align-items-center justify-content-center flex-column">
+      <ProgressSpinner />
+      <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
+    </div>
+  ) : (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
         <div className="flex align-items-center justify-content-between">

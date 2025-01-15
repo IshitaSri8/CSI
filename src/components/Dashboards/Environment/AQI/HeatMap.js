@@ -1,3 +1,4 @@
+import { Card } from "primereact/card";
 import React from "react";
 
 const HeatMap = ({ data }) => {
@@ -43,9 +44,9 @@ const HeatMap = ({ data }) => {
   };
 
   return (
-    <div>
+    <div className="flex w-full">
       {data.length > 0 && (
-        <table className="table-container">
+        <table className="w-full">
           <thead>
             <tr>
               <th>Date</th>
@@ -57,7 +58,7 @@ const HeatMap = ({ data }) => {
           <tbody>
             {heatmapData.map((rowData, rowIndex) => (
               <tr key={rowIndex}>
-                <td>{dates[rowIndex]}</td>
+                <td className="p-1">{dates[rowIndex]}</td>
                 {rowData.map((entry, colIndex) => (
                   <td key={colIndex} className={getColorClass(entry.value)}>
                     {entry.value}
