@@ -208,15 +208,6 @@ const AqiDashboard = ({
       setSelectedLocation(pSelectedLocation);
     }
   }, [show, pSelectedLocation]);
-  // {showPopup && (
-  //   <FileUploadPopup
-  //     onClose={() => setShowPopup(false)}
-  //     onUpload={handleUpload}
-  //     department={"environment"}
-  //     action={selectedAction}
-  //     subCategory={"Aqi"}
-  //   />
-  // )}
 
   useEffect(() => {
     if (!show && pSelectedStartDate) {

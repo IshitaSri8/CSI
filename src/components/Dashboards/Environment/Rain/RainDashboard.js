@@ -14,6 +14,8 @@ import { ProgressBar } from "primereact/progressbar";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import increase from "assets/increase.png";
+import { Upload } from "lucide-react";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
@@ -30,11 +32,11 @@ const RainDashboard = ({ show }) => {
   const [maxRainfallYear, setMaxRainfallYear] = useState(null);
   const [maxRainfallMonth, setMaxRainfallMonth] = useState(null);
   const [ReportVisible, setReportVisible] = useState(false);
+  const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
-
-  const handleToggleRecommendations = () => {
-    setRecommendationsVisible((prev) => !prev);
+  const hideUploadDialog = () => {
+    setUploadDialogVisible(false);
   };
 
   useEffect(() => {
@@ -49,13 +51,16 @@ const RainDashboard = ({ show }) => {
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const rain_response = await axios.get(
         "https://api-csi.arahas.com/data/environment/rainfall"
       );
       const rData = rain_response.data.data;
       setRainData(rData);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false);
     }
   };
 
@@ -154,7 +159,12 @@ const RainDashboard = ({ show }) => {
     return <RainDashboard show={false} />;
   };
 
-  return (
+  return loading ? (
+    <div className="flex h-screen align-items-center justify-content-center flex-column">
+      <ProgressSpinner />
+      <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
+    </div>
+  ) : (
     <div className="flex flex-column gap-3 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
@@ -162,6 +172,11 @@ const RainDashboard = ({ show }) => {
             Rainfall
           </h1>
           <div className="flex align-items-center justify-content-end gap-4">
+            <Upload
+              visible={uploadDialogVisible}
+              onHide={hideUploadDialog}
+              parameter={"environment/Rainfall"}
+            />
             <Button
               label="Generate Report"
               icon="pi pi-file"
