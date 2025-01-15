@@ -88,7 +88,7 @@ const TransportModify = ({ transportData, isOpen, onClose }) => {
         visible={isOpen} // Control visibility with isOpen prop
         // close={onClose} // Handle close event
         style={{ width: "55rem" }}
-        onHide={() => onClose}
+        onHide={onClose}
       >
         <div className="flex align-items-center justify-content-start gap-2 p-2">
           <Dropdown

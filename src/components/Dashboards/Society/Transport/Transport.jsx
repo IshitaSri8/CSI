@@ -111,15 +111,10 @@ const Transport = ({ show }) => {
     // Process the monthly data to get quarterly data
     const quarterlyBusData = processBusData(filteredBusDataMonthly);
     setBusMaint(quarterlyBusData);
-
-    // console.log(filteredBusDataMonthly);
   }, [data, selectedValues]);
 
   const routes = [...new Set(data.map((item) => item.Route_Name))];
-  // console.log(routes);
   const year = [...new Set(data.map((item) => item.Year))];
-  const months = [...new Set(data.map((item) => item.Month))];
-  // console.log(displayValues);
 
   const handleApply = () => {
     setSelectedValues({

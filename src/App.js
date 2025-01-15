@@ -13,8 +13,104 @@ import CityProgress from "components/knowYourCity/CityProgress";
 import CitizenSidebar from "Layout/CitizenSidebar";
 import ChangeDetection from "extra/ChangeDetection";
 import Animation from "extra/Animation";
+import Layout from "Layout/Layout";
+import KnowYourCity from "pages/KnowYourCity";
+import CityReportCardGov from "pages/CityReportCardGov";
+import CityReportCardCitizen from "pages/CityReportCardCitizen";
+import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
+import TempDashboard from "components/Dashboards/Environment/Temperature/TempDashboard";
+import RainDashboard from "components/Dashboards/Environment/Rain/RainDashboard";
+import Land from "components/Dashboards/Environment/Land/Land";
+import WaterDashboard from "components/Dashboards/Environment/Water/WaterDashboard";
+import WasteDashboard from "components/Dashboards/Environment/Waste/WasteDashboard";
+import Nature from "pages/Nature";
+import Society from "pages/Society";
+import Healthcare from "components/Dashboards/Society/Healthcare/Healthcare";
+import Employment from "components/Dashboards/Society/Employment/Employment";
+import EducationDashboard from "components/Dashboards/Society/Education/EducationDashboard";
+import Transport from "components/Dashboards/Society/Transport/Transport";
+import Community from "components/Dashboards/Society/Community/Community";
+import Culture from "components/Dashboards/Society/Culture/Culture";
+import Administration from "pages/Administration";
+import Disaster from "components/Dashboards/Administration/Disaster Management/Disaster";
+import pathConstants from "pathConstants";
 
 function App() {
+  const routes = [
+    {
+      path: pathConstants.KYC,
+      element: <KnowYourCity />,
+    },
+    {
+      path: pathConstants.CRC,
+      element: <CityReportCardGov />,
+    },
+    {
+      path: pathConstants.NATURE,
+      element: <Nature />,
+    },
+    {
+      path: pathConstants.AQI,
+      element: <AqiDashboard show={true} />,
+    },
+    {
+      path: pathConstants.TEMP,
+      element: <TempDashboard show={true} />,
+    },
+    {
+      path: pathConstants.RAIN,
+      element: <RainDashboard show={true} />,
+    },
+    {
+      path: pathConstants.LAND,
+      element: <Land show={true} />,
+    },
+    {
+      path: pathConstants.WATER,
+      element: <WaterDashboard show={true} />,
+    },
+    {
+      path: pathConstants.WASTE,
+      element: <WasteDashboard show={true} />,
+    },
+    {
+      path: pathConstants.SOCIETY,
+      element: <Society />,
+    },
+    {
+      path: pathConstants.HEALTHCARE,
+      element: <Healthcare show={true} />,
+    },
+    {
+      path: pathConstants.EMPLOYMENT,
+      element: <Employment show={true} />,
+    },
+    {
+      path: pathConstants.EDUCATION,
+      element: <EducationDashboard show={true} />,
+    },
+    {
+      path: pathConstants.TRANSPORT,
+      element: <Transport show={true} />,
+    },
+    {
+      path: pathConstants.COMMUNITY,
+      element: <Community show={true} />,
+    },
+    {
+      path: pathConstants.CULTURE,
+      element: <Culture show={true} />,
+    },
+    {
+      path: pathConstants.ADMIN,
+      element: <Administration />,
+    },
+    {
+      path: pathConstants.DISASTER,
+      element: <Disaster show={true} />,
+    },
+  ];
+
   return (
     // <div className="App">
     //   <LandingScreen />
@@ -24,8 +120,11 @@ function App() {
       <Route path="/" element={<LandingScreen />} />
       <Route path="/citizen" element={<Citizen />} />
       <Route path="/government" element={<Government />} />
-      <Route path="/government/kyc" element={<GovernmentSidebar />} />
-      <Route path="/citizen/kyc" element={<CitizenSidebar />} />
+      <Route path="/csi/" element={<Layout />}>
+        {routes.map((route, index) => (
+          <Route key={index} path={route.path} element={route.element} />
+        ))}
+      </Route>
       {/* <Route path="/change" element={<ChangeDetection />} /> */}
       {/* <Route path="/animations" element={<Animation />} /> */}
     </Routes>
