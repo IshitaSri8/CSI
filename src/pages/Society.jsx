@@ -15,14 +15,16 @@ import { useNavigate } from "react-router-dom";
 const Society = () => {
   const navigate = useNavigate();
   const societyLables = [
-    "Healthcare",
-    "Education",
+    "City Planning",
+    "Citizen Services",
     "Employment Opportunity",
     "Cultural Preservation",
     "Community Enagagement & Holistic Well-Being",
-    "Public Transport",
+    // "Healthcare",
+    // "Education",
+    // "Public Transport",
   ];
-  const societyData = [12, 7, 15, 2, 15, 19];
+  const societyData = [15, 40, 20, 15, 10];
 
   const metrics = [
     {

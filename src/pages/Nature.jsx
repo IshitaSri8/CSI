@@ -16,13 +16,14 @@ const Nature = () => {
   const navigate = useNavigate();
   const natureLables = [
     "AQI",
-    "Land Usage",
-    "Rainfall",
-    "Temperature",
     "Water Management",
+    "Land Usage",
     "Waste Management",
+    "Green Coverage",
+    "Fire & Energy",
+    "GHG Emission",
   ];
-  const natureData = [12, 7, 15, 2, 15, 19];
+  const natureData = [20, 15, 10, 10, 15, 10, 20];
 
   const metrics = [
     {
