@@ -260,7 +260,7 @@ const CityProgress = () => {
                       style={{ color: "#F9C849", marginTop: -20 }}
                     > */}
                   <i
-                    className="pi pi-star mt-1 ml-3 font-medium"
+                    className="pi pi-star-fill mt-1 ml-3 font-medium"
                     style={{ color: "#F9C849" }}
                   />
                   {/* </p> */}
