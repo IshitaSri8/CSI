@@ -84,7 +84,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
   return (
     <MapContainer
       center={[26.783869, 82.144132]}
-      zoom={11}
+      zoom={10}
       style={{ height: "15rem", width: "100%" }}
     >
       <TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png" />
@@ -102,7 +102,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
             <div>
               <strong>{filteredMarker.message}</strong>
               <br />
-              Tempertaure: {averageTemp}
+              Tempertaure: {averageTemp}°C
             </div>
           </Popup>
         </Marker>

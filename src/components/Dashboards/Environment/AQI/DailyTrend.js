@@ -249,6 +249,7 @@ const DailyTrend = ({
     },
     data: drilldownChartData,
     toolTip: {
+      shared: true,
       contentFormatter: function (e) {
         let content = "";
         content +=
@@ -266,7 +267,7 @@ const DailyTrend = ({
       <div className="flex align-items-start justify-content-start gap-2">
         {fifteenDaysData.length > 0 && (
           <Button
-            className={`${backButtonClassName} bg-primary1 text-primary1 text-white text-xs`}
+            className={`${backButtonClassName} bg-primary1  text-white text-xs`}
             onClick={lastFifteenClickHandler}
             label="View Previous Days Trend"
             raised
@@ -274,7 +275,7 @@ const DailyTrend = ({
         )}
 
         <Button
-          className={`${backButtonClassName} bg-primary1 text-primary1 text-white text-xs`}
+          className={`${backButtonClassName} bg-primary1  text-white text-xs`}
           onClick={backButtonClickHandler}
           label="Back"
           raised
