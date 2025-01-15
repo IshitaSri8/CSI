@@ -22,6 +22,12 @@ import employment from "assets/Report/employment.svg";
 
 const CityReportCard = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const natureScore = 77;
+  const societyScore = 80;
+  const adminScore = 70;
+  const overallScore = Math.round(
+    (0.5 * natureScore + 0.3 * societyScore + 0.2 * adminScore) / 3
+  );
 
   const categories = {
     Environment: {
@@ -238,7 +244,7 @@ const CityReportCard = () => {
                 <div className="flex flex-column align-items-start gap-2">
                   <p className="text-xl font-medium text p-0 m-0">Nature</p>
                   <p className="text-4xl font-bold text-secondary2 p-0 m-0">
-                    80
+                    {natureScore}
                   </p>
                 </div>
                 <div className="flex align-items-start justify-content-end ml-5">
@@ -310,7 +316,7 @@ const CityReportCard = () => {
                 <div className="flex flex-column align-items-start gap-2">
                   <p className="text-xl font-medium text p-0 m-0">Society</p>
                   <p className="text-4xl font-bold text-secondary2 p-0 m-0">
-                    80
+                    {societyScore}
                   </p>
                 </div>
                 <div className="flex align-items-start justify-content-end">
@@ -379,7 +385,7 @@ const CityReportCard = () => {
                     Administration
                   </p>
                   <p className="text-4xl font-bold text-secondary2 p-0 m-0">
-                    60
+                    {adminScore}
                   </p>
                 </div>
                 <div className="flex align-items-start justify-content-end">
@@ -421,7 +427,7 @@ const CityReportCard = () => {
                     Overall Score
                   </p>
                   <p className="text-4xl font-bold text-secondary2 p-0 m-0">
-                    70
+                    {overallScore}
                   </p>
                 </div>
                 <div className="flex align-items-start justify-content-end ml-3">

@@ -18,6 +18,7 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import TransportModify from "./TransportModify";
 import { ProgressSpinner } from "primereact/progressspinner";
 import ThreeDotMenu from "components/DashboardUtility/ThreeDotMenu";
+import { useUser } from "components/context/UserContext";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -41,6 +42,8 @@ const Transport = ({ show }) => {
   const vehicleLables = ["Electric", "Hybrid", "Petrol", "Diesel"];
 
   const labels = ["Q1", "Q2", "Q3", "Q4"];
+  const { username } = useUser();
+  console.log("🚀 ~ Transport ~ username:", username);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,8 +52,6 @@ const Transport = ({ show }) => {
         const response = await axios.get(
           "https://api-csi.arahas.com/data/transport"
         );
-
-        // console.log(response.data.data);
 
         const responseData = response.data.data;
 
@@ -170,7 +171,7 @@ const Transport = ({ show }) => {
   };
   const score = 90;
 
-  const getColor = (score) => {
+  const getScoreColor = (score) => {
     if (score >= 81 && score <= 100) {
       return "#0C9D61"; // Green for good
     } else if (score >= 41 && score <= 80) {
@@ -205,24 +206,37 @@ const Transport = ({ show }) => {
       {show && (
         <div className="flex align-items-center justify-content-between w-full gap-3">
           <div className="flex align-items-center justify-content-between w-full ">
-            <div className="flex p-2 w-30rem align-items-center justify-content-between bg-white border-round">
-              <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-                Public Transport
-              </h1>
-              <div className="flex w-4rem custom-circular-progress">
-                <CircularProgressbar
-                  value={score}
-                  text={`${score}`}
-                  strokeWidth={12}
-                  styles={buildStyles({
-                    pathColor: getColor(score),
-                    textColor: "#001F23",
-                    trailColor: "#E7EAEA",
-                    textSize: "2.5rem",
-                    pathTransition: "stroke-dashoffset 0.5s ease 0s",
-                    transform: "rotate(2.25turn)",
-                  })}
-                />
+            <div
+              style={{
+                position: "relative",
+                width: "340px",
+                height: "43px",
+                overflow: "hidden", // Hide overflow if needed
+              }}
+            >
+              <div
+                className="flex align-items-center justify-content-between p-2"
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: getScoreColor(score), // Replace with your desired color
+                  clipPath:
+                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+                }}
+              >
+                <h1
+                  className="m-0 p-0 text-white text-2xl font-semibold"
+                  style={{ zIndex: 1500 }}
+                >
+                  Public Transport
+                </h1>
+                <p
+                  className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                  style={{ zIndex: 1500 }}
+                >
+                  {score}
+                </p>
               </div>
             </div>
             <div className="flex align-items-start flex-column gap-1">
@@ -335,39 +349,43 @@ const Transport = ({ show }) => {
               </div>
             )}
 
-            <Button
-              tooltip="Upload File"
-              onClick={showUploadDialog}
-              raised
-              className="bg-white text-secondary2"
-              icon="pi pi-file-arrow-up"
-              tooltipOptions={{
-                position: "bottom",
-              }}
-            />
-            <Upload
-              visible={uploadDialogVisible}
-              onHide={hideUploadDialog}
-              parameter={"transport"}
-            />
-            <Button
-              tooltip="Modify Data"
-              onClick={handleModify}
-              raised
-              className="bg-white text-secondary2"
-              icon="pi pi-file-edit"
-              tooltipOptions={{
-                position: "bottom",
-              }}
-            />
-            {/* Pass props to TransportModify */}
-            <TransportModify
-              transportData={data}
-              transportSetData={setData}
-              isOpen={modifyDialogVisible}
-              onClose={handleCloseModifyDialog}
-            />
-            <ThreeDotMenu/>
+            {username === "admin" && (
+              <>
+                <Button
+                  tooltip="Upload File"
+                  onClick={showUploadDialog}
+                  raised
+                  className="bg-white text-secondary2"
+                  icon="pi pi-file-arrow-up"
+                  tooltipOptions={{
+                    position: "bottom",
+                  }}
+                />
+                <Upload
+                  visible={uploadDialogVisible}
+                  onHide={hideUploadDialog}
+                  parameter={"transport"}
+                />
+                <Button
+                  tooltip="Modify Data"
+                  onClick={handleModify}
+                  raised
+                  className="bg-white text-secondary2"
+                  icon="pi pi-file-edit"
+                  tooltipOptions={{
+                    position: "bottom",
+                  }}
+                />
+                {/* Pass props to TransportModify */}
+                <TransportModify
+                  transportData={data}
+                  transportSetData={setData}
+                  isOpen={modifyDialogVisible}
+                  onClose={handleCloseModifyDialog}
+                />
+                <ThreeDotMenu />
+              </>
+            )}
             <Button
               tooltip="Generate Report"
               icon="pi pi-file"
