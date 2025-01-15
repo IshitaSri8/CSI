@@ -4,13 +4,15 @@ import signin_ani from "assets/animations/signin.json";
 import Lottie from "lottie-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
-import pathConstants from "pathConstants";
+import pathConstants from "pathConstants"; // Adjust based on your file structure
+import { useUser } from "components/context/UserContext"; // Adjust based on your file structure
 
 const GovernmentDialog = ({ visible, onHide }) => {
   const navigate = useNavigate(); // Initialize useNavigate
   const [username, setUsername] = useState(""); // Username input state
   const [password, setPassword] = useState(""); // Password input state
   const [message, setMessage] = useState(""); // Message to display
+  const { setUsername: setUserInContext } = useUser(); // Use context to set username
 
   const users = [
     {
@@ -35,7 +37,8 @@ const GovernmentDialog = ({ visible, onHide }) => {
 
     if (user) {
       setMessage("Login successful!");
-      navigate(pathConstants.KYC, { state: { username } }); // Pass username in state & Navigate to the KYC page upon successful login
+      setUserInContext(username); // Set username in context
+      navigate(pathConstants.KYC); // Navigate to the KYC page upon successful login
     } else {
       setMessage("Invalid username or password. Please try again.");
     }
