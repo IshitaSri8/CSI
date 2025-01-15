@@ -363,6 +363,7 @@ const AqiDashboard = ({
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             Air Quality Index
           </h1>
+
           <div className="flex align-ites-center justify-content-end gap-2">
             <Button
               label="Filters"

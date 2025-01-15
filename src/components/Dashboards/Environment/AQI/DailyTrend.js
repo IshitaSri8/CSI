@@ -25,7 +25,7 @@ const DailyTrend = ({
   useEffect(() => {
     const dataPoints = Object.entries(dailyAverage).map(([date, value]) => ({
       label: date,
-      x: date,
+      x: new Date(date.split("-").join("-")),
       y: parseFloat(value),
     }));
     dataPoints.sort((a, b) => a.x - b.x);
@@ -55,13 +55,13 @@ const DailyTrend = ({
       }))
       .sort((a, b) => {
         const timeA =
-          parseInt(a.label.split(":")[0]) + parseInt(a.label.split(":")[1]);
+          parseInt(a.label.split(":")[0]) * 60 +
+          parseInt(a.label.split(":")[1]);
         const timeB =
-          parseInt(b.label.split(":")[0]) + parseInt(b.label.split(":")[1]);
+          parseInt(b.label.split(":")[0]) * 60 +
+          parseInt(b.label.split(":")[1]);
         return timeA - timeB;
       });
-
-    console.log("SDD:", selectedDateData);
     setDrilldownChartData([
       {
         color: "#4C9BAC",
