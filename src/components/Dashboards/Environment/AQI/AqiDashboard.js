@@ -562,6 +562,14 @@ const AqiDashboard = ({
             /> */}
           <AqiMap averageAQI={aqiValue} selectedLocation={selectedLocation} />
         </div>
+        <div
+          className="flex flex-column bg-white border-round p-3 gap-3 overflow-y-auto "
+          style={{ flex: "30%" }}
+        >
+          <div className="flex flex-column gap-3">
+            <p className="card-title p-0 m-0">Insights</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex gap-3 w-full bg-white border-round p-4">
