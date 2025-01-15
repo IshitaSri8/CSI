@@ -21,6 +21,7 @@ import { Tag } from "primereact/tag";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import { ProgressSpinner } from "primereact/progressspinner";
+import Upload from "components/DashboardUtility/Popups/Upload";
 
 const AqiDashboard = ({
   onDataChange,
@@ -33,7 +34,7 @@ const AqiDashboard = ({
     pSelectedStartDate ?? new Date("2024-01-01")
   );
   const [endDate, setEndDate] = useState(
-    pSelectedEndDate ?? new Date("2024-08-13")
+    pSelectedEndDate ?? new Date("2025-01-15")
   );
   const [selectedLocation, setSelectedLocation] = useState(
     pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
@@ -61,14 +62,17 @@ const AqiDashboard = ({
   const [loading, setLoading] = useState(true);
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
+  const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const locationsResponse = await axios.get(
           `https://api-csi.arahas.com/data/locations`
         );
         if (locationsResponse.data) {
+          setLoading(false);
           const locationOptions = locationsResponse.data.data.map((data) => ({
             label: data,
             value: data,
@@ -105,7 +109,6 @@ const AqiDashboard = ({
       const filteredData = response.data.data;
       console.log(filteredData);
 
-      const time = [];
       const formattedDate = [];
       const formattedTime = [];
       const pm25 = [];
@@ -116,15 +119,17 @@ const AqiDashboard = ({
       const co2 = [];
 
       filteredData.forEach((item) => {
-        const dateObj = new Date(item.time).toLocaleDateString("en-CA");
-
+        const dateObj = new Date(item.date_time).toLocaleDateString("en-CA", {
+          timeZone: "Asia/Kolkata",
+        });
         formattedDate.push(dateObj);
 
-        const timeObj = new Date(item.time).toLocaleTimeString(
-          {},
-          { hourCycle: "h24" }
-        );
+        const timeObj = new Date(item.date_time).toLocaleTimeString("en-IN", {
+          hour12: false,
+        });
         formattedTime.push(timeObj);
+
+        console.log(dateObj, timeObj);
 
         pm25.push(item.pm25);
         pm10.push(item.pm10);
@@ -176,8 +181,8 @@ const AqiDashboard = ({
       const filteredDataWithDeviation = filteredData
         .filter((item) => item.AQI > 400)
         .map((item) => ({
-          date: formatDate(new Date(item.time)),
-          time: formatTimeToHHMMSS(new Date(item.time)),
+          date: formatDate(new Date(item.date_time)),
+          time: formatTimeToHHMMSS(new Date(item.date_time)),
           aqi: item.AQI,
           deviationPercentage:
             (((item.AQI - 400) / 400) * 100).toFixed(2) + "%",
@@ -233,7 +238,9 @@ const AqiDashboard = ({
   }
 
   const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-CA");
+    return new Date(date).toLocaleDateString("en-CA", {
+      timeZone: "Asia/Kolkata",
+    });
   };
 
   const getAqiStatus = (aqi) => {
@@ -290,6 +297,13 @@ const AqiDashboard = ({
 
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
+  };
+  const showUploadDialog = () => {
+    setUploadDialogVisible(true);
+  };
+
+  const hideUploadDialog = () => {
+    setUploadDialogVisible(false);
   };
 
   const renderRecommendations = () => {
@@ -382,7 +396,21 @@ const AqiDashboard = ({
                 </div>
               </div>
             )}
-
+            <Button
+              icon="pi pi-plus"
+              className="bg-white text-secondary2"
+              onClick={showUploadDialog}
+              raised
+              tooltip="Upload Data"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
+            <Upload
+              visible={uploadDialogVisible}
+              onHide={hideUploadDialog}
+              parameter={"aqi"}
+            />
             <Button
               label="Generate Report"
               icon="pi pi-file"
