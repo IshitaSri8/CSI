@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -27,6 +26,7 @@ export default function AQIReportPrint({
   const handlePrint = useReactToPrint({
     content: () => contentRef.current,
     bodyClass: "p-2",
+    onAfterPrint: () => console.log("Print successful"),
   });
 
   const handleExport = async () => {
@@ -67,6 +67,27 @@ export default function AQIReportPrint({
 
   return (
     <>
+      <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
+        <Button
+          label="Export PDF"
+          icon="pi pi-file-export"
+          size="small"
+          className="bg-primary1"
+          onClick={handleExport}
+          raised
+        />
+        <Button
+          label="Print"
+          icon="pi pi-print"
+          size="small"
+          className="bg-white text-secondary2"
+          onClick={() => {
+            console.log("Attempting to print...");
+            handlePrint();
+          }}
+          raised
+        />
+      </div>
       <div ref={contentRef} className="w-full print-container sec-theme p-4">
         <div className="flex flex-column gap-2 align-items-center w-full">
           <h1
@@ -95,31 +116,13 @@ export default function AQIReportPrint({
           />
         </div>
         <div className="w-full">
-        <h1 className="text-left text-xl">Recommendations</h1>
+          <h1 className="text-left text-xl">Recommendations</h1>
           <AQIRecommendations
             aqi={aqiValue}
             pm25={pm25Value}
             pm10={pm10Value}
           />
         </div>
-      </div>
-      <div className="flex align-items-center justify-content-end p-2 w-full gap-2">
-      <Button
-          label="Export PDF"
-          icon="pi pi-file-export"
-          size="small"
-          className="bg-primary1"
-          onClick={handleExport}
-          raised
-        />
-        <Button
-          label="Print"
-          icon="pi pi-print"
-          size="small"
-          className="bg-white text-secondary2"
-          onClick={handlePrint}
-          raised
-        />
       </div>
     </>
   );

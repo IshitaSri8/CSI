@@ -115,7 +115,7 @@ const GovernmentSidebar = () => {
           {/* <Divider /> */}
           <Button
             icon={<LogOut size={20} />}
-            onClick={() => setVisible(true)}
+            onClick={() => navigate("/")}
             className="border-none border-round-lg"
             style={{
               backgroundColor: "transparent",

@@ -16,7 +16,7 @@ const Administration = () => {
     "Transparency and Accountability",
     "Ethical Leadership",
   ];
-  const adminData = [12, 25, 19];
+  const adminData = [30, 50, 20];
 
   const metrics = [
     {
@@ -67,7 +67,10 @@ const Administration = () => {
               <p className="text-5xl font-semibold text-secondary2 p-0 m-0">
                 70
               </p>
-              <div className="flex align-items-center justify-content-start">
+              <p className="text-tertiary3">
+                Empowering responsible administration for lasting impact.
+              </p>
+              {/* <div className="flex align-items-center justify-content-start">
                 <img
                   src={increase}
                   style={{
@@ -81,7 +84,7 @@ const Administration = () => {
                   <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
                   year.
                 </p>
-              </div>
+              </div> */}
             </div>
             <div className="align-items-start justify-content-end ml-5">
               <img src={admin} alt="admin" className="w-4rem" />
@@ -103,20 +106,23 @@ const Administration = () => {
         </div>
         <div className="flex flex-column" style={{ flex: "50%" }}>
           <div className="flex flex-column border-round-2xl bg-white p-3">
-            <p className="text-xl font-medium p-0 m-0">Summary</p>
-            <p>
-              The score 70 is combined output of all the indicators falling
-              under SDG 11.
+            <p className="text-xl font-medium">Summary</p>
+            <p className="p-0 m-0">
+              The score 70 reflects the combined performance of the key
+              administrative indicators.
             </p>
             <Divider />
-            <p>
-              CSI promotes integrated and balanced urban development strategies.
+            <p className="p-0 m-0">
+              Administration's outstanding performance showcase exceptional
+              efforts towards empowering responsible governance.
             </p>
             <Divider />
-            <p>
-              The score 70 is combined output of all the indicators falling
-              under SDG 11. CSI promotes integrated and balanced urban
-              development strategies.
+            <p className="text-lg font-medium">Indicator Highlights:</p>
+            <p className="p-0 m-0">
+              1. Achiever indicators: Disaster Management
+            </p>
+            <p className="p-0 m-0">
+              2. Areas of Improvement: Transparency and Accountability
             </p>
           </div>
         </div>

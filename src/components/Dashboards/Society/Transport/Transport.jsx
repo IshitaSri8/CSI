@@ -14,16 +14,16 @@ import rickshaw from "assets/rickshaw.svg";
 import bike from "assets/bike.svg";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
-import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import TransportModify from "./TransportModify";
 import { ProgressSpinner } from "primereact/progressspinner";
-import ThreeDotMenu from "components/DashboardUtility/ThreeDotMenu";
 import { useUser } from "components/context/UserContext";
+import { OverlayPanel } from "primereact/overlaypanel";
+import { useRef } from "react";
+import { Menu } from "primereact/menu";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [filterVisible, setFilterVisible] = useState(false);
   const [data, setData] = useState([]);
   const [displayValues, setDisplayValues] = useState("");
   const [selectedValues, setSelectedValues] = useState({
@@ -31,6 +31,22 @@ const Transport = ({ show }) => {
     year: 2024,
     month: 1,
   });
+  const overlayRef = useRef(null); // Reference for OverlayPanel
+  const menu = useRef(null); // Create a ref for the Menu component
+
+  // Define menu items
+  const items = [
+    {
+      label: "Upload",
+      icon: "pi pi-upload",
+      command: () => showUploadDialog(), // Implement your upload logic here
+    },
+    {
+      label: "Modify",
+      icon: "pi pi-pencil",
+      command: () => handleModify(), // Implement your modify logic here
+    },
+  ];
   const [tempRoute, setTempRoute] = useState("Rikabgunj to Nihawa Road");
   const [tempYear, setTempYear] = useState(2024);
   const [tempMonth, setTempMonth] = useState(1);
@@ -132,7 +148,8 @@ const Transport = ({ show }) => {
       year: tempYear,
       month: tempMonth,
     });
-    setFilterVisible(false);
+    // setFilterVisible(false);
+    overlayRef.current.hide(); // Hide overlay after applying filters
   };
   const resetFilters = () => {
     setSelectedValues({
@@ -169,7 +186,7 @@ const Transport = ({ show }) => {
   const renderDashboard = () => {
     return <Transport show={false} />;
   };
-  const score = 90;
+  const score = 20;
 
   const getScoreColor = (score) => {
     if (score >= 81 && score <= 100) {
@@ -206,6 +223,7 @@ const Transport = ({ show }) => {
       {show && (
         <div className="flex align-items-center justify-content-between w-full gap-3">
           <div className="flex align-items-center justify-content-between w-full ">
+            {/* Title & Score */}
             <div
               style={{
                 position: "relative",
@@ -239,6 +257,7 @@ const Transport = ({ show }) => {
                 </p>
               </div>
             </div>
+            {/* Selected  location & Date */}
             <div className="flex align-items-start flex-column gap-1">
               {/* location */}
               <div className="flex align-items-center gap-1">
@@ -257,124 +276,88 @@ const Transport = ({ show }) => {
               </div>
             </div>
           </div>
+
           <div className="flex align-items-center justify-content-end gap-2">
+            {/* Button to trigger the OverlayPanel */}
             <Button
               tooltip="Filters"
               tooltipOptions={{
                 position: "bottom",
               }}
               icon="pi pi-filter"
-              onClick={() => setFilterVisible(!filterVisible)}
+              onClick={(e) => overlayRef.current.toggle(e)}
               className="bg-white text-secondary2"
               raised
             />
-            {filterVisible && (
-              <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2"
-                style={{
-                  zIndex: 1000, // Ensures the filter appears above other components
-                  position: "absolute", // Required for z-index to work
-                  transform: "translateY(60%) translateX(-50%)",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <div className="flex flex-column gap-3">
-                  <div className="flex flex-column align-items-center justify-content-center gap-2 ">
-                    <Dropdown
-                      // value={selectedValues.routes}
-                      // onChange={(e) =>
-                      //   setSelectedValues({
-                      //     ...selectedValues,
-                      //     routes: e.value,
-                      //   })
-                      // }
-                      value={tempRoute}
-                      onChange={(e) => setTempRoute(e.value)}
-                      options={[
-                        // Use null or a specific value to indicate 'All Zones'
-                        ...routes.map((div) => ({
-                          label: div,
-                          value: div,
-                        })),
-                      ]}
-                      placeholder="Select Route"
-                      className="w-full"
-                    />
-                    <Dropdown
-                      // value={selectedValues.year}
-                      // onChange={(e) =>
-                      //   setSelectedValues({ ...selectedValues, year: e.value })
-                      // }
-                      value={tempYear}
-                      onChange={(e) => setTempYear(e.value)}
-                      options={year.map((year) => ({
-                        label: year,
-                        value: year,
-                      }))}
-                      placeholder="Select Year"
-                      className="w-full"
-                    />
-                    <Dropdown
-                      // value={selectedValues.month}
-                      // onChange={(e) =>
-                      //   setSelectedValues({ ...selectedValues, month: e.value })
-                      // }
-                      value={tempMonth}
-                      onChange={(e) => setTempMonth(e.value)}
-                      options={monthNames.map((name, index) => ({
-                        label: name, // Display month name
-                        value: index + 1, // Store month number (1-12)
-                      }))}
-                      placeholder="Select Month"
-                      className="w-full"
-                    />
-                  </div>
-                  <div className="flex justify-content-between">
-                    <Button
-                      className="bg-white text-moderate border-none"
-                      label="Reset"
-                      // icon="pi pi-search"
-                      onClick={resetFilters}
-                      raised
-                    />
-                    <Button
-                      className="bg-primary1"
-                      label="Apply"
-                      // icon="pi pi-search"
-                      onClick={handleApply}
-                      raised
-                    />
-                  </div>
+
+            <OverlayPanel
+              ref={overlayRef}
+              style={{ width: "20rem" }}
+              className="p-overlay-panel"
+            >
+              <div className="flex flex-column gap-3">
+                <div className="flex flex-column align-items-center justify-content-center gap-2">
+                  <Dropdown
+                    value={tempRoute}
+                    onChange={(e) => setTempRoute(e.value)}
+                    options={routes.map((route) => ({
+                      label: route,
+                      value: route,
+                    }))}
+                    placeholder="Select Route"
+                    className="w-full"
+                  />
+                  <Dropdown
+                    value={tempYear}
+                    onChange={(e) => setTempYear(e.value)}
+                    options={year.map((year) => ({
+                      label: year,
+                      value: year,
+                    }))}
+                    placeholder="Select Year"
+                    className="w-full"
+                  />
+                  <Dropdown
+                    value={tempMonth}
+                    onChange={(e) => setTempMonth(e.value)}
+                    options={monthNames.map((name, index) => ({
+                      label: name,
+                      value: index + 1,
+                    }))}
+                    placeholder="Select Month"
+                    className="w-full"
+                  />
+                </div>
+                <div className="flex justify-content-between">
+                  <Button
+                    className="bg-white text-moderate border-none"
+                    label="Reset"
+                    onClick={resetFilters}
+                    raised
+                  />
+                  <Button
+                    className="bg-primary1"
+                    label="Apply"
+                    onClick={handleApply}
+                    raised
+                  />
                 </div>
               </div>
-            )}
+            </OverlayPanel>
 
             {username === "admin" && (
               <>
                 <Button
-                  tooltip="Upload File"
-                  onClick={showUploadDialog}
+                  icon="pi pi-ellipsis-v"
+                  onClick={(e) => menu.current.toggle(e)}
+                  className="bg-primary1"
                   raised
-                  className="bg-white text-secondary2"
-                  icon="pi pi-file-arrow-up"
-                  tooltipOptions={{
-                    position: "bottom",
-                  }}
                 />
+                <Menu model={items} ref={menu} popup />
                 <Upload
                   visible={uploadDialogVisible}
                   onHide={hideUploadDialog}
                   parameter={"transport"}
-                />
-                <Button
-                  tooltip="Modify Data"
-                  onClick={handleModify}
-                  raised
-                  className="bg-white text-secondary2"
-                  icon="pi pi-file-edit"
-                  tooltipOptions={{
-                    position: "bottom",
-                  }}
                 />
                 {/* Pass props to TransportModify */}
                 <TransportModify
@@ -383,12 +366,11 @@ const Transport = ({ show }) => {
                   isOpen={modifyDialogVisible}
                   onClose={handleCloseModifyDialog}
                 />
-                <ThreeDotMenu />
               </>
             )}
             <Button
-              tooltip="Generate Report"
               icon="pi pi-file"
+              tooltip="Generate Report"
               tooltipOptions={{
                 position: "bottom",
               }}
@@ -624,14 +606,92 @@ const Transport = ({ show }) => {
             </div>
             {/* Insights */}
             <div
-              className="flex flex-column p-3 border-round bg-white gap-3"
+              className="flex flex-column p-3 border-round bg-white gap-3 overflow-y-auto h-27rem"
               style={{ flex: "27%" }}
             >
               <p className="card-text p-0 m-0">Insights:</p>
-              <p className="text-primary1 font-medium p-0 m-0">
-                Lorem ipsum some text will come here explaining what needs to be
-                done for improvement of transport facilities in the city.{" "}
-              </p>
+              {/* {displayValues.Petrol + displayValues.Diesel >
+                displayValues.Electric + displayValues.Hybrid && ( */}
+              <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                The fleet is moving towards sustainable transportation, as{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {displayValues.Electric + displayValues.Hybrid}
+                </span>{" "}
+                buses are electric or hybrid. {/* (25.4%).  */}
+                However, a significant portion{" "}
+                <span className="m-0 p-0 font-semibold text-red-500 text-sm">
+                  (
+                  {(
+                    ((displayValues.Petrol + displayValues.Diesel) /
+                      (displayValues.Electric +
+                        displayValues.Hybrid +
+                        displayValues.Petrol +
+                        displayValues.Diesel)) *
+                    100
+                  ).toFixed(2)}
+                  %)
+                </span>{" "}
+                still rely on petrol or diesel. Expanding the number of charging
+                stations (currently{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {displayValues.Charging_Stations}
+                </span>
+                ) could support a shift towards a greener fleet.
+              </li>
+              {/* )} */}
+              <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                The quarterly increase in buses requiring maintenance checks
+                suggests wear and tear is accelerating, likely due to aging
+                buses or increased operational intensity.
+              </li>
+              <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                The{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {displayValues.Route_Name}
+                </span>{" "}
+                route is hotspot for passenger demand during peak hours from{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {displayValues.Peak_Hour}
+                </span>
+                . Allocating more buses, especially larger or higher-capacity
+                ones, during these times and routes could improve service
+                efficiency.
+              </li>
+              <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                During non-peak hours{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {displayValues.Non_Peak_Hour}
+                </span>
+                , the route from{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {displayValues.Route_Name}
+                </span>{" "}
+                may experience underutilization of buses. Strategies like
+                reducing the fleet during these hours or offering incentives
+                (discounted fares or promotions) could balance demand and
+                operational efficiency.
+              </li>
+              <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                Despite having{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {displayValues.Disabled_Friendly_Buses}
+                </span>{" "}
+                disability-friendly buses (
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {(
+                    (displayValues.Disabled_Friendly_Buses /
+                      (displayValues.Electric +
+                        displayValues.Hybrid +
+                        displayValues.Petrol +
+                        displayValues.Diesel)) *
+                    100
+                  ).toFixed(0)}
+                  %
+                </span>{" "}
+                of the fleet), there is room for improvement to ensure
+                inclusivity, especially if these buses do not operate on the
+                busiest routes or during peak hours.
+              </li>
             </div>
           </div>
 

@@ -22,6 +22,7 @@ import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Upload from "components/DashboardUtility/Popups/Upload";
+import { Tooltip } from "primereact/tooltip";
 
 const AqiDashboard = ({
   onDataChange,
@@ -320,7 +321,10 @@ const AqiDashboard = ({
 
           <div className="flex align-ites-center justify-content-end gap-2">
             <Button
-              label="Filters"
+              tooltip="Filters"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               icon="pi pi-filter"
               onClick={() => setFilterVisible(!filterVisible)}
               className="bg-white text-secondary2"
@@ -328,10 +332,10 @@ const AqiDashboard = ({
             />
             {filterVisible && (
               <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2"
+                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2 fixed"
                 style={{
                   zIndex: 1000, // Ensures the filter appears above other components
-                  position: "absolute", // Required for z-index to work
+                  position: "relative", // Required for z-index to work
                   transform: "translateY(15%) translateX(-70%)",
                   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                 }}

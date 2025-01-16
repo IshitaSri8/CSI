@@ -10,10 +10,11 @@ const CSIVideo = () => {
         src="https://res.cloudinary.com/dsuflgnfi/video/upload/v1727949657/video/ebvtch3zeba4rcsywsrk.mp4"
         controls
         style={{
-          width: "60%",
+          width: "100%",
           height: "auto",
           borderRadius: "1rem",
         }}
+        loop
       />
 
       {/* Heading Card (Top Left Corner) */}
@@ -25,7 +26,7 @@ const CSIVideo = () => {
           width: "18rem",
           height: "6rem",
           borderRadius: "1rem",
-          transform: "translate(50%, 40%)",
+          transform: "translate(10%, 40%)",
         }}
       >
         <div style={{ marginTop: -30 }}>
@@ -44,7 +45,7 @@ const CSIVideo = () => {
           width: "18rem",
           borderRadius: "1rem",
           height: "8rem",
-          transform: "translate(-50%, -20%)",
+          transform: "translate(-10%, -20%)",
         }}
       >
         <div style={{ marginTop: -30 }}>

@@ -12,13 +12,28 @@ import government from "../assets/Citizen/csi for gov.png";
 import report_ss from "assets/report_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
 import indicator_ss from "assets/aqi_ss.png";
+import csi from "assets/csi.mp4";
 const Government = () => {
   return (
-    <div className="flex flex-column w-full">
+    <div className="flex flex-column w-full ">
       {/* Header */}
       <Header />
-      <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen relative">
-        <img src={government} alt="government" className="w-full " />
+      <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen relative ">
+        <div className="w-full h-screen">
+          <video
+            autoPlay
+            muted
+            loop
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          >
+            <source src={csi} type="video/mp4" />
+          </video>
+        </div>
         <div
           className="border-round-xl p-2"
           style={{
@@ -38,9 +53,9 @@ const Government = () => {
         </div>
       </div>
 
-      <div className="flex flex-column px-4 align-items-center justify-content-center">
+      <div className="flex flex-column px-4 align-items-center justify-content-center View">
         {/*First Card*/}
-        <div className="flex w-full m-4">
+        <div className="flex w-full m-4 block">
           {/* Image Column */}
           <div style={{ flex: "60%", position: "relative" }}>
             <img
@@ -98,7 +113,7 @@ const Government = () => {
         </div>
 
         {/*Second Card*/}
-        <div className="w-full flex mx-4">
+        <div className="w-full flex mx-4 block">
           <div
             className="flex align-items-center justify-content-center p-8"
             style={{
@@ -174,7 +189,7 @@ const Government = () => {
         </div>
 
         {/*Third Card*/}
-        <div className="flex w-full m-4">
+        <div className="flex w-full m-4 block">
           {/* Image Column */}
           <div style={{ flex: "60%", position: "relative" }}>
             <img
