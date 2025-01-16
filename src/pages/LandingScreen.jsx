@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Button } from "primereact/button";
 import "primeflex/primeflex.css";
-import MySvgImage from "../assets/Landing Page revised illustration 1.svg";
+import MySvgImage from "assets/Landing Page revised illustration 1.svg";
 import CSISteps from "../components/landingPage/CSISteps";
 import Testimonials from "../components/landingPage/Testimonials";
 import Footer from "../components/landingPage/Footer";
@@ -14,6 +14,8 @@ import Parameters from "../components/landingPage/Parameters";
 import FAQChatbot from "../components/landingPage/FAQChatbot";
 import { ScrollTop } from "primereact/scrolltop";
 import FloatingSidebar from "components/landingPage/FloatingSidebar";
+import Landing from "components/landingPage/Landing";
+import LandingCarousel from "components/landingPage/LandingCarousel";
 
 // Main LandingScreen component
 const LandingScreen = () => {
@@ -22,6 +24,13 @@ const LandingScreen = () => {
 
   const userDialogRef = useRef(null);
   const [successMessage, setSuccessMessage] = useState("");
+
+  // Function to scroll to CSI Steps
+  const scrollToCSISteps = () => {
+    if (csiStepsRef.current) {
+      csiStepsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const handleGetInTouchClick = () => {
     if (userDialogRef.current) {
@@ -32,13 +41,6 @@ const LandingScreen = () => {
   // Callback to set the success message from the dialog component
   const handleSuccess = (message) => {
     setSuccessMessage(message);
-  };
-
-  // Function to scroll to CSI Steps
-  const scrollToCSISteps = () => {
-    if (csiStepsRef.current) {
-      csiStepsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
   };
 
   const sections = [
@@ -57,42 +59,7 @@ const LandingScreen = () => {
       <Header />
 
       {/* Add top padding to avoid overlap with fixed header */}
-      <div style={{ paddingTop: "5rem" }} className="View">
-        {/* Main Content */}
-
-        {/* Main Content */}
-        <div
-          className="flex flex-column gap-1 mt-5 align-items-center md:flex-wrap block"
-          style={{ textAlign: "center" }}
-        >
-          <p className="text-4xl text-primary1 m-0 p-0 font-bold">
-            City Sustainability Index
-          </p>
-          <p className="text-4xl text-primary1 m-0 p-0 font-medium">
-            Measuring and Boosting Urban Sustainability
-          </p>
-          <p className="text-xl text font-medium">
-            Empowering governments, businesses and citizens to track and improve
-            urban sustainability for a greener future.
-          </p>
-
-          {/* Know Your City Button */}
-          <Button
-            label="Explore More"
-            icon="pi pi-globe"
-            className="bg-primary1 mb-3"
-            raised
-            onClick={scrollToCSISteps} // Add onClick handler
-          />
-
-          {/* Landing SVG Image */}
-          <img
-            className="w-full"
-            src={MySvgImage}
-            alt="Landing Illustration"
-            // style={{ width: "80rem" }}
-          />
-        </div>
+      <div style={{ paddingTop: "5rem" }} className="View bg-white">
         {/* <Divider /> */}
         <FAQChatbot />
         {/* Card Section */}

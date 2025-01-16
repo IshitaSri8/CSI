@@ -29,11 +29,11 @@ const CitizenSidebar = () => {
   const breadcrumbItems =
     activeTab === "kyc"
       ? [
-          { label: "CSI For Citizen", url: "/citizens" },
+          { label: "CSI For Citizen", url: "/citizen" },
           { label: "Know Your City" },
         ]
       : [
-          { label: "CSI For Citizen", url: "/citizens" },
+          { label: "CSI For Citizen", url: "/citizen" },
           { label: "City Report Card" },
         ];
 
@@ -80,7 +80,7 @@ const CitizenSidebar = () => {
           />
           <Button
             icon={<LogOut size={18} />}
-            onClick={() => setVisible(true)}
+            onClick={() => navigate("/")}
             className="border-none border-round-lg"
             style={{
               backgroundColor: "#69ABB9",
