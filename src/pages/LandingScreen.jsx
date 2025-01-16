@@ -57,12 +57,12 @@ const LandingScreen = () => {
       <Header />
 
       {/* Add top padding to avoid overlap with fixed header */}
-      <div style={{ paddingTop: "5rem" }}>
+      <div style={{ paddingTop: "5rem" }} className="View">
         {/* Main Content */}
 
         {/* Main Content */}
         <div
-          className="flex flex-column gap-1 mt-5 align-items-center md:flex-wrap"
+          className="flex flex-column gap-1 mt-5 align-items-center md:flex-wrap block"
           style={{ textAlign: "center" }}
         >
           <p className="text-4xl text-primary1 m-0 p-0 font-bold">
@@ -98,7 +98,7 @@ const LandingScreen = () => {
         {/* Card Section */}
         <div
           ref={csiStepsRef} // Set the ref here
-          className="flex justify-content-center gap-6 flex-nowrap w-full overflow-auto pl-5 pr-5"
+          className="flex justify-content-center gap-6 flex-nowrap w-full overflow-auto pl-5 pr-5 block"
           id="csi-steps"
         >
           {/* {cardData.map((card, index) => (
@@ -112,19 +112,19 @@ const LandingScreen = () => {
           <CSISteps />
         </div>
 
-        <div className="flex sec-theme" id="csi-video">
+        <div className="flex sec-theme block" id="csi-video">
           <CSIVideo />
         </div>
 
         <div
-          className="flex justify-content-center w-full overflow-auto p-5"
+          className="flex justify-content-center w-full overflow-auto p-5 block"
           id="parameters"
         >
           <Parameters />
         </div>
 
-        <div className="flex flex-column" id="questions">
-          <div className="flex bg-theme text-white">
+        <div className="flex flex-column " id="questions">
+          <div className="flex bg-theme text-white block">
             <Questions
               textTheme="white"
               question="What is the City Sustainability Index (CSI)?"
@@ -158,7 +158,7 @@ const LandingScreen = () => {
             />
           </div>
 
-          <div className="flex sec-theme">
+          <div className="flex sec-theme block">
             <Questions
               question="Why is the CSI important for cities, and who benefits from it?"
               points={[
@@ -191,7 +191,7 @@ const LandingScreen = () => {
             />
           </div>
 
-          <div className="flex bg-theme text-white">
+          <div className="flex bg-theme text-white block">
             <Questions
               textTheme="white"
               question="How can cities leverage CSI to enhance their sustainability efforts?"
@@ -226,7 +226,7 @@ const LandingScreen = () => {
           </div>
         </div>
         <ScrollTop />
-        <div className="flex sec-theme p-8" id="testimonials">
+        <div className="flex sec-theme p-8 block" id="testimonials">
           <Testimonials />
         </div>
         {/* <iframe
@@ -238,7 +238,7 @@ const LandingScreen = () => {
           allowFullScreen="true"
         ></iframe> */}
         <div
-          className="px-8"
+          className="px-8 block"
           style={{
             background: "linear-gradient(to bottom, #E9F3F5 50%, #166c7d 50%)",
           }}
