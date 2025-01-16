@@ -64,7 +64,7 @@ const AqiDashboard = ({
   const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
-
+  const [aqiStats, setAqiStats] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -106,7 +106,6 @@ const AqiDashboard = ({
         `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
       const filteredData = response.data.data;
-      console.log(filteredData);
 
       const formattedDate = [];
       const formattedTime = [];
@@ -127,8 +126,6 @@ const AqiDashboard = ({
           hour12: false,
         });
         formattedTime.push(timeObj);
-
-        console.log(dateObj, timeObj);
 
         pm25.push(item.pm25);
         pm10.push(item.pm10);
@@ -171,12 +168,49 @@ const AqiDashboard = ({
             pm10Value: averagepm10,
           });
         }
+
         setAqiStatus(getAqiStatus(averageAqi));
       } else {
         setAqiValue(null);
         setAqiStatus({ status: "", color: "", textColor: "", image: null });
       }
+      const calculateAqiStats = (filteredData) => {
+        if (filteredData.length === 0) return {};
 
+        const aqiValues = filteredData.map((item) => item.AQI);
+        const pm25Values = filteredData.map((item) => item.pm25);
+        const pm10Values = filteredData.map((item) => item.pm10);
+        const dateTimeValues = filteredData.map(
+          (item) => new Date(item.date_time)
+        );
+
+        const maxAqi = Math.max(...aqiValues);
+        const minAqi = Math.min(...aqiValues);
+
+        const maxAqiIndex = aqiValues.indexOf(maxAqi);
+        const minAqiIndex = aqiValues.indexOf(minAqi);
+
+        return {
+          max: {
+            value: maxAqi,
+            dateTime: dateTimeValues[maxAqiIndex].toLocaleString("en-IN", {
+              timeZone: "Asia/Kolkata",
+            }),
+            pm25: pm25Values[maxAqiIndex],
+            pm10: pm10Values[maxAqiIndex],
+          },
+          min: {
+            value: minAqi,
+            dateTime: dateTimeValues[minAqiIndex].toLocaleString("en-IN", {
+              timeZone: "Asia/Kolkata",
+            }),
+            pm25: pm25Values[minAqiIndex],
+            pm10: pm10Values[minAqiIndex],
+          },
+        };
+      };
+      console.log(calculateAqiStats(filteredData));
+      setAqiStats(calculateAqiStats(filteredData));
       const filteredDataWithDeviation = filteredData
         .filter((item) => item.AQI > 400)
         .map((item) => ({
@@ -276,12 +310,10 @@ const AqiDashboard = ({
       };
     }
   };
-  console.log(startDate, endDate);
 
   const {
     status: aqiStatusText,
-    color,
-    textColor,
+
     image: aqiImage,
   } = aqiStatus;
 
@@ -428,12 +460,6 @@ const AqiDashboard = ({
           setReportVisible(false);
         }}
       >
-        {/* <AQIReportPrint
-          show={false}
-          selectedLocation={selectedLocation}
-          startDate={startDate}
-          endDate={endDate}
-        /> */}
         <ReportPrint
           renderDashboard={renderDashboard}
           renderRecommendations={renderRecommendations}
@@ -442,7 +468,10 @@ const AqiDashboard = ({
         />
       </Dialog>
 
-      <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
+      <div
+        className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4"
+        style={{ flex: "10%" }}
+      >
         {selectedLocation && (
           <div
             className="border-round-xl p-2"
@@ -459,13 +488,6 @@ const AqiDashboard = ({
               >
                 {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
               </h1>
-
-              {/* <h1
-                  className={`border-round-2xl py-2 px-3 text-xs text-white text-left`}
-                  style={{ backgroundColor: aqiStatus.color }}
-                >
-                  {aqiStatus.status || "No Status"}
-                </h1> */}
 
               {aqiImage && (
                 <img
@@ -486,7 +508,7 @@ const AqiDashboard = ({
           </div>
         )}
 
-        <div className="w-full">
+        <div className="w-full" style={{ flex: "35%" }}>
           {loading ? (
             <div className="w-full">
               <TableSkeleton />
@@ -557,15 +579,54 @@ const AqiDashboard = ({
           )}
         </div>
 
-        <div className="w-full border-round-2xl">
+        <div className="w-full border-round-2xl" style={{ flex: "25%" }}>
           <AqiMap averageAQI={aqiValue} selectedLocation={selectedLocation} />
         </div>
         <div
           className="flex flex-column bg-white border-round p-3 gap-3 overflow-y-auto "
           style={{ flex: "30%" }}
         >
-          <div className="flex flex-column gap-3">
+          {/* Insights */}
+          <div className="flex flex-column bg-white border-round h-13rem p-3 gap-3 overflow-y-auto ">
             <p className="card-title p-0 m-0">Insights</p>
+            <div className="flex flex-column align-items-start justify-content-start gap-2">
+              <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                There are total{" "}
+                <span className="m-0 p-0 font-semibold text-sm text-red-500">
+                  {dataTableData.length}
+                </span>{" "}
+                outlier values where the AQI is greater than Safe Limit(400).
+              </li>
+            </div>
+            <div className="flex flex-column align-items-start justify-content-start gap-2">
+              <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                The Maximum AQI in the selected range was{" "}
+                <span className="m-0 p-0 font-semibold text-sm text-red-500">
+                  {aqiStats.max.value}
+                </span>{" "}
+                at {aqiStats.max.dateTime}. The pm2.5 value was{" "}
+                {aqiStats.max.pm25} & pm10 value was {aqiStats.max.pm10} at
+                outlier values where the AQI is greater than Safe Limit(400).
+              </li>
+            </div>
+            <div className="flex flex-column align-items-start justify-content-start gap-2">
+              <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                The Minimum AQI in the selected range was{" "}
+                <span className="m-0 p-0 font-semibold text-sm text-green-500">
+                  {aqiStats.min.value}
+                </span>{" "}
+                at{" "}
+                <span className="m-0 p-0 font-semibold text-sm ">
+                  {aqiStats.min.dateTime}
+                </span>{" "}
+                . The pm2.5 value was
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {aqiStats.min.value}
+                </span>{" "}
+                & pm10 value was {aqiStats.min.pm10} at outlier values where the
+                AQI is greater than Safe Limit(400).
+              </li>
+            </div>
           </div>
         </div>
       </div>

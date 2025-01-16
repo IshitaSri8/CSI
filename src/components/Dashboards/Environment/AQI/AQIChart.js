@@ -22,17 +22,6 @@ const AQIChart = ({
   const [dailyData, setDailyData] = useState(null);
   const [fifteenDaysData, setFifteenDaysData] = useState(null);
 
-  console.log(
-    enviroDate,
-    envirotime,
-    enviroPM25,
-    enviroPM10,
-    enviroSO2,
-    enviroAQI,
-    enviroNO2,
-    enviroco2,
-    startDate
-  );
   const getSelectedYear = () => {
     return new Date(selectedDate).getFullYear(); // Extract year from selectedDate
   };
@@ -94,7 +83,6 @@ const AQIChart = ({
     // Calculate date 15 days ago
     const fifteenDaysAgo = new Date(selectedDate);
 
-    console.log(fifteenDaysAgo.getDate() - 15);
     fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
 
     // Filter data for the last 15 days
@@ -115,8 +103,6 @@ const AQIChart = ({
       }
       return acc;
     }, []);
-
-    console.log("Filtered:", filteredData);
 
     // Remove duplicates and sort by date and time
     const uniqueData = Array.from(

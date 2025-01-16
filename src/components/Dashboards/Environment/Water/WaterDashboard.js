@@ -53,7 +53,7 @@ const WaterDashboard = ({ show }) => {
   const [tempZone, setTempZone] = useState("All Zones");
   const [tempYear, setTempYear] = useState(2024);
   const [tempMonth, setTempMonth] = useState(1);
-
+  const [billColor, setBillColor] = useState();
   const [displayValues, setDisplayValues] = useState("");
   const [color, setColor] = useState("");
 
@@ -200,9 +200,19 @@ const WaterDashboard = ({ show }) => {
               ((displayValues.Population * 135) / 1000000).toFixed(2)) *
             100
           ).toFixed(2) < 0
-            ? "0C9D61"
+            ? "#0C9D61"
             : "#E62225";
-
+        const billColor =
+          displayValues &&
+          (
+            100 -
+            (displayValues.Households_Bill_Payment /
+              displayValues.No_of_Households_with_Meters) *
+              100
+          ).toFixed(2) < 15
+            ? "#0C9D61"
+            : "#E62225";
+        setBillColor(billColor);
         setColor(color);
         setDisplayValues(displayValues);
 
@@ -855,9 +865,14 @@ const WaterDashboard = ({ show }) => {
                 )}
                 <div className="flex gap-2 align-items-start">
                   <li className="p-0 m-0 text-primary1 font-medium text-sm">
-                    The
+                    The{" "}
                     <span className="p-0 m-0 text-red-500 font-semibold text-sm">
-                      {displayValues.Households_Bill_Payment}
+                      {`${(
+                        100 -
+                        (displayValues.Households_Bill_Payment /
+                          displayValues.No_of_Households_with_Meters) *
+                          100
+                      ).toFixed(2)}%`}
                     </span>{" "}
                     due bill payment rate indicates inefficiency in billing
                     collection or challenge in payment processes, affecting the
@@ -984,7 +999,7 @@ const WaterDashboard = ({ show }) => {
                       ).toFixed(2)}%`}
                       strokeWidth={7}
                       styles={buildStyles({
-                        pathColor: "#E62225",
+                        pathColor: `${billColor}`,
                         textColor: "#001F23",
                         trailColor: "#E7EAEA",
                         textSize: "1.5rem",
