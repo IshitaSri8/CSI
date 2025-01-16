@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Button } from "primereact/button";
 import "primeflex/primeflex.css";
-import MySvgImage from "../assets/Landing Page revised illustration 1.svg";
+import MySvgImage from "assets/Landing Page revised illustration 1.svg";
 import CSISteps from "../components/landingPage/CSISteps";
 import Testimonials from "../components/landingPage/Testimonials";
 import Footer from "../components/landingPage/Footer";
@@ -24,6 +24,13 @@ const LandingScreen = () => {
   const userDialogRef = useRef(null);
   const [successMessage, setSuccessMessage] = useState("");
 
+  // Function to scroll to CSI Steps
+  const scrollToCSISteps = () => {
+    if (csiStepsRef.current) {
+      csiStepsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const handleGetInTouchClick = () => {
     if (userDialogRef.current) {
       userDialogRef.current.openDialog();
@@ -33,13 +40,6 @@ const LandingScreen = () => {
   // Callback to set the success message from the dialog component
   const handleSuccess = (message) => {
     setSuccessMessage(message);
-  };
-
-  // Function to scroll to CSI Steps
-  const scrollToCSISteps = () => {
-    if (csiStepsRef.current) {
-      csiStepsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
   };
 
   const sections = [

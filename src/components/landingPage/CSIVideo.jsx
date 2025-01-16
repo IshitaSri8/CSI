@@ -10,7 +10,7 @@ const CSIVideo = () => {
         src="https://res.cloudinary.com/dsuflgnfi/video/upload/v1727949657/video/ebvtch3zeba4rcsywsrk.mp4"
         controls
         style={{
-          width: "90%",
+          width: "100%",
           height: "auto",
           borderRadius: "1rem",
         }}

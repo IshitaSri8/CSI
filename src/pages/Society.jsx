@@ -93,7 +93,7 @@ const Society = () => {
               <p className="text-5xl font-semibold text-secondary2 p-0 m-0">
                 80
               </p>
-              <div className="flex align-items-center justify-content-start">
+              {/* <div className="flex align-items-center justify-content-start">
                 <img
                   src={increase}
                   style={{
@@ -107,7 +107,10 @@ const Society = () => {
                   <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
                   year.
                 </p>
-              </div>
+              </div> */}
+              <p className="text-tertiary3">
+                Empowering sustainable changes, enriching diverse lives.
+              </p>
             </div>
             <div className="align-items-start justify-content-end ml-5">
               <img src={society} alt="society" className="w-4rem" />
@@ -129,21 +132,22 @@ const Society = () => {
         </div>
         <div className="flex flex-column" style={{ flex: "50%" }}>
           <div className="flex flex-column border-round-2xl bg-white p-3">
-            <p className="text-xl font-medium p-0 m-0">Summary</p>
-            <p>
-              The score 80 is combined output of all the indicators falling
-              under SDG 11.
+            <p className="text-xl font-medium">Summary</p>
+            <p className="p-0 m-0">
+              The score 80 reflects the combined performance of the key societal
+              indicators.
             </p>
             <Divider />
-            <p>
-              CSI promotes integrated and balanced urban development strategies.
+            <p className="p-0 m-0">
+              Society's outstanding performance showcase remarkable efforts
+              towards enhancing quality of life and well-being.
             </p>
             <Divider />
-            <p>
-              The score 70 is combined output of all the indicators falling
-              under SDG 11. CSI promotes integrated and balanced urban
-              development strategies.
+            <p className="text-lg font-medium">Indicator Highlights:</p>
+            <p className="p-0 m-0">
+              1. Achiever indicators: Healthcare, Education
             </p>
+            <p className="p-0 m-0">2. Areas of Improvement: Public Transport</p>
           </div>
         </div>
       </div>
