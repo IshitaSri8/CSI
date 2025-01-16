@@ -7,13 +7,14 @@ import Testimonials from "../components/landingPage/Testimonials";
 import Footer from "../components/landingPage/Footer";
 import CSIVideo from "../components/landingPage/CSIVideo";
 import Questions from "../components/landingPage/Questions";
-
+import csi_video from "assets/csi_new.mp4";
 import UserDialog from "../components/landingPage/UserDialog";
 import Header from "../Layout/Header";
 import Parameters from "../components/landingPage/Parameters";
 import FAQChatbot from "../components/landingPage/FAQChatbot";
 import { ScrollTop } from "primereact/scrolltop";
 import FloatingSidebar from "components/landingPage/FloatingSidebar";
+import { translate } from "ol/transform";
 
 // Main LandingScreen component
 const LandingScreen = () => {
@@ -57,42 +58,24 @@ const LandingScreen = () => {
       <Header />
 
       {/* Add top padding to avoid overlap with fixed header */}
-      <div style={{ paddingTop: "5rem" }} className="View">
+      <div className="View bg-white flex flex-column ">
         {/* Main Content */}
-
-        {/* Main Content */}
-        <div
-          className="flex flex-column gap-1 mt-5 align-items-center md:flex-wrap block"
-          style={{ textAlign: "center" }}
-        >
-          <p className="text-4xl text-primary1 m-0 p-0 font-bold">
-            City Sustainability Index
-          </p>
-          <p className="text-4xl text-primary1 m-0 p-0 font-medium">
-            Measuring and Boosting Urban Sustainability
-          </p>
-          <p className="text-xl text font-medium">
-            Empowering governments, businesses and citizens to track and improve
-            urban sustainability for a greener future.
-          </p>
-
-          {/* Know Your City Button */}
-          <Button
-            label="Explore More"
-            icon="pi pi-globe"
-            className="bg-primary1 mb-3"
-            raised
-            onClick={scrollToCSISteps} // Add onClick handler
-          />
-
-          {/* Landing SVG Image */}
-          <img
-            className="w-full"
-            src={MySvgImage}
-            alt="Landing Illustration"
-            // style={{ width: "80rem" }}
-          />
+        <div className="w-full h-screen">
+          <video
+            autoPlay
+            muted
+            loop
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          >
+            <source src={csi_video} type="video/mp4" />
+          </video>
         </div>
+
         {/* <Divider /> */}
         <FAQChatbot />
         {/* Card Section */}

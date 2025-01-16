@@ -851,6 +851,17 @@ const WaterDashboard = ({ show }) => {
                     </li>
                   </>
                 )}
+                <div className="flex gap-2 align-items-start">
+                  <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                    The
+                    <span className="p-0 m-0 text-red-500 font-semibold text-sm">
+                      {displayValues.Households_Bill_Payment}
+                    </span>{" "}
+                    due bill payment rate indicates inefficiency in billing
+                    collection or challenge in payment processes, affecting the
+                    financial sustainability of water management.
+                  </li>
+                </div>
               </div>
             </div>
           </div>
