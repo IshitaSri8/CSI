@@ -225,6 +225,7 @@ const AqiDashboard = ({
         new Set(filteredDataWithDeviation.map(JSON.stringify))
       ).map(JSON.parse);
       setDataTableData(uniqueDataTableData);
+      console.log(uniqueDataTableData);
       setLoading(false);
     } catch (error) {
     } finally {
@@ -600,31 +601,48 @@ const AqiDashboard = ({
             </div>
             <div className="flex flex-column align-items-start justify-content-start gap-2">
               <li className="p-0 m-0 text-primary1 font-medium text-sm">
-                The Maximum AQI in the selected range was{" "}
+                During the selected period, the highest recorded AQI was{" "}
                 <span className="m-0 p-0 font-semibold text-sm text-red-500">
                   {aqiStats.max.value}
                 </span>{" "}
-                at {aqiStats.max.dateTime}. The pm2.5 value was{" "}
-                {aqiStats.max.pm25} & pm10 value was {aqiStats.max.pm10} at
-                outlier values where the AQI is greater than Safe Limit(400).
+                on{" "}
+                <span className="m-0 p-0 font-semibold text-sm ">
+                  {aqiStats.max.dateTime}
+                </span>{" "}
+                . This spike in AQI was primarily driven by elevated levels of
+                PM2.5, which measured{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {aqiStats.max.pm25}
+                </span>{" "}
+                µg/m³, and PM10 at{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {aqiStats.max.pm10}
+                </span>{" "}
+                µg/m³. These high concentrations of particulate matter
+                significantly contributed to the poor air quality observed.
               </li>
             </div>
             <div className="flex flex-column align-items-start justify-content-start gap-2">
               <li className="p-0 m-0 text-primary1 font-medium text-sm">
-                The Minimum AQI in the selected range was{" "}
+                Conversely, the lowest AQI recorded was{" "}
                 <span className="m-0 p-0 font-semibold text-sm text-green-500">
                   {aqiStats.min.value}
                 </span>{" "}
-                at{" "}
+                on{" "}
                 <span className="m-0 p-0 font-semibold text-sm ">
                   {aqiStats.min.dateTime}
                 </span>{" "}
-                . The pm2.5 value was
+                . During this time, both PM2.5 and PM10 levels were notably
+                lower, with PM2.5 at{" "}
                 <span className="m-0 p-0 font-semibold text-sm">
-                  {aqiStats.min.value}
+                  {aqiStats.min.pm25}
                 </span>{" "}
-                & pm10 value was {aqiStats.min.pm10} at outlier values where the
-                AQI is greater than Safe Limit(400).
+                µg/m³ and PM10 at{" "}
+                <span className="m-0 p-0 font-semibold text-sm">
+                  {aqiStats.min.pm10}
+                </span>{" "}
+                µg/m³. The reduced presence of these pollutants resulted in a
+                significant improvement in air quality.
               </li>
             </div>
           </div>
