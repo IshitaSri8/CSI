@@ -32,6 +32,9 @@ import RecommendationPanel from "components/DashboardUtility/RecommendationPanel
 import WaterModify from "./WaterModify";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { useUser } from "components/context/UserContext";
+import { useRef } from "react";
+import { OverlayPanel } from "primereact/overlaypanel";
+import { Menu } from "primereact/menu";
 
 const WaterDashboard = ({ show }) => {
   const [loading, setLoading] = useState(false);
@@ -65,6 +68,22 @@ const WaterDashboard = ({ show }) => {
     });
     setFilterVisible(false);
   };
+  const overlayRef = useRef(null); // Reference for OverlayPanel
+  const menu = useRef(null); // Create a ref for the Menu component
+
+  // Define menu items
+  const items = [
+    {
+      label: "Upload",
+      icon: "pi pi-upload",
+      command: () => showUploadDialog(), // Implement your upload logic here
+    },
+    {
+      label: "Modify",
+      icon: "pi pi-pencil",
+      command: () => handleModify(), // Implement your modify logic here
+    },
+  ];
   const customIcon = L.icon({
     iconUrl: markerIcon, // Path to your custom marker image
     iconSize: [20, 30], // Size of the icon
@@ -268,7 +287,7 @@ const WaterDashboard = ({ show }) => {
     setModifyDialogVisible(false);
   };
 
-  const score = 10;
+  const score = 70;
 
   const getScoreColor = (score) => {
     if (score >= 81 && score <= 100) {
@@ -290,6 +309,7 @@ const WaterDashboard = ({ show }) => {
       {show && (
         <div className="flex align-items-center justify-content-between w-full gap-3">
           <div className="flex align-items-center justify-content-between w-full ">
+            {/* Title & Score */}
             <div
               style={{
                 position: "relative",
@@ -323,6 +343,7 @@ const WaterDashboard = ({ show }) => {
                 </p>
               </div>
             </div>
+            {/* Selected  location & Date */}
             <div className="flex align-items-start flex-column gap-1">
               {/* location */}
               <div className="flex align-items-center gap-1">
@@ -343,106 +364,87 @@ const WaterDashboard = ({ show }) => {
           </div>
 
           <div className="flex align-items-center justify-content-end gap-2">
+            {/* Button to trigger the OverlayPanel */}
             <Button
-              label=""
-              icon="pi pi-filter"
-              onClick={() => setFilterVisible(!filterVisible)}
-              className="bg-white text-secondary2"
-              raised
               tooltip="Filters"
               tooltipOptions={{
                 position: "bottom",
               }}
+              icon="pi pi-filter"
+              onClick={(e) => overlayRef.current.toggle(e)}
+              className="bg-white text-secondary2"
+              raised
             />
-            {filterVisible && (
-              <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-30 mt-2 "
-                style={{
-                  zIndex: 1000, // Ensures the filter appears above other components
-                  position: "absolute", // Required for z-index to work
-                  transform: "translateY(60%) translateX(-60%)",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <div className="flex flex-column gap-3">
-                  <div className="flex flex-column align-items-center justify-content-center gap-2 ">
-                    <Dropdown
-                      value={tempZone}
-                      onChange={handleZoneChange}
-                      options={[
-                        { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
-                        ...zones.map((div) => ({ label: div, value: div })),
-                      ]}
-                      placeholder="Select Zones"
-                      className="w-full"
-                    />
-                    <Dropdown
-                      value={tempYear}
-                      onChange={(e) => setTempYear(e.value)}
-                      options={years.map((year) => ({
-                        label: year,
-                        value: year,
-                      }))}
-                      placeholder="Select Year"
-                      className="w-full"
-                    />
-                    <Dropdown
-                      value={tempMonth}
-                      onChange={(e) => setTempMonth(e.value)}
-                      options={monthNames.map((name, index) => ({
-                        label: name, // Display month name
-                        value: index + 1, // Store month number (1-12)
-                      }))}
-                      placeholder="Select Month"
-                      className="w-full"
-                    />
-                  </div>
-                  <div className="flex justify-content-between">
-                    <Button
-                      className="bg-white text-moderate border-none"
-                      label="Reset"
-                      icon="pi pi-undo"
-                      onClick={resetFilters}
-                      raised
-                    />
-                    <Button
-                      className="bg-primary1"
-                      label="Apply"
-                      // icon="pi pi-search"
-                      onClick={handleApply}
-                      raised
-                    />
-                  </div>
+            <OverlayPanel
+              ref={overlayRef}
+              style={{ width: "20rem" }}
+              className="p-overlay-panel"
+            >
+              <div className="flex flex-column gap-3">
+                <div className="flex flex-column align-items-center justify-content-center gap-2 ">
+                  <Dropdown
+                    value={tempZone}
+                    onChange={handleZoneChange}
+                    options={[
+                      { label: "All Zones", value: "All Zones" }, // Use null or a specific value to indicate 'All Zones'
+                      ...zones.map((div) => ({ label: div, value: div })),
+                    ]}
+                    placeholder="Select Zones"
+                    className="w-full"
+                  />
+                  <Dropdown
+                    value={tempYear}
+                    onChange={(e) => setTempYear(e.value)}
+                    options={years.map((year) => ({
+                      label: year,
+                      value: year,
+                    }))}
+                    placeholder="Select Year"
+                    className="w-full"
+                  />
+                  <Dropdown
+                    value={tempMonth}
+                    onChange={(e) => setTempMonth(e.value)}
+                    options={monthNames.map((name, index) => ({
+                      label: name, // Display month name
+                      value: index + 1, // Store month number (1-12)
+                    }))}
+                    placeholder="Select Month"
+                    className="w-full"
+                  />
+                </div>
+                <div className="flex justify-content-between">
+                  <Button
+                    className="bg-white text-moderate border-none"
+                    label="Reset"
+                    icon="pi pi-undo"
+                    onClick={resetFilters}
+                    raised
+                  />
+                  <Button
+                    className="bg-primary1"
+                    label="Apply"
+                    // icon="pi pi-search"
+                    onClick={handleApply}
+                    raised
+                  />
                 </div>
               </div>
-            )}
+            </OverlayPanel>
 
             {username === "admin" && (
               <>
                 <Button
-                  icon="pi pi-plus"
-                  className="bg-white text-secondary2"
-                  onClick={showUploadDialog}
+                  icon="pi pi-ellipsis-v"
+                  onClick={(e) => menu.current.toggle(e)}
+                  className="bg-primary1"
                   raised
-                  tooltip="Upload Data"
-                  tooltipOptions={{
-                    position: "bottom",
-                  }}
                 />
+                <Menu model={items} ref={menu} popup />
                 <Upload
                   visible={uploadDialogVisible}
                   onHide={hideUploadDialog}
                   parameter={"water"}
-                />
-                <Button
-                  icon="pi pi-file-edit"
-                  className="bg-white text-secondary2"
-                  onClick={handleModify}
-                  raised
-                  tooltip="Edit Data"
-                  tooltipOptions={{
-                    position: "bottom",
-                  }}
                 />
                 <WaterModify
                   waterData={data}
@@ -454,12 +456,12 @@ const WaterDashboard = ({ show }) => {
             )}
             <Button
               icon="pi pi-file"
-              onClick={() => setReportVisible(true)}
-              className="bg-primary1 text-primary1 text-white text-xs"
               tooltip="Generate Report"
               tooltipOptions={{
                 position: "bottom",
               }}
+              onClick={() => setReportVisible(true)}
+              className="bg-primary1 text-white"
               raised
             />
             <Dialog
