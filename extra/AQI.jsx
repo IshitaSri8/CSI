@@ -40,3 +40,71 @@ const AQI = () => {
 };
 
 export default AQI;
+
+{
+  /* {show && (
+            <>
+              <div className="flex align-items-center justify-content-start flex-wrap md:flex-nowrap mt-2">
+                <Card className="h-15rem w-6">
+                  <CustomBarChart
+                    title="Human Loss by Age Group and Gender"
+                    categories={categories}
+                    series={series}
+                    height={200}
+                    width={500}
+                    xtitle="Age Group"
+                    ytitle="Number of Losses"
+                  />
+                </Card>
+                <Card className="h-15rem w-6 ml-1 ">
+                  <DonutChart
+                    title={"Health Impact of NO2"}
+                    labels={NO2impactlabels}
+                    series={NO2Impactseries}
+                    height={200}
+                    width={300}
+                  />
+                </Card>
+              </div>
+            </>
+          )} */
+
+  {
+    /* {show && (
+        <Panel
+          toggleable
+          onToggle={handleToggleRecommendations}
+          headerTemplate={(options) => {
+            const toggleIcon = recommendationsVisible
+              ? "pi pi-chevron-up"
+              : "pi pi-chevron-down";
+            return (
+              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
+                <p className="text-primary1 font-semibold text-xl">
+                  View Recommendations
+                </p>
+                <button
+                  className={`p-link ${toggleIcon}`}
+                  onClick={options.onTogglerClick}
+                  style={{
+                    background: "none",
+                    // border: "none",
+                    cursor: "pointer",
+                    color: "#001F23",
+                  }}
+                />
+              </div>
+            );
+          }}
+        >
+          {recommendationsVisible && (
+            <AQIRecommendations
+              aqi={aqiValue}
+              pm25={pm25Value}
+              pm10={pm10Value}
+            />
+          )}
+        </Panel>
+      )} */
+  }
+}
