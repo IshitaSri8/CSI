@@ -31,6 +31,7 @@ import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import WaterModify from "./WaterModify";
 import { ProgressSpinner } from "primereact/progressspinner";
+import { useUser } from "components/context/UserContext";
 
 const WaterDashboard = ({ show }) => {
   const [loading, setLoading] = useState(false);
@@ -52,6 +53,9 @@ const WaterDashboard = ({ show }) => {
 
   const [displayValues, setDisplayValues] = useState("");
   const [color, setColor] = useState("");
+
+  const { username } = useUser();
+  console.log("🚀 ~ WaterDashboard ~ username:", username);
 
   const handleApply = () => {
     setSelectedValues({
@@ -264,6 +268,18 @@ const WaterDashboard = ({ show }) => {
     setModifyDialogVisible(false);
   };
 
+  const score = 10;
+
+  const getScoreColor = (score) => {
+    if (score >= 81 && score <= 100) {
+      return "#0C9D61"; // Green for good
+    } else if (score >= 41 && score <= 80) {
+      return "#FFAD0D"; // Yellow for moderate
+    } else if (score >= 0 && score <= 40) {
+      return "#E62225"; // Red for poor
+    }
+  };
+
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">
       <ProgressSpinner />
@@ -274,9 +290,39 @@ const WaterDashboard = ({ show }) => {
       {show && (
         <div className="flex align-items-center justify-content-between w-full gap-3">
           <div className="flex align-items-center justify-content-between w-full ">
-            <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-              Water Management
-            </h1>
+            <div
+              style={{
+                position: "relative",
+                width: "340px",
+                height: "43px",
+                overflow: "hidden", // Hide overflow if needed
+              }}
+            >
+              <div
+                className="flex align-items-center justify-content-between p-2"
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: getScoreColor(score), // Replace with your desired color
+                  clipPath:
+                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+                }}
+              >
+                <h1
+                  className="m-0 p-0 text-white text-2xl font-semibold"
+                  style={{ zIndex: 1500 }}
+                >
+                  Water Management
+                </h1>
+                <p
+                  className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                  style={{ zIndex: 1500 }}
+                >
+                  {score}
+                </p>
+              </div>
+            </div>
             <div className="flex align-items-start flex-column gap-1">
               {/* location */}
               <div className="flex align-items-center gap-1">
@@ -370,39 +416,42 @@ const WaterDashboard = ({ show }) => {
                 </div>
               </div>
             )}
-            <Button
-              icon="pi pi-plus"
-              className="bg-white text-secondary2"
-              onClick={showUploadDialog}
-              raised
-              tooltip="Upload Data"
-              tooltipOptions={{
-                position: "bottom",
-              }}
-            />
-            <Upload
-              visible={uploadDialogVisible}
-              onHide={hideUploadDialog}
-              parameter={"water"}
-              file_name={"Water"}
-            />
-            <Button
-              icon="pi pi-file-edit"
-              className="bg-white text-secondary2"
-              onClick={handleModify}
-              raised
-              tooltip="Edit Data"
-              tooltipOptions={{
-                position: "bottom",
-              }}
-            />
-            <WaterModify
-              waterData={data}
-              waterSetData={setData}
-              isOpen={modifyDialogVisible}
-              onClose={handleCloseModifyDialog}
-            />
 
+            {username === "admin" && (
+              <>
+                <Button
+                  icon="pi pi-plus"
+                  className="bg-white text-secondary2"
+                  onClick={showUploadDialog}
+                  raised
+                  tooltip="Upload Data"
+                  tooltipOptions={{
+                    position: "bottom",
+                  }}
+                />
+                <Upload
+                  visible={uploadDialogVisible}
+                  onHide={hideUploadDialog}
+                  parameter={"water"}
+                />
+                <Button
+                  icon="pi pi-file-edit"
+                  className="bg-white text-secondary2"
+                  onClick={handleModify}
+                  raised
+                  tooltip="Edit Data"
+                  tooltipOptions={{
+                    position: "bottom",
+                  }}
+                />
+                <WaterModify
+                  waterData={data}
+                  waterSetData={setData}
+                  isOpen={modifyDialogVisible}
+                  onClose={handleCloseModifyDialog}
+                />
+              </>
+            )}
             <Button
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
