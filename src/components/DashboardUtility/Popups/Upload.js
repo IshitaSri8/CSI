@@ -42,6 +42,9 @@ const Upload = ({ visible, onHide, parameter }) => {
     if (parameter === "water") {
       url = `${process.env.PUBLIC_URL}/Water_Template.xlsx`;
     }
+    if (parameter === "transport") {
+      url = `${process.env.PUBLIC_URL}/Transport.xlsx`;
+    }
 
     const link = document.createElement("a");
     link.href = url;
