@@ -14,11 +14,12 @@ import Temperature from "./Temperature";
 import { Tag } from "primereact/tag";
 import { Dialog } from "primereact/dialog";
 import TempRecommendations from "./TempRecommendations";
-import TempReportPrint from "./TempReportPrint";
-import { Panel } from "primereact/panel";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import { ProgressSpinner } from "primereact/progressspinner";
+import { OverlayPanel } from "primereact/overlaypanel";
+import { useRef } from "react";
+import { Divider } from "primereact/divider";
 
 // Define the helper functions here
 const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
@@ -58,8 +59,8 @@ const TempDashboard = ({
   const [temperature, setTemp] = useState([]);
   const [humidity, setHumidity] = useState([]);
 
-  const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
+  const overlayRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,14 +91,13 @@ const TempDashboard = ({
 
   useEffect(() => {
     handleSearch();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pSelectedLocation, pSelectedEndDate, pSelectedStartDate]);
 
   const handleSearch = async () => {
     try {
       setLoading(true);
-      setFilterVisible(false);
+      overlayRef.current.hide();
       const start = new Date(startDate).toDateString("en-CA");
       const end = new Date(endDate).toDateString("en-CA");
 
@@ -105,7 +105,6 @@ const TempDashboard = ({
         `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
       const filteredData = response.data.data;
-      // console.log(filteredData);
 
       const formattedDate = [];
       const formattedTime = [];
@@ -127,7 +126,6 @@ const TempDashboard = ({
         temperature.push(item.temp);
         humidity.push(item.humidity);
       });
-      // console.log(temperature);
       setEnviroTime(formattedTime);
       setEnviroDate(formattedDate);
       setEnviroco2(co2);
@@ -158,7 +156,6 @@ const TempDashboard = ({
         setTempValue(null);
         setTempStatus({ status: "", color: "", textColor: "", image: null });
       }
-      // console.log(filteredData);
       const filteredDataWithDeviation = filteredData
         .filter((item) => item.temp > 40)
         .map((item) => ({
@@ -177,7 +174,7 @@ const TempDashboard = ({
     } catch (error) {
     } finally {
       setLoading(false);
-      setFilterVisible(false);
+      // overlayRef.current.hide();
     }
   };
 
@@ -192,16 +189,6 @@ const TempDashboard = ({
       setSelectedLocation(pSelectedLocation);
     }
   }, [show, pSelectedLocation]);
-
-  // {showPopup && (
-  //   <FileUploadPopup
-  //     onClose={() => setShowPopup(false)}
-  //     onUpload={handleUpload}
-  //     department={"environment"}
-  //     action={selectedAction}
-  //     subCategory={"temp"}
-  //   />
-  // )}
 
   useEffect(() => {
     if (!show && pSelectedStartDate) {
@@ -243,15 +230,8 @@ const TempDashboard = ({
       };
     }
   };
-  const handleStartDateChange = (e) => {
-    setStartDate(e.value);
-  };
 
-  const {
-    status: tempStatusText,
-
-    image: tempImage,
-  } = tempStatus;
+  const { status: tempStatusText, image: tempImage } = tempStatus;
 
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 2 ? "red-row" : "";
@@ -267,6 +247,18 @@ const TempDashboard = ({
     return <TempDashboard show={false} />;
   };
 
+  const score = 85;
+
+  const getScoreColor = (score) => {
+    if (score >= 81 && score <= 100) {
+      return "#0C9D61"; // Green for good
+    } else if (score >= 41 && score <= 80) {
+      return "#FFAD0D"; // Yellow for moderate
+    } else if (score >= 0 && score <= 40) {
+      return "#E62225"; // Red for poor
+    }
+  };
+
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">
       <ProgressSpinner />
@@ -275,90 +267,157 @@ const TempDashboard = ({
   ) : (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
-        <div className="flex align-items-center justify-content-between">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Temperature
-          </h1>
+        <div className="flex align-items-center justify-content-between gap-3">
+          <div className="flex align-items-center justify-content-between w-full">
+            {/* Title & Score */}
+            <div
+              style={{
+                position: "relative",
+                width: "340px",
+                height: "43px",
+                overflow: "hidden", // Hide overflow if needed
+              }}
+            >
+              <div
+                className="flex align-items-center justify-content-between p-2"
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: getScoreColor(score), // Replace with your desired color
+                  clipPath:
+                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+                }}
+              >
+                <h1
+                  className="m-0 p-0 text-white text-2xl font-semibold"
+                  style={{ zIndex: 1500 }}
+                >
+                  Temperature
+                </h1>
+                <p
+                  className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                  style={{ zIndex: 1500 }}
+                >
+                  {score}
+                </p>
+              </div>
+            </div>
+            {/* Selected  location & Date */}
+            <div className="flex align-items-start flex-column gap-1">
+              {/* location */}
+              <div className="flex align-items-center gap-1">
+                <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {selectedLocation || "Select a location"}
+                </p>
+              </div>
+              <Divider className="m-0 p-0" />
+              {/* Date Range */}
+              <div className="flex align-items-center justify-content-start gap-1">
+                <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {startDate ? startDate.toLocaleDateString() : "Start Date"} -{" "}
+                  {endDate ? endDate.toLocaleDateString() : "End Date"}
+                </p>
+              </div>
+            </div>
+          </div>
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
-              label="Filters"
+              tooltip="Filters"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               icon="pi pi-filter"
-              onClick={() => setFilterVisible(!filterVisible)}
+              onClick={(e) => overlayRef.current.toggle(e)}
               className="bg-white text-secondary2"
               raised
             />
-            {filterVisible && (
-              <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2"
-                style={{
-                  zIndex: 1000, // Ensures the filter appears above other components
-                  position: "absolute", // Required for z-index to work
-                  transform: "translateY(60%) translateX(-60%)",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <div className="flex flex-column gap-3">
-                  <div className="flex flex-column">
-                    <label htmlFor="location" className="font-semibold text">
-                      Location
-                    </label>
-                    <Dropdown
-                      value={selectedLocation}
-                      options={locations}
-                      optionLabel="label"
-                      optionValue="value"
-                      onChange={(e) => setSelectedLocation(e.value)}
-                      placeholder="Select Location"
-                    />
-                  </div>
-                  <div className="p-field text-sm flex flex-column">
-                    <label htmlFor="dateRange" className="font-semibold text">
-                      Select Date Range
-                    </label>
-                    <Calendar
-                      id="dateRange"
-                      value={[startDate, endDate]} // Pass selected date range as an array
-                      onChange={(e) => {
-                        const [newStartDate, newEndDate] = e.value; // Destructure range
-                        setStartDate(newStartDate);
-                        setEndDate(newEndDate);
-                      }}
-                      selectionMode="range"
-                      showIcon
-                      dateFormat="dd-mm-yy"
-                      placeholder="Select date range"
-                      showButtonBar
-                      hideOnRangeSelection
-                    />
-                  </div>
-                  <div className="flex justify-content-between">
-                    <Button
-                      className="bg-white text-moderate border-none"
-                      label="Reset"
-                      // icon="pi pi-search"
-                      onClick={resetFilters}
-                      raised
-                    />
-                    <Button
-                      className="bg-primary1"
-                      label="Apply"
-                      // icon="pi pi-search"
-                      onClick={handleSearch}
-                      raised
-                    />
-                  </div>
+            <OverlayPanel
+              ref={overlayRef}
+              style={{ width: "20rem" }}
+              className="p-overlay-panel"
+            >
+              <div className="flex flex-column gap-3">
+                <div className="flex flex-column">
+                  <label htmlFor="location" className="font-semibold text">
+                    Location
+                  </label>
+                  <Dropdown
+                    value={selectedLocation}
+                    options={locations}
+                    optionLabel="label"
+                    optionValue="value"
+                    onChange={(e) => setSelectedLocation(e.value)}
+                    placeholder="Select Location"
+                  />
+                </div>
+                <div className="p-field text-sm flex flex-column">
+                  <label htmlFor="dateRange" className="font-semibold text">
+                    Select Date Range
+                  </label>
+                  <Calendar
+                    id="dateRange"
+                    value={[startDate, endDate]} // Pass selected date range as an array
+                    onChange={(e) => {
+                      const [newStartDate, newEndDate] = e.value; // Destructure range
+                      setStartDate(newStartDate);
+                      setEndDate(newEndDate);
+                    }}
+                    selectionMode="range"
+                    showIcon
+                    dateFormat="dd-mm-yy"
+                    placeholder="Select date range"
+                    showButtonBar
+                    hideOnRangeSelection
+                  />
+                </div>
+                <div className="flex justify-content-between">
+                  <Button
+                    className="bg-white text-moderate border-none"
+                    label="Reset"
+                    // icon="pi pi-search"
+                    onClick={resetFilters}
+                    raised
+                  />
+                  <Button
+                    className="bg-primary1"
+                    label="Apply"
+                    // icon="pi pi-search"
+                    onClick={handleSearch}
+                    raised
+                  />
                 </div>
               </div>
-            )}
+            </OverlayPanel>
 
             <Button
-              label="Generate Report"
+              tooltip="Generate Report"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
               // className="bg-white text-cyan-800 border-1 border-cyan-800"
               className=" bg-primary1 text-white"
               raised
             />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"temperature"}
+                heading={"Temperature"}
+              />
+            </Dialog>
           </div>
         </div>
       )}
@@ -373,71 +432,51 @@ const TempDashboard = ({
       >
         <TempRecommendations temperature={tempValue} humidity={humidityValue} />
       </Dialog> */}
-      <Dialog
-        visible={ReportVisible}
-        style={{ width: "100rem" }}
-        onHide={() => {
-          if (!ReportVisible) return;
-          setReportVisible(false);
-        }}
-      >
-        {/* <TempReportPrint
+      {/* <TempReportPrint
           show={true}
           selectedLocation={selectedLocation}
           startDate={startDate}
           endDate={endDate}
         /> */}
-        <ReportPrint
-          renderDashboard={renderDashboard}
-          renderRecommendations={renderRecommendations}
-          parameter={"temperature"}
-          heading={"Temperature"}
-        />
-      </Dialog>
       <div className="flex flex-wrap md:flex-nowrap align-items-center w-full gap-3">
         {selectedLocation && (
           <div
-            className="border-round-xl p-2 w-full"
+            className="flex border-round-xl p-2"
             style={{
               backgroundColor: tempStatus.bg_color,
               border: `1px solid ${tempStatus.color}`,
-              flex: "20%",
+              flex: "15%",
             }}
           >
-            <h1 className="card-title m-0 p-0">Temperature</h1>
-            <div className="flex align-items-center justify-content-around">
+            <div className="flex flex-column align-items-center justify-content-between">
+              <h1 className="card-title m-0 p-0">Temperature</h1>
               <h1
-                className="text-3xl font-medium p-0 m-0"
+                className="text-2xl font-medium p-0 m-0"
                 style={{ color: tempStatus.color }}
               >
                 {tempValue !== null ? `${tempValue} °C` : "No Data Found."}
               </h1>
-
-              {tempImage && (
-                <img
-                  src={tempImage}
-                  alt={tempStatusText}
-                  style={{ width: "10rem" }}
-                />
-              )}
-              {/* <h1
+              <Tag
+                className="border-round-3xl"
+                style={{ backgroundColor: tempStatus.color, color: "white" }}
+              >
+                <span className="text-xs">
+                  {tempStatus.status || "No Status"}{" "}
+                </span>
+              </Tag>
+            </div>
+            {tempImage && (
+              <img src={tempImage} alt={tempStatusText} className="h-14rem" />
+            )}
+            {/* <h1
                           className={`border-round-xs p-1 text-xs text-white w-6rem`}
                           style={{ backgroundColor: tempStatus.color }}
                         >
                           {tempStatus.status || "No Status"}
                         </h1> */}
-            </div>
-            <Tag
-              className="border-round-3xl"
-              style={{ backgroundColor: tempStatus.color, color: "white" }}
-            >
-              <span className="text-xs">
-                {tempStatus.status || "No Status"}{" "}
-              </span>
-            </Tag>
           </div>
         )}
-        <div className="w-full" style={{ flex: "35%" }}>
+        <div style={{ flex: "30%" }}>
           {loading ? (
             <div className="w-full">
               <TableSkeleton />
@@ -448,7 +487,7 @@ const TempDashboard = ({
               rowClassName={rowClassName}
               className="custom-row"
               scrollable
-              scrollHeight="16rem"
+              scrollHeight="15rem"
               style={{
                 width: "100%",
                 borderRadius: "15px",
@@ -466,7 +505,7 @@ const TempDashboard = ({
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
-                  padding: 3,
+                  padding: 4,
                 }}
               ></Column>
               <Column
@@ -477,7 +516,7 @@ const TempDashboard = ({
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
-                  padding: 3,
+                  padding: 4,
                 }}
               />
               <Column
@@ -488,7 +527,7 @@ const TempDashboard = ({
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
-                  padding: 3,
+                  padding: 4,
                 }}
               ></Column>
               <Column
@@ -499,23 +538,63 @@ const TempDashboard = ({
                   fontSize: "0.6rem",
                   backgroundColor: "#166c7d",
                   color: "white",
-                  padding: 3,
+                  padding: 4,
                 }}
               ></Column>
             </DataTable>
           )}
         </div>
-        <div className="w-full border-round-2xl" style={{ flex: "25%" }}>
+        <div
+          className="border-round-2xl flex bg-white"
+          style={{ flex: "28%" }}
+        >
           <TempMap
             averageTemp={tempValue}
             selectedLocation={selectedLocation}
           />
         </div>
         <div
-          className="flex flex-column bg-white border-round p-3 gap-3 overflow-y-auto"
-          style={{ flex: "20%" }}
+          className="flex flex-column p-3 border-round bg-white gap-2 overflow-y-auto h-15rem"
+          style={{ flex: "27%" }}
         >
-          <h1>Insights</h1>
+          <p className="card-text p-0 m-0">Insights:</p>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            The temperature shows significant spikes during May-June and again
+            in September 2024, reaching above 40°C on multiple occasions. These
+            extreme heat patterns indicate a need for heat adaptation strategies
+            in the region.
+          </li>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            The “Feels Like” temperature consistently tracks above the actual
+            temperature throughout the year, peaking in summer months. This
+            indicates the potential effect of humidity or wind speed on
+            perceived heat, requiring better urban heat management strategies,
+            especially for vulnerable populations.
+          </li>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            CO₂ levels sharply increase during September, likely due to specific
+            activities (industrial, agricultural burning, or transportation).
+            Addressing these seasonal spikes could significantly reduce overall
+            emissions.
+          </li>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            There appears to be a visible correlation between increasing
+            temperatures and higher CO₂ levels. This suggests that local
+            emissions or environmental conditions might be influencing both
+            metrics simultaneously.
+          </li>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            A cooling trend is observed toward the end of the year
+            (December-January), with temperatures dropping closer to 20°C,
+            showing a distinct seasonal climate variation. This period could be
+            utilized for public events or maintenance activities.
+          </li>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            A recurring pattern of outliers above 40°C is visible, particularly
+            between May and September. These extreme temperature days are likely
+            to strain energy resources (cooling demands) and public health
+            systems, requiring targeted heat wave preparedness plans.
+          </li>
         </div>
       </div>
       <div className="flex align-items-center justify-content-between w-full">

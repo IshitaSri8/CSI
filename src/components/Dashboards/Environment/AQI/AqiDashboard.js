@@ -22,7 +22,9 @@ import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Upload from "components/DashboardUtility/Popups/Upload";
-import { Tooltip } from "primereact/tooltip";
+import { Divider } from "primereact/divider";
+import { OverlayPanel } from "primereact/overlaypanel";
+import { useRef } from "react";
 
 const AqiDashboard = ({
   onDataChange,
@@ -49,6 +51,9 @@ const AqiDashboard = ({
     textColor: "",
     image: null,
   });
+
+  const overlayRef = useRef(null);
+
   const [dataTableData, setDataTableData] = useState([]);
   const [locations, setLocations] = useState([]);
   const [envirolocation, setEnviroLocation] = useState([]);
@@ -61,7 +66,6 @@ const AqiDashboard = ({
   const [enviroNO2, setEnviroNO2] = useState([]);
   const [enviroco2, setEnviroco2] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
 
@@ -98,7 +102,7 @@ const AqiDashboard = ({
   const handleSearch = async () => {
     try {
       setLoading(true);
-      setFilterVisible(false);
+      overlayRef.current.hide();
       const start = new Date(startDate).toDateString("en-CA");
       const end = new Date(endDate).toDateString("en-CA");
 
@@ -278,12 +282,7 @@ const AqiDashboard = ({
   };
   console.log(startDate, endDate);
 
-  const {
-    status: aqiStatusText,
-    color,
-    textColor,
-    image: aqiImage,
-  } = aqiStatus;
+  const { status: aqiStatusText, image: aqiImage } = aqiStatus;
 
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
@@ -306,6 +305,18 @@ const AqiDashboard = ({
     return <AqiDashboard show={false} />;
   };
 
+  const score = 85;
+
+  const getScoreColor = (score) => {
+    if (score >= 81 && score <= 100) {
+      return "#0C9D61"; // Green for good
+    } else if (score >= 41 && score <= 80) {
+      return "#FFAD0D"; // Yellow for moderate
+    } else if (score >= 0 && score <= 40) {
+      return "#E62225"; // Red for poor
+    }
+  };
+
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">
       <ProgressSpinner />
@@ -314,11 +325,62 @@ const AqiDashboard = ({
   ) : (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
-        <div className="flex align-items-center justify-content-between">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Air Quality Index
-          </h1>
-
+        <div className="flex align-items-center justify-content-between gap-3">
+          <div className="flex align-items-center justify-content-between w-full">
+            {/* Title & Score */}
+            <div
+              style={{
+                position: "relative",
+                width: "340px",
+                height: "43px",
+                overflow: "hidden", // Hide overflow if needed
+              }}
+            >
+              <div
+                className="flex align-items-center justify-content-between p-2"
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: getScoreColor(score), // Replace with your desired color
+                  clipPath:
+                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+                }}
+              >
+                <h1
+                  className="m-0 p-0 text-white text-2xl font-semibold"
+                  style={{ zIndex: 1500 }}
+                >
+                  Air Quality Index
+                </h1>
+                <p
+                  className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                  style={{ zIndex: 1500 }}
+                >
+                  {score}
+                </p>
+              </div>
+            </div>
+            {/* Selected  location & Date */}
+            <div className="flex align-items-start flex-column gap-1">
+              {/* location */}
+              <div className="flex align-items-center gap-1">
+                <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {selectedLocation || "Select a location"}
+                </p>
+              </div>
+              <Divider className="m-0 p-0" />
+              {/* Date Range */}
+              <div className="flex align-items-center justify-content-start gap-1">
+                <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {startDate ? startDate.toLocaleDateString() : "Start Date"} -{" "}
+                  {endDate ? endDate.toLocaleDateString() : "End Date"}
+                </p>
+              </div>
+            </div>
+          </div>
           <div className="flex align-ites-center justify-content-end gap-2">
             <Button
               tooltip="Filters"
@@ -326,73 +388,67 @@ const AqiDashboard = ({
                 position: "bottom",
               }}
               icon="pi pi-filter"
-              onClick={() => setFilterVisible(!filterVisible)}
+              onClick={(e) => overlayRef.current.toggle(e)}
               className="bg-white text-secondary2"
               raised
             />
-            {filterVisible && (
-              <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2 fixed"
-                style={{
-                  zIndex: 1000, // Ensures the filter appears above other components
-                  position: "relative", // Required for z-index to work
-                  transform: "translateY(15%) translateX(-70%)",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <div className="flex flex-column gap-3">
-                  <div className="flex flex-column">
-                    <label htmlFor="location" className="font-semibold text">
-                      Location
-                    </label>
-                    <Dropdown
-                      value={selectedLocation}
-                      options={locations}
-                      optionLabel="label"
-                      optionValue="value"
-                      onChange={(e) => setSelectedLocation(e.value)}
-                      placeholder="Select Location"
-                    />
-                  </div>
-                  <div className="p-field text-sm flex flex-column">
-                    <label htmlFor="dateRange" className="font-semibold text">
-                      Select Date Range
-                    </label>
-                    <Calendar
-                      id="dateRange"
-                      value={[startDate, endDate]} // Pass selected date range as an array
-                      onChange={(e) => {
-                        const [newStartDate, newEndDate] = e.value; // Destructure range
-                        setStartDate(newStartDate);
-                        setEndDate(newEndDate);
-                      }}
-                      selectionMode="range"
-                      showIcon
-                      dateFormat="dd-mm-yy"
-                      placeholder="Select date range"
-                      showButtonBar
-                      hideOnRangeSelection
-                    />
-                  </div>
-                  <div className="flex justify-content-between">
-                    <Button
-                      className="bg-white text-moderate border-none"
-                      label="Reset"
-                      // icon="pi pi-search"
-                      onClick={resetFilters}
-                      raised
-                    />
-                    <Button
-                      className="bg-primary1"
-                      label="Apply"
-                      // icon="pi pi-search"
-                      onClick={handleSearch}
-                      raised
-                    />
-                  </div>
+            <OverlayPanel
+              ref={overlayRef}
+              style={{ width: "20rem" }}
+              className="p-overlay-panel"
+            >
+              <div className="flex flex-column gap-3">
+                <div className="flex flex-column">
+                  <label htmlFor="location" className="font-semibold text">
+                    Location
+                  </label>
+                  <Dropdown
+                    value={selectedLocation}
+                    options={locations}
+                    optionLabel="label"
+                    optionValue="value"
+                    onChange={(e) => setSelectedLocation(e.value)}
+                    placeholder="Select Location"
+                  />
+                </div>
+                <div className="p-field text-sm flex flex-column">
+                  <label htmlFor="dateRange" className="font-semibold text">
+                    Select Date Range
+                  </label>
+                  <Calendar
+                    id="dateRange"
+                    value={[startDate, endDate]} // Pass selected date range as an array
+                    onChange={(e) => {
+                      const [newStartDate, newEndDate] = e.value; // Destructure range
+                      setStartDate(newStartDate);
+                      setEndDate(newEndDate);
+                    }}
+                    selectionMode="range"
+                    showIcon
+                    dateFormat="dd-mm-yy"
+                    placeholder="Select date range"
+                    showButtonBar
+                    hideOnRangeSelection
+                  />
+                </div>
+                <div className="flex justify-content-between">
+                  <Button
+                    className="bg-white text-moderate border-none"
+                    label="Reset"
+                    // icon="pi pi-search"
+                    onClick={resetFilters}
+                    raised
+                  />
+                  <Button
+                    className="bg-primary1"
+                    label="Apply"
+                    // icon="pi pi-search"
+                    onClick={handleSearch}
+                    raised
+                  />
                 </div>
               </div>
-            )}
+            </OverlayPanel>
             <Button
               icon="pi pi-plus"
               className="bg-white text-secondary2"
@@ -409,7 +465,10 @@ const AqiDashboard = ({
               parameter={"aqi"}
             />
             <Button
-              label="Generate Report"
+              tooltip="Generate Report"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
               // className="bg-white text-cyan-800 border-1 border-cyan-800"
@@ -445,48 +504,43 @@ const AqiDashboard = ({
       <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
           <div
-            className="border-round-xl p-2"
+            className="flex border-round-xl p-2"
             style={{
               backgroundColor: aqiStatus.bg_color,
               border: `1px solid ${aqiStatus.color}`,
+              flex: "20%",
             }}
           >
-            <h1 className="card-title m-0 p-0">Air Quality Index</h1>
-            <div className="flex align-items-center justify-content-center p-2 gap-8">
+            <div className="flex flex-column align-items-center justify-content-between">
+              <h1 className="card-title m-0 p-0">Air Quality Index</h1>
               <h1
-                className="text-5xl font-medium p-0 m-0"
+                className="text-3xl font-medium p-0 m-0"
                 style={{ color: aqiStatus.color }}
               >
                 {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
               </h1>
-
-              {/* <h1
+              <Tag
+                className="border-round-3xl"
+                style={{ backgroundColor: aqiStatus.color, color: "white" }}
+              >
+                <span className="text-xs">
+                  {aqiStatus.status || "No Status"}{" "}
+                </span>
+              </Tag>
+            </div>
+            {/* <h1
                   className={`border-round-2xl py-2 px-3 text-xs text-white text-left`}
                   style={{ backgroundColor: aqiStatus.color }}
                 >
                   {aqiStatus.status || "No Status"}
                 </h1> */}
 
-              {aqiImage && (
-                <img
-                  src={aqiImage}
-                  alt={aqiStatusText}
-                  style={{ width: "6rem", height: "10rem" }}
-                />
-              )}
-            </div>
-            <Tag
-              className="border-round-3xl"
-              style={{ backgroundColor: aqiStatus.color, color: "white" }}
-            >
-              <span className="text-xs">
-                {aqiStatus.status || "No Status"}{" "}
-              </span>
-            </Tag>
+            {aqiImage && (
+              <img src={aqiImage} alt={aqiStatusText} className="h-14rem" />
+            )}
           </div>
         )}
-
-        <div className="w-full">
+        <div style={{ flex: "30%" }}>
           {loading ? (
             <div className="w-full">
               <TableSkeleton />
@@ -557,15 +611,19 @@ const AqiDashboard = ({
           )}
         </div>
 
-        <div className="w-full border-round-2xl">
+        <div className="flex bg-white border-round-2xl" style={{ flex: "25%" }}>
           <AqiMap averageAQI={aqiValue} selectedLocation={selectedLocation} />
         </div>
         <div
           className="flex flex-column bg-white border-round p-3 gap-3 overflow-y-auto "
           style={{ flex: "30%" }}
         >
-          <div className="flex flex-column gap-3">
-            <p className="card-title p-0 m-0">Insights</p>
+          <div
+            className="flex flex-column p-3 border-round bg-white gap-2 overflow-y-auto h-15rem"
+            style={{ flex: "25%" }}
+          >
+            <p className="card-text p-0 m-0">Insights:</p>
+            <li className="p-0 m-0 text-primary1 font-medium text-sm"></li>
           </div>
         </div>
       </div>

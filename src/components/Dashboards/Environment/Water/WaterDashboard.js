@@ -38,7 +38,6 @@ import { Menu } from "primereact/menu";
 
 const WaterDashboard = ({ show }) => {
   const [loading, setLoading] = useState(false);
-  const [filterVisible, setFilterVisible] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [data, setData] = useState([]);
   const [selectedValues, setSelectedValues] = useState({
@@ -66,7 +65,7 @@ const WaterDashboard = ({ show }) => {
       year: tempYear,
       month: tempMonth,
     });
-    setFilterVisible(false);
+    overlayRef.current.hide();
   };
   const overlayRef = useRef(null); // Reference for OverlayPanel
   const menu = useRef(null); // Create a ref for the Menu component
@@ -417,7 +416,7 @@ const WaterDashboard = ({ show }) => {
                   <Button
                     className="bg-white text-moderate border-none"
                     label="Reset"
-                    icon="pi pi-undo"
+                    // icon="pi pi-undo"
                     onClick={resetFilters}
                     raised
                   />

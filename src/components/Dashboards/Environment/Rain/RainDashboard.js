@@ -14,8 +14,8 @@ import { ProgressBar } from "primereact/progressbar";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import increase from "assets/increase.png";
-import { Upload } from "lucide-react";
 import { ProgressSpinner } from "primereact/progressspinner";
+import Upload from "components/DashboardUtility/Popups/Upload";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
@@ -37,6 +37,9 @@ const RainDashboard = ({ show }) => {
 
   const hideUploadDialog = () => {
     setUploadDialogVisible(false);
+  };
+  const showUploadDialog = () => {
+    setUploadDialogVisible(true);
   };
 
   useEffect(() => {
@@ -159,6 +162,18 @@ const RainDashboard = ({ show }) => {
     return <RainDashboard show={false} />;
   };
 
+  const score = 65;
+
+  const getScoreColor = (score) => {
+    if (score >= 81 && score <= 100) {
+      return "#0C9D61"; // Green for good
+    } else if (score >= 41 && score <= 80) {
+      return "#FFAD0D"; // Yellow for moderate
+    } else if (score >= 0 && score <= 40) {
+      return "#E62225"; // Red for poor
+    }
+  };
+
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">
       <ProgressSpinner />
@@ -168,20 +183,64 @@ const RainDashboard = ({ show }) => {
     <div className="flex flex-column gap-3 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Rainfall
-          </h1>
-          <div className="flex align-items-center justify-content-end gap-4">
+          {/* Title & Score */}
+          <div
+            style={{
+              position: "relative",
+              width: "340px",
+              height: "43px",
+              overflow: "hidden", // Hide overflow if needed
+            }}
+          >
+            <div
+              className="flex align-items-center justify-content-between p-2"
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                backgroundColor: getScoreColor(score), // Replace with your desired color
+                clipPath:
+                  "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+              }}
+            >
+              <h1
+                className="m-0 p-0 text-white text-2xl font-semibold"
+                style={{ zIndex: 1500 }}
+              >
+                Rainfall
+              </h1>
+              <p
+                className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                style={{ zIndex: 1500 }}
+              >
+                {score}
+              </p>
+            </div>
+          </div>
+          <div className="flex align-items-center justify-content-end gap-2">
+            <Button
+              tooltip="Upload File"
+              onClick={showUploadDialog}
+              raised
+              className="bg-white text-secondary2"
+              icon="pi pi-file-arrow-up"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+            />
             <Upload
               visible={uploadDialogVisible}
               onHide={hideUploadDialog}
               parameter={"environment/Rainfall"}
             />
             <Button
-              label="Generate Report"
+              tooltip="Generate Report"
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
               className="bg-primary1 text-white"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               raised
             />
             <Dialog
@@ -203,24 +262,24 @@ const RainDashboard = ({ show }) => {
         </div>
       )}
 
-      <div className="flex align-items-center justify-content-center w-full">
+      <div className="flex align-items-center justify-content-center w-full gap-3">
         {/* total Rainfall */}
         <div
-          className="flex flex-column bg-white justify-content-between border-round gap-3 p-3"
-          style={{ flex: "30%" }}
+          className="flex flex-column bg-white border-round gap-4 p-3"
+          style={{ flex: "20%" }}
         >
           <p className="card-title p-0 m-0">Total Rainfall</p>
-          <div className="flex gap-3">
-            <div className="flex flex-column align-items-center px-5">
-              <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center">
-                {totalRainfall} <span className="text-xl">mm</span>
+          <div className="flex">
+            <div className="flex flex-column align-items-center">
+              <p className="text-2xl font-semibold p-1 m-0 text-secondary2 flex align-items-center">
+                {totalRainfall} <span className="text-xl"> mm</span>
               </p>
               <p className="p-0 m-0 card-text">Actual</p>
             </div>
             <Divider layout="vertical" />
-            <div className="flex flex-column align-items-center px-5">
-              <p className="text-4xl font-semibold m-2 text-secondary2 flex align-items-center">
-                {totalExpectedRainfall} <span className="text-xl">mm</span>
+            <div className="flex flex-column align-items-center">
+              <p className="text-2xl font-semibold p-1 m-0 text-secondary2 flex align-items-center">
+                {totalExpectedRainfall} <span className="text-xl"> mm</span>
               </p>
               <p className="p-0 m-0 card-text">Expected</p>
             </div>
@@ -251,12 +310,12 @@ const RainDashboard = ({ show }) => {
 
         {/* Deviation from Expected */}
         <div
-          className="flex flex-column gap-3 bg-white border-round p-3 mx-3"
-          style={{ flex: "35%" }}
+          className="flex flex-column gap-4 bg-white border-round p-3"
+          style={{ flex: "20%" }}
         >
           <p className="card-title p-0 m-0">Deviation from Expected</p>
           <div className="flex align-items-center justify-content-center">
-            <div className="w-10rem custom-circular-progress">
+            <div className="w-9rem custom-circular-progress">
               <CircularProgressbar
                 value={-deviationPercentage}
                 text={`${deviationPercentage}%`}
@@ -266,7 +325,7 @@ const RainDashboard = ({ show }) => {
                   pathColor: "#E62225",
                   textColor: "#001F23",
                   trailColor: "#E7EAEA",
-                  textSize: "1.75rem",
+                  textSize: "1.5rem",
                   pathTransition: "stroke-dashoffset 0.5s ease 0s",
                 })}
               />
@@ -274,31 +333,84 @@ const RainDashboard = ({ show }) => {
           </div>
         </div>
 
-        <img
-          src={rain}
-          alt="rain"
-          className="h-15rem "
-          style={{ borderRadius: "10px 0 0 10px" }}
-        />
-
-        {/* Maximum Rainfall */}
-        <div
-          className="flex flex-column bg-white p-3 gap-6 align-items-stretch"
-          style={{ borderRadius: "0 10px 10px 0", flex: "35%" }}
-        >
-          <p className="card-title p-0 m-0">Maximum Rainfall</p>
-          <p className="text-4xl font-semibold m-1 text-secondary2 text-center">
-            {maxRainfall} <span className="text-xl">mm</span>
-          </p>
-          <Chip
-            label={`July ${maxRainfallYear}`}
-            style={{
-              width: "fit-content",
-              backgroundColor: "#e9f3f5",
-              color: "#001F23",
-              fontWeight: 600,
-            }}
+        <div className="flex" style={{ flex: "35%" }}>
+          <img
+            src={rain}
+            alt="rain"
+            className="h-14rem"
+            style={{ borderRadius: "10px 0 0 10px" }}
           />
+
+          {/* Maximum Rainfall */}
+          <div
+            className="flex flex-column bg-white p-3 gap-5 w-full"
+            style={{ borderRadius: "0 10px 10px 0" }}
+          >
+            <p className="card-title p-0 m-0">Maximum Rainfall</p>
+            <p className="text-2xl font-semibold p-2 m-0 text-secondary2 text-center">
+              {maxRainfall} <span className="text-xl">mm</span>
+            </p>
+            <Chip
+              label={`July ${maxRainfallYear}`}
+              style={{
+                width: "fit-content",
+                backgroundColor: "#e9f3f5",
+                color: "#001F23",
+                fontWeight: 600,
+              }}
+            />
+          </div>
+        </div>
+        {/* Insights */}
+        <div
+          className="flex flex-column p-3 border-round bg-white gap-2 overflow-y-auto h-14rem"
+          style={{ flex: "30%" }}
+        >
+          <p className="card-text p-0 m-0">Insights:</p>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            The total rainfall recorded is{" "}
+            <span className="m-0 p-0 font-semibold text-sm">
+              {totalRainfall}
+            </span>{" "}
+            mm, which is{" "}
+            <span className="m-0 p-0 font-semibold text-sm">
+              {deviationPercentage}%
+            </span>{" "}
+            below the expected level of{" "}
+            <span className="m-0 p-0 font-semibold text-sm">
+              {totalExpectedRainfall}
+            </span>{" "}
+            mm. This shortfall could have significant impacts on agriculture,
+            water supply, and local ecosystems.
+          </li>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            Despite the deviation from expected levels, rainfall has increased
+            by <span className="m-0 p-0 font-semibold text-sm">8.5%</span>{" "}
+            compared to the previous year. This indicates some recovery from
+            earlier deficits but may still necessitate water conservation
+            efforts.
+          </li>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            The highest recorded rainfall in a single month was{" "}
+            <span className="m-0 p-0 font-semibold text-sm">{maxRainfall}</span>{" "}
+            mm in{" "}
+            <span className="m-0 p-0 font-semibold text-sm">
+              July {maxRainfallYear}
+            </span>
+            . This could indicate a pattern of heavy monsoon activity during
+            mid-year, requiring better flood preparedness during this period.
+          </li>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            The graph suggests that actual rainfall consistently falls short of
+            expected levels in recent years, indicating a broader trend of
+            variability or decline in rainfall. This deviation could be linked
+            to climate change or local environmental factors.
+          </li>
+          <li className="p-0 m-0 text-primary1 font-medium text-sm">
+            The discrepancy in expected versus actual rainfall suggests a need
+            for adaptive planning in agriculture (e.g., drought-resistant crops)
+            and urban infrastructure (e.g., stormwater management).
+          </li>
         </div>
       </div>
 
