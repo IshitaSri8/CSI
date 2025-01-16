@@ -9,15 +9,29 @@ import trend_ss from "assets/trend_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
 import kyc from "assets/Citizen/know your city image- CSI for Citizen revised 1.png";
 import reportCard from "assets/Citizen/CSI Score.png";
-
+import citizen_video from "assets/society.mp4";
 const Citizen = () => {
   return (
-    <div className="flex flex-column w-full overflow-x-hidden">
+    <div className="flex flex-column w-full ">
       {/* Header */}
       <Header />
 
       <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
-        <img src={citizen} alt="citizen" className="w-screen bg-top" />
+        <div className="w-full h-screen">
+          <video
+            autoPlay
+            muted
+            loop
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          >
+            <source src={citizen_video} type="video/mp4" />
+          </video>
+        </div>
         <div
           className="border-round-xl m-0 mb-5 p-0"
           style={{
@@ -51,9 +65,9 @@ const Citizen = () => {
         <Chatbot />
       </div>
 
-      <div className="flex flex-column px-4 align-items-center justify-content-center">
+      <div className="flex flex-column px-4 align-items-center justify-content-center ">
         {/*First Card*/}
-        <div className="flex w-full m-4">
+        <div className="flex w-full m-4 block">
           {/* Image Column */}
           <div style={{ flex: "60%", position: "relative" }}>
             <img
@@ -111,7 +125,7 @@ const Citizen = () => {
         </div>
 
         {/*Second Card*/}
-        <div className="w-full flex mx-4">
+        <div className="w-full flex mx-4 block">
           <div
             className="flex align-items-center justify-content-center p-8"
             style={{
@@ -211,7 +225,7 @@ const Citizen = () => {
         </div>
 
         {/*Third Card*/}
-        <div className="flex w-full m-4">
+        <div className="flex w-full m-4 block">
           {/* Image Column */}
           <div style={{ flex: "60%", position: "relative" }}>
             <img

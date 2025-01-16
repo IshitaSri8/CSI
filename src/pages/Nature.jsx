@@ -92,7 +92,10 @@ const Nature = () => {
               <p className="text-5xl font-semibold text-secondary2 p-0 m-0">
                 77
               </p>
-              <div className="flex align-items-center justify-content-start">
+              <p className="text-tertiary3">
+                Sustaining our planets for future generations.
+              </p>
+              {/* <div className="flex align-items-center justify-content-start">
                 <img
                   src={increase}
                   style={{
@@ -106,7 +109,7 @@ const Nature = () => {
                   <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
                   year.
                 </p>
-              </div>
+              </div> */}
             </div>
             <div className="align-items-start justify-content-end ml-5">
               <img src={nature} alt="nature" className="w-4rem" />
@@ -128,20 +131,21 @@ const Nature = () => {
         </div>
         <div className="flex flex-column" style={{ flex: "50%" }}>
           <div className="flex flex-column border-round-2xl bg-white p-3">
-            <p className="text-xl font-medium p-0 m-0">Summary</p>
-            <p>
-              The score 77 is combined output of all the indicators falling
-              under SDG 11.
+            <p className="text-xl font-medium">Summary</p>
+            <p className="p-0 m-0">
+              The score 77 reflects the combined performance of the key
+              environmental indicators.
             </p>
             <Divider />
-            <p>
-              CSI promotes integrated and balanced urban development strategies.
+            <p className="p-0 m-0">
+              Nature's outstanding performance showcase exceptional efforts
+              towards ensuring a sustainable future.
             </p>
             <Divider />
-            <p>
-              The score 70 is combined output of all the indicators falling
-              under SDG 11. CSI promotes integrated and balanced urban
-              development strategies.
+            <p className="text-lg font-medium">Indicator Highlights:</p>
+            <p className="p-0 m-0">1. Achiever indicators: Temperature</p>
+            <p className="p-0 m-0">
+              2. Areas of Improvement: Water Management, Waste Management
             </p>
           </div>
         </div>

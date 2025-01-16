@@ -26,7 +26,7 @@ const CityReportCard = () => {
   const societyScore = 80;
   const adminScore = 70;
   const overallScore = Math.round(
-    (0.5 * natureScore + 0.3 * societyScore + 0.2 * adminScore) / 3
+    0.5 * natureScore + 0.3 * societyScore + 0.2 * adminScore
   );
 
   const categories = {
