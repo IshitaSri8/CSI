@@ -592,13 +592,15 @@ const AqiDashboard = ({
             <p className="card-title p-0 m-0">Insights</p>
             <div className="flex flex-column align-items-start justify-content-start gap-2">
               <li className="p-0 m-0 text-primary1 font-medium text-sm">
-                There are total{" "}
+                A total of{" "}
                 <span className="m-0 p-0 font-semibold text-sm text-red-500">
                   {dataTableData.length}
                 </span>{" "}
-                outlier values where the AQI is greater than Safe Limit(400).
+                outlier readings have been recorded, indicating that the AQI
+                exceeds the safe limit of 400.
               </li>
             </div>
+
             <div className="flex flex-column align-items-start justify-content-start gap-2">
               <li className="p-0 m-0 text-primary1 font-medium text-sm">
                 During the selected period, the highest recorded AQI was{" "}
