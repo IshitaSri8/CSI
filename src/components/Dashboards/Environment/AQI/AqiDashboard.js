@@ -26,21 +26,11 @@ import { Divider } from "primereact/divider";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 
-const AqiDashboard = ({
-  onDataChange,
-  show,
-  pSelectedLocation,
-  pSelectedStartDate,
-  pSelectedEndDate,
-}) => {
-  const [startDate, setStartDate] = useState(
-    pSelectedStartDate ?? new Date("2024-01-01")
-  );
-  const [endDate, setEndDate] = useState(
-    pSelectedEndDate ?? new Date("2025-01-15")
-  );
+const AqiDashboard = ({ show }) => {
+  const [startDate, setStartDate] = useState(new Date("2024-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2025-01-15"));
   const [selectedLocation, setSelectedLocation] = useState(
-    pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
+    "Ayodhya - Civil line,Tiny tots"
   );
   const [aqiValue, setAqiValue] = useState(null);
   const [pm25Value, setPM25value] = useState(null);
@@ -91,20 +81,15 @@ const AqiDashboard = ({
       }
     };
     fetchData();
-    if (selectedLocation) {
-      handleSearch();
-    }
   }, []);
 
   useEffect(() => {
     handleSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pSelectedLocation, pSelectedEndDate, pSelectedStartDate]);
+  }, []);
 
   const handleSearch = async () => {
     try {
       setLoading(true);
-      overlayRef.current.hide();
       const start = new Date(startDate).toDateString("en-CA");
       const end = new Date(endDate).toDateString("en-CA");
 
@@ -112,7 +97,7 @@ const AqiDashboard = ({
         `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
       const filteredData = response.data.data;
-      console.log(filteredData);
+      // console.log(filteredData);
 
       const formattedDate = [];
       const formattedTime = [];
@@ -133,8 +118,6 @@ const AqiDashboard = ({
           hour12: false,
         });
         formattedTime.push(timeObj);
-
-        console.log(dateObj, timeObj);
 
         pm25.push(item.pm25);
         pm10.push(item.pm10);
@@ -170,13 +153,6 @@ const AqiDashboard = ({
         setPM10value(averagepm10);
         setAqiValue(averageAqi);
 
-        if (onDataChange) {
-          onDataChange({
-            aqiValue: averageAqi,
-            pm25Value: averagepm25,
-            pm10Value: averagepm10,
-          });
-        }
         setAqiStatus(getAqiStatus(averageAqi));
       } else {
         setAqiValue(null);
@@ -218,7 +194,6 @@ const AqiDashboard = ({
           },
         };
       };
-      console.log(calculateAqiStats(filteredData));
       setAqiStats(calculateAqiStats(filteredData));
 
       const filteredDataWithDeviation = filteredData
@@ -235,7 +210,6 @@ const AqiDashboard = ({
         new Set(filteredDataWithDeviation.map(JSON.stringify))
       ).map(JSON.parse);
       setDataTableData(uniqueDataTableData);
-      setLoading(false);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -247,24 +221,6 @@ const AqiDashboard = ({
     setStartDate(null);
     setEndDate(null);
   };
-
-  useEffect(() => {
-    if (!show && pSelectedLocation) {
-      setSelectedLocation(pSelectedLocation);
-    }
-  }, [show, pSelectedLocation]);
-
-  useEffect(() => {
-    if (!show && pSelectedStartDate) {
-      setStartDate(pSelectedStartDate);
-    }
-  }, [show, pSelectedStartDate]);
-
-  useEffect(() => {
-    if (!show && pSelectedEndDate) {
-      setEndDate(pSelectedEndDate);
-    }
-  }, [show, pSelectedEndDate]);
 
   function formatTimeToHHMMSS(isoDateString) {
     const dateObj = new Date(isoDateString).toLocaleTimeString();
@@ -320,7 +276,6 @@ const AqiDashboard = ({
       };
     }
   };
-  console.log(startDate, endDate);
 
   const { status: aqiStatusText, image: aqiImage } = aqiStatus;
 
@@ -515,31 +470,30 @@ const AqiDashboard = ({
               className=" bg-primary1 text-white"
               raised
             />
-          </div>
-        </div>
-      )}
-
-      <Dialog
-        visible={ReportVisible}
-        style={{ width: "100rem" }}
-        onHide={() => {
-          if (!ReportVisible) return;
-          setReportVisible(false);
-        }}
-      >
-        {/* <AQIReportPrint
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              {/* <AQIReportPrint
           show={false}
           selectedLocation={selectedLocation}
           startDate={startDate}
           endDate={endDate}
         /> */}
-        <ReportPrint
-          renderDashboard={renderDashboard}
-          renderRecommendations={renderRecommendations}
-          parameter={"aqi"}
-          heading={"Air Quality Index"}
-        />
-      </Dialog>
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"aqi"}
+                heading={"Air Quality Index"}
+              />
+            </Dialog>
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
@@ -557,6 +511,7 @@ const AqiDashboard = ({
                 className="text-3xl font-medium p-0 m-0"
                 style={{ color: aqiStatus.color }}
               >
+                {/* <p className="p-0 m-0 text-sm">{selectedLocation}</p> */}
                 {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
               </h1>
               <Tag

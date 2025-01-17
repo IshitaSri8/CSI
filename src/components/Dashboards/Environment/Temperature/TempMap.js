@@ -25,7 +25,7 @@ const TempMap = ({ averageTemp, selectedLocation }) => {
       message: "Bank Colony Near Railway Station",
     },
     {
-      location: " Ayodhya-near Airport",
+      location: "Ayodhya-near Airport",
       lat: 26.735415,
       lon: 82.140133,
       message: "Near Airport",
