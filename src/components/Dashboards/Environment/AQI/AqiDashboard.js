@@ -588,66 +588,68 @@ const AqiDashboard = ({
           style={{ flex: "30%" }}
         >
           {/* Insights */}
-          <div className="flex flex-column bg-white border-round h-13rem p-3 gap-3 overflow-y-auto ">
-            <p className="card-title p-0 m-0">Insights</p>
-            <div className="flex flex-column align-items-start justify-content-start gap-2">
-              <li className="p-0 m-0 text-primary1 font-medium text-sm">
-                A total of{" "}
-                <span className="m-0 p-0 font-semibold text-sm text-red-500">
-                  {dataTableData.length}
-                </span>{" "}
-                outlier readings have been recorded, indicating that the AQI
-                exceeds the safe limit of 400.
-              </li>
-            </div>
+          {aqiStats && (
+            <div className="flex flex-column bg-white border-round h-13rem p-3 gap-3 overflow-y-auto ">
+              <p className="card-title p-0 m-0">Insights</p>
+              <div className="flex flex-column align-items-start justify-content-start gap-2">
+                <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                  A total of{" "}
+                  <span className="m-0 p-0 font-semibold text-sm text-red-500">
+                    {dataTableData.length}
+                  </span>{" "}
+                  outlier readings have been recorded, indicating that the AQI
+                  exceeds the safe limit of 400.
+                </li>
+              </div>
 
-            <div className="flex flex-column align-items-start justify-content-start gap-2">
-              <li className="p-0 m-0 text-primary1 font-medium text-sm">
-                During the selected period, the highest recorded AQI was{" "}
-                <span className="m-0 p-0 font-semibold text-sm text-red-500">
-                  {aqiStats.max.value}
-                </span>{" "}
-                on{" "}
-                <span className="m-0 p-0 font-semibold text-sm ">
-                  {aqiStats.max.dateTime}
-                </span>{" "}
-                . This spike in AQI was primarily driven by elevated levels of
-                PM2.5, which measured{" "}
-                <span className="m-0 p-0 font-semibold text-sm">
-                  {aqiStats.max.pm25}
-                </span>{" "}
-                µg/m³, and PM10 at{" "}
-                <span className="m-0 p-0 font-semibold text-sm">
-                  {aqiStats.max.pm10}
-                </span>{" "}
-                µg/m³. These high concentrations of particulate matter
-                significantly contributed to the poor air quality observed.
-              </li>
+              <div className="flex flex-column align-items-start justify-content-start gap-2">
+                <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                  During the selected period, the highest recorded AQI was{" "}
+                  <span className="m-0 p-0 font-semibold text-sm text-red-500">
+                    {aqiStats.max.value}
+                  </span>{" "}
+                  on{" "}
+                  <span className="m-0 p-0 font-semibold text-sm ">
+                    {aqiStats.max.dateTime}
+                  </span>{" "}
+                  . This spike in AQI was primarily driven by elevated levels of
+                  PM2.5, which measured{" "}
+                  <span className="m-0 p-0 font-semibold text-sm">
+                    {aqiStats.max.pm25}
+                  </span>{" "}
+                  µg/m³, and PM10 at{" "}
+                  <span className="m-0 p-0 font-semibold text-sm">
+                    {aqiStats.max.pm10}
+                  </span>{" "}
+                  µg/m³. These high concentrations of particulate matter
+                  significantly contributed to the poor air quality observed.
+                </li>
+              </div>
+              <div className="flex flex-column align-items-start justify-content-start gap-2">
+                <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                  Conversely, the lowest AQI recorded was{" "}
+                  <span className="m-0 p-0 font-semibold text-sm text-green-500">
+                    {aqiStats.min.value}
+                  </span>{" "}
+                  on{" "}
+                  <span className="m-0 p-0 font-semibold text-sm ">
+                    {aqiStats.min.dateTime}
+                  </span>{" "}
+                  . During this time, both PM2.5 and PM10 levels were notably
+                  lower, with PM2.5 at{" "}
+                  <span className="m-0 p-0 font-semibold text-sm">
+                    {aqiStats.min.pm25}
+                  </span>{" "}
+                  µg/m³ and PM10 at{" "}
+                  <span className="m-0 p-0 font-semibold text-sm">
+                    {aqiStats.min.pm10}
+                  </span>{" "}
+                  µg/m³. The reduced presence of these pollutants resulted in a
+                  significant improvement in air quality.
+                </li>
+              </div>
             </div>
-            <div className="flex flex-column align-items-start justify-content-start gap-2">
-              <li className="p-0 m-0 text-primary1 font-medium text-sm">
-                Conversely, the lowest AQI recorded was{" "}
-                <span className="m-0 p-0 font-semibold text-sm text-green-500">
-                  {aqiStats.min.value}
-                </span>{" "}
-                on{" "}
-                <span className="m-0 p-0 font-semibold text-sm ">
-                  {aqiStats.min.dateTime}
-                </span>{" "}
-                . During this time, both PM2.5 and PM10 levels were notably
-                lower, with PM2.5 at{" "}
-                <span className="m-0 p-0 font-semibold text-sm">
-                  {aqiStats.min.pm25}
-                </span>{" "}
-                µg/m³ and PM10 at{" "}
-                <span className="m-0 p-0 font-semibold text-sm">
-                  {aqiStats.min.pm10}
-                </span>{" "}
-                µg/m³. The reduced presence of these pollutants resulted in a
-                significant improvement in air quality.
-              </li>
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
