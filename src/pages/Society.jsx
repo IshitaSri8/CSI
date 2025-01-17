@@ -2,7 +2,6 @@ import React from "react";
 import society from "assets/Report/Society.svg";
 import { Divider } from "primereact/divider";
 import { PieChart } from "Layout/GraphVisuals";
-import increase from "assets/increase.png";
 import healthcare from "assets/illustration/Healthcare Management.svg";
 import education from "assets/illustration/education.svg";
 import transport from "assets/illustration/Public Transport.svg";
@@ -11,6 +10,7 @@ import culture from "assets/illustration/Cultural Sites.svg";
 import community from "assets/illustration/community.svg";
 import pathConstants from "pathConstants";
 import { useNavigate } from "react-router-dom";
+import score from "score";
 
 const Society = () => {
   const navigate = useNavigate();
@@ -30,49 +30,49 @@ const Society = () => {
     {
       img: healthcare,
       title: "Healthcare",
-      score: 80,
+      score: score.HEALTHCARE,
       path: pathConstants.HEALTHCARE,
     },
     {
       img: education,
       title: "Education",
-      score: 75,
+      score: score.EDUCATION,
       path: pathConstants.EDUCATION,
     },
     {
       img: transport,
       title: "Public Transport",
-      score: 40,
+      score: score.TRANSPORT,
       path: pathConstants.TRANSPORT,
     },
     {
       img: employment,
       title: "Employment Opportunity",
-      score: 70,
+      score: score.EMPLOYMENT,
       path: pathConstants.EMPLOYMENT,
     },
     {
       img: culture,
       title: "Cultural Preservation",
-      score: 85,
+      score: score.CULTURE,
       path: pathConstants.CULTURE,
     },
     {
       img: community,
       title: "Community Enagagement & Holistic Well-Being",
-      score: 60,
+      score: score.COMMUNITY,
       path: pathConstants.COMMUNITY,
     },
   ];
 
   // Function to determine background color based on score
   const getScoreBackgroundColor = (score) => {
-    if (score >= 80) {
-      return "#0C9D61"; // good
-    } else if (score >= 60) {
-      return "#FFAD0D"; // medium
-    } else {
-      return "#E62225"; // poor
+    if (score >= 81 && score <= 100) {
+      return "#0C9D61"; // Green for good
+    } else if (score >= 41 && score <= 80) {
+      return "#FFAD0D"; // Yellow for moderate
+    } else if (score >= 0 && score <= 40) {
+      return "#E62225"; // Red for poor
     }
   };
 
@@ -84,43 +84,26 @@ const Society = () => {
     <div className="flex flex-column p-4 gap-4">
       <div className="flex gap-4">
         <div
-          className="flex flex-column bg-white border-round-2xl shadow-2 align-items-start justify-content-around p-4"
-          style={{ flex: "25%" }}
+          className="flex flex-column bg-white border-round-2xl shadow-2 justify-content-around p-4"
+          style={{ flex: "22%" }}
         >
-          <div className="flex">
+          <div className="flex justify-content-between">
             <div className="flex flex-column gap-4">
               <p className="card-title p-0 m-0 text-xl">Society</p>
               <p className="text-5xl font-semibold text-secondary2 p-0 m-0">
-                80
-              </p>
-              {/* <div className="flex align-items-center justify-content-start">
-                <img
-                  src={increase}
-                  style={{
-                    height: "1.5rem",
-                    width: "1.5rem",
-                    marginRight: "0.5rem",
-                  }}
-                  alt="increase"
-                />
-                <p className="text-tertiary3 p-0 m-0 font-medium">
-                  <span style={{ color: "#0C9D61" }}>8.5%</span> Up from last
-                  year.
-                </p>
-              </div> */}
-              <p className="text-tertiary3">
-                Empowering sustainable changes, enriching diverse lives.
+                {score.SOCIETY}
               </p>
             </div>
-            <div className="align-items-start justify-content-end ml-5">
-              <img src={society} alt="society" className="w-4rem" />
-            </div>
+            <img src={society} alt="society" className="w-4rem" />
           </div>
+          <p className="text-tertiary3">
+            Empowering sustainable changes, enriching diverse lives.
+          </p>
           <Divider />
         </div>
         <div
           className="flex flex-column bg-white border-round-2xl shadow-2 align-items-start justify-content-between p-4"
-          style={{ flex: "25%" }}
+          style={{ flex: "28%" }}
         >
           <p className="card-title p-0 m-0 text-xl">Indicator Contribution</p>
           <PieChart
@@ -134,8 +117,8 @@ const Society = () => {
           <div className="flex flex-column border-round-2xl bg-white p-3">
             <p className="text-xl font-medium">Summary</p>
             <p className="p-0 m-0">
-              The score 80 reflects the combined performance of the key societal
-              indicators.
+              The score {score.SOCIETY} reflects the combined performance of the
+              key societal indicators.
             </p>
             <Divider />
             <p className="p-0 m-0">
@@ -162,7 +145,7 @@ const Society = () => {
             <div className="flex flex-column gap-3 align-items-center">
               <img src={metric.img} alt={metric.title} />
               <div>
-                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-lg w-15rem text-center">
+                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-lg w-16rem text-center">
                   {metric.title}
                 </p>
               </div>

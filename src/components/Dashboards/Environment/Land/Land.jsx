@@ -9,6 +9,7 @@ import { ModifiedPieChart } from "Layout/GraphVisuals";
 import { Tag } from "primereact/tag";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import score from "score";
 
 const Land = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -58,13 +59,56 @@ const Land = ({ show }) => {
     return <Land show={false} />;
   };
 
+  const scoreLAND = score.LAND;
+
+  const getScoreColor = (scoreLAND) => {
+    if (scoreLAND >= 81 && scoreLAND <= 100) {
+      return "#0C9D61"; // Green for good
+    } else if (scoreLAND >= 41 && scoreLAND <= 80) {
+      return "#FFAD0D"; // Yellow for moderate
+    } else if (scoreLAND >= 0 && scoreLAND <= 40) {
+      return "#E62225"; // Red for poor
+    }
+  };
+
   return (
     <div className="flex gap-3 flex-column p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Land Usage
-          </h1>
+          {/* Title & Score */}
+          <div
+            style={{
+              position: "relative",
+              width: "340px",
+              height: "43px",
+              overflow: "hidden", // Hide overflow if needed
+            }}
+          >
+            <div
+              className="flex align-items-center justify-content-between p-2"
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                backgroundColor: getScoreColor(scoreLAND), // Replace with your desired color
+                clipPath:
+                  "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+              }}
+            >
+              <h1
+                className="m-0 p-0 text-white text-2xl font-semibold"
+                style={{ zIndex: 1500 }}
+              >
+                Land Usage
+              </h1>
+              <p
+                className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                style={{ zIndex: 1500 }}
+              >
+                {scoreLAND}
+              </p>
+            </div>
+          </div>
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
               label="Generate Report"

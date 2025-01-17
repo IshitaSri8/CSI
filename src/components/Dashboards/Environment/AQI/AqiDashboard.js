@@ -4,7 +4,7 @@ import axios from "axios";
 import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import "../../Dash.css";
+import "../../../DashboardUtility/Dash.css";
 import good from "assets/dashboard/good.png";
 import moderate from "assets/dashboard/moderate.png";
 import poor from "assets/dashboard/poor.png";
@@ -12,7 +12,7 @@ import very_poor from "assets/dashboard/very_poor.png";
 import severe from "assets/dashboard/severe.png";
 import PollutantChart from "./PollutantChart";
 import { Button } from "primereact/button";
-import TableSkeleton from "../../skeletons/TableSkeleton";
+import TableSkeleton from "../../../DashboardUtility/skeletons/TableSkeleton";
 import AQIChart from "./AQIChart";
 import AqiMap from "./AqiMap";
 import { Dialog } from "primereact/dialog";
@@ -25,6 +25,7 @@ import Upload from "components/DashboardUtility/Popups/Upload";
 import { Divider } from "primereact/divider";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
+import score from "score";
 
 const AqiDashboard = ({ show }) => {
   const [startDate, setStartDate] = useState(new Date("2024-01-01"));
@@ -300,14 +301,14 @@ const AqiDashboard = ({ show }) => {
     return <AqiDashboard show={false} />;
   };
 
-  const score = 85;
+  const scoreAQI = score.AQI;
 
-  const getScoreColor = (score) => {
-    if (score >= 81 && score <= 100) {
+  const getScoreColor = (scoreAQI) => {
+    if (scoreAQI >= 81 && scoreAQI <= 100) {
       return "#0C9D61"; // Green for good
-    } else if (score >= 41 && score <= 80) {
+    } else if (scoreAQI >= 41 && scoreAQI <= 80) {
       return "#FFAD0D"; // Yellow for moderate
-    } else if (score >= 0 && score <= 40) {
+    } else if (scoreAQI >= 0 && scoreAQI <= 40) {
       return "#E62225"; // Red for poor
     }
   };
@@ -337,7 +338,7 @@ const AqiDashboard = ({ show }) => {
                   position: "absolute",
                   width: "100%",
                   height: "100%",
-                  backgroundColor: getScoreColor(score), // Replace with your desired color
+                  backgroundColor: getScoreColor(scoreAQI),
                   clipPath:
                     "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
                 }}
@@ -352,7 +353,7 @@ const AqiDashboard = ({ show }) => {
                   className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
                   style={{ zIndex: 1500 }}
                 >
-                  {score}
+                  {scoreAQI}
                 </p>
               </div>
             </div>

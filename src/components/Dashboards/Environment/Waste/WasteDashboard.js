@@ -11,6 +11,7 @@ import WasteRecommendations from "./WasteRecommendations";
 import { Panel } from "primereact/panel";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import score from "score";
 
 const WasteDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -72,13 +73,56 @@ const WasteDashboard = ({ show }) => {
     return <WasteDashboard show={false} />;
   };
 
+  const scoreWASTE = score.WASTE;
+
+  const getScoreColor = (scoreWASTE) => {
+    if (scoreWASTE >= 81 && scoreWASTE <= 100) {
+      return "#0C9D61"; // Green for good
+    } else if (scoreWASTE >= 41 && scoreWASTE <= 80) {
+      return "#FFAD0D"; // Yellow for moderate
+    } else if (scoreWASTE >= 0 && scoreWASTE <= 40) {
+      return "#E62225"; // Red for poor
+    }
+  };
+
   return (
     <div className="flex flex-column gap-3 p-4">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          {/* <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Waste Management
-          </h1> */}
+          {/* Title & Score */}
+          <div
+            style={{
+              position: "relative",
+              width: "340px",
+              height: "43px",
+              overflow: "hidden", // Hide overflow if needed
+            }}
+          >
+            <div
+              className="flex align-items-center justify-content-between p-2"
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                backgroundColor: getScoreColor(scoreWASTE), // Replace with your desired color
+                clipPath:
+                  "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+              }}
+            >
+              <h1
+                className="m-0 p-0 text-white text-2xl font-semibold"
+                style={{ zIndex: 1500 }}
+              >
+                Waste Management
+              </h1>
+              <p
+                className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                style={{ zIndex: 1500 }}
+              >
+                {scoreWASTE}
+              </p>
+            </div>
+          </div>
 
           <div className="flex align-items-center justify-content-end gap-2">
             <Button
