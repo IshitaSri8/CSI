@@ -8,12 +8,14 @@ import "react-phone-input-2/lib/material.css";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
+import { useUser } from "components/context/UserContext";
 
 const CitizenDialog = ({ visible, onHide }) => {
   const navigate = useNavigate(); // Initialize useNavigate
   const [phone, setPhone] = useState(""); // Phone number input state
   const [otp, setOtp] = useState(""); // OTP input state
   const [message, setMessage] = useState(""); // Message to display
+  const { setCitizenDetails } = useUser(); // Accessing user details from context
 
   const checkPhoneNumber = async () => {
     try {
@@ -29,7 +31,6 @@ const CitizenDialog = ({ visible, onHide }) => {
       );
       console.log(response);
       setMessage(response.data.message);
-
       // Check if the user is registered
       if (response.data.register) {
         // Open the chatbot for registration
@@ -40,6 +41,14 @@ const CitizenDialog = ({ visible, onHide }) => {
       } else {
         // User is registered, ask for OTP
         if (otp === "1234") {
+          // Store user details in context
+          const userData = response.data;
+          setCitizenDetails({
+            name: userData.name,
+            email: userData.email,
+            city: userData.city,
+            phone: formattedPhone,
+          });
           // Sample OTP check
           navigate("/citizen/kyc"); // Navigate to KYC page
         } else {
