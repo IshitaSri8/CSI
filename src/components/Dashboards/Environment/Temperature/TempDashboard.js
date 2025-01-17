@@ -21,26 +21,11 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import { Divider } from "primereact/divider";
 
-// Define the helper functions here
-const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
-const formatTimeToHHMMSS = (time) =>
-  time.toISOString().split("T")[1].split(".")[0]; // Format time to 'HH:MM:SS'
-
-const TempDashboard = ({
-  onDataChange,
-  show,
-  pSelectedLocation,
-  pSelectedStartDate,
-  pSelectedEndDate,
-}) => {
-  const [startDate, setStartDate] = useState(
-    pSelectedStartDate ?? new Date("2024-01-01")
-  );
-  const [endDate, setEndDate] = useState(
-    pSelectedEndDate ?? new Date("2025-01-15")
-  );
+const TempDashboard = ({ show }) => {
+  const [startDate, setStartDate] = useState(new Date("2024-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2025-01-15"));
   const [selectedLocation, setSelectedLocation] = useState(
-    pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
+    "Ayodhya - Civil line,Tiny tots"
   );
   const [tempValue, setTempValue] = useState(null);
   const [humidityValue, setHumidityvalue] = useState(null);
@@ -83,21 +68,16 @@ const TempDashboard = ({
     };
 
     fetchData();
-
-    if (selectedLocation) {
-      handleSearch();
-    }
   }, []);
 
   useEffect(() => {
     handleSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pSelectedLocation, pSelectedEndDate, pSelectedStartDate]);
+  }, []);
 
   const handleSearch = async () => {
     try {
       setLoading(true);
-      overlayRef.current.hide();
+      // overlayRef.current.hide();
       const start = new Date(startDate).toDateString("en-CA");
       const end = new Date(endDate).toDateString("en-CA");
 
@@ -144,13 +124,6 @@ const TempDashboard = ({
 
         setTempValue(averageTemp);
         setHumidityvalue(averageHumidity);
-
-        if (onDataChange) {
-          onDataChange({
-            tempValue: averageTemp,
-            humidityValue: averageHumidity,
-          });
-        }
         setTempStatus(getTempStatus(averageTemp));
       } else {
         setTempValue(null);
@@ -174,7 +147,6 @@ const TempDashboard = ({
     } catch (error) {
     } finally {
       setLoading(false);
-      // overlayRef.current.hide();
     }
   };
 
@@ -184,23 +156,6 @@ const TempDashboard = ({
     setEndDate(null);
   };
 
-  useEffect(() => {
-    if (!show && pSelectedLocation) {
-      setSelectedLocation(pSelectedLocation);
-    }
-  }, [show, pSelectedLocation]);
-
-  useEffect(() => {
-    if (!show && pSelectedStartDate) {
-      setStartDate(pSelectedStartDate);
-    }
-  }, [show, pSelectedStartDate]);
-
-  useEffect(() => {
-    if (!show && pSelectedEndDate) {
-      setEndDate(pSelectedEndDate);
-    }
-  }, [show, pSelectedEndDate]);
 
   function formatTimeToHHMMSS(isoDateString) {
     const dateObj = new Date(isoDateString).toLocaleTimeString();
@@ -544,10 +499,7 @@ const TempDashboard = ({
             </DataTable>
           )}
         </div>
-        <div
-          className="border-round-2xl flex bg-white"
-          style={{ flex: "28%" }}
-        >
+        <div className="border-round-2xl flex bg-white" style={{ flex: "28%" }}>
           <TempMap
             averageTemp={tempValue}
             selectedLocation={selectedLocation}
