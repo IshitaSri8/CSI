@@ -35,6 +35,7 @@ import { useUser } from "components/context/UserContext";
 import { useRef } from "react";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Menu } from "primereact/menu";
+import score from "score";
 
 const WaterDashboard = ({ show }) => {
   const [loading, setLoading] = useState(false);
@@ -296,14 +297,14 @@ const WaterDashboard = ({ show }) => {
     setModifyDialogVisible(false);
   };
 
-  const score = 70;
+  const scoreWATER = score.WATER;
 
-  const getScoreColor = (score) => {
-    if (score >= 81 && score <= 100) {
+  const getScoreColor = (scoreWATER) => {
+    if (scoreWATER >= 81 && scoreWATER <= 100) {
       return "#0C9D61"; // Green for good
-    } else if (score >= 41 && score <= 80) {
+    } else if (scoreWATER >= 41 && scoreWATER <= 80) {
       return "#FFAD0D"; // Yellow for moderate
-    } else if (score >= 0 && score <= 40) {
+    } else if (scoreWATER >= 0 && scoreWATER <= 40) {
       return "#E62225"; // Red for poor
     }
   };
@@ -333,7 +334,7 @@ const WaterDashboard = ({ show }) => {
                   position: "absolute",
                   width: "100%",
                   height: "100%",
-                  backgroundColor: getScoreColor(score), // Replace with your desired color
+                  backgroundColor: getScoreColor(scoreWATER), // Replace with your desired color
                   clipPath:
                     "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
                 }}
@@ -348,7 +349,7 @@ const WaterDashboard = ({ show }) => {
                   className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
                   style={{ zIndex: 1500 }}
                 >
-                  {score}
+                  {scoreWATER}
                 </p>
               </div>
             </div>
@@ -667,8 +668,6 @@ const WaterDashboard = ({ show }) => {
                                 <strong>DO:</strong> ${zoneWQIValues[zone].DO} mg/L<br/>
                                 <strong>TSS:</strong> ${zoneWQIValues[zone].TSS} mg/L<br/>
                                 <strong>Conductivity:</strong> ${zoneWQIValues[zone].Conductivity} µS<br/>
-                                
-                              
                                 <strong>Samples Tested:</strong> ${zoneWQIValues[zone].Number_of_Sample_Tested_in_Laboratories}<br/>
                                 <strong>Contaminated Samples:</strong> ${zoneWQIValues[zone].Number_of_Samples_found_contaminated_in_laboratories}<br/>
                                 <strong>Testing Stations:</strong> ${zoneWQIValues[zone].Number_of_Testing_Stations}

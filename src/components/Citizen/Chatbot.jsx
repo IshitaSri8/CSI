@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for naviga
 import chatIcon from "../../assets/Chatbot/Chatbot.svg";
 import "../landingPage/Landing.css";
 import axios from "axios";
+import { useUser } from "components/context/UserContext";
 
 const Chatbot = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const { setCitizenDetails } = useUser();
   const [form, setForm] = useState({});
   const [states, setStates] = useState([]); // Ensure states is initialized as an empty array
   const [cities, setCities] = useState([]);
@@ -190,6 +191,8 @@ const Chatbot = () => {
       options: ["Yes", "No"],
       function: async (params) => {
         console.log(form);
+        // Save user details in context
+        setCitizenDetails(form);
         await submitFormData(form);
         if (params.userInput.toLowerCase() === "yes") {
           navigate("/citizen/kyc"); // Redirect to KYC page if user says Yes
