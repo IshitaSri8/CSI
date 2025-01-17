@@ -54,8 +54,11 @@ const WaterDashboard = ({ show }) => {
   const [tempYear, setTempYear] = useState(2024);
   const [tempMonth, setTempMonth] = useState(1);
   const [billColor, setBillColor] = useState();
+  const [meteredConnectionColor, setMeteredConnectionColor] = useState();
+  const [supplyColor, setSupplyColor] = useState();
+  const [waterConnectionColor, setWaterConnectionColor] = useState();
+
   const [displayValues, setDisplayValues] = useState("");
-  const [color, setColor] = useState("");
 
   const { username } = useUser();
   console.log("🚀 ~ WaterDashboard ~ username:", username);
@@ -127,6 +130,7 @@ const WaterDashboard = ({ show }) => {
     "#A0D683", // Good
     "#0C9D61", // Excellent
   ];
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -192,16 +196,39 @@ const WaterDashboard = ({ show }) => {
           selectedValues.zone === "All Zones" ? totalValues : filteredData[0];
 
         // Determine color based on calculated value
-        const color =
+        const waterConnectionColor =
+          displayValues &&
+          (
+            (displayValues.No_of_Households_with_Connections /
+              displayValues.Total_Households) *
+            100
+          ).toFixed(2) > 50
+            ? "#0C9D61"
+            : "#E62225";
+        setWaterConnectionColor(waterConnectionColor);
+
+        const supplyColor =
           displayValues &&
           (
             ((((displayValues.Population * 135) / 1000000).toFixed(2) -
               displayValues.Current_Supply_MLD) /
               ((displayValues.Population * 135) / 1000000).toFixed(2)) *
             100
-          ).toFixed(2) < 0
+          ).toFixed(2) < 10
             ? "#0C9D61"
             : "#E62225";
+        setSupplyColor(supplyColor);
+
+        const meteredConnectionColor =
+          displayValues &&
+          (displayValues.No_of_Households_with_Meters /
+            displayValues.No_of_Households_with_Connections) *
+            100 >
+            50
+            ? "#0C9D61"
+            : "#E62225";
+        setMeteredConnectionColor(meteredConnectionColor);
+
         const billColor =
           displayValues &&
           (
@@ -210,10 +237,10 @@ const WaterDashboard = ({ show }) => {
               displayValues.No_of_Households_with_Meters) *
               100
           ).toFixed(2) < 15
-            ? "#0C9D61"
+            ? "#166c7d"
             : "#E62225";
         setBillColor(billColor);
-        setColor(color);
+
         setDisplayValues(displayValues);
 
         if (selectedValues.zone === "All Zones") {
@@ -548,7 +575,7 @@ const WaterDashboard = ({ show }) => {
                     ).toFixed(2)}
                     style={{ height: "0.75rem" }} // Adjust the height
                     className="w-full" // Full width of its container
-                    color={color}
+                    color={waterConnectionColor}
                     displayValueTemplate={() => null} // Hide the displayed value
                   />
                   <p className="card-text p-0 m-0">
@@ -616,7 +643,7 @@ const WaterDashboard = ({ show }) => {
                     }
                     style={{ height: "0.75rem" }} // Adjust the height
                     className="w-full" // Full width of its container
-                    color={color}
+                    color={supplyColor}
                     displayValueTemplate={() => null} // Hide the displayed value
                   />
                   <p className="card-text p-0 m-0">
@@ -861,22 +888,29 @@ const WaterDashboard = ({ show }) => {
                     </li>
                   </>
                 )}
-                <div className="flex gap-2 align-items-start">
-                  <li className="p-0 m-0 text-primary1 font-medium text-sm">
-                    The{" "}
-                    <span className="p-0 m-0 text-red-500 font-semibold text-sm">
-                      {`${(
-                        100 -
-                        (displayValues.Households_Bill_Payment /
-                          displayValues.No_of_Households_with_Meters) *
-                          100
-                      ).toFixed(2)}%`}
-                    </span>{" "}
-                    due bill payment rate indicates inefficiency in billing
-                    collection or challenge in payment processes, affecting the
-                    financial sustainability of water management.
-                  </li>
-                </div>
+                {(
+                  100 -
+                  (displayValues.Households_Bill_Payment /
+                    displayValues.No_of_Households_with_Meters) *
+                    100
+                ).toFixed(2) > 15 && (
+                  <div className="flex gap-2 align-items-start">
+                    <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                      The{" "}
+                      <span className="p-0 m-0 text-red-500 font-semibold text-sm">
+                        {`${(
+                          100 -
+                          (displayValues.Households_Bill_Payment /
+                            displayValues.No_of_Households_with_Meters) *
+                            100
+                        ).toFixed(2)}%`}
+                      </span>{" "}
+                      due bill payment rate indicates inefficiency in billing
+                      collection or challenge in payment processes, affecting
+                      the financial sustainability of water management.
+                    </li>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -966,7 +1000,7 @@ const WaterDashboard = ({ show }) => {
                       }%`}
                       strokeWidth={7}
                       styles={buildStyles({
-                        pathColor: "#166c7d",
+                        pathColor: `${meteredConnectionColor}`,
                         textColor: "#001F23",
                         trailColor: "#E7EAEA",
                         textSize: "1.5rem",
