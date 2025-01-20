@@ -13,6 +13,7 @@ import report_ss from "assets/report_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
 import indicator_ss from "assets/aqi_ss.png";
 import csi from "assets/csi.mp4";
+import Footer from "components/landingPage/Footer";
 const Government = () => {
   return (
     <div className="flex flex-column w-full ">
@@ -303,6 +304,7 @@ const Government = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

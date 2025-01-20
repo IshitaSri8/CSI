@@ -10,6 +10,7 @@ import kyc_ss from "assets/kyc_ss.png";
 import kyc from "assets/Citizen/know your city image- CSI for Citizen revised 1.png";
 import reportCard from "assets/Citizen/CSI Score.png";
 import citizen_video from "assets/society.mp4";
+import Footer from "components/landingPage/Footer";
 const Citizen = () => {
   return (
     <div className="flex flex-column w-full ">
@@ -282,6 +283,7 @@ const Citizen = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

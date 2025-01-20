@@ -390,3 +390,13 @@ body {
     width: 100%; /* Ensure it expands to full width */
   }
 }
+
+.nav-link {
+  text-decoration: none; /* Remove underline */
+  color: white; /* Default color */
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+.nav-link:hover {
+  color: orange; /* Change this to your desired hover color */
+}
