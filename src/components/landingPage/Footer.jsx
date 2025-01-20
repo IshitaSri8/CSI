@@ -14,39 +14,39 @@ const Footer = () => {
         <p>Follow us on social media for the latest updates</p>
         <div className="flex align-items-center justify-content-start gap-4">
           <a
-            href="https://www.facebook.com"
+            href="https://www.facebook.com/Arahas.tech"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="pi pi-facebook text-2xl text-white"></i>
+            <i className="pi pi-facebook text-2xl text-white hover:text-orange-500 transition-colors transition-duration-300" />
           </a>
           <a
-            href="https://www.youtube.com"
+            href="https://youtube.com/@ArahasTech"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="pi pi-youtube text-2xl text-white"></i>
+            <i className="pi pi-youtube text-2xl text-white hover:text-orange-500 transition-colors transition-duration-300" />
           </a>
           <a
-            href="https://instagram.com/arahas.tech?igshid=YTQwZjQ0NmI0OA=="
+            href="https://instagram.com/arahas.tech"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="pi pi-instagram text-2xl text-white"></i>
+            <i className="pi pi-instagram text-2xl text-white hover:text-orange-500 transition-colors transition-duration-300" />
           </a>
           <a
-            href="https://x.com/ArahasTech?t=RIiedT5B4uKROb9JFpW2ZA&s=09"
+            href="https://x.com/ArahasTech"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="pi pi-twitter text-2xl text-white"></i>
+            <i className="pi pi-twitter text-2xl text-white hover:text-orange-500 transition-colors transition-duration-300" />
           </a>
           <a
-            href="https://www.linkedin.com/company/arahas/"
+            href="https://www.linkedin.com/company/arahas"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="pi pi-linkedin text-2xl text-white"></i>
+            <i className="pi pi-linkedin text-2xl text-white hover:text-orange-500 transition-colors transition-duration-300" />
           </a>
         </div>
       </div>
@@ -61,7 +61,7 @@ const Footer = () => {
             <i className="pi pi-angle-right text-orange-600"></i>
             <Link
               to="/"
-              className="p-0 m-0 text-left font-light text-white nav-link"
+              className="p-0 m-0 text-left font-light text-white hover:text-orange-500 no-underline transition-colors transition-duration-300"
             >
               Home
             </Link>
@@ -70,7 +70,7 @@ const Footer = () => {
             <i className="pi pi-angle-right text-orange-600"></i>
             <Link
               to="/citizen"
-              className="p-0 m-0 text-left font-light text-white nav-link"
+              className="p-0 m-0 text-left font-light text-white hover:text-orange-500 no-underline transition-colors transition-duration-300"
             >
               CSI for Citizen
             </Link>
@@ -79,7 +79,7 @@ const Footer = () => {
             <i className="pi pi-angle-right text-orange-600"></i>
             <Link
               to="/government"
-              className="p-0 m-0 text-left font-light text-white nav-link"
+              className="p-0 m-0 text-left font-light text-white hover:text-orange-500 no-underline transition-colors transition-duration-300"
             >
               CSI for Government
             </Link>
@@ -88,7 +88,7 @@ const Footer = () => {
             <i className="pi pi-angle-right text-orange-600"></i>
             <Link
               to="https://arahas.com/"
-              className="p-0 m-0 text-left font-light text-white nav-link"
+              className="p-0 m-0 text-left font-light text-white hover:text-orange-500 no-underline transition-colors transition-duration-300"
             >
               About Us
             </Link>
@@ -97,7 +97,7 @@ const Footer = () => {
             <i className="pi pi-angle-right text-orange-600"></i>
             <Link
               to="https://ayodhya.arahas.com/"
-              className="p-0 m-0 text-left font-light text-white nav-link"
+              className="p-0 m-0 text-left font-light text-white hover:text-orange-500 no-underline transition-colors transition-duration-300"
             >
               Our Work
             </Link>
