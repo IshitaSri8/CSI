@@ -15,6 +15,7 @@ import increase from "assets/increase.png";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Upload from "components/DashboardUtility/Popups/Upload";
 import score from "score";
+import DataNotFound from "pages/error pages/DataNotFound";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
@@ -32,7 +33,9 @@ const RainDashboard = ({ show }) => {
   const [maxRainfallMonth, setMaxRainfallMonth] = useState(null);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+
   const [loading, setLoading] = useState(false);
+  const [serverDown, setServerDown] = useState(false);
 
   const hideUploadDialog = () => {
     setUploadDialogVisible(false);
@@ -63,6 +66,7 @@ const RainDashboard = ({ show }) => {
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
+      setServerDown(true);
     }
   };
 
@@ -172,6 +176,10 @@ const RainDashboard = ({ show }) => {
       return "#E62225"; // Red for poor
     }
   };
+
+  if (serverDown) {
+    return <DataNotFound />;
+  }
 
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">

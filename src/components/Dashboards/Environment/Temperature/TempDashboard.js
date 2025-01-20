@@ -21,6 +21,7 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import { Divider } from "primereact/divider";
 import score from "score";
+import DataNotFound from "pages/error pages/DataNotFound";
 
 const TempDashboard = ({ show }) => {
   const [startDate, setStartDate] = useState(new Date("2024-01-01"));
@@ -41,9 +42,11 @@ const TempDashboard = ({ show }) => {
   const [envirotime, setEnviroTime] = useState([]);
   const [envirodate, setEnviroDate] = useState([]);
   const [enviroco2, setEnviroco2] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [temperature, setTemp] = useState([]);
   const [humidity, setHumidity] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+  const [serverDown, setServerDown] = useState(false);
 
   const [ReportVisible, setReportVisible] = useState(false);
   const overlayRef = useRef(null);
@@ -146,6 +149,9 @@ const TempDashboard = ({ show }) => {
       setDataTableData(uniqueDataTableData);
       setLoading(false);
     } catch (error) {
+      console.error("Error fetching data:", error);
+      setServerDown(true);
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -213,6 +219,10 @@ const TempDashboard = ({ show }) => {
       return "#E62225"; // Red for poor
     }
   };
+
+  if (serverDown) {
+    return <DataNotFound />;
+  }
 
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">
@@ -650,7 +660,7 @@ const TempDashboard = ({ show }) => {
       <RecommendationPanel
         show={true}
         renderRecommendations={renderRecommendations}
-      />{" "}
+      />
     </div>
   );
 };

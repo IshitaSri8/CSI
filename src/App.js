@@ -34,6 +34,7 @@ import Culture from "components/Dashboards/Society/Culture/Culture";
 import Administration from "pages/Administration";
 import Disaster from "components/Dashboards/Administration/Disaster Management/Disaster";
 import pathConstants from "pathConstants";
+import DataNotFound from "pages/error pages/DataNotFound";
 
 function App() {
   const routes = [
@@ -126,6 +127,7 @@ function App() {
         ))}
       </Route>
       <Route path="/citizen/kyc" element={<CitizenSidebar />} />
+      <Route path="/error" element={<DataNotFound />} />
       {/* <Route path="/change" element={<ChangeDetection />} /> */}
       {/* <Route path="/animations" element={<Animation />} /> */}
     </Routes>

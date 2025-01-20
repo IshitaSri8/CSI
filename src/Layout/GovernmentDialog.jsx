@@ -50,7 +50,7 @@ const GovernmentDialog = ({ visible, onHide }) => {
       style={{ width: "40rem", textAlign: "center" }}
       onHide={onHide}
     >
-      <div className="flex align-items-center justify-content-center flex-row gap-2">
+      <div className="flex align-items-center justify-content-center gap-2">
         <Lottie
           animationData={signin_ani}
           loop={true}
@@ -59,8 +59,10 @@ const GovernmentDialog = ({ visible, onHide }) => {
         />
 
         {/* Username and Password input fields */}
-        <div className="flex align-items-center justify-content-center flex-column">
-          <h1 className="text-2xl mb-6 m-0 p-0 text-theme">Sign In</h1>
+        <div className="flex align-items-center flex-column">
+          <p className="text-2xl mb-4 font-semibold m-0 p-0 text-primary1">
+            Sign In
+          </p>
 
           {/* Username input */}
           <input
@@ -83,7 +85,12 @@ const GovernmentDialog = ({ visible, onHide }) => {
           />
 
           {/* Submit Button */}
-          <Button label="Submit" onClick={handleSignIn} className="bg-theme" />
+          <Button
+            label="Submit"
+            onClick={handleSignIn}
+            className="bg-primary1"
+            raised
+          />
 
           {/* Display message */}
           {message && <p>{message}</p>}
