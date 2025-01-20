@@ -331,7 +331,7 @@ const Transport = ({ show }) => {
                 </div>
                 <div className="flex justify-content-between">
                   <Button
-                    className="bg-white text-moderate border-none"
+                    className="bg-white text-secondary2"
                     label="Reset"
                     onClick={resetFilters}
                     raised

@@ -110,6 +110,14 @@ body {
   color: var(--text-tertiary-3);
 }
 
+.text-tertiary-2 {
+  color: var(--text-tertiary-2);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
 .text-moderate {
   color: var(--text-moderate);
 }

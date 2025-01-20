@@ -55,7 +55,7 @@ const Header = () => {
       label: "CSI for Citizens",
       icon: "pi pi-users",
       template: itemRenderer,
-      path: "/citizens",
+      path: "/citizen",
       command: () => navigate("/citizen"),
     },
     {
