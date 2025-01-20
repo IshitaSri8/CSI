@@ -9,18 +9,24 @@ const KnowYourCity = () => {
   const [activeTab, setActiveTab] = useState(0);
   const { citizenDetails } = useUser(); // Accessing user details from context
   const { city } = citizenDetails; // Extracting the city
+  const { name } = citizenDetails;
 
   return (
     <div className="px-0 py-4">
       <div className="flex align-items-center gap-2">
-        <h1 className="m-0 p-0 text-primary1 text-2xl font-medium ml-3">
-          Know Your City
+        <p className="text-secondary2 text-3xl p-0 m-0 font-semibold ml-3">
+          Hey {name}!
+        </p>
+        <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
+          Know Your City-
         </h1>
-        -
         {city ? (
-          <p className="text-theme text-lg p-0 m-0 font-semibold">{city}</p>
+          <p className="text-secondary2 text-3xl p-0 m-0 font-semibold">
+            {city}
+          </p>
         ) : (
-          <p className="card-text p-0 m-0">No city selected.</p>
+          // <p className="card-text p-0 m-0">No city selected.</p>
+          <p className="card-text p-0 m-0">Ayodhya</p>
         )}
       </div>
       <TabView

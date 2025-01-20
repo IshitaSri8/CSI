@@ -196,7 +196,7 @@ const CityDemographics = () => {
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
                 height={110}
-                colorArray={["#BAD8DF", "#003940"]}
+                colorArray={["#FFDD82", "#47B881"]}
                 horizontal={"center"}
                 vertical={"bottom"}
                 fontColor={"#fff"}
@@ -221,7 +221,7 @@ const CityDemographics = () => {
                     className="m-0 p-0 font-medium"
                     strokeWidth={12}
                     styles={buildStyles({
-                      pathColor: "#003940",
+                      pathColor: "#FFDD82",
                       textColor: "#fff",
                       trailColor: "#BAD8DF",
                       textSize: "2rem",
@@ -425,7 +425,7 @@ const CityDemographics = () => {
                   </div>
                 </Tooltip>
               </div>
-              A.P.M.C. Markets
+              {/* A.P.M.C. Markets */}
               <div
                 className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
