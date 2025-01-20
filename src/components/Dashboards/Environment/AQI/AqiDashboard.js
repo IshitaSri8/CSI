@@ -26,6 +26,7 @@ import { Divider } from "primereact/divider";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import score from "score";
+import DataNotFound from "pages/error pages/DataNotFound";
 
 const AqiDashboard = ({ show }) => {
   const [startDate, setStartDate] = useState(new Date("2024-01-01"));
@@ -56,7 +57,9 @@ const AqiDashboard = ({ show }) => {
   const [enviroAQI, setEnviroAQI] = useState([]);
   const [enviroNO2, setEnviroNO2] = useState([]);
   const [enviroco2, setEnviroco2] = useState([]);
+
   const [loading, setLoading] = useState(true);
+  const [serverDown, setServerDown] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
 
@@ -97,6 +100,7 @@ const AqiDashboard = ({ show }) => {
       const response = await axios.get(
         `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
+      console.log("🚀 ~ handleSearch ~ response:", response);
       const filteredData = response.data.data;
       // console.log(filteredData);
 
@@ -212,6 +216,9 @@ const AqiDashboard = ({ show }) => {
       ).map(JSON.parse);
       setDataTableData(uniqueDataTableData);
     } catch (error) {
+      console.log("🚀 ~ handleSearch ~ error:", error);
+      setLoading(false);
+      setServerDown(true);
     } finally {
       setLoading(false);
     }
@@ -312,6 +319,10 @@ const AqiDashboard = ({ show }) => {
       return "#E62225"; // Red for poor
     }
   };
+
+  if (serverDown) {
+    return <DataNotFound />;
+  }
 
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">

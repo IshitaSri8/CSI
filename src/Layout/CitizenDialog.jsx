@@ -42,7 +42,8 @@ const CitizenDialog = ({ visible, onHide }) => {
         // User is registered, ask for OTP
         if (otp === "1234") {
           // Store user details in context
-          const userData = response.data;
+          const userData = response.data.user;
+          console.log("🚀 ~ checkPhoneNumber ~ userData:", response.data.user);
           setCitizenDetails({
             name: userData.name,
             email: userData.email,
@@ -71,7 +72,7 @@ const CitizenDialog = ({ visible, onHide }) => {
       onHide={onHide}
       //   onHide={() => setVisible(false)}
     >
-      <div className="flex align-items-center justify-content-center flex-row gap-4 ">
+      <div className="flex align-items-center justify-content-center gap-4 ">
         <Lottie
           animationData={signin_ani}
           loop={true}
@@ -80,7 +81,9 @@ const CitizenDialog = ({ visible, onHide }) => {
         />
         {/* Phone input using react-phone-input-2 */}
         <div className="flex align-items-center justify-content-center flex-column">
-          <h1 className="text-2xl mb-4 m-0 p-0 text-theme">Sign In</h1>
+          <p className="text-2xl m-0 p-0 text-primary1 font-semibold">
+            Sign In
+          </p>
           <PhoneInput
             placeholder="Enter Phone Number"
             value={phone}
@@ -103,7 +106,8 @@ const CitizenDialog = ({ visible, onHide }) => {
           <Button
             label="Submit"
             onClick={checkPhoneNumber}
-            className="bg-theme"
+            className="bg-primary1"
+            raised
           />
           {message && <p>{message}</p>}
         </div>
