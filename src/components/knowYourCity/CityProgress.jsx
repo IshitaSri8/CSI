@@ -81,24 +81,13 @@ const CityProgress = () => {
                       >
                         21
                       </p>
-                      <p
-                        className="mt-0 text-sm"
-                        style={{ color: "var(--text-tertiary-2)" }}
-                      >
-                        out of 67
-                      </p>
+                      <p className="mt-0 text-sm text-tertiary">out of 67</p>
                     </div>
                   </div>
-                  <p
-                    className="m-0 text-xs"
-                    style={{ color: "var(--text-tertiary-2)" }}
-                  >
+                  <p className="m-0 text-xs text-tertiary-2 font-medium">
                     Source:
                   </p>
-                  <p
-                    className="m-0 text-sm"
-                    style={{ color: "var(--text-tertiary)" }}
-                  >
+                  <p className="m-0 text-sm text-tertiary">
                     Jal Jeevan Mission
                   </p>
                 </div>
@@ -119,26 +108,13 @@ const CityProgress = () => {
                     >
                       39.5
                     </p>
-                    <p
-                      className="mt-3 ml-0 text-sm"
-                      style={{ color: "var(--text-tertiary-2)" }}
-                    >
-                      MLD
-                    </p>
+                    <p className="mt-3 ml-0 text-sm text-tertiary">MLD</p>
                   </div>
                 </div>
-                <p
-                  className="m-0 text-xs"
-                  style={{ color: "var(--text-tertiary-2)" }}
-                >
+                <p className="m-0 text-xs text-tertiary-2 font-medium">
                   Source:
                 </p>
-                <p
-                  className="m-0 text-sm"
-                  style={{ color: "var(--text-tertiary)" }}
-                >
-                  Jal Kal Vibhag
-                </p>
+                <p className="m-0 text-sm text-tertiary">Jal Kal Vibhag</p>
               </div>
             </div>
           </div>
@@ -168,34 +144,18 @@ const CityProgress = () => {
                   >
                     262
                   </p>
-                  <p
-                    className="mt-1 text-sm"
-                    style={{ color: "var(--text-tertiary-2)" }}
-                  >
-                    Houses allocated
-                  </p>
+                  <p className="mt-1 text-sm text-tertiary">Houses allocated</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex flex-column justify-content-end">
                   <p className="m-0 text-center text-4xl text-white">284</p>
-                  <p
-                    className="mt-1 text-sm"
-                    style={{ color: "var(--text-tertiary-2)" }}
-                  >
-                    Houses built
-                  </p>
+                  <p className="mt-1 text-sm text-tertiary">Houses built</p>
                 </div>
               </div>
-              <p
-                className="m-0 text-xs mt-4"
-                style={{ color: "var(--text-tertiary-2)" }}
-              >
+              <p className="m-0 text-xs mt-4 text-tertiary-2 font-medium">
                 Source:
               </p>
-              <p
-                className="m-0 text-sm"
-                style={{ color: "var(--text-tertiary)" }}
-              >
+              <p className="m-0 text-sm text-tertiary">
                 Ministry of Housing & Urban Affairs
               </p>
             </div>
@@ -214,18 +174,8 @@ const CityProgress = () => {
             </p>
             {DonutChart(electricityConsumptionData)}
             <div className="flex flex-column">
-              <p
-                className="m-0 text-xs"
-                style={{ color: "var(--text-tertiary-2)" }}
-              >
-                Source:
-              </p>
-              <p
-                className="m-0 text-sm"
-                style={{ color: "var(--text-tertiary)" }}
-              >
-                Vidyut Vibhag Ayodhya
-              </p>
+              <p className="m-0 text-xs text-tertiary-2 font-medium">Source:</p>
+              <p className="m-0 text-sm text-tertiary">Vidyut Vibhag Ayodhya</p>
             </div>
           </div>
         </div>
@@ -264,24 +214,11 @@ const CityProgress = () => {
                     style={{ color: "#F9C849" }}
                   />
                   {/* </p> */}
-                  <p
-                    className="mt-1 text-sm"
-                    style={{ color: "var(--text-tertiary-2)" }}
-                  >
-                    Rating
-                  </p>
+                  <p className="mt-1 text-sm text-tertiary-2">Rating</p>
                 </div>
               </div>
-              <p
-                className="m-0 text-xs"
-                style={{ color: "var(--text-tertiary-2)" }}
-              >
-                Source:
-              </p>
-              <p
-                className="m-0 text-sm"
-                style={{ color: "var(--text-tertiary)" }}
-              >
+              <p className="m-0 text-xs text-tertiary-2 font-medium">Source:</p>
+              <p className="m-0 text-sm text-tertiary">
                 Ministry of Housing and Urban Affairs
               </p>
             </div>
@@ -298,18 +235,10 @@ const CityProgress = () => {
             </p>
             {DonutChart(wasteGenerationData)}
             <div className="flex flex-column">
-            <p
-              className="m-0 text-xs"
-              style={{ color: "var(--text-tertiary-2)" }}
-            >
-              Source:
-            </p>
-            <p
-              className="m-0 text-sm"
-              style={{ color: "var(--text-tertiary)" }}
-            >
-              Ayodhya Industrial Dept 2020
-            </p>
+              <p className="m-0 text-xs text-tertiary-2 font-medium">Source:</p>
+              <p className="m-0 text-sm text-tertiary">
+                Ayodhya Industrial Dept 2020
+              </p>
             </div>
           </div>
         </div>
@@ -330,24 +259,11 @@ const CityProgress = () => {
                   >
                     389
                   </p>
-                  <p
-                    className="mt-1 text-sm"
-                    style={{ color: "var(--text-tertiary-2)" }}
-                  >
-                    Rank out of 1000
-                  </p>
+                  <p className="mt-1 text-sm text-tertiary">Rank out of 1000</p>
                 </div>
               </div>
-              <p
-                className="m-0 text-xs"
-                style={{ color: "var(--text-tertiary-2)" }}
-              >
-                Source:
-              </p>
-              <p
-                className="m-0 text-sm"
-                style={{ color: "var(--text-tertiary)" }}
-              >
+              <p className="m-0 text-xs text-tertiary-2 font-medium">Source:</p>
+              <p className="m-0 text-sm text-tertiary">
                 Swachh Survekshan Mission
               </p>
             </div>
@@ -363,18 +279,8 @@ const CityProgress = () => {
             </p>
             {DonutChart(solidWasteProcessedData)}
             <div className="flex flex-column">
-            <p
-              className="m-0 text-xs"
-              style={{ color: "var(--text-tertiary-2)" }}
-            >
-              Source:
-            </p>
-            <p
-              className="m-0 text-sm"
-              style={{ color: "var(--text-tertiary)" }}
-            >
-              Swachh Bharat Mission
-            </p>
+              <p className="m-0 text-xs text-tertiary-2 font-medium">Source:</p>
+              <p className="m-0 text-sm text-tertiary">Swachh Bharat Mission</p>
             </div>
           </div>
           <div
@@ -393,25 +299,12 @@ const CityProgress = () => {
                 >
                   100%
                 </p>
-                <p
-                  className="mt-1 text-sm text-center"
-                  style={{ color: "var(--text-tertiary-2)" }}
-                >
+                <p className="mt-1 text-sm text-center text-tertiary">
                   Functional
                 </p>
               </div>
-              <p
-                className="m-0 text-xs"
-                style={{ color: "var(--text-tertiary-2)" }}
-              >
-                Source:
-              </p>
-              <p
-                className="m-0 text-sm"
-                style={{ color: "var(--text-tertiary)" }}
-              >
-                Swachh Bharat Mission
-              </p>
+              <p className="m-0 text-xs text-tertiary-2 font-medium">Source:</p>
+              <p className="m-0 text-sm text-tertiary">Swachh Bharat Mission</p>
             </div>
           </div>
         </div>

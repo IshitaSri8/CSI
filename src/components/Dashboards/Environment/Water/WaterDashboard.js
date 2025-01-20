@@ -452,7 +452,7 @@ const WaterDashboard = ({ show }) => {
                 </div>
                 <div className="flex justify-content-between">
                   <Button
-                    className="bg-white text-moderate border-none"
+                    className="bg-white text-secondary2"
                     label="Reset"
                     // icon="pi pi-undo"
                     onClick={resetFilters}
@@ -1060,7 +1060,7 @@ const WaterDashboard = ({ show }) => {
                       {displayValues.Total_Volume_Harvested}
                       <span className="text-xl p-0 m-0"> m&sup3;</span>
                     </p>
-                    <p className="p-0 m-0 card-text text-left w-full">
+                    <p className="p-0 m-0 card-text text-center">
                       Harvested Water
                     </p>
                   </div>
@@ -1069,7 +1069,7 @@ const WaterDashboard = ({ show }) => {
                     <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                       {displayValues.Sites_with_Rainwater_Harvesting_System}
                     </p>
-                    <p className="p-0 m-0 card-text w-full">
+                    <p className="p-0 m-0 card-text text-center">
                       Rainwater Harvesting Sites
                     </p>
                   </div>

@@ -9,6 +9,7 @@ export default function ReportPrint({
   heading,
   renderRecommendations,
   renderDashboard,
+  // selectedLocation
 }) {
   const contentRef = useRef(null);
 
@@ -57,13 +58,11 @@ export default function ReportPrint({
     <>
       <div ref={contentRef} className="w-full print-container sec-theme p-4">
         <div className="flex flex-column gap-2 align-items-center w-full">
-          <h1
-            style={{ color: "#166c7d" }}
-            className="m-0 p-0 text-3xl font-semibold"
-          >
+          <h1 className="m-0 p-0 text-3xl font-semibold text-primary1">
             City Sustainability Index 2024
           </h1>
-          <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4>
+          {/* <h4 className="m-0 p-0">Ayodhya, Uttar Pradesh</h4> */}
+          {/* <h4 className="m-0 p-0">{selectedLocation}</h4>  */}
           <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
             {heading}
           </h1>
