@@ -9,7 +9,7 @@ export default function DataNotFound() {
 
   return (
     <div className="flex flex-column align-items-center justify-content-center">
-      <p className="text-4xl font-bold" style={{ marginBottom: -80 }}>
+      <p className="text-5xl font-bold" style={{ marginBottom: -80 }}>
         Data Not Found
       </p>
       <Lottie
@@ -17,7 +17,7 @@ export default function DataNotFound() {
         loop={true}
         className="h-30rem m-0 p-0"
       />
-      <p className="font-medium">
+      <p className="font-medium text-xl">
         Oops! Looks like the server is down. We'll be back shortly.
       </p>
       <Button
