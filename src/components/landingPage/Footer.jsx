@@ -9,10 +9,10 @@ const Footer = () => {
   return (
     <footer className="footer">
       {/* Column 1: Logo and Social Media */}
-      <div className="flex align-items-center justify-content-start flex-column gap-1 p-2 w-14rem">
-        <img src={logo} alt="Arahas" className="h-2rem "></img>
-        <p>Follow us on social media for the latest updates</p>
-        <div className="flex align-items-center justify-content-start gap-4">
+      <div className="flex align-items-center justify-content-center flex-column gap-1">
+        <img src={logo} alt="Arahas" className="h-2rem"></img>
+        <p className="w-15rem">Follow us on social media for the latest updates</p>
+        <div className="flex gap-4">
           <a
             href="https://www.facebook.com/Arahas.tech"
             target="_blank"
@@ -52,10 +52,10 @@ const Footer = () => {
       </div>
 
       {/* Column 2: Quick Links */}
-      <div className="flex align-items-start justify-content-start flex-column gap-3 ">
-        <h3 className="border-bottom-1 border-orange-600 text-xl p-0 m-0">
+      <div className="flex align-items-start justify-content-start flex-column gap-3">
+        <p className="border-bottom-1 border-orange-600 text-xl p-0 m-0 font-medium">
           Quick Links
-        </h3>
+        </p>
         <div className="flex align-items-start justify-content-start flex-column gap-3">
           <div className="flex align-items-start justify-content-start gap-1">
             <i className="pi pi-angle-right text-orange-600"></i>
@@ -106,41 +106,26 @@ const Footer = () => {
       </div>
 
       {/* Column 3: Recent News */}
-      <div className="flex align-items-start justify-content-start flex-column gap-3 ">
-        <h3 className="border-bottom-1 border-orange-600 text-xl p-0 m-0">
+      <div className="flex align-items-start justify-content-start flex-column gap-3">
+        <p className="border-bottom-1 border-orange-600 text-xl p-0 m-0 font-medium">
           Recent News
-        </h3>
-        <div className="flex align-items-start justify-content-start flex-column gap-3 ">
-          <div className="flex align-items-center justify-content-start gap-3 w-full">
-            <i className="pi pi-arrow-right text-orange-600 text-lg"></i>
-            <div className="flex align-items-start justify-content-start flex-column gap-1">
-              <h1 className="p-0 m-0 text-left font-light">
-                Exciting times ahead for Ayodhya!
-              </h1>
-              <p className="text-sm p-0 m-0 text-left font-light">
-                November 1, 2024
-              </p>
-            </div>
-          </div>
-          <div className="flex align-items-center justify-content-start gap-3 w-full">
-            <i className="pi pi-arrow-right text-orange-600 text-lg"></i>
-            <div className="flex align-items-start justify-content-start flex-column gap-1">
-              <h1 className="p-0 m-0 text-left font-light">
-                Going Live in Uttarakhand soon!
-              </h1>
-              <p className="text-sm p-0 m-0 text-left font-light">
-                January 1, 2025
-              </p>
-            </div>
-          </div>
+        </p>
+        <div className="flex align-items-start justify-content-start gap-3">
+          <i className="pi pi-arrow-right text-orange-600"></i>
+          <Link
+            to="https://tinyurl.com/4pkmjksu"
+            className="p-0 m-0 font-light text-white w-16rem hover:text-orange-500 no-underline transition-colors transition-duration-300"
+          >
+            Ayodhya, First city to have City Sustainability Index
+          </Link>
         </div>
       </div>
 
       {/* Column 4: Contact Us  */}
-      <div className="flex align-items-start justify-content-start flex-column gap-3 ">
-        <h3 className="border-bottom-1 border-orange-600 text-xl p-0 m-0">
+      <div className="flex align-items-start justify-content-start flex-column gap-3">
+        <p className="border-bottom-1 border-orange-600 text-xl p-0 m-0 font-medium">
           Contact US
-        </h3>
+        </p>
         <div className="flex align-items-start justify-content-start flex-column gap-3">
           <div className="flex align-items-center justify-content-start gap-3">
             <i className="pi pi-map-marker text-orange-600 text-xl"></i>
