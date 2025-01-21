@@ -4,11 +4,11 @@ import { Ripple } from "primereact/ripple";
 import { Button } from "primereact/button";
 import "../components/landingPage/Landing.css";
 import KnowYourCity from "../pages/KnowYourCity";
-import CityReportCardCitizen from "pages/CityReportCardCitizen";
 import Arahas from "assets/arahas_logo.png";
 import { Building, FileChartPie, LogOut } from "lucide-react";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { useNavigate } from "react-router-dom";
+import CityReportCard from "pages/CityReportCard";
 
 const CitizenSidebar = () => {
   const [activeTab, setActiveTab] = useState("kyc"); // State for active tab
@@ -29,12 +29,12 @@ const CitizenSidebar = () => {
   const breadcrumbItems =
     activeTab === "kyc"
       ? [
-          { label: "CSI For Citizen", url: "/citizen" },
-          { label: "Know Your City" },
+          { label: "CSI For Citizen", url: "/citizen", isSelected: false },
+          { label: "Know Your City", isSelected: "true" },
         ]
       : [
-          { label: "CSI For Citizen", url: "/citizen" },
-          { label: "City Report Card" },
+          { label: "CSI For Citizen", url: "/citizen", isSelected: false },
+          { label: "City Report Card", isSelected: "true" },
         ];
 
   const home = {
@@ -161,6 +161,10 @@ const CitizenSidebar = () => {
         model={breadcrumbItems.map((item) => ({
           ...item,
           command: () => onBreadcrumbClick(item.url),
+          style: {
+            color: item.isSelected ? "#69ABB9" : "inherit",
+            fontWeight: item.isSelected ? "bold" : "normal",
+          },
         }))}
         home={home}
         style={{ marginLeft: "5rem" }}
@@ -169,7 +173,7 @@ const CitizenSidebar = () => {
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "5rem" }}>
         {activeTab === "kyc" && <KnowYourCity />}
-        {activeTab === "cityReportCard" && <CityReportCardCitizen />}
+        {activeTab === "cityReportCard" && <CityReportCard />}
       </div>
     </div>
   );
