@@ -6,7 +6,7 @@ import { Button } from "primereact/button";
 import ReportPrint from "components/CityReportCard/ReportPrint";
 import { Panel } from "primereact/panel";
 
-const CityReportCardGov = ({ show }) => {
+const CityReportCard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
   const [recommendationsVisible, setRecommendationsVisible] = useState(false);
 
@@ -16,17 +16,19 @@ const CityReportCardGov = ({ show }) => {
 
   return (
     <div className="flex p-4 flex-column sec-theme gap-3">
-      <div className="flex align-items-center justify-content-between w-full" >
+      <div className="flex align-items-center justify-content-between w-full">
         <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
           City Report Card
         </h1>
-        <Button
-          label="Generate Report"
-          icon="pi pi-file"
-          onClick={() => setReportVisible(true)}
-          className="bg-primary1 text-white"
-          raised
-        />
+        {show && (
+          <Button
+            label="Generate Report"
+            icon="pi pi-file"
+            onClick={() => setReportVisible(true)}
+            className="bg-primary1 text-white"
+            raised
+          />
+        )}
       </div>
 
       <Dialog
@@ -79,22 +81,5 @@ const CityReportCardGov = ({ show }) => {
   );
 };
 
-export default CityReportCardGov;
+export default CityReportCard;
 
-{
-  /* <TabView
-        activeIndex={activeTab}
-        onTabChange={(e) => setActiveTab(e.index)}
-        className="w-full"
-      >
-        <TabPanel header="Performance" className="text-black">
-          <Report />
-        </TabPanel>
-        <TabPanel header="Recommendations">
-          <Recommendations />
-        </TabPanel>
-        <TabPanel header="Report">
-          <GenerateReport />
-        </TabPanel>
-      </TabView> */
-}
