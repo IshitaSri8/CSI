@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Button } from "primereact/button";
 import "primeflex/primeflex.css";
-import MySvgImage from "assets/Landing Page revised illustration 1.svg";
 import CSISteps from "../components/landingPage/CSISteps";
 import Testimonials from "../components/landingPage/Testimonials";
 import Footer from "../components/landingPage/Footer";
@@ -9,11 +8,11 @@ import CSIVideo from "../components/landingPage/CSIVideo";
 import csi_video from "assets/csi_new.mp4";
 import UserDialog from "../components/landingPage/UserDialog";
 import Header from "../Layout/Header";
-import Parameters from "../components/landingPage/Parameters";
 import FAQChatbot from "../components/landingPage/FAQChatbot";
 import { ScrollTop } from "primereact/scrolltop";
 import FloatingSidebar from "components/landingPage/FloatingSidebar";
 import QuestionsCarousel from "components/landingPage/QuestionsCarousel";
+import LandingCarousel from "components/landingPage/LandingCarousel";
 
 // Main LandingScreen component
 const LandingScreen = () => {
@@ -57,9 +56,9 @@ const LandingScreen = () => {
       <Header />
 
       {/* Add top padding to avoid overlap with fixed header */}
-      <div className="View bg-white flex flex-column ">
+      <div className="View bg-white flex flex-column">
         {/* Main Content */}
-        <div className="w-full h-screen">
+        {/* <div className="w-full h-screen">
           <video
             autoPlay
             muted
@@ -73,24 +72,14 @@ const LandingScreen = () => {
           >
             <source src={csi_video} type="video/mp4" />
           </video>
-        </div>
-
-        {/* <Divider /> */}
+        </div> */}
+        <LandingCarousel />
         <FAQChatbot />
-        {/* Card Section */}
         <div
           ref={csiStepsRef} // Set the ref here
           className="flex justify-content-center gap-6 flex-nowrap w-full overflow-auto pl-5 pr-5 block"
           id="csi-steps"
         >
-          {/* {cardData.map((card, index) => (
-            <CardItem
-              key={index}
-              number={card.number}
-              title={card.title}
-              content={card.content}
-            />
-          ))} */}
           <CSISteps />
         </div>
 
@@ -98,12 +87,12 @@ const LandingScreen = () => {
           <CSIVideo />
         </div>
 
-        <div
+        {/* <div
           className="flex justify-content-center w-full overflow-auto p-5 block"
           id="parameters"
         >
           <Parameters />
-        </div>
+        </div> */}
 
         <div className="flex flex-column block" id="questions">
           <QuestionsCarousel />

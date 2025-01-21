@@ -135,18 +135,16 @@ const FAQChatbot = () => {
   };
 
   return (
-    <div>
-      <div
-        style={{
-          position: "fixed",
-          bottom: 20,
-          right: 20,
-          zIndex: 1000,
-          fontSize: "2rem",
-        }}
-      >
-        <MyChatBot settings={settings} flow={flow} styles={styles} />
-      </div>
+    <div
+      style={{
+        position: "fixed",
+        bottom: 20,
+        right: 20,
+        zIndex: 1000,
+        fontSize: "2rem",
+      }}
+    >
+      <MyChatBot settings={settings} flow={flow} styles={styles} />
     </div>
   );
 };
