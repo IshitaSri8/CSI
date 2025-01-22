@@ -5,7 +5,6 @@ import CSISteps from "../components/landingPage/CSISteps";
 import Testimonials from "../components/landingPage/Testimonials";
 import Footer from "../components/landingPage/Footer";
 import CSIVideo from "../components/landingPage/CSIVideo";
-import csi_video from "assets/csi_new.mp4";
 import UserDialog from "../components/landingPage/UserDialog";
 import Header from "../Layout/Header";
 import FAQChatbot from "../components/landingPage/FAQChatbot";
@@ -57,22 +56,6 @@ const LandingScreen = () => {
 
       {/* Add top padding to avoid overlap with fixed header */}
       <div className="View bg-white flex flex-column">
-        {/* Main Content */}
-        {/* <div className="w-full h-screen">
-          <video
-            autoPlay
-            muted
-            loop
-            style={{
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-          >
-            <source src={csi_video} type="video/mp4" />
-          </video>
-        </div> */}
         <LandingCarousel />
         <FAQChatbot />
         <div
@@ -83,9 +66,9 @@ const LandingScreen = () => {
           <CSISteps />
         </div>
 
-        <div className="flex sec-theme block" id="csi-video">
+        {/* <div className="flex sec-theme block" id="csi-video">
           <CSIVideo />
-        </div>
+        </div> */}
 
         {/* <div
           className="flex justify-content-center w-full overflow-auto p-5 block"

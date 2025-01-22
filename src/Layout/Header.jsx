@@ -70,7 +70,8 @@ const Header = () => {
       icon: "pi pi-info-circle",
       template: itemRenderer,
       command: () => {
-        window.location.href = "https://arahas.com/"; // External redirect
+        window.open("https://arahas.com/", "_blank");
+        // window.location.href = "https://arahas.com/"; // External redirect
       },
     },
     {
@@ -78,7 +79,8 @@ const Header = () => {
       icon: "pi pi-envelope",
       template: itemRenderer,
       command: () => {
-        window.location.href = "https://ayodhya.arahas.com/"; // External redirect
+        window.open("https://ayodhya.arahas.com/", "_blank");
+        // window.location.href = "https://ayodhya.arahas.com/"; // External redirect
       },
     },
     {

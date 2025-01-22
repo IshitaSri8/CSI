@@ -151,7 +151,9 @@ const Chatbot = () => {
       function: (params) => setForm({ ...form, phone: params.userInput }),
       path: async (params) => {
         const phone = params.userInput;
-        const phoneRegex = /^\d{10}$/;
+        const phoneRegex =
+          /^(?:(?:\+|0{0,2})91(\s*|[-])?|[0]?)?([6789]\d{2}([-]?)\d{3}([-]?)\d{4})$/;
+        // /^\d{10}$/;
 
         if (!phoneRegex.test(phone)) {
           await params.injectMessage(
@@ -211,7 +213,6 @@ const Chatbot = () => {
   };
 
   return (
-    <div>
       <div
         style={{
           position: "fixed",
@@ -223,7 +224,6 @@ const Chatbot = () => {
       >
         <MyChatBot settings={settings} flow={flow} styles={styles} />
       </div>
-    </div>
   );
 };
 
