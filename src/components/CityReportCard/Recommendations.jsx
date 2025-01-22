@@ -6,32 +6,30 @@ const Recommendations = () => {
 
   const getRecommendation = () => {
     return (
-      <>
-        <ul>
-          <li className="font-medium text-lg text">
-            1. Extremely high levels of PM2.5 and PM10 were recorded in areas
-            like Ranopali Kila Road and near the airport in Ayodhya on January
-            29, 2024. These levels exceeded 900 for PM2.5 and touched 1000 for
-            PM10, indicating an "extremely hazardous" air quality condition.
-            Limit outdoor activities as much as possible, especially for
-            sensitive groups like children and elderly. Such concentrations of
-            particulate matter pose immediate health risks to vulnerable group
-            exacerbating respiratory conditions such as asthma and bronchitis.
-          </li>
+      <ul className="font-medium text p-0 m-0">
+        <li>
+          1. Extremely high levels of PM2.5 and PM10 were recorded in areas like
+          Ranopali Kila Road and near the airport in Ayodhya on January 29,
+          2024. These levels exceeded 900 for PM2.5 and touched 1000 for PM10,
+          indicating an "extremely hazardous" air quality condition. Limit
+          outdoor activities as much as possible, especially for sensitive
+          groups like children and elderly. Such concentrations of particulate
+          matter pose immediate health risks to vulnerable group exacerbating
+          respiratory conditions such as asthma and bronchitis.
+        </li>
 
-          <li className="font-medium text-lg text">
-            2. Invest in alternative water sources such as rainwater harvesting,
-            desalination, and wastewater recycling. Implement stringent
-            regulations to prevent industrial, agricultural, and domestic
-            pollution of water sources.
-          </li>
+        <li>
+          2. Invest in alternative water sources such as rainwater harvesting,
+          desalination, and wastewater recycling. Implement stringent
+          regulations to prevent industrial, agricultural, and domestic
+          pollution of water sources.
+        </li>
 
-          <li className="font-medium text-lg text">
-            3. Develop a Digital Waste Tracking System. Maintain a current
-            inventory of hazardous materials employed within work areas.
-          </li>
-        </ul>
-      </>
+        <li>
+          3. Develop a Digital Waste Tracking System. Maintain a current
+          inventory of hazardous materials employed within work areas.
+        </li>
+      </ul>
     );
   };
 
@@ -45,9 +43,9 @@ const Recommendations = () => {
   //   };
 
   return (
-    <div className="flex align-items-center justify-content-around p-5 gap-8">
-      <div>{getRecommendation()}</div>
-      <img src={recom} alt="recommendations" />
+    <div className="flex align-items-center justify-content-around px-5">
+      {getRecommendation()}
+      <img src={recom} alt="recommendations" className="h-16rem py-2" />
     </div>
   );
 };

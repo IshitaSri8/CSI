@@ -3,20 +3,16 @@ import "./App.css";
 import "primereact/resources/themes/lara-light-teal/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { Route, Routes } from "react-router-dom";
 import LandingScreen from "./pages/LandingScreen";
 import Citizen from "./pages/Citizen";
 import Government from "./pages/Government";
-import { Route, Routes } from "react-router-dom";
-import "primereact/resources/themes/lara-light-cyan/theme.css";
-import GovernmentSidebar from "Layout/GovernmentSidebar";
-import CityProgress from "components/knowYourCity/CityProgress";
 import CitizenSidebar from "Layout/CitizenSidebar";
 import ChangeDetection from "extra/ChangeDetection";
 import Animation from "extra/Animation";
 import Layout from "Layout/Layout";
 import KnowYourCity from "pages/KnowYourCity";
-import CityReportCardGov from "pages/CityReportCardGov";
-import CityReportCardCitizen from "pages/CityReportCardCitizen";
 import AqiDashboard from "components/Dashboards/Environment/AQI/AqiDashboard";
 import TempDashboard from "components/Dashboards/Environment/Temperature/TempDashboard";
 import RainDashboard from "components/Dashboards/Environment/Rain/RainDashboard";
@@ -34,6 +30,7 @@ import Culture from "components/Dashboards/Society/Culture/Culture";
 import Administration from "pages/Administration";
 import Disaster from "components/Dashboards/Administration/Disaster Management/Disaster";
 import pathConstants from "pathConstants";
+import CityReportCard from "pages/CityReportCard";
 import DataNotFound from "pages/error pages/DataNotFound";
 
 function App() {
@@ -44,7 +41,7 @@ function App() {
     },
     {
       path: pathConstants.CRC,
-      element: <CityReportCardGov />,
+      element: <CityReportCard show={true} />,
     },
     {
       path: pathConstants.NATURE,
@@ -127,7 +124,7 @@ function App() {
         ))}
       </Route>
       <Route path="/citizen/kyc" element={<CitizenSidebar />} />
-      <Route path="/error" element={<DataNotFound />} />
+      {/* <Route path="/error" element={<DataNotFound />} /> */}
       {/* <Route path="/change" element={<ChangeDetection />} /> */}
       {/* <Route path="/animations" element={<Animation />} /> */}
     </Routes>

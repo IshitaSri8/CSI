@@ -1,13 +1,12 @@
 import React, { useRef } from "react";
 import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import Report from "./Report";
 import Recommendations from "./Recommendations";
 
-export default function ReportPrint({ visible, toggleModalVisibility }) {
+export default function ReportPrint() {
   const contentRef = useRef(null);
 
   // Set up the print function using react-to-print

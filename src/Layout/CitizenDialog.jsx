@@ -109,7 +109,7 @@ const CitizenDialog = ({ visible, onHide }) => {
             className="bg-primary1"
             raised
           />
-          {message && <p>{message}</p>}
+          {message && <p style={{color: "#E62225"}}>{message}</p>}
         </div>
       </div>
     </Dialog>

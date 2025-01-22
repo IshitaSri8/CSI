@@ -79,9 +79,9 @@ const CityProgress = () => {
                         className="m-0 text-center text-4xl font-medium"
                         style={{ color: "#F9C849" }}
                       >
-                        21
+                        26
                       </p>
-                      <p className="mt-0 text-sm text-tertiary">out of 67</p>
+                      <p className="mt-0 text-sm text-tertiary">out of 75</p>
                     </div>
                   </div>
                   <p className="m-0 text-xs text-tertiary-2 font-medium">
@@ -259,7 +259,7 @@ const CityProgress = () => {
                   >
                     389
                   </p>
-                  <p className="mt-1 text-sm text-tertiary">Rank out of 1000</p>
+                  <p className="mt-1 text-sm text-tertiary">Absolute Rank</p>
                 </div>
               </div>
               <p className="m-0 text-xs text-tertiary-2 font-medium">Source:</p>
