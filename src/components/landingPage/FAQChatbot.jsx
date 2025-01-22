@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import MyChatBot from "react-chatbotify";
 import chatIcon from "../../assets/Chatbot/Chatbot.svg";
 import "./Landing.css";
-import { useEffect } from "react";
 
 const FAQChatbot = () => {
   const [form, setForm] = useState({});
@@ -62,21 +61,11 @@ const FAQChatbot = () => {
     start: {
       message: "Hello there! What is your name?",
       function: (params) => setForm({ ...form, name: params.userInput }),
-      path: "greeting",
-    },
-    greeting: {
-      message: (params) =>
-        `Nice to meet you ${params.userInput}. Would you like to know about CSI?`,
-      options: ["Yes", "No"],
-      path: (params) => {
-        if (params.userInput.toLowerCase() === "yes") {
-          return "ask_questions"; // Redirect to KYC page if user says Yes
-        } else {
-          return "end"; // Proceed to Thank You message if No
-        }
-      },
+      path: "ask_questions",
     },
     ask_questions: {
+      message: (params) =>
+        `Nice to meet you ${params.userInput}. What would you like to know about CSI?`,
       options: unansweredQuestions, // Display only unanswered questions
       function: (params) => {
         const userQuestion = params.userInput;
@@ -110,39 +99,28 @@ const FAQChatbot = () => {
         params.injectMessage(responseMessage); // Send the response message
 
         // Remove the answered question from unansweredQuestions
-        setUnansweredQuestions((prevQuestions) => {
-          const updatedQuestions = prevQuestions.filter(
-            (question) => question !== userQuestion
-          );
-
-          // Check if there are any unanswered questions left
-          return updatedQuestions; // Update state with remaining questions
-        });
-
-        // Determine path based on remaining questions
-        const remainingQuestions = unansweredQuestions.filter(
-          (question) => question !== userQuestion
-        );
-        return remainingQuestions;
-      },
-      path: (params) => {
-        const remainingQuestions = unansweredQuestions.filter(
-          (question) => question !== params.userInput
+        setUnansweredQuestions((prevQuestions) =>
+          prevQuestions.filter((question) => question !== userQuestion)
         );
 
-        return remainingQuestions.length > 0 ? "thank_you" : "end";
+        // Check if there are any unanswered questions left
+        if (unansweredQuestions.length > 1) {
+          return "thank_you"; // Proceed to thank you step
+        } else {
+          return "end"; // End the chat if no more questions
+        }
       },
     },
     thank_you: {
       message: "Thank you! Would you like to ask another question?",
       options: (params) => {
         if (unansweredQuestions.length > 0) {
-          return ["Continue"]; // Show remaining questions
+          return unansweredQuestions; // Show remaining questions
         } else {
           return ["End chat"]; // Option to end chat
         }
       },
-      path: (params) => {
+      function: (params) => {
         if (params.userInput === "End chat") {
           return "end"; // End the chat
         } else {
@@ -152,14 +130,9 @@ const FAQChatbot = () => {
     },
     end: {
       message: "Thank you for using Arahas Ecobot. Have a great day!",
-      chatDisabled: true,
       path: "start", // Reset or restart if needed
     },
   };
-
-  useEffect(() => {
-    console.log(unansweredQuestions); // This will log the updated state whenever it changes
-  }, [unansweredQuestions]);
 
   return (
     <div

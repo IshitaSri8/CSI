@@ -9,22 +9,9 @@ import trend_ss from "assets/trend_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
 import kyc from "assets/Citizen/know your city image- CSI for Citizen revised 1.png";
 import reportCard from "assets/Citizen/CSI Score.png";
-import citizen_video from "assets/videos/citizens.mp4";
+import citizen_video from "assets/society.mp4";
 import Footer from "components/landingPage/Footer";
-import citizen_kyc from "assets/videos/citizen_kyc.mp4";
-import citizen_crc from "assets/videos/citizen_crc.mp4";
-import { useRef } from "react";
-import { useEffect } from "react";
-
 const Citizen = () => {
-  const videoRef = useRef(null); // Create a ref for the video element
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.3; // Reduce playback speed
-    }
-  }, []); // Run this effect once when the component mounts
-
   return (
     <div className="flex flex-column w-full ">
       {/* Header */}
@@ -33,7 +20,6 @@ const Citizen = () => {
       <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
         <div className="w-full h-screen">
           <video
-          ref={videoRef} // Attach ref to the video element
             autoPlay
             muted
             loop
@@ -48,16 +34,16 @@ const Citizen = () => {
           </video>
         </div>
         <div
-          className="border-round-xl p-2"
+          className="border-round-xl m-0 mb-5 p-0"
           style={{
             // backgroundColor: "rgba(247, 164, 122, 0.7)",
             background:
               "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
             width: "70rem",
             position: "absolute",
-            top: "50%",
-            left: "20%",
-            // transform: "translate(-50%, 175%)",
+            top: "65%",
+            left: "50%",
+            transform: "translate(-50%, 175%)",
           }}
         >
           <h1 className="text-4xl text-white text-center font-medium">
@@ -98,34 +84,19 @@ const Citizen = () => {
               src={Laptop}
               alt="Small"
               style={{
-                width: "42rem",
-                height: "19rem",
+                width: "37rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -52%)",
+                transform: "translate(-50%, -50%)",
               }}
             />
-            {/* <img
+            <img
               src={kyc_ss}
               alt="Small"
               style={{
                 width: "30rem",
                 height: "19rem",
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -55%)",
-              }}
-            /> */}
-            <video
-              src={citizen_kyc}
-              autoPlay
-              muted
-              loop
-              className="h-16rem border-round-top-xl "
-              style={{
-                objectFit: "cover",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
@@ -155,7 +126,7 @@ const Citizen = () => {
         </div>
 
         {/*Second Card*/}
-        <div className="w-full flex m-4 block">
+        <div className="w-full flex mx-4 block">
           <div
             className="flex align-items-center justify-content-center p-8"
             style={{
@@ -165,7 +136,7 @@ const Citizen = () => {
             }}
           >
             <div>
-              <p className="text-white text-4xl">CSI Score and Trends</p>
+              <p className="text-white text-4xl">CSI Score</p>
               <p className="text-white text-xl mb-1">
                 View your city's sustainability performance with an
                 easy-to-understand report card. This section breaks down the
@@ -173,6 +144,46 @@ const Citizen = () => {
                 Administration providing clarity on the city’s strengths and
                 areas needing improvement.
               </p>
+
+              {/* <Tag
+                className="mr-2 p-2"
+                style={{ backgroundColor: "#5B98A4", color: "#00403C" }}
+              >
+                <SpaIcon
+                  style={{
+                    fontSize: "1rem",
+                    marginRight: "0.5rem",
+                    color: "#00403C",
+                  }}
+                />
+                Nature
+              </Tag>
+              <Tag
+                className="mr-2 p-2"
+                style={{ backgroundColor: "#5B98A4", color: "#00403C" }}
+              >
+                <Diversity3Icon
+                  style={{
+                    fontSize: "1rem",
+                    marginRight: "0.5rem",
+                    color: "#00403C",
+                  }}
+                />
+                Society
+              </Tag>
+              <Tag
+                className="mr-2 p-2"
+                style={{ backgroundColor: "#5B98A4", color: "#00403C" }}
+              >
+                <AccountBalanceIcon
+                  style={{
+                    fontSize: "1rem",
+                    marginRight: "0.5rem",
+                    color: "#00403C",
+                  }}
+                />
+                Administration
+              </Tag> */}
               <br />
               <p className="text-white text-xl"></p>
             </div>
@@ -192,15 +203,14 @@ const Citizen = () => {
               src={Laptop}
               alt="Small"
               style={{
-                width: "42rem",
-                height: "19rem",
+                width: "37rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -47%)",
+                transform: "translate(-50%, -50%)",
               }}
             />
-            {/* <img
+            <img
               src={report_ss}
               alt="Small"
               style={{
@@ -211,21 +221,65 @@ const Citizen = () => {
                 left: "50%",
                 transform: "translate(-50%, -55%)",
               }}
-            /> */}
-            <video
-              src={citizen_crc}
-              autoPlay
-              muted
-              loop
-              className="h-16rem border-round-top-xl "
+            />
+          </div>
+        </div>
+
+        {/*Third Card*/}
+        <div className="flex w-full m-4 block">
+          {/* Image Column */}
+          <div style={{ flex: "60%", position: "relative" }}>
+            <img
+              src={Card3}
+              alt="Main"
               style={{
-                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+                borderRadius: "10px 0 0 10px",
+              }}
+            />
+            <img
+              src={Laptop}
+              alt="Small"
+              style={{
+                width: "37rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
               }}
             />
+            <img
+              src={trend_ss}
+              alt="Small"
+              style={{
+                width: "30rem",
+                height: "19rem",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -55%)",
+              }}
+            />
+          </div>
+          {/* Text Column */}
+          <div
+            className="flex align-items-center justify-content-center p-8"
+            style={{
+              flex: "40%",
+              background: "linear-gradient(to left, #1F8297, #166C7D, #003940)",
+              borderRadius: "0 10px 10px 0",
+            }}
+          >
+            <div>
+              <p className="text-white text-4xl">City Trends</p>
+              <p className="text-white text-xl">
+                Discover how your city has progressed over time. This feature
+                allows you to explore past trends in sustainability, showing
+                whether improvements have been made in key areas over months or
+                years.
+              </p>
+            </div>
           </div>
         </div>
       </div>

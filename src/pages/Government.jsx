@@ -12,12 +12,8 @@ import government from "../assets/Citizen/csi for gov.png";
 import report_ss from "assets/report_ss.png";
 import kyc_ss from "assets/kyc_ss.png";
 import indicator_ss from "assets/aqi_ss.png";
-import csi from "assets/videos/csi.mp4";
+import csi from "assets/csi.mp4";
 import Footer from "components/landingPage/Footer";
-import gov_kyc from "assets/videos/gov_kyc.mp4";
-import gov_crc from "assets/videos/gov_crc.mp4";
-import aqi from "assets/videos/aqi.mp4";
-
 const Government = () => {
   return (
     <div className="flex flex-column w-full ">
@@ -44,12 +40,12 @@ const Government = () => {
           style={{
             // backgroundColor: "rgba(247, 164, 122, 0.7)",
             background:
-              "linear-gradient(to left, rgba(91, 152, 164, 0.9), rgba(15, 75, 87, 0.9))",
+              "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
             width: "65rem",
             position: "absolute",
-            top: "50%",
-            left: "20%",
-            // transform: "translate(-50%, 175%)",
+            top: "60%",
+            left: "50%",
+            transform: "translate(-50%, 175%)",
           }}
         >
           <h1 className="text-4xl text-white font-medium text-center text-box">
@@ -76,15 +72,14 @@ const Government = () => {
               src={Laptop}
               alt="Small"
               style={{
-                width: "42rem",
-                height: "18rem",
+                width: "37rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
               }}
             />
-            {/* <img
+            <img
               src={kyc_ss}
               alt="Small"
               style={{
@@ -94,20 +89,6 @@ const Government = () => {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -55%)",
-              }}
-            /> */}
-            <video
-              src={gov_kyc}
-              autoPlay
-              muted
-              loop
-              className="h-16rem border-round-top-xl "
-              style={{
-                objectFit: "cover",
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -53%)",
               }}
             />
           </div>
@@ -186,35 +167,20 @@ const Government = () => {
               src={Laptop}
               alt="Small"
               style={{
-                width: "42rem",
-                height: "18rem",
+                width: "37rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -52%)",
+                transform: "translate(-50%, -50%)",
               }}
             />
-            {/* <img
+            <img
               src={report_ss}
               alt="Small"
               style={{
                 width: "30rem",
                 position: "absolute",
                 height: "19rem",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -55%)",
-              }}
-            /> */}
-            <video
-              src={gov_crc}
-              autoPlay
-              muted
-              loop
-              className="h-16rem border-round-top-xl "
-              style={{
-                objectFit: "cover",
-                position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -55%)",
@@ -241,28 +207,13 @@ const Government = () => {
               alt="Small"
               style={{
                 width: "37rem",
-                height: "18rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -52%)",
+                transform: "translate(-50%, -50%)",
               }}
             />
-            <video
-              src={aqi}
-              autoPlay
-              muted
-              loop
-              className="h-16rem border-round-top-xl "
-              style={{
-                objectFit: "cover",
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -55%)",
-              }}
-            />
-            {/* <img
+            <img
               src={indicator_ss}
               alt="Small"
               style={{
@@ -273,7 +224,7 @@ const Government = () => {
                 left: "50%",
                 transform: "translate(-50%, -55%)",
               }}
-            /> */}
+            />
           </div>
           {/* Text Column */}
           <div
