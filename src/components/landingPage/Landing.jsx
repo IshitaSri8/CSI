@@ -4,7 +4,10 @@ import { Button } from "primereact/button";
 
 const Landing = () => {
   return (
-    <div className="flex flex-column align-items-center md:flex-wrap" style={{ marginTop: 80 }}>
+    <div
+      className="flex flex-column align-items-center md:flex-wrap"
+      style={{ marginTop: 80 }}
+    >
       <p className="text-4xl text-primary1 m-0 p-0 font-bold textAni">
         City Sustainability Index
       </p>

@@ -8,9 +8,12 @@ import nature_video from "assets/ills/nature_video.mp4";
 import csi_video from "assets/ills/csi.mp4";
 import society_video from "assets/ills/society.mp4";
 import admin_video from "assets/ills/admin.mp4";
+<<<<<<< HEAD
 import Card3 from "../assets/card3.png";
 import trend_ss from "assets/trend_ss.png";
 import Laptop from "../assets/laptop.png";
+=======
+>>>>>>> 5a6f7909c165fe8ae967b77b58fe25f3bfbcdda9
 
 const Landing = () => {
   // Template function to render carousel items
@@ -136,6 +139,7 @@ const Landing = () => {
         circular
         autoplayInterval={20000}
       />
+<<<<<<< HEAD
         {/*Third Card*/}
         <div className="flex w-full m-4 block">
           {/* Image Column */}
@@ -193,11 +197,14 @@ const Landing = () => {
             </div>
           </div>
         </div>
+=======
+>>>>>>> 5a6f7909c165fe8ae967b77b58fe25f3bfbcdda9
     </div>
   );
 };
 
 export default Landing;
+<<<<<<< HEAD
 
 {/* <Tag
                 className="mr-2 p-2"
@@ -238,3 +245,5 @@ export default Landing;
                 />
                 Administration
               </Tag> */}
+=======
+>>>>>>> 5a6f7909c165fe8ae967b77b58fe25f3bfbcdda9

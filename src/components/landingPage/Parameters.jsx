@@ -1,5 +1,6 @@
 import React from "react";
 import "primeicons/primeicons.css";
+import "primeicons/primeicons.css";
 import Nature from "assets/environment illustration.svg";
 import Society from "assets/Society Illustration-1.svg";
 import Admin from "assets/admin illustration 1.svg";

@@ -118,6 +118,14 @@ body {
   color: var(--text-tertiary);
 }
 
+.text-tertiary-2 {
+  color: var(--text-tertiary-2);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
 .text-moderate {
   color: var(--text-moderate);
 }
@@ -364,6 +372,7 @@ body {
   animation-timeline: view();
   animation-range: entry 0% cover 50%;
 }
+
 
 .container {
   display: inline-block;
