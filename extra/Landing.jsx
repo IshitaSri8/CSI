@@ -8,6 +8,9 @@ import nature_video from "assets/ills/nature_video.mp4";
 import csi_video from "assets/ills/csi.mp4";
 import society_video from "assets/ills/society.mp4";
 import admin_video from "assets/ills/admin.mp4";
+import Card3 from "../assets/card3.png";
+import trend_ss from "assets/trend_ss.png";
+import Laptop from "../assets/laptop.png";
 
 const Landing = () => {
   // Template function to render carousel items
@@ -133,8 +136,105 @@ const Landing = () => {
         circular
         autoplayInterval={20000}
       />
+        {/*Third Card*/}
+        <div className="flex w-full m-4 block">
+          {/* Image Column */}
+          <div style={{ flex: "60%", position: "relative" }}>
+            <img
+              src={Card3}
+              alt="Main"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "10px 0 0 10px",
+              }}
+            />
+            <img
+              src={Laptop}
+              alt="Small"
+              style={{
+                width: "37rem",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+            <img
+              src={trend_ss}
+              alt="Small"
+              style={{
+                width: "30rem",
+                height: "19rem",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -55%)",
+              }}
+            />
+          </div>
+          {/* Text Column */}
+          <div
+            className="flex align-items-center justify-content-center p-8"
+            style={{
+              flex: "40%",
+              background: "linear-gradient(to left, #1F8297, #166C7D, #003940)",
+              borderRadius: "0 10px 10px 0",
+            }}
+          >
+            <div>
+              <p className="text-white text-4xl">City Trends</p>
+              <p className="text-white text-xl">
+                Discover how your city has progressed over time. This feature
+                allows you to explore past trends in sustainability, showing
+                whether improvements have been made in key areas over months or
+                years.
+              </p>
+            </div>
+          </div>
+        </div>
     </div>
   );
 };
 
 export default Landing;
+
+{/* <Tag
+                className="mr-2 p-2"
+                style={{ backgroundColor: "#5B98A4", color: "#00403C" }}
+              >
+                <SpaIcon
+                  style={{
+                    fontSize: "1rem",
+                    marginRight: "0.5rem",
+                    color: "#00403C",
+                  }}
+                />
+                Nature
+              </Tag>
+              <Tag
+                className="mr-2 p-2"
+                style={{ backgroundColor: "#5B98A4", color: "#00403C" }}
+              >
+                <Diversity3Icon
+                  style={{
+                    fontSize: "1rem",
+                    marginRight: "0.5rem",
+                    color: "#00403C",
+                  }}
+                />
+                Society
+              </Tag>
+              <Tag
+                className="mr-2 p-2"
+                style={{ backgroundColor: "#5B98A4", color: "#00403C" }}
+              >
+                <AccountBalanceIcon
+                  style={{
+                    fontSize: "1rem",
+                    marginRight: "0.5rem",
+                    color: "#00403C",
+                  }}
+                />
+                Administration
+              </Tag> */}
