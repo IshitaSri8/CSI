@@ -2,11 +2,6 @@ import React from "react";
 import Header from "../Layout/Header";
 import Chatbot from "../components/Citizen/Chatbot";
 import Laptop from "../assets/laptop.png";
-import Card3 from "../assets/card3.png";
-import citizen from "../assets/citizen_bg1.jpg";
-import report_ss from "assets/report_ss.png";
-import trend_ss from "assets/trend_ss.png";
-import kyc_ss from "assets/kyc_ss.png";
 import kyc from "assets/Citizen/know your city image- CSI for Citizen revised 1.png";
 import reportCard from "assets/Citizen/CSI Score.png";
 import citizen_video from "assets/videos/citizens.mp4";
@@ -33,7 +28,7 @@ const Citizen = () => {
       <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
         <div className="w-full h-screen">
           <video
-          ref={videoRef} // Attach ref to the video element
+            ref={videoRef} // Attach ref to the video element
             autoPlay
             muted
             loop
@@ -44,7 +39,10 @@ const Citizen = () => {
               objectFit: "cover",
             }}
           >
-            <source src={citizen_video} type="video/mp4" />
+            <source
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609050/CSI-videos/uyqyyeykkmdpnnytva5y.mp4"
+              type="video/mp4"
+            />
           </video>
         </div>
         <div
@@ -119,7 +117,7 @@ const Citizen = () => {
               }}
             /> */}
             <video
-              src={citizen_kyc}
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609036/CSI-videos/b06uxnzmupmvdtoct767.mp4"
               autoPlay
               muted
               loop
@@ -213,7 +211,7 @@ const Citizen = () => {
               }}
             /> */}
             <video
-              src={citizen_crc}
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609033/CSI-videos/ppppzd4vhqsmxrejudvt.mp4"
               autoPlay
               muted
               loop

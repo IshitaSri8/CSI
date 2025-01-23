@@ -4,9 +4,6 @@ import "primeicons/primeicons.css";
 import Nature from "assets/environment illustration.svg";
 import Society from "assets/Society Illustration-1.svg";
 import Admin from "assets/admin illustration 1.svg";
-import nature_video from "assets/videos/nature_video.mp4";
-import society_video from "assets/videos/society.mp4";
-import admin_video from "assets/videos/admin.mp4";
 
 const Parameters = () => {
   const parameters = [
@@ -14,7 +11,8 @@ const Parameters = () => {
       id: 1,
       title: "Nature",
       image: Nature,
-      video: nature_video,
+      video:
+        "https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609164/CSI-videos/tpdpyiveq7yee6lpg0ww.mp4",
       description:
         "Nature encompasses the ecosystem within a city that impact its surroundings and inhabitants’ quality of life. It includes elements like air quality, water conservation, biodiversity, waste management, all vital for a sustainable urban environment.",
     },
@@ -22,7 +20,8 @@ const Parameters = () => {
       id: 2,
       title: "Society",
       image: Society,
-      video: society_video,
+      video:
+        "https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609050/CSI-videos/hx6lhu42mrcx4cmvja6h.mp4",
       description:
         "Society focuses on creating sustainable and thriving environments that enhance well-being. It combines the design of physical spaces with the development of a supportive social framework to meet the needs of individuals in the places they live and work.",
     },
@@ -30,14 +29,18 @@ const Parameters = () => {
       id: 3,
       title: "Administration",
       image: Admin,
-      video: admin_video,
+      video:
+        "https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609043/CSI-videos/e7tvfinxpzzu5ywrlgzm.mp4",
       description:
         "Administration refers to the governance, institutional frameworks, and accountability systems that manage a city’s operations. It emphasizes transparency, ethical leadership, and risk management to ensure citizen well-being and drive sustainable growth.",
     },
   ];
 
   return (
-    <div className="flex align-items-center flex-column gap-6 md:flex-wrap overflow-auto" style={{ marginTop: 100 }}>
+    <div
+      className="flex align-items-center flex-column gap-6 md:flex-wrap overflow-auto"
+      style={{ marginTop: 100 }}
+    >
       <p className="text-4xl text-primary1 m-0 p-0 font-bold textAni">
         Dimensions of City Sustainability Index
       </p>
