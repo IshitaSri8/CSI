@@ -14,7 +14,7 @@ const Parameters = () => {
       video:
         "https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609164/CSI-videos/tpdpyiveq7yee6lpg0ww.mp4",
       description:
-        "Nature encompasses the ecosystem within a city that impact its surroundings and inhabitants’ quality of life. It includes elements like air quality, water conservation, biodiversity, waste management, all vital for a sustainable urban environment.",
+        "Nature encompasses the ecosystem within a city that impact its surroundings and inhabitants’ quality of life. It includes elements like air quality, water conservation, biodiversity, waste management, etc. all vital for a sustainable urban environment.",
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ const Parameters = () => {
       video:
         "https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609050/CSI-videos/hx6lhu42mrcx4cmvja6h.mp4",
       description:
-        "Society focuses on creating sustainable and thriving environments that enhance well-being. It combines the design of physical spaces with the development of a supportive social framework to meet the needs of individuals in the places they live and work.",
+        "Society focuses on creating sustainable and thriving ecosystems that enhance well-being. It combines the design of physical spaces with the development of a supportive social framework to meet the needs of individuals in the places they live and work.",
     },
     {
       id: 3,
@@ -41,7 +41,7 @@ const Parameters = () => {
       className="flex align-items-center flex-column gap-6 md:flex-wrap overflow-auto"
       style={{ marginTop: 100 }}
     >
-      <p className="text-4xl text-primary1 m-0 p-0 font-bold textAni">
+      <p className="text-4xl text-primary1 m-0 p-0 font-bold">
         Dimensions of City Sustainability Index
       </p>
 

@@ -15,7 +15,7 @@ const LandingVideo = () => {
         }}
       >
         <source
-          src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609058/CSI-videos/pjbjqbmdazd41so7vscy.mp4"
+          src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737617468/CSI-videos/mb2okycoedpl8lca40zs.mp4"
           type="video/mp4"
         />
       </video>

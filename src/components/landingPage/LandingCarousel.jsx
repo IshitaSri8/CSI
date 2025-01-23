@@ -13,7 +13,7 @@ const LandingCarousel = () => {
 
   // Template function for rendering each item
   const itemTemplate = (data) => (
-    <div className="custom-carousel" >{data.content}</div>
+    <div className="custom-carousel">{data.content}</div>
   );
 
   return (
@@ -23,7 +23,7 @@ const LandingCarousel = () => {
       numVisible={1}
       numScroll={1}
       circular
-      // autoplayInterval={35000}
+      autoplayInterval={7000}
     />
   );
 };

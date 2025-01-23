@@ -53,7 +53,7 @@ const CSISteps = () => {
   const cardData = [
     {
       number: "01",
-      title: "Framework architecture Construction",
+      title: "Framework Architecture Construction",
       content:
         "CSI is developed within a constructive framework where comprehensive parameters are defined for each key indicator. These parameters provide a detailed understanding of various aspects of sustainability.",
     },
@@ -65,19 +65,19 @@ const CSISteps = () => {
     },
     {
       number: "03",
-      title: "Benchmarking and Calculating score",
+      title: "Benchmarking and Calculating Score",
       content:
         "Benchmarking is utilized to set standards for specific parameters. The CSI framework calculates a cumulative score or index by aggregating the performance across all defined parameters.",
     },
     {
       number: "04",
-      title: "Evaluation engine-Sustainability and insights",
+      title: "Evaluation Engine-Sustainability and Insights",
       content:
-        "By incorporating ESG dimensions, the CSI framework ensures that sustainability is evaluated in a balanced and integrated manner, addressing environmental impact, social responsibility, and governance practices. Thus, actionable insights are generated.",
+        "By incorporating NSA dimensions, the CSI framework ensures that sustainability is evaluated in a balanced and integrated manner, addressing environmental impact, social responsibility, and governance practices. Thus, actionable insights are generated.",
     },
     {
       number: "05",
-      title: "Generating Reports & Recommendations",
+      title: "Generating Reports and Recommendations",
       content:
         "Delivering comprehensive city progress reports, meticulously crafted to capture detailed insights and trends. Each report is enriched with tailored recommendations designed to address unique challenges, ensuring actionable strategies that drive sustainable development and continuous improvement.",
     },
