@@ -132,10 +132,11 @@ const Chatbot = () => {
     },
     ask_email: {
       message: (params) =>
-        `Nice to meet you ${params.userInput}, Please enter your email address.`,
+        `Nice to meet you ${params.userInput}! \nPlease enter your email address.`,
       function: (params) => setForm({ ...form, email: params.userInput }),
       path: async (params) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
+        // /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const email = params.userInput;
 
         if (!emailRegex.test(email)) {
@@ -213,17 +214,17 @@ const Chatbot = () => {
   };
 
   return (
-      <div
-        style={{
-          position: "fixed",
-          bottom: 20,
-          right: 20,
-          zIndex: 1000,
-          fontSize: "2rem",
-        }}
-      >
-        <MyChatBot settings={settings} flow={flow} styles={styles} />
-      </div>
+    <div
+      style={{
+        position: "fixed",
+        bottom: 20,
+        right: 20,
+        zIndex: 1000,
+        fontSize: "2rem",
+      }}
+    >
+      <MyChatBot settings={settings} flow={flow} styles={styles} />
+    </div>
   );
 };
 

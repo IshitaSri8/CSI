@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { Button } from "primereact/button";
 import { OverlayPanel } from "primereact/overlaypanel";
 
-const KnowYourCity = () => {
+const KnowYourCity = ({ show }) => {
   const [activeTab, setActiveTab] = useState(0);
   const { citizenDetails } = useUser(); // Accessing user details from context
   const { name, phone, email, city, state } = citizenDetails; // Extracting the city
@@ -19,92 +19,116 @@ const KnowYourCity = () => {
   };
 
   return (
-    <div className="px-0 py-4">
-      <div className="flex align-items-center gap-2">
-        <p className="text-secondary2 text-3xl p-0 m-0 font-semibold ml-3">
-          Hey {name}!
-        </p>
-        <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-          Know Your City-
-        </h1>
-        {city ? (
-          <p className="text-secondary2 text-3xl p-0 m-0 font-semibold">
-            {city}
-          </p>
-        ) : (
-          // <p className="card-text p-0 m-0">No city selected.</p>
-          <p className="card-text p-0 m-0">Ayodhya</p>
-        )}
-
+    <div className="">
+      <div className="flex align-items-center justify-content-between px-3 pt-2 pb-0">
+        <div className="flex align-items-center gap-2">
+          <h1 className="m-0 p-0 text-primary1 text-3xl font-medium">
+            Know Your City-
+          </h1>
+          {city ? (
+            <p className="text-secondary2 text-2xl p-0 m-0 font-semibold">
+              {city}
+            </p>
+          ) : (
+            // <p className="card-text p-0 m-0">No city selected.</p>
+            <p className="p-0 m-0 text-2xl">Ayodhya</p>
+          )}
+        </div>
         {/* Profile Section */}
-        <div
-          className="flex align-items-center"
-          style={{ position: "absolute", right: "10px" }}
-        >
-          <Button
-            icon="pi pi-user"
-            className="p-button-rounded text-white text-primary1"
-            onClick={handleProfileClick}
-            raised
-          />
-          <OverlayPanel
-            ref={overlayPanelRef}
-            // showCloseIcon dismissable
-          >
-            <div className="flex flex-column gap-2 p-3">
-              <p className="card-title p-0 m-0">Citizen Profile</p>
-              <div className="flex flex-column">
-                <label htmlFor="name" className="card-text">Name:</label>
-                <input
+        {show && (
+          <div className="flex flex-column align-items-center">
+            <Button
+              icon="pi pi-user"
+              tooltip="Citizen Profile"
+              tooltipOptions={{ position: "left" }}
+              className="p-button-rounded bg-white text-primary1"
+              onClick={handleProfileClick}
+              raised
+            />
+            <OverlayPanel
+              ref={overlayPanelRef}
+              // showCloseIcon dismissable
+            >
+              <div className="flex flex-column gap-3">
+                <div className="flex gap-2 align-items-end">
+                  <label htmlFor="name" className="text-secondary2 font-medium">
+                    Citizen Name:
+                  </label>
+                  {/* <input
                   id="name"
                   value={name}
                   readOnly
                   className="p-inputtext p-component"
-                />
+                /> */}
+                  <div id="name" className="font-semibold text-xl card-text">
+                    {name}
+                  </div>
+                </div>
+                <div className="flex gap-2 flex-column">
+                  <div className="flex flex-column">
+                    <label
+                      htmlFor="phone"
+                      className="text-secondary2 font-medium"
+                    >
+                      Phone Number:
+                    </label>
+                    <input
+                      id="phone"
+                      value={phone}
+                      readOnly
+                      className="p-inputtext p-component"
+                    />
+                  </div>
+                  <div className="flex flex-column">
+                    <label
+                      htmlFor="email"
+                      className="text-secondary2 font-medium"
+                    >
+                      Email:
+                    </label>
+                    <input
+                      id="email"
+                      value={email}
+                      readOnly
+                      className="p-inputtext p-component"
+                    />
+                  </div>
+                  <div className="flex flex-column">
+                    <label
+                      htmlFor="city"
+                      className="text-secondary2 font-medium"
+                    >
+                      City:
+                    </label>
+                    <input
+                      id="city"
+                      value={city}
+                      readOnly
+                      className="p-inputtext p-component"
+                    />
+                  </div>
+                  <div className="flex flex-column">
+                    <label
+                      htmlFor="state"
+                      className="text-secondary2 font-medium"
+                    >
+                      State:
+                    </label>
+                    <input
+                      id="state"
+                      value={state}
+                      readOnly
+                      className="p-inputtext p-component"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="flex gap-4">
-                <div className="flex flex-column">
-                  <label htmlFor="phone">Phone:</label>
-                  <input
-                    id="phone"
-                    value={phone}
-                    readOnly
-                    className="p-inputtext p-component"
-                  />
-                </div>
-                <div className="flex flex-column">
-                  <label htmlFor="email">Email:</label>
-                  <input
-                    id="email"
-                    value={email}
-                    readOnly
-                    className="p-inputtext p-component"
-                  />
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex flex-column">
-                  <label htmlFor="city">City:</label>
-                  <input
-                    id="city"
-                    value={city}
-                    readOnly
-                    className="p-inputtext p-component"
-                  />
-                </div>
-                <div className="flex flex-column">
-                  <label htmlFor="state">State:</label>
-                  <input
-                    id="state"
-                    value={state}
-                    readOnly
-                    className="p-inputtext p-component"
-                  />
-                </div>
-              </div>
-            </div>
-          </OverlayPanel>
-        </div>
+            </OverlayPanel>
+            <p className="text-secondary2 text-lg p-0 m-0 font-semibold ml-3">
+              Hello {name}!
+            </p>
+          </div>
+        )}
       </div>
       <TabView
         activeIndex={activeTab}

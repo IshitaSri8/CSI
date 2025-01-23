@@ -23,6 +23,7 @@ const LandingCarousel = () => {
       numVisible={1}
       numScroll={1}
       circular
+      autoplay
       autoplayInterval={7000}
     />
   );
