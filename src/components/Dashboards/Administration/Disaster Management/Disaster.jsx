@@ -174,7 +174,8 @@ const Disaster = ({ show }) => {
 
       <div className="flex gap-3">
         {/* First Column */}
-        <div className="flex flex-column gap-4" style={{ flex: "40%" }}>
+        <div className="flex flex-column gap-4 w-full">
+          {/* <div className="flex w-full gap-3"> */}
           {/* Disaster Management Plan Availability */}
           <div className="flex justify-content-between bg-white border-round p-4 w-full">
             <div className="flex flex-column">
@@ -217,6 +218,7 @@ const Disaster = ({ show }) => {
             </div>
             <img src={responders} alt="Trained Responders Available" />
           </div>
+          {/* </div> */}
           <div className="flex w-full gap-3">
             {/* Prone Zone */}
             <div className="flex flex-column gap-3">
@@ -242,14 +244,14 @@ const Disaster = ({ show }) => {
               </div>
               <div className="flex justify-content-between bg-white border-round p-3 w-full">
                 <div className="flex flex-column w-full p-2 align-items-center gap-1">
-                  <p className="text-xl font-semibold m-0 text-secondary2 p-0">
+                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                     1589
                   </p>
                   <p className="p-0 m-0 card-text">Casualties</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex flex-column w-full p-2 align-items-center gap-1">
-                  <p className="text-xl font-semibold m-0 text-secondary2 p-0">
+                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                     2178
                   </p>
                   <p className="p-0 m-0 card-text">People Injured</p>
@@ -257,50 +259,46 @@ const Disaster = ({ show }) => {
               </div>
               <div className="flex border-round w-full gap-2 my-3">
                 <div
-                  className="flex flex-column w-full pr-4 pl-2 py-3 bg-white gap-1"
+                  className="flex flex-column w-full pr-4 pl-2 py-3 bg-white gap-1 align-items-center"
                   style={{
                     borderLeft: "3px solid #1F8297", // Adjust thickness and color
                     height: "55px", // Adjust height
                   }}
                 >
-                  <p className="text-xl font-semibold m-0 text-primary2 p-0">
+                  <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                     576
                   </p>
-                  <div className="flex align-items-center">
-                    <p className="p-0 m-0 card-text text-sm">
-                      Loss of Animal Life
-                    </p>
-                  </div>
+                  <p className="p-0 m-0 card-text text-sm">
+                    Loss of Animal Life
+                  </p>
                 </div>
                 <div
-                  className="flex flex-column w-full pr-4 pl-2 py-3 bg-white gap-1"
+                  className="flex flex-column w-full pr-4 pl-2 py-3 bg-white gap-1 align-items-center"
                   style={{
                     borderLeft: "3px solid #1F8297", // Adjust thickness and color
                     height: "55px", // Adjust height
                   }}
                 >
-                  <p className="text-xl font-semibold m-0 text-primary2 p-0">
+                  <p className="text-2xl font-semibold m-0 text-primary2 p-0">
                     743
                   </p>
-                  <div className="flex align-items-center">
-                    <p className="p-0 m-0 card-text text-sm">
-                      Loss of Vegetation
-                    </p>
-                  </div>
+                  <p className="p-0 m-0 card-text text-sm">
+                    Loss of Vegetation
+                  </p>
                 </div>
               </div>
               <div className="flex flex-column justify-content-between bg-white border-round p-2 w-full">
                 <p className="p-0 m-0 card-text">Economic Loss</p>
                 <div className="flex w-full align-items-center">
                   <div className="flex flex-column w-full p-3 align-items-center gap-1">
-                    <p className="text-xl font-semibold m-0 text-secondary2 p-0">
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                       750 <span>Cr.</span>
                     </p>
                     <p className="p-0 m-0 card-text text-sm">Capital Loss</p>
                   </div>
                   <Divider layout="vertical" />
                   <div className="flex flex-column w-full p-2 align-items-center gap-1">
-                    <p className="text-xl font-semibold m-0 text-secondary2 p-0">
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
                       1450 <span>Cr.</span>
                     </p>
                     <p className="p-0 m-0 card-text text-sm">
@@ -313,10 +311,7 @@ const Disaster = ({ show }) => {
           </div>
         </div>
         {/* Second Column */}
-        <div
-          className="flex flex-column justify-content-between border-round"
-          style={{ flex: "60%" }}
-        >
+        <div className="flex flex-column justify-content-between border-round w-full">
           <div className="flex justify-content-between align-items-center">
             <p className="p-0 m-0 text-xl font-semibold text">
               Disastrous Events:{" "}

@@ -1,4 +1,3 @@
-
 const pathConstants = {
   KYC: "/csi/government/kyc",
   CRC: "/csi/government/crc",

@@ -76,6 +76,8 @@ const Society = () => {
     }
   };
 
+  const colors = ["#0C9D61", "#FFAD0D", "#E62225"];
+
   const handleCardClick = (path) => {
     navigate(path);
   };
@@ -109,32 +111,44 @@ const Society = () => {
           <PieChart
             categories={societyLables}
             series={societyData}
-            height={140}
+            height={160}
             fontSize={8}
           />
         </div>
-        <div className="flex flex-column" style={{ flex: "50%" }}>
-          <div className="flex flex-column border-round-2xl bg-white p-3">
-            <p className="text-xl font-medium">Summary</p>
-            <p className="p-0 m-0">
-              The score {score.SOCIETY} reflects the combined performance of the
-              key societal indicators.
-            </p>
-            <Divider />
-            <p className="p-0 m-0">
-              Society's outstanding performance showcase remarkable efforts
-              towards enhancing quality of life and well-being.
-            </p>
-            <Divider />
-            <p className="text-lg font-medium">Indicator Highlights:</p>
-            <p className="p-0 m-0">
-              1. Achiever indicators: Healthcare, Education
-            </p>
-            <p className="p-0 m-0">2. Areas of Improvement: Public Transport</p>
-          </div>
+        <div
+          className="flex flex-column border-round-2xl bg-white px-4"
+          style={{ flex: "50%" }}
+        >
+          <p className="text-xl font-medium">Summary</p>
+          <p className="p-0 m-0">
+            The score {score.SOCIETY} reflects the combined performance of the
+            key societal indicators.
+          </p>
+          <Divider />
+          <p className="p-0 m-0">
+            Society's outstanding performance showcase remarkable efforts
+            towards enhancing quality of life and well-being.
+          </p>
+          <Divider />
+          <p className="text-lg font-medium">Indicator Highlights:</p>
+          <p className="p-0 m-0">
+            1. Achiever indicators:{" "}
+            <span className="font-medium">Healthcare, Education</span>
+          </p>
+          <p className="p-0 m-0">
+            2. Areas of Improvement:{" "}
+            <span className="font-medium">
+              Employment Opportunity, Cultural Preservation, Community
+              Enagagement & Holistic Well-Being
+            </span>
+          </p>
+          <p className="p-0 m-0">
+            3. Need higher attention:{" "}
+            <span className="font-medium">Public Transport</span>
+          </p>
         </div>
       </div>
-      <div className="flex gap-4 flex-wrap w-full">
+      <div className="flex gap-3 justify-content-between w-full">
         {metrics.map((metric, index) => (
           <div
             key={index}
@@ -142,16 +156,16 @@ const Society = () => {
             onClick={() => handleCardClick(metric.path)} // Set active dashboard on click
             style={{ cursor: "pointer" }} // Change cursor to pointer for better UX
           >
-            <div className="flex flex-column gap-3 align-items-center">
-              <img src={metric.img} alt={metric.title} />
+            <div className="flex flex-column gap-4 align-items-center">
+              <img src={metric.img} alt={metric.title} className="w-11rem" />
               <div>
-                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-lg w-16rem text-center">
+                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-center">
                   {metric.title}
                 </p>
               </div>
             </div>
             <div
-              className="flex border-round-right-2xl px-4 flex-column gap-8 py-2"
+              className="flex border-round-right-2xl px-2 flex-column gap-8 py-2"
               style={{
                 backgroundColor: getScoreBackgroundColor(metric.score),
                 // padding: "1.6rem",
@@ -160,10 +174,35 @@ const Society = () => {
               <p className="font-medium p-0 m-0 text-white text-sm text-left">
                 SCORE
               </p>
-              <p className="text-5xl font-semibold text-white p-0 m-0 text-center">
+              <p className="text-3xl font-semibold text-white p-0 m-0 text-center">
                 {metric.score}
               </p>
             </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex gap-4 justify-content-end border-top-1 surface-border">
+        {colors.map((color, index) => (
+          <div className="flex align-items-center" key={index}>
+            <div
+              className="mr-2 border-circle"
+              style={{
+                width: "0.75rem",
+                height: "0.75rem",
+                backgroundColor: color,
+                borderRadius: "50%", // Ensure it's circular
+              }}
+            ></div>
+            <p className="m-0 p-0 font-medium card-text">
+              {index === 0
+                ? "80-100"
+                : index === 1
+                ? "40-80"
+                : index === 2
+                ? "0-40"
+                : "Unknown Score Range"}{" "}
+              {/* Fallback for unexpected indices */}
+            </p>
           </div>
         ))}
       </div>
