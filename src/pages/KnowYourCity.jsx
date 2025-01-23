@@ -20,8 +20,8 @@ const KnowYourCity = ({ show }) => {
 
   return (
     <div className="">
-      <div className="flex align-items-center justify-content-between px-3 pt-2 pb-0">
-        <div className="flex align-items-center gap-2">
+      <div className="flex align-items-center justify-content-between px-3">
+        <div className="flex align-items-center gap-2 mt-3">
           <h1 className="m-0 p-0 text-primary1 text-3xl font-medium">
             Know Your City-
           </h1>
@@ -31,12 +31,12 @@ const KnowYourCity = ({ show }) => {
             </p>
           ) : (
             // <p className="card-text p-0 m-0">No city selected.</p>
-            <p className="p-0 m-0 text-2xl">Ayodhya</p>
+            <p className="text-secondary2 text-2xl p-0 m-0 font-semibold">Ayodhya</p>
           )}
         </div>
         {/* Profile Section */}
         {show && (
-          <div className="flex flex-column align-items-center">
+          <div className="flex flex-column align-items-center pt-2">
             <Button
               icon="pi pi-user"
               tooltip="Citizen Profile"
@@ -130,17 +130,19 @@ const KnowYourCity = ({ show }) => {
           </div>
         )}
       </div>
-      <TabView
-        activeIndex={activeTab}
-        onTabChange={(e) => setActiveTab(e.index)}
-      >
-        <TabPanel header="City Demographics">
-          <CityDemographics />
-        </TabPanel>
-        <TabPanel header="City Progress">
-          <CityProgress />
-        </TabPanel>
-      </TabView>
+      {/* <div className="" style={{ marginTop: -15 }}> */}
+        <TabView
+          activeIndex={activeTab}
+          onTabChange={(e) => setActiveTab(e.index)}
+        >
+          <TabPanel header="City Demographics">
+            <CityDemographics />
+          </TabPanel>
+          <TabPanel header="City Progress">
+            <CityProgress />
+          </TabPanel>
+        </TabView>
+      {/* </div> */}
     </div>
   );
 };
