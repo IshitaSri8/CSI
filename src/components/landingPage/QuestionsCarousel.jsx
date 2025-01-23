@@ -9,7 +9,7 @@ const QuestionsCarousel = () => {
     {
       textColor: "white",
       bgColor: "var(--theme-primary-color)",
-      question: "What is the City Sustainability Index (CSI)?",
+      question: "What is City Sustainability Index (CSI)?",
       points: [
         {
           subheading: "Comprehensive evaluation tool",
@@ -17,7 +17,7 @@ const QuestionsCarousel = () => {
             "The CSI is designed to assess the overall sustainability performance of cities by monitoring various indicators across key sustainability dimensions.",
         },
         {
-          subheading: "Integration of ESG factors",
+          subheading: "Integration of NSA dimensions",
           content:
             "The index incorporates three core dimensions—Nature, Society, and Administration (NSA) —which are critical to determining the overall sustainability of a city.",
         },
@@ -42,7 +42,7 @@ const QuestionsCarousel = () => {
       textColor: "black",
       bgColor: "var(--theme-secondary)",
       question:
-        "Why is the CSI important for cities, and who benefits from it?",
+        "Why is CSI important for cities, and who benefits from it?",
       points: [
         {
           subheading: "Standardized sustainability measurement",
@@ -93,7 +93,7 @@ const QuestionsCarousel = () => {
             "With insights derived from the CSI, cities can develop focused strategies and policies that effectively address identified gaps, leading to a more systematic approach to sustainability enhancement.",
         },
         {
-          subheading: "Monitor performance in real-time",
+          subheading: "Monitor performance near real-time",
           content:
             "The platform’s real-time dashboards enable cities to track performance trends continuously, ensuring timely adjustments and demonstrating progress over time.",
         },

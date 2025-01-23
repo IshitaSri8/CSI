@@ -5,17 +5,16 @@ import Laptop from "../assets/laptop.png";
 import kyc from "assets/Citizen/know your city image- CSI for Citizen revised 1.png";
 import reportCard from "assets/Citizen/CSI Score.png";
 import Footer from "components/landingPage/Footer";
-import { useRef } from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Citizen = () => {
-  const videoRef = useRef(null); // Create a ref for the video element
+  // const videoRef = useRef(null); // Create a ref for the video element
 
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.3; // Reduce playback speed
-    }
-  }, []); // Run this effect once when the component mounts
+  // useEffect(() => {
+  //   if (videoRef.current) {
+  //     videoRef.current.playbackRate = 0.3; // Reduce playback speed
+  //   }
+  // }, []); // Run this effect once when the component mounts
 
   return (
     <div className="flex flex-column w-full ">
@@ -25,7 +24,7 @@ const Citizen = () => {
       <div className="flex flex-column gap-1 align-items-center justify-content-center h-auto w-screen">
         <div className="w-full h-screen">
           <video
-            ref={videoRef} // Attach ref to the video element
+            // ref={videoRef} // Attach ref to the video element
             autoPlay
             muted
             loop
@@ -37,7 +36,7 @@ const Citizen = () => {
             }}
           >
             <source
-              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609050/CSI-videos/uyqyyeykkmdpnnytva5y.mp4"
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737614485/CSI-videos/kiugqiiqzerbnfmhcjvp.mp4"
               type="video/mp4"
             />
           </video>
@@ -50,8 +49,8 @@ const Citizen = () => {
               "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
             width: "70rem",
             position: "absolute",
-            top: "50%",
-            left: "20%",
+            top: "80%",
+            left: "15%",
             // transform: "translate(-50%, 175%)",
           }}
         >

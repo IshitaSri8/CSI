@@ -66,9 +66,9 @@ const LandingScreen = () => {
           <CSISteps />
         </div>
 
-        <div className="flex sec-theme block" id="csi-video">
+        {/* <div className="flex sec-theme block" id="csi-video">
           <CSIVideo />
-        </div>
+        </div> */}
 
         {/* <div
           className="flex justify-content-center w-full overflow-auto p-5 block"

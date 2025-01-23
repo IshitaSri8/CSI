@@ -40,10 +40,10 @@ const Government = () => {
             // backgroundColor: "rgba(247, 164, 122, 0.7)",
             background:
               "linear-gradient(to left, rgba(91, 152, 164, 0.9), rgba(15, 75, 87, 0.9))",
-            width: "65rem",
+            width: "60rem",
             position: "absolute",
-            top: "50%",
-            left: "20%",
+            top: "80%",
+            left: "22%",
             // transform: "translate(-50%, 175%)",
           }}
         >

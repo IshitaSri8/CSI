@@ -110,8 +110,8 @@ const Footer = () => {
         <p className="border-bottom-1 border-orange-600 text-xl p-0 m-0 font-medium">
           Recent News
         </p>
-        <div className="flex align-items-start justify-content-start gap-3">
-          <i className="pi pi-arrow-right text-orange-600"></i>
+        <div className="flex align-items-start justify-content-start gap-1">
+          <i className="pi pi-angle-right text-orange-600"></i>
           <Link
             to="https://tinyurl.com/4pkmjksu"
             className="p-0 m-0 font-light text-white w-16rem hover:text-orange-500 no-underline transition-colors transition-duration-300"
