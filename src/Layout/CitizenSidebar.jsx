@@ -172,7 +172,7 @@ const CitizenSidebar = () => {
 
       {/* Render components based on activeTab */}
       <div className="content" style={{ marginLeft: "5rem" }}>
-        {activeTab === "kyc" && <KnowYourCity />}
+        {activeTab === "kyc" && <KnowYourCity show={true} />}
         {activeTab === "cityReportCard" && <CityReportCard />}
       </div>
     </div>

@@ -48,6 +48,7 @@ const CitizenDialog = ({ visible, onHide }) => {
             name: userData.name,
             email: userData.email,
             city: userData.city,
+            state: userData.state,
             phone: formattedPhone,
           });
           // Sample OTP check
@@ -109,7 +110,7 @@ const CitizenDialog = ({ visible, onHide }) => {
             className="bg-primary1"
             raised
           />
-          {message && <p style={{color: "#E62225"}}>{message}</p>}
+          {message && <p style={{ color: "#E62225" }}>{message}</p>}
         </div>
       </div>
     </Dialog>
