@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Card } from "primereact/card"; // Assuming you're using PrimeReact's Card component
 
 const CSIVideo = () => {
