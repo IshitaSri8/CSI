@@ -8,15 +8,7 @@ import Diversity3Icon from "@mui/icons-material/Diversity3";
 import kyc from "../assets/kyc.png";
 import crc from "../assets/Citizen/Report Card.png";
 import indicator from "../assets/indicator.png";
-import government from "../assets/Citizen/csi for gov.png";
-import report_ss from "assets/report_ss.png";
-import kyc_ss from "assets/kyc_ss.png";
-import indicator_ss from "assets/aqi_ss.png";
-import csi from "assets/videos/csi.mp4";
 import Footer from "components/landingPage/Footer";
-import gov_kyc from "assets/videos/gov_kyc.mp4";
-import gov_crc from "assets/videos/gov_crc.mp4";
-import aqi from "assets/videos/aqi.mp4";
 
 const Government = () => {
   return (
@@ -36,7 +28,10 @@ const Government = () => {
               objectFit: "cover",
             }}
           >
-            <source src={csi} type="video/mp4" />
+            <source
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609098/CSI-videos/axyzqqi69opbvtysxx1y.mp4"
+              type="video/mp4"
+            />
           </video>
         </div>
         <div
@@ -97,7 +92,7 @@ const Government = () => {
               }}
             /> */}
             <video
-              src={gov_kyc}
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609054/CSI-videos/orguvg3yqspjg1ulsotr.mp4"
               autoPlay
               muted
               loop
@@ -207,7 +202,7 @@ const Government = () => {
               }}
             /> */}
             <video
-              src={gov_crc}
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609065/CSI-videos/h9ewveaqhroydfdr942o.mp4"
               autoPlay
               muted
               loop
@@ -249,7 +244,7 @@ const Government = () => {
               }}
             />
             <video
-              src={aqi}
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609043/CSI-videos/xerqvvzqq0ctuqdtgwao.mp4"
               autoPlay
               muted
               loop

@@ -1,5 +1,4 @@
 import React from "react";
-import csi_video from "assets/videos/csi_new.mp4";
 
 const LandingVideo = () => {
   return (
@@ -15,7 +14,10 @@ const LandingVideo = () => {
           objectFit: "cover",
         }}
       >
-        <source src={csi_video} type="video/mp4" />
+        <source
+          src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609058/CSI-videos/pjbjqbmdazd41so7vscy.mp4"
+          type="video/mp4"
+        />
       </video>
     </div>
   );
