@@ -1,8 +1,10 @@
 import React from "react";
 import { Carousel } from "primereact/carousel"; // Import Carousel from PrimeReact
 import Questions from "./Questions"; // Adjust the import path as necessary
+import { useState } from "react";
 
 const QuestionsCarousel = () => {
+  const [autoplay, setAutoplay] = useState(true);
   const questionsData = [
     {
       textColor: "white",
@@ -115,13 +117,17 @@ const QuestionsCarousel = () => {
   );
 
   return (
-    <div className="">
+    <div
+      onMouseEnter={() => setAutoplay(false)}
+      onMouseLeave={() => setAutoplay(true)}
+    >
       <Carousel
         value={questionsData}
         itemTemplate={itemTemplate}
         numVisible={1}
         numScroll={1}
         circular
+        autoplay={autoplay}
         autoplayInterval={5000} // Adjust as needed
       />
       {/* {questionsData.map((data, index) => (
