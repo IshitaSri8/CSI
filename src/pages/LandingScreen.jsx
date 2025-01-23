@@ -79,8 +79,6 @@ const LandingScreen = () => {
 
         <div className="flex flex-column block" id="questions">
           <QuestionsCarousel />
-        <div className="flex flex-column block" id="questions">
-          <QuestionsCarousel />
         </div>
         <ScrollTop />
         <div className="flex sec-theme p-8 block" id="testimonials">
@@ -130,7 +128,6 @@ const LandingScreen = () => {
         <Footer />
       </div>
       {/* <FloatingSidebar sections={sections} /> */}
-    </div>
     </div>
   );
 };
