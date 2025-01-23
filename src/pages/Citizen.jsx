@@ -4,10 +4,7 @@ import Chatbot from "../components/Citizen/Chatbot";
 import Laptop from "../assets/laptop.png";
 import kyc from "assets/Citizen/know your city image- CSI for Citizen revised 1.png";
 import reportCard from "assets/Citizen/CSI Score.png";
-import citizen_video from "assets/videos/citizens.mp4";
 import Footer from "components/landingPage/Footer";
-import citizen_kyc from "assets/videos/citizen_kyc.mp4";
-import citizen_crc from "assets/videos/citizen_crc.mp4";
 import { useRef } from "react";
 import { useEffect } from "react";
 
