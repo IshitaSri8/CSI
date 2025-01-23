@@ -50,6 +50,8 @@ const Administration = () => {
     }
   };
 
+  const colors = ["#0C9D61", "#FFAD0D", "#E62225"];
+
   const handleCardClick = (path) => {
     navigate(path);
   };
@@ -70,9 +72,9 @@ const Administration = () => {
             </div>
             <img src={admin} alt="admin" className="w-4rem" />
           </div>
-            <p className="text-tertiary3">
-              Empowering responsible administration for lasting impact.
-            </p>
+          <p className="text-tertiary3">
+            Empowering responsible administration for lasting impact.
+          </p>
           <Divider />
         </div>
         <div
@@ -83,31 +85,38 @@ const Administration = () => {
           <PieChart
             categories={adminLables}
             series={adminData}
-            height={140}
+            height={160}
             fontSize={8}
           />
         </div>
-        <div className="flex flex-column" style={{ flex: "50%" }}>
-          <div className="flex flex-column border-round-2xl bg-white p-3">
-            <p className="text-xl font-medium">Summary</p>
-            <p className="p-0 m-0">
-              The score {score.ADMIN} reflects the combined performance of the
-              key administrative indicators.
-            </p>
-            <Divider />
-            <p className="p-0 m-0">
-              Administration's outstanding performance showcase exceptional
-              efforts towards empowering responsible governance.
-            </p>
-            <Divider />
-            <p className="text-lg font-medium">Indicator Highlights:</p>
-            <p className="p-0 m-0">
-              1. Achiever indicators: Disaster Management
-            </p>
-            <p className="p-0 m-0">
-              2. Areas of Improvement: Transparency and Accountability
-            </p>
-          </div>
+        <div
+          className="flex flex-column border-round-2xl bg-white px-2"
+          style={{ flex: "50%" }}
+        >
+          <p className="text-xl font-medium">Summary</p>
+          <p className="p-0 m-0">
+            The score {score.ADMIN} reflects the combined performance of the key
+            administrative indicators.
+          </p>
+          <Divider />
+          <p className="p-0 m-0">
+            Administration's outstanding performance showcase exceptional
+            efforts towards empowering responsible governance.
+          </p>
+          <Divider />
+          <p className="text-lg font-medium">Indicator Highlights:</p>
+          <p className="p-0 m-0">
+            1. Achiever indicator:{" "}
+            <span className="font-medium">Disaster Management</span>
+          </p>
+          <p className="p-0 m-0">
+            2. Area of Improvement:{" "}
+            <span className="font-medium">Ethical Leadership </span>
+          </p>
+          <p className="p-0 m-0">
+            3. Need higher attention:{" "}
+            <span className="font-medium">Transparency and Accountability</span>
+          </p>
         </div>
       </div>
       <div className="flex gap-4 flex-wrap w-full">
@@ -118,7 +127,7 @@ const Administration = () => {
             onClick={() => handleCardClick(metric.path)} // Set active dashboard on click
             style={{ cursor: "pointer" }} // Change cursor to pointer for better UX
           >
-            <div className="flex flex-column gap-3 align-items-center">
+            <div className="flex flex-column gap-3 align-items-center justify-content-between">
               <img src={metric.img} alt={metric.title} />
               <div>
                 <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-lg w-16rem text-center">
@@ -140,6 +149,31 @@ const Administration = () => {
                 {metric.score}
               </p>
             </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex gap-4 justify-content-end border-top-1 surface-border">
+        {colors.map((color, index) => (
+          <div className="flex align-items-center" key={index}>
+            <div
+              className="mr-2 border-circle"
+              style={{
+                width: "0.75rem",
+                height: "0.75rem",
+                backgroundColor: color,
+                borderRadius: "50%", // Ensure it's circular
+              }}
+            ></div>
+            <p className="m-0 p-0 font-medium card-text">
+              {index === 0
+                ? "80-100"
+                : index === 1
+                ? "40-80"
+                : index === 2
+                ? "0-40"
+                : "Unknown Score Range"}{" "}
+              {/* Fallback for unexpected indices */}
+            </p>
           </div>
         ))}
       </div>

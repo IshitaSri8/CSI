@@ -29,7 +29,7 @@ import score from "score";
 import DataNotFound from "pages/error pages/DataNotFound";
 
 const AqiDashboard = ({ show }) => {
-  const [startDate, setStartDate] = useState(new Date("2024-01-01"));
+  const [startDate, setStartDate] = useState(new Date("2025-01-01"));
   const [endDate, setEndDate] = useState(new Date("2025-01-15"));
   const [selectedLocation, setSelectedLocation] = useState(
     "Ayodhya - Civil line,Tiny tots"
