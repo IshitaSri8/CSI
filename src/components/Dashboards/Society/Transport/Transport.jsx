@@ -20,10 +20,13 @@ import { useUser } from "components/context/UserContext";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import { Menu } from "primereact/menu";
+import score from "score";
+import DataNotFound from "pages/error pages/DataNotFound";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [serverDown, setServerDown] = useState(false);
   const [data, setData] = useState([]);
   const [displayValues, setDisplayValues] = useState("");
   const [selectedValues, setSelectedValues] = useState({
@@ -124,15 +127,14 @@ const Transport = ({ show }) => {
 
           return quarterlyData;
         };
-
         // Process the monthly data to get quarterly data
         const quarterlyBusData = processBusData(filteredBusDataMonthly);
         setBusMaint(quarterlyBusData);
-
         setData(responseData);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setServerDown(true);
         setLoading(false);
       }
     };
@@ -186,14 +188,14 @@ const Transport = ({ show }) => {
   const renderDashboard = () => {
     return <Transport show={false} />;
   };
-  const score = 20;
+  const scoreTRANSPORT = score.TRANSPORT;
 
-  const getScoreColor = (score) => {
-    if (score >= 81 && score <= 100) {
+  const getScoreColor = (scoreTRANSPORT) => {
+    if (scoreTRANSPORT >= 81 && scoreTRANSPORT <= 100) {
       return "#0C9D61"; // Green for good
-    } else if (score >= 41 && score <= 80) {
+    } else if (scoreTRANSPORT >= 41 && scoreTRANSPORT <= 80) {
       return "#FFAD0D"; // Yellow for moderate
-    } else if (score >= 0 && score <= 40) {
+    } else if (scoreTRANSPORT >= 0 && scoreTRANSPORT <= 40) {
       return "#E62225"; // Red for poor
     }
   };
@@ -220,184 +222,185 @@ const Transport = ({ show }) => {
     </div>
   ) : (
     <div className="gap-3 p-4 flex flex-column">
-      {show && (
-        <div className="flex align-items-center justify-content-between w-full gap-3">
-          <div className="flex align-items-center justify-content-between w-full ">
-            {/* Title & Score */}
-            <div
-              style={{
-                position: "relative",
-                width: "340px",
-                height: "43px",
-                overflow: "hidden", // Hide overflow if needed
-              }}
-            >
-              <div
-                className="flex align-items-center justify-content-between p-2"
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: getScoreColor(score), // Replace with your desired color
-                  clipPath:
-                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
-                }}
-              >
-                <h1
-                  className="m-0 p-0 text-white text-2xl font-semibold"
-                  style={{ zIndex: 1500 }}
-                >
-                  Public Transport
-                </h1>
-                <p
-                  className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
-                  style={{ zIndex: 1500 }}
-                >
-                  {score}
-                </p>
-              </div>
-            </div>
-            {/* Selected  location & Date */}
-            <div className="flex align-items-start flex-column gap-1">
-              {/* location */}
-              <div className="flex align-items-center gap-1">
-                <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
-                <p className="m-0 p-0 text-primary1 font-medium text-sm">
-                  {selectedValues.route}
-                </p>
-              </div>
-              <Divider className="m-0 p-0" />
-              {/* Date Range */}
-              <div className="flex align-items-center justify-content-start gap-1">
-                <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
-                <p className="m-0 p-0 text-primary1 font-medium text-sm">
-                  {monthNames[selectedValues.month - 1]}, {selectedValues.year}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex align-items-center justify-content-end gap-2">
-            {/* Button to trigger the OverlayPanel */}
-            <Button
-              tooltip="Filters"
-              tooltipOptions={{
-                position: "bottom",
-              }}
-              icon="pi pi-filter"
-              onClick={(e) => overlayRef.current.toggle(e)}
-              className="bg-white text-secondary2"
-              raised
-            />
-
-            <OverlayPanel
-              ref={overlayRef}
-              style={{ width: "20rem" }}
-              className="p-overlay-panel"
-            >
-              <div className="flex flex-column gap-3">
-                <div className="flex flex-column align-items-center justify-content-center gap-2">
-                  <Dropdown
-                    value={tempRoute}
-                    onChange={(e) => setTempRoute(e.value)}
-                    options={routes.map((route) => ({
-                      label: route,
-                      value: route,
-                    }))}
-                    placeholder="Select Route"
-                    className="w-full"
-                  />
-                  <Dropdown
-                    value={tempYear}
-                    onChange={(e) => setTempYear(e.value)}
-                    options={year.map((year) => ({
-                      label: year,
-                      value: year,
-                    }))}
-                    placeholder="Select Year"
-                    className="w-full"
-                  />
-                  <Dropdown
-                    value={tempMonth}
-                    onChange={(e) => setTempMonth(e.value)}
-                    options={monthNames.map((name, index) => ({
-                      label: name,
-                      value: index + 1,
-                    }))}
-                    placeholder="Select Month"
-                    className="w-full"
-                  />
-                </div>
-                <div className="flex justify-content-between">
-                  <Button
-                    className="bg-white text-moderate border-none"
-                    label="Reset"
-                    onClick={resetFilters}
-                    raised
-                  />
-                  <Button
-                    className="bg-primary1"
-                    label="Apply"
-                    onClick={handleApply}
-                    raised
-                  />
-                </div>
-              </div>
-            </OverlayPanel>
-
-            {username === "admin" && (
-              <>
-                <Button
-                  icon="pi pi-ellipsis-v"
-                  onClick={(e) => menu.current.toggle(e)}
-                  className="bg-primary1"
-                  raised
-                />
-                <Menu model={items} ref={menu} popup />
-                <Upload
-                  visible={uploadDialogVisible}
-                  onHide={hideUploadDialog}
-                  parameter={"transport"}
-                />
-                {/* Pass props to TransportModify */}
-                <TransportModify
-                  transportData={data}
-                  transportSetData={setData}
-                  isOpen={modifyDialogVisible}
-                  onClose={handleCloseModifyDialog}
-                />
-              </>
-            )}
-            <Button
-              icon="pi pi-file"
-              tooltip="Generate Report"
-              tooltipOptions={{
-                position: "bottom",
-              }}
-              onClick={() => setReportVisible(true)}
-              className="bg-primary1 text-white"
-              raised
-            />
-            <Dialog
-              visible={ReportVisible}
-              style={{ width: "100rem" }}
-              onHide={() => {
-                if (!ReportVisible) return;
-                setReportVisible(false);
-              }}
-            >
-              <ReportPrint
-                renderDashboard={renderDashboard}
-                renderRecommendations={renderRecommendations}
-                parameter={"transport"}
-                heading={"Public Transport"}
-              />
-            </Dialog>
-          </div>
-        </div>
-      )}
       {displayValues && (
         <>
+          {show && (
+            <div className="flex align-items-center justify-content-between w-full gap-3">
+              <div className="flex align-items-center justify-content-between w-full ">
+                {/* Title & Score */}
+                <div
+                  style={{
+                    position: "relative",
+                    width: "340px",
+                    height: "43px",
+                    overflow: "hidden", // Hide overflow if needed
+                  }}
+                >
+                  <div
+                    className="flex align-items-center justify-content-between p-2"
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: getScoreColor(scoreTRANSPORT), // Replace with your desired color
+                      clipPath:
+                        "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+                    }}
+                  >
+                    <h1
+                      className="m-0 p-0 text-white text-2xl font-semibold"
+                      style={{ zIndex: 1500 }}
+                    >
+                      Public Transport
+                    </h1>
+                    <p
+                      className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                      style={{ zIndex: 1500 }}
+                    >
+                      {scoreTRANSPORT}
+                    </p>
+                  </div>
+                </div>
+                {/* Selected  location & Date */}
+                <div className="flex align-items-start flex-column gap-1">
+                  {/* location */}
+                  <div className="flex align-items-center gap-1">
+                    <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
+                    <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                      {selectedValues.route}
+                    </p>
+                  </div>
+                  <Divider className="m-0 p-0" />
+                  {/* Date Range */}
+                  <div className="flex align-items-center justify-content-start gap-1">
+                    <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
+                    <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                      {monthNames[selectedValues.month - 1]},{" "}
+                      {selectedValues.year}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex align-items-center justify-content-end gap-2">
+                {/* Button to trigger the OverlayPanel */}
+                <Button
+                  tooltip="Filters"
+                  tooltipOptions={{
+                    position: "bottom",
+                  }}
+                  icon="pi pi-filter"
+                  onClick={(e) => overlayRef.current.toggle(e)}
+                  className="bg-white text-secondary2"
+                  raised
+                />
+
+                <OverlayPanel
+                  ref={overlayRef}
+                  style={{ width: "20rem" }}
+                  className="p-overlay-panel"
+                >
+                  <div className="flex flex-column gap-3">
+                    <div className="flex flex-column align-items-center justify-content-center gap-2">
+                      <Dropdown
+                        value={tempRoute}
+                        onChange={(e) => setTempRoute(e.value)}
+                        options={routes.map((route) => ({
+                          label: route,
+                          value: route,
+                        }))}
+                        placeholder="Select Route"
+                        className="w-full"
+                      />
+                      <Dropdown
+                        value={tempYear}
+                        onChange={(e) => setTempYear(e.value)}
+                        options={year.map((year) => ({
+                          label: year,
+                          value: year,
+                        }))}
+                        placeholder="Select Year"
+                        className="w-full"
+                      />
+                      <Dropdown
+                        value={tempMonth}
+                        onChange={(e) => setTempMonth(e.value)}
+                        options={monthNames.map((name, index) => ({
+                          label: name,
+                          value: index + 1,
+                        }))}
+                        placeholder="Select Month"
+                        className="w-full"
+                      />
+                    </div>
+                    <div className="flex justify-content-between">
+                      <Button
+                        className="bg-white text-secondary2"
+                        label="Reset"
+                        onClick={resetFilters}
+                        raised
+                      />
+                      <Button
+                        className="bg-primary1"
+                        label="Apply"
+                        onClick={handleApply}
+                        raised
+                      />
+                    </div>
+                  </div>
+                </OverlayPanel>
+
+                {username === "admin" && (
+                  <>
+                    <Button
+                      icon="pi pi-ellipsis-v"
+                      onClick={(e) => menu.current.toggle(e)}
+                      className="bg-primary1"
+                      raised
+                    />
+                    <Menu model={items} ref={menu} popup />
+                    <Upload
+                      visible={uploadDialogVisible}
+                      onHide={hideUploadDialog}
+                      parameter={"transport"}
+                    />
+                    {/* Pass props to TransportModify */}
+                    <TransportModify
+                      transportData={data}
+                      transportSetData={setData}
+                      isOpen={modifyDialogVisible}
+                      onClose={handleCloseModifyDialog}
+                    />
+                  </>
+                )}
+                <Button
+                  icon="pi pi-file"
+                  tooltip="Generate Report"
+                  tooltipOptions={{
+                    position: "bottom",
+                  }}
+                  onClick={() => setReportVisible(true)}
+                  className="bg-primary1 text-white"
+                  raised
+                />
+                <Dialog
+                  visible={ReportVisible}
+                  style={{ width: "100rem" }}
+                  onHide={() => {
+                    if (!ReportVisible) return;
+                    setReportVisible(false);
+                  }}
+                >
+                  <ReportPrint
+                    renderDashboard={renderDashboard}
+                    renderRecommendations={renderRecommendations}
+                    parameter={"transport"}
+                    heading={"Public Transport"}
+                  />
+                </Dialog>
+              </div>
+            </div>
+          )}
           <div className="flex gap-3">
             <div
               className="flex flex-column align-items-center justify-content-between bg-white border-round p-3"
@@ -882,14 +885,18 @@ const Transport = ({ show }) => {
               </div>
             </div>
           </div>
+
+          {show && (
+            <RecommendationPanel
+              renderRecommendations={renderRecommendations}
+            />
+          )}
         </>
       )}
+      {serverDown && <DataNotFound />}
       {/* <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">
         *Data updated till 2020. These numbers are subject to variation.
       </p> */}
-      {show && (
-        <RecommendationPanel renderRecommendations={renderRecommendations} />
-      )}
     </div>
   );
 };

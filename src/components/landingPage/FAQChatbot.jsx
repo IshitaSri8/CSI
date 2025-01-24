@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MyChatBot from "react-chatbotify";
 import chatIcon from "../../assets/Chatbot/Chatbot.svg";
 import "./Landing.css";
+import { useEffect } from "react";
 
 const FAQChatbot = () => {
   const [form, setForm] = useState({});
@@ -23,14 +24,14 @@ const FAQChatbot = () => {
     general: {
       primaryColor: "#166c7d",
       secondaryColor: "#166c7d",
-      fontFamily: "DM Sans",
+      fontFamily: "Montserrat",
       embedded: false,
       desktopEnabled: true,
     },
     header: {
       title: "Arahas Ecobot",
       avatar: chatIcon,
-      fontFamily: "DM Sans",
+      fontFamily: "Montserrat",
     },
     userBubble: {
       animate: true,
@@ -49,7 +50,7 @@ const FAQChatbot = () => {
     },
     chatWindowStyle: {
       backgroundColor: "#f2f2f2",
-      fontFamily: "DM Sans",
+      fontFamily: "Montserrat",
       fontSize: "0.5rem",
     },
     chatInput: {
@@ -61,11 +62,21 @@ const FAQChatbot = () => {
     start: {
       message: "Hello there! What is your name?",
       function: (params) => setForm({ ...form, name: params.userInput }),
-      path: "ask_questions",
+      path: "greeting",
+    },
+    greeting: {
+      message: (params) =>
+        `Nice to meet you ${params.userInput}. Would you like to know about CSI?`,
+      options: ["Yes", "No"],
+      path: (params) => {
+        if (params.userInput.toLowerCase() === "yes") {
+          return "ask_questions"; // Redirect to KYC page if user says Yes
+        } else {
+          return "end"; // Proceed to Thank You message if No
+        }
+      },
     },
     ask_questions: {
-      message: (params) =>
-        `Nice to meet you ${params.userInput}. What would you like to know about CSI?`,
       options: unansweredQuestions, // Display only unanswered questions
       function: (params) => {
         const userQuestion = params.userInput;
@@ -74,19 +85,19 @@ const FAQChatbot = () => {
         switch (userQuestion) {
           case "What is CSI?":
             responseMessage =
-              "The City Sustainability Index (CSI) assesses the environmental, social, and economic sustainability of cities. It guides urban policy decisions.";
+              "CSI is a comprehensive solution designed to empower cities with the tools to evaluate and enhance their sustainability performance while addressing pressing issues.";
             break;
           case "How is the CSI score calculated?":
             responseMessage =
-              "The CSI score is based on indicators like air quality, waste management, water quality, and citizen engagement.";
+              "The CSI score is based on various indicators like air quality, waste management, citizen engagement, transparency and accountability, etc. which come under NSA dimensions.";
             break;
           case "What are the benefits of CSI?":
             responseMessage =
-              "CSI helps improve city planning, promote sustainability, and enhance the quality of life by managing resources better.";
+              "CSI contributes to improved city planning, promotes sustainability, and enhances quality of life by enabling better resource management.";
             break;
           case "Can you provide me with some recent statistics?":
             responseMessage =
-              "Recent stats indicate cities with higher CSI scores have better environmental management systems.";
+              "Recent statistics indicate that cities with higher CSI scores have better environmental management systems.";
             break;
           case "How can I improve my city's CSI score?":
             responseMessage =
@@ -99,28 +110,39 @@ const FAQChatbot = () => {
         params.injectMessage(responseMessage); // Send the response message
 
         // Remove the answered question from unansweredQuestions
-        setUnansweredQuestions((prevQuestions) =>
-          prevQuestions.filter((question) => question !== userQuestion)
+        setUnansweredQuestions((prevQuestions) => {
+          const updatedQuestions = prevQuestions.filter(
+            (question) => question !== userQuestion
+          );
+
+          // Check if there are any unanswered questions left
+          return updatedQuestions; // Update state with remaining questions
+        });
+
+        // Determine path based on remaining questions
+        const remainingQuestions = unansweredQuestions.filter(
+          (question) => question !== userQuestion
+        );
+        return remainingQuestions;
+      },
+      path: (params) => {
+        const remainingQuestions = unansweredQuestions.filter(
+          (question) => question !== params.userInput
         );
 
-        // Check if there are any unanswered questions left
-        if (unansweredQuestions.length > 1) {
-          return "thank_you"; // Proceed to thank you step
-        } else {
-          return "end"; // End the chat if no more questions
-        }
+        return remainingQuestions.length > 0 ? "thank_you" : "end";
       },
     },
     thank_you: {
       message: "Thank you! Would you like to ask another question?",
       options: (params) => {
         if (unansweredQuestions.length > 0) {
-          return unansweredQuestions; // Show remaining questions
+          return ["Continue"]; // Show remaining questions
         } else {
           return ["End chat"]; // Option to end chat
         }
       },
-      function: (params) => {
+      path: (params) => {
         if (params.userInput === "End chat") {
           return "end"; // End the chat
         } else {
@@ -129,24 +151,27 @@ const FAQChatbot = () => {
       },
     },
     end: {
-      message: "Thank you for using Arahas Ecobot. Have a great day!",
+      message: "Thank you for using Arahas Ecobot. \nHave a great day!",
+      chatDisabled: true,
       path: "start", // Reset or restart if needed
     },
   };
 
+  useEffect(() => {
+    console.log(unansweredQuestions); // This will log the updated state whenever it changes
+  }, [unansweredQuestions]);
+
   return (
-    <div>
-      <div
-        style={{
-          position: "fixed",
-          bottom: 20,
-          right: 20,
-          zIndex: 1000,
-          fontSize: "2rem",
-        }}
-      >
-        <MyChatBot settings={settings} flow={flow} styles={styles} />
-      </div>
+    <div
+      style={{
+        position: "fixed",
+        bottom: 10,
+        right: 10,
+        zIndex: 1000,
+        fontSize: "2rem",
+      }}
+    >
+      <MyChatBot settings={settings} flow={flow} styles={styles} />
     </div>
   );
 };

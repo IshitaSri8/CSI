@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import RainTrend from "./RainTrend";
-import "../../Dash.css";
+import "../../../DashboardUtility/Dash.css";
 import RainRecommendations from "./RainRecommendations";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -9,13 +9,13 @@ import { Divider } from "primereact/divider";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import rain from "assets/Rainfall Illustration.svg";
 import { Chip } from "primereact/chip";
-import { Panel } from "primereact/panel";
-import { ProgressBar } from "primereact/progressbar";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import increase from "assets/increase.png";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Upload from "components/DashboardUtility/Popups/Upload";
+import score from "score";
+import DataNotFound from "pages/error pages/DataNotFound";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);
@@ -33,7 +33,9 @@ const RainDashboard = ({ show }) => {
   const [maxRainfallMonth, setMaxRainfallMonth] = useState(null);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+
   const [loading, setLoading] = useState(false);
+  const [serverDown, setServerDown] = useState(false);
 
   const hideUploadDialog = () => {
     setUploadDialogVisible(false);
@@ -64,6 +66,7 @@ const RainDashboard = ({ show }) => {
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
+      setServerDown(true);
     }
   };
 
@@ -162,17 +165,21 @@ const RainDashboard = ({ show }) => {
     return <RainDashboard show={false} />;
   };
 
-  const score = 65;
+  const scoreRAIN = score.RAIN;
 
-  const getScoreColor = (score) => {
-    if (score >= 81 && score <= 100) {
+  const getScoreColor = (scoreRAIN) => {
+    if (scoreRAIN >= 81 && scoreRAIN <= 100) {
       return "#0C9D61"; // Green for good
-    } else if (score >= 41 && score <= 80) {
+    } else if (scoreRAIN >= 41 && scoreRAIN <= 80) {
       return "#FFAD0D"; // Yellow for moderate
-    } else if (score >= 0 && score <= 40) {
+    } else if (scoreRAIN >= 0 && scoreRAIN <= 40) {
       return "#E62225"; // Red for poor
     }
   };
+
+  if (serverDown) {
+    return <DataNotFound />;
+  }
 
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">
@@ -198,7 +205,7 @@ const RainDashboard = ({ show }) => {
                 position: "absolute",
                 width: "100%",
                 height: "100%",
-                backgroundColor: getScoreColor(score), // Replace with your desired color
+                backgroundColor: getScoreColor(scoreRAIN), // Replace with your desired color
                 clipPath:
                   "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
               }}
@@ -213,7 +220,7 @@ const RainDashboard = ({ show }) => {
                 className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
                 style={{ zIndex: 1500 }}
               >
-                {score}
+                {scoreRAIN}
               </p>
             </div>
           </div>

@@ -4,11 +4,11 @@ import axios from "axios";
 import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import "../../Dash.css";
+import "../../../DashboardUtility/Dash.css";
 import sunny from "assets/dashboard/Temperature- Below 40.svg";
 import warm from "assets/dashboard/Temperature- Above 40.svg";
 import { Button } from "primereact/button";
-import TableSkeleton from "../../skeletons/TableSkeleton";
+import TableSkeleton from "../../../DashboardUtility/skeletons/TableSkeleton";
 import TempMap from "./TempMap";
 import Temperature from "./Temperature";
 import { Tag } from "primereact/tag";
@@ -20,27 +20,14 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import { Divider } from "primereact/divider";
+import score from "score";
+import DataNotFound from "pages/error pages/DataNotFound";
 
-// Define the helper functions here
-const formatDate = (date) => date.toISOString().split("T")[0]; // Format date to 'YYYY-MM-DD'
-const formatTimeToHHMMSS = (time) =>
-  time.toISOString().split("T")[1].split(".")[0]; // Format time to 'HH:MM:SS'
-
-const TempDashboard = ({
-  onDataChange,
-  show,
-  pSelectedLocation,
-  pSelectedStartDate,
-  pSelectedEndDate,
-}) => {
-  const [startDate, setStartDate] = useState(
-    pSelectedStartDate ?? new Date("2024-01-01")
-  );
-  const [endDate, setEndDate] = useState(
-    pSelectedEndDate ?? new Date("2025-01-15")
-  );
+const TempDashboard = ({ show }) => {
+  const [startDate, setStartDate] = useState(new Date("2025-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2025-01-24"));
   const [selectedLocation, setSelectedLocation] = useState(
-    pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
+    "Ayodhya - Civil line,Tiny tots"
   );
   const [tempValue, setTempValue] = useState(null);
   const [humidityValue, setHumidityvalue] = useState(null);
@@ -55,9 +42,11 @@ const TempDashboard = ({
   const [envirotime, setEnviroTime] = useState([]);
   const [envirodate, setEnviroDate] = useState([]);
   const [enviroco2, setEnviroco2] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [temperature, setTemp] = useState([]);
   const [humidity, setHumidity] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+  const [serverDown, setServerDown] = useState(false);
 
   const [ReportVisible, setReportVisible] = useState(false);
   const overlayRef = useRef(null);
@@ -83,21 +72,16 @@ const TempDashboard = ({
     };
 
     fetchData();
-
-    if (selectedLocation) {
-      handleSearch();
-    }
   }, []);
 
   useEffect(() => {
     handleSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pSelectedLocation, pSelectedEndDate, pSelectedStartDate]);
+  }, []);
 
   const handleSearch = async () => {
     try {
       setLoading(true);
-      overlayRef.current.hide();
+      // overlayRef.current.hide();
       const start = new Date(startDate).toDateString("en-CA");
       const end = new Date(endDate).toDateString("en-CA");
 
@@ -144,13 +128,6 @@ const TempDashboard = ({
 
         setTempValue(averageTemp);
         setHumidityvalue(averageHumidity);
-
-        if (onDataChange) {
-          onDataChange({
-            tempValue: averageTemp,
-            humidityValue: averageHumidity,
-          });
-        }
         setTempStatus(getTempStatus(averageTemp));
       } else {
         setTempValue(null);
@@ -172,9 +149,11 @@ const TempDashboard = ({
       setDataTableData(uniqueDataTableData);
       setLoading(false);
     } catch (error) {
+      console.error("Error fetching data:", error);
+      setServerDown(true);
+      setLoading(false);
     } finally {
       setLoading(false);
-      // overlayRef.current.hide();
     }
   };
 
@@ -183,24 +162,6 @@ const TempDashboard = ({
     setStartDate(null);
     setEndDate(null);
   };
-
-  useEffect(() => {
-    if (!show && pSelectedLocation) {
-      setSelectedLocation(pSelectedLocation);
-    }
-  }, [show, pSelectedLocation]);
-
-  useEffect(() => {
-    if (!show && pSelectedStartDate) {
-      setStartDate(pSelectedStartDate);
-    }
-  }, [show, pSelectedStartDate]);
-
-  useEffect(() => {
-    if (!show && pSelectedEndDate) {
-      setEndDate(pSelectedEndDate);
-    }
-  }, [show, pSelectedEndDate]);
 
   function formatTimeToHHMMSS(isoDateString) {
     const dateObj = new Date(isoDateString).toLocaleTimeString();
@@ -247,17 +208,21 @@ const TempDashboard = ({
     return <TempDashboard show={false} />;
   };
 
-  const score = 85;
+  const scoreTEMP = score.TEMP;
 
-  const getScoreColor = (score) => {
-    if (score >= 81 && score <= 100) {
+  const getScoreColor = (scoreTEMP) => {
+    if (scoreTEMP >= 81 && scoreTEMP <= 100) {
       return "#0C9D61"; // Green for good
-    } else if (score >= 41 && score <= 80) {
+    } else if (scoreTEMP >= 41 && scoreTEMP <= 80) {
       return "#FFAD0D"; // Yellow for moderate
-    } else if (score >= 0 && score <= 40) {
+    } else if (scoreTEMP >= 0 && scoreTEMP <= 40) {
       return "#E62225"; // Red for poor
     }
   };
+
+  if (serverDown) {
+    return <DataNotFound />;
+  }
 
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">
@@ -284,7 +249,7 @@ const TempDashboard = ({
                   position: "absolute",
                   width: "100%",
                   height: "100%",
-                  backgroundColor: getScoreColor(score), // Replace with your desired color
+                  backgroundColor: getScoreColor(scoreTEMP), // Replace with your desired color
                   clipPath:
                     "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
                 }}
@@ -299,7 +264,7 @@ const TempDashboard = ({
                   className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
                   style={{ zIndex: 1500 }}
                 >
-                  {score}
+                  {scoreTEMP}
                 </p>
               </div>
             </div>
@@ -375,7 +340,7 @@ const TempDashboard = ({
                 </div>
                 <div className="flex justify-content-between">
                   <Button
-                    className="bg-white text-moderate border-none"
+                    className="bg-white text-secondary2"
                     label="Reset"
                     // icon="pi pi-search"
                     onClick={resetFilters}
@@ -544,10 +509,7 @@ const TempDashboard = ({
             </DataTable>
           )}
         </div>
-        <div
-          className="border-round-2xl flex bg-white"
-          style={{ flex: "28%" }}
-        >
+        <div className="border-round-2xl flex bg-white" style={{ flex: "28%" }}>
           <TempMap
             averageTemp={tempValue}
             selectedLocation={selectedLocation}
@@ -698,7 +660,7 @@ const TempDashboard = ({
       <RecommendationPanel
         show={true}
         renderRecommendations={renderRecommendations}
-      />{" "}
+      />
     </div>
   );
 };

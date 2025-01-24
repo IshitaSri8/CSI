@@ -8,11 +8,8 @@ import Diversity3Icon from "@mui/icons-material/Diversity3";
 import kyc from "../assets/kyc.png";
 import crc from "../assets/Citizen/Report Card.png";
 import indicator from "../assets/indicator.png";
-import government from "../assets/Citizen/csi for gov.png";
-import report_ss from "assets/report_ss.png";
-import kyc_ss from "assets/kyc_ss.png";
-import indicator_ss from "assets/aqi_ss.png";
-import csi from "assets/csi.mp4";
+import Footer from "components/landingPage/Footer";
+
 const Government = () => {
   return (
     <div className="flex flex-column w-full ">
@@ -31,7 +28,10 @@ const Government = () => {
               objectFit: "cover",
             }}
           >
-            <source src={csi} type="video/mp4" />
+            <source
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609098/CSI-videos/axyzqqi69opbvtysxx1y.mp4"
+              type="video/mp4"
+            />
           </video>
         </div>
         <div
@@ -39,12 +39,12 @@ const Government = () => {
           style={{
             // backgroundColor: "rgba(247, 164, 122, 0.7)",
             background:
-              "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
-            width: "65rem",
+              "linear-gradient(to left, rgba(91, 152, 164, 0.9), rgba(15, 75, 87, 0.9))",
+            width: "60rem",
             position: "absolute",
-            top: "60%",
-            left: "50%",
-            transform: "translate(-50%, 175%)",
+            top: "80%",
+            left: "22%",
+            // transform: "translate(-50%, 175%)",
           }}
         >
           <h1 className="text-4xl text-white font-medium text-center text-box">
@@ -71,14 +71,15 @@ const Government = () => {
               src={Laptop}
               alt="Small"
               style={{
-                width: "37rem",
+                width: "42rem",
+                height: "18rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
               }}
             />
-            <img
+            {/* <img
               src={kyc_ss}
               alt="Small"
               style={{
@@ -88,6 +89,20 @@ const Government = () => {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -55%)",
+              }}
+            /> */}
+            <video
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609054/CSI-videos/orguvg3yqspjg1ulsotr.mp4"
+              autoPlay
+              muted
+              loop
+              className="h-16rem border-round-top-xl "
+              style={{
+                objectFit: "cover",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -53%)",
               }}
             />
           </div>
@@ -166,20 +181,35 @@ const Government = () => {
               src={Laptop}
               alt="Small"
               style={{
-                width: "37rem",
+                width: "42rem",
+                height: "18rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -50%)",
+                transform: "translate(-50%, -52%)",
               }}
             />
-            <img
+            {/* <img
               src={report_ss}
               alt="Small"
               style={{
                 width: "30rem",
                 position: "absolute",
                 height: "19rem",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -55%)",
+              }}
+            /> */}
+            <video
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609065/CSI-videos/h9ewveaqhroydfdr942o.mp4"
+              autoPlay
+              muted
+              loop
+              className="h-16rem border-round-top-xl "
+              style={{
+                objectFit: "cover",
+                position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -55%)",
@@ -206,13 +236,28 @@ const Government = () => {
               alt="Small"
               style={{
                 width: "37rem",
+                height: "18rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -50%)",
+                transform: "translate(-50%, -52%)",
               }}
             />
-            <img
+            <video
+              src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737609043/CSI-videos/xerqvvzqq0ctuqdtgwao.mp4"
+              autoPlay
+              muted
+              loop
+              className="h-16rem border-round-top-xl "
+              style={{
+                objectFit: "cover",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -55%)",
+              }}
+            />
+            {/* <img
               src={indicator_ss}
               alt="Small"
               style={{
@@ -223,7 +268,7 @@ const Government = () => {
                 left: "50%",
                 transform: "translate(-50%, -55%)",
               }}
-            />
+            /> */}
           </div>
           {/* Text Column */}
           <div
@@ -303,6 +348,7 @@ const Government = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -5,10 +5,10 @@ import geo_area from "assets/KYC/geographical-removebg.png";
 import { Divider } from "primereact/divider";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { DonutChart, Doughnut } from "Layout/GraphVisuals";
+import { DonutChart } from "Layout/GraphVisuals";
 import { Tooltip } from "primereact/tooltip";
 import "./KYC.css";
-import { Building2, PartyPopper, Trash } from "lucide-react";
+import { Building2, Factory, PartyPopper } from "lucide-react";
 
 const CityDemographics = () => {
   return (
@@ -83,10 +83,8 @@ const CityDemographics = () => {
                       hideDelay: 101300,
                     }}
                   >
-                    <div className="flex align-items-start justify-content-start gap-4 p-2">
-                      <ul>
-                        <li>Lucknow Ayodhya Expressway (252 kms)</li>
-                      </ul>
+                    <div className="flex">
+                      <li>Lucknow Ayodhya Expressway (252 kms)</li>
                     </div>
                   </Tooltip>
                 </div>
@@ -198,7 +196,7 @@ const CityDemographics = () => {
                 labels={["Male", "Female"]}
                 series={[1000, 980]}
                 height={110}
-                colorArray={["#BAD8DF", "#003940"]}
+                colorArray={["#FFDD82", "#47B881"]}
                 horizontal={"center"}
                 vertical={"bottom"}
                 fontColor={"#fff"}
@@ -223,7 +221,7 @@ const CityDemographics = () => {
                     className="m-0 p-0 font-medium"
                     strokeWidth={12}
                     styles={buildStyles({
-                      pathColor: "#003940",
+                      pathColor: "#FFDD82",
                       textColor: "#fff",
                       trailColor: "#BAD8DF",
                       textSize: "2rem",
@@ -266,9 +264,10 @@ const CityDemographics = () => {
               <h1 className="m-0 p-0 text-white font-semibold">
                 Civic Infrastructure
               </h1>
-              <Trash size={15} className="text-white" />
+              <Factory size={15} className="text-white" />
             </div>
             <div className="flex align-items-center justify-content-center flex-column gap-3 p-2">
+              {/* Sewage Treatment Plants */}
               <div
                 className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -286,18 +285,17 @@ const CityDemographics = () => {
                     hideDelay: 101300,
                   }}
                 >
-                  <div className="flex align-items-start justify-content-start p-2">
-                    <ul>
-                      <li>Capacity: 12MLD</li>
-                    </ul>
+                  <div className="flex">
+                    <li>Capacity: 12MLD</li>
                   </div>
                 </Tooltip>
               </div>
+              {/* Landfills & Dumpsites */}
               <div
-                className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
+                className="flex align-items-center justify-content-center flex-column p-3 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
               >
-                <i className="pi pi-info-circle text-white text-right w-full text-xs"></i>
+                {/* <i className="pi pi-info-circle text-white text-right w-full text-xs"></i> */}
                 <h1 className="text-white p-0 m-0 text-2xl font-medium ">0</h1>
                 <p className="text-white p-1 m-0">Landfills & Dumpsites</p>
               </div>
@@ -320,6 +318,7 @@ const CityDemographics = () => {
               <Building2 className="text-white" size={15} />
             </div>
             <div className="flex align-items-center justify-content-center gap-2 m-2">
+              {/* Hospitals */}
               <div
                 className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -328,19 +327,18 @@ const CityDemographics = () => {
                 <h1 className="text-white p-1 m-0 text-2xl font-medium">188</h1>
                 <p className="text-white p-1 m-0 text-sm">Hospitals</p>
                 <Tooltip target=".hospitals" position="right">
-                  <p className="text-left font-bold m-0 p-0">
-                    List of Top 4 Hospitals
-                  </p>
-                  <div className="flex align-items-start justify-content-start gap-4">
-                    <ul>
-                      <li>Government Hospital, Ayodhya</li>
-                      <li> Anand Multispeciality Hospital</li>
-                      <li> Sewa Hospital and Research Centre</li>
-                      <li>Chiranjeev Hospital</li>
-                    </ul>
+                  <div className="flex flex-column w-20rem">
+                    <p className="text-left font-bold">
+                      List of Top 4 Hospitals
+                    </p>
+                    <li>Government Hospital, Ayodhya</li>
+                    <li>Anand Multispeciality Hospital</li>
+                    <li>Sewa Hospital and Research Centre</li>
+                    <li>Chiranjeev Hospital</li>
                   </div>
                 </Tooltip>
               </div>
+              {/* Educational Facilities */}
               <div
                 className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -351,15 +349,21 @@ const CityDemographics = () => {
                   Educational Facilities
                 </p>
                 <Tooltip target=".education" position="right">
-                  <div className="flex align-items-center justify-content-center gap-4  p-2 flex-row">
-                    <p className="m-0 p-0">Schools : 236</p>
-                    <Divider layout="vertical" className="m-0" />
-                    <p className="m-0 p-0"> Colleges : 16</p>
+                  <div className="flex flex-column">
+                    <p>
+                      Schools : <span className="font-semibold">236</span>
+                    </p>
+                    <Divider className="m-0" />
+                    <p>
+                      {" "}
+                      Colleges : <span className="font-semibold">16</span>
+                    </p>
                   </div>
                 </Tooltip>
               </div>
             </div>
             <div className="flex align-items-center justify-content-center gap-2 m-2">
+              {/* Hotels */}
               <div
                 className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -377,27 +381,24 @@ const CityDemographics = () => {
                     hideDelay: 101300,
                   }}
                 >
-                  <p className="text-left font-bold p-0 m-0">
-                    List of Top 5 Hotels{" "}
-                  </p>
-                  <div className="flex align-items-start justify-content-start gap-4  p-2">
-                    <ul>
-                      <li>
-                        Hotel Saket, a Unit of Uttar Pradesh State Tourism
-                        Development Corporation Ltd.
-                      </li>
-                      <li>
-                        {" "}
-                        Rahi Yatri Niwas Ayodhya, a Unit of Uttar Pradesh State
-                        Tourism Development Corporation Ltd
-                      </li>
-                      <li>Ramprastha Hotel and Resorts</li>
-                      <li>A P Palace</li>
-                      <li>Tirupati Hotel</li>
-                    </ul>
+                  <div className="flex flex-column w-22rem">
+                    <p className="font-bold">List of Top 5 Hotels </p>
+                    <li>
+                      Hotel Saket, a Unit of Uttar Pradesh State Tourism
+                      Development Corporation Ltd.
+                    </li>
+                    <li>
+                      {" "}
+                      Rahi Yatri Niwas Ayodhya, a Unit of Uttar Pradesh State
+                      Tourism Development Corporation Ltd
+                    </li>
+                    <li>Ramprastha Hotel and Resorts</li>
+                    <li>A P Palace</li>
+                    <li>Tirupati Hotel</li>
                   </div>
                 </Tooltip>
               </div>
+              {/* Dharamshalas */}
               <div
                 className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -415,19 +416,16 @@ const CityDemographics = () => {
                     hideDelay: 101300,
                   }}
                 >
-                  <p className="text-left font-bold p-0 m-0 ">
-                    List of Top 4 Dharamshalas
-                  </p>
-                  <div className="flex align-items-start justify-content-start gap-4  p-2">
-                    <ul>
-                      <li>Ayodhya Dharamshala</li>
-                      <li> Anand Birla Dharamshala</li>
-                      <li> Hanumat Bhavan Dharamshala</li>
-                      <li>Baranwal Dharamshala</li>
-                    </ul>
+                  <div className="flex flex-column w-18rem">
+                    <p className="font-bold">List of Top 4 Dharamshalas</p>
+                    <li>Ayodhya Dharamshala</li>
+                    <li> Anand Birla Dharamshala</li>
+                    <li> Hanumat Bhavan Dharamshala</li>
+                    <li>Baranwal Dharamshala</li>
                   </div>
                 </Tooltip>
               </div>
+              {/* A.P.M.C. Markets */}
               <div
                 className="flex align-items-center justify-content-center flex-column p-2 border-round-xl w-full"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -445,13 +443,14 @@ const CityDemographics = () => {
                     hideDelay: 101300,
                   }}
                 >
-                  <div className="flex align-items-start justify-content-start gap-4  p-2">
+                  <div className="flex flex-column">
                     <ul>
-                      <li>Area: 39.30 acre</li>
+                      Area: <span className="font-semibold">39.30 acre</span>
                     </ul>
-                    <Divider layout="vertical" className="m-0" />
+                    <Divider className="m-0" />
                     <ul>
-                      <li>Quantity: 2616387 Quintals</li>
+                      Quantity:{" "}
+                      <span className="font-semibold">2616387 Quintals</span>
                     </ul>
                   </div>
                 </Tooltip>
@@ -475,6 +474,7 @@ const CityDemographics = () => {
               <PartyPopper size={15} className="text-white" />
             </div>
             <div className="flex align-items-center justify-content-center flex-column gap-2 w-full p-2">
+              {/* Major Attractions */}
               <div
                 className="flex align-items-center justify-content-between w-full border-round-xl p-2 m-1 gap-8"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -495,24 +495,20 @@ const CityDemographics = () => {
                     showDelay: 500,
                   }}
                 >
-                  <div className="flex align-items-start justify-content-start gap-4   p-2">
-                    <ul>
-                      <li>Ram Mandir</li>
-                      <li> Gulab Bari</li>
-                      <li> Bahu Begum ka Maqbara</li>
-                      <li>Guptar Ghat</li>
-                      <li>Lakshman Kila</li>
-                    </ul>
-                    <Divider layout="vertical" className="h-12rem" />
-                    <ul>
-                      <li>Company Gardens</li>
-                      <li>Hanuman Ghari</li>
-                      <li>Kanak Bhawan</li>
-                      <li>Nageshwarnath Mandir</li>
-                    </ul>
+                  <div className="flex flex-column w-15rem">
+                    <li>Ram Mandir</li>
+                    <li>Gulab Bari</li>
+                    <li>Bahu Begum ka Maqbara</li>
+                    <li>Guptar Ghat</li>
+                    <li>Lakshman Kila</li>
+                    <li>Company Gardens</li>
+                    <li>Hanuman Ghari</li>
+                    <li>Kanak Bhawan</li>
+                    <li>Nageshwarnath Mandir</li>
                   </div>
                 </Tooltip>
               </div>
+              {/* Fairs & Festivals */}
               <div
                 className="flex align-items-center justify-content-between w-full border-round-xl p-2 m-1 gap-8"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -534,20 +530,15 @@ const CityDemographics = () => {
                   }}
                   style={{ padding: "0" }}
                 >
-                  <div className="flex align-items-start justify-content-start gap-4  p-2">
-                    <ul>
-                      <li>Ram Leela</li>
-
-                      <li>Ram Navmi Mela</li>
-                    </ul>
-                    <Divider layout="vertical" className="m-0 h-5rem" />
-                    <ul>
-                      <li>Sravan Jhula Mela</li>
-                      <li>Parikramas</li>
-                    </ul>
+                  <div className="flex flex-column w-12rem">
+                    <li>Ram Leela</li>
+                    <li>Ram Navmi Mela</li>
+                    <li>Sravan Jhula Mela</li>
+                    <li>Parikramas</li>
                   </div>
                 </Tooltip>
               </div>
+              {/* Socio-Cultural Facilities */}
               <div
                 className="flex align-items-center justify-content-between w-full border-round-xl p-2 m-1 gap-8"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
@@ -568,19 +559,14 @@ const CityDemographics = () => {
                     showDelay: 500,
                   }}
                 >
-                  <div className="flex align-items-start justify-content-start gap-4   p-2">
-                    <ul>
-                      <li>Anganwari-Housing Area</li>
-                      <li> Community room </li>
-                      <li> Community hall and library</li>
-                      <li>Recreational club</li>
-                    </ul>
-                    <Divider layout="vertical" className="h-10rem m-0" />
-                    <ul>
-                      <li>Music, dance, and drama center</li>
-                      <li>Meditation and spiritual center</li>
-                      <li>Old-age home</li>
-                    </ul>
+                  <div className="flex flex-column w-18rem">
+                    <li>Anganwari-Housing Area</li>
+                    <li>Community room </li>
+                    <li>Community hall and library</li>
+                    <li>Recreational club</li>
+                    <li>Music, dance, and drama center</li>
+                    <li>Meditation and spiritual center</li>
+                    <li>Old-age home</li>
                   </div>
                 </Tooltip>
               </div>

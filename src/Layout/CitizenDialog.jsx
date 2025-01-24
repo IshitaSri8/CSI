@@ -8,12 +8,14 @@ import "react-phone-input-2/lib/material.css";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
+import { useUser } from "components/context/UserContext";
 
 const CitizenDialog = ({ visible, onHide }) => {
   const navigate = useNavigate(); // Initialize useNavigate
   const [phone, setPhone] = useState(""); // Phone number input state
   const [otp, setOtp] = useState(""); // OTP input state
   const [message, setMessage] = useState(""); // Message to display
+  const { setCitizenDetails } = useUser(); // Accessing user details from context
 
   const checkPhoneNumber = async () => {
     try {
@@ -29,7 +31,6 @@ const CitizenDialog = ({ visible, onHide }) => {
       );
       console.log(response);
       setMessage(response.data.message);
-
       // Check if the user is registered
       if (response.data.register) {
         // Open the chatbot for registration
@@ -40,6 +41,16 @@ const CitizenDialog = ({ visible, onHide }) => {
       } else {
         // User is registered, ask for OTP
         if (otp === "1234") {
+          // Store user details in context
+          const userData = response.data.user;
+          console.log("🚀 ~ checkPhoneNumber ~ userData:", response.data.user);
+          setCitizenDetails({
+            name: userData.name,
+            email: userData.email,
+            city: userData.city,
+            state: userData.state,
+            phone: formattedPhone,
+          });
           // Sample OTP check
           navigate("/citizen/kyc"); // Navigate to KYC page
         } else {
@@ -62,7 +73,7 @@ const CitizenDialog = ({ visible, onHide }) => {
       onHide={onHide}
       //   onHide={() => setVisible(false)}
     >
-      <div className="flex align-items-center justify-content-center flex-row gap-4 ">
+      <div className="flex align-items-center justify-content-center gap-4 ">
         <Lottie
           animationData={signin_ani}
           loop={true}
@@ -71,7 +82,9 @@ const CitizenDialog = ({ visible, onHide }) => {
         />
         {/* Phone input using react-phone-input-2 */}
         <div className="flex align-items-center justify-content-center flex-column">
-          <h1 className="text-2xl mb-4 m-0 p-0 text-theme">Sign In</h1>
+          <p className="text-2xl m-0 p-0 text-primary1 font-semibold">
+            Sign In
+          </p>
           <PhoneInput
             placeholder="Enter Phone Number"
             value={phone}
@@ -94,9 +107,10 @@ const CitizenDialog = ({ visible, onHide }) => {
           <Button
             label="Submit"
             onClick={checkPhoneNumber}
-            className="bg-theme"
+            className="bg-primary1"
+            raised
           />
-          {message && <p>{message}</p>}
+          {message && <p style={{ color: "#E62225" }}>{message}</p>}
         </div>
       </div>
     </Dialog>

@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for naviga
 import chatIcon from "../../assets/Chatbot/Chatbot.svg";
 import "../landingPage/Landing.css";
 import axios from "axios";
+import { useUser } from "components/context/UserContext";
 
 const Chatbot = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const { setCitizenDetails } = useUser();
   const [form, setForm] = useState({});
   const [states, setStates] = useState([]); // Ensure states is initialized as an empty array
   const [cities, setCities] = useState([]);
@@ -131,10 +132,11 @@ const Chatbot = () => {
     },
     ask_email: {
       message: (params) =>
-        `Nice to meet you ${params.userInput}, Please enter your email address.`,
+        `Nice to meet you ${params.userInput}! \nPlease enter your email address.`,
       function: (params) => setForm({ ...form, email: params.userInput }),
       path: async (params) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
+        // /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const email = params.userInput;
 
         if (!emailRegex.test(email)) {
@@ -150,7 +152,9 @@ const Chatbot = () => {
       function: (params) => setForm({ ...form, phone: params.userInput }),
       path: async (params) => {
         const phone = params.userInput;
-        const phoneRegex = /^\d{10}$/;
+        const phoneRegex =
+          /^(?:(?:\+|0{0,2})91(\s*|[-])?|[0]?)?([6789]\d{2}([-]?)\d{3}([-]?)\d{4})$/;
+        // /^\d{10}$/;
 
         if (!phoneRegex.test(phone)) {
           await params.injectMessage(
@@ -190,6 +194,8 @@ const Chatbot = () => {
       options: ["Yes", "No"],
       function: async (params) => {
         console.log(form);
+        // Save user details in context
+        setCitizenDetails(form);
         await submitFormData(form);
         if (params.userInput.toLowerCase() === "yes") {
           navigate("/citizen/kyc"); // Redirect to KYC page if user says Yes
@@ -208,18 +214,16 @@ const Chatbot = () => {
   };
 
   return (
-    <div>
-      <div
-        style={{
-          position: "fixed",
-          bottom: 20,
-          right: 20,
-          zIndex: 1000,
-          fontSize: "2rem",
-        }}
-      >
-        <MyChatBot settings={settings} flow={flow} styles={styles} />
-      </div>
+    <div
+      style={{
+        position: "fixed",
+        bottom: 20,
+        right: 20,
+        zIndex: 1000,
+        fontSize: "2rem",
+      }}
+    >
+      <MyChatBot settings={settings} flow={flow} styles={styles} />
     </div>
   );
 };

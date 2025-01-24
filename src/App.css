@@ -110,6 +110,22 @@ body {
   color: var(--text-tertiary-3);
 }
 
+.text-tertiary-2 {
+  color: var(--text-tertiary-2);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
+.text-tertiary-2 {
+  color: var(--text-tertiary-2);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
 .text-moderate {
   color: var(--text-moderate);
 }
@@ -195,15 +211,6 @@ body {
   color: #166c7d;
 }
 
-.p-carousel .p-carousel-content .p-carousel-prev:enabled:hover,
-.p-carousel .p-carousel-content .p-carousel-next:enabled:hover {
-  color: var(--theme-primary-color);
-}
-
-.p-carousel .p-carousel-content .p-carousel-prev,
-.p-carousel .p-carousel-content .p-carousel-next {
-  color: var(--theme-primary-color);
-}
 .p-menubar
   .p-menubar-root-list
   > .p-menuitem
@@ -360,12 +367,13 @@ body {
     transform: scale(1);
   }
 }
-
 .block {
   animation: appear ease-out; /* Adjusted duration and added easing */
   animation-timeline: view();
   animation-range: entry 0% cover 50%;
 }
+
+
 .container {
   display: inline-block;
 }
@@ -390,3 +398,40 @@ body {
     width: 100%; /* Ensure it expands to full width */
   }
 }
+
+.textAni {
+  display: inline-block; /* Change to inline-block to allow width animation */
+  width: 100%; /* Full width of the container */
+  white-space: nowrap; /* Prevent line breaks */
+  overflow: hidden; /* Hide overflow */
+  animation: typing 6s steps(30) infinite; /* Typing effect only */
+  text-align: center; /* Center the text */
+}
+
+@keyframes typing {
+  from {
+    width: 0; /* Start with no width */
+  }
+  to {
+    width: 100%; /* Expand to full width */
+  }
+}
+
+.p-carousel .p-carousel-content .p-carousel-prev:enabled:hover,
+.p-carousel .p-carousel-content .p-carousel-next:enabled:hover {
+  color: var(--theme-primary-color);
+}
+
+.p-carousel .p-carousel-content .p-carousel-prev,
+.p-carousel .p-carousel-content .p-carousel-next {
+  color: var(--theme-primary-color);
+}
+
+.p-carousel-indicators {
+  display: none;
+}
+/* 
+.custom-carousel .p-carousel .p-carousel-content .p-carousel-prev,
+.custom-carousel .p-carousel .p-carousel-content .p-carousel-next {
+  display: none !important;
+} */

@@ -4,7 +4,7 @@ import axios from "axios";
 import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import "../../Dash.css";
+import "../../../DashboardUtility/Dash.css";
 import good from "assets/dashboard/good.png";
 import moderate from "assets/dashboard/moderate.png";
 import poor from "assets/dashboard/poor.png";
@@ -12,7 +12,7 @@ import very_poor from "assets/dashboard/very_poor.png";
 import severe from "assets/dashboard/severe.png";
 import PollutantChart from "./PollutantChart";
 import { Button } from "primereact/button";
-import TableSkeleton from "../../skeletons/TableSkeleton";
+import TableSkeleton from "../../../DashboardUtility/skeletons/TableSkeleton";
 import AQIChart from "./AQIChart";
 import AqiMap from "./AqiMap";
 import { Dialog } from "primereact/dialog";
@@ -22,23 +22,17 @@ import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Upload from "components/DashboardUtility/Popups/Upload";
-import { Tooltip } from "primereact/tooltip";
+import { Divider } from "primereact/divider";
+import { OverlayPanel } from "primereact/overlaypanel";
+import { useRef } from "react";
+import score from "score";
+import DataNotFound from "pages/error pages/DataNotFound";
 
-const AqiDashboard = ({
-  onDataChange,
-  show,
-  pSelectedLocation,
-  pSelectedStartDate,
-  pSelectedEndDate,
-}) => {
-  const [startDate, setStartDate] = useState(
-    pSelectedStartDate ?? new Date("2024-01-01")
-  );
-  const [endDate, setEndDate] = useState(
-    pSelectedEndDate ?? new Date("2025-01-15")
-  );
+const AqiDashboard = ({ show }) => {
+  const [startDate, setStartDate] = useState(new Date("2025-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2025-01-24"));
   const [selectedLocation, setSelectedLocation] = useState(
-    pSelectedLocation ?? "Ayodhya - Civil line,Tiny tots"
+    "Ayodhya - Civil line,Tiny tots"
   );
   const [aqiValue, setAqiValue] = useState(null);
   const [pm25Value, setPM25value] = useState(null);
@@ -49,6 +43,9 @@ const AqiDashboard = ({
     textColor: "",
     image: null,
   });
+
+  const overlayRef = useRef(null);
+
   const [dataTableData, setDataTableData] = useState([]);
   const [locations, setLocations] = useState([]);
   const [envirolocation, setEnviroLocation] = useState([]);
@@ -60,11 +57,14 @@ const AqiDashboard = ({
   const [enviroAQI, setEnviroAQI] = useState([]);
   const [enviroNO2, setEnviroNO2] = useState([]);
   const [enviroco2, setEnviroco2] = useState([]);
+
   const [loading, setLoading] = useState(true);
-  const [filterVisible, setFilterVisible] = useState(false);
+  const [serverDown, setServerDown] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+
   const [aqiStats, setAqiStats] = useState("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -85,27 +85,24 @@ const AqiDashboard = ({
       }
     };
     fetchData();
-    if (selectedLocation) {
-      handleSearch();
-    }
   }, []);
 
   useEffect(() => {
     handleSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pSelectedLocation, pSelectedEndDate, pSelectedStartDate]);
+  }, []);
 
   const handleSearch = async () => {
     try {
       setLoading(true);
-      setFilterVisible(false);
       const start = new Date(startDate).toDateString("en-CA");
       const end = new Date(endDate).toDateString("en-CA");
 
       const response = await axios.get(
         `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
+      console.log("🚀 ~ handleSearch ~ response:", response);
       const filteredData = response.data.data;
+      // console.log(filteredData);
 
       const formattedDate = [];
       const formattedTime = [];
@@ -161,19 +158,12 @@ const AqiDashboard = ({
         setPM10value(averagepm10);
         setAqiValue(averageAqi);
 
-        if (onDataChange) {
-          onDataChange({
-            aqiValue: averageAqi,
-            pm25Value: averagepm25,
-            pm10Value: averagepm10,
-          });
-        }
-
         setAqiStatus(getAqiStatus(averageAqi));
       } else {
         setAqiValue(null);
         setAqiStatus({ status: "", color: "", textColor: "", image: null });
       }
+
       const calculateAqiStats = (filteredData) => {
         if (filteredData.length === 0) return {};
 
@@ -209,8 +199,8 @@ const AqiDashboard = ({
           },
         };
       };
-      console.log(calculateAqiStats(filteredData));
       setAqiStats(calculateAqiStats(filteredData));
+
       const filteredDataWithDeviation = filteredData
         .filter((item) => item.AQI > 400)
         .map((item) => ({
@@ -225,9 +215,10 @@ const AqiDashboard = ({
         new Set(filteredDataWithDeviation.map(JSON.stringify))
       ).map(JSON.parse);
       setDataTableData(uniqueDataTableData);
-      console.log(uniqueDataTableData);
-      setLoading(false);
     } catch (error) {
+      console.log("🚀 ~ handleSearch ~ error:", error);
+      setLoading(false);
+      setServerDown(true);
     } finally {
       setLoading(false);
     }
@@ -238,24 +229,6 @@ const AqiDashboard = ({
     setStartDate(null);
     setEndDate(null);
   };
-
-  useEffect(() => {
-    if (!show && pSelectedLocation) {
-      setSelectedLocation(pSelectedLocation);
-    }
-  }, [show, pSelectedLocation]);
-
-  useEffect(() => {
-    if (!show && pSelectedStartDate) {
-      setStartDate(pSelectedStartDate);
-    }
-  }, [show, pSelectedStartDate]);
-
-  useEffect(() => {
-    if (!show && pSelectedEndDate) {
-      setEndDate(pSelectedEndDate);
-    }
-  }, [show, pSelectedEndDate]);
 
   function formatTimeToHHMMSS(isoDateString) {
     const dateObj = new Date(isoDateString).toLocaleTimeString();
@@ -312,11 +285,7 @@ const AqiDashboard = ({
     }
   };
 
-  const {
-    status: aqiStatusText,
-
-    image: aqiImage,
-  } = aqiStatus;
+  const { status: aqiStatusText, image: aqiImage } = aqiStatus;
 
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
@@ -339,6 +308,22 @@ const AqiDashboard = ({
     return <AqiDashboard show={false} />;
   };
 
+  const scoreAQI = score.AQI;
+
+  const getScoreColor = (scoreAQI) => {
+    if (scoreAQI >= 81 && scoreAQI <= 100) {
+      return "#0C9D61"; // Green for good
+    } else if (scoreAQI >= 41 && scoreAQI <= 80) {
+      return "#FFAD0D"; // Yellow for moderate
+    } else if (scoreAQI >= 0 && scoreAQI <= 40) {
+      return "#E62225"; // Red for poor
+    }
+  };
+
+  if (serverDown) {
+    return <DataNotFound />;
+  }
+
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">
       <ProgressSpinner />
@@ -347,11 +332,62 @@ const AqiDashboard = ({
   ) : (
     <div className="flex flex-column gap-3 w-full p-4">
       {show && (
-        <div className="flex align-items-center justify-content-between">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Air Quality Index
-          </h1>
-
+        <div className="flex align-items-center justify-content-between gap-3">
+          <div className="flex align-items-center justify-content-between w-full">
+            {/* Title & Score */}
+            <div
+              style={{
+                position: "relative",
+                width: "340px",
+                height: "43px",
+                overflow: "hidden", // Hide overflow if needed
+              }}
+            >
+              <div
+                className="flex align-items-center justify-content-between p-2"
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: getScoreColor(scoreAQI),
+                  clipPath:
+                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+                }}
+              >
+                <h1
+                  className="m-0 p-0 text-white text-2xl font-semibold"
+                  style={{ zIndex: 1500 }}
+                >
+                  Air Quality Index
+                </h1>
+                <p
+                  className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                  style={{ zIndex: 1500 }}
+                >
+                  {scoreAQI}
+                </p>
+              </div>
+            </div>
+            {/* Selected  location & Date */}
+            <div className="flex align-items-start flex-column gap-1">
+              {/* location */}
+              <div className="flex align-items-center gap-1">
+                <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {selectedLocation || "Select a location"}
+                </p>
+              </div>
+              <Divider className="m-0 p-0" />
+              {/* Date Range */}
+              <div className="flex align-items-center justify-content-start gap-1">
+                <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
+                <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                  {startDate ? startDate.toLocaleDateString() : "Start Date"} -{" "}
+                  {endDate ? endDate.toLocaleDateString() : "End Date"}
+                </p>
+              </div>
+            </div>
+          </div>
           <div className="flex align-ites-center justify-content-end gap-2">
             <Button
               tooltip="Filters"
@@ -359,73 +395,67 @@ const AqiDashboard = ({
                 position: "bottom",
               }}
               icon="pi pi-filter"
-              onClick={() => setFilterVisible(!filterVisible)}
+              onClick={(e) => overlayRef.current.toggle(e)}
               className="bg-white text-secondary2"
               raised
             />
-            {filterVisible && (
-              <div
-                className="absolute bg-white border-round-2xl shadow-lg p-3 w-20rem mt-2 fixed"
-                style={{
-                  zIndex: 1000, // Ensures the filter appears above other components
-                  position: "relative", // Required for z-index to work
-                  transform: "translateY(15%) translateX(-70%)",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <div className="flex flex-column gap-3">
-                  <div className="flex flex-column">
-                    <label htmlFor="location" className="font-semibold text">
-                      Location
-                    </label>
-                    <Dropdown
-                      value={selectedLocation}
-                      options={locations}
-                      optionLabel="label"
-                      optionValue="value"
-                      onChange={(e) => setSelectedLocation(e.value)}
-                      placeholder="Select Location"
-                    />
-                  </div>
-                  <div className="p-field text-sm flex flex-column">
-                    <label htmlFor="dateRange" className="font-semibold text">
-                      Select Date Range
-                    </label>
-                    <Calendar
-                      id="dateRange"
-                      value={[startDate, endDate]} // Pass selected date range as an array
-                      onChange={(e) => {
-                        const [newStartDate, newEndDate] = e.value; // Destructure range
-                        setStartDate(newStartDate);
-                        setEndDate(newEndDate);
-                      }}
-                      selectionMode="range"
-                      showIcon
-                      dateFormat="dd-mm-yy"
-                      placeholder="Select date range"
-                      showButtonBar
-                      hideOnRangeSelection
-                    />
-                  </div>
-                  <div className="flex justify-content-between">
-                    <Button
-                      className="bg-white text-moderate border-none"
-                      label="Reset"
-                      // icon="pi pi-search"
-                      onClick={resetFilters}
-                      raised
-                    />
-                    <Button
-                      className="bg-primary1"
-                      label="Apply"
-                      // icon="pi pi-search"
-                      onClick={handleSearch}
-                      raised
-                    />
-                  </div>
+            <OverlayPanel
+              ref={overlayRef}
+              style={{ width: "20rem" }}
+              className="p-overlay-panel"
+            >
+              <div className="flex flex-column gap-3">
+                <div className="flex flex-column">
+                  <label htmlFor="location" className="font-semibold text">
+                    Location
+                  </label>
+                  <Dropdown
+                    value={selectedLocation}
+                    options={locations}
+                    optionLabel="label"
+                    optionValue="value"
+                    onChange={(e) => setSelectedLocation(e.value)}
+                    placeholder="Select Location"
+                  />
+                </div>
+                <div className="p-field text-sm flex flex-column">
+                  <label htmlFor="dateRange" className="font-semibold text">
+                    Select Date Range
+                  </label>
+                  <Calendar
+                    id="dateRange"
+                    value={[startDate, endDate]} // Pass selected date range as an array
+                    onChange={(e) => {
+                      const [newStartDate, newEndDate] = e.value; // Destructure range
+                      setStartDate(newStartDate);
+                      setEndDate(newEndDate);
+                    }}
+                    selectionMode="range"
+                    showIcon
+                    dateFormat="dd-mm-yy"
+                    placeholder="Select date range"
+                    showButtonBar
+                    hideOnRangeSelection
+                  />
+                </div>
+                <div className="flex justify-content-between">
+                  <Button
+                    className="bg-white text-secondary2"
+                    label="Reset"
+                    // icon="pi pi-search"
+                    onClick={resetFilters}
+                    raised
+                  />
+                  <Button
+                    className="bg-primary1"
+                    label="Apply"
+                    // icon="pi pi-search"
+                    onClick={handleSearch}
+                    raised
+                  />
                 </div>
               </div>
-            )}
+            </OverlayPanel>
             <Button
               icon="pi pi-plus"
               className="bg-white text-secondary2"
@@ -442,74 +472,82 @@ const AqiDashboard = ({
               parameter={"aqi"}
             />
             <Button
-              label="Generate Report"
+              tooltip="Generate Report"
+              tooltipOptions={{
+                position: "bottom",
+              }}
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
               // className="bg-white text-cyan-800 border-1 border-cyan-800"
               className=" bg-primary1 text-white"
               raised
             />
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              {/* <AQIReportPrint
+          show={false}
+          selectedLocation={selectedLocation}
+          startDate={startDate}
+          endDate={endDate}
+        /> */}
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"aqi"}
+                heading={"Air Quality Index"}
+              />
+            </Dialog>
           </div>
         </div>
       )}
 
-      <Dialog
-        visible={ReportVisible}
-        style={{ width: "100rem" }}
-        onHide={() => {
-          if (!ReportVisible) return;
-          setReportVisible(false);
-        }}
-      >
-        <ReportPrint
-          renderDashboard={renderDashboard}
-          renderRecommendations={renderRecommendations}
-          parameter={"aqi"}
-          heading={"Air Quality Index"}
-        />
-      </Dialog>
-
-      <div
-        className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4"
-        style={{ flex: "10%" }}
-      >
+      <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
           <div
-            className="border-round-xl p-2"
+            className="flex border-round-xl p-2"
             style={{
               backgroundColor: aqiStatus.bg_color,
               border: `1px solid ${aqiStatus.color}`,
+              flex: "20%",
             }}
           >
-            <h1 className="card-title m-0 p-0">Air Quality Index</h1>
-            <div className="flex align-items-center justify-content-center p-2 gap-8">
+            <div className="flex flex-column align-items-center justify-content-between">
+              <h1 className="card-title m-0 p-0">Air Quality Index</h1>
               <h1
-                className="text-5xl font-medium p-0 m-0"
+                className="text-3xl font-medium p-0 m-0"
                 style={{ color: aqiStatus.color }}
               >
+                {/* <p className="p-0 m-0 text-sm">{selectedLocation}</p> */}
                 {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
               </h1>
-
-              {aqiImage && (
-                <img
-                  src={aqiImage}
-                  alt={aqiStatusText}
-                  style={{ width: "6rem", height: "10rem" }}
-                />
-              )}
+              <Tag
+                className="border-round-3xl"
+                style={{ backgroundColor: aqiStatus.color, color: "white" }}
+              >
+                <span className="text-xs">
+                  {aqiStatus.status || "No Status"}{" "}
+                </span>
+              </Tag>
             </div>
-            <Tag
-              className="border-round-3xl"
-              style={{ backgroundColor: aqiStatus.color, color: "white" }}
-            >
-              <span className="text-xs">
-                {aqiStatus.status || "No Status"}{" "}
-              </span>
-            </Tag>
+            {/* <h1
+                  className={`border-round-2xl py-2 px-3 text-xs text-white text-left`}
+                  style={{ backgroundColor: aqiStatus.color }}
+                >
+                  {aqiStatus.status || "No Status"}
+                </h1> */}
+
+            {aqiImage && (
+              <img src={aqiImage} alt={aqiStatusText} className="h-14rem" />
+            )}
           </div>
         )}
-
-        <div className="w-full" style={{ flex: "35%" }}>
+        <div style={{ flex: "30%" }}>
           {loading ? (
             <div className="w-full">
               <TableSkeleton />
@@ -580,7 +618,7 @@ const AqiDashboard = ({
           )}
         </div>
 
-        <div className="w-full border-round-2xl" style={{ flex: "25%" }}>
+        <div className="flex bg-white border-round-2xl" style={{ flex: "25%" }}>
           <AqiMap averageAQI={aqiValue} selectedLocation={selectedLocation} />
         </div>
         <div
@@ -729,73 +767,11 @@ const AqiDashboard = ({
         </div>
       </div>
 
-      {/* {show && (
-        <Panel
-          toggleable
-          onToggle={handleToggleRecommendations}
-          headerTemplate={(options) => {
-            const toggleIcon = recommendationsVisible
-              ? "pi pi-chevron-up"
-              : "pi pi-chevron-down";
-            return (
-              <div className="flex justify-content-between align-items-center px-4 bg-white border-round">
-                <p className="text-primary1 font-semibold text-xl">
-                  View Recommendations
-                </p>
-                <button
-                  className={`p-link ${toggleIcon}`}
-                  onClick={options.onTogglerClick}
-                  style={{
-                    background: "none",
-                    // border: "none",
-                    cursor: "pointer",
-                    color: "#001F23",
-                  }}
-                />
-              </div>
-            );
-          }}
-        >
-          {recommendationsVisible && (
-            <AQIRecommendations
-              aqi={aqiValue}
-              pm25={pm25Value}
-              pm10={pm10Value}
-            />
-          )}
-        </Panel>
-      )} */}
       <RecommendationPanel
         show={true}
         renderRecommendations={renderRecommendations}
+        // selectedLocation={selectedLocation}
       />
-
-      {/* {show && (
-            <>
-              <div className="flex align-items-center justify-content-start flex-wrap md:flex-nowrap mt-2">
-                <Card className="h-15rem w-6">
-                  <CustomBarChart
-                    title="Human Loss by Age Group and Gender"
-                    categories={categories}
-                    series={series}
-                    height={200}
-                    width={500}
-                    xtitle="Age Group"
-                    ytitle="Number of Losses"
-                  />
-                </Card>
-                <Card className="h-15rem w-6 ml-1 ">
-                  <DonutChart
-                    title={"Health Impact of NO2"}
-                    labels={NO2impactlabels}
-                    series={NO2Impactseries}
-                    height={200}
-                    width={300}
-                  />
-                </Card>
-              </div>
-            </>
-          )} */}
     </div>
   );
 };
