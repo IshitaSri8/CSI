@@ -6,9 +6,9 @@ import LandingVideo from "./LandingVideo";
 
 const LandingCarousel = () => {
   const componentsData = [
+    { content: <Parameters /> },
     { content: <LandingVideo /> },
     // { content: <Landing /> },
-    { content: <Parameters /> },
   ];
 
   // Template function for rendering each item
@@ -18,7 +18,7 @@ const LandingCarousel = () => {
 
   return (
     <Carousel
-      page={0}
+      // page={0}
       value={componentsData}
       itemTemplate={itemTemplate}
       numVisible={1}
