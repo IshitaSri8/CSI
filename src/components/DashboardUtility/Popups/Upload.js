@@ -20,7 +20,7 @@ const Upload = ({ visible, onHide, parameter }) => {
       formData.append("file", file);
 
       const response = await axios.post(
-        `http://localhost:8010/upload/${parameter}`,
+        `https://api-csi.arahas.com/upload/${parameter}`,
         formData
       );
 
