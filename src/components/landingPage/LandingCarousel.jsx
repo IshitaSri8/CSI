@@ -18,6 +18,7 @@ const LandingCarousel = () => {
 
   return (
     <Carousel
+      page={0}
       value={componentsData}
       itemTemplate={itemTemplate}
       numVisible={1}
