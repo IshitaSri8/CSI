@@ -32,11 +32,23 @@ const Chatbot = () => {
   const checkEmailExists = async (email) => {
     try {
       const response = await axios.get(
-        `http://localhost:8010/check-email?email=${email}`
+        `https://api-csi.arahas.com/check-email?email=${email}`
       );
       return response.data.exists;
     } catch (error) {
       console.error("Error checking email existence:", error);
+      return false;
+    }
+  };
+
+  const checkPhoneExists = async (phone) => {
+    try {
+      const response = await axios.get(
+        `https://api-csi.arahas.com/check/phone?phone=${phone}`
+      );
+      return response.data.exists;
+    } catch (error) {
+      console.error("Error checking Phone number existence:", error);
       return false;
     }
   };
@@ -164,7 +176,7 @@ const Chatbot = () => {
         const exists = await checkEmailExists(email);
         if (exists) {
           await params.injectMessage(
-            "User already exists! Please sign in using your credentials."
+            "User already exists! Please sign in using different Email."
           );
           return "thank_you"; // End flow or redirect to sign-in
         }
@@ -187,7 +199,13 @@ const Chatbot = () => {
           );
           return "ask_phone"; // Reask the phone number question
         }
-
+        const exists = await checkPhoneExists(phone);
+        if (exists) {
+          await params.injectMessage(
+            "User already exists! Please sign in using different Phone Number."
+          );
+          return "thank_you"; // End flow or redirect to sign-in
+        }
         return "ask_state"; // Proceed to the next step if the phone number is valid
       },
     },
