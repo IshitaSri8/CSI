@@ -9,10 +9,11 @@ import { useUser } from "components/context/UserContext";
 const Chatbot = () => {
   const { setCitizenDetails } = useUser();
   const [form, setForm] = useState({});
-  const [states, setStates] = useState([]); // Ensure states is initialized as an empty array
+  const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [filteredCities, setFilteredCities] = useState([]); // State for filtered cities
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // Initialize useNavigate
   const submitFormData = async (formData) => {
     try {
       const response = await axios.post(
@@ -21,10 +22,22 @@ const Chatbot = () => {
       );
 
       if (response.status === 201) {
-        console("User Registration Successful");
+        console.log("User Registration Successful");
       }
     } catch (error) {
       console.error("Error submitting form data:", error);
+    }
+  };
+
+  const checkEmailExists = async (email) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8010/check-email?email=${email}`
+      );
+      return response.data.exists;
+    } catch (error) {
+      console.error("Error checking email existence:", error);
+      return false;
     }
   };
 
@@ -84,9 +97,11 @@ const Chatbot = () => {
         "https://api.countrystatecity.in/v1/countries/IN/states",
         { headers }
       );
+
       const data = await response.json();
 
       if (Array.isArray(data)) {
+        data.sort((a, b) => a.name.localeCompare(b.name));
         setStates(data);
       } else {
         console.error("Unexpected response format for states:", data);
@@ -110,8 +125,11 @@ const Chatbot = () => {
       );
 
       const data = await response.json();
+
       if (Array.isArray(data)) {
+        data.sort((a, b) => a.name.localeCompare(b.name));
         setCities(data);
+        setFilteredCities(data); // Initialize filtered cities with all cities
       } else {
         console.error("Unexpected response format for cities:", data);
       }
@@ -130,23 +148,31 @@ const Chatbot = () => {
       function: (params) => setForm({ ...form, name: params.userInput }),
       path: "ask_email",
     },
+
     ask_email: {
-      message: (params) =>
-        `Nice to meet you ${params.userInput}! \nPlease enter your email address.`,
+      message: (params) => `Please enter your email address.`,
       function: (params) => setForm({ ...form, email: params.userInput }),
       path: async (params) => {
-        const emailRegex = /^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
-        // /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
         const email = params.userInput;
 
         if (!emailRegex.test(email)) {
-          await params.injectMessage("Please enter a valid email address.");
+          await params.injectMessage("Invalid Email Address!");
           return "ask_email"; // Reask the email question
+        }
+
+        const exists = await checkEmailExists(email);
+        if (exists) {
+          await params.injectMessage(
+            "User already exists! Please sign in using your credentials."
+          );
+          return "thank_you"; // End flow or redirect to sign-in
         }
 
         return "ask_phone"; // Proceed to the next step if email is valid
       },
     },
+
     ask_phone: {
       message: "Please enter your phone number (10 digits):",
       function: (params) => setForm({ ...form, phone: params.userInput }),
@@ -154,7 +180,6 @@ const Chatbot = () => {
         const phone = params.userInput;
         const phoneRegex =
           /^(?:(?:\+|0{0,2})91(\s*|[-])?|[0]?)?([6789]\d{2}([-]?)\d{3}([-]?)\d{4})$/;
-        // /^\d{10}$/;
 
         if (!phoneRegex.test(phone)) {
           await params.injectMessage(
@@ -166,6 +191,7 @@ const Chatbot = () => {
         return "ask_state"; // Proceed to the next step if the phone number is valid
       },
     },
+
     ask_state: {
       message: "Which state are you in?",
       options: states.map((state) => state.name), // Display states as options
@@ -173,28 +199,78 @@ const Chatbot = () => {
         const selectedState = states.find(
           (state) => state.name === params.userInput
         );
-        if (selectedState) {
-          await fetchCities(selectedState.iso2);
 
-          setForm({ ...form, state: selectedState.name });
-        }
+        setForm({ ...form, state: selectedState.name });
+
+        return "ask_city_range"; // Proceed to ask for city range after selecting state
       },
-      path: async (params) => "ask_city",
     },
+
+    ask_city_range: {
+      message: "Select a range of alphabets for city names:",
+      options: ["A-F", "G-L", "M-R", "S-Z"],
+      function: (params) => {
+        setForm({ ...form });
+      },
+      path: (params) => {
+        return "filter_cities"; // Proceed to filter cities based on selected range
+      },
+    },
+
+    filter_cities: {
+      message: (params) => {
+        let rangeStart;
+        let rangeEnd;
+
+        switch (params.userInput) {
+          case "A-F":
+            rangeStart = "A";
+            rangeEnd = "F";
+            break;
+          case "G-L":
+            rangeStart = "G";
+            rangeEnd = "L";
+            break;
+          case "M-R":
+            rangeStart = "M";
+            rangeEnd = "R";
+            break;
+          case "S-Z":
+            rangeStart = "S";
+            rangeEnd = "Z";
+            break;
+          default:
+            break;
+        }
+
+        // Filter cities based on selected range
+        const filtered = cities.filter(
+          (city) =>
+            city.name.charAt(0).toUpperCase() >= rangeStart &&
+            city.name.charAt(0).toUpperCase() <= rangeEnd
+        );
+
+        setFilteredCities(filtered); // Update filtered cities
+
+        return `Please select a city from ${rangeStart} to ${rangeEnd}:`;
+      },
+      path: "ask_city", // Proceed to ask city after filtering
+    },
+
     ask_city: {
       message: "Which city are you in?",
-      options: cities.map((city) => city.name), // Display cities if available
+      options: (params) => filteredCities.map((city) => city.name), // Display filtered cities as options
       function: (params) => {
         setForm({ ...form, city: params.userInput });
       },
-      path: "kyc",
+      path: "kyc", // Proceed to KYC step after selecting city
     },
+
     kyc: {
       message: "Want to know more about your city?",
       options: ["Yes", "No"],
       function: async (params) => {
         console.log(form);
-        // Save user details in context
         setCitizenDetails(form);
         await submitFormData(form);
         if (params.userInput.toLowerCase() === "yes") {
@@ -207,8 +283,9 @@ const Chatbot = () => {
         }
       },
     },
+
     thank_you: {
-      message: "Thank you for providing your details.",
+      message: "Have a great day ahead.",
       path: "start", // Reset the flow if needed
     },
   };

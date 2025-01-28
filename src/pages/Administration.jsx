@@ -41,16 +41,29 @@ const Administration = () => {
 
   // Function to determine background color based on score
   const getScoreBackgroundColor = (score) => {
-    if (score >= 81 && score <= 100) {
-      return "#0C9D61"; // Green for good
-    } else if (score >= 41 && score <= 80) {
-      return "#FFAD0D"; // Yellow for moderate
-    } else if (score >= 0 && score <= 40) {
-      return "#E62225"; // Red for poor
+    if (score >= 90 && score <= 100) {
+      return "#0C9D61";
+    } else if (score >= 80 && score < 90) {
+      return "#92D050";
+    } else if (score >= 60 && score < 80) {
+      return "#FFAD0D";
+    } else if (score >= 40 && score < 60) {
+      return "#ffed48";
+    } else if (score >= 20 && score < 40) {
+      return "#E62225";
+    } else if (score >= 0 && score < 20) {
+      return "#8a1416";
     }
   };
 
-  const colors = ["#0C9D61", "#FFAD0D", "#E62225"];
+  const colors = [
+    "#0C9D61",
+    "#92D050",
+    "#FFAD0D",
+    "#ffed48",
+    "#E62225",
+    "#8a1416",
+  ];
 
   const handleCardClick = (path) => {
     navigate(path);
@@ -128,9 +141,9 @@ const Administration = () => {
             style={{ cursor: "pointer" }} // Change cursor to pointer for better UX
           >
             <div className="flex flex-column gap-3 align-items-center justify-content-between">
-              <img src={metric.img} alt={metric.title} />
+              <img src={metric.img} alt={metric.title} className="w-11rem" />
               <div>
-                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-lg w-16rem text-center">
+                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-center">
                   {metric.title}
                 </p>
               </div>
@@ -166,11 +179,17 @@ const Administration = () => {
             ></div>
             <p className="m-0 p-0 font-medium card-text">
               {index === 0
-                ? "80-100"
+                ? "90-100"
                 : index === 1
-                ? "40-80"
+                ? "80-90"
                 : index === 2
-                ? "0-40"
+                ? "60-80"
+                : index === 3
+                ? "40-60"
+                : index === 4
+                ? "20-40"
+                : index === 5
+                ? "0-20"
                 : "Unknown Score Range"}{" "}
               {/* Fallback for unexpected indices */}
             </p>
