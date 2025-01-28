@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import nature from "assets/Report/Nature.svg";
 import { PieChart } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
@@ -13,6 +13,10 @@ import pathConstants from "pathConstants";
 import score from "score";
 
 const Nature = () => {
+  const [waterScore, setWaterScore] = useState();
+  const handleScoreUpdate = (score) => {
+    setWaterScore(score);
+  };
   const navigate = useNavigate();
   const natureLables = [
     "AQI",

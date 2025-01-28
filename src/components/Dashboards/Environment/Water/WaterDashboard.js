@@ -59,7 +59,7 @@ const WaterDashboard = ({ show }) => {
   const [meteredConnectionColor, setMeteredConnectionColor] = useState();
   const [supplyColor, setSupplyColor] = useState();
   const [waterConnectionColor, setWaterConnectionColor] = useState();
-
+  const [score, setScore] = useState("");
   const [displayValues, setDisplayValues] = useState("");
 
   const { username } = useUser();
@@ -141,6 +141,115 @@ const WaterDashboard = ({ show }) => {
           "https://api-csi.arahas.com/data/water"
         );
         const responseData = response.data.data;
+        const filteredData_Year_Month = responseData.filter(
+          (item) =>
+            item.Year === selectedValues.year &&
+            item.Month === selectedValues.month
+        );
+        console.log(filteredData_Year_Month);
+        // Calculate total values if all zones are selected
+        const totalValues_Year_Month = filteredData_Year_Month.reduce(
+          (acc, curr) => {
+            return {
+              ...acc,
+              Current_Supply_MLD:
+                (acc.Current_Supply_MLD || 0) + curr.Current_Supply_MLD,
+              Required_Supply_MLD:
+                (acc.Required_Supply_MLD || 0) + curr.Required_Supply_MLD,
+              Population: (acc.Population || 0) + curr.Population,
+              Awarness_Campaigns_Programs:
+                (acc.Awarness_Campaigns_Programs || 0) +
+                curr.Awarness_Campaigns_Programs,
+              Borewell: (acc.Borewell || 0) + curr.Borewell,
+              Canals: (acc.Canals || 0) + curr.Canals,
+              Handpumps: (acc.Handpumps || 0) + curr.Handpumps,
+              No_of_Households_with_Connections:
+                (acc.No_of_Households_with_Connections || 0) +
+                curr.No_of_Households_with_Connections,
+              Total_Households:
+                (acc.Total_Households || 0) + curr.Total_Households,
+              Tanks: (acc.Tanks || 0) + curr.Tanks,
+              Ponds: (acc.Ponds || 0) + curr.Ponds,
+              No_of_Households_with_Meters:
+                (acc.No_of_Households_with_Meters || 0) +
+                curr.No_of_Households_with_Meters,
+              Sites_with_Rainwater_Harvesting_System:
+                (acc.Sites_with_Rainwater_Harvesting_System || 0) +
+                curr.Sites_with_Rainwater_Harvesting_System,
+              Total_Volume_Harvested:
+                (acc.Total_Volume_Harvested || 0) + curr.Total_Volume_Harvested,
+              Households_Bill_Payment:
+                (acc.Households_Bill_Payment || 0) +
+                curr.Households_Bill_Payment,
+              WQI: (acc.WQI || 0) + curr.WQI,
+            };
+          },
+          {}
+        );
+        // Supply Score Calculation Start-----------------------------------------------------------
+        const calculateScore = (percentage) => {
+          if (percentage === 0) return 0;
+          if (percentage > 0 && percentage < 25) return 20;
+          if (percentage >= 25 && percentage < 50) return 40;
+          if (percentage >= 50 && percentage < 75) return 60;
+          if (percentage >= 75 && percentage < 95) return 80;
+          return 100;
+        };
+
+        const waterConnectionPer = (
+          (totalValues_Year_Month.No_of_Households_with_Connections /
+            totalValues_Year_Month.Total_Households) *
+          100
+        ).toFixed(2);
+
+        const waterSupplyPerCapitaPer =
+          ((totalValues_Year_Month.Current_Supply_MLD * 1000000) /
+            totalValues_Year_Month.Population /
+            135) *
+          100;
+        const waterConnectionScore = calculateScore(waterConnectionPer);
+        const waterSupplyPerCapitaScore = calculateScore(
+          waterSupplyPerCapitaPer
+        );
+        const supplyScore =
+          (waterConnectionScore + waterSupplyPerCapitaScore) / 2;
+        // Supply Score Calculation End-----------------------------------------------------------------------------
+        //  WQI Score Calculation Start----------------------------------------------
+        const calculateScoreWQI = (wqi) => {
+          if (wqi >= 0 && wqi < 25) return 0;
+          if (wqi >= 25 && wqi < 50) return 25;
+          if (wqi >= 50 && wqi < 75) return 50;
+          if (wqi >= 70 && wqi < 90) return 75;
+          return 100;
+        };
+
+        const avgWQI =
+          totalValues_Year_Month.WQI / filteredData_Year_Month.length;
+
+        const wqiScore = calculateScoreWQI(avgWQI);
+        // WQI Score Calculation End----------------------------------------------------------------------
+        // Water Usage Management Start------------------------------------------
+        const perWaterMeters =
+          (totalValues_Year_Month.No_of_Households_with_Meters /
+            totalValues_Year_Month.No_of_Households_with_Connections) *
+          100;
+        const meterScore = calculateScore(perWaterMeters);
+        const calculateScoreBillPayment = (rate) => {
+          if (rate >= 0 && rate <= 15) return 100;
+          if (rate > 15 && rate < 30) return 80;
+          if (rate >= 30 && rate < 50) return 60;
+          if (rate >= 50 && rate < 60) return 45;
+          if (rate >= 60 && rate < 70) return 20;
+          return 0;
+        };
+        const bill_payment =
+          (totalValues_Year_Month.Households_Bill_Payment /
+            totalValues_Year_Month.No_of_Households_with_Meters) *
+          100;
+        const billScore = calculateScoreBillPayment(bill_payment);
+        const usageScore = (meterScore + billScore) / 2;
+        //  Water Usage Management End-------------------------------------------
+        setScore(supplyScore * 0.5 + wqiScore * 0.2 + usageScore * 0.3);
         const filteredData =
           selectedValues.zone === "All Zones"
             ? responseData.filter(
@@ -173,16 +282,13 @@ const WaterDashboard = ({ show }) => {
             No_of_Households_with_Connections:
               (acc.No_of_Households_with_Connections || 0) +
               curr.No_of_Households_with_Connections,
-
             Total_Households:
               (acc.Total_Households || 0) + curr.Total_Households,
-
             Tanks: (acc.Tanks || 0) + curr.Tanks,
             Ponds: (acc.Ponds || 0) + curr.Ponds,
             No_of_Households_with_Meters:
               (acc.No_of_Households_with_Meters || 0) +
               curr.No_of_Households_with_Meters,
-
             Sites_with_Rainwater_Harvesting_System:
               (acc.Sites_with_Rainwater_Harvesting_System || 0) +
               curr.Sites_with_Rainwater_Harvesting_System,
@@ -327,15 +433,19 @@ const WaterDashboard = ({ show }) => {
     setModifyDialogVisible(false);
   };
 
-  const scoreWATER = score.WATER;
-
   const getScoreColor = (scoreWATER) => {
-    if (scoreWATER >= 81 && scoreWATER <= 100) {
-      return "#0C9D61"; // Green for good
-    } else if (scoreWATER >= 41 && scoreWATER <= 80) {
-      return "#FFAD0D"; // Yellow for moderate
-    } else if (scoreWATER >= 0 && scoreWATER <= 40) {
-      return "#E62225"; // Red for poor
+    if (scoreWATER >= 90 && scoreWATER <= 100) {
+      return "#00B050"; // dark green
+    } else if (scoreWATER >= 80 && scoreWATER < 90) {
+      return "#92D050"; // light green
+    } else if (scoreWATER >= 60 && scoreWATER < 80) {
+      return "#FFFF00"; // yellow
+    } else if (scoreWATER >= 40 && scoreWATER < 60) {
+      return "#FFC000"; // orange
+    } else if (scoreWATER >= 20 && scoreWATER < 40) {
+      return "#FF0000"; // Red
+    } else if (scoreWATER >= 0 && scoreWATER < 20) {
+      return "#C00000"; // Deep red
     }
   };
 
@@ -366,7 +476,7 @@ const WaterDashboard = ({ show }) => {
                       position: "absolute",
                       width: "100%",
                       height: "100%",
-                      backgroundColor: getScoreColor(scoreWATER), // Replace with your desired color
+                      backgroundColor: getScoreColor(score), // Replace with your desired color
                       clipPath:
                         "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
                     }}
@@ -381,7 +491,7 @@ const WaterDashboard = ({ show }) => {
                       className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
                       style={{ zIndex: 1500 }}
                     >
-                      {scoreWATER}
+                      {score}
                     </p>
                   </div>
                 </div>
