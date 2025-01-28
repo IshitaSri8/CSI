@@ -1,5 +1,3 @@
-// src/constants/colorConstants.js
-
 const colors = {
     good: "#0C9D61",        // Green for good
     moderate: "#92D050",    // Light green for moderate

@@ -2,15 +2,11 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 const ScoreCalculator = ({ onAQIScoreCalculated }) => {
-  const [aqiAvg, setAqiAvg] = useState();
-
   useEffect(() => {
     const fetchScore = async () => {
       try {
         const response = await axios.get("https://api-csi.arahas.com/aqi/avg");
         const averageAQI = response.data.data.averageAQI;
-        setAqiAvg(averageAQI);
-        console.log("🚀 ~ fetchScore ~ response:", averageAQI);
 
         // Calculate score based on average AQI
         let calculatedScore;
