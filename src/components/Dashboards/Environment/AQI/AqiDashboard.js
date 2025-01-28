@@ -5,28 +5,29 @@ import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "../../../DashboardUtility/Dash.css";
-import good from "assets/dashboard/good.png";
-import moderate from "assets/dashboard/moderate.png";
-import poor from "assets/dashboard/poor.png";
-import very_poor from "assets/dashboard/very_poor.png";
-import severe from "assets/dashboard/severe.png";
 import PollutantChart from "./PollutantChart";
 import { Button } from "primereact/button";
 import TableSkeleton from "../../../DashboardUtility/skeletons/TableSkeleton";
 import AQIChart from "./AQIChart";
 import AqiMap from "./AqiMap";
-import { Dialog } from "primereact/dialog";
 import AQIRecommendations from "./AQIRecommendations";
-import { Tag } from "primereact/tag";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
-import { ProgressSpinner } from "primereact/progressspinner";
 import Upload from "components/DashboardUtility/Popups/Upload";
+import { Dialog } from "primereact/dialog";
+import { Tag } from "primereact/tag";
+import { ProgressSpinner } from "primereact/progressspinner";
 import { Divider } from "primereact/divider";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
-import score from "score";
 import DataNotFound from "pages/error pages/DataNotFound";
+import ScoreCalculator from "components/DashboardUtility/ScoreCalculator";
+import unhealthy from "assets/dashboard/unhealthy-aqi-level.svg";
+import severe from "assets/dashboard/severe-aqi-level.svg";
+import good from "assets/dashboard/good-aqi-level.svg";
+import moderate from "assets/dashboard/moderate-aqi-level.svg";
+import poor from "assets/dashboard/poor-aqi-level.svg";
+import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
 
 const AqiDashboard = ({ show }) => {
   const [startDate, setStartDate] = useState(new Date("2025-01-01"));
@@ -242,45 +243,53 @@ const AqiDashboard = ({ show }) => {
   };
 
   const getAqiStatus = (aqi) => {
-    if (aqi > 0 && aqi <= 100) {
+    if (aqi > 0 && aqi <= 50) {
       return {
         status: "GOOD",
-        color: "rgba(12, 157, 97, 1)",
+        color: "#086d43",
         textColor: "white",
         image: good,
-        bg_color: "rgba(12, 157, 97, 0.15)",
+        bg_color: "#0C9D61",
+      };
+    } else if (aqi > 50 && aqi <= 100) {
+      return {
+        status: "SATISFACTORY",
+        color: "#669138",
+        textColor: "black",
+        image: moderate,
+        bg_color: "#92D050",
       };
     } else if (aqi > 100 && aqi <= 200) {
       return {
-        status: "MODERATE",
-        color: "#FABC3F",
+        status: "MODERATELY POLLUTED",
+        color: "#b27909",
         textColor: "black",
-        image: moderate,
-        bg_color: "#FFF4B5",
+        image: poor,
+        bg_color: "#FFAD0D",
       };
     } else if (aqi > 200 && aqi <= 300) {
       return {
         status: "POOR",
-        color: "#FF7D29",
-        textColor: "black",
-        image: poor,
-        bg_color: "#FFBF78",
+        color: "#C7253E",
+        textColor: "white",
+        image: unhealthy,
+        bg_color: "#FF8A8A",
       };
     } else if (aqi > 300 && aqi <= 400) {
       return {
         status: "VERY POOR",
-        color: "#C7253E",
+        color: "#b81b1d",
         textColor: "white",
-        image: very_poor,
-        bg_color: "#FF8A8A",
+        image: severe,
+        bg_color: "#E62225",
       };
     } else if (aqi > 400) {
       return {
         status: "SEVERE",
-        color: "#624E88",
+        color: "#600e0f",
         textColor: "white",
-        image: severe,
-        bg_color: "#E5D9F2",
+        image: hazardous,
+        bg_color: "#8a1416",
       };
     }
   };
@@ -307,16 +316,33 @@ const AqiDashboard = ({ show }) => {
   const renderDashboard = () => {
     return <AqiDashboard show={false} />;
   };
+  const [score, setScore] = useState(null);
+  const [scoreColor, setScoreColor] = useState("#000");
 
-  const scoreAQI = score.AQI;
+  const handleScoreCalculated = (calculatedScore) => {
+    setScore(calculatedScore);
+    console.log("Calculated Score received in Dashboard:", calculatedScore);
+    // Update the score color based on the calculated score
+    const color = getScoreColor(calculatedScore);
+    setScoreColor(color);
+    // You can also perform additional actions with the score here
+  };
+
+  // const scoreAQI = score.AQI;
 
   const getScoreColor = (scoreAQI) => {
-    if (scoreAQI >= 81 && scoreAQI <= 100) {
-      return "#0C9D61"; // Green for good
-    } else if (scoreAQI >= 41 && scoreAQI <= 80) {
+    if (scoreAQI === 100) {
+      return "#0C9D61"; // Green for Excellent
+    } else if (scoreAQI === 80) {
+      return "#92D050"; //  Green for good
+    } else if (scoreAQI === 60) {
       return "#FFAD0D"; // Yellow for moderate
-    } else if (scoreAQI >= 0 && scoreAQI <= 40) {
+    } else if (scoreAQI === 40) {
+      return "#ffed48"; // Yellow for below moderate
+    } else if (scoreAQI === 20) {
       return "#E62225"; // Red for poor
+    } else if (scoreAQI === 0) {
+      return "#8a1416"; // Red for Severe
     }
   };
 
@@ -335,39 +361,42 @@ const AqiDashboard = ({ show }) => {
         <div className="flex align-items-center justify-content-between gap-3">
           <div className="flex align-items-center justify-content-between w-full">
             {/* Title & Score */}
-            <div
-              style={{
-                position: "relative",
-                width: "340px",
-                height: "43px",
-                overflow: "hidden", // Hide overflow if needed
-              }}
-            >
+            <ScoreCalculator onAQIScoreCalculated={handleScoreCalculated} />
+            {score !== null && (
               <div
-                className="flex align-items-center justify-content-between p-2"
                 style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: getScoreColor(scoreAQI),
-                  clipPath:
-                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+                  position: "relative",
+                  width: "340px",
+                  height: "43px",
+                  overflow: "hidden", // Hide overflow if needed
                 }}
               >
-                <h1
-                  className="m-0 p-0 text-white text-2xl font-semibold"
-                  style={{ zIndex: 1500 }}
+                <div
+                  className="flex align-items-center justify-content-between p-2"
+                  style={{
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: scoreColor,
+                    clipPath:
+                      "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+                  }}
                 >
-                  Air Quality Index
-                </h1>
-                <p
-                  className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
-                  style={{ zIndex: 1500 }}
-                >
-                  {scoreAQI}
-                </p>
+                  <h1
+                    className="m-0 p-0 text-white text-2xl font-semibold"
+                    style={{ zIndex: 1500 }}
+                  >
+                    Air Quality Index
+                  </h1>
+                  <p
+                    className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                    style={{ zIndex: 1500 }}
+                  >
+                    {score}
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
             {/* Selected  location & Date */}
             <div className="flex align-items-start flex-column gap-1">
               {/* location */}
@@ -510,7 +539,7 @@ const AqiDashboard = ({ show }) => {
       <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
           <div
-            className="flex border-round-xl p-2"
+            className="flex border-round-xl p-2 justify-content-between"
             style={{
               backgroundColor: aqiStatus.bg_color,
               border: `1px solid ${aqiStatus.color}`,
@@ -518,10 +547,10 @@ const AqiDashboard = ({ show }) => {
             }}
           >
             <div className="flex flex-column align-items-center justify-content-between">
-              <h1 className="card-title m-0 p-0">Air Quality Index</h1>
+              <h1 className="card-title text-white m-0 p-0">AQI</h1>
               <h1
-                className="text-3xl font-medium p-0 m-0"
-                style={{ color: aqiStatus.color }}
+                className="text-3xl font-medium p-0 m-0 text-white"
+                // style={{ color: aqiStatus.color }}
               >
                 {/* <p className="p-0 m-0 text-sm">{selectedLocation}</p> */}
                 {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
@@ -627,7 +656,7 @@ const AqiDashboard = ({ show }) => {
         >
           {/* Insights */}
           {aqiStats && (
-            <div className="flex flex-column bg-white border-round h-13rem p-3 gap-3 overflow-y-auto ">
+            <div className="flex flex-column bg-white border-round h-13rem p-3 gap-3 overflow-y-auto">
               <p className="card-title p-0 m-0">Insights</p>
               <div className="flex flex-column align-items-start justify-content-start gap-2">
                 <li className="p-0 m-0 text-primary1 font-medium text-sm">
