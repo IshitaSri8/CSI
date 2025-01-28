@@ -128,9 +128,9 @@ const Administration = () => {
             style={{ cursor: "pointer" }} // Change cursor to pointer for better UX
           >
             <div className="flex flex-column gap-3 align-items-center justify-content-between">
-              <img src={metric.img} alt={metric.title} />
+              <img src={metric.img} alt={metric.title} className="w-11rem"/>
               <div>
-                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-lg w-16rem text-center">
+                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-center">
                   {metric.title}
                 </p>
               </div>

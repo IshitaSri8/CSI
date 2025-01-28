@@ -32,6 +32,7 @@ import Disaster from "components/Dashboards/Administration/Disaster Management/D
 import pathConstants from "pathConstants";
 import CityReportCard from "pages/CityReportCard";
 import DataNotFound from "pages/error pages/DataNotFound";
+import ScoreCalculator from "components/DashboardUtility/ScoreCalculator";
 
 function App() {
   const routes = [
@@ -127,6 +128,7 @@ function App() {
       {/* <Route path="/error" element={<DataNotFound />} /> */}
       {/* <Route path="/change" element={<ChangeDetection />} /> */}
       {/* <Route path="/animations" element={<Animation />} /> */}
+      <Route path="/score" element={ScoreCalculator} />
     </Routes>
   );
 }

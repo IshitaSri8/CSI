@@ -147,7 +147,6 @@ const KnowYourCity = ({ show }) => {
           </div>
         )}
       </div>
-      {/* <div className="" style={{ marginTop: -15 }}> */}
       <TabView
         activeIndex={activeTab}
         onTabChange={(e) => setActiveTab(e.index)}
@@ -159,7 +158,6 @@ const KnowYourCity = ({ show }) => {
           <CityProgress />
         </TabPanel>
       </TabView>
-      {/* </div> */}
     </div>
   );
 };
