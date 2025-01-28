@@ -90,10 +90,10 @@ const Administration = () => {
           />
         </div>
         <div
-          className="flex flex-column border-round-2xl bg-white px-2"
+          className="flex flex-column border-round-2xl bg-white px-4"
           style={{ flex: "50%" }}
         >
-          <p className="text-xl font-medium">Summary</p>
+          <p className="card-title p-0 text-xl">Summary</p>
           <p className="p-0 m-0">
             The score {score.ADMIN} reflects the combined performance of the key
             administrative indicators.
@@ -104,7 +104,7 @@ const Administration = () => {
             efforts towards empowering responsible governance.
           </p>
           <Divider />
-          <p className="text-lg font-medium">Indicator Highlights:</p>
+          <p className="card-title p-0 mt-0 text-xl">Indicator Highlights:</p>
           <p className="p-0 m-0">
             1. Achiever indicator:{" "}
             <span className="font-medium">Disaster Management</span>

@@ -7,6 +7,7 @@ import { useUser } from "components/context/UserContext";
 import { useRef } from "react";
 import { Button } from "primereact/button";
 import { OverlayPanel } from "primereact/overlaypanel";
+import Profile from "components/knowYourCity/Profile";
 
 const KnowYourCity = ({ show }) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -31,20 +32,36 @@ const KnowYourCity = ({ show }) => {
             </p>
           ) : (
             // <p className="card-text p-0 m-0">No city selected.</p>
-            <p className="text-secondary2 text-2xl p-0 m-0 font-semibold">Ayodhya</p>
+            <p className="text-secondary2 text-2xl p-0 m-0 font-semibold">
+              Ayodhya
+            </p>
           )}
         </div>
         {/* Profile Section */}
-        {show && (
+        {name && (
           <div className="flex flex-column align-items-center pt-2">
             <Button
-              icon="pi pi-user"
+              icon={<Profile letter={name.charAt(0).toUpperCase()} />}
               tooltip="Citizen Profile"
               tooltipOptions={{ position: "left" }}
-              className="p-button-rounded bg-white text-primary1"
+              className="bg-white text-primary1"
               onClick={handleProfileClick}
               raised
+              rounded
+              outlined
+              // label={name.charAt(0).toUpperCase()}
             />
+            {/* <Button
+              // icon={<Profile letter={name.charAt(0).toUpperCase()} />}
+              tooltip="Citizen Profile"
+              tooltipOptions={{ position: "left" }}
+              className="bg-white text-primary1 border-circle"
+              onClick={handleProfileClick}
+              raised
+              // rounded
+              // outlined
+              label={name.charAt(0).toUpperCase()}
+            /> */}
             <OverlayPanel
               ref={overlayPanelRef}
               // showCloseIcon dismissable
@@ -124,24 +141,24 @@ const KnowYourCity = ({ show }) => {
                 </div>
               </div>
             </OverlayPanel>
-            <p className="text-secondary2 text-lg p-0 m-0 font-semibold ml-3">
+            {/* <p className="text-secondary2 text-lg p-0 m-0 font-semibold ml-3">
               Hello {name}!
-            </p>
+            </p> */}
           </div>
         )}
       </div>
       {/* <div className="" style={{ marginTop: -15 }}> */}
-        <TabView
-          activeIndex={activeTab}
-          onTabChange={(e) => setActiveTab(e.index)}
-        >
-          <TabPanel header="City Demographics">
-            <CityDemographics />
-          </TabPanel>
-          <TabPanel header="City Progress">
-            <CityProgress />
-          </TabPanel>
-        </TabView>
+      <TabView
+        activeIndex={activeTab}
+        onTabChange={(e) => setActiveTab(e.index)}
+      >
+        <TabPanel header="City Demographics">
+          <CityDemographics />
+        </TabPanel>
+        <TabPanel header="City Progress">
+          <CityProgress />
+        </TabPanel>
+      </TabView>
       {/* </div> */}
     </div>
   );

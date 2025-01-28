@@ -115,10 +115,10 @@ const Nature = () => {
           />
         </div>
         <div
-          className="flex flex-column border-round-2xl bg-white px-2"
+          className="flex flex-column border-round-2xl bg-white px-4"
           style={{ flex: "50%" }}
         >
-          <p className="text-xl font-medium">Summary</p>
+          <p className="card-title p-0 text-xl">Summary</p>
           <p className="p-0 m-0">
             The score {score.NATURE} reflects the combined performance of the
             key environmental indicators.
@@ -129,7 +129,7 @@ const Nature = () => {
             towards ensuring a sustainable future.
           </p>
           <Divider />
-          <p className="text-lg font-medium">Indicator Highlights:</p>
+          <p className="card-title p-0 mt-0 text-xl">Indicator Highlights:</p>
           <p className="p-0 m-0">
             1. Achiever indicator:{" "}
             <span className="font-medium"> Temperature</span>

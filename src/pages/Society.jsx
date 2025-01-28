@@ -119,7 +119,7 @@ const Society = () => {
           className="flex flex-column border-round-2xl bg-white px-4"
           style={{ flex: "50%" }}
         >
-          <p className="text-xl font-medium">Summary</p>
+          <p className="card-title p-0 text-xl">Summary</p>
           <p className="p-0 m-0">
             The score {score.SOCIETY} reflects the combined performance of the
             key societal indicators.
@@ -130,7 +130,7 @@ const Society = () => {
             towards enhancing quality of life and well-being.
           </p>
           <Divider />
-          <p className="text-lg font-medium">Indicator Highlights:</p>
+          <p className="card-title p-0 mt-0 text-xl">Indicator Highlights:</p>
           <p className="p-0 m-0">
             1. Achiever indicators:{" "}
             <span className="font-medium">Healthcare, Education</span>
