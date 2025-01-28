@@ -8,9 +8,12 @@ const ScoreCalculator = () => {
   useEffect(() => {
     const fetchScore = async () => {
       try {
-        const response = await axios.get("http://localhost:8010/aqi/avg");
-        setAqiScore(response.data);
-        console.log("🚀 ~ fetchScore ~ response:", response);
+        const response = await axios.get("https://api-csi.arahas.com/aqi/avg");
+        setAqiScore(response.data.data.averageAQI);
+        console.log(
+          "🚀 ~ fetchScore ~ response:",
+          response.data.data.averageAQI
+        );
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -18,7 +21,7 @@ const ScoreCalculator = () => {
     fetchScore();
   }, []);
 
-  return <div>Aqi Score: {aqiScore}</div>;
+  return <>{aqiScore && <div>Aqi Score: {aqiScore}</div>}</>;
 };
 
 export default ScoreCalculator;
