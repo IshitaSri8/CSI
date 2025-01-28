@@ -9,7 +9,7 @@ const ScoreCalculator = () => {
     const fetchScore = async () => {
       try {
         const response = await axios.get("http://localhost:8010/aqi/avg");
-        setAqiScore(response);
+        setAqiScore(response.data);
         console.log("🚀 ~ fetchScore ~ response:", response);
       } catch (error) {
         console.error("Error fetching data:", error);

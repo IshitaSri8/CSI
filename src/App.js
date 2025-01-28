@@ -128,7 +128,7 @@ function App() {
       {/* <Route path="/error" element={<DataNotFound />} /> */}
       {/* <Route path="/change" element={<ChangeDetection />} /> */}
       {/* <Route path="/animations" element={<Animation />} /> */}
-      <Route path="/score" element={ScoreCalculator} />
+      <Route path="/score" element={<ScoreCalculator />} />
     </Routes>
   );
 }
