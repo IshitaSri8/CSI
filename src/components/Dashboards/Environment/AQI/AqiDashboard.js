@@ -28,6 +28,7 @@ import good from "assets/dashboard/good-aqi-level.svg";
 import moderate from "assets/dashboard/moderate-aqi-level.svg";
 import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
+import colors from "colorConstants";
 
 const AqiDashboard = ({ show }) => {
   const [startDate, setStartDate] = useState(new Date("2025-01-01"));
@@ -249,7 +250,7 @@ const AqiDashboard = ({ show }) => {
         color: "#086d43",
         textColor: "white",
         image: good,
-        bg_color: "#0C9D61",
+        bg_color: colors.good,
       };
     } else if (aqi > 50 && aqi <= 100) {
       return {
@@ -257,7 +258,7 @@ const AqiDashboard = ({ show }) => {
         color: "#669138",
         textColor: "black",
         image: moderate,
-        bg_color: "#92D050",
+        bg_color: colors.moderate,
       };
     } else if (aqi > 100 && aqi <= 200) {
       return {
@@ -265,7 +266,7 @@ const AqiDashboard = ({ show }) => {
         color: "#b27909",
         textColor: "black",
         image: poor,
-        bg_color: "#FFAD0D",
+        bg_color: colors.yellow,
       };
     } else if (aqi > 200 && aqi <= 300) {
       return {
@@ -273,7 +274,7 @@ const AqiDashboard = ({ show }) => {
         color: "#C7253E",
         textColor: "white",
         image: unhealthy,
-        bg_color: "#FF8A8A",
+        bg_color: colors.warning,
       };
     } else if (aqi > 300 && aqi <= 400) {
       return {
@@ -281,7 +282,7 @@ const AqiDashboard = ({ show }) => {
         color: "#b81b1d",
         textColor: "white",
         image: severe,
-        bg_color: "#E62225",
+        bg_color: colors.poor,
       };
     } else if (aqi > 400) {
       return {
@@ -289,7 +290,7 @@ const AqiDashboard = ({ show }) => {
         color: "#600e0f",
         textColor: "white",
         image: hazardous,
-        bg_color: "#8a1416",
+        bg_color: colors.veryPoor,
       };
     }
   };
@@ -332,17 +333,17 @@ const AqiDashboard = ({ show }) => {
 
   const getScoreColor = (scoreAQI) => {
     if (scoreAQI === 100) {
-      return "#0C9D61"; // Green for Excellent
+      return colors.good; // Green for Excellent
     } else if (scoreAQI === 80) {
-      return "#92D050"; //  Green for good
+      return colors.moderate; //  Green for good
     } else if (scoreAQI === 60) {
-      return "#FFAD0D"; // Yellow for moderate
+      return colors.yellow; // Yellow for moderate
     } else if (scoreAQI === 40) {
-      return "#ffed48"; // Yellow for below moderate
+      return colors.warning; // Yellow for below moderate
     } else if (scoreAQI === 20) {
-      return "#E62225"; // Red for poor
+      return colors.poor; // Red for poor
     } else if (scoreAQI === 0) {
-      return "#8a1416"; // Red for Severe
+      return colors.veryPoor; // Red for Severe
     }
   };
 

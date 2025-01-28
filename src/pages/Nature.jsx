@@ -13,6 +13,7 @@ import pathConstants from "pathConstants";
 import score from "score";
 import { useState } from "react";
 import ScoreCalculator from "components/DashboardUtility/ScoreCalculator";
+import { scoreColors } from "colorConstants";
 
 const Nature = () => {
   const navigate = useNavigate();
@@ -75,28 +76,20 @@ const Nature = () => {
   // Function to determine background color based on score
   const getScoreBackgroundColor = (score) => {
     if (score >= 90 && score <= 100) {
-      return "#0C9D61";
+      return scoreColors[0]; // Green for good
     } else if (score >= 80 && score < 90) {
-      return "#92D050";
+      return scoreColors[1]; // Light green for moderate
     } else if (score >= 60 && score < 80) {
-      return "#FFAD0D";
+      return scoreColors[2]; // Yellow for moderate
     } else if (score >= 40 && score < 60) {
-      return "#ffed48";
+      return scoreColors[3]; // Warning yellow
     } else if (score >= 20 && score < 40) {
-      return "#E62225";
+      return scoreColors[4]; // Red for poor
     } else if (score >= 0 && score < 20) {
-      return "#8a1416";
+      return scoreColors[5]; // Dark red for very poor
     }
+    return "#000"; // Fallback color if no condition is met
   };
-
-  const colors = [
-    "#0C9D61",
-    "#92D050",
-    "#FFAD0D",
-    "#ffed48",
-    "#E62225",
-    "#8a1416",
-  ];
 
   const handleCardClick = (path) => {
     navigate(path);
@@ -202,7 +195,7 @@ const Nature = () => {
         ))}
       </div>
       <div className="flex gap-4 justify-content-end border-top-1 surface-border">
-        {colors.map((color, index) => (
+        {scoreColors.map((color, index) => (
           <div className="flex align-items-center" key={index}>
             <div
               className="mr-2 border-circle"
