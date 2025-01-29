@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import { Knob } from "primereact/knob";
-import WaterRecommendations from "./WaterRecommendations";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import { useState } from "react";
 import { Divider } from "primereact/divider";
+import { ProgressSpinner } from "primereact/progressspinner";
+import { OverlayPanel } from "primereact/overlaypanel";
+import { Menu } from "primereact/menu";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { ProgressBar } from "primereact/progressbar";
-import { useEffect } from "react";
-import axios from "axios";
 import { Dropdown } from "primereact/dropdown";
 import workshop from "assets/workshop.svg";
 import L from "leaflet"; // Import Leaflet for custom icons
@@ -27,16 +27,13 @@ import {
   Marker,
   Tooltip,
 } from "react-leaflet";
+import WaterRecommendations from "./WaterRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import WaterModify from "./WaterModify";
-import { ProgressSpinner } from "primereact/progressspinner";
-import { useUser } from "components/context/UserContext";
-import { useRef } from "react";
-import { OverlayPanel } from "primereact/overlaypanel";
-import { Menu } from "primereact/menu";
-import score from "score";
 import DataNotFound from "pages/error pages/DataNotFound";
+import { useUser } from "components/context/UserContext";
+import { scoreColors } from "colorConstants";
 
 const WaterDashboard = ({ show }) => {
   const [loading, setLoading] = useState(false);
@@ -59,10 +56,9 @@ const WaterDashboard = ({ show }) => {
   const [meteredConnectionColor, setMeteredConnectionColor] = useState();
   const [supplyColor, setSupplyColor] = useState();
   const [waterConnectionColor, setWaterConnectionColor] = useState();
-
   const [displayValues, setDisplayValues] = useState("");
 
-  const { username } = useUser();
+  const { username, waterScore, setWaterScore } = useUser();
   console.log("🚀 ~ WaterDashboard ~ username:", username);
 
   const handleApply = () => {
@@ -117,20 +113,20 @@ const WaterDashboard = ({ show }) => {
     };
   }
   const getColor = (WQI) => {
-    if (WQI >= 91 && WQI <= 100) return "#399918";
-    if (WQI >= 71 && WQI <= 90) return "#A0D683";
-    if (WQI >= 51 && WQI <= 70) return "#FEFF9F";
-    if (WQI >= 26 && WQI <= 50) return "#E8B86D";
-    if (WQI >= 0 && WQI <= 25) return "#FF7777";
+    if (WQI >= 91 && WQI <= 100) return scoreColors[0];
+    if (WQI >= 71 && WQI <= 90) return scoreColors[1];
+    if (WQI >= 51 && WQI <= 70) return scoreColors[2];
+    if (WQI >= 26 && WQI <= 50) return scoreColors[3];
+    if (WQI >= 0 && WQI <= 25) return scoreColors[4];
     else return "black"; // Poor (0-25)
   };
 
   const colors = [
-    "#E62225", // Poor
-    "#F7A47A", // Fair
-    "#FFAD0D", // Average
-    "#A0D683", // Good
-    "#0C9D61", // Excellent
+    scoreColors[4], // Excellent
+    scoreColors[3], // Good
+    scoreColors[2], // Average
+    scoreColors[1], // Fair
+    scoreColors[0], // Poor
   ];
 
   useEffect(() => {
@@ -141,6 +137,118 @@ const WaterDashboard = ({ show }) => {
           "https://api-csi.arahas.com/data/water"
         );
         const responseData = response.data.data;
+        const filteredData_Year_Month = responseData.filter(
+          (item) =>
+            item.Year === selectedValues.year &&
+            item.Month === selectedValues.month
+        );
+        console.log(filteredData_Year_Month);
+        // Calculate total values if all zones are selected
+        const totalValues_Year_Month = filteredData_Year_Month.reduce(
+          (acc, curr) => {
+            return {
+              ...acc,
+              Current_Supply_MLD:
+                (acc.Current_Supply_MLD || 0) + curr.Current_Supply_MLD,
+              Required_Supply_MLD:
+                (acc.Required_Supply_MLD || 0) + curr.Required_Supply_MLD,
+              Population: (acc.Population || 0) + curr.Population,
+              Awarness_Campaigns_Programs:
+                (acc.Awarness_Campaigns_Programs || 0) +
+                curr.Awarness_Campaigns_Programs,
+              Borewell: (acc.Borewell || 0) + curr.Borewell,
+              Canals: (acc.Canals || 0) + curr.Canals,
+              Handpumps: (acc.Handpumps || 0) + curr.Handpumps,
+              No_of_Households_with_Connections:
+                (acc.No_of_Households_with_Connections || 0) +
+                curr.No_of_Households_with_Connections,
+              Total_Households:
+                (acc.Total_Households || 0) + curr.Total_Households,
+              Tanks: (acc.Tanks || 0) + curr.Tanks,
+              Ponds: (acc.Ponds || 0) + curr.Ponds,
+              No_of_Households_with_Meters:
+                (acc.No_of_Households_with_Meters || 0) +
+                curr.No_of_Households_with_Meters,
+              Sites_with_Rainwater_Harvesting_System:
+                (acc.Sites_with_Rainwater_Harvesting_System || 0) +
+                curr.Sites_with_Rainwater_Harvesting_System,
+              Total_Volume_Harvested:
+                (acc.Total_Volume_Harvested || 0) + curr.Total_Volume_Harvested,
+              Households_Bill_Payment:
+                (acc.Households_Bill_Payment || 0) +
+                curr.Households_Bill_Payment,
+              WQI: (acc.WQI || 0) + curr.WQI,
+            };
+          },
+          {}
+        );
+        // Supply Score Calculation Start-----------------------------------------------------------
+        const calculateScore = (percentage) => {
+          if (percentage === 0) return 0;
+          if (percentage > 0 && percentage < 25) return 20;
+          if (percentage >= 25 && percentage < 50) return 40;
+          if (percentage >= 50 && percentage < 75) return 60;
+          if (percentage >= 75 && percentage < 95) return 80;
+          return 100;
+        };
+
+        const waterConnectionPer = (
+          (totalValues_Year_Month.No_of_Households_with_Connections /
+            totalValues_Year_Month.Total_Households) *
+          100
+        ).toFixed(2);
+
+        const waterSupplyPerCapitaPer =
+          ((totalValues_Year_Month.Current_Supply_MLD * 1000000) /
+            totalValues_Year_Month.Population /
+            135) *
+          100;
+        const waterConnectionScore = calculateScore(waterConnectionPer);
+        const waterSupplyPerCapitaScore = calculateScore(
+          waterSupplyPerCapitaPer
+        );
+        const supplyScore =
+          (waterConnectionScore + waterSupplyPerCapitaScore) / 2;
+        // Supply Score Calculation End-----------------------------------------------------------------------------
+        //  WQI Score Calculation Start----------------------------------------------
+        const calculateScoreWQI = (wqi) => {
+          if (wqi >= 0 && wqi < 25) return 0;
+          if (wqi >= 25 && wqi < 50) return 25;
+          if (wqi >= 50 && wqi < 75) return 50;
+          if (wqi >= 70 && wqi < 90) return 75;
+          return 100;
+        };
+
+        const avgWQI =
+          totalValues_Year_Month.WQI / filteredData_Year_Month.length;
+
+        const wqiScore = calculateScoreWQI(avgWQI);
+        // WQI Score Calculation End----------------------------------------------------------------------
+        // Water Usage Management Start------------------------------------------
+        const perWaterMeters =
+          (totalValues_Year_Month.No_of_Households_with_Meters /
+            totalValues_Year_Month.No_of_Households_with_Connections) *
+          100;
+        const meterScore = calculateScore(perWaterMeters);
+        const calculateScoreBillPayment = (rate) => {
+          if (rate >= 0 && rate <= 15) return 100;
+          if (rate > 15 && rate < 30) return 80;
+          if (rate >= 30 && rate < 50) return 60;
+          if (rate >= 50 && rate < 60) return 45;
+          if (rate >= 60 && rate < 70) return 20;
+          return 0;
+        };
+        const bill_payment =
+          (totalValues_Year_Month.Households_Bill_Payment /
+            totalValues_Year_Month.No_of_Households_with_Meters) *
+          100;
+        const billScore = calculateScoreBillPayment(bill_payment);
+        const usageScore = (meterScore + billScore) / 2;
+        //  Water Usage Management End-------------------------------------------
+        const finalScore =
+          supplyScore * 0.5 + wqiScore * 0.2 + usageScore * 0.3;
+        setWaterScore(finalScore);
+
         const filteredData =
           selectedValues.zone === "All Zones"
             ? responseData.filter(
@@ -173,16 +281,13 @@ const WaterDashboard = ({ show }) => {
             No_of_Households_with_Connections:
               (acc.No_of_Households_with_Connections || 0) +
               curr.No_of_Households_with_Connections,
-
             Total_Households:
               (acc.Total_Households || 0) + curr.Total_Households,
-
             Tanks: (acc.Tanks || 0) + curr.Tanks,
             Ponds: (acc.Ponds || 0) + curr.Ponds,
             No_of_Households_with_Meters:
               (acc.No_of_Households_with_Meters || 0) +
               curr.No_of_Households_with_Meters,
-
             Sites_with_Rainwater_Harvesting_System:
               (acc.Sites_with_Rainwater_Harvesting_System || 0) +
               curr.Sites_with_Rainwater_Harvesting_System,
@@ -327,15 +432,19 @@ const WaterDashboard = ({ show }) => {
     setModifyDialogVisible(false);
   };
 
-  const scoreWATER = score.WATER;
-
-  const getScoreColor = (scoreWATER) => {
-    if (scoreWATER >= 81 && scoreWATER <= 100) {
-      return "#0C9D61"; // Green for good
-    } else if (scoreWATER >= 41 && scoreWATER <= 80) {
-      return "#FFAD0D"; // Yellow for moderate
-    } else if (scoreWATER >= 0 && scoreWATER <= 40) {
-      return "#E62225"; // Red for poor
+  const getScoreColor = (score) => {
+    if (score >= 90 && score <= 100) {
+      return scoreColors[0];
+    } else if (score >= 80 && score < 90) {
+      return scoreColors[1];
+    } else if (score >= 60 && score < 80) {
+      return scoreColors[2];
+    } else if (score >= 40 && score < 60) {
+      return scoreColors[3];
+    } else if (score >= 20 && score < 40) {
+      return scoreColors[4];
+    } else if (score >= 0 && score < 20) {
+      return scoreColors[5];
     }
   };
 
@@ -366,7 +475,7 @@ const WaterDashboard = ({ show }) => {
                       position: "absolute",
                       width: "100%",
                       height: "100%",
-                      backgroundColor: getScoreColor(scoreWATER), // Replace with your desired color
+                      backgroundColor: getScoreColor(waterScore), // Replace with your desired color
                       clipPath:
                         "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
                     }}
@@ -381,7 +490,7 @@ const WaterDashboard = ({ show }) => {
                       className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
                       style={{ zIndex: 1500 }}
                     >
-                      {scoreWATER}
+                      {waterScore}
                     </p>
                   </div>
                 </div>
@@ -685,7 +794,7 @@ const WaterDashboard = ({ show }) => {
                   <MapContainer
                     center={[26.8, 82.2]}
                     zoom={10}
-                    style={{ height: "20rem", width: "100%" }}
+                    style={{ height: "19rem", width: "100%" }}
                   >
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
@@ -928,7 +1037,7 @@ const WaterDashboard = ({ show }) => {
               {/* Water Treatment */}
               <div
                 className="flex flex-column bg-white border-round p-3 gap-3 w-full"
-                style={{ flex: "30%" }}
+                style={{ flex: "32%" }}
               >
                 <p className="card-title p-0 m-0">Treatment</p>
                 <div className="flex align-items-start justify-content-around">
@@ -989,12 +1098,12 @@ const WaterDashboard = ({ show }) => {
               </div>
               {/* Water Usage Mangagement */}
               <div
-                className="flex flex-column bg-white border-round p-3 gap-3 w-full"
+                className="flex flex-column bg-white border-round p-3 gap-2 w-full"
                 style={{ flex: "40%" }}
               >
                 <p className="card-title p-0 m-0">Usage Management</p>
                 <div className="flex gap-3">
-                  <div className="flex flex-column sec-theme border-round p-2 gap-2 align-items-center w-full">
+                  <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
                     <div className="flex w-9rem custom-circular-progress">
                       <CircularProgressbar
                         value={
@@ -1023,7 +1132,7 @@ const WaterDashboard = ({ show }) => {
                       Houses with Metered Connections
                     </p>
                   </div>
-                  <div className="flex flex-column sec-theme border-round p-2 gap-2 align-items-center w-full">
+                  <div className="flex flex-column sec-theme border-round p-3 gap-2 align-items-center w-full">
                     <div className="flex w-9rem custom-circular-progress">
                       <CircularProgressbar
                         value={(

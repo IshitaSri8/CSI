@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import nature from "assets/Report/Nature.svg";
 import { PieChart } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
@@ -8,14 +8,14 @@ import land from "assets/illustration/land1.svg";
 import waste from "assets/illustration/waste1.svg";
 import Rainfall from "assets/illustration/Rainfall1.svg";
 import Temperature from "assets/illustration/temperature1.svg";
-import { useNavigate } from "react-router-dom";
 import pathConstants from "pathConstants";
 import score from "score";
-import { useState } from "react";
-import ScoreCalculator from "components/DashboardUtility/ScoreCalculator";
+import AqiScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
+import { useUser } from "components/context/UserContext";
+import Legends from "./components/Legends";
+import ParameterCard from "./components/ParameterCard";
 
 const Nature = () => {
-  const navigate = useNavigate();
   const natureLables = [
     "AQI",
     "Water Management",
@@ -32,6 +32,7 @@ const Nature = () => {
     console.log("Calculated Score received in Dashboard:", calculatedScore);
     // You can also perform additional actions with the score here
   };
+  const { waterScore } = useUser();
 
   const metrics = [
     {
@@ -43,7 +44,7 @@ const Nature = () => {
     {
       img: water,
       title: "Water Management",
-      score: score.WATER,
+      score: waterScore,
       path: pathConstants.WATER,
     },
     {
@@ -71,36 +72,6 @@ const Nature = () => {
       path: pathConstants.RAIN,
     },
   ];
-
-  // Function to determine background color based on score
-  const getScoreBackgroundColor = (score) => {
-    if (score >= 90 && score <= 100) {
-      return "#0C9D61";
-    } else if (score >= 80 && score < 90) {
-      return "#92D050";
-    } else if (score >= 60 && score < 80) {
-      return "#FFAD0D";
-    } else if (score >= 40 && score < 60) {
-      return "#ffed48";
-    } else if (score >= 20 && score < 40) {
-      return "#E62225";
-    } else if (score >= 0 && score < 20) {
-      return "#8a1416";
-    }
-  };
-
-  const colors = [
-    "#0C9D61",
-    "#92D050",
-    "#FFAD0D",
-    "#ffed48",
-    "#E62225",
-    "#8a1416",
-  ];
-
-  const handleCardClick = (path) => {
-    navigate(path);
-  };
 
   return (
     <div className="flex flex-column p-4 gap-4">
@@ -169,69 +140,11 @@ const Nature = () => {
           </p>
         </div>
       </div>
-      <ScoreCalculator onAQIScoreCalculated={handleScoreCalculated} />
-      <div className="flex gap-3 justify-content-between w-full">
-        {metrics.map((metric, index) => (
-          <div
-            key={index}
-            className="cardMetric flex bg-white border-round-2xl shadow-2"
-            onClick={() => handleCardClick(metric.path)} // Set active dashboard on click
-            style={{ cursor: "pointer" }} // Change cursor to pointer for better UX
-          >
-            <div className="flex flex-column gap-4 align-items-center">
-              <img src={metric.img} alt={metric.title} className="w-11rem" />
-              <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-center">
-                {metric.title}
-              </p>
-            </div>
-            <div
-              className="flex border-round-right-2xl px-2 flex-column gap-8 py-2"
-              style={{
-                backgroundColor: getScoreBackgroundColor(metric.score),
-                // padding: "1.6rem",
-              }}
-            >
-              <p className="font-medium p-0 m-0 text-white text-sm text-left">
-                SCORE
-              </p>
-              <p className="text-3xl font-semibold text-white p-0 m-0 text-center">
-                {metric.score}
-              </p>
-            </div>
-          </div>
-        ))}
+      <AqiScoreCalculator onAQIScoreCalculated={handleScoreCalculated} />
+      <div className="flex gap-2 justify-content-between w-full sm:flex-wrap">
+        <ParameterCard metrics={metrics} />
       </div>
-      <div className="flex gap-4 justify-content-end border-top-1 surface-border">
-        {colors.map((color, index) => (
-          <div className="flex align-items-center" key={index}>
-            <div
-              className="mr-2 border-circle"
-              style={{
-                width: "0.75rem",
-                height: "0.75rem",
-                backgroundColor: color,
-                borderRadius: "50%", // Ensure it's circular
-              }}
-            ></div>
-            <p className="m-0 p-0 font-medium card-text">
-              {index === 0
-                ? "90-100"
-                : index === 1
-                ? "80-90"
-                : index === 2
-                ? "60-80"
-                : index === 3
-                ? "40-60"
-                : index === 4
-                ? "20-40"
-                : index === 5
-                ? "0-20"
-                : "Unknown Score Range"}{" "}
-              {/* Fallback for unexpected indices */}
-            </p>
-          </div>
-        ))}
-      </div>
+      <Legends />
     </div>
   );
 };

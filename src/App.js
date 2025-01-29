@@ -32,7 +32,7 @@ import Disaster from "components/Dashboards/Administration/Disaster Management/D
 import pathConstants from "pathConstants";
 import CityReportCard from "pages/CityReportCard";
 import DataNotFound from "pages/error pages/DataNotFound";
-import ScoreCalculator from "components/DashboardUtility/ScoreCalculator";
+import ScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
 
 function App() {
   const routes = [
