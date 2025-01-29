@@ -90,7 +90,7 @@ const CSISteps = () => {
         Understanding City Sustainability Index in Simple Steps
       </h1>
 
-      <div className="flex align-items-center justify-content-between flex-row gap-2 w-full p-4 mt-10rem">
+      <div className="flex align-items-center justify-content-between gap-2 w-full p-4">
         {/* Cards */}
         <CardItem
           number={cardData[hoveredTile].number}
