@@ -8,6 +8,7 @@ import { PieChart } from "Layout/GraphVisuals";
 import { useNavigate } from "react-router-dom";
 import pathConstants from "pathConstants";
 import score from "score";
+import { scoreColors } from "colorConstants";
 
 const Administration = () => {
   const navigate = useNavigate();
@@ -41,16 +42,21 @@ const Administration = () => {
 
   // Function to determine background color based on score
   const getScoreBackgroundColor = (score) => {
-    if (score >= 81 && score <= 100) {
-      return "#0C9D61"; // Green for good
-    } else if (score >= 41 && score <= 80) {
-      return "#FFAD0D"; // Yellow for moderate
-    } else if (score >= 0 && score <= 40) {
-      return "#E62225"; // Red for poor
+    if (score >= 90 && score <= 100) {
+      return scoreColors[0]; // Green for good
+    } else if (score >= 80 && score < 90) {
+      return scoreColors[1]; // Light green for moderate
+    } else if (score >= 60 && score < 80) {
+      return scoreColors[2]; // Yellow for moderate
+    } else if (score >= 40 && score < 60) {
+      return scoreColors[3]; // Warning yellow
+    } else if (score >= 20 && score < 40) {
+      return scoreColors[4]; // Red for poor
+    } else if (score >= 0 && score < 20) {
+      return scoreColors[5]; // Dark red for very poor
     }
+    return "#000"; // Fallback color if no condition is met
   };
-
-  const colors = ["#0C9D61", "#FFAD0D", "#E62225"];
 
   const handleCardClick = (path) => {
     navigate(path);
@@ -128,7 +134,7 @@ const Administration = () => {
             style={{ cursor: "pointer" }} // Change cursor to pointer for better UX
           >
             <div className="flex flex-column gap-3 align-items-center justify-content-between">
-              <img src={metric.img} alt={metric.title} className="w-11rem"/>
+              <img src={metric.img} alt={metric.title} className="w-11rem" />
               <div>
                 <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-center">
                   {metric.title}
@@ -153,7 +159,7 @@ const Administration = () => {
         ))}
       </div>
       <div className="flex gap-4 justify-content-end border-top-1 surface-border">
-        {colors.map((color, index) => (
+        {scoreColors.map((color, index) => (
           <div className="flex align-items-center" key={index}>
             <div
               className="mr-2 border-circle"
@@ -166,11 +172,17 @@ const Administration = () => {
             ></div>
             <p className="m-0 p-0 font-medium card-text">
               {index === 0
-                ? "80-100"
+                ? "90-100"
                 : index === 1
-                ? "40-80"
+                ? "80-90"
                 : index === 2
-                ? "0-40"
+                ? "60-80"
+                : index === 3
+                ? "40-60"
+                : index === 4
+                ? "20-40"
+                : index === 5
+                ? "0-20"
                 : "Unknown Score Range"}{" "}
               {/* Fallback for unexpected indices */}
             </p>
