@@ -12,6 +12,8 @@ import { ScrollTop } from "primereact/scrolltop";
 import FloatingSidebar from "components/landingPage/FloatingSidebar";
 import QuestionsCarousel from "components/landingPage/QuestionsCarousel";
 import LandingCarousel from "components/landingPage/LandingCarousel";
+import LandingVideo from "components/landingPage/LandingVideo";
+import Parameters from "components/landingPage/Parameters";
 
 // Main LandingScreen component
 const LandingScreen = () => {
@@ -56,7 +58,8 @@ const LandingScreen = () => {
 
       {/* Add top padding to avoid overlap with fixed header */}
       <div className="View bg-white flex flex-column">
-        <LandingCarousel />
+        {/* <LandingCarousel /> */}
+        <LandingVideo/>
         <FAQChatbot />
         <div
           ref={csiStepsRef} // Set the ref here
@@ -70,12 +73,12 @@ const LandingScreen = () => {
           <CSIVideo />
         </div> */}
 
-        {/* <div
+        <div
           className="flex justify-content-center w-full overflow-auto p-5 block"
           id="parameters"
         >
           <Parameters />
-        </div> */}
+        </div>
 
         <div className="flex flex-column block" id="questions">
           <QuestionsCarousel />
