@@ -163,7 +163,7 @@ const Nature = () => {
         </div>
       </div>
       <ScoreCalculator onAQIScoreCalculated={handleScoreCalculated} />
-      <div className="flex gap-3 justify-content-between w-full">
+      <div className="flex gap-2 justify-content-between w-full sm:flex-wrap">
         {metrics.map((metric, index) => (
           <div
             key={index}

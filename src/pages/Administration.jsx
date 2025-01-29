@@ -125,7 +125,7 @@ const Administration = () => {
           </p>
         </div>
       </div>
-      <div className="flex gap-4 flex-wrap w-full">
+      <div className="flex gap-4 sm:flex-wrap w-full">
         {metrics.map((metric, index) => (
           <div
             key={index}
@@ -136,13 +136,13 @@ const Administration = () => {
             <div className="flex flex-column gap-3 align-items-center justify-content-between">
               <img src={metric.img} alt={metric.title} className="w-11rem" />
               <div>
-                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-center">
+                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-center w-10rem">
                   {metric.title}
                 </p>
               </div>
             </div>
             <div
-              className="flex border-round-right-2xl px-4 flex-column gap-8 py-2"
+              className="flex border-round-right-2xl px-2 flex-column gap-8 py-2"
               style={{
                 backgroundColor: getScoreBackgroundColor(metric.score),
                 // padding: "1.6rem",
@@ -151,7 +151,7 @@ const Administration = () => {
               <p className="font-medium p-0 m-0 text-white text-sm text-left">
                 SCORE
               </p>
-              <p className="text-5xl font-semibold text-white p-0 m-0 text-center">
+              <p className="text-3xl font-semibold text-white p-0 m-0 text-center">
                 {metric.score}
               </p>
             </div>

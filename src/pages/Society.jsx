@@ -153,7 +153,7 @@ const Society = () => {
           </p>
         </div>
       </div>
-      <div className="flex gap-3 justify-content-between w-full">
+      <div className="flex gap-2 justify-content-between w-full sm:flex-wrap">
         {metrics.map((metric, index) => (
           <div
             key={index}
@@ -164,7 +164,7 @@ const Society = () => {
             <div className="flex flex-column gap-4 align-items-center">
               <img src={metric.img} alt={metric.title} className="w-11rem" />
               <div>
-                <p className="text-sm font-semibold text-secondary2 pb-4 m-0 text-center">
+                <p className="text-sm font-semibold text-secondary2 m-0 text-center w-10rem">
                   {metric.title}
                 </p>
               </div>
