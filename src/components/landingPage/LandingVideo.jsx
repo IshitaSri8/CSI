@@ -1,7 +1,6 @@
 import React from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import landing from "assets/landing.mp4";
 
 const LandingVideo = () => {
   const videoRef = useRef(null); // Create a ref for the video element
