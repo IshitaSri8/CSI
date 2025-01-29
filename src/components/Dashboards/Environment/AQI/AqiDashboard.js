@@ -21,7 +21,7 @@ import { Divider } from "primereact/divider";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import DataNotFound from "pages/error pages/DataNotFound";
-import ScoreCalculator from "components/DashboardUtility/ScoreCalculator";
+import AqiScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
 import unhealthy from "assets/dashboard/unhealthy-aqi-level.svg";
 import severe from "assets/dashboard/severe-aqi-level.svg";
 import good from "assets/dashboard/good-aqi-level.svg";
@@ -329,20 +329,18 @@ const AqiDashboard = ({ show }) => {
     // You can also perform additional actions with the score here
   };
 
-  // const scoreAQI = score.AQI;
-
-  const getScoreColor = (scoreAQI) => {
-    if (scoreAQI === 100) {
+  const getScoreColor = (aqiScore) => {
+    if (aqiScore === 100) {
       return colors.good; // Green for Excellent
-    } else if (scoreAQI === 80) {
+    } else if (aqiScore === 80) {
       return colors.moderate; //  Green for good
-    } else if (scoreAQI === 60) {
+    } else if (aqiScore === 60) {
       return colors.yellow; // Yellow for moderate
-    } else if (scoreAQI === 40) {
+    } else if (aqiScore === 40) {
       return colors.warning; // Yellow for below moderate
-    } else if (scoreAQI === 20) {
+    } else if (aqiScore === 20) {
       return colors.poor; // Red for poor
-    } else if (scoreAQI === 0) {
+    } else if (aqiScore === 0) {
       return colors.veryPoor; // Red for Severe
     }
   };
@@ -362,7 +360,7 @@ const AqiDashboard = ({ show }) => {
         <div className="flex align-items-center justify-content-between gap-3">
           <div className="flex align-items-center justify-content-between w-full">
             {/* Title & Score */}
-            <ScoreCalculator onAQIScoreCalculated={handleScoreCalculated} />
+            <AqiScoreCalculator onAQIScoreCalculated={handleScoreCalculated} />
             {score !== null && (
               <div
                 style={{

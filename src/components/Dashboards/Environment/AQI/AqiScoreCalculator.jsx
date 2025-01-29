@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
-const ScoreCalculator = ({ onAQIScoreCalculated }) => {
+const AqiScoreCalculator = ({ onAQIScoreCalculated }) => {
   useEffect(() => {
     const fetchScore = async () => {
       try {
@@ -39,4 +39,4 @@ const ScoreCalculator = ({ onAQIScoreCalculated }) => {
   return null;
 };
 
-export default ScoreCalculator;
+export default AqiScoreCalculator;
