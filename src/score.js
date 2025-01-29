@@ -18,8 +18,8 @@ const score = {
   CULTURE: 75,
 
   DISASTER: 87,
-  ETHICAL: 75,
-  TRANSPARENCY: 40,
+  ETHICAL: 25,
+  TRANSPARENCY: 43,
 };
 
 export default score;

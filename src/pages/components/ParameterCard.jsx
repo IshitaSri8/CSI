@@ -1,23 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { scoreColors } from "colorConstants";
+import { legendColors } from "colorConstants";
 
 const ParameterCard = ({ metrics }) => {
   const navigate = useNavigate();
   // Function to determine background color based on score
   const getScoreBackgroundColor = (score) => {
-    if (score >= 90 && score <= 100) {
-      return scoreColors[0]; // Green for good
-    } else if (score >= 80 && score < 90) {
-      return scoreColors[1]; // Light green for moderate
-    } else if (score >= 60 && score < 80) {
-      return scoreColors[2]; // Yellow for moderate
-    } else if (score >= 40 && score < 60) {
-      return scoreColors[3]; // Warning yellow
-    } else if (score >= 20 && score < 40) {
-      return scoreColors[4]; // Red for poor
-    } else if (score >= 0 && score < 20) {
-      return scoreColors[5]; // Dark red for very poor
+    if (score >= 80 && score <= 100) {
+      return legendColors[0]; // Green for good
+    } else if (score >= 40 && score < 80) {
+      return legendColors[1]; // Light green for moderate
+    } else if (score >= 0 && score < 40) {
+      return legendColors[2]; // Yellow for moderate
     }
     return "#000"; // Fallback color if no condition is met
   };

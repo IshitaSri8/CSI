@@ -34,6 +34,7 @@ import WaterModify from "./WaterModify";
 import DataNotFound from "pages/error pages/DataNotFound";
 import { useUser } from "components/context/UserContext";
 import { scoreColors } from "colorConstants";
+import { getScoreColor } from "components/DashboardUtility/scoreColor";
 
 const WaterDashboard = ({ show }) => {
   const [loading, setLoading] = useState(false);
@@ -432,21 +433,7 @@ const WaterDashboard = ({ show }) => {
     setModifyDialogVisible(false);
   };
 
-  const getScoreColor = (score) => {
-    if (score >= 90 && score <= 100) {
-      return scoreColors[0];
-    } else if (score >= 80 && score < 90) {
-      return scoreColors[1];
-    } else if (score >= 60 && score < 80) {
-      return scoreColors[2];
-    } else if (score >= 40 && score < 60) {
-      return scoreColors[3];
-    } else if (score >= 20 && score < 40) {
-      return scoreColors[4];
-    } else if (score >= 0 && score < 20) {
-      return scoreColors[5];
-    }
-  };
+  const bgColor = getScoreColor(waterScore);
 
   return loading ? (
     <div className="flex h-screen align-items-center justify-content-center flex-column">
@@ -475,7 +462,7 @@ const WaterDashboard = ({ show }) => {
                       position: "absolute",
                       width: "100%",
                       height: "100%",
-                      backgroundColor: getScoreColor(waterScore), // Replace with your desired color
+                      backgroundColor: bgColor, // Replace with your desired color
                       clipPath:
                         "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
                     }}

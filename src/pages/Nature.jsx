@@ -73,6 +73,12 @@ const Nature = () => {
     },
   ];
 
+  const achieverIndicators = metrics.filter((metric) => metric.score >= 80);
+  const areasOfImprovement = metrics.filter(
+    (metric) => metric.score >= 40 && metric.score < 80
+  );
+  const needHigherAttention = metrics.filter((metric) => metric.score < 40);
+
   return (
     <div className="flex flex-column p-4 gap-4">
       <div className="flex gap-4">
@@ -124,18 +130,27 @@ const Nature = () => {
           <p className="card-title p-0 mt-0 text-xl">Indicator Highlights:</p>
           <p className="p-0 m-0">
             1. Achiever indicator:{" "}
-            <span className="font-medium"> Temperature</span>
+            <span className="font-medium">
+              {" "}
+              {achieverIndicators
+                .map((indicator) => indicator.title)
+                .join(", ")}
+            </span>
           </p>
           <p className="p-0 m-0">
             2. Areas of Improvement:{" "}
             <span className="font-medium">
-              Land Usage, Air Quality, Rainfall
+              {areasOfImprovement
+                .map((indicator) => indicator.title)
+                .join(", ")}
             </span>
           </p>
           <p className="p-0 m-0">
             3. Need higher attention:{" "}
             <span className="font-medium">
-              Water Management, Waste Management
+              {needHigherAttention
+                .map((indicator) => indicator.title)
+                .join(", ")}
             </span>
           </p>
         </div>

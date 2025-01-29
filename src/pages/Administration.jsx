@@ -39,6 +39,12 @@ const Administration = () => {
     },
   ];
 
+  const achieverIndicators = metrics.filter((metric) => metric.score >= 80);
+  const areasOfImprovement = metrics.filter(
+    (metric) => metric.score >= 40 && metric.score < 80
+  );
+  const needHigherAttention = metrics.filter((metric) => metric.score < 40);
+
   return (
     <div className="flex flex-column p-4 gap-4">
       <div className="flex gap-4">
@@ -90,15 +96,30 @@ const Administration = () => {
           <p className="card-title p-0 mt-0 text-xl">Indicator Highlights:</p>
           <p className="p-0 m-0">
             1. Achiever indicator:{" "}
-            <span className="font-medium">Disaster Management</span>
+            <span className="font-medium">
+              {" "}
+              {achieverIndicators
+                .map((indicator) => indicator.title)
+                .join(", ")}
+            </span>
           </p>
           <p className="p-0 m-0">
             2. Area of Improvement:{" "}
-            <span className="font-medium">Ethical Leadership </span>
+            <span className="font-medium">
+              {" "}
+              {areasOfImprovement
+                .map((indicator) => indicator.title)
+                .join(", ")}
+            </span>
           </p>
           <p className="p-0 m-0">
             3. Need higher attention:{" "}
-            <span className="font-medium">Transparency and Accountability</span>
+            <span className="font-medium">
+              {" "}
+              {needHigherAttention
+                .map((indicator) => indicator.title)
+                .join(", ")}
+            </span>
           </p>
         </div>
       </div>
