@@ -72,7 +72,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
             axisX: {
               ...commonChartOptions.axisX,
             },
-            dataPointWidth: 40,
+            dataPointWidth: 30,
             data: [
               {
                 type: "column",
@@ -116,7 +116,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
             axisX: {
               ...commonChartOptions.axisX,
             },
-            dataPointWidth: 40,
+            dataPointWidth: 30,
             data: [
               {
                 type: "column",
