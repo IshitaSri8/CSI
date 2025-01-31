@@ -12,6 +12,7 @@ import pathConstants from "pathConstants";
 import score from "score";
 import Legends from "./components/Legends";
 import ParameterCard from "./components/ParameterCard";
+import { useUser } from "components/context/UserContext";
 
 const Society = () => {
   const societyLables = [
@@ -25,7 +26,7 @@ const Society = () => {
     // "Public Transport",
   ];
   const societyData = [15, 40, 20, 15, 10];
-
+  const { transportScore } = useUser();
   const metrics = [
     {
       img: healthcare,
@@ -42,7 +43,7 @@ const Society = () => {
     {
       img: transport,
       title: "Public Transport",
-      score: score.TRANSPORT,
+      score: transportScore,
       path: pathConstants.TRANSPORT,
     },
     {
@@ -64,6 +65,12 @@ const Society = () => {
       path: pathConstants.COMMUNITY,
     },
   ];
+
+  const achieverIndicators = metrics.filter((metric) => metric.score >= 80);
+  const areasOfImprovement = metrics.filter(
+    (metric) => metric.score >= 40 && metric.score < 80
+  );
+  const needHigherAttention = metrics.filter((metric) => metric.score < 40);
 
   return (
     <div className="flex flex-column p-4 gap-4">
@@ -116,18 +123,29 @@ const Society = () => {
           <p className="card-title p-0 mt-0 text-xl">Indicator Highlights:</p>
           <p className="p-0 m-0">
             1. Achiever indicators:{" "}
-            <span className="font-medium">Healthcare, Education</span>
+            <span className="font-medium">
+              {" "}
+              {achieverIndicators
+                .map((indicator) => indicator.title)
+                .join(", ")}
+            </span>
           </p>
           <p className="p-0 m-0">
             2. Areas of Improvement:{" "}
             <span className="font-medium">
-              Employment Opportunity, Cultural Preservation, Community
-              Enagagement & Holistic Well-Being
+              {areasOfImprovement
+                .map((indicator) => indicator.title)
+                .join(", ")}
             </span>
           </p>
           <p className="p-0 m-0">
             3. Need higher attention:{" "}
-            <span className="font-medium">Public Transport</span>
+            <span className="font-medium">
+              {" "}
+              {needHigherAttention
+                .map((indicator) => indicator.title)
+                .join(", ")}
+            </span>
           </p>
         </div>
       </div>

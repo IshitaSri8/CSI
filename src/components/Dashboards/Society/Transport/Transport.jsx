@@ -20,8 +20,8 @@ import { useUser } from "components/context/UserContext";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import { Menu } from "primereact/menu";
-import score from "score";
 import DataNotFound from "pages/error pages/DataNotFound";
+import { getScoreColor } from "components/DashboardUtility/scoreColor";
 
 const Transport = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -61,7 +61,7 @@ const Transport = ({ show }) => {
   const vehicleLables = ["Electric", "Hybrid", "Petrol", "Diesel"];
 
   const labels = ["Q1", "Q2", "Q3", "Q4"];
-  const { username } = useUser();
+  const { username, transportScore, setTransportScore } = useUser();
   console.log("🚀 ~ Transport ~ username:", username);
 
   useEffect(() => {
@@ -80,6 +80,70 @@ const Transport = ({ show }) => {
             item.Year === selectedValues.year &&
             item.Month === selectedValues.month
         );
+        const totalValues = filteredData.reduce((acc, curr) => {
+          return {
+            ...acc,
+            No_of_Public_Buses:
+              (acc.No_of_Public_Buses || 0) + curr.No_of_Public_Buses,
+            No_of_Semi_Public_Buses:
+              (acc.No_of_Semi_Public_Buses || 0) + curr.No_of_Semi_Public_Buses,
+            Total_coaches_on_any_day:
+              (acc.Total_coaches_on_any_day || 0) +
+              curr.Total_coaches_on_any_day,
+            Electric: (acc.Electric || 0) + curr.Electric,
+            Hybrid: (acc.Hybrid || 0) + curr.Hybrid,
+            Diesel: (acc.Diesel || 0) + curr.Diesel,
+            Petrol: (acc.Petrol || 0) + curr.Petrol,
+          };
+        }, {});
+
+        const indicator1 =
+          (totalValues.No_of_Public_Buses /
+            (totalValues.No_of_Public_Buses +
+              totalValues.No_of_Semi_Public_Buses)) *
+          100;
+
+        const indicator2 = totalValues.Total_coaches_on_any_day / 221118;
+
+        const indicator3 =
+          (totalValues.Electric /
+            (totalValues.Electric +
+              totalValues.Hybrid +
+              totalValues.Petrol +
+              totalValues.Diesel)) *
+          100;
+
+        const calculateScore1 = (indicator1) => {
+          if (indicator1 < 20) return 25;
+          if (indicator1 >= 20 && indicator1 < 40) return 50;
+          if (indicator1 >= 40 && indicator1 < 60) return 75;
+          if (indicator1 >= 60) return 100;
+          return 0;
+        };
+
+        const calculateScore2 = (indicator2) => {
+          if (indicator2 < 0.2) return 25;
+          if (indicator2 >= 0.2 && indicator2 < 0.4) return 50;
+          if (indicator2 >= 0.4 && indicator2 < 0.6) return 75;
+          if (indicator2 >= 0.6) return 100;
+          return 0;
+        };
+
+        const calculateScore3 = (indicator3) => {
+          if (indicator3 < 25) return 25;
+          if (indicator3 >= 25 && indicator3 <= 49) return 50;
+          if (indicator3 >= 50 && indicator3 <= 74) return 75;
+          if (indicator3 >= 75) return 100;
+          return 0;
+        };
+
+        const score1 = calculateScore1(indicator1);
+        const score2 = calculateScore2(indicator2);
+        const score3 = calculateScore3(indicator3);
+
+        const finalScore = ((score1 + score2 + score3) / 3).toFixed(0);
+        setTransportScore(finalScore);
+
         setDisplayValues(filteredData[0]);
         console.log(filteredData);
 
@@ -188,17 +252,8 @@ const Transport = ({ show }) => {
   const renderDashboard = () => {
     return <Transport show={false} />;
   };
-  const scoreTRANSPORT = score.TRANSPORT;
 
-  const getScoreColor = (scoreTRANSPORT) => {
-    if (scoreTRANSPORT >= 81 && scoreTRANSPORT <= 100) {
-      return "#0C9D61"; // Green for good
-    } else if (scoreTRANSPORT >= 41 && scoreTRANSPORT <= 80) {
-      return "#FFAD0D"; // Yellow for moderate
-    } else if (scoreTRANSPORT >= 0 && scoreTRANSPORT <= 40) {
-      return "#E62225"; // Red for poor
-    }
-  };
+  const bgColor = getScoreColor(transportScore);
 
   const monthNames = [
     "January",
@@ -242,7 +297,7 @@ const Transport = ({ show }) => {
                       position: "absolute",
                       width: "100%",
                       height: "100%",
-                      backgroundColor: getScoreColor(scoreTRANSPORT), // Replace with your desired color
+                      backgroundColor: bgColor, // Replace with your desired color
                       clipPath:
                         "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
                     }}
@@ -257,7 +312,7 @@ const Transport = ({ show }) => {
                       className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
                       style={{ zIndex: 1500 }}
                     >
-                      {scoreTRANSPORT}
+                      {transportScore}
                     </p>
                   </div>
                 </div>
