@@ -7,11 +7,11 @@ import {
   GroupedBarChart,
   ModifiedLineChart,
   PieChartColumn,
+  LineChart,
 } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
 import { PatientsRegisteredChart } from "./PatientsRegisteredChart";
 import { SuicideCasesChart } from "./SuicideCasesChart";
-import { Panel } from "primereact/panel";
 import healthcare from "assets/healthcare.svg";
 import insurance from "assets/insurance.svg";
 import rehab from "assets/rehab.svg";
@@ -21,38 +21,245 @@ import { Column } from "primereact/column";
 import HealthcareRecommendations from "./HealthcareRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import { ProgressSpinner } from "primereact/progressspinner";
+import { useUser } from "components/context/UserContext";
+import { useEffect } from "react";
+import { useRef } from "react";
+import axios from "axios";
+import score from "score";
+import { getScoreColor } from "components/DashboardUtility/scoreColor";
+import { Menu } from "primereact/menu";
+import Upload from "components/DashboardUtility/Popups/Upload";
 
 const Healthcare = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
-  const [recommendationsVisible, setRecommendationsVisible] = useState(false);
-
-  const handleToggleRecommendations = () => {
-    setRecommendationsVisible(!recommendationsVisible);
+  const [loading, setLoading] = useState(false);
+  const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+  const [serverDown, setServerDown] = useState(false);
+  const [data, setData] = useState([]);
+  const [latestData, setLatestData] = useState(null);
+  const [allData, setAllData] = useState([]);
+  const { username } = useUser();
+  const menu = useRef(null); // Create a ref for the Menu component
+  const showUploadDialog = () => {
+    setUploadDialogVisible(true);
   };
 
-  // const hospitalData = [51, 129];
-  // const laboratoriesData = [133, 47];
-  const Labels = ["Government", "Private"];
+  const hideUploadDialog = () => {
+    setUploadDialogVisible(false);
+  };
+  const [modifyDialogVisible, setModifyDialogVisible] = useState(false);
 
-  const bedsTarget = 20;
-  const bedsCurrent = 5;
+  const handleModify = () => {
+    setModifyDialogVisible(true); // Set state to true when button is clicked
+  };
 
-  const ratioTarget = 20;
-  const ratioCurrent = 45;
+  const handleCloseModifyDialog = () => {
+    setModifyDialogVisible(false);
+  };
 
-  const years = ["2020", "2021", "2022", "2023", "2024"];
-  const doctorsData = [4000, 6300, 7000, 7600, 9000];
+  const [years, setYears] = useState([]);
+  const [healthcareInstitutes, setHealthcareInstitutes] = useState([]);
+  const [vaccinationFacilities, setVaccinationFacilities] = useState([]);
+  const [infantMortalityRates, setInfantMortalityRates] = useState([]);
+  const [pregnantMortalityRates, setPregnantMortalityRates] = useState([]);
+  const [patientByAgeGroup, setPatientByAgeGroup] = useState([]);
+  const [totalPatientsByYear, setTotalPatientsByYear] = useState([]);
+  const [suicideByAgeGroup, setSuicideByAgeGroup] = useState([]);
+  const [totalSuicidesByYear, setTotalSuicidesByYear] = useState([]);
+
+  const [malariaData, setMalariaData] = useState([]);
+  const [japaneseEncephalitisData, setJapaneseEncephalitisData] = useState([]);
+  const [acuteEncephalitisSyndromeData, setAcuteEncephalitisSyndromeData] =
+    useState([]);
+  const [dengueData, setDengueData] = useState([]);
+  const [chikungunyaData, setChikungunyaData] = useState([]);
+  const [tbData, setTbData] = useState([]);
+  const [heartDiseaseData, setHeartDiseaseData] = useState([]);
+  const [diabetesData, setDiabetesData] = useState([]);
+  const [respiratoryIllnessData, setRespiratoryIllnessData] = useState([]);
+
+  // Define menu items
+  const items = [
+    {
+      label: "Upload",
+      icon: "pi pi-upload",
+      command: () => showUploadDialog(), // Implement your upload logic here
+    },
+    {
+      label: "Modify",
+      icon: "pi pi-pencil",
+      command: () => handleModify(), // Implement your modify logic here
+    },
+  ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          "https://api-csi.arahas.com/data/healthcare"
+        );
+        const responseData = response.data.data;
+        setAllData(responseData);
+        const years = responseData.map((data) => data.Year);
+        setYears(years);
+        const latestYear = Math.max(...years); // Get the maximum year
+
+        // Find the row for the latest year
+        const latestYearData = responseData.find(
+          (data) => data.Year === latestYear
+        );
+        if (latestYearData) {
+          setLatestData(latestYearData);
+          // Prepare healthcareInstitutes data for chart
+          const healthcareInstitutesData = [
+            latestYearData.Government_Institutes,
+            latestYearData.Private_Institutes,
+          ];
+          setHealthcareInstitutes(healthcareInstitutesData);
+
+          const vaccinationFacilitiesData = [
+            latestData.Vaccination_Newborn_Baby_Immunization,
+            latestData.Flu_Vaccinations,
+            latestData.Cervical_Cancer_Vaccinations,
+          ];
+          setVaccinationFacilities(vaccinationFacilitiesData);
+        }
+        setLatestData(latestYearData);
+        // Map the Mortality_Rate_Infants into an array
+        const infantMortalityRates = responseData.map(
+          (data) => data.Mortality_Rate_Infants
+        );
+        setInfantMortalityRates(infantMortalityRates);
+
+        // Map the Mortality_Rate_Pregnant_Ladies into an array
+        const pregnantMortalityRates = responseData.map(
+          (data) => data.Mortality_Rate_Pregnant_Ladies
+        );
+        setPregnantMortalityRates(pregnantMortalityRates);
+
+        // Map chronic disease data into separate arrays
+        const malariaCounts = responseData.map((data) => data.Malaria);
+        const japaneseEncephalitisCounts = responseData.map(
+          (data) => data.Japanese_encephalitis
+        );
+        const acuteEncephalitisSyndromeCounts = responseData.map(
+          (data) => data.Acute_Encephalitis_Syndrome
+        );
+        const dengueCounts = responseData.map((data) => data.Dengue);
+        const chikungunyaCounts = responseData.map((data) => data.Chikungunia);
+        const tbCounts = responseData.map((data) => data.TB);
+        const heartDiseaseCounts = responseData.map(
+          (data) => data.Heart_Disease
+        );
+        const diabetesCounts = responseData.map((data) => data.Diabetes);
+        const respiratoryIllnessCounts = responseData.map(
+          (data) => data.Respiratory_Illness
+        );
+
+        // Set state for each chronic disease group
+        setMalariaData(malariaCounts);
+        setJapaneseEncephalitisData(japaneseEncephalitisCounts);
+        setAcuteEncephalitisSyndromeData(acuteEncephalitisSyndromeCounts);
+        setDengueData(dengueCounts);
+        setChikungunyaData(chikungunyaCounts);
+        setTbData(tbCounts);
+        setHeartDiseaseData(heartDiseaseCounts);
+        setDiabetesData(diabetesCounts);
+        setRespiratoryIllnessData(respiratoryIllnessCounts);
+
+        // Calculate total patients for each year
+        const totalRegPat = responseData.map(
+          (data) =>
+            data.Patients_0_18 +
+            data.Patients_19_35 +
+            data.Patients_36_60 +
+            data.Patients_61_above
+        );
+
+        setTotalPatientsByYear(totalRegPat);
+        // Prepare age group data
+        const patientByAge = {};
+
+        responseData.forEach((data) => {
+          const year = data.Year;
+          patientByAge[year] = [
+            { ageGroup: "0-18", count: data.Patients_0_18 },
+            { ageGroup: "19-35", count: data.Patients_19_35 },
+            { ageGroup: "36-60", count: data.Patients_36_60 },
+            { ageGroup: "61+", count: data.Patients_61_above },
+          ];
+        });
+
+        // Set the state with the prepared age group data
+        setPatientByAgeGroup(patientByAge);
+
+        // Calculate total suicides for each year
+        const totalSuicides = responseData.map(
+          (data) =>
+            data.Suicide_Cases_10_24 +
+            data.Suicide_Cases_25_44 +
+            data.Suicide_Cases_44_64 +
+            data.Suicide_Cases_64_above
+        );
+
+        setTotalSuicidesByYear(totalSuicides);
+        // Prepare age group data
+        const suicideByAge = {};
+
+        responseData.forEach((data) => {
+          const year = data.Year;
+          suicideByAge[year] = [
+            { ageGroup: "0-18", count: data.Suicide_Cases_10_24 },
+            { ageGroup: "19-35", count: data.Suicide_Cases_25_44 },
+            { ageGroup: "36-60", count: data.Suicide_Cases_44_64 },
+            { ageGroup: "61+", count: data.Suicide_Cases_64_above },
+          ];
+        });
+
+        // Set the state with the prepared age group data
+        setSuicideByAgeGroup(suicideByAge);
+
+        setData(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setServerDown(true);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const bedsTarget = 5;
+  const ratioTarget = 5;
 
   const [activeIndex, setActiveIndex] = useState(0); // State for active tab
 
   const chronicData = [
-    [10, 3, 6, 1, 0],
-    [28, 1, 2, 39, 0],
-    [7, 5, 23, 14, 0],
-    [22, 2, 29, 25, 0],
-    [26, 3, 19, 226, 0],
+    malariaData,
+    japaneseEncephalitisData,
+    acuteEncephalitisSyndromeData,
+    dengueData,
+    chikungunyaData,
+    tbData,
+    heartDiseaseData,
+    diabetesData,
+    respiratoryIllnessData,
   ];
-  const chronicDiseases = ["Malaria", "J.E.", "A.E.S", "Dengue", "Chikengunia"];
+  console.log("🚀 ~ Healthcare ~ chronicData:", chronicData);
+  const chronicDiseases = [
+    "Malaria",
+    "J.E.",
+    "A.E.S",
+    "Dengue",
+    "Chikengunia",
+    "TB",
+    "Heart Disease",
+    "Diabetes",
+    "Respiratory Illness",
+  ];
 
   // Map the data into a format suitable for the DataTable
   const tableData = chronicDiseases.map((disease, index) => {
@@ -62,56 +269,23 @@ const Healthcare = ({ show }) => {
     });
     return rowData;
   });
-  // const chronicDataWithDiseases = [
-  //   {
-  //     name: "Malaria",
-  //     data: [10, 28, 7, 22, 26], // Yearly data for Malaria
-  //   },
-  //   {
-  //     name: "J.E.",
-  //     data: [3, 1, 5, 2, 3], // Yearly data for J.E.
-  //   },
-  //   {
-  //     name: "A.E.S",
-  //     data: [6, 2, 23, 29, 19], // Yearly data for A.E.S.
-  //   },
-  //   {
-  //     name: "Dengue",
-  //     data: [1, 39, 14, 25, 226], // Yearly data for Dengue
-  //   },
-  //   {
-  //     name: "Chikengunia",
-  //     data: [0, 0, 0, 0, 0], // Yearly data for Chikengunia
-  //   },
-  // ];
 
+  const Labels = ["Government", "Private"];
   const institutionsAnalysisData = [
-    { name: "Target by 2031", data: [250, 300] },
-    { name: "Current", data: [146, 198] },
+    { name: "Target by 2031", data: [25, 30] },
+    { name: "Current", data: healthcareInstitutes },
   ];
 
   const mortalityData = [
-    { name: "Infants", data: [10, 20, 30, 25, 32] },
-    { name: "Pregnant Ladies", data: [45, 38, 25, 47, 55] },
+    { name: "Infants", data: infantMortalityRates },
+    { name: "Pregnant Ladies", data: pregnantMortalityRates },
   ];
 
-  const vaccinationData = [150, 80, 60];
   const vaccinationLabels = [
     "Newborn Baby Immunization",
     "Flu Vaccinations",
     "Cervical Cancer Screenings",
   ];
-
-  // const ageGroup = ["0-18", "19-35", "36-60", "61+"];
-  const suicideData = [270, 328, 232, 150, 450];
-
-  // const mentalPatientsLabels = [
-  //   "Addiction",
-  //   "Depression",
-  //   "Anxiety",
-  //   "Schizophrenia",
-  // ];
-  // const mentalPatientsData = [270, 328, 232, 150];
 
   const renderRecommendations = () => {
     return <HealthcareRecommendations />;
@@ -121,270 +295,304 @@ const Healthcare = ({ show }) => {
     return <Healthcare show={false} />;
   };
 
-  return (
-    <div className="flex gap-3 flex-column p-4">
+  const bgColor = getScoreColor(score.HEALTHCARE);
+
+  return loading ? (
+    <div className="flex h-screen align-items-center justify-content-center flex-column">
+      <ProgressSpinner />
+      <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
+    </div>
+  ) : (
+    <div className="flex gap-3 flex-column p-3">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Healthcare
-          </h1>
-          <Button
-            label="Generate Report"
-            icon="pi pi-file"
-            onClick={() => setReportVisible(true)}
-            className="bg-primary1 text-white"
-            raised
-          />
-          <Dialog
-            visible={ReportVisible}
-            style={{ width: "100rem" }}
-            onHide={() => {
-              if (!ReportVisible) return;
-              setReportVisible(false);
+          {/* Title & Score */}
+          <div
+            style={{
+              position: "relative",
+              width: "340px",
+              height: "43px",
+              overflow: "hidden", // Hide overflow if needed
             }}
           >
-            <ReportPrint
-              renderDashboard={renderDashboard}
-              renderRecommendations={renderRecommendations}
-              parameter={"healthcare"}
-              heading={"Healthcare"}
+            <div
+              className="flex align-items-center justify-content-between p-2"
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                backgroundColor: bgColor, // Replace with your desired color
+                clipPath:
+                  "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+              }}
+            >
+              <h1
+                className="m-0 p-0 text-white text-2xl font-semibold"
+                style={{ zIndex: 1500 }}
+              >
+                Healthcare
+              </h1>
+              <p
+                className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                style={{ zIndex: 1500 }}
+              >
+                {score.HEALTHCARE}
+              </p>
+            </div>
+          </div>
+          <div className="flex align-items-center justify-content-end gap-2">
+            {username === "admin" && (
+              <>
+                <Button
+                  icon="pi pi-ellipsis-v"
+                  onClick={(e) => menu.current.toggle(e)}
+                  className="bg-primary1"
+                  raised
+                />
+                <Menu model={items} ref={menu} popup />
+                <Upload
+                  visible={uploadDialogVisible}
+                  onHide={hideUploadDialog}
+                  parameter={"healthcare"}
+                />
+                {/* <HealthcareModify
+                      healthData={data}
+                      healthSetData={setData}
+                      isOpen={modifyDialogVisible}
+                      onClose={handleCloseModifyDialog}
+                    /> */}
+              </>
+            )}
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-primary1 text-white"
+              raised
             />
-          </Dialog>
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"healthcare"}
+                heading={"Healthcare"}
+              />
+            </Dialog>
+          </div>
         </div>
       )}
+
       <div className="flex gap-3">
-        <div className="flex flex-column gap-3" style={{ flex: "75%" }}>
-          <div className="flex w-full gap-3">
-            <div
-              className="flex bg-white border-round justify-content-between"
-              style={{ flex: "65%" }}
-            >
-              <img src={healthcare} alt="Healthcare" />
-              <div className="flex py-6 w-full">
-                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
-                  <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                    754
-                  </p>
-                  <p className="p-0 m-0 card-text">Doctors</p>
-                </div>
-                <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
-                  <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                    1375
-                  </p>
-                  <p className="p-0 m-0 card-text">Nurses</p>
-                </div>
-                <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center justify-content-center gap-1">
-                  <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                    124
-                  </p>
-                  <p className="p-0 m-0 card-text">Medical Staff</p>
+        {latestData && (
+          <div className="flex flex-column gap-3" style={{ flex: "55%" }}>
+            <div className="flex w-full gap-3">
+              <div
+                className="flex bg-white border-round justify-content-between align-items-start"
+                style={{ flex: "65%" }}
+              >
+                <img src={healthcare} alt="Healthcare" />
+                <div className="flex py-6 w-full">
+                  <div className="flex flex-column w-full align-items-center justify-content-center gap-1">
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                      {latestData.Doctors}
+                    </p>
+                    <p className="p-0 m-0 card-text">Doctors</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex flex-column w-full align-items-center justify-content-center gap-1">
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                      {latestData.Nurses}
+                    </p>
+                    <p className="p-0 m-0 card-text">Nurses</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex flex-column w-full align-items-center justify-content-center gap-1">
+                    <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                      {latestData.Medical_Staff}
+                    </p>
+                    <p className="p-0 m-0 card-text">Medical Staff</p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div
-              className="flex justify-content-between align-items-center bg-white border-round py-6"
-              style={{ flex: "35%" }}
-            >
-              <div className="flex flex-column w-full p-0 align-items-center gap-1">
-                <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                  344
-                </p>
-                <p className="p-0 m-0 card-text">Healthcare Institutes</p>
-              </div>
-              <Divider layout="vertical" />
-              <div className="flex flex-column w-full p-2 align-items-center gap-1">
-                <p className="text-3xl font-semibold m-0 text-primary2 p-0">
-                  78
-                </p>
-                <p className="tp-0 m-0 card-text">Laboratories</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex w-full gap-3">
-            {/* Registered Patients */}
-            <div
-              className="flex flex-column justify-content-center align-items-center bg-white border-round p-2 gap-3"
-              style={{ flex: "15%" }}
-            >
-              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                33,900
-              </p>
-              <p className="p-0 m-0 card-title text-center">
-                Registered Patients
-              </p>
-            </div>
-            {/* Patient Doctor Ratio */}
-            <div
-              className="flex flex-column bg-white border-round p-3 justify-content-center"
-              style={{ flex: "28%" }}
-            >
-              <p className="card-title p-0 m-0">Patient Doctor Ratio</p>
-              <div className="flex my-3">
-                <div className="flex flex-column w-full p-2 align-items-center gap-1">
+              <div
+                className="flex justify-content-between align-items-center bg-white border-round py-6"
+                style={{ flex: "35%" }}
+              >
+                <div className="flex flex-column w-full align-items-center justify-content-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
-                    {ratioCurrent}
+                    {latestData.Government_Institutes +
+                      latestData.Private_Institutes}
                   </p>
-                  <p className="p-0 m-0 card-text">Available</p>
+                  <p className="p-0 m-0 card-text">Healthcare Institutes</p>
                 </div>
                 <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center gap-1">
+                <div className="flex flex-column w-full align-items-center justify-content-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-primary2 p-0">
-                    {ratioTarget}
+                    {latestData.Laboratories}
                   </p>
-                  <p className="p-0 m-0 card-text">Target</p>
+                  <p className="p-0 m-0 card-text">Laboratories</p>
                 </div>
               </div>
-              <ProgressBar
-                value={((ratioCurrent - ratioTarget) / ratioCurrent) * 100}
-                style={{ height: "0.75rem" }} // Adjust the height
-                className="w-full" // Full width of its container
-                color="#FFAD0D"
-                displayValueTemplate={() => null} // Hide the displayed value
-              />
-              <p className="text-tertiary3 p-0 m-0 mt-1 font-semibold">
-                Gap:{" "}
-                <span className="text-primary1">
-                  {(
-                    ((ratioCurrent - ratioTarget) / ratioCurrent) *
+            </div>
+
+            <div className="flex w-full gap-3">
+              {/* Patient Doctor Ratio */}
+              <div
+                className="flex flex-column border-round p-3 justify-content-center sec-theme"
+                style={{ flex: "35%" }}
+              >
+                <p className="card-title p-0 m-0">Patient Doctor Ratio</p>
+                <div className="flex my-2">
+                  <div className="flex flex-column w-full p-2 align-items-center gap-1">
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                      {latestData.Patient_Doctor_Ratio}
+                    </p>
+                    <p className="p-0 m-0 card-text">Available</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex flex-column w-full p-2 align-items-center gap-1">
+                    <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                      {ratioTarget}
+                    </p>
+                    <p className="p-0 m-0 card-text">Target</p>
+                  </div>
+                </div>
+                <ProgressBar
+                  value={
+                    ((latestData.Patient_Doctor_Ratio - ratioTarget) /
+                      latestData.Patient_Doctor_Ratio) *
                     100
-                  ).toFixed(2)}
-                  %
-                </span>
-              </p>
-            </div>
-            {/* People Having Health Insurance */}
-            <div
-              className="flex justify-content-center align-items-center bg-white border-round p-3"
-              style={{ flex: "27%" }}
-            >
-              <div className="flex flex-column">
-                <p className="card-title p-0 m-0 ">Health Insurance Coverage</p>
-                <div className="flex align-items-center justify-content-around">
-                  <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
-                    12500
+                  }
+                  style={{ height: "0.5rem" }} // Adjust the height
+                  className="w-full" // Full width of its container
+                  color="#FFAD0D"
+                  displayValueTemplate={() => null} // Hide the displayed value
+                />
+                <p className="text-tertiary3 p-0 m-0 mt-1 font-semibold">
+                  Gap:{" "}
+                  <span className="text-primary1">
+                    {(
+                      ((latestData.Patient_Doctor_Ratio - ratioTarget) /
+                        latestData.Patient_Doctor_Ratio) *
+                      100
+                    ).toFixed(2)}
+                    %
+                  </span>
+                </p>
+              </div>
+              {/* People Having Health Insurance */}
+              <div
+                className="flex justify-content-center align-items-center bg-white border-round p-3"
+                style={{ flex: "30%" }}
+              >
+                <div className="flex flex-column">
+                  <p className="card-title p-0 m-0 ">
+                    Health Insurance Coverage
                   </p>
-                  <img src={insurance} alt="insurance" className="h-8rem" />
+                  <div className="flex align-items-center justify-content-around">
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0 text-center">
+                      {latestData.Health_Insurance_Coverage}
+                    </p>
+                    <img src={insurance} alt="insurance" className="h-6rem" />
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* No. of Beds Available */}
-            <div
-              className="flex flex-column bg-white border-round p-3 justify-content-center"
-              style={{ flex: "40%" }}
-            >
-              <p className="card-title p-0 m-0">Hospital Beds</p>
-              <div className="flex my-3">
-                <div className="flex flex-column w-full p-2 align-items-center gap-1">
-                  <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
-                    {bedsCurrent}
-                  </p>
-                  <p className="p-0 m-0 card-text">Available</p>
+              {/* No. of Beds Available */}
+              <div
+                className="flex flex-column border-round p-3 justify-content-center sec-theme"
+                style={{ flex: "35%" }}
+              >
+                <p className="card-title p-0 m-0">Hospital Beds</p>
+                <div className="flex my-2">
+                  <div className="flex flex-column w-full p-2 align-items-center gap-1">
+                    <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
+                      {latestData.Hospital_Beds}
+                    </p>
+                    <p className="p-0 m-0 card-text">Available</p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex flex-column w-full p-2 align-items-center gap-1">
+                    <p className="text-2xl font-semibold m-0 text-primary2 p-0">
+                      {bedsTarget}
+                    </p>
+                    <p className="p-0 m-0 card-text">Target</p>
+                  </div>
                 </div>
-                <Divider layout="vertical" />
-                <div className="flex flex-column w-full p-2 align-items-center gap-1">
-                  <p className="text-2xl font-semibold m-0 text-primary2 p-0">
-                    {bedsTarget}
-                  </p>
-                  <p className="p-0 m-0 card-text">Target</p>
-                </div>
+                <ProgressBar
+                  value={
+                    ((bedsTarget - latestData.Hospital_Beds) / bedsTarget) * 100
+                  }
+                  style={{ height: "0.5rem" }} // Adjust the height
+                  className="w-full" // Full width of its container
+                  color="#E62225"
+                  displayValueTemplate={() => null} // Hide the displayed value
+                />
+                <p className="text-tertiary3 p-0 m-0 mt-1 font-semibold">
+                  Gap:{" "}
+                  <span className="text-primary1">
+                    {" "}
+                    {((bedsTarget - latestData.Hospital_Beds) / bedsTarget) *
+                      100}
+                    %
+                  </span>
+                </p>
               </div>
-              <ProgressBar
-                value={((bedsTarget - bedsCurrent) / bedsTarget) * 100}
-                style={{ height: "0.75rem" }} // Adjust the height
-                className="w-full" // Full width of its container
-                color="#E62225"
-                displayValueTemplate={() => null} // Hide the displayed value
-              />
-              <p className="text-tertiary3 p-0 m-0 mt-1 font-semibold">
-                Gap:{" "}
-                <span className="text-primary1">
-                  {" "}
-                  {((bedsTarget - bedsCurrent) / bedsTarget) * 100}%
-                </span>
-              </p>
             </div>
           </div>
-        </div>
+        )}
         {/* Healthcare Institutes Analysis */}
-        <div className="flex bg-white border-round p-4" style={{ flex: "25%" }}>
+        <div className="flex bg-white border-round p-3" style={{ flex: "20%" }}>
           <GroupedColumnChart
             title="Healthcare Institutes Analysis"
             labels={Labels}
             dataSeries={institutionsAnalysisData}
             dataPointWidth={25}
-            height={260}
+            height={250}
             fontSize={10}
           />
+        </div>
+        {/* Insights */}
+        <div
+          className="flex flex-column bg-white border-round p-3 gap-3 h-23rem overflow-y-auto"
+          style={{ flex: "25%" }}
+        >
+          <p className="card-title p-0 m-0">Insights</p>
+          <div className="flex flex-column align-items-start justify-content-start gap-2"></div>
         </div>
       </div>
 
       <div className="flex align-items-center justify-content-center gap-3 w-full">
         {/* PatientsRegisteredChart */}
-        <div className="flex bg-white border-round p-3" style={{ flex: "50%" }}>
-          <PatientsRegisteredChart categories={years} series={doctorsData} />
+        <div className="flex bg-white border-round p-3" style={{ flex: "30%" }}>
+          <PatientsRegisteredChart
+            categories={years}
+            series={totalPatientsByYear}
+            drillDownData={patientByAgeGroup}
+          />
         </div>
 
-        {/* <div className="flex flex-column gap-3" style={{ flex: "14%" }}>
-          <div className="flex flex-column bg-white border-round p-4 gap-2">
-            <p className="text p-0 m-0 text-sm font-medium text-lg">
-              Total New Borns
-            </p>
-            <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
-              1234
-            </p>
-          </div>
-          <div className="flex flex-column bg-white border-round p-4 gap-2">
-            <p className="text p-0 m-0 text-sm font-medium text-lg">
-              Rehab Centers
-            </p>
-            <p className="text-4xl font-semibold m-0 text-secondary2 p-3 text-center">
-              12
-            </p>
-          </div>
-        </div> */}
-
         {/* Vaccination Facilities */}
-        <div className="flex bg-white border-round p-3" style={{ flex: "18%" }}>
+        <div className="flex bg-white border-round p-3" style={{ flex: "20%" }}>
           <PieChartColumn
             categories={vaccinationLabels}
-            series={vaccinationData}
+            series={vaccinationFacilities}
             height={160}
             title="Vaccination Facilities"
             fontSize={8}
           />
         </div>
-
-        {/* "Mortality Rate" */}
-        <div
-          className="flex flex-column bg-white border-round p-3"
-          style={{ flex: "35%" }}
-        >
-          <GroupedBarChart
-            title="Mortality Rate"
-            labels={years}
-            dataSeries={mortalityData}
-            dataPointWidth={8}
-            height={200}
-          />
-        </div>
-      </div>
-
-      <div className="flex align-items-center justify-content-center gap-3 w-full">
         {/* Chronic Diseases*/}
-        {/* <GroupedColumnChart
-            title="Prevailing Chronic Diseases"
-            labels={years}
-            dataSeries={chronicDataWithDiseases}
-            dataPointWidth={10}
-            height={200}
-            /> */}
         <div
           className="flex bg-white border-round-xl p-3 flex-column"
-          style={{ flex: "51%" }}
+          style={{ flex: "45%" }}
         >
           {/* Header Row */}
           <div className="flex justify-content-between align-items-center mb-2">
@@ -436,45 +644,22 @@ const Healthcare = ({ show }) => {
             />
           )}
 
-          {activeIndex === 1 && (
-            <DataTable
-              value={tableData}
-              className="p-datatable-sm"
-              // stripedRows
-              responsiveLayout="scroll"
-              rowStyle={{ backgroundColor: "#f3f5f5" }}
-              style={{
-                width: "100%",
-                borderRadius: "8px",
-                overflow: "hidden",
-              }}
-            >
-              <Column
-                field="disease"
-                header="Disease"
-                className="text-sm font-semibold text-primary1"
-                headerStyle={{
-                  fontWeight: 500,
-                  backgroundColor: "#166c7d",
-                  color: "white",
-                }}
-              ></Column>
-              {years.map((year) => (
-                <Column
-                  key={year}
-                  field={year}
-                  header={year}
-                  className="font-medium text-primary1"
-                  headerStyle={{
-                    fontWeight: 500,
-                    backgroundColor: "#166c7d",
-                    color: "white",
-                    textAlign: "center",
-                  }}
-                ></Column>
-              ))}
-            </DataTable>
-          )}
+        </div>
+      </div>
+
+      <div className="flex align-items-center justify-content-center gap-3 w-full">
+        {/* "Mortality Rate" */}
+        <div
+          className="flex flex-column bg-white border-round p-3"
+          style={{ flex: "51%" }}
+        >
+          <GroupedBarChart
+            title="Mortality Rate"
+            labels={years}
+            dataSeries={mortalityData}
+            dataPointWidth={8}
+            height={200}
+          />
         </div>
 
         {/* SuicideCasesChart */}
@@ -482,42 +667,33 @@ const Healthcare = ({ show }) => {
           className="flex bg-white border-round-xl p-3"
           style={{ flex: "32%" }}
         >
-          <SuicideCasesChart categories={years} series={suicideData} />
+          <SuicideCasesChart
+            categories={years}
+            series={totalSuicidesByYear}
+            drillDownData={suicideByAgeGroup}
+          />
         </div>
 
-        <div className="flex flex-column" style={{ flex: "22%" }}>
-          {/* Rehab Centers */}
-          <div className="flex flex-column bg-white p-3 border-round-top-xl">
-            <p className="card-title p-0 m-0">Rehab Centers</p>
-            <div className="flex align-items-center justify-content-around">
-              <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
-                2
+        {/* Rehab Centers */}
+        {latestData && (
+          <div className="flex flex-column" style={{ flex: "22%" }}>
+            <div className="flex flex-column bg-white p-3 border-round-top-xl">
+              <p className="card-title p-0 m-0">Rehab Centers</p>
+              <div className="flex align-items-center justify-content-around">
+                <p className="text-3xl font-semibold m-0 text-secondary2 p-0 text-center">
+                  {latestData.Rehab_Centres}
+                </p>
+                <img src={rehab} alt="rehab" />
+              </div>
+            </div>
+            <div className="flex flex-column sec-theme p-3 border-round-bottom-xl">
+              <p className="p-0 m-0 card-text">Average Capacity</p>
+              <p className="p-0 text-primary1 font-semibold text-center text-2xl">
+                {latestData.Avg_Capacity}
               </p>
-              <img src={rehab} alt="rehab" />
             </div>
           </div>
-          <div className="flex flex-column sec-theme p-3 border-round-bottom-xl">
-            <p className="p-0 m-0 text font-medium">Rehab Center 1</p>
-            <p className="p-0 m-0 text-tertiary3 font-medium mb-3">
-              Capacity: <span className="text-primary1 font-semibold">200</span>
-            </p>
-            <p className="p-0 m-0 text font-medium">Rehab Center 2</p>
-            <p className="p-0 m-0 text-tertiary3 font-medium">
-              Capacity: <span className="text-primary1 font-semibold">200</span>
-            </p>
-          </div>
-        </div>
-
-        {/* Patients of Mental Illness */}
-        {/* <div className="flex bg-white border-round p-3" style={{ flex: "22%" }}>
-          <Doughnut
-            title="Patients of Mental Illness"
-            labels={mentalPatientsLabels}
-            series={mentalPatientsData}
-            height={200}
-            showNo={true}
-          />
-        </div> */}
+        )}
       </div>
 
       <p className="p-0 m-0 border-top-1 surface-border text-right text-sm text-700 font-italic">

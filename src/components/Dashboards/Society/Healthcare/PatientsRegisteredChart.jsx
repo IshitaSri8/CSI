@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { commonChartOptions } from "Layout/chartOptions";
 
-export const PatientsRegisteredChart = ({ categories, series }) => {
+export const PatientsRegisteredChart = ({
+  categories,
+  series,
+  drillDownData,
+}) => {
   const [selectedYear, setSelectedYear] = useState(null);
   const [drilldownData, setDrilldownData] = useState([]);
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -15,44 +19,44 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
     "#4D7479", //Dusty Teal
   ];
 
-  const ageGroupData = {
-    2020: [
-      { ageGroup: "0-18", count: 120 },
-      { ageGroup: "19-35", count: 450 },
-      { ageGroup: "36-60", count: 300 },
-      { ageGroup: "61+", count: 150 },
-    ],
-    2021: [
-      { ageGroup: "0-18", count: 130 },
-      { ageGroup: "19-35", count: 460 },
-      { ageGroup: "36-60", count: 310 },
-      { ageGroup: "61+", count: 160 },
-    ],
-    2022: [
-      { ageGroup: "0-18", count: 140 },
-      { ageGroup: "19-35", count: 470 },
-      { ageGroup: "36-60", count: 320 },
-      { ageGroup: "61+", count: 170 },
-    ],
-    2023: [
-      { ageGroup: "0-18", count: 170 },
-      { ageGroup: "19-35", count: 500 },
-      { ageGroup: "36-60", count: 335 },
-      { ageGroup: "61+", count: 140 },
-    ],
-    2024: [
-      { ageGroup: "0-18", count: 200 },
-      { ageGroup: "19-35", count: 450 },
-      { ageGroup: "36-60", count: 360 },
-      { ageGroup: "61+", count: 200 },
-    ],
-  };
+  // const ageGroupData = {
+  //   2020: [
+  //     { ageGroup: "0-18", count: 120 },
+  //     { ageGroup: "19-35", count: 450 },
+  //     { ageGroup: "36-60", count: 300 },
+  //     { ageGroup: "61+", count: 150 },
+  //   ],
+  //   2021: [
+  //     { ageGroup: "0-18", count: 130 },
+  //     { ageGroup: "19-35", count: 460 },
+  //     { ageGroup: "36-60", count: 310 },
+  //     { ageGroup: "61+", count: 160 },
+  //   ],
+  //   2022: [
+  //     { ageGroup: "0-18", count: 140 },
+  //     { ageGroup: "19-35", count: 470 },
+  //     { ageGroup: "36-60", count: 320 },
+  //     { ageGroup: "61+", count: 170 },
+  //   ],
+  //   2023: [
+  //     { ageGroup: "0-18", count: 170 },
+  //     { ageGroup: "19-35", count: 500 },
+  //     { ageGroup: "36-60", count: 335 },
+  //     { ageGroup: "61+", count: 140 },
+  //   ],
+  //   2024: [
+  //     { ageGroup: "0-18", count: 200 },
+  //     { ageGroup: "19-35", count: 450 },
+  //     { ageGroup: "36-60", count: 360 },
+  //     { ageGroup: "61+", count: 200 },
+  //   ],
+  // };
 
   // Function to handle click events on main chart points (for drilldown)
   const handlePointClick = (e) => {
     const year = e.dataPoint.label; // Get the clicked year (X-axis label)
     setSelectedYear(year);
-    setDrilldownData(ageGroupData[year]);
+    setDrilldownData(drillDownData[year]);
   };
 
   return (
@@ -72,7 +76,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
             axisX: {
               ...commonChartOptions.axisX,
             },
-            dataPointWidth: 40,
+            dataPointWidth: 30,
             data: [
               {
                 type: "column",
@@ -116,7 +120,7 @@ export const PatientsRegisteredChart = ({ categories, series }) => {
             axisX: {
               ...commonChartOptions.axisX,
             },
-            dataPointWidth: 40,
+            dataPointWidth: 30,
             data: [
               {
                 type: "column",

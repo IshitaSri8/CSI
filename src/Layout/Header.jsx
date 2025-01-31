@@ -21,12 +21,12 @@ const Header = () => {
       onClick={item.command}
     >
       <span
-        className={`text-lg ${item.icon}  ${
+        className={`text-lg ${item.icon} text-white ${
           isActive(item.path) ? "icon-active" : "text-600"
         }`}
       />
       <p
-        className={`ml-2 mr-4 my-2 text-lg font-medium p-0 ${
+        className={`ml-2 mr-4 my-2 text-lg font-medium p-0 text-white ${
           isActive(item.path) ? "text-active" : "text-600"
         }`}
       >
@@ -118,7 +118,7 @@ const Header = () => {
     <Button
       label="Sign in"
       icon="pi pi-user"
-      className="bg-primary1 p-ml-auto"
+      className="text-primary1 bg-white p-ml-auto"
       onClick={handleSignInClick}
       raised
     />
@@ -130,7 +130,7 @@ const Header = () => {
         model={items}
         start={start}
         end={end}
-        className="flex sec-theme align-items-center shadow-2"
+        className="flex bg-primary2 align-items-center shadow-2"
         style={{
           position: "fixed",
           top: 0,

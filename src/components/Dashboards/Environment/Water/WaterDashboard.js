@@ -383,7 +383,6 @@ const WaterDashboard = ({ show }) => {
   };
   const handleZoneChange = (e) => {
     setTempZone(e.value);
-
     setGeoData(divisionsWithLocations[e.value] || all_locations);
   };
   const divisionsWithLocations = {

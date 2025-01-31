@@ -46,7 +46,7 @@ const Citizen = () => {
           style={{
             // backgroundColor: "rgba(247, 164, 122, 0.7)",
             background:
-              "linear-gradient(to left, rgba(91, 152, 164, 0.8), rgba(15, 75, 87, 0.8))",
+              "linear-gradient(to left, #5b98a4, rgba(15, 75, 87, 0.8))",
             width: "70rem",
             position: "absolute",
             top: "80%",
