@@ -9,9 +9,7 @@ import { useUser } from "components/context/UserContext";
 const Chatbot = () => {
   const { setCitizenDetails } = useUser();
   const [form, setForm] = useState({});
-  const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-  const [filteredCities, setFilteredCities] = useState([]); // State for filtered cities
   const navigate = useNavigate();
 
   const submitFormData = async (formData) => {
@@ -44,8 +42,9 @@ const Chatbot = () => {
   const checkPhoneExists = async (phone) => {
     try {
       const response = await axios.get(
-        `https://api-csi.arahas.com/check/phone?phone=${phone}`
+        `https://api-csi.arahas.com/check-phone?phone=${phone}`
       );
+      console.log(response.data.exists);
       return response.data.exists;
     } catch (error) {
       console.error("Error checking Phone number existence:", error);
@@ -96,64 +95,6 @@ const Chatbot = () => {
       allowNewline: true,
     },
   };
-
-  const fetchStates = async () => {
-    const headers = new Headers();
-    headers.append(
-      "X-CSCAPI-KEY",
-      "ZHhIQXNCQ21lTGhub0J4Mk9wRHVNS1FNVWVLNmhkajIyRjdHOWJJSA=="
-    );
-
-    try {
-      const response = await fetch(
-        "https://api.countrystatecity.in/v1/countries/IN/states",
-        { headers }
-      );
-
-      const data = await response.json();
-
-      if (Array.isArray(data)) {
-        data.sort((a, b) => a.name.localeCompare(b.name));
-        setStates(data);
-      } else {
-        console.error("Unexpected response format for states:", data);
-      }
-    } catch (error) {
-      console.log("Error fetching states:", error);
-    }
-  };
-
-  const fetchCities = async (stateCode) => {
-    const headers = new Headers();
-    headers.append(
-      "X-CSCAPI-KEY",
-      "ZHhIQXNCQ21lTGhub0J4Mk9wRHVNS1FNVWVLNmhkajIyRjdHOWJJSA=="
-    );
-
-    try {
-      const response = await fetch(
-        `https://api.countrystatecity.in/v1/countries/IN/states/${stateCode}/cities`,
-        { headers }
-      );
-
-      const data = await response.json();
-
-      if (Array.isArray(data)) {
-        data.sort((a, b) => a.name.localeCompare(b.name));
-        setCities(data);
-        setFilteredCities(data); // Initialize filtered cities with all cities
-      } else {
-        console.error("Unexpected response format for cities:", data);
-      }
-    } catch (error) {
-      console.log("Error fetching cities:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchStates();
-  }, []);
-
   const flow = {
     start: {
       message: "Hello there! What is your name?",
@@ -175,13 +116,11 @@ const Chatbot = () => {
 
         const exists = await checkEmailExists(email);
         if (exists) {
-          await params.injectMessage(
-            "User already exists! Please sign in using different Email."
-          );
-          return "thank_you"; // End flow or redirect to sign-in
+          await params.injectMessage("User already exists! Please SignIn");
+          return "thank_you"; // End flow
         }
 
-        return "ask_phone"; // Proceed to the next step if email is valid
+        return "ask_phone"; // Proceed to phone number input
       },
     },
 
@@ -194,94 +133,44 @@ const Chatbot = () => {
           /^(?:(?:\+|0{0,2})91(\s*|[-])?|[0]?)?([6789]\d{2}([-]?)\d{3}([-]?)\d{4})$/;
 
         if (!phoneRegex.test(phone)) {
-          await params.injectMessage(
-            "Invalid phone number! Please enter a valid 10-digit phone number."
-          );
+          await params.injectMessage("Invalid phone number!");
           return "ask_phone"; // Reask the phone number question
         }
+
         const exists = await checkPhoneExists(phone);
         if (exists) {
-          await params.injectMessage(
-            "User already exists! Please sign in using different Phone Number."
-          );
+          await params.injectMessage("User already exists! Please SignIn ");
           return "thank_you"; // End flow or redirect to sign-in
         }
-        return "ask_state"; // Proceed to the next step if the phone number is valid
+
+        return "ask_state"; // Proceed to state selection
       },
     },
 
     ask_state: {
       message: "Which state are you in?",
-      options: states.map((state) => state.name), // Display states as options
+      options: ["Uttar Pradesh", "Uttarakhand"],
       function: async (params) => {
-        const selectedState = states.find(
-          (state) => state.name === params.userInput
-        );
-
-        setForm({ ...form, state: selectedState.name });
-
-        return "ask_city_range"; // Proceed to ask for city range after selecting state
+        const selectedState = params.userInput;
+        setForm({ ...form, state: selectedState });
       },
+      path: "ask_city",
     },
-
-    ask_city_range: {
-      message: "Select a range of alphabets for city names:",
-      options: ["A-F", "G-L", "M-R", "S-Z"],
-      function: (params) => {
-        setForm({ ...form });
-      },
-      path: (params) => {
-        return "filter_cities"; // Proceed to filter cities based on selected range
-      },
-    },
-
-    filter_cities: {
-      message: (params) => {
-        let rangeStart;
-        let rangeEnd;
-
-        switch (params.userInput) {
-          case "A-F":
-            rangeStart = "A";
-            rangeEnd = "F";
-            break;
-          case "G-L":
-            rangeStart = "G";
-            rangeEnd = "L";
-            break;
-          case "M-R":
-            rangeStart = "M";
-            rangeEnd = "R";
-            break;
-          case "S-Z":
-            rangeStart = "S";
-            rangeEnd = "Z";
-            break;
-          default:
-            break;
-        }
-
-        // Filter cities based on selected range
-        const filtered = cities.filter(
-          (city) =>
-            city.name.charAt(0).toUpperCase() >= rangeStart &&
-            city.name.charAt(0).toUpperCase() <= rangeEnd
-        );
-
-        setFilteredCities(filtered); // Update filtered cities
-
-        return `Please select a city from ${rangeStart} to ${rangeEnd}:`;
-      },
-      path: "ask_city", // Proceed to ask city after filtering
-    },
-
     ask_city: {
-      message: "Which city are you in?",
-      options: (params) => filteredCities.map((city) => city.name), // Display filtered cities as options
-      function: (params) => {
+      message: "Select your city from the following options:",
+      options: (params) => {
+        const selectedState = form.state; // Get the selected state from form
+        if (selectedState === "Uttar Pradesh") {
+          return ["Ayodhya", "Kanpur", "Varanasi"]; // List of cities in Uttar Pradesh
+        } else if (selectedState === "Uttarakhand") {
+          return ["Dehradun", "Haridwar"]; // List of cities in Uttarakhand
+        }
+        return ["No cities available"]; // Fallback if no state is selected
+      },
+      function: async (params) => {
         setForm({ ...form, city: params.userInput });
       },
-      path: "kyc", // Proceed to KYC step after selecting city
+      path: "kyc",
     },
 
     kyc: {
@@ -291,15 +180,12 @@ const Chatbot = () => {
         console.log(form);
         setCitizenDetails(form);
         await submitFormData(form);
+
         if (params.userInput.toLowerCase() === "yes") {
           navigate("/citizen/kyc"); // Redirect to KYC page if user says Yes
         }
       },
-      path: (params) => {
-        if (params.userInput.toLowerCase() === "no") {
-          return "thank_you"; // Proceed to Thank You message if No
-        }
-      },
+      path: "thank_you", // Proceed to Thank You message if No or after KYC.
     },
 
     thank_you: {
