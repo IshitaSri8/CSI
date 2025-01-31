@@ -10,7 +10,7 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { Divider } from "primereact/divider";
 import { getScoreColor } from "./scoreColor";
 
-const Header = ({
+const DashboardHeader = ({
   waterScore,
   selectedValues,
   monthNames,
@@ -241,4 +241,4 @@ const Header = ({
   );
 };
 
-export default Header;
+export default DashboardHeader;
