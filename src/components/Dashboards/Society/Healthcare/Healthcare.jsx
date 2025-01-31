@@ -21,10 +21,83 @@ import { Column } from "primereact/column";
 import HealthcareRecommendations from "./HealthcareRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
+import { ProgressSpinner } from "primereact/progressspinner";
+import { useUser } from "components/context/UserContext";
+import { useEffect } from "react";
+import { useRef } from "react";
+import axios from "axios";
+import score from "score";
+import { getScoreColor } from "components/DashboardUtility/scoreColor";
+import { Menu } from "primereact/menu";
+import Upload from "components/DashboardUtility/Popups/Upload";
 
 const Healthcare = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
+  const [serverDown, setServerDown] = useState(false);
+  const [data, setData] = useState([]);
+  const [latestData, setLatestData] = useState(null);
+  const [allData, setAllData] = useState([]);
+  const { username } = useUser();
+  const menu = useRef(null); // Create a ref for the Menu component
+  const showUploadDialog = () => {
+    setUploadDialogVisible(true);
+  };
 
+  const hideUploadDialog = () => {
+    setUploadDialogVisible(false);
+  };
+  const [modifyDialogVisible, setModifyDialogVisible] = useState(false);
+
+  const handleModify = () => {
+    setModifyDialogVisible(true); // Set state to true when button is clicked
+  };
+
+  const handleCloseModifyDialog = () => {
+    setModifyDialogVisible(false);
+  };
+  // Define menu items
+  const items = [
+    {
+      label: "Upload",
+      icon: "pi pi-upload",
+      command: () => showUploadDialog(), // Implement your upload logic here
+    },
+    {
+      label: "Modify",
+      icon: "pi pi-pencil",
+      command: () => handleModify(), // Implement your modify logic here
+    },
+  ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          "https://api-csi.arahas.com/data/healthcare"
+        );
+        const responseData = response.data.data;
+        setAllData(responseData);
+        const years = responseData.map((data) => data.Year);
+        const latestYear = Math.max(...years); // Get the maximum year
+
+        // Find the row for the latest year
+        const latestYearData = responseData.find(
+          (data) => data.Year === latestYear
+        );
+        setLatestData(latestYearData);
+        setData(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setServerDown(true);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
   // const hospitalData = [51, 129];
   // const laboratoriesData = [133, 47];
   const Labels = ["Government", "Private"];
@@ -105,35 +178,97 @@ const Healthcare = ({ show }) => {
     return <Healthcare show={false} />;
   };
 
-  return (
+  const bgColor = getScoreColor(score.HEALTHCARE);
+
+  return loading ? (
+    <div className="flex h-screen align-items-center justify-content-center flex-column">
+      <ProgressSpinner />
+      <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
+    </div>
+  ) : (
     <div className="flex gap-3 flex-column p-3">
       {show && (
         <div className="flex align-items-center justify-content-between w-full">
-          <h1 className="m-0 p-0 text-primary1 text-2xl font-medium">
-            Healthcare
-          </h1>
-          <Button
-            label="Generate Report"
-            icon="pi pi-file"
-            onClick={() => setReportVisible(true)}
-            className="bg-primary1 text-white"
-            raised
-          />
-          <Dialog
-            visible={ReportVisible}
-            style={{ width: "100rem" }}
-            onHide={() => {
-              if (!ReportVisible) return;
-              setReportVisible(false);
+          {/* Title & Score */}
+          <div
+            style={{
+              position: "relative",
+              width: "340px",
+              height: "43px",
+              overflow: "hidden", // Hide overflow if needed
             }}
           >
-            <ReportPrint
-              renderDashboard={renderDashboard}
-              renderRecommendations={renderRecommendations}
-              parameter={"healthcare"}
-              heading={"Healthcare"}
+            <div
+              className="flex align-items-center justify-content-between p-2"
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                backgroundColor: bgColor, // Replace with your desired color
+                clipPath:
+                  "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
+              }}
+            >
+              <h1
+                className="m-0 p-0 text-white text-2xl font-semibold"
+                style={{ zIndex: 1500 }}
+              >
+                Healthcare
+              </h1>
+              <p
+                className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
+                style={{ zIndex: 1500 }}
+              >
+                {score.HEALTHCARE}
+              </p>
+            </div>
+          </div>
+          <div className="flex align-items-center justify-content-end gap-2">
+            {username === "admin" && (
+              <>
+                <Button
+                  icon="pi pi-ellipsis-v"
+                  onClick={(e) => menu.current.toggle(e)}
+                  className="bg-primary1"
+                  raised
+                />
+                <Menu model={items} ref={menu} popup />
+                <Upload
+                  visible={uploadDialogVisible}
+                  onHide={hideUploadDialog}
+                  parameter={"healthcare"}
+                />
+                {/* <HealthcareModify
+                      healthData={data}
+                      healthSetData={setData}
+                      isOpen={modifyDialogVisible}
+                      onClose={handleCloseModifyDialog}
+                    /> */}
+              </>
+            )}
+            <Button
+              label="Generate Report"
+              icon="pi pi-file"
+              onClick={() => setReportVisible(true)}
+              className="bg-primary1 text-white"
+              raised
             />
-          </Dialog>
+            <Dialog
+              visible={ReportVisible}
+              style={{ width: "100rem" }}
+              onHide={() => {
+                if (!ReportVisible) return;
+                setReportVisible(false);
+              }}
+            >
+              <ReportPrint
+                renderDashboard={renderDashboard}
+                renderRecommendations={renderRecommendations}
+                parameter={"healthcare"}
+                heading={"Healthcare"}
+              />
+            </Dialog>
+          </div>
         </div>
       )}
       <div className="flex gap-3">
@@ -147,21 +282,21 @@ const Healthcare = ({ show }) => {
               <div className="flex py-6 w-full">
                 <div className="flex flex-column w-full align-items-center justify-content-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
-                    754
+                    {latestData.Doctors}
                   </p>
                   <p className="p-0 m-0 card-text text-sm">Doctors</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex flex-column w-full align-items-center justify-content-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-secondary2 p-0">
-                    1375
+                    {latestData.Nurses}
                   </p>
                   <p className="p-0 m-0 card-text text-sm">Nurses</p>
                 </div>
                 <Divider layout="vertical" />
                 <div className="flex flex-column w-full align-items-center justify-content-center gap-1">
                   <p className="text-2xl font-semibold m-0 text-primary2 p-0">
-                    124
+                    {latestData.Medical_Staff}
                   </p>
                   <p className="p-0 m-0 card-text text-sm">Medical Staff</p>
                 </div>
