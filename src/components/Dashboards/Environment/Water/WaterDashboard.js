@@ -184,15 +184,21 @@ const WaterDashboard = ({ show }) => {
           {}
         );
         // Supply Score Calculation Start-----------------------------------------------------------
-        const calculateScore = (percentage) => {
-          if (percentage === 0) return 0;
+        const calculateScoreWaterConnection = (percentage) => {
+          if (percentage <= 0) return 0;
           if (percentage > 0 && percentage < 25) return 20;
           if (percentage >= 25 && percentage < 50) return 40;
           if (percentage >= 50 && percentage < 75) return 60;
           if (percentage >= 75 && percentage < 95) return 80;
           return 100;
         };
-
+        const calculateScorePerCapita = (percentage) => {
+          if (percentage < 0) return 0;
+          if (percentage >= 0 && percentage < 50) return 0;
+          if (percentage >= 50 && percentage < 75) return 10;
+          if (percentage >= 75 && percentage < 95) return 30;
+          return 50;
+        };
         const waterConnectionPer = (
           (totalValues_Year_Month.No_of_Households_with_Connections /
             totalValues_Year_Month.Total_Households) *
@@ -204,8 +210,9 @@ const WaterDashboard = ({ show }) => {
             totalValues_Year_Month.Population /
             135) *
           100;
-        const waterConnectionScore = calculateScore(waterConnectionPer);
-        const waterSupplyPerCapitaScore = calculateScore(
+        const waterConnectionScore =
+          calculateScoreWaterConnection(waterConnectionPer);
+        const waterSupplyPerCapitaScore = calculateScorePerCapita(
           waterSupplyPerCapitaPer
         );
         const supplyScore =
@@ -226,18 +233,25 @@ const WaterDashboard = ({ show }) => {
         const wqiScore = calculateScoreWQI(avgWQI);
         // WQI Score Calculation End----------------------------------------------------------------------
         // Water Usage Management Start------------------------------------------
+        const calculateScorePerWaterMeters = (percentage) => {
+          if (percentage <= 0) return 0;
+          if (percentage > 0 && percentage < 10) return 10;
+          if (percentage >= 10 && percentage < 30) return 20;
+          if (percentage >= 30 && percentage < 50) return 35;
+          return 50;
+        };
         const perWaterMeters =
           (totalValues_Year_Month.No_of_Households_with_Meters /
             totalValues_Year_Month.No_of_Households_with_Connections) *
           100;
-        const meterScore = calculateScore(perWaterMeters);
+        const meterScore = calculateScorePerWaterMeters(perWaterMeters);
         const calculateScoreBillPayment = (rate) => {
-          if (rate >= 0 && rate <= 15) return 100;
-          if (rate > 15 && rate < 30) return 80;
-          if (rate >= 30 && rate < 50) return 60;
-          if (rate >= 50 && rate < 60) return 45;
-          if (rate >= 60 && rate < 70) return 20;
-          return 0;
+          if (rate <= 0) return 0;
+          if (rate > 0 && rate < 25) return 10;
+          if (rate >= 25 && rate < 50) return 20;
+          if (rate >= 50 && rate < 75) return 30;
+          if (rate >= 75 && rate < 100) return 40;
+          return 50;
         };
         const bill_payment =
           (totalValues_Year_Month.Households_Bill_Payment /
@@ -1122,16 +1136,14 @@ const WaterDashboard = ({ show }) => {
                     <div className="flex w-9rem custom-circular-progress">
                       <CircularProgressbar
                         value={(
-                          100 -
                           (displayValues.Households_Bill_Payment /
                             displayValues.No_of_Households_with_Meters) *
-                            100
+                          100
                         ).toFixed(2)}
                         text={`${(
-                          100 -
                           (displayValues.Households_Bill_Payment /
                             displayValues.No_of_Households_with_Meters) *
-                            100
+                          100
                         ).toFixed(2)}%`}
                         strokeWidth={7}
                         styles={buildStyles({
@@ -1145,11 +1157,11 @@ const WaterDashboard = ({ show }) => {
                       />
                     </div>
                     <p className="text-center p-0 m-0 card-text">
-                      Due Payment Rate
+                      Efficiency in Collection of Water Charges
                       {/* Total Bill Generated being Paid */}
                     </p>
                     <p className="text-center p-0 m-0 card-text text-xs">
-                      Target: 15%
+                      Target: 90%
                     </p>
                   </div>
                 </div>
