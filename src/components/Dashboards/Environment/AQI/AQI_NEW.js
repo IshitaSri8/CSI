@@ -30,11 +30,11 @@ import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
 import colors from "colorConstants";
 
-const AqiDashboard = ({ show }) => {
-  const [startDate, setStartDate] = useState(new Date("2024-12-01"));
-  const [endDate, setEndDate] = useState(new Date("2024-12-31"));
+const Aqi_New = ({ show }) => {
+  const [startDate, setStartDate] = useState(new Date("2025-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2025-01-24"));
   const [selectedLocation, setSelectedLocation] = useState(
-    "Ayodhya- Civil Lines"
+    "Ayodhya - Civil line,Tiny tots"
   );
   const [aqiValue, setAqiValue] = useState(null);
   const [pm25Value, setPM25value] = useState(null);
@@ -66,12 +66,20 @@ const AqiDashboard = ({ show }) => {
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
 
   const [aqiStats, setAqiStats] = useState("");
+  const [csiData, setCsiData] = useState([]);
+  const [communityData, setCommunityData] = useState([]);
+  const [loadingCsi, setLoadingCsi] = useState(true);
+  const [loadingCommunity, setLoadingCommunity] = useState(true);
+  const [aqiIDs, setAQIIDs] = useState();
+  const [aqiData, setAQIData] = useState();
+  const [AQIs, setAQIs] = useState();
+  const [aqiDataList, setAqiDataList] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const locationsResponse = await axios.get(
-          `https://api-csi.arahas.com/aqi/locations`
+          `https://api-csi.arahas.com/data/locations`
         );
         if (locationsResponse.data) {
           const locationOptions = locationsResponse.data.data.map((data) => ({
@@ -93,6 +101,117 @@ const AqiDashboard = ({ show }) => {
     handleSearch();
   }, []);
 
+  const getAQI = async (locationID, from_time, upto_time) => {
+    try {
+      const response = await axios.post(
+        "https://app.aurassure.com/-/api/iot-platform/v1.1.0/clients/10565/applications/16/things/data",
+        {
+          data_type: "aggregate",
+          aggregation_period: 3600,
+          parameters: ["aqi"],
+          parameter_attributes: ["value", "avg", "max", "min"],
+          things: [locationID],
+          from_time: from_time,
+          upto_time: upto_time,
+        },
+        {
+          headers: {
+            "Access-Id": "WYDAeaT0kA7kKVyg",
+            "Access-Key":
+              "H0RkamVKJ2jiGda9tx2i20kykwCGkRhn2P3bXwDgxP8dAKxLp1CM65DYKg0oYCV2",
+          },
+        }
+      );
+      console.log(response);
+      // Extract date_time and AQI value from the response
+      const aqiValues = response?.data?.data[0]?.parameter_values?.aqi;
+
+      console.log(locationID, from_time, upto_time, aqiValues);
+      return 0;
+    } catch (error) {
+      console.error("Error fetching AQI data:", error);
+      return 0;
+    }
+  };
+
+  useEffect(() => {
+    const fetchAQIData = async () => {
+      if (aqiIDs) {
+        const promises = aqiIDs.map((aqiID) =>
+          getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
+        );
+
+        // Wait for all promises to resolve
+        await Promise.all(promises);
+
+        // Optionally log the collected AQI data
+        console.log(aqiDataList);
+      }
+    };
+
+    fetchAQIData();
+  }, [aqiIDs]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetching data from CSI-Arahas API
+        setLoadingCsi(true);
+        const csiResponse = await axios.get(
+          `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${startDate}&endDate=${endDate}`
+        );
+        setCsiData(csiResponse.data.data);
+      } catch (error) {
+        console.error("Error fetching CSI data:", error);
+      } finally {
+        setLoadingCsi(false);
+      }
+
+      try {
+        // Fetching data from CommunityWellBeing API
+        setLoadingCommunity(true);
+        const response = await axios.get(
+          "https://app.aurassure.com/-/api/iot-platform/v1.1.0/clients/10565/applications/16/things/list",
+          {
+            headers: {
+              "Access-Id": "WYDAeaT0kA7kKVyg", // replace with your Access ID
+              "Access-Key":
+                "H0RkamVKJ2jiGda9tx2i20kykwCGkRhn2P3bXwDgxP8dAKxLp1CM65DYKg0oYCV2", // replace with your Access Key
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          setLoading(false);
+          setAQIData(response.data.things);
+          console.log(response.data.things);
+          // Convert startDate and endDate to Unix timestamps
+          const fromTime = Math.floor(startDate.getTime() / 1000); // Start date in seconds
+          const uptoTime = Math.floor(endDate.getTime() / 1000); // End date in seconds
+          let thingsID = [];
+
+          response.data?.things?.map((thing) =>
+            thingsID.push({
+              thingID: thing.id, //location
+              name: thing.name,
+              from_time: fromTime, //startdate_time
+              upto_time: uptoTime, //endDate_time
+            })
+          );
+
+          setAQIIDs(thingsID);
+        }
+        setCommunityData(response.data.things);
+      } catch (error) {
+        console.error("Error fetching CommunityWellBeing data:", error);
+      } finally {
+        setLoadingCommunity(false);
+      }
+    };
+
+    fetchData();
+  }, [selectedLocation, startDate, endDate]);
+
   const handleSearch = async () => {
     try {
       setLoading(true);
@@ -100,49 +219,51 @@ const AqiDashboard = ({ show }) => {
       const end = new Date(endDate).toDateString("en-CA");
 
       const response = await axios.get(
-        `https://api-csi.arahas.com/aqi?location=${selectedLocation}&startDate=${start}&endDate=${end}`
+        `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
-      console.log("🚀 ~ handleSearch ~ response:", response);
+
       const filteredData = response.data.data;
-      // console.log(filteredData);
 
       const formattedDate = [];
       const formattedTime = [];
       const pm25 = [];
       const pm10 = [];
-      const SO2 = [];
+      const so2 = [];
       const AQI = [];
       const NO2 = [];
+      const co2 = [];
 
       filteredData.forEach((item) => {
-        const dateObj = new Date(item.Date_time).toLocaleDateString("en-CA", {
+        const dateObj = new Date(item.date_time).toLocaleDateString("en-CA", {
           timeZone: "Asia/Kolkata",
         });
         formattedDate.push(dateObj);
 
-        const timeObj = new Date(item.Date_time).toLocaleTimeString("en-IN", {
+        const timeObj = new Date(item.date_time).toLocaleTimeString("en-IN", {
           hour12: false,
         });
         formattedTime.push(timeObj);
 
         pm25.push(item.pm25);
         pm10.push(item.pm10);
-        SO2.push(item.SO2);
-        AQI.push(item.CalculatedAqi);
+        so2.push(item.so2);
+        AQI.push(item.AQI);
         NO2.push(item.NO2);
+        co2.push(item.co2);
       });
 
       setEnviroTime(formattedTime);
       setEnviroDate(formattedDate);
       setEnviroPM25(pm25);
       setEnviroPM10(pm10);
-      setEnviroSO2(SO2);
+      setEnviroSO2(so2);
       setEnviroAQI(AQI);
       setEnviroNO2(NO2);
+      setEnviroco2(co2);
 
       if (filteredData.length > 0) {
         const averageAqi = (
-          filteredData.reduce((sum, item) => sum + item.CalculatedAqi, 0) /
+          filteredData.reduce((sum, item) => sum + item.AQI, 0) /
           filteredData.length
         ).toFixed(2);
         const averagepm25 = (
@@ -166,11 +287,11 @@ const AqiDashboard = ({ show }) => {
       const calculateAqiStats = (filteredData) => {
         if (filteredData.length === 0) return {};
 
-        const aqiValues = filteredData.map((item) => item.CalculatedAqi);
+        const aqiValues = filteredData.map((item) => item.AQI);
         const pm25Values = filteredData.map((item) => item.pm25);
         const pm10Values = filteredData.map((item) => item.pm10);
         const dateTimeValues = filteredData.map(
-          (item) => new Date(item.Date_time)
+          (item) => new Date(item.date_time)
         );
 
         const maxAqi = Math.max(...aqiValues);
@@ -201,13 +322,13 @@ const AqiDashboard = ({ show }) => {
       setAqiStats(calculateAqiStats(filteredData));
 
       const filteredDataWithDeviation = filteredData
-        .filter((item) => item.CalculatedAqi > 400)
+        .filter((item) => item.AQI > 400)
         .map((item) => ({
-          date: formatDate(new Date(item.Date_time)),
-          time: formatTimeToHHMMSS(new Date(item.Date_time)),
-          aqi: item.CalculatedAqi,
+          date: formatDate(new Date(item.date_time)),
+          time: formatTimeToHHMMSS(new Date(item.date_time)),
+          aqi: item.AQI,
           deviationPercentage:
-            (((item.CalculatedAqi - 400) / 400) * 100).toFixed(2) + "%",
+            (((item.AQI - 400) / 400) * 100).toFixed(2) + "%",
         }));
 
       const uniqueDataTableData = Array.from(
@@ -312,14 +433,14 @@ const AqiDashboard = ({ show }) => {
   };
 
   const renderDashboard = () => {
-    return <AqiDashboard show={false} />;
+    return <Aqi_New show={false} />;
   };
   const [score, setScore] = useState(null);
   const [scoreColor, setScoreColor] = useState("#000");
 
   const handleScoreCalculated = (calculatedScore) => {
     setScore(calculatedScore);
-    console.log("Calculated Score received in Dashboard:", calculatedScore);
+
     // Update the score color based on the calculated score
     const color = getScoreColor(calculatedScore);
     setScoreColor(color);
@@ -494,7 +615,7 @@ const AqiDashboard = ({ show }) => {
             <Upload
               visible={uploadDialogVisible}
               onHide={hideUploadDialog}
-              parameter={"aqi"}
+              parameter={"aqinew"}
             />
             <Button
               tooltip="Generate Report"
@@ -801,4 +922,4 @@ const AqiDashboard = ({ show }) => {
   );
 };
 
-export default AqiDashboard;
+export default Aqi_New;

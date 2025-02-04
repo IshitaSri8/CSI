@@ -41,6 +41,11 @@ const menuItems = [
         icon: <Wind size={15} className="text-white mr-2" />,
       },
       {
+        label: "Air Quality Index New",
+        path: pathConstants.AQI_New,
+        icon: <Wind size={15} className="text-white mr-2" />,
+      },
+      {
         label: "Water Management",
         path: pathConstants.WATER,
         icon: <Droplet size={15} className="text-white mr-2" />,

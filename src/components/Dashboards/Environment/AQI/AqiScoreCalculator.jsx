@@ -5,8 +5,9 @@ const AqiScoreCalculator = ({ onAQIScoreCalculated }) => {
   useEffect(() => {
     const fetchScore = async () => {
       try {
-        // const response = await axios.get("http://localhost:8010/aqi/avg");
-        const response = await axios.get("https://api-csi.arahas.com/aqi/avg");
+        const response = await axios.get(
+          "https://api-csi.arahas.com/aqinew/avg"
+        );
         const averageAQI = response.data.data.averageAQI;
         console.log("🚀 ~ fetchScore ~ averageAQI:", averageAQI);
         // Calculate score based on average AQI
