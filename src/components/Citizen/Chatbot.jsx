@@ -190,7 +190,7 @@ const Chatbot = () => {
 
     thank_you: {
       message: "Have a great day ahead.",
-      path: "start", // Reset the flow if needed
+      chatDisabled: true,
     },
   };
 

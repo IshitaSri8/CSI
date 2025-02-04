@@ -7,34 +7,34 @@ import ADA_Boundary from "../Maps/ADA_Boundary.json";
 const AqiMap = ({ averageAQI, selectedLocation }) => {
   const markers = [
     {
-      location: "Ayodhya - Civil line,Tiny tots",
+      location: "Ayodhya- Civil Lines",
       lat: 26.774794,
       lon: 82.134539,
-      message: "Civil line, Tiny tots school",
+      message: "Ayodhya- Civil Lines",
     },
     {
-      location: "Ayodhya - Shahadat Ganj",
+      location: "Ayodhya- Shahadat Ganj",
       lat: 26.767421,
       lon: 82.09535,
-      message: "Shahadat Ganj",
+      message: "Ayodhya- Shahadat Ganj",
     },
     {
-      location: "Ayodhya-Bank colony",
+      location: "Ayodhya- Bank Colony",
       lat: 26.764028,
       lon: 82.133778,
-      message: "Bank Colony Near Railway Station",
+      message: "Ayodhya- Bank Colony",
     },
     {
-      location: "Ayodhya-near Airport",
+      location: "Ayodhya- Near Airport",
       lat: 26.735415,
       lon: 82.140133,
-      message: "Near Airport",
+      message: "Ayodhya- Near Airport",
     },
     {
-      location: "Ayodhya-Ranopali",
+      location: "Ayodhya- Ranopali Near Sugriv Kila",
       lat: 26.777265,
       lon: 82.185866,
-      message: "Ranopali Near Kila Ayodhya",
+      message: "Ayodhya- Ranopali Near Sugriv Kila",
     },
   ];
 

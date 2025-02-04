@@ -3,6 +3,8 @@ import {
   ColumnChart,
   StackedBarChart,
   PieChartColumn,
+  Doughnut,
+  DonutChart,
 } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -21,6 +23,8 @@ import { Menu } from "primereact/menu";
 import Upload from "components/DashboardUtility/Popups/Upload";
 import { useRef } from "react";
 import { useUser } from "components/context/UserContext";
+import { Divider } from "primereact/divider";
+import { ProgressBar } from "primereact/progressbar";
 
 const WasteDashboard = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -28,6 +32,7 @@ const WasteDashboard = ({ show }) => {
   const [loading, setLoading] = useState(false);
   const [serverDown, setServerDown] = useState(false);
   const [data, setData] = useState([]);
+  const [totalWasteCollected, setTotalWasteCollected] = useState([]);
   const [tempZone, setTempZone] = useState("All Zones");
   const [tempYear, setTempYear] = useState(2024);
   const [tempMonth, setTempMonth] = useState(1);
@@ -35,6 +40,16 @@ const WasteDashboard = ({ show }) => {
     zone: "All Zones",
     year: 2024,
     month: 1,
+  });
+  const [modifyDialogVisible, setModifyDialogVisible] = useState(false);
+  const [displayValues, setDisplayValues] = useState("");
+  const [sector_wise_Generation, setsector_wise_Generation] = useState({
+    sectorLabels: [],
+    sectorSeries: [],
+  });
+  const [collectionGraphData, setCollectionGraphData] = useState({
+    collectionLabels: [],
+    collectionSeries: [],
   });
   const { username } = useUser();
   const overlayRef = useRef(null); // Reference for OverlayPanel
@@ -46,7 +61,6 @@ const WasteDashboard = ({ show }) => {
   const hideUploadDialog = () => {
     setUploadDialogVisible(false);
   };
-  const [modifyDialogVisible, setModifyDialogVisible] = useState(false);
 
   const handleModify = () => {
     setModifyDialogVisible(true); // Set state to true when button is clicked
@@ -68,26 +82,6 @@ const WasteDashboard = ({ show }) => {
       command: () => handleModify(), // Implement your modify logic here
     },
   ];
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          "https://api-csi.arahas.com/data/waste"
-        );
-        const responseData = response.data.data;
-        setData(response.data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setServerDown(true);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
   const resetFilters = () => {
     setTempZone("All Zones");
     setTempYear(2024);
@@ -107,18 +101,136 @@ const WasteDashboard = ({ show }) => {
     });
     overlayRef.current.hide();
   };
+  const calculateAverage = (filteredData) => {
+    if (filteredData.length === 0)
+      return {
+        Average_Waste_Per_Capita: 0,
+        Average_Percent_of_waste_processed: 0,
+        Avg_capacity_of_plants: 0,
+      };
 
-  const solidWasteData = [190, 181, 180];
-  const solidWasteLabels = ["SW-Generated", "SW-Collected", "SW-Processed"];
+    const totalValues = filteredData.reduce((acc, curr) => {
+      return {
+        Waste_generated_per_capita_per_day:
+          (acc.Waste_generated_per_capita_per_day || 0) +
+          curr.Waste_generated_per_capita_per_day,
+        Percent_of_waste_processed:
+          (acc.Percent_of_waste_processed || 0) +
+          curr.Percent_of_waste_processed,
+        Avg_capacity_of_plants:
+          (acc.Avg_capacity_of_plants || 0) + curr.Avg_capacity_of_plants,
+      };
+    }, {});
 
-  const estimatedSWGData = [358.261, 119.42, 59.7, 59.7]; // Example data
-  const estimatedSWGLabels = [
-    "Residential",
-    "Commercial",
-    // "Street Sweepings",
-    "Institutional",
-    "Others",
-  ];
+    return {
+      Average_Waste_Per_Capita:
+        totalValues.Waste_generated_per_capita_per_day / filteredData.length,
+      Average_Percent_of_waste_processed:
+        totalValues.Percent_of_waste_processed / filteredData.length,
+      Avg_capacity_of_plants:
+        totalValues.Avg_capacity_of_plants / filteredData.length,
+    };
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          "https://api-csi.arahas.com/data/waste"
+        );
+        const responseData = response.data.data;
+        setData(responseData);
+        const filteredData =
+          selectedValues.zone === "All Zones"
+            ? responseData.filter(
+                (item) =>
+                  item.Year === selectedValues.year &&
+                  item.Month === selectedValues.month
+              )
+            : responseData.filter(
+                (item) =>
+                  item.Zone === selectedValues.zone &&
+                  item.Year === selectedValues.year &&
+                  item.Month === selectedValues.month
+              );
+        console.log(filteredData);
+        const totalValues = filteredData.reduce((acc, curr) => {
+          return {
+            ...acc,
+            Total_Waste_Generated:
+              (acc.Total_Waste_Generated || 0) + curr.Total_Waste_Generated,
+            Waste_generated_per_capita_per_day:
+              (acc.Waste_generated_per_capita_per_day || 0) +
+              curr.Waste_generated_per_capita_per_day,
+            Residential: (acc.Residential || 0) + curr.Residential,
+            Commercial: (acc.Commercial || 0) + curr.Commercial,
+            Institutional: (acc.Institutional || 0) + curr.Institutional,
+            Others: (acc.Others || 0) + curr.Others,
+            Door_to_door: (acc.Door_to_door || 0) + curr.Door_to_door,
+            Community_Bins: (acc.Community_Bins || 0) + curr.Community_Bins,
+            Other_waste_collected:
+              (acc.Other_waste_collected || 0) + curr.Other_waste_collected,
+
+            No_of_processing_plants:
+              (acc.No_of_processing_plants || 0) + curr.No_of_processing_plants,
+            No_of_Transport_or_Vehicles:
+              (acc.No_of_Transport_or_Vehicles || 0) +
+              curr.No_of_Transport_or_Vehicles,
+            Avg_Capacity_of_Transport:
+              (acc.Avg_Capacity_of_Transport || 0) +
+              curr.Avg_Capacity_of_Transport,
+            Avg_no_of_staff_members:
+              (acc.Avg_no_of_staff_members || 0) + curr.Avg_no_of_staff_members,
+            Awareness_Campaigns:
+              (acc.Awareness_Campaigns || 0) + curr.Awareness_Campaignss,
+          };
+        }, {});
+        const total_collected_waste =
+          totalValues.Door_to_door +
+          totalValues.Community_Bins +
+          totalValues.Other_waste_collected;
+        setTotalWasteCollected(total_collected_waste);
+        // Prepare labels and series for SectorWise Donut Chart
+        const sectorLabels = [
+          "Residential",
+          "Commercial",
+          "Institutional",
+          "Others",
+        ];
+        const sectorSeries = [
+          totalValues.Residential || 0,
+          totalValues.Commercial || 0,
+          totalValues.Institutional || 0,
+          totalValues.Others || 0,
+        ];
+        setsector_wise_Generation({ sectorLabels, sectorSeries });
+        // Prepare labels and series for Waste Collection stacked Column chart
+        const collectionLabels = ["Door to Door", "Community Bins", "Others"];
+        const collectionSeries = [
+          totalValues.Door_to_door || 0,
+          totalValues.Community_Bins || 0,
+          totalValues.Other_waste_collected || 0,
+        ];
+        setCollectionGraphData({ collectionLabels, collectionSeries });
+        console.log(collectionLabels);
+        console.log(collectionSeries);
+        const averageValues = calculateAverage(filteredData);
+        const displayValues =
+          selectedValues.zone === "All Zones"
+            ? { ...totalValues, ...averageValues }
+            : { ...filteredData[0], ...averageValues };
+
+        setDisplayValues(displayValues);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setServerDown(true);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [selectedValues]);
 
   const wasteCompositionData = [55.3, 33.7, 178.5, 82.75];
   const wasteCompositionLabels = [
@@ -127,13 +239,6 @@ const WasteDashboard = ({ show }) => {
     "Biodegradable",
     "Recyclable",
   ];
-
-  const sanitationLabels = [
-    "Public Toilet",
-    "Individual Toilet",
-    "Open Defecation",
-  ];
-  const sanitationData = [7, 93, 0];
 
   const Zones = ["Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5"];
   const collection = [
@@ -342,109 +447,267 @@ const WasteDashboard = ({ show }) => {
       )}
 
       <div className="flex w-full gap-3">
-        <div className="flex flex-column gap-2 w-full" style={{ flex: "18%" }}>
-          {/* Waste Generated */}
-          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="card-title p-0 m-0">
-              Waste Generated{" "}
-              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
-            </p>
-            <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
-              355 <span className="text-xl">TPD</span>
-            </p>
-            {/* <Chip
-            label="October 2024"
-            style={{
-              width: "fit-content",
-              backgroundColor: "#e9f3f5",
-              color: "#001F23",
-            }}
-          /> */}
-          </div>
-          {/* Waste Collected */}
-          <div className="flex flex-column bg-white border-round w-full p-4 gap-4 ">
-            <p className="card-title p-0 m-0">
-              Waste Collected{" "}
-              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
-            </p>
-            <p className="text-4xl font-semibold m-0 p-0 text-secondary2 text-center">
-              303 <span className="text-xl">TPD</span>
-            </p>
-          </div>
-        </div>
-        {/* Solid Waste Management (in TPD) */}
+        {/* Generation */}
         <div
-          className="flex flex-column w-full bg-white border-round p-4"
-          style={{ flex: "27%" }}
+          className="flex flex-column  w-full border-round bg-white  p-4"
+          style={{ flex: "40%" }}
         >
-          <p className="card-title p-0 m-0">Solid Waste Management (in TPD)</p>
-          <ColumnChart
-            categories={solidWasteLabels}
-            series={solidWasteData}
-            height={150}
-            // title="Solid Waste Management (in TPD)"
-            labelFontSize={6}
-            // colors={colors.slice(0, 3)}
-          />
-        </div>
-        {/* Estimated Solid Waste Generated */}
-        <div
-          className="flex flex-column w-full bg-white border-round p-4"
-          style={{ flex: "37%" }}
-        >
-          {/* <CanvasJSChart
-            options={estimatedSWGChart}
-            containerProps={{ height: 100, width: "100%" }}
-          /> */}
-          <div className="flex justify-content-between">
-            <p className="card-title p-0 m-0">
-              Estimated Solid Waste Generated (in TPD)
-            </p>
-            <p className="text-sm text-tertiary3 font-medium p-0 m-0">
-              by 2031
-            </p>
-          </div>
-          <ColumnChart
-            categories={estimatedSWGLabels}
-            series={estimatedSWGData}
-            height={150}
-            // title="Estimated Solid Waste Generated (in TPD)"
-            labelFontSize={8}
-            // colors={colors.slice(0, 4)}
-          />
-        </div>
-        {/* CT/PT */}
-        <div
-          className="flex flex-column bg-white border-round p-4 w-full justify-content-around"
-          style={{ flex: "18%" }}
-        >
-          <p className="card-title p-0 m-0">CT/PT</p>
-          <div className="flex flex-column gap-3">
-            <div
-              className="flex flex-column w-full p-2 sec-theme gap-1"
-              style={{
-                borderLeft: "3px solid #1F8297", // Adjust thickness and color
-                height: "60px", // Adjust height
-              }}
-            >
-              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                500
+          <p className="card-title p-0 m-0">
+            Waste Generation
+            {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+          </p>
+          {/* Waste Generated VS Predicted Waste Generated*/}
+          <div className="flex flex-row align-items-center justify-content-between w-full p-4 gap-4">
+            <div className="flex flex-column gap-2">
+              <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                {displayValues.Total_Waste_Generated}{" "}
+                <span className="text-lg">TPD</span>
               </p>
-              <p className="p-0 m-0 card-text">Community Toilet</p>
+              <p className="card-text text-sm p-0 m-0">
+                Current Waste Generation
+                {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+              </p>
             </div>
-            <div
-              className="flex flex-column w-full p-2 sec-theme gap-1"
-              style={{
-                borderLeft: "3px solid #98C6CF", // Adjust thickness and color
-                height: "60px", // Adjust height
-              }}
-            >
-              <p className="text-3xl font-semibold m-0 text-secondary2 p-0">
-                700
+            <Divider layout="vertical" />
+            <div className="flex flex-column gap-2">
+              <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                {((0.6 * 1194206) / 1000).toFixed(2)}{" "}
+                <span className="text-lg">TPD</span>
               </p>
-              <p className="p-0 m-0 card-text">Public Toilet</p>
+              <p className="card-text text-sm p-0 m-0">
+                Predicted Waste Generation by 2031
+                {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+              </p>
             </div>
           </div>
+          {/* Waste Per Capita */}
+          <div className="flex flex-row align-items-center justify-content-between w-full p-4 gap-4 ">
+            <div className="flex flex-column gap-2">
+              <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                {displayValues.Average_Waste_Per_Capita}{" "}
+                <span className="text-lg">kg/day</span>
+              </p>
+              <p className="card-text text-sm p-0 m-0">
+                Waste Generation Per Capita
+                {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+              </p>
+            </div>
+            <Divider layout="vertical" />
+            <div className="flex flex-column gap-2">
+              <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                0.6 <span className="text-lg">kg/day</span>
+              </p>
+              <p className="card-text text-sm p-0 m-0">
+                Target Waste Generation Per Capita
+                {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-column gap-2 p-4">
+            <p className="card-title text-base p-0 m-0 text-center">
+              Sector Wise Generation
+              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+            </p>
+            {sector_wise_Generation.sectorLabels.length > 0 &&
+            sector_wise_Generation.sectorSeries.length > 0 ? (
+              <DonutChart
+                title=""
+                labels={sector_wise_Generation.sectorLabels}
+                series={sector_wise_Generation.sectorSeries}
+                height={80}
+                fontColor="#000"
+                colorArray={["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"]}
+                vertical="center"
+                horizontal="right"
+              />
+            ) : (
+              <p>No data available for the chart.</p>
+            )}
+          </div>
+        </div>
+        {/* Collection & Processing & Transport */}
+        <div className="flex flex-column gap-3 w-full" style={{ flex: "30%" }}>
+          {/* Collection */}
+          <div
+            className="flex flex-column  w-full border-round bg-white  p-4"
+            style={{ flex: "50%" }}
+          >
+            <p className="card-title p-0 m-0">
+              Waste Collection
+              {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+            </p>
+            <div className="flex flex-row justify-content-around align-items-center">
+              {/*Collected and Uncollected Waste*/}
+              <div
+                className="flex flex-column align-items-start justify-content-between w-full p-4 gap-4"
+                style={{ flex: "40%" }}
+              >
+                <div className="flex flex-column gap-2">
+                  <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                    {totalWasteCollected} <span className="text-lg">TPD</span>
+                  </p>
+                  <p className="card-text text-sm p-0 m-0">
+                    Collected Waste
+                    {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                  </p>
+                </div>
+
+                <div className="flex flex-column gap-2">
+                  <ProgressBar
+                    value={(
+                      ((displayValues.Total_Waste_Generated -
+                        totalWasteCollected) /
+                        displayValues.Total_Waste_Generated) *
+                      100
+                    ).toFixed(2)}
+                    color="#FFAD0D"
+                    style={{ height: "0.5rem" }} // Adjust the height
+                    className="w-full" // Full width of its container
+                    displayValueTemplate={() => null} // Hide the displayed value
+                  />
+                  <p className="card-text p-0 m-0">
+                    Uncollected Waste:{" "}
+                    <span className="text-primary1 font-semibold">
+                      {" "}
+                      {(
+                        ((displayValues.Total_Waste_Generated -
+                          totalWasteCollected) /
+                          displayValues.Total_Waste_Generated) *
+                        100
+                      ).toFixed(2)}
+                      %
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <Divider layout="vertical" />
+              {/* Collection Methods */}
+              <div
+                className="flex flex-column align-items-center gap-4 w-full p-4"
+                style={{ flex: "60%" }}
+              >
+                <p className="card-title text-base p-0 m-0 text-center">
+                  Collection by Method
+                  {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                </p>
+                {collectionGraphData.collectionLabels.length > 0 &&
+                collectionGraphData.collectionSeries.length > 0 ? (
+                  <DonutChart
+                    title=""
+                    labels={collectionGraphData.collectionLabels}
+                    series={collectionGraphData.collectionSeries}
+                    height={100}
+                    fontColor="#000"
+                    colorArray={["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"]}
+                    vertical="center"
+                    horizontal="right"
+                  />
+                ) : (
+                  <p>No data available for the chart.</p>
+                )}
+              </div>
+            </div>
+          </div>
+          {/* Processing */}
+          <div
+            className="flex flex-row w-full gap-3 bg-cyan-500"
+            style={{ flex: "60%" }}
+          >
+            <div
+              className="flex flex-column w-full border-round bg-white p-4"
+              style={{ flex: "60%" }}
+            >
+              <p className="card-title p-0 m-0">
+                Waste Processing
+                {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+              </p>
+              {/*Collected and Uncollected Waste*/}
+              <div className="flex flex-column align-items-center justify-content-between w-full p-4 gap-4">
+                <div className="flex flex-column w-full gap-2">
+                  <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                    {displayValues.Average_Percent_of_waste_processed}
+                    <span className="text-lg">%</span>
+                  </p>
+                  <p className="card-text text-sm p-0 m-0">
+                    Processed Waste
+                    {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                  </p>
+                </div>
+                <div className="flex flex-row ">
+                  <div className="flex flex-column gap-2">
+                    <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                      {displayValues.No_of_processing_plants}
+                    </p>
+                    <p className="card-text text-sm p-0 m-0">
+                      Processing Plants
+                      {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                    </p>
+                  </div>
+                  <Divider layout="vertical" />
+                  <div className="flex flex-column gap-2">
+                    <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                      {displayValues.Avg_capacity_of_plants}
+                    </p>
+                    <p className="card-text text-sm p-0 m-0">
+                      Average Capacity of Plants
+                      {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Transport & Staffs */}
+            <div
+              className="flex flex-column  w-full border-round bg-white p-4"
+              style={{ flex: "40%" }}
+            >
+              <p className="card-title p-0 m-0">
+                Waste Processing
+                {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+              </p>
+              {/*Collected and Uncollected Waste*/}
+              <div className="flex flex-row align-items-center justify-content-between w-full p-4 gap-4">
+                <div className="flex flex-column gap-2">
+                  <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                    {displayValues.Average_Percent_of_waste_processed}
+                    <span className="text-lg">%</span>
+                  </p>
+                  <p className="card-text text-sm p-0 m-0">
+                    Transport Vehicals
+                    {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                  </p>
+                </div>
+                <Divider layout="vertical" />
+                <div className="flex flex-column gap-2">
+                  <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                    {displayValues.No_of_processing_plants}
+                  </p>
+                  <p className="card-text text-sm p-0 m-0">
+                    Processing Plants
+                    {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                  </p>
+                </div>
+                <Divider layout="vertical" />
+                <div className="flex flex-column gap-2">
+                  <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                    {displayValues.Avg_capacity_of_plants}
+                  </p>
+                  <p className="card-text text-sm p-0 m-0">
+                    Average Capacity of Plants
+                    {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Insights */}
+        <div
+          className="flex flex-column bg-white border-round p-3 gap-3 h-26rem overflow-y-auto w-full"
+          style={{ flex: "30%" }}
+        >
+          <p className="card-title p-0 m-0">Insights</p>
         </div>
       </div>
 

@@ -643,7 +643,6 @@ const Healthcare = ({ show }) => {
               height={165}
             />
           )}
-
         </div>
       </div>
 
