@@ -100,129 +100,135 @@ const Healthcare = ({ show }) => {
         const response = await axios.get(
           "https://api-csi.arahas.com/data/healthcare"
         );
-        const responseData = response.data.data;
-        setAllData(responseData);
-        const years = responseData.map((data) => data.Year);
-        setYears(years);
-        const latestYear = Math.max(...years); // Get the maximum year
+        if (response) {
+          const responseData = response.data.data;
+          console.log("🚀 ~ fetchData ~ responseData:", responseData);
 
-        // Find the row for the latest year
-        const latestYearData = responseData.find(
-          (data) => data.Year === latestYear
-        );
-        if (latestYearData) {
+          setAllData(responseData);
+          const years = responseData.map((data) => data.Year);
+          setYears(years);
+          const latestYear = Math.max(...years); // Get the maximum year
+
+          // Find the row for the latest year
+          const latestYearData = responseData.find(
+            (data) => data.Year === latestYear
+          );
+          if (latestYearData) {
+            setLatestData(latestYearData);
+            // Prepare healthcareInstitutes data for chart
+            const healthcareInstitutesData = [
+              latestYearData.Government_Institutes,
+              latestYearData.Private_Institutes,
+            ];
+            setHealthcareInstitutes(healthcareInstitutesData);
+
+            const vaccinationFacilitiesData = [
+              latestYearData.Vaccination_Newborn_Baby_Immunization,
+              latestYearData.Flu_Vaccinations,
+              latestYearData.Cervical_Cancer_Vaccinations,
+            ];
+            setVaccinationFacilities(vaccinationFacilitiesData);
+          }
           setLatestData(latestYearData);
-          // Prepare healthcareInstitutes data for chart
-          const healthcareInstitutesData = [
-            latestYearData.Government_Institutes,
-            latestYearData.Private_Institutes,
-          ];
-          setHealthcareInstitutes(healthcareInstitutesData);
+          // Map the Mortality_Rate_Infants into an array
+          const infantMortalityRates = responseData.map(
+            (data) => data.Mortality_Rate_Infants
+          );
+          setInfantMortalityRates(infantMortalityRates);
 
-          const vaccinationFacilitiesData = [
-            latestData.Vaccination_Newborn_Baby_Immunization,
-            latestData.Flu_Vaccinations,
-            latestData.Cervical_Cancer_Vaccinations,
-          ];
-          setVaccinationFacilities(vaccinationFacilitiesData);
+          // Map the Mortality_Rate_Pregnant_Ladies into an array
+          const pregnantMortalityRates = responseData.map(
+            (data) => data.Mortality_Rate_Pregnant_Ladies
+          );
+          setPregnantMortalityRates(pregnantMortalityRates);
+
+          // Map chronic disease data into separate arrays
+          const malariaCounts = responseData.map((data) => data.Malaria);
+          const japaneseEncephalitisCounts = responseData.map(
+            (data) => data.Japanese_encephalitis
+          );
+          const acuteEncephalitisSyndromeCounts = responseData.map(
+            (data) => data.Acute_Encephalitis_Syndrome
+          );
+          const dengueCounts = responseData.map((data) => data.Dengue);
+          const chikungunyaCounts = responseData.map(
+            (data) => data.Chikungunia
+          );
+          const tbCounts = responseData.map((data) => data.TB);
+          const heartDiseaseCounts = responseData.map(
+            (data) => data.Heart_Disease
+          );
+          const diabetesCounts = responseData.map((data) => data.Diabetes);
+          const respiratoryIllnessCounts = responseData.map(
+            (data) => data.Respiratory_Illness
+          );
+
+          // Set state for each chronic disease group
+          setMalariaData(malariaCounts);
+          setJapaneseEncephalitisData(japaneseEncephalitisCounts);
+          setAcuteEncephalitisSyndromeData(acuteEncephalitisSyndromeCounts);
+          setDengueData(dengueCounts);
+          setChikungunyaData(chikungunyaCounts);
+          setTbData(tbCounts);
+          setHeartDiseaseData(heartDiseaseCounts);
+          setDiabetesData(diabetesCounts);
+          setRespiratoryIllnessData(respiratoryIllnessCounts);
+
+          // Calculate total patients for each year
+          const totalRegPat = responseData.map(
+            (data) =>
+              data.Patients_0_18 +
+              data.Patients_19_35 +
+              data.Patients_36_60 +
+              data.Patients_61_above
+          );
+
+          setTotalPatientsByYear(totalRegPat);
+          // Prepare age group data
+          const patientByAge = {};
+
+          responseData.forEach((data) => {
+            const year = data.Year;
+            patientByAge[year] = [
+              { ageGroup: "0-18", count: data.Patients_0_18 },
+              { ageGroup: "19-35", count: data.Patients_19_35 },
+              { ageGroup: "36-60", count: data.Patients_36_60 },
+              { ageGroup: "61+", count: data.Patients_61_above },
+            ];
+          });
+
+          // Set the state with the prepared age group data
+          setPatientByAgeGroup(patientByAge);
+
+          // Calculate total suicides for each year
+          const totalSuicides = responseData.map(
+            (data) =>
+              data.Suicide_Cases_10_24 +
+              data.Suicide_Cases_25_44 +
+              data.Suicide_Cases_44_64 +
+              data.Suicide_Cases_64_above
+          );
+
+          setTotalSuicidesByYear(totalSuicides);
+          // Prepare age group data
+          const suicideByAge = {};
+
+          responseData.forEach((data) => {
+            const year = data.Year;
+            suicideByAge[year] = [
+              { ageGroup: "0-18", count: data.Suicide_Cases_10_24 },
+              { ageGroup: "19-35", count: data.Suicide_Cases_25_44 },
+              { ageGroup: "36-60", count: data.Suicide_Cases_44_64 },
+              { ageGroup: "61+", count: data.Suicide_Cases_64_above },
+            ];
+          });
+
+          // Set the state with the prepared age group data
+          setSuicideByAgeGroup(suicideByAge);
+
+          setData(response.data.data);
+          setLoading(false);
         }
-        setLatestData(latestYearData);
-        // Map the Mortality_Rate_Infants into an array
-        const infantMortalityRates = responseData.map(
-          (data) => data.Mortality_Rate_Infants
-        );
-        setInfantMortalityRates(infantMortalityRates);
-
-        // Map the Mortality_Rate_Pregnant_Ladies into an array
-        const pregnantMortalityRates = responseData.map(
-          (data) => data.Mortality_Rate_Pregnant_Ladies
-        );
-        setPregnantMortalityRates(pregnantMortalityRates);
-
-        // Map chronic disease data into separate arrays
-        const malariaCounts = responseData.map((data) => data.Malaria);
-        const japaneseEncephalitisCounts = responseData.map(
-          (data) => data.Japanese_encephalitis
-        );
-        const acuteEncephalitisSyndromeCounts = responseData.map(
-          (data) => data.Acute_Encephalitis_Syndrome
-        );
-        const dengueCounts = responseData.map((data) => data.Dengue);
-        const chikungunyaCounts = responseData.map((data) => data.Chikungunia);
-        const tbCounts = responseData.map((data) => data.TB);
-        const heartDiseaseCounts = responseData.map(
-          (data) => data.Heart_Disease
-        );
-        const diabetesCounts = responseData.map((data) => data.Diabetes);
-        const respiratoryIllnessCounts = responseData.map(
-          (data) => data.Respiratory_Illness
-        );
-
-        // Set state for each chronic disease group
-        setMalariaData(malariaCounts);
-        setJapaneseEncephalitisData(japaneseEncephalitisCounts);
-        setAcuteEncephalitisSyndromeData(acuteEncephalitisSyndromeCounts);
-        setDengueData(dengueCounts);
-        setChikungunyaData(chikungunyaCounts);
-        setTbData(tbCounts);
-        setHeartDiseaseData(heartDiseaseCounts);
-        setDiabetesData(diabetesCounts);
-        setRespiratoryIllnessData(respiratoryIllnessCounts);
-
-        // Calculate total patients for each year
-        const totalRegPat = responseData.map(
-          (data) =>
-            data.Patients_0_18 +
-            data.Patients_19_35 +
-            data.Patients_36_60 +
-            data.Patients_61_above
-        );
-
-        setTotalPatientsByYear(totalRegPat);
-        // Prepare age group data
-        const patientByAge = {};
-
-        responseData.forEach((data) => {
-          const year = data.Year;
-          patientByAge[year] = [
-            { ageGroup: "0-18", count: data.Patients_0_18 },
-            { ageGroup: "19-35", count: data.Patients_19_35 },
-            { ageGroup: "36-60", count: data.Patients_36_60 },
-            { ageGroup: "61+", count: data.Patients_61_above },
-          ];
-        });
-
-        // Set the state with the prepared age group data
-        setPatientByAgeGroup(patientByAge);
-
-        // Calculate total suicides for each year
-        const totalSuicides = responseData.map(
-          (data) =>
-            data.Suicide_Cases_10_24 +
-            data.Suicide_Cases_25_44 +
-            data.Suicide_Cases_44_64 +
-            data.Suicide_Cases_64_above
-        );
-
-        setTotalSuicidesByYear(totalSuicides);
-        // Prepare age group data
-        const suicideByAge = {};
-
-        responseData.forEach((data) => {
-          const year = data.Year;
-          suicideByAge[year] = [
-            { ageGroup: "0-18", count: data.Suicide_Cases_10_24 },
-            { ageGroup: "19-35", count: data.Suicide_Cases_25_44 },
-            { ageGroup: "36-60", count: data.Suicide_Cases_44_64 },
-            { ageGroup: "61+", count: data.Suicide_Cases_64_above },
-          ];
-        });
-
-        // Set the state with the prepared age group data
-        setSuicideByAgeGroup(suicideByAge);
-
-        setData(response.data.data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
         setServerDown(true);
