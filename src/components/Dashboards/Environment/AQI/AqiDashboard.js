@@ -141,10 +141,10 @@ const AqiDashboard = ({ show }) => {
       setEnviroNO2(NO2);
 
       if (filteredData.length > 0) {
-        const averageAqi = (
+        const averageAqi = Math.round(
           filteredData.reduce((sum, item) => sum + item.CalculatedAqi, 0) /
-          filteredData.length
-        ).toFixed(2);
+            filteredData.length
+        );
         const averagepm25 = (
           filteredData.reduce((sum, item) => sum + item.pm25, 0) /
           filteredData.length

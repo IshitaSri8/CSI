@@ -116,7 +116,7 @@ const Chatbot = () => {
 
         const exists = await checkEmailExists(email);
         if (exists) {
-          await params.injectMessage("User already exists! Please SignIn");
+          await params.injectMessage("User already exists! Please Sign in.");
           return "thank_you"; // End flow
         }
 
@@ -139,7 +139,7 @@ const Chatbot = () => {
 
         const exists = await checkPhoneExists(phone);
         if (exists) {
-          await params.injectMessage("User already exists! Please SignIn ");
+          await params.injectMessage("User already exists! Please Sign in. ");
           return "thank_you"; // End flow or redirect to sign-in
         }
 

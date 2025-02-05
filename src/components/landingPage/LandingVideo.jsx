@@ -27,9 +27,6 @@ const LandingVideo = () => {
     >
       <source
         src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1738667093/csi_landing_vv8xkt.mp4"
-        // src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1737617468/CSI-videos/mb2okycoedpl8lca40zs.mp4"
-        // src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1738141276/CSI-videos/db7qssegrcy6yxuybsas.mp4"
-        // src="https://res.cloudinary.com/dqbjijwmy/video/upload/v1738143177/CSI-videos/bwd4mh2hbstjv8hkgud8.mp4"
         type="video/mp4"
       />
     </video>
