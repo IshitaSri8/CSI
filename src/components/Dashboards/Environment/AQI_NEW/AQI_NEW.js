@@ -50,6 +50,7 @@ const Aqi_New = ({ show }) => {
 
   const [dataTableData, setDataTableData] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [dateRange, setDateRange] = useState([]);
   const [envirotime, setEnviroTime] = useState([]);
   const [envirodate, setEnviroDate] = useState([]);
   const [enviropm25, setEnviroPM25] = useState([]);
@@ -93,7 +94,27 @@ const Aqi_New = ({ show }) => {
         console.error("Error fetching data:", error);
       }
     };
+
+    const fetchDateRange = async () => {
+      try {
+        const dateRangeResponse = await axios.get(
+          `https://api-csi.arahas.com/aqinew/date?location=${selectedLocation}`
+        );
+        if (dateRangeResponse.data) {
+          const dateRange = dateRangeResponse.data.data.map((data) => ({
+            label: data,
+            value: data,
+          }));
+          setDateRange(dateRange);
+        } else {
+          setDateRange([]);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     fetchData();
+    fetchDateRange();
   }, []);
 
   useEffect(() => {
