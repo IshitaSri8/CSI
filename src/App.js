@@ -33,7 +33,7 @@ import pathConstants from "pathConstants";
 import CityReportCard from "pages/CityReportCard";
 import DataNotFound from "pages/error pages/DataNotFound";
 import ScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
-import Aqi_New from "components/Dashboards/Environment/AQI/AQI_NEW";
+import Aqi_New from "components/Dashboards/Environment/AQI_NEW/AQI_NEW";
 
 function App() {
   const routes = [

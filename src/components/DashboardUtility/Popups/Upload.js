@@ -43,7 +43,7 @@ const Upload = ({ visible, onHide, parameter }) => {
     if (parameter === "water") {
       url = `${process.env.PUBLIC_URL}/Water_Template.xlsx`;
     }
-    if (parameter === "aqi") {
+    if (parameter === "aqinew") {
       url = `${process.env.PUBLIC_URL}/AQI_Template.xlsx`;
     }
     if (parameter === "transport") {

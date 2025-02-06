@@ -5,12 +5,12 @@ import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "../../../DashboardUtility/Dash.css";
-import PollutantChart from "./PollutantChart";
+import PollutantChart from "./PollutantChartNEW";
 import { Button } from "primereact/button";
 import TableSkeleton from "../../../DashboardUtility/skeletons/TableSkeleton";
-import AQIChart from "./AQIChart";
-import AqiMap from "./AqiMap";
-import AQIRecommendations from "./AQIRecommendations";
+import AQIChart from "./AQIChartNEW";
+import AqiMap from "../AQI/AqiMap";
+import AQIRecommendations from "../AQI/AQIRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import Upload from "components/DashboardUtility/Popups/Upload";
@@ -31,10 +31,10 @@ import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
 import colors from "colorConstants";
 
 const Aqi_New = ({ show }) => {
-  const [startDate, setStartDate] = useState(new Date("2025-01-01"));
-  const [endDate, setEndDate] = useState(new Date("2025-01-24"));
+  const [startDate, setStartDate] = useState(new Date("2024-12-01"));
+  const [endDate, setEndDate] = useState(new Date("2024-12-31"));
   const [selectedLocation, setSelectedLocation] = useState(
-    "Ayodhya - Civil line,Tiny tots"
+    "Ayodhya- Civil Lines"
   );
   const [aqiValue, setAqiValue] = useState(null);
   const [pm25Value, setPM25value] = useState(null);
@@ -50,7 +50,6 @@ const Aqi_New = ({ show }) => {
 
   const [dataTableData, setDataTableData] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [envirolocation, setEnviroLocation] = useState([]);
   const [envirotime, setEnviroTime] = useState([]);
   const [envirodate, setEnviroDate] = useState([]);
   const [enviropm25, setEnviroPM25] = useState([]);
@@ -59,6 +58,13 @@ const Aqi_New = ({ show }) => {
   const [enviroAQI, setEnviroAQI] = useState([]);
   const [enviroNO2, setEnviroNO2] = useState([]);
   const [enviroco2, setEnviroco2] = useState([]);
+  const [timeArrayData, setTimeArrayData] = useState([]);
+  const [dateArrayData, setDateArrayData] = useState([]);
+  const [pm25ArrayData, setPM25ArrayData] = useState([]);
+  const [pm10ArrayData, setPM10ArrayData] = useState([]);
+  const [SO2ArrayData, setSO2ArrayData] = useState([]);
+  const [AQIArrayData, setAQIArrayData] = useState([]);
+  const [NO2ArrayData, setNO2ArrayData] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [serverDown, setServerDown] = useState(false);
@@ -66,20 +72,13 @@ const Aqi_New = ({ show }) => {
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
 
   const [aqiStats, setAqiStats] = useState("");
-  const [csiData, setCsiData] = useState([]);
-  const [communityData, setCommunityData] = useState([]);
-  const [loadingCsi, setLoadingCsi] = useState(true);
-  const [loadingCommunity, setLoadingCommunity] = useState(true);
   const [aqiIDs, setAQIIDs] = useState();
-  const [aqiData, setAQIData] = useState();
-  const [AQIs, setAQIs] = useState();
-  const [aqiDataList, setAqiDataList] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const locationsResponse = await axios.get(
-          `https://api-csi.arahas.com/data/locations`
+          `https://api-csi.arahas.com/aqi/locations`
         );
         if (locationsResponse.data) {
           const locationOptions = locationsResponse.data.data.map((data) => ({
@@ -100,6 +99,21 @@ const Aqi_New = ({ show }) => {
   useEffect(() => {
     handleSearch();
   }, []);
+  function convertDateString(date) {
+    // Format the date to 'YYYY-MM-DD'
+    const formattedDate = new Date(date).toLocaleDateString("en-CA"); // Get YYYY-MM-DD
+
+    // Format the time to 'HH:mm:ss'
+    const formattedTime = new Date(date).toLocaleTimeString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour12: false,
+    }); // Get HH:mm:ss
+
+    return {
+      date: formattedDate,
+      time: formattedTime,
+    };
+  }
 
   const getAQI = async (locationID, from_time, upto_time) => {
     try {
@@ -108,7 +122,8 @@ const Aqi_New = ({ show }) => {
         {
           data_type: "aggregate",
           aggregation_period: 3600,
-          parameters: ["aqi"],
+          parameters: ["pm10", "pm2.5", "no2", "so2", "aqi"],
+
           parameter_attributes: ["value", "avg", "max", "min"],
           things: [locationID],
           from_time: from_time,
@@ -122,54 +137,166 @@ const Aqi_New = ({ show }) => {
           },
         }
       );
-      console.log(response);
-      // Extract date_time and AQI value from the response
-      const aqiValues = response?.data?.data[0]?.parameter_values?.aqi;
+      const api_response = response.data.data;
+      console.log("🚀 ~ getAQI ~ api_response:", api_response);
 
-      console.log(locationID, from_time, upto_time, aqiValues);
+      const dateArray = [];
+      const timeArray = [];
+      const so2Array = [];
+      const no2Array = [];
+      const pm25Array = [];
+      const pm10Array = [];
+      const aqiArray = [];
+      const aqiArrayAPI = [];
+      const Range = (val, pollutant) => {
+        if (pollutant === "PM10") {
+          if (val >= 0 && val <= 50) {
+            return [0, 0, 50, 0, 50];
+          } else if (val >= 51 && val <= 100) {
+            return [51, 51, 100, 51, 100];
+          } else if (val >= 101 && val <= 250) {
+            return [101, 101, 250, 101, 200];
+          } else if (val >= 251 && val <= 350) {
+            return [251, 251, 350, 201, 300];
+          } else if (val >= 351 && val <= 430) {
+            return [351, 351, 430, 301, 400];
+          } else if (val > 430) {
+            return [351, 430, 430, 401, 500];
+          }
+        } else if (pollutant === "PM2.5") {
+          if (val >= 0 && val <= 30) {
+            return [0, 0, 30, 0, 50];
+          } else if (val >= 31 && val <= 60) {
+            return [31, 31, 60, 51, 100];
+          } else if (val >= 61 && val <= 90) {
+            return [61, 61, 90, 101, 200];
+          } else if (val >= 91 && val <= 120) {
+            return [91, 91, 120, 201, 300];
+          } else if (val >= 121 && val <= 250) {
+            return [121, 121, 250, 301, 400];
+          } else if (val > 250) {
+            return [121, 250, 250, 401, 500];
+          }
+        } else if (pollutant === "NO2") {
+          if (val >= 0 && val <= 40) {
+            return [0, 0, 40, 0, 50];
+          } else if (val >= 41 && val <= 80) {
+            return [41, 41, 80, 51, 100];
+          } else if (val >= 81 && val <= 180) {
+            return [81, 81, 180, 101, 200];
+          } else if (val >= 181 && val <= 280) {
+            return [181, 181, 280, 201, 300];
+          } else if (val >= 281 && val <= 400) {
+            return [281, 281, 400, 301, 400];
+          } else if (val > 400) {
+            return [281, 400, 400, 401, 500];
+          }
+        } else if (pollutant === "SO2") {
+          if (val >= 0 && val <= 40) {
+            return [0, 0, 40, 0, 50];
+          } else if (val >= 41 && val <= 80) {
+            return [41, 41, 80, 51, 100];
+          } else if (val >= 81 && val <= 380) {
+            return [81, 81, 380, 101, 200];
+          } else if (val >= 381 && val <= 800) {
+            return [381, 381, 800, 201, 300];
+          } else if (val >= 801 && val <= 1600) {
+            return [801, 801, 1600, 301, 400];
+          } else if (val > 1600) {
+            return [801, 1600, 1600, 401, 500];
+          }
+        }
+      };
+
+      const individualAqi = (val, pollutant) => {
+        const [ClowD, ClowN, Chigh, Ilow, Ihigh] = Range(val, pollutant);
+        const indiAqi = Math.round(
+          ((Ihigh - Ilow) / (Chigh - ClowD)) * (val - ClowN) + Ilow
+        );
+        return indiAqi;
+      };
+
+      const calculateAqi = (pm25, pm10, NO2, SO2) => {
+        // Round off the values before calling individualAqi
+        const roundedPm10 = Math.round(pm10);
+        const roundedPm25 = Math.round(pm25);
+        const roundedNO2 = Math.round(NO2);
+        const roundedSO2 = Math.round(SO2);
+        const pm10_aqi = individualAqi(roundedPm10, "PM10");
+        const pm25_aqi = individualAqi(roundedPm25, "PM2.5");
+        const NO2_aqi = individualAqi(roundedNO2, "NO2");
+        const SO2_aqi = individualAqi(roundedSO2, "SO2");
+
+        return Math.max(pm10_aqi, pm25_aqi, NO2_aqi, SO2_aqi);
+      };
+      api_response.forEach((item) => {
+        const newDate = new Date(item.time * 1000);
+        const { date, time } = convertDateString(newDate);
+
+        const aqi = calculateAqi(
+          item.parameter_values["pm2.5"].avg,
+          item.parameter_values.pm10.avg,
+          item.parameter_values.no2.avg,
+          item.parameter_values.so2.avg
+        );
+        aqiArrayAPI.push(item.parameter_values.aqi.value);
+
+        aqiArray.push(aqi);
+        dateArray.push(date);
+        timeArray.push(time);
+        so2Array.push(item.parameter_values.so2.avg);
+        no2Array.push(item.parameter_values.no2.avg);
+        pm25Array.push(item.parameter_values["pm2.5"].avg);
+        pm10Array.push(item.parameter_values.pm10.avg);
+      });
+      setAQIArrayData(aqiArrayAPI);
+      setDateArrayData(dateArray);
+      setTimeArrayData(timeArray);
+      setSO2ArrayData(so2Array);
+      setNO2ArrayData(no2Array);
+      setPM10ArrayData(pm10Array);
+      setPM25ArrayData(pm25Array);
       return 0;
     } catch (error) {
       console.error("Error fetching AQI data:", error);
       return 0;
     }
   };
-
   useEffect(() => {
     const fetchAQIData = async () => {
       if (aqiIDs) {
         const promises = aqiIDs.map((aqiID) =>
           getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
         );
-
         // Wait for all promises to resolve
         await Promise.all(promises);
-
-        // Optionally log the collected AQI data
-        console.log(aqiDataList);
+        setLoading(false);
       }
     };
 
     fetchAQIData();
   }, [aqiIDs]);
 
+  const getThingID = (selectedLocation) => {
+    if (selectedLocation === "Ayodhya- Civil Lines") {
+      return ["Ayodhya - Civil line,Tiny tots school", 12218];
+    }
+    if (selectedLocation === "Ayodhya- Shahadat Ganj") {
+      return ["Ayodhya - Shahadat Ganj", 12220];
+    }
+    if (selectedLocation === "Ayodhya- Bank Colony") {
+      return ["Ayodhya-Bank colony near Railway station", 12414];
+    }
+    if (selectedLocation === "Ayodhya- Near Airport") {
+      return ["Ayodhya-near Airport", 12415];
+    }
+    if (selectedLocation === "Ayodhya-Ranopali near Sugriv Kila ayodhya") {
+      return ["Ayodhya- Ranopali Near Sugriv Kila", 12416];
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetching data from CSI-Arahas API
-        setLoadingCsi(true);
-        const csiResponse = await axios.get(
-          `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${startDate}&endDate=${endDate}`
-        );
-        setCsiData(csiResponse.data.data);
-      } catch (error) {
-        console.error("Error fetching CSI data:", error);
-      } finally {
-        setLoadingCsi(false);
-      }
-
-      try {
-        // Fetching data from CommunityWellBeing API
-        setLoadingCommunity(true);
         const response = await axios.get(
           "https://app.aurassure.com/-/api/iot-platform/v1.1.0/clients/10565/applications/16/things/list",
           {
@@ -183,29 +310,30 @@ const Aqi_New = ({ show }) => {
 
         if (response.status === 200) {
           setLoading(false);
-          setAQIData(response.data.things);
-          console.log(response.data.things);
           // Convert startDate and endDate to Unix timestamps
-          const fromTime = Math.floor(startDate.getTime() / 1000); // Start date in seconds
-          const uptoTime = Math.floor(endDate.getTime() / 1000); // End date in seconds
+          const start = new Date(startDate);
+          const end = new Date(endDate);
+          start.setHours(0, 0, 0, 0);
+          end.setHours(23, 59, 59, 59);
+
+          const fromTime = Math.floor(start.getTime() / 1000);
+          const uptoTime = Math.floor(end.getTime() / 1000); // End date in seconds
+          const [location_name, location_id] = getThingID(selectedLocation);
           let thingsID = [];
 
           response.data?.things?.map((thing) =>
             thingsID.push({
-              thingID: thing.id, //location
-              name: thing.name,
+              thingID: location_id, //locationID
+              name: location_name,
               from_time: fromTime, //startdate_time
               upto_time: uptoTime, //endDate_time
             })
           );
-
           setAQIIDs(thingsID);
         }
-        setCommunityData(response.data.things);
       } catch (error) {
         console.error("Error fetching CommunityWellBeing data:", error);
       } finally {
-        setLoadingCommunity(false);
       }
     };
 
@@ -219,12 +347,13 @@ const Aqi_New = ({ show }) => {
       const end = new Date(endDate).toDateString("en-CA");
 
       const response = await axios.get(
-        `https://api-csi.arahas.com/data/environment?location=${selectedLocation}&startDate=${start}&endDate=${end}`
+        `https://api-csi.arahas.com/aqi?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
 
       const filteredData = response.data.data;
 
       const formattedDate = [];
+
       const formattedTime = [];
       const pm25 = [];
       const pm10 = [];
@@ -234,20 +363,17 @@ const Aqi_New = ({ show }) => {
       const co2 = [];
 
       filteredData.forEach((item) => {
-        const dateObj = new Date(item.date_time).toLocaleDateString("en-CA", {
-          timeZone: "Asia/Kolkata",
-        });
+        const dateObj = new Date(item.Date_time).toLocaleDateString("en-CA");
         formattedDate.push(dateObj);
-
-        const timeObj = new Date(item.date_time).toLocaleTimeString("en-IN", {
+        const timeObj = new Date(item.Date_time).toLocaleTimeString("en-IN", {
           hour12: false,
         });
         formattedTime.push(timeObj);
 
         pm25.push(item.pm25);
         pm10.push(item.pm10);
-        so2.push(item.so2);
-        AQI.push(item.AQI);
+        so2.push(item.SO2);
+        AQI.push(item.CalculatedAqi);
         NO2.push(item.NO2);
         co2.push(item.co2);
       });
@@ -263,7 +389,7 @@ const Aqi_New = ({ show }) => {
 
       if (filteredData.length > 0) {
         const averageAqi = (
-          filteredData.reduce((sum, item) => sum + item.AQI, 0) /
+          filteredData.reduce((sum, item) => sum + item.CalculatedAqi, 0) /
           filteredData.length
         ).toFixed(2);
         const averagepm25 = (
@@ -287,11 +413,11 @@ const Aqi_New = ({ show }) => {
       const calculateAqiStats = (filteredData) => {
         if (filteredData.length === 0) return {};
 
-        const aqiValues = filteredData.map((item) => item.AQI);
+        const aqiValues = filteredData.map((item) => item.CalculatedAqi);
         const pm25Values = filteredData.map((item) => item.pm25);
         const pm10Values = filteredData.map((item) => item.pm10);
         const dateTimeValues = filteredData.map(
-          (item) => new Date(item.date_time)
+          (item) => new Date(item.Date_time)
         );
 
         const maxAqi = Math.max(...aqiValues);
@@ -319,16 +445,17 @@ const Aqi_New = ({ show }) => {
           },
         };
       };
+
       setAqiStats(calculateAqiStats(filteredData));
 
       const filteredDataWithDeviation = filteredData
-        .filter((item) => item.AQI > 400)
+        .filter((item) => item.CalculatedAqi > 400)
         .map((item) => ({
-          date: formatDate(new Date(item.date_time)),
-          time: formatTimeToHHMMSS(new Date(item.date_time)),
-          aqi: item.AQI,
+          date: formatDate(new Date(item.Date_time)),
+          time: formatTimeToHHMMSS(new Date(item.Date_time)),
+          aqi: item.CalculatedAqi,
           deviationPercentage:
-            (((item.AQI - 400) / 400) * 100).toFixed(2) + "%",
+            (((item.CalculatedAqi - 400) / 400) * 100).toFixed(2) + "%",
         }));
 
       const uniqueDataTableData = Array.from(
@@ -337,10 +464,8 @@ const Aqi_New = ({ show }) => {
       setDataTableData(uniqueDataTableData);
     } catch (error) {
       console.log("🚀 ~ handleSearch ~ error:", error);
-      setLoading(false);
+
       setServerDown(true);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -503,7 +628,7 @@ const Aqi_New = ({ show }) => {
                     className="m-0 p-0 text-white text-2xl font-semibold"
                     style={{ zIndex: 1500 }}
                   >
-                    Air Quality Index
+                    LIVE Air Quality Index
                   </h1>
                   <p
                     className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
@@ -656,20 +781,16 @@ const Aqi_New = ({ show }) => {
       <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
           <div
-            className="flex border-round-xl p-2 justify-content-between"
+            className="flex border-round-xl p-2 justify-content-between bg-white"
             style={{
-              backgroundColor: aqiStatus.bg_color,
+              // backgroundColor: aqiStatus.bg_color,
               border: `1px solid ${aqiStatus.color}`,
               flex: "20%",
             }}
           >
             <div className="flex flex-column align-items-center justify-content-between">
-              <h1 className="card-title text-white m-0 p-0">AQI</h1>
-              <h1
-                className="text-3xl font-medium p-0 m-0 text-white"
-                // style={{ color: aqiStatus.color }}
-              >
-                {/* <p className="p-0 m-0 text-sm">{selectedLocation}</p> */}
+              <h1 className="card-title text-primary1 m-0 p-0">Average AQI</h1>
+              <h1 className="text-3xl font-medium p-0 m-0 text-primary1">
                 {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
               </h1>
               <Tag
@@ -681,12 +802,6 @@ const Aqi_New = ({ show }) => {
                 </span>
               </Tag>
             </div>
-            {/* <h1
-                  className={`border-round-2xl py-2 px-3 text-xs text-white text-left`}
-                  style={{ backgroundColor: aqiStatus.color }}
-                >
-                  {aqiStatus.status || "No Status"}
-                </h1> */}
 
             {aqiImage && (
               <img src={aqiImage} alt={aqiStatusText} className="h-14rem" />
@@ -838,9 +953,7 @@ const Aqi_New = ({ show }) => {
       </div>
 
       <div className="flex gap-3 w-full bg-white border-round p-4">
-        {" "}
         <AQIChart
-          envirolocation={envirolocation}
           enviroDate={envirodate}
           envirotime={envirotime}
           enviroPM25={enviropm25}
@@ -851,62 +964,81 @@ const Aqi_New = ({ show }) => {
           enviroAQI={enviroAQI}
           selectedLocation={selectedLocation}
           startDate={startDate}
+          aqiAPI={AQIArrayData}
+          dateAPI={dateArrayData}
+          timeAPI={timeArrayData}
         />
       </div>
 
       <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
+            dateAPI={dateArrayData}
+            timeAPI={timeArrayData}
             pollutantData={enviropm25}
+            pollutantDataAPI={pm25ArrayData}
             selectedLocation={selectedLocation}
             pollutantName="PM2.5"
             baseChartColor="#F7A47A"
             drilldownChartColor="#FFC107"
+            drilldownChartColorAPI="#F7A47A"
+            baseChartColorAPI="#FFC107"
             height={200}
             safeLimit={60}
           />
         </div>
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
+            dateAPI={dateArrayData}
+            timeAPI={timeArrayData}
             pollutantData={enviropm10}
+            pollutantDataAPI={pm10ArrayData}
             selectedLocation={selectedLocation}
             pollutantName="PM10"
             baseChartColor="#47B881"
             drilldownChartColor="#80CBC4"
+            drilldownChartColorAPI="#47B881"
+            baseChartColorAPI="#80CBC4"
             height={200}
             safeLimit={100}
           />
         </div>
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
+            dateAPI={dateArrayData}
+            timeAPI={timeArrayData}
             pollutantData={enviroNO2}
+            pollutantDataAPI={NO2ArrayData}
             selectedLocation={selectedLocation}
             pollutantName="NO2"
             baseChartColor="#FFDD82"
+            baseChartColorAPI="#E57373"
             drilldownChartColor="#E57373"
+            drilldownChartColorAPI="#FFDD82"
             height={200}
             safeLimit={80}
           />
         </div>
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
+            dateAPI={dateArrayData}
+            timeAPI={timeArrayData}
             pollutantData={enviroso2}
+            pollutantDataAPI={SO2ArrayData}
             selectedLocation={selectedLocation}
             pollutantName="SO2"
             baseChartColor="#C68FE6"
             drilldownChartColor="#FFF176"
+            drilldownChartColorAPI="#C68FE6"
+            baseChartColorAPI="#FFF176"
             height={200}
             safeLimit={80}
           />
