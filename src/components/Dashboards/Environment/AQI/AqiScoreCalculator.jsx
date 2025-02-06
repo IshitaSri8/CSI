@@ -9,7 +9,7 @@ const AqiScoreCalculator = ({ onAQIScoreCalculated }) => {
           "https://api-csi.arahas.com/aqinew/avg"
         );
         const averageAQI = response.data.data.averageAQI;
-        console.log("🚀 ~ fetchScore ~ averageAQI:", averageAQI);
+        // console.log("🚀 ~ fetchScore ~ averageAQI:", averageAQI);
         // Calculate score based on average AQI
         let calculatedScore;
         if (averageAQI >= 0 && averageAQI <= 100) {
