@@ -24,16 +24,20 @@ const Upload = ({ visible, onHide, parameter }) => {
         // `http://localhost:8010/upload/${parameter}`,
         formData
       );
+      console.log("🚀 ~ handleUpload ~ response:", response);
 
       if (response.status === 200) {
         setLoading(false);
         alert("File uploaded successfully!");
         onHide(); // Close dialog after successful upload
       } else {
+        setLoading(false);
         alert(`Upload failed with status: ${response.status}`);
       }
     } catch (error) {
       console.error("Upload error:", error);
+      alert("Error Uploading file");
+      onHide();
     }
   };
 
