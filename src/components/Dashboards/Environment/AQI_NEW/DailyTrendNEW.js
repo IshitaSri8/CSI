@@ -61,9 +61,9 @@ const DailyTrendNEW = ({
           type: "area", // Use line chart for dataPointsAPI
           indexLabelFontColor: "blue", // Change color for distinction
           dataPoints: dataPointsAPI,
-          color: "#FF5733",
+          color: "#FF5733", // Example color for API data
           showInLegend: true,
-          legendText: "Uploaded Data", // Example color for API data
+          legendText: "Uploaded Data",
         },
       ],
     };
@@ -84,11 +84,12 @@ const DailyTrendNEW = ({
         const timeB =
           parseInt(b.label.split(":")[0]) * 60 +
           parseInt(b.label.split(":")[1]);
+
+        // console.log(dailyData, timeA, timeB);
         return timeA - timeB;
       });
-    console.log("🚀 ~ useEffect ~ dailyDataAPI:", dailyDataAPI);
-    const selectedDateDataAPI = dailyDataAPI
 
+    const selectedDateDataAPI = dailyDataAPI
       .map(({ time, aqi }) => ({
         label: time,
         y: parseFloat(aqi),
@@ -102,6 +103,7 @@ const DailyTrendNEW = ({
           parseInt(b.label.split(":")[1]);
         return timeA - timeB;
       });
+
     setDrilldownChartData([
       {
         color: "#4C9BAC",
@@ -204,7 +206,7 @@ const DailyTrendNEW = ({
 
         // Display date and average AQI
         content += `<div style="font-size: 1vw; font-weight:500; text-align:center; padding:0.5vw">`;
-        content += `Average AQI for ${selectedDate} is ${dailyAverage[selectedDate]}`;
+        content += `Average AQI for ${selectedDate} is ${dailyAverage[selectedDate]} (Uploaded Data) and ${dailyAverageAPI[selectedDate]} (Live Data)`;
         content += "</div>";
 
         // Create two tables and wrap them in divs with inline CSS
@@ -304,8 +306,10 @@ const DailyTrendNEW = ({
         content +=
           "AQI Level at " +
           e.entries[0].dataPoint.label +
-          " is " +
-          e.entries[0].dataPoint.y;
+          " is  (Uploaded Data) " +
+          e.entries[0].dataPoint.y +
+          " and (Live Data) " +
+          e.entries[1].dataPoint.y;
         return content;
       },
     },

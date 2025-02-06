@@ -631,7 +631,7 @@ export const GroupedColumnChart = ({
   fontSize,
 }) => {
   // const colors = ["#98C6CF", "#1F8297", "#166c7d", "#e9f3f5"];
-  console.log(dataSeries);
+  // console.log(dataSeries);
   const options = {
     animationEnabled: true,
     interactivityEnabled: false,
@@ -672,7 +672,7 @@ export const GroupedColumnChart = ({
     },
     dataPointWidth: dataPointWidth,
     data: dataSeries.map((data, index) => {
-      console.log(data);
+      // console.log(data);
       return {
         type: "column",
         name: data.name,

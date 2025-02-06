@@ -141,10 +141,10 @@ const AqiDashboard = ({ show }) => {
       setEnviroNO2(NO2);
 
       if (filteredData.length > 0) {
-        const averageAqi = (
+        const averageAqi = Math.round(
           filteredData.reduce((sum, item) => sum + item.CalculatedAqi, 0) /
-          filteredData.length
-        ).toFixed(2);
+            filteredData.length
+        );
         const averagepm25 = (
           filteredData.reduce((sum, item) => sum + item.pm25, 0) /
           filteredData.length
@@ -494,7 +494,7 @@ const AqiDashboard = ({ show }) => {
             <Upload
               visible={uploadDialogVisible}
               onHide={hideUploadDialog}
-              parameter={"aqi"}
+              parameter={"aqinew"}
             />
             <Button
               tooltip="Generate Report"
@@ -531,8 +531,7 @@ const AqiDashboard = ({ show }) => {
           </div>
         </div>
       )}
-
-      <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
+  <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
           <div
             className="flex border-round-xl p-2 justify-content-between"
@@ -791,7 +790,6 @@ const AqiDashboard = ({ show }) => {
           />
         </div>
       </div>
-
       <RecommendationPanel
         show={true}
         renderRecommendations={renderRecommendations}

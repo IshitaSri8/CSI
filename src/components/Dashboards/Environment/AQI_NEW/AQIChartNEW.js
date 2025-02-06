@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Select, MenuItem } from "@mui/material";
 import "../AQI/AqiReport.css";
 import DailyTrend from "./DailyTrendNEW";
 
@@ -13,7 +12,9 @@ const AQIChartNEW = ({
   enviroNO2,
   enviroco2,
   startDate,
-  aqiData,
+  aqiAPI,
+  dateAPI,
+  timeAPI,
 }) => {
   const [selectedMonth, setSelectedMonth] = useState("01");
   const [selectedDate, setSelectedDate] = useState("2024-12-01");
@@ -54,14 +55,14 @@ const AQIChartNEW = ({
     return dailyAverages;
   };
   const calculateDailyAveragesAPI = () => {
-    if (!enviroDate || !aqiData) {
+    if (!dateAPI || !aqiAPI) {
       return null;
     }
 
     const dailyAveragesData = {};
 
-    enviroDate.forEach((date, index) => {
-      const aqi = aqiData[index];
+    dateAPI.forEach((date, index) => {
+      const aqi = aqiAPI[index];
       if (!dailyAveragesData[date]) {
         dailyAveragesData[date] = [];
       }
@@ -102,19 +103,18 @@ const AQIChartNEW = ({
     return uniqueData.sort((a, b) => a.time.localeCompare(b.time));
   };
   const getDailyDataAPI = () => {
-    if (!enviroDate || !aqiData || !envirotime) {
+    if (!dateAPI || !aqiAPI || !timeAPI) {
       return [];
     }
 
-    const selectedDateData = enviroDate.reduce((acc, date, index) => {
-      const time = envirotime[index];
-      const aqi = aqiData[index];
+    const selectedDateData = dateAPI.reduce((acc, date, index) => {
+      const time = timeAPI[index];
+      const aqi = aqiAPI[index];
       if (date === selectedDate) {
         acc.push({ time, aqi });
       }
       return acc;
     }, []);
-    console.log("🚀 ~ selectedDateData ~ selectedDateData:", selectedDateData);
 
     // Remove duplicates and sort by time
     const uniqueData = Array.from(
@@ -125,7 +125,6 @@ const AQIChartNEW = ({
 
     return uniqueData.sort((a, b) => a.time.localeCompare(b.time));
   };
-  console.log("🚀 ~ getDailyDataAPI ~ getDailyDataAPI:", getDailyDataAPI());
   const getFifteenDaysData = () => {
     if (!enviroDate || !enviroAQI || !envirotime) {
       return [];
@@ -240,7 +239,7 @@ const AQIChartNEW = ({
     enviroSO2,
     enviroNO2,
     enviroco2,
-    aqiData,
+    aqiAPI,
   ]);
 
   const fetchYearlyData = () => {

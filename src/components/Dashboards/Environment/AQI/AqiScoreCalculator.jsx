@@ -9,7 +9,7 @@ const AqiScoreCalculator = ({ onAQIScoreCalculated }) => {
           "https://api-csi.arahas.com/aqinew/avg"
         );
         const averageAQI = response.data.data.averageAQI;
-
+        // console.log("🚀 ~ fetchScore ~ averageAQI:", averageAQI);
         // Calculate score based on average AQI
         let calculatedScore;
         if (averageAQI >= 0 && averageAQI <= 100) {
@@ -30,13 +30,13 @@ const AqiScoreCalculator = ({ onAQIScoreCalculated }) => {
 
         // Call the callback function with the calculated score
         onAQIScoreCalculated(calculatedScore);
+        console.log("🚀 ~ fetchScore ~ calculatedScore:", calculatedScore);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchScore();
   }, [onAQIScoreCalculated]);
-
   // Return null or an empty fragment since we don't want to render anything
   return null;
 };

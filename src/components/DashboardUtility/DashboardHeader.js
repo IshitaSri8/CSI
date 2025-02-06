@@ -11,7 +11,7 @@ import { Divider } from "primereact/divider";
 import { getScoreColor } from "./scoreColor";
 
 const DashboardHeader = ({
-  waterScore,
+  score,
   selectedValues,
   monthNames,
   zones,
@@ -30,7 +30,7 @@ const DashboardHeader = ({
   renderDashboard,
   renderRecommendations,
 }) => {
-  const bgColor = getScoreColor(waterScore);
+  const bgColor = getScoreColor(score);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
   const showUploadDialog = () => {
@@ -96,7 +96,7 @@ const DashboardHeader = ({
               className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
               style={{ zIndex: 1500 }}
             >
-              {waterScore}
+              {score}
             </p>
           </div>
         </div>

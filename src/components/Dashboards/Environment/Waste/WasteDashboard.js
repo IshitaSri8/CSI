@@ -1,9 +1,7 @@
 import React from "react";
 import {
-  ColumnChart,
   StackedBarChart,
   PieChartColumn,
-  Doughnut,
   DonutChart,
 } from "Layout/GraphVisuals";
 import { Button } from "primereact/button";
@@ -449,15 +447,15 @@ const WasteDashboard = ({ show }) => {
       <div className="flex w-full gap-3">
         {/* Generation */}
         <div
-          className="flex flex-column  w-full border-round bg-white  p-4"
-          style={{ flex: "40%" }}
+          className="flex flex-column border-round bg-white p-4"
+          style={{ flex: "30%" }}
         >
           <p className="card-title p-0 m-0">
             Waste Generation
             {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
           </p>
           {/* Waste Generated VS Predicted Waste Generated*/}
-          <div className="flex flex-row align-items-center justify-content-between w-full p-4 gap-4">
+          <div className="flex align-items-center justify-content-between w-full p-4 gap-4">
             <div className="flex flex-column gap-2">
               <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
                 {displayValues.Total_Waste_Generated}{" "}
@@ -481,7 +479,7 @@ const WasteDashboard = ({ show }) => {
             </div>
           </div>
           {/* Waste Per Capita */}
-          <div className="flex flex-row align-items-center justify-content-between w-full p-4 gap-4 ">
+          <div className="flex align-items-center justify-content-between w-full p-4 gap-4 ">
             <div className="flex flex-column gap-2">
               <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
                 {displayValues.Average_Waste_Per_Capita}{" "}
@@ -504,7 +502,7 @@ const WasteDashboard = ({ show }) => {
             </div>
           </div>
           <div className="flex flex-column gap-2 p-4">
-            <p className="card-title text-base p-0 m-0 text-center">
+            <p className="card-title p-0 m-0 text-center">
               Sector Wise Generation
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
@@ -526,24 +524,18 @@ const WasteDashboard = ({ show }) => {
           </div>
         </div>
         {/* Collection & Processing & Transport */}
-        <div className="flex flex-column gap-3 w-full" style={{ flex: "30%" }}>
+        <div className="flex flex-column gap-3" style={{ flex: "40%" }}>
           {/* Collection */}
-          <div
-            className="flex flex-column  w-full border-round bg-white  p-4"
-            style={{ flex: "50%" }}
-          >
+          <div className="flex flex-column border-round bg-white p-4">
             <p className="card-title p-0 m-0">
               Waste Collection
               {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
             </p>
-            <div className="flex flex-row justify-content-around align-items-center">
+            <div className="flex justify-content-around align-items-center">
               {/*Collected and Uncollected Waste*/}
-              <div
-                className="flex flex-column align-items-start justify-content-between w-full p-4 gap-4"
-                style={{ flex: "40%" }}
-              >
+              <div className="flex flex-column align-items-start justify-content-between p-4 gap-4">
                 <div className="flex flex-column gap-2">
-                  <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                  <p className="text-2xl font-semibold m-0 p-0 text-secondary2">
                     {totalWasteCollected} <span className="text-lg">TPD</span>
                   </p>
                   <p className="card-text text-sm p-0 m-0">
@@ -582,11 +574,8 @@ const WasteDashboard = ({ show }) => {
               </div>
               <Divider layout="vertical" />
               {/* Collection Methods */}
-              <div
-                className="flex flex-column align-items-center gap-4 w-full p-4"
-                style={{ flex: "60%" }}
-              >
-                <p className="card-title text-base p-0 m-0 text-center">
+              <div className="flex flex-column align-items-center gap-4 p-4">
+                <p className="card-title p-0 m-0 text-center">
                   Collection by Method
                   {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
                 </p>
@@ -608,21 +597,15 @@ const WasteDashboard = ({ show }) => {
               </div>
             </div>
           </div>
-          {/* Processing */}
-          <div
-            className="flex flex-row w-full gap-3 bg-cyan-500"
-            style={{ flex: "60%" }}
-          >
-            <div
-              className="flex flex-column w-full border-round bg-white p-4"
-              style={{ flex: "60%" }}
-            >
+          <div className="flex gap-3">
+            {/* Processing */}
+            <div className="flex flex-column border-round bg-white p-4">
               <p className="card-title p-0 m-0">
                 Waste Processing
                 {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
               </p>
               {/*Collected and Uncollected Waste*/}
-              <div className="flex flex-column align-items-center justify-content-between w-full p-4 gap-4">
+              <div className="flex align-items-center justify-content-between w-full p-4 gap-4">
                 <div className="flex flex-column w-full gap-2">
                   <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
                     {displayValues.Average_Percent_of_waste_processed}
@@ -633,40 +616,36 @@ const WasteDashboard = ({ show }) => {
                     {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
                   </p>
                 </div>
-                <div className="flex flex-row ">
-                  <div className="flex flex-column gap-2">
-                    <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
-                      {displayValues.No_of_processing_plants}
-                    </p>
-                    <p className="card-text text-sm p-0 m-0">
-                      Processing Plants
-                      {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
-                    </p>
-                  </div>
-                  <Divider layout="vertical" />
-                  <div className="flex flex-column gap-2">
-                    <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
-                      {displayValues.Avg_capacity_of_plants}
-                    </p>
-                    <p className="card-text text-sm p-0 m-0">
-                      Average Capacity of Plants
-                      {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
-                    </p>
-                  </div>
+                <Divider layout="vertical" />
+                <div className="flex flex-column gap-2">
+                  <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                    {displayValues.No_of_processing_plants}
+                  </p>
+                  <p className="card-text text-sm p-0 m-0">
+                    Processing Plants
+                    {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                  </p>
+                </div>
+                <Divider layout="vertical" />
+                <div className="flex flex-column gap-2">
+                  <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
+                    {displayValues.Avg_capacity_of_plants}
+                  </p>
+                  <p className="card-text text-sm p-0 m-0">
+                    Average Capacity of Plants
+                    {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
+                  </p>
                 </div>
               </div>
             </div>
             {/* Transport & Staffs */}
-            <div
-              className="flex flex-column  w-full border-round bg-white p-4"
-              style={{ flex: "40%" }}
-            >
+            <div className="flex flex-column border-round bg-white p-4">
               <p className="card-title p-0 m-0">
-                Waste Processing
+                Transport & Staffs
                 {/* <span className="text-sm text-tertiary3 font-medium">/Day</span> */}
               </p>
               {/*Collected and Uncollected Waste*/}
-              <div className="flex flex-row align-items-center justify-content-between w-full p-4 gap-4">
+              <div className="flex align-items-center justify-content-between w-full p-4 gap-4">
                 <div className="flex flex-column gap-2">
                   <p className="text-2xl font-semibold m-0 p-0 text-secondary2 ">
                     {displayValues.Average_Percent_of_waste_processed}
@@ -704,7 +683,7 @@ const WasteDashboard = ({ show }) => {
 
         {/* Insights */}
         <div
-          className="flex flex-column bg-white border-round p-3 gap-3 h-26rem overflow-y-auto w-full"
+          className="flex flex-column bg-white border-round p-3 gap-3 h-26rem overflow-y-auto"
           style={{ flex: "30%" }}
         >
           <p className="card-title p-0 m-0">Insights</p>
