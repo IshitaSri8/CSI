@@ -99,7 +99,7 @@ const Aqi_New = ({ show }) => {
     const fetchDateRange = async () => {
       try {
         const dateRangeResponse = await axios.get(
-          `http://localhost:8010/aqinew/date?location=${selectedLocation}`
+          `https://api-csi.arahas.com/aqinew/date?location=${selectedLocation}`
         );
         console.log(
           "🚀 ~ fetchDateRange ~ dateRangeResponse:",
