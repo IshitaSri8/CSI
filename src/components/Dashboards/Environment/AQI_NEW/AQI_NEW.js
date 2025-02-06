@@ -31,8 +31,10 @@ import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
 import colors from "colorConstants";
 
 const Aqi_New = ({ show }) => {
-  const [startDate, setStartDate] = useState(new Date("2024-12-01"));
-  const [endDate, setEndDate] = useState(new Date("2024-12-31"));
+  const [startDate, setStartDate] = useState(
+    new Date("2024-11-30T18:30:00.000Z")
+  );
+  const [endDate, setEndDate] = useState(new Date("2024-12-31T17:30:00.000Z"));
   const [selectedLocation, setSelectedLocation] = useState(
     "Ayodhya- Civil Lines"
   );
@@ -50,6 +52,7 @@ const Aqi_New = ({ show }) => {
 
   const [dataTableData, setDataTableData] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [dateRange, setDateRange] = useState([]);
   const [envirotime, setEnviroTime] = useState([]);
   const [envirodate, setEnviroDate] = useState([]);
   const [enviropm25, setEnviroPM25] = useState([]);
@@ -70,7 +73,6 @@ const Aqi_New = ({ show }) => {
   const [serverDown, setServerDown] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
-
   const [aqiStats, setAqiStats] = useState("");
   const [aqiIDs, setAQIIDs] = useState();
 
@@ -93,9 +95,29 @@ const Aqi_New = ({ show }) => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData();
-  }, []);
 
+    const fetchDateRange = async () => {
+      try {
+        const dateRangeResponse = await axios.get(
+          `https://api-csi.arahas.com/aqinew/date?location=${selectedLocation}`
+        );
+        console.log(
+          "🚀 ~ fetchDateRange ~ dateRangeResponse:",
+          dateRangeResponse
+        );
+        if (dateRangeResponse.data) {
+          const firstDate = dateRangeResponse.data.firstDate;
+          const lastDate = dateRangeResponse.data.lastDate;
+          setStartDate(new Date(firstDate));
+          setEndDate(new Date(lastDate));
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+    fetchDateRange();
+  }, []);
   useEffect(() => {
     handleSearch();
   }, []);
@@ -232,7 +254,6 @@ const Aqi_New = ({ show }) => {
       api_response.forEach((item) => {
         const newDate = new Date(item.time * 1000);
         const { date, time } = convertDateString(newDate);
-
         const aqi = calculateAqi(
           item.parameter_values["pm2.5"].avg,
           item.parameter_values.pm10.avg,

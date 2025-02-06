@@ -22,7 +22,6 @@ const PollutantChart = ({
   drilldownChartColor = "lightgreen", // Default drilldown chart color
   safeLimit, // Safe limit value
 }) => {
-  console.log("🚀 ~ pollutantDataAPI:", pollutantDataAPI);
   const [selectedDate, setSelectedDate] = useState(null);
   const [isDrilldown, setIsDrilldown] = useState(false);
   const [chartOptions, setChartOptions] = useState({});
@@ -71,7 +70,6 @@ const PollutantChart = ({
     }
     return dailyAveragesAPI;
   };
-  console.log(calculateDailyAveragesAPI());
 
   const getDailyData = () => {
     if (!envirodate || !pollutantData || !selectedDate) return null;
