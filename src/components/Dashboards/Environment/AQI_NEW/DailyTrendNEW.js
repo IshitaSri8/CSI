@@ -50,6 +50,8 @@ const DailyTrendNEW = ({
           indexLabelFontColor: "red",
           dataPoints: dataPoints,
           color: "#1F8297",
+          showInLegend: true,
+          legendText: "Live Data",
         },
         {
           click: baseChartDrilldownHandler,
@@ -59,7 +61,9 @@ const DailyTrendNEW = ({
           type: "area", // Use line chart for dataPointsAPI
           indexLabelFontColor: "blue", // Change color for distinction
           dataPoints: dataPointsAPI,
-          color: "#FF5733", // Example color for API data
+          color: "#FF5733",
+          showInLegend: true,
+          legendText: "Uploaded Data", // Example color for API data
         },
       ],
     };
@@ -104,12 +108,16 @@ const DailyTrendNEW = ({
         name: selectedDate,
         type: "area",
         dataPoints: selectedDateData,
+        showInLegend: true,
+        legendText: "Uploaded Data",
       },
       {
         color: "red",
         name: selectedDate,
         type: "area",
         dataPoints: selectedDateDataAPI,
+        showInLegend: true,
+        legendText: "Live Data",
       },
     ]);
   }, [selectedDate, dailyData, dailyDataAPI]);

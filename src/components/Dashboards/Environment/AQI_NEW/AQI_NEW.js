@@ -293,7 +293,7 @@ const Aqi_New = ({ show }) => {
           hour12: false,
         });
         const { date, time } = convertDateString(newDate);
-
+        console.log(item.time + " " + date + " " + time);
         const aqi = calculateAqi(
           item.parameter_values["pm2.5"].avg,
           item.parameter_values.pm10.avg,
@@ -310,6 +310,20 @@ const Aqi_New = ({ show }) => {
         pm25Array.push(item.parameter_values["pm2.5"]);
         pm10Array.push(item.parameter_values.pm10);
       });
+      const filteredDataWithDeviation = api_response
+        .filter((item) => item.parameter_values.aqi > 400)
+        .map((item) => ({
+          date: formatDate(new Date(item.Date_time)),
+          time: formatTimeToHHMMSS(new Date(item.Date_time)),
+          aqi: item.parameter_values.aqi,
+          deviationPercentage:
+            (((item.parameter_values.aqi - 400) / 400) * 100).toFixed(2) + "%",
+        }));
+
+      const uniqueDataTableData = Array.from(
+        new Set(filteredDataWithDeviation.map(JSON.stringify))
+      ).map(JSON.parse);
+      setDataTableData(uniqueDataTableData);
       console.log(aqiArrayAPI);
       setAQIArrayData(aqiArrayAPI);
 
