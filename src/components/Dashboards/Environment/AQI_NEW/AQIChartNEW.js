@@ -19,7 +19,7 @@ const AQIChartNEW = ({
   const [selectedMonth, setSelectedMonth] = useState("01");
   const [selectedDate, setSelectedDate] = useState("2024-12-01");
   const [chartData, setChartData] = useState([]);
-  const [weeklyAverages, setWeeklyAverages] = useState(null);
+  // const [weeklyAverages, setWeeklyAverages] = useState(null);
   const [dailyAverage, setDailyAverage] = useState(null);
   const [dailyData, setDailyData] = useState(null);
   const [dailyAverageAPI, setDailyAverageAPI] = useState(null);
@@ -167,40 +167,40 @@ const AQIChartNEW = ({
     return uniqueData;
   };
 
-  const calculateWeeklyAverages = () => {
-    if (!enviroDate || !enviroAQI) {
-      return null;
-    }
+  // const calculateWeeklyAverages = () => {
+  //   if (!enviroDate || !enviroAQI) {
+  //     return null;
+  //   }
 
-    const selectedYear = getSelectedYear(); // Define selectedYear
-    const sortedData = sortDataByDate(); // Ensure data is sorted by date
+  //   const selectedYear = getSelectedYear(); // Define selectedYear
+  //   const sortedData = sortDataByDate(); // Ensure data is sorted by date
 
-    const filteredData = sortedData.filter((item) =>
-      item.date.startsWith(`${selectedYear}-${selectedMonth}`)
-    );
+  //   const filteredData = sortedData.filter((item) =>
+  //     item.date.startsWith(`${selectedYear}-${selectedMonth}`)
+  //   );
 
-    const weeklyAveragesData = Array.from({ length: 4 }, () => []);
+  //   const weeklyAveragesData = Array.from({ length: 4 }, () => []);
 
-    filteredData.forEach((item) => {
-      const date = new Date(item.date);
-      const week = Math.ceil(date.getDate() / 7);
-      const aqi = item.aqi;
-      if (week <= 4) {
-        weeklyAveragesData[week - 1].push(aqi);
-      }
-    });
+  //   filteredData.forEach((item) => {
+  //     const date = new Date(item.date);
+  //     const week = Math.ceil(date.getDate() / 7);
+  //     const aqi = item.aqi;
+  //     if (week <= 4) {
+  //       weeklyAveragesData[week - 1].push(aqi);
+  //     }
+  //   });
 
-    for (let i = 0; i < weeklyAveragesData.length; i++) {
-      if (weeklyAveragesData[i].length > 0) {
-        const sum = weeklyAveragesData[i].reduce((acc, aqi) => acc + aqi, 0);
-        const average = sum / weeklyAveragesData[i].length;
-        weeklyAveragesData[i] = parseFloat(average.toFixed(2));
-      } else {
-        weeklyAveragesData[i] = null;
-      }
-    }
-    return { weeklyAveragesData };
-  };
+  //   for (let i = 0; i < weeklyAveragesData.length; i++) {
+  //     if (weeklyAveragesData[i].length > 0) {
+  //       const sum = weeklyAveragesData[i].reduce((acc, aqi) => acc + aqi, 0);
+  //       const average = sum / weeklyAveragesData[i].length;
+  //       weeklyAveragesData[i] = parseFloat(average.toFixed(2));
+  //     } else {
+  //       weeklyAveragesData[i] = null;
+  //     }
+  //   }
+  //   return { weeklyAveragesData };
+  // };
 
   const sortDataByDate = () => {
     if (!enviroDate || !enviroAQI) {
@@ -225,7 +225,7 @@ const AQIChartNEW = ({
     fetchYearlyData();
     setDailyAverageAPI(calculateDailyAveragesAPI());
     setDailyDataAPI(getDailyDataAPI());
-    setWeeklyAverages(calculateWeeklyAverages());
+    // setWeeklyAverages(calculateWeeklyAverages());
     setDailyAverage(calculateDailyAverages());
     setDailyData(getDailyData());
     setFifteenDaysData(getFifteenDaysData());
