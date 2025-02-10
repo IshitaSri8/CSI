@@ -170,99 +170,19 @@ const Aqi_New = ({ show }) => {
       const pm10Array = [];
       const aqiArray = [];
       const aqiArrayAPI = [];
-      const Range = (val, pollutant) => {
-        if (pollutant === "PM10") {
-          if (val >= 0 && val <= 50) {
-            return [0, 0, 50, 0, 50];
-          } else if (val >= 51 && val <= 100) {
-            return [51, 51, 100, 51, 100];
-          } else if (val >= 101 && val <= 250) {
-            return [101, 101, 250, 101, 200];
-          } else if (val >= 251 && val <= 350) {
-            return [251, 251, 350, 201, 300];
-          } else if (val >= 351 && val <= 430) {
-            return [351, 351, 430, 301, 400];
-          } else if (val > 430) {
-            return [351, 430, 430, 401, 500];
-          }
-        } else if (pollutant === "PM2.5") {
-          if (val >= 0 && val <= 30) {
-            return [0, 0, 30, 0, 50];
-          } else if (val >= 31 && val <= 60) {
-            return [31, 31, 60, 51, 100];
-          } else if (val >= 61 && val <= 90) {
-            return [61, 61, 90, 101, 200];
-          } else if (val >= 91 && val <= 120) {
-            return [91, 91, 120, 201, 300];
-          } else if (val >= 121 && val <= 250) {
-            return [121, 121, 250, 301, 400];
-          } else if (val > 250) {
-            return [121, 250, 250, 401, 500];
-          }
-        } else if (pollutant === "NO2") {
-          if (val >= 0 && val <= 40) {
-            return [0, 0, 40, 0, 50];
-          } else if (val >= 41 && val <= 80) {
-            return [41, 41, 80, 51, 100];
-          } else if (val >= 81 && val <= 180) {
-            return [81, 81, 180, 101, 200];
-          } else if (val >= 181 && val <= 280) {
-            return [181, 181, 280, 201, 300];
-          } else if (val >= 281 && val <= 400) {
-            return [281, 281, 400, 301, 400];
-          } else if (val > 400) {
-            return [281, 400, 400, 401, 500];
-          }
-        } else if (pollutant === "SO2") {
-          if (val >= 0 && val <= 40) {
-            return [0, 0, 40, 0, 50];
-          } else if (val >= 41 && val <= 80) {
-            return [41, 41, 80, 51, 100];
-          } else if (val >= 81 && val <= 380) {
-            return [81, 81, 380, 101, 200];
-          } else if (val >= 381 && val <= 800) {
-            return [381, 381, 800, 201, 300];
-          } else if (val >= 801 && val <= 1600) {
-            return [801, 801, 1600, 301, 400];
-          } else if (val > 1600) {
-            return [801, 1600, 1600, 401, 500];
-          }
-        }
-      };
 
-      const individualAqi = (val, pollutant) => {
-        const [ClowD, ClowN, Chigh, Ilow, Ihigh] = Range(val, pollutant);
-        const indiAqi = Math.round(
-          ((Ihigh - Ilow) / (Chigh - ClowD)) * (val - ClowN) + Ilow
-        );
-        return indiAqi;
-      };
-
-      const calculateAqi = (pm25, pm10, NO2, SO2) => {
-        // Round off the values before calling individualAqi
-        const roundedPm10 = Math.round(pm10);
-        const roundedPm25 = Math.round(pm25);
-        const roundedNO2 = Math.round(NO2);
-        const roundedSO2 = Math.round(SO2);
-        const pm10_aqi = individualAqi(roundedPm10, "PM10");
-        const pm25_aqi = individualAqi(roundedPm25, "PM2.5");
-        const NO2_aqi = individualAqi(roundedNO2, "NO2");
-        const SO2_aqi = individualAqi(roundedSO2, "SO2");
-
-        return Math.max(pm10_aqi, pm25_aqi, NO2_aqi, SO2_aqi);
-      };
       api_response.forEach((item) => {
         const newDate = new Date(item.time * 1000);
         const { date, time } = convertDateString(newDate);
-        const aqi = calculateAqi(
-          item.parameter_values["pm2.5"].avg,
-          item.parameter_values.pm10.avg,
-          item.parameter_values.no2.avg,
-          item.parameter_values.so2.avg
-        );
+        // const aqi = calculateAqi(
+        //   item.parameter_values["pm2.5"].avg,
+        //   item.parameter_values.pm10.avg,
+        //   item.parameter_values.no2.avg,
+        //   item.parameter_values.so2.avg
+        // );
         aqiArrayAPI.push(item.parameter_values.aqi.value);
 
-        aqiArray.push(aqi);
+        // aqiArray.push(aqi);
         dateArray.push(date);
         timeArray.push(time);
         so2Array.push(item.parameter_values.so2.avg);
@@ -370,7 +290,87 @@ const Aqi_New = ({ show }) => {
       const response = await axios.get(
         `https://api-csi.arahas.com/aqi?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
+      const Range = (val, pollutant) => {
+        if (pollutant === "PM10") {
+          if (val >= 0 && val <= 50) {
+            return [0, 0, 50, 0, 50];
+          } else if (val >= 51 && val <= 100) {
+            return [51, 51, 100, 51, 100];
+          } else if (val >= 101 && val <= 250) {
+            return [101, 101, 250, 101, 200];
+          } else if (val >= 251 && val <= 350) {
+            return [251, 251, 350, 201, 300];
+          } else if (val >= 351 && val <= 430) {
+            return [351, 351, 430, 301, 400];
+          } else if (val > 430) {
+            return [351, 430, 430, 401, 500];
+          }
+        } else if (pollutant === "PM2.5") {
+          if (val >= 0 && val <= 30) {
+            return [0, 0, 30, 0, 50];
+          } else if (val >= 31 && val <= 60) {
+            return [31, 31, 60, 51, 100];
+          } else if (val >= 61 && val <= 90) {
+            return [61, 61, 90, 101, 200];
+          } else if (val >= 91 && val <= 120) {
+            return [91, 91, 120, 201, 300];
+          } else if (val >= 121 && val <= 250) {
+            return [121, 121, 250, 301, 400];
+          } else if (val > 250) {
+            return [121, 250, 250, 401, 500];
+          }
+        } else if (pollutant === "NO2") {
+          if (val >= 0 && val <= 40) {
+            return [0, 0, 40, 0, 50];
+          } else if (val >= 41 && val <= 80) {
+            return [41, 41, 80, 51, 100];
+          } else if (val >= 81 && val <= 180) {
+            return [81, 81, 180, 101, 200];
+          } else if (val >= 181 && val <= 280) {
+            return [181, 181, 280, 201, 300];
+          } else if (val >= 281 && val <= 400) {
+            return [281, 281, 400, 301, 400];
+          } else if (val > 400) {
+            return [281, 400, 400, 401, 500];
+          }
+        } else if (pollutant === "SO2") {
+          if (val >= 0 && val <= 40) {
+            return [0, 0, 40, 0, 50];
+          } else if (val >= 41 && val <= 80) {
+            return [41, 41, 80, 51, 100];
+          } else if (val >= 81 && val <= 380) {
+            return [81, 81, 380, 101, 200];
+          } else if (val >= 381 && val <= 800) {
+            return [381, 381, 800, 201, 300];
+          } else if (val >= 801 && val <= 1600) {
+            return [801, 801, 1600, 301, 400];
+          } else if (val > 1600) {
+            return [801, 1600, 1600, 401, 500];
+          }
+        }
+      };
 
+      const individualAqi = (val, pollutant) => {
+        const [ClowD, ClowN, Chigh, Ilow, Ihigh] = Range(val, pollutant);
+        const indiAqi = Math.round(
+          ((Ihigh - Ilow) / (Chigh - ClowD)) * (val - ClowN) + Ilow
+        );
+        return indiAqi;
+      };
+
+      const calculateAqi = (pm25, pm10, NO2, SO2) => {
+        // Round off the values before calling individualAqi
+        const roundedPm10 = Math.round(pm10);
+        const roundedPm25 = Math.round(pm25);
+        const roundedNO2 = Math.round(NO2);
+        const roundedSO2 = Math.round(SO2);
+        const pm10_aqi = individualAqi(roundedPm10, "PM10");
+        const pm25_aqi = individualAqi(roundedPm25, "PM2.5");
+        const NO2_aqi = individualAqi(roundedNO2, "NO2");
+        const SO2_aqi = individualAqi(roundedSO2, "SO2");
+
+        return Math.max(pm10_aqi, pm25_aqi, NO2_aqi, SO2_aqi);
+      };
       const filteredData = response.data.data;
 
       const formattedDate = [];
@@ -394,7 +394,9 @@ const Aqi_New = ({ show }) => {
         pm25.push(item.pm25);
         pm10.push(item.pm10);
         so2.push(item.SO2);
-        AQI.push(item.CalculatedAqi);
+
+        // AQI.push(item.CalculatedAqi);;
+        AQI.push(calculateAqi(item.pm25, item.pm10, item.NO2, item.SO2));
         NO2.push(item.NO2);
         co2.push(item.co2);
       });
