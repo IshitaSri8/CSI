@@ -20,7 +20,6 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { Divider } from "primereact/divider";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
-import DataNotFound from "pages/error pages/DataNotFound";
 import AqiScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
 import unhealthy from "assets/dashboard/unhealthy-aqi-level.svg";
 import severe from "assets/dashboard/severe-aqi-level.svg";
@@ -29,6 +28,7 @@ import moderate from "assets/dashboard/moderate-aqi-level.svg";
 import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
 import colors from "colorConstants";
+import ServerDown from "pages/error pages/ServerDown";
 
 const Aqi_New = ({ show }) => {
   const [startDate, setStartDate] = useState(
@@ -569,7 +569,6 @@ const Aqi_New = ({ show }) => {
       setDataTableData(uniqueDataTableData);
     } catch (error) {
       console.log("🚀 ~ handleSearch ~ error:", error);
-
       setServerDown(true);
     }
   };
@@ -694,7 +693,7 @@ const Aqi_New = ({ show }) => {
   };
 
   if (serverDown) {
-    return <DataNotFound />;
+    return <ServerDown />;
   }
 
   return loading ? (

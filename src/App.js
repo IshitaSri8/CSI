@@ -31,9 +31,10 @@ import Administration from "pages/Administration";
 import Disaster from "components/Dashboards/Administration/Disaster Management/Disaster";
 import pathConstants from "pathConstants";
 import CityReportCard from "pages/CityReportCard";
-import DataNotFound from "pages/error pages/DataNotFound";
+import DataNotFound from "pages/error pages/ServerDown";
 import ScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
 import Aqi_New from "components/Dashboards/Environment/AQI_NEW/AQI_NEW";
+import NoData from "pages/error pages/NoData";
 
 function App() {
   const routes = [
@@ -131,6 +132,7 @@ function App() {
       </Route>
       <Route path="/citizen/kyc" element={<CitizenSidebar />} />
       {/* <Route path="/error" element={<DataNotFound />} /> */}
+      <Route path="/nodata" element={<NoData />} />
       {/* <Route path="/change" element={<ChangeDetection />} /> */}
       {/* <Route path="/animations" element={<Animation />} /> */}
       <Route path="/score" element={<ScoreCalculator />} />

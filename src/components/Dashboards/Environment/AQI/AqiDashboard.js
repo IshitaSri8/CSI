@@ -20,7 +20,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { Divider } from "primereact/divider";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
-import DataNotFound from "pages/error pages/DataNotFound";
+import DataNotFound from "pages/error pages/ServerDown";
 import AqiScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
 import unhealthy from "assets/dashboard/unhealthy-aqi-level.svg";
 import severe from "assets/dashboard/severe-aqi-level.svg";
@@ -531,7 +531,7 @@ const AqiDashboard = ({ show }) => {
           </div>
         </div>
       )}
-  <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
+      <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
           <div
             className="flex border-round-xl p-2 justify-content-between"

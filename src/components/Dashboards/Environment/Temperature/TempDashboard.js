@@ -21,7 +21,7 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import { Divider } from "primereact/divider";
 import score from "score";
-import DataNotFound from "pages/error pages/DataNotFound";
+import DataNotFound from "pages/error pages/ServerDown";
 
 const TempDashboard = ({ show }) => {
   const [startDate, setStartDate] = useState(new Date("2025-01-01"));
