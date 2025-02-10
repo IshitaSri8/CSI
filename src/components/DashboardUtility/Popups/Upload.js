@@ -8,23 +8,26 @@ import React, { useState } from "react";
 const Upload = ({ visible, onHide, parameter }) => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // State to store error message
 
   const handleUpload = async () => {
     try {
       if (!file) {
-        alert("No file chosen. Please select a file to upload.");
+        setErrorMessage("No file chosen. Please select a file to upload.");
         return;
       }
+
       setLoading(true);
+      setErrorMessage(""); // Clear any previous error message
+
       const formData = new FormData();
       formData.append("file", file);
 
       const response = await axios.post(
-        `https://api-csi.arahas.com/upload/${parameter}`,
-        // `http://localhost:8010/upload/${parameter}`,
+        // `https://api-csi.arahas.com/upload/${parameter}`,
+        `http://localhost:8010/upload/${parameter}`,
         formData
       );
-      console.log("🚀 ~ handleUpload ~ response:", response);
 
       if (response.status === 200) {
         setLoading(false);
@@ -32,12 +35,26 @@ const Upload = ({ visible, onHide, parameter }) => {
         onHide(); // Close dialog after successful upload
       } else {
         setLoading(false);
-        alert(`Upload failed with status: ${response.status}`);
+        setErrorMessage(`Upload failed with status: ${response.status}`);
       }
     } catch (error) {
-      console.error("Upload error:", error);
-      alert("Error Uploading file");
-      onHide();
+      setLoading(false);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error("Upload error (server response):", error.response.data);
+        setErrorMessage(
+          error.response.data.msg || "Upload failed due to server error."
+        ); // Display the error message from the backend
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("Upload error (no response):", error.request);
+        setErrorMessage("No response from server. Please try again.");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Upload error (general):", error.message);
+        setErrorMessage("Error uploading file.");
+      }
     }
   };
 
@@ -68,7 +85,7 @@ const Upload = ({ visible, onHide, parameter }) => {
     <Dialog
       header="Upload File"
       visible={visible}
-      style={{ width: "50vw", fontSize: "2rem" }}
+      style={{ width: "55vw", fontSize: "2rem" }}
       onHide={onHide}
       className="font-bold text-xl"
     >
@@ -82,12 +99,22 @@ const Upload = ({ visible, onHide, parameter }) => {
         )}
         {!loading && (
           <>
-            <Button
-              label="Download Template"
-              icon="pi pi-download"
-              onClick={handleDownloadTemplate}
-              className="bg-transparent text-primary1 font-bold" // Attach download handler
-            />
+            {errorMessage && (
+              <div className="p-error p-0 m-0">Error: {errorMessage}</div> // Display error message
+            )}
+            <div className="flex align-items-center justify-content-between w-full">
+              <p className="font-medium text-secondary2 p-0 m-0">
+                Use the provided template for your data. Download, fill, and
+                then upload.
+              </p>
+              <Button
+                label="Template"
+                icon="pi pi-download"
+                onClick={handleDownloadTemplate}
+                className="bg-transparent text-primary1 border-1"
+                // Attach download handler
+              />
+            </div>
             <FileUpload
               name="file"
               auto
@@ -103,7 +130,8 @@ const Upload = ({ visible, onHide, parameter }) => {
               <Button
                 onClick={handleUpload}
                 label="Upload File"
-                className="bg-cyan-800"
+                className="bg-primary1 text-white"
+                raised
               ></Button>
             </div>
           </>

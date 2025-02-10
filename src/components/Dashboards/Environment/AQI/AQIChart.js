@@ -3,17 +3,7 @@ import { Select, MenuItem } from "@mui/material";
 import "./AqiReport.css";
 import DailyTrend from "./DailyTrend";
 
-const AQIChart = ({
-  enviroDate,
-  envirotime,
-  enviroPM25,
-  enviroPM10,
-  enviroSO2,
-  enviroAQI,
-  enviroNO2,
-  enviroco2,
-  startDate,
-}) => {
+const AQIChart = ({ enviroDate, envirotime, enviroAQI, startDate }) => {
   const [selectedMonth, setSelectedMonth] = useState("01");
   const [selectedDate, setSelectedDate] = useState("2024-01-01");
   const [chartData, setChartData] = useState([]);
@@ -94,11 +84,6 @@ const AQIChart = ({
           date,
           time: envirotime[index],
           aqi: enviroAQI[index],
-          pm25: enviroPM25[index],
-          pm10: enviroPM10[index],
-          so2: enviroSO2[index],
-          no2: enviroNO2[index],
-          co2: enviroco2[index],
         });
       }
       return acc;
@@ -161,11 +146,6 @@ const AQIChart = ({
       date,
       time: envirotime[index],
       aqi: enviroAQI[index],
-      pm25: enviroPM25[index],
-      pm10: enviroPM10[index],
-      so2: enviroSO2[index],
-      no2: enviroNO2[index],
-      co2: enviroco2[index],
     }));
 
     return combinedData.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -177,17 +157,7 @@ const AQIChart = ({
     setDailyAverage(calculateDailyAverages());
     setDailyData(getDailyData());
     setFifteenDaysData(getFifteenDaysData());
-  }, [
-    selectedMonth,
-    selectedDate,
-    enviroDate,
-    enviroAQI,
-    enviroPM25,
-    enviroPM10,
-    enviroSO2,
-    enviroNO2,
-    enviroco2,
-  ]);
+  }, [selectedMonth, selectedDate, enviroDate, enviroAQI]);
 
   const fetchYearlyData = () => {
     const yearlyData = {};
