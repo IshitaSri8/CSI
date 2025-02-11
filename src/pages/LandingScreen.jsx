@@ -63,7 +63,7 @@ const LandingScreen = () => {
         <FAQChatbot />
         <div
           ref={csiStepsRef} // Set the ref here
-          className="flex justify-content-center gap-6 flex-nowrap w-full overflow-auto pl-5 pr-5 block"
+          className="flex justify-content-center gap-6 flex-nowrap w-full overflow-auto  block"
           id="csi-steps"
         >
           <CSISteps />
