@@ -15,7 +15,7 @@ import increase from "assets/increase.png";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Upload from "components/DashboardUtility/Popups/Upload";
 import score from "score";
-import DataNotFound from "pages/error pages/DataNotFound";
+import DataNotFound from "pages/error pages/ServerDown";
 
 const RainDashboard = ({ show }) => {
   const [rainData, setRainData] = useState([]);

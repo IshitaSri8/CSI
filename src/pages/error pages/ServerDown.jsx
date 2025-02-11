@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import animation from "assets/animations/DataNotFound";
 
-export default function DataNotFound() {
+export default function ServerDown() {
   const navigate = useNavigate();
 
   return (

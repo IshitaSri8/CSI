@@ -30,7 +30,7 @@ const AqiScoreCalculator = ({ onAQIScoreCalculated }) => {
 
         // Call the callback function with the calculated score
         onAQIScoreCalculated(calculatedScore);
-        console.log("🚀 ~ fetchScore ~ calculatedScore:", calculatedScore);
+        // console.log("🚀 ~ fetchScore ~ calculatedScore:", calculatedScore);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

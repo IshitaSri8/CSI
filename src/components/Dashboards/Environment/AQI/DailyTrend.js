@@ -20,8 +20,6 @@ const DailyTrend = ({
   const [isDrilldown, setIsDrilldown] = useState(false);
   const [showTable, setShowTable] = useState(false);
   const [drilldownChartData, setDrilldownChartData] = useState([]);
-  // console.log(fifteenDaysData);
-  console.log(new Date(startDate), new Date(selectedDate));
 
   useEffect(() => {
     const dataPoints = Object.entries(dailyAverage).map(([date, value]) => ({
@@ -263,7 +261,7 @@ const DailyTrend = ({
   };
 
   return (
-    <div className="flex flex-column w-full">
+    <div className="flex flex-column bg-white border-round p-4" style={{flex: "50%"}}>
       <div className="flex align-items-start justify-content-start gap-2">
         {fifteenDaysData.length > 0 && (
           <Button

@@ -5,12 +5,12 @@ import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "../../../DashboardUtility/Dash.css";
-import PollutantChart from "./PollutantChart";
+import PollutantChart from "./PollutantChartNEW";
 import { Button } from "primereact/button";
 import TableSkeleton from "../../../DashboardUtility/skeletons/TableSkeleton";
-import AQIChart from "./AQIChart";
-import AqiMap from "./AqiMap";
-import AQIRecommendations from "./AQIRecommendations";
+import AQIChart from "./AQIChartNEW";
+import AqiMap from "../AQI/AqiMap";
+import AQIRecommendations from "../AQI/AQIRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import Upload from "components/DashboardUtility/Popups/Upload";
@@ -20,7 +20,6 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { Divider } from "primereact/divider";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
-import DataNotFound from "pages/error pages/ServerDown";
 import AqiScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
 import unhealthy from "assets/dashboard/unhealthy-aqi-level.svg";
 import severe from "assets/dashboard/severe-aqi-level.svg";
@@ -29,10 +28,13 @@ import moderate from "assets/dashboard/moderate-aqi-level.svg";
 import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
 import colors from "colorConstants";
+import ServerDown from "pages/error pages/ServerDown";
 
-const AqiDashboard = ({ show }) => {
-  const [startDate, setStartDate] = useState(new Date("2024-12-01"));
-  const [endDate, setEndDate] = useState(new Date("2024-12-31"));
+const AqiNEW = ({ show }) => {
+  const [startDate, setStartDate] = useState(
+    new Date("2024-11-30T18:30:00.000Z")
+  );
+  const [endDate, setEndDate] = useState(new Date("2024-12-31T17:30:00.000Z"));
   const [selectedLocation, setSelectedLocation] = useState(
     "Ayodhya- Civil Lines"
   );
@@ -50,7 +52,7 @@ const AqiDashboard = ({ show }) => {
 
   const [dataTableData, setDataTableData] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [envirolocation, setEnviroLocation] = useState([]);
+  const [dateRange, setDateRange] = useState([]);
   const [envirotime, setEnviroTime] = useState([]);
   const [envirodate, setEnviroDate] = useState([]);
   const [enviropm25, setEnviroPM25] = useState([]);
@@ -59,13 +61,20 @@ const AqiDashboard = ({ show }) => {
   const [enviroAQI, setEnviroAQI] = useState([]);
   const [enviroNO2, setEnviroNO2] = useState([]);
   const [enviroco2, setEnviroco2] = useState([]);
+  const [timeArrayData, setTimeArrayData] = useState([]);
+  const [dateArrayData, setDateArrayData] = useState([]);
+  const [pm25ArrayData, setPM25ArrayData] = useState([]);
+  const [pm10ArrayData, setPM10ArrayData] = useState([]);
+  const [SO2ArrayData, setSO2ArrayData] = useState([]);
+  const [AQIArrayData, setAQIArrayData] = useState([]);
+  const [NO2ArrayData, setNO2ArrayData] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [serverDown, setServerDown] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
-
   const [aqiStats, setAqiStats] = useState("");
+  const [aqiIDs, setAQIIDs] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,12 +95,270 @@ const AqiDashboard = ({ show }) => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData();
-  }, []);
 
+    const fetchDateRange = async () => {
+      try {
+        const dateRangeResponse = await axios.get(
+          `https://api-csi.arahas.com/aqinew/date?location=${selectedLocation}`
+        );
+        console.log(
+          "🚀 ~ fetchDateRange ~ dateRangeResponse:",
+          dateRangeResponse
+        );
+        if (dateRangeResponse.data) {
+          const firstDate = dateRangeResponse.data.firstDate;
+          const lastDate = dateRangeResponse.data.lastDate;
+          setStartDate(new Date(firstDate));
+          setEndDate(new Date(lastDate));
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+    fetchDateRange();
+  }, []);
   useEffect(() => {
     handleSearch();
   }, []);
+  function convertDateString(date) {
+    // Format the date to 'YYYY-MM-DD'
+    const formattedDate = new Date(date).toLocaleDateString("en-CA"); // Get YYYY-MM-DD
+
+    // Format the time to 'HH:mm:ss'
+    const formattedTime = new Date(date).toLocaleTimeString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour12: false,
+    }); // Get HH:mm:ss
+
+    return {
+      date: formattedDate,
+      time: formattedTime,
+    };
+  }
+
+  const getAQI = async (locationID, from_time, upto_time) => {
+    try {
+      const response = await axios.post(
+        "https://app.aurassure.com/-/api/iot-platform/v1.1.0/clients/10565/applications/16/things/data",
+        {
+          data_type: "aggregate",
+          aggregation_period: 3600,
+          parameters: ["pm10", "pm2.5", "no2", "so2", "aqi"],
+
+          parameter_attributes: ["value", "avg", "max", "min"],
+          things: [locationID],
+          from_time: from_time,
+          upto_time: upto_time,
+        },
+        {
+          headers: {
+            "Access-Id": "WYDAeaT0kA7kKVyg",
+            "Access-Key":
+              "H0RkamVKJ2jiGda9tx2i20kykwCGkRhn2P3bXwDgxP8dAKxLp1CM65DYKg0oYCV2",
+          },
+        }
+      );
+      const api_response = response.data.data;
+      console.log("🚀 ~ getAQI ~ api_response:", api_response);
+
+      const dateArray = [];
+      const timeArray = [];
+      const so2Array = [];
+      const no2Array = [];
+      const pm25Array = [];
+      const pm10Array = [];
+      const aqiArrayAPI = [];
+      // const aqiArray = [];
+      // const Range = (val, pollutant) => {
+      //   if (pollutant === "PM10") {
+      //     if (val >= 0 && val <= 50) {
+      //       return [0, 0, 50, 0, 50];
+      //     } else if (val >= 51 && val <= 100) {
+      //       return [51, 51, 100, 51, 100];
+      //     } else if (val >= 101 && val <= 250) {
+      //       return [101, 101, 250, 101, 200];
+      //     } else if (val >= 251 && val <= 350) {
+      //       return [251, 251, 350, 201, 300];
+      //     } else if (val >= 351 && val <= 430) {
+      //       return [351, 351, 430, 301, 400];
+      //     } else if (val > 430) {
+      //       return [351, 430, 430, 401, 500];
+      //     }
+      //   } else if (pollutant === "PM2.5") {
+      //     if (val >= 0 && val <= 30) {
+      //       return [0, 0, 30, 0, 50];
+      //     } else if (val >= 31 && val <= 60) {
+      //       return [31, 31, 60, 51, 100];
+      //     } else if (val >= 61 && val <= 90) {
+      //       return [61, 61, 90, 101, 200];
+      //     } else if (val >= 91 && val <= 120) {
+      //       return [91, 91, 120, 201, 300];
+      //     } else if (val >= 121 && val <= 250) {
+      //       return [121, 121, 250, 301, 400];
+      //     } else if (val > 250) {
+      //       return [121, 250, 250, 401, 500];
+      //     }
+      //   } else if (pollutant === "NO2") {
+      //     if (val >= 0 && val <= 40) {
+      //       return [0, 0, 40, 0, 50];
+      //     } else if (val >= 41 && val <= 80) {
+      //       return [41, 41, 80, 51, 100];
+      //     } else if (val >= 81 && val <= 180) {
+      //       return [81, 81, 180, 101, 200];
+      //     } else if (val >= 181 && val <= 280) {
+      //       return [181, 181, 280, 201, 300];
+      //     } else if (val >= 281 && val <= 400) {
+      //       return [281, 281, 400, 301, 400];
+      //     } else if (val > 400) {
+      //       return [281, 400, 400, 401, 500];
+      //     }
+      //   } else if (pollutant === "SO2") {
+      //     if (val >= 0 && val <= 40) {
+      //       return [0, 0, 40, 0, 50];
+      //     } else if (val >= 41 && val <= 80) {
+      //       return [41, 41, 80, 51, 100];
+      //     } else if (val >= 81 && val <= 380) {
+      //       return [81, 81, 380, 101, 200];
+      //     } else if (val >= 381 && val <= 800) {
+      //       return [381, 381, 800, 201, 300];
+      //     } else if (val >= 801 && val <= 1600) {
+      //       return [801, 801, 1600, 301, 400];
+      //     } else if (val > 1600) {
+      //       return [801, 1600, 1600, 401, 500];
+      //     }
+      //   }
+      // };
+
+      // const individualAqi = (val, pollutant) => {
+      //   const [ClowD, ClowN, Chigh, Ilow, Ihigh] = Range(val, pollutant);
+      //   const indiAqi = Math.round(
+      //     ((Ihigh - Ilow) / (Chigh - ClowD)) * (val - ClowN) + Ilow
+      //   );
+      //   return indiAqi;
+      // };
+
+      // const calculateAqi = (pm25, pm10, NO2, SO2) => {
+      //   // Round off the values before calling individualAqi
+      //   const roundedPm10 = Math.round(pm10);
+      //   const roundedPm25 = Math.round(pm25);
+      //   const roundedNO2 = Math.round(NO2);
+      //   const roundedSO2 = Math.round(SO2);
+      //   const pm10_aqi = individualAqi(roundedPm10, "PM10");
+      //   const pm25_aqi = individualAqi(roundedPm25, "PM2.5");
+      //   const NO2_aqi = individualAqi(roundedNO2, "NO2");
+      //   const SO2_aqi = individualAqi(roundedSO2, "SO2");
+
+      //   return Math.max(pm10_aqi, pm25_aqi, NO2_aqi, SO2_aqi);
+      // };
+      api_response.forEach((item) => {
+        const newDate = new Date(item.time * 1000);
+        const { date, time } = convertDateString(newDate);
+        // const aqi = calculateAqi(
+        //   item.parameter_values["pm2.5"].avg,
+        //   item.parameter_values.pm10.avg,
+        //   item.parameter_values.no2.avg,
+        //   item.parameter_values.so2.avg
+        // );
+        // aqiArray.push(aqi);
+        aqiArrayAPI.push(item.parameter_values.aqi.value);
+        dateArray.push(date);
+        timeArray.push(time);
+        so2Array.push(item.parameter_values.so2.avg);
+        no2Array.push(item.parameter_values.no2.avg);
+        pm25Array.push(item.parameter_values["pm2.5"].avg);
+        pm10Array.push(item.parameter_values.pm10.avg);
+      });
+      setAQIArrayData(aqiArrayAPI);
+      setDateArrayData(dateArray);
+      setTimeArrayData(timeArray);
+      setSO2ArrayData(so2Array);
+      setNO2ArrayData(no2Array);
+      setPM10ArrayData(pm10Array);
+      setPM25ArrayData(pm25Array);
+      return 0;
+    } catch (error) {
+      console.error("Error fetching AQI data:", error);
+      return 0;
+    }
+  };
+  useEffect(() => {
+    const fetchAQIData = async () => {
+      if (aqiIDs) {
+        const promises = aqiIDs.map((aqiID) =>
+          getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
+        );
+        // Wait for all promises to resolve
+        await Promise.all(promises);
+        setLoading(false);
+      }
+    };
+
+    fetchAQIData();
+  }, [aqiIDs]);
+
+  const getThingID = (selectedLocation) => {
+    if (selectedLocation === "Ayodhya- Civil Lines") {
+      return ["Ayodhya - Civil line,Tiny tots school", 12218];
+    }
+    if (selectedLocation === "Ayodhya- Shahadat Ganj") {
+      return ["Ayodhya - Shahadat Ganj", 12220];
+    }
+    if (selectedLocation === "Ayodhya- Bank Colony") {
+      return ["Ayodhya-Bank colony near Railway station", 12414];
+    }
+    if (selectedLocation === "Ayodhya- Near Airport") {
+      return ["Ayodhya-near Airport", 12415];
+    }
+    if (selectedLocation === "Ayodhya-Ranopali near Sugriv Kila ayodhya") {
+      return ["Ayodhya- Ranopali Near Sugriv Kila", 12416];
+    }
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://app.aurassure.com/-/api/iot-platform/v1.1.0/clients/10565/applications/16/things/list",
+          {
+            headers: {
+              "Access-Id": "WYDAeaT0kA7kKVyg", // replace with your Access ID
+              "Access-Key":
+                "H0RkamVKJ2jiGda9tx2i20kykwCGkRhn2P3bXwDgxP8dAKxLp1CM65DYKg0oYCV2", // replace with your Access Key
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          setLoading(false);
+          // Convert startDate and endDate to Unix timestamps
+          const start = new Date(startDate);
+          const end = new Date(endDate);
+          start.setHours(0, 0, 0, 0);
+          end.setHours(23, 59, 59, 59);
+
+          const fromTime = Math.floor(start.getTime() / 1000);
+          const uptoTime = Math.floor(end.getTime() / 1000); // End date in seconds
+          const [location_name, location_id] = getThingID(selectedLocation);
+          let thingsID = [];
+
+          response.data?.things?.map((thing) =>
+            thingsID.push({
+              thingID: location_id, //locationID
+              name: location_name,
+              from_time: fromTime, //startdate_time
+              upto_time: uptoTime, //endDate_time
+            })
+          );
+          setAQIIDs(thingsID);
+        }
+      } catch (error) {
+        console.error("Error fetching CommunityWellBeing data:", error);
+      } finally {
+      }
+    };
+
+    fetchData();
+  }, [selectedLocation, startDate, endDate]);
 
   const handleSearch = async () => {
     try {
@@ -102,49 +369,214 @@ const AqiDashboard = ({ show }) => {
       const response = await axios.get(
         `https://api-csi.arahas.com/aqi?location=${selectedLocation}&startDate=${start}&endDate=${end}`
       );
-      console.log("🚀 ~ handleSearch ~ response:", response);
+      const Range = (val, pollutant) => {
+        if (pollutant === "PM10") {
+          if (val >= 0 && val <= 50) {
+            return [0, 0, 50, 0, 50];
+          } else if (val >= 51 && val <= 100) {
+            return [51, 51, 100, 51, 100];
+          } else if (val >= 101 && val <= 250) {
+            return [101, 101, 250, 101, 200];
+          } else if (val >= 251 && val <= 350) {
+            return [251, 251, 350, 201, 300];
+          } else if (val >= 351 && val <= 430) {
+            return [351, 351, 430, 301, 400];
+          } else if (val > 430) {
+            return [351, 430, 430, 401, 500];
+          }
+        } else if (pollutant === "PM2.5") {
+          if (val >= 0 && val <= 30) {
+            return [0, 0, 30, 0, 50];
+          } else if (val >= 31 && val <= 60) {
+            return [31, 31, 60, 51, 100];
+          } else if (val >= 61 && val <= 90) {
+            return [61, 61, 90, 101, 200];
+          } else if (val >= 91 && val <= 120) {
+            return [91, 91, 120, 201, 300];
+          } else if (val >= 121 && val <= 250) {
+            return [121, 121, 250, 301, 400];
+          } else if (val > 250) {
+            return [121, 250, 250, 401, 500];
+          }
+        } else if (pollutant === "NO2") {
+          if (val >= 0 && val <= 40) {
+            return [0, 0, 40, 0, 50];
+          } else if (val >= 41 && val <= 80) {
+            return [41, 41, 80, 51, 100];
+          } else if (val >= 81 && val <= 180) {
+            return [81, 81, 180, 101, 200];
+          } else if (val >= 181 && val <= 280) {
+            return [181, 181, 280, 201, 300];
+          } else if (val >= 281 && val <= 400) {
+            return [281, 281, 400, 301, 400];
+          } else if (val > 400) {
+            return [281, 400, 400, 401, 500];
+          }
+        } else if (pollutant === "SO2") {
+          if (val >= 0 && val <= 40) {
+            return [0, 0, 40, 0, 50];
+          } else if (val >= 41 && val <= 80) {
+            return [41, 41, 80, 51, 100];
+          } else if (val >= 81 && val <= 380) {
+            return [81, 81, 380, 101, 200];
+          } else if (val >= 381 && val <= 800) {
+            return [381, 381, 800, 201, 300];
+          } else if (val >= 801 && val <= 1600) {
+            return [801, 801, 1600, 301, 400];
+          } else if (val > 1600) {
+            return [801, 1600, 1600, 401, 500];
+          }
+        }
+      };
+
+      const individualAqi = (val, pollutant) => {
+        const [ClowD, ClowN, Chigh, Ilow, Ihigh] = Range(val, pollutant);
+        const indiAqi = Math.round(
+          ((Ihigh - Ilow) / (Chigh - ClowD)) * (val - ClowN) + Ilow
+        );
+        return indiAqi;
+      };
+
+      const calculateAqi = (pm25, pm10, NO2, SO2) => {
+        // Round off the values before calling individualAqi
+        const roundedPm10 = Math.round(pm10);
+        const roundedPm25 = Math.round(pm25);
+        const roundedNO2 = Math.round(NO2);
+        const roundedSO2 = Math.round(SO2);
+        const pm10_aqi = individualAqi(roundedPm10, "PM10");
+        const pm25_aqi = individualAqi(roundedPm25, "PM2.5");
+        const NO2_aqi = individualAqi(roundedNO2, "NO2");
+        const SO2_aqi = individualAqi(roundedSO2, "SO2");
+
+        return Math.max(pm10_aqi, pm25_aqi, NO2_aqi, SO2_aqi);
+      };
       const filteredData = response.data.data;
-      // console.log(filteredData);
 
       const formattedDate = [];
+
       const formattedTime = [];
       const pm25 = [];
       const pm10 = [];
-      const SO2 = [];
+      const so2 = [];
       const AQI = [];
       const NO2 = [];
+      const co2 = [];
 
       filteredData.forEach((item) => {
-        const dateObj = new Date(item.Date_time).toLocaleDateString("en-CA", {
-          timeZone: "Asia/Kolkata",
-        });
+        const dateObj = new Date(item.Date_time).toLocaleDateString("en-CA");
         formattedDate.push(dateObj);
-
         const timeObj = new Date(item.Date_time).toLocaleTimeString("en-IN", {
           hour12: false,
         });
         formattedTime.push(timeObj);
 
+        const parameterRange = (val, pollutant) => {
+          if (pollutant === "PM10") {
+            if (val >= 0 && val <= 50) {
+              return [0, 0, 50, 0, 50];
+            } else if (val > 50 && val <= 100) {
+              return [50, 50, 100, 50, 100];
+            } else if (val > 100 && val <= 250) {
+              return [100, 100, 250, 100, 200];
+            } else if (val > 250 && val <= 350) {
+              return [250, 250, 350, 200, 300];
+            } else if (val > 350 && val <= 430) {
+              return [350, 350, 430, 300, 400];
+            } else if (val > 430) {
+              return [350, 430, 430, 400, 500];
+            }
+          } else if (pollutant === "PM2.5") {
+            if (val >= 0 && val <= 30) {
+              return [0, 0, 30, 0, 50];
+            } else if (val >= 31 && val <= 60) {
+              return [31, 31, 60, 51, 100];
+            } else if (val >= 61 && val <= 90) {
+              return [61, 61, 90, 101, 200];
+            } else if (val >= 91 && val <= 120) {
+              return [91, 91, 120, 201, 300];
+            } else if (val >= 121 && val <= 250) {
+              return [121, 121, 250, 301, 400];
+            } else if (val > 250) {
+              return [121, 250, 250, 401, 500];
+            }
+          } else if (pollutant === "NO2") {
+            if (val >= 0 && val <= 40) {
+              return [0, 0, 40, 0, 50];
+            } else if (val >= 41 && val <= 80) {
+              return [41, 41, 80, 51, 100];
+            } else if (val >= 81 && val <= 180) {
+              return [81, 81, 180, 101, 200];
+            } else if (val >= 181 && val <= 280) {
+              return [181, 181, 280, 201, 300];
+            } else if (val >= 281 && val <= 400) {
+              return [281, 281, 400, 301, 400];
+            } else if (val > 400) {
+              return [281, 400, 400, 401, 500];
+            }
+          } else if (pollutant === "SO2") {
+            if (val >= 0 && val <= 40) {
+              return [0, 0, 40, 0, 50];
+            } else if (val >= 41 && val <= 80) {
+              return [41, 41, 80, 51, 100];
+            } else if (val >= 81 && val <= 380) {
+              return [81, 81, 380, 101, 200];
+            } else if (val >= 381 && val <= 800) {
+              return [381, 381, 800, 201, 300];
+            } else if (val >= 801 && val <= 1600) {
+              return [801, 801, 1600, 301, 400];
+            } else if (val > 1600) {
+              return [801, 1600, 1600, 401, 500];
+            }
+          }
+        };
+
+        const individualAqi = (val, pollutant) => {
+          const [ClowD, ClowN, Chigh, Ilow, Ihigh] = parameterRange(
+            val,
+            pollutant
+          );
+          const indiAqi = Math.round(
+            ((Ihigh - Ilow) / (Chigh - ClowD)) * (val - ClowN) + Ilow
+          );
+          return indiAqi;
+        };
+
+        const calculateAqi = (pm25, pm10, NO2, SO2) => {
+          // Round off the values before calling individualAqi
+          const roundedPm10 = Math.round(pm10);
+          const roundedPm25 = Math.round(pm25);
+          const roundedNO2 = Math.round(NO2);
+          const roundedSO2 = Math.round(SO2);
+          const pm10_aqi = individualAqi(pm10, "PM10");
+          const pm25_aqi = individualAqi(roundedPm25, "PM2.5");
+          const NO2_aqi = individualAqi(roundedNO2, "NO2");
+          const SO2_aqi = individualAqi(roundedSO2, "SO2");
+
+          return Math.max(pm10_aqi, pm25_aqi, NO2_aqi, SO2_aqi);
+        };
+        AQI.push(calculateAqi(item.pm25, item.pm10, item.NO2, item.SO2));
         pm25.push(item.pm25);
         pm10.push(item.pm10);
-        SO2.push(item.SO2);
-        AQI.push(item.CalculatedAqi);
+        so2.push(item.SO2);
+        // AQI.push(item.CalculatedAqi);
         NO2.push(item.NO2);
+        co2.push(item.co2);
       });
 
       setEnviroTime(formattedTime);
       setEnviroDate(formattedDate);
       setEnviroPM25(pm25);
       setEnviroPM10(pm10);
-      setEnviroSO2(SO2);
+      setEnviroSO2(so2);
       setEnviroAQI(AQI);
       setEnviroNO2(NO2);
+      setEnviroco2(co2);
 
       if (filteredData.length > 0) {
-        const averageAqi = Math.round(
+        const averageAqi = (
           filteredData.reduce((sum, item) => sum + item.CalculatedAqi, 0) /
-            filteredData.length
-        );
+          filteredData.length
+        ).toFixed(2);
         const averagepm25 = (
           filteredData.reduce((sum, item) => sum + item.pm25, 0) /
           filteredData.length
@@ -198,6 +630,7 @@ const AqiDashboard = ({ show }) => {
           },
         };
       };
+
       setAqiStats(calculateAqiStats(filteredData));
 
       const filteredDataWithDeviation = filteredData
@@ -216,10 +649,7 @@ const AqiDashboard = ({ show }) => {
       setDataTableData(uniqueDataTableData);
     } catch (error) {
       console.log("🚀 ~ handleSearch ~ error:", error);
-      setLoading(false);
       setServerDown(true);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -312,14 +742,14 @@ const AqiDashboard = ({ show }) => {
   };
 
   const renderDashboard = () => {
-    return <AqiDashboard show={false} />;
+    return <AqiNEW show={false} />;
   };
   const [score, setScore] = useState(null);
   const [scoreColor, setScoreColor] = useState("#000");
 
   const handleScoreCalculated = (calculatedScore) => {
     setScore(calculatedScore);
-    console.log("Calculated Score received in Dashboard:", calculatedScore);
+
     // Update the score color based on the calculated score
     const color = getScoreColor(calculatedScore);
     setScoreColor(color);
@@ -343,7 +773,7 @@ const AqiDashboard = ({ show }) => {
   };
 
   if (serverDown) {
-    return <DataNotFound />;
+    return <ServerDown />;
   }
 
   return loading ? (
@@ -382,7 +812,7 @@ const AqiDashboard = ({ show }) => {
                     className="m-0 p-0 text-white text-2xl font-semibold"
                     style={{ zIndex: 1500 }}
                   >
-                    Air Quality Index
+                    Air Quality Index- Comparison
                   </h1>
                   <p
                     className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
@@ -504,7 +934,7 @@ const AqiDashboard = ({ show }) => {
               icon="pi pi-file"
               onClick={() => setReportVisible(true)}
               // className="bg-white text-cyan-800 border-1 border-cyan-800"
-              className=" bg-primary1 text-white"
+              className="bg-primary1 text-white"
               raised
             />
             <Dialog
@@ -531,23 +961,20 @@ const AqiDashboard = ({ show }) => {
           </div>
         </div>
       )}
+
       <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
         {selectedLocation && (
           <div
-            className="flex border-round-xl p-2 justify-content-between"
+            className="flex border-round-xl p-2 justify-content-between bg-white"
             style={{
-              backgroundColor: aqiStatus.bg_color,
+              // backgroundColor: aqiStatus.bg_color,
               border: `1px solid ${aqiStatus.color}`,
               flex: "20%",
             }}
           >
             <div className="flex flex-column align-items-center justify-content-between">
-              <h1 className="card-title text-white m-0 p-0">AQI</h1>
-              <h1
-                className="text-3xl font-medium p-0 m-0 text-white"
-                // style={{ color: aqiStatus.color }}
-              >
-                {/* <p className="p-0 m-0 text-sm">{selectedLocation}</p> */}
+              <h1 className="card-title text-primary1 m-0 p-0">Average AQI</h1>
+              <h1 className="text-3xl font-medium p-0 m-0 text-primary1">
                 {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
               </h1>
               <Tag
@@ -559,12 +986,6 @@ const AqiDashboard = ({ show }) => {
                 </span>
               </Tag>
             </div>
-            {/* <h1
-                  className={`border-round-2xl py-2 px-3 text-xs text-white text-left`}
-                  style={{ backgroundColor: aqiStatus.color }}
-                >
-                  {aqiStatus.status || "No Status"}
-                </h1> */}
 
             {aqiImage && (
               <img src={aqiImage} alt={aqiStatusText} className="h-14rem" />
@@ -716,9 +1137,7 @@ const AqiDashboard = ({ show }) => {
       </div>
 
       <div className="flex gap-3 w-full bg-white border-round p-4">
-        {" "}
         <AQIChart
-          envirolocation={envirolocation}
           enviroDate={envirodate}
           envirotime={envirotime}
           enviroPM25={enviropm25}
@@ -729,67 +1148,87 @@ const AqiDashboard = ({ show }) => {
           enviroAQI={enviroAQI}
           selectedLocation={selectedLocation}
           startDate={startDate}
+          aqiAPI={AQIArrayData}
+          dateAPI={dateArrayData}
+          timeAPI={timeArrayData}
         />
       </div>
 
       <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
+            dateAPI={dateArrayData}
+            timeAPI={timeArrayData}
             pollutantData={enviropm25}
+            pollutantDataAPI={pm25ArrayData}
             selectedLocation={selectedLocation}
             pollutantName="PM2.5"
             baseChartColor="#F7A47A"
             drilldownChartColor="#FFC107"
+            drilldownChartColorAPI="#F7A47A"
+            baseChartColorAPI="#FFC107"
             height={200}
             safeLimit={60}
           />
         </div>
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
+            dateAPI={dateArrayData}
+            timeAPI={timeArrayData}
             pollutantData={enviropm10}
+            pollutantDataAPI={pm10ArrayData}
             selectedLocation={selectedLocation}
             pollutantName="PM10"
             baseChartColor="#47B881"
             drilldownChartColor="#80CBC4"
+            drilldownChartColorAPI="#47B881"
+            baseChartColorAPI="#80CBC4"
             height={200}
             safeLimit={100}
           />
         </div>
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
+            dateAPI={dateArrayData}
+            timeAPI={timeArrayData}
             pollutantData={enviroNO2}
+            pollutantDataAPI={NO2ArrayData}
             selectedLocation={selectedLocation}
             pollutantName="NO2"
             baseChartColor="#FFDD82"
+            baseChartColorAPI="#E57373"
             drilldownChartColor="#E57373"
+            drilldownChartColorAPI="#FFDD82"
             height={200}
             safeLimit={80}
           />
         </div>
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
+            dateAPI={dateArrayData}
+            timeAPI={timeArrayData}
             pollutantData={enviroso2}
+            pollutantDataAPI={SO2ArrayData}
             selectedLocation={selectedLocation}
             pollutantName="SO2"
             baseChartColor="#C68FE6"
             drilldownChartColor="#FFF176"
+            drilldownChartColorAPI="#C68FE6"
+            baseChartColorAPI="#FFF176"
             height={200}
             safeLimit={80}
           />
         </div>
       </div>
+
       <RecommendationPanel
         show={true}
         renderRecommendations={renderRecommendations}
@@ -799,4 +1238,4 @@ const AqiDashboard = ({ show }) => {
   );
 };
 
-export default AqiDashboard;
+export default AqiNEW;
