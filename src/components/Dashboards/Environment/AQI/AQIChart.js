@@ -187,7 +187,7 @@ const AQIChart = ({
     const weekendSum = weekend.reduce((acc, val) => acc + val, 0);
     const weekendCount = weekend.length;
     const weekendAvg = weekendCount > 0 ? weekendSum / weekendCount : 0;
-    setOverallWeekendAverage(weekendAvg);
+    setOverallWeekendAverage(Math.round(weekendAvg));
 
     // Extract weekday averages (1 to 5)
     const weekday = [
@@ -203,7 +203,7 @@ const AQIChart = ({
     const weekdaySum = weekday.reduce((acc, val) => acc + val, 0);
     const weekdayCount = weekday.length;
     const weekdayAvg = weekdayCount > 0 ? weekdaySum / weekdayCount : 0;
-    setOverallWeekdayAverage(weekdayAvg);
+    setOverallWeekdayAverage(Math.round(weekdayAvg));
 
     const hourlyAveragesCalc = calculateHourlyAverages();
     setHourlyAverages(hourlyAveragesCalc);
@@ -221,8 +221,7 @@ const AQIChart = ({
       }
     }
     const averageDaytime = daytimeCount > 0 ? daytimeSum / daytimeCount : 0;
-    console.log("🚀 ~ useEffect ~ dayTimeArrayCalc:", dayTimeArrayCalc);
-    setAverageDaytimeAqi(averageDaytime);
+    setAverageDaytimeAqi(Math.round(averageDaytime));
 
     // Calculate average nighttime AQI (18:00:00-23:00:00 and 00:00:00 - 5:00:00)
     let nighttimeSum = 0;
@@ -248,9 +247,8 @@ const AQIChart = ({
     }
     const averageNighttime =
       nighttimeCount > 0 ? nighttimeSum / nighttimeCount : 0;
-    console.log("🚀 ~ useEffect ~ nightTimeArrayCalc:", nightTimeArrayCalc);
 
-    setAverageNighttimeAqi(averageNighttime);
+    setAverageNighttimeAqi(Math.round(averageNighttime));
   }, [selectedDate, enviroDate, enviroAQI, enviroDay]);
 
   const fetchYearlyData = () => {

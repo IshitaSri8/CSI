@@ -20,7 +20,7 @@ const HourlyTrend = ({
   const overallOptions = {
     animationEnabled: true,
     title: {
-      text: "Day and Night AQI Averages",
+      text: "Day vs Night AQI Trend",
       ...commonChartOptions.title,
     },
     axisY: {
