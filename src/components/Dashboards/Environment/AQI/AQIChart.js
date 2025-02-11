@@ -1,26 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { Select, MenuItem } from "@mui/material";
 import "./AqiReport.css";
 import DailyTrend from "./DailyTrend";
+import WeekTrend from "./WeekTrend";
+import HourlyTrend from "./HourlyTrend";
 
-const AQIChart = ({ enviroDate, envirotime, enviroAQI, startDate }) => {
-  const [selectedMonth, setSelectedMonth] = useState("01");
+const AQIChart = ({
+  enviroDate,
+  envirotime,
+  enviroDay,
+  enviroAQI,
+  startDate,
+}) => {
   const [selectedDate, setSelectedDate] = useState("2024-01-01");
   const [chartData, setChartData] = useState([]);
-  const [weeklyAverages, setWeeklyAverages] = useState(null);
   const [dailyAverage, setDailyAverage] = useState(null);
   const [dailyData, setDailyData] = useState(null);
   const [fifteenDaysData, setFifteenDaysData] = useState(null);
+  const [dayAverages, setDayAverages] = useState(null);
+  const [weekendAverages, setWeekendAverages] = useState([]);
+  const [weekdayAverages, setWeekdayAverages] = useState([]);
+  const [overallWeekendAverage, setOverallWeekendAverage] = useState(0);
+  const [overallWeekdayAverage, setOverallWeekdayAverage] = useState(0);
+  const [hourlyAverages, setHourlyAverages] = useState({}); // Initialize array of 24 elements with 0
+  const [daytimeAverages, setDaytimeAverages] = useState([]);
+  const [nighttimeAverages, setNighttimeAverages] = useState([]);
 
-  const getSelectedYear = () => {
-    return new Date(selectedDate).getFullYear(); // Extract year from selectedDate
-  };
+  const [averageDaytimeAqi, setAverageDaytimeAqi] = useState(0);
+  const [averageNighttimeAqi, setAverageNighttimeAqi] = useState(0);
 
   const calculateDailyAverages = () => {
     if (!enviroDate || !enviroAQI) {
       return null;
     }
-
     const dailyAveragesData = {};
 
     enviroDate.forEach((date, index) => {
@@ -36,7 +47,7 @@ const AQIChart = ({ enviroDate, envirotime, enviroAQI, startDate }) => {
       const dailyAQI = dailyAveragesData[date];
       const sum = dailyAQI.reduce((acc, aqi) => acc + aqi, 0);
       const average = sum / dailyAQI.length;
-      dailyAverages[date] = parseFloat(average.toFixed(2));
+      dailyAverages[date] = Math.round(average);
     }
     return dailyAverages;
   };
@@ -102,62 +113,143 @@ const AQIChart = ({ enviroDate, envirotime, enviroAQI, startDate }) => {
     return uniqueData;
   };
 
-  const calculateWeeklyAverages = () => {
-    if (!enviroDate || !enviroAQI) {
-      return null;
+  // Function to calculate average AQI for each day of the week
+  const calculateDayAverages = () => {
+    if (!enviroDay || !enviroAQI) {
+      return {};
     }
 
-    const selectedYear = getSelectedYear(); // Define selectedYear
-    const sortedData = sortDataByDate(); // Ensure data is sorted by date
+    const dayAqiData = {};
 
-    const filteredData = sortedData.filter((item) =>
-      item.date.startsWith(`${selectedYear}-${selectedMonth}`)
-    );
-
-    const weeklyAveragesData = Array.from({ length: 4 }, () => []);
-
-    filteredData.forEach((item) => {
-      const date = new Date(item.date);
-      const week = Math.ceil(date.getDate() / 7);
-      const aqi = item.aqi;
-      if (week <= 4) {
-        weeklyAveragesData[week - 1].push(aqi);
+    enviroDay.forEach((day, index) => {
+      const aqi = enviroAQI[index];
+      if (!dayAqiData[day]) {
+        dayAqiData[day] = [];
       }
+      dayAqiData[day].push(aqi);
     });
 
-    for (let i = 0; i < weeklyAveragesData.length; i++) {
-      if (weeklyAveragesData[i].length > 0) {
-        const sum = weeklyAveragesData[i].reduce((acc, aqi) => acc + aqi, 0);
-        const average = sum / weeklyAveragesData[i].length;
-        weeklyAveragesData[i] = parseFloat(average.toFixed(2));
-      } else {
-        weeklyAveragesData[i] = null;
-      }
+    const dayAverages = {};
+    for (const day in dayAqiData) {
+      const dayAQI = dayAqiData[day];
+      const sum = dayAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / dayAQI.length;
+      dayAverages[day] = Math.round(average);
     }
-    return { weeklyAveragesData };
+    return dayAverages;
   };
 
-  const sortDataByDate = () => {
-    if (!enviroDate || !enviroAQI) {
-      return [];
+  // Function to calculate average AQI for each hour
+  const calculateHourlyAverages = () => {
+    if (!envirotime || !enviroAQI) {
+      return {};
     }
 
-    const combinedData = enviroDate.map((date, index) => ({
-      date,
-      time: envirotime[index],
-      aqi: enviroAQI[index],
-    }));
+    // Initialize an array to store the sums and counts for each hour
+    const hourlyAveragesData = {};
 
-    return combinedData.sort((a, b) => new Date(a.date) - new Date(b.date));
+    envirotime.forEach((time, index) => {
+      const aqi = enviroAQI[index];
+      if (!hourlyAveragesData[time]) {
+        hourlyAveragesData[time] = [];
+      }
+      hourlyAveragesData[time].push(aqi);
+    });
+
+    const hourlyAverages = {};
+    for (const time in hourlyAveragesData) {
+      const hourlyAQI = hourlyAveragesData[time];
+      const sum = hourlyAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / hourlyAQI.length;
+      hourlyAverages[time] = Math.round(average);
+    }
+    console.log(
+      "🚀 ~ calculateHourlyAverages ~ hourlyAverages:",
+      hourlyAverages
+    );
+    return hourlyAverages;
   };
 
   useEffect(() => {
     fetchYearlyData();
-    setWeeklyAverages(calculateWeeklyAverages());
     setDailyAverage(calculateDailyAverages());
     setDailyData(getDailyData());
     setFifteenDaysData(getFifteenDaysData());
-  }, [selectedMonth, selectedDate, enviroDate, enviroAQI]);
+
+    const averages = calculateDayAverages();
+    setDayAverages(averages);
+
+    // Extract weekend averages (0 and 6)
+    const weekend = [averages[0] || 0, averages[6] || 0];
+    setWeekendAverages(weekend);
+
+    // Calculate overall weekend average
+    const weekendSum = weekend.reduce((acc, val) => acc + val, 0);
+    const weekendCount = weekend.length;
+    const weekendAvg = weekendCount > 0 ? weekendSum / weekendCount : 0;
+    setOverallWeekendAverage(Math.round(weekendAvg));
+
+    // Extract weekday averages (1 to 5)
+    const weekday = [
+      averages[1] || 0,
+      averages[2] || 0,
+      averages[3] || 0,
+      averages[4] || 0,
+      averages[5] || 0,
+    ];
+    setWeekdayAverages(weekday);
+
+    // Calculate overall weekday average
+    const weekdaySum = weekday.reduce((acc, val) => acc + val, 0);
+    const weekdayCount = weekday.length;
+    const weekdayAvg = weekdayCount > 0 ? weekdaySum / weekdayCount : 0;
+    setOverallWeekdayAverage(Math.round(weekdayAvg));
+
+    const hourlyAveragesCalc = calculateHourlyAverages();
+    setHourlyAverages(hourlyAveragesCalc);
+
+    // Calculate average daytime AQI (6:00:00 to 17:00:00)
+    let daytimeSum = 0;
+    let daytimeCount = 0;
+    const dayTimeArrayCalc = [];
+    for (let hour = 6; hour <= 17; hour++) {
+      const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
+      if (hourlyAveragesCalc[time] !== undefined) {
+        dayTimeArrayCalc.push({ time, aqi: hourlyAveragesCalc[time] });
+        daytimeSum += hourlyAveragesCalc[time];
+        daytimeCount++;
+      }
+    }
+    const averageDaytime = daytimeCount > 0 ? daytimeSum / daytimeCount : 0;
+    setAverageDaytimeAqi(Math.round(averageDaytime));
+
+    // Calculate average nighttime AQI (18:00:00-23:00:00 and 00:00:00 - 5:00:00)
+    let nighttimeSum = 0;
+    let nighttimeCount = 0;
+    const nightTimeArrayCalc = [];
+
+    for (let hour = 18; hour <= 23; hour++) {
+      const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
+      if (hourlyAveragesCalc[time] !== undefined) {
+        nightTimeArrayCalc.push({ time, aqi: hourlyAveragesCalc[time] });
+        nighttimeSum += hourlyAveragesCalc[time];
+
+        nighttimeCount++;
+      }
+    }
+    for (let hour = 0; hour <= 5; hour++) {
+      const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
+      if (hourlyAveragesCalc[time] !== undefined) {
+        nightTimeArrayCalc.push({ time, aqi: hourlyAveragesCalc[time] });
+        nighttimeSum += hourlyAveragesCalc[time];
+        nighttimeCount++;
+      }
+    }
+    const averageNighttime =
+      nighttimeCount > 0 ? nighttimeSum / nighttimeCount : 0;
+
+    setAverageNighttimeAqi(Math.round(averageNighttime));
+  }, [selectedDate, enviroDate, enviroAQI, enviroDay]);
 
   const fetchYearlyData = () => {
     const yearlyData = {};
@@ -197,14 +289,27 @@ const AQIChart = ({ enviroDate, envirotime, enviroAQI, startDate }) => {
 
   return (
     chartData.length > 0 && (
-      <DailyTrend
-        selectedDate={selectedDate}
-        dailyAverage={dailyAverage}
-        dailyData={dailyData}
-        setSelectedDate={setSelectedDate}
-        fifteenDaysData={fifteenDaysData}
-        startDate={startDate}
-      />
+      <>
+        <DailyTrend
+          selectedDate={selectedDate}
+          dailyAverage={dailyAverage}
+          dailyData={dailyData}
+          setSelectedDate={setSelectedDate}
+          fifteenDaysData={fifteenDaysData}
+          startDate={startDate}
+        />
+        <WeekTrend
+          overallWeekendAverage={overallWeekendAverage}
+          overallWeekdayAverage={overallWeekdayAverage}
+          weekendAverages={weekendAverages}
+          weekdayAverages={weekdayAverages}
+        />
+        <HourlyTrend
+          averageDaytimeAqi={averageDaytimeAqi}
+          averageNighttimeAqi={averageNighttimeAqi}
+          hourlyAverages={hourlyAverages}
+        />
+      </>
     )
   );
 };

@@ -32,9 +32,10 @@ import Disaster from "components/Dashboards/Administration/Disaster Management/D
 import pathConstants from "pathConstants";
 import CityReportCard from "pages/CityReportCard";
 import ScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
-import Aqi_New from "components/Dashboards/Environment/AQI_NEW/AQI_NEW";
 import LiveAQI from "components/Dashboards/Environment/AQI/LiveAQI";
 import NoData from "pages/error pages/NoData";
+import CompareAQI from "components/Dashboards/Environment/AQI/ComapreAQI";
+import AqiNEW from "components/Dashboards/Environment/AqiNew/AqiNEW";
 
 function App() {
   const routes = [
@@ -55,12 +56,16 @@ function App() {
       element: <AqiDashboard show={true} />,
     },
     {
-      path: pathConstants.LiveAQI,
-      element: <LiveAQI show={true} />,
+      path: pathConstants.CompareAQI,
+      element: <CompareAQI show={true} />,
     },
     {
       path: pathConstants.AQI_New,
-      element: <Aqi_New show={true} />,
+      element: <AqiNEW show={true} />,
+    },
+    {
+      path: pathConstants.LiveAQI,
+      element: <LiveAQI show={true} />,
     },
     {
       path: pathConstants.TEMP,

@@ -5,12 +5,12 @@ import { Dropdown } from "primereact/dropdown";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "../../../DashboardUtility/Dash.css";
-import PollutantChart from "./PollutantChartNEW";
+import PollutantChartNEW from "../AqiNew/PollutantChartNEW";
 import { Button } from "primereact/button";
 import TableSkeleton from "../../../DashboardUtility/skeletons/TableSkeleton";
-import AQIChart from "./AQIChartNEW";
-import AqiMap from "../AQI/AqiMap";
-import AQIRecommendations from "../AQI/AQIRecommendations";
+import AQIChartNEW from "../AqiNew/AQIChartNEW";
+import AqiMap from "./AqiMap";
+import AQIRecommendations from "./AQIRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
 import Upload from "components/DashboardUtility/Popups/Upload";
@@ -20,6 +20,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { Divider } from "primereact/divider";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
+import ServerDown from "pages/error pages/ServerDown";
 import AqiScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
 import unhealthy from "assets/dashboard/unhealthy-aqi-level.svg";
 import severe from "assets/dashboard/severe-aqi-level.svg";
@@ -28,9 +29,10 @@ import moderate from "assets/dashboard/moderate-aqi-level.svg";
 import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
 import colors from "colorConstants";
-import ServerDown from "pages/error pages/ServerDown";
+import AQIChart from "./AQIChart";
+import PollutantChart from "./PollutantChart";
 
-const Aqi_New = ({ show }) => {
+const CompareAQI = ({ show }) => {
   const [startDate, setStartDate] = useState(
     new Date("2024-11-30T18:30:00.000Z")
   );
@@ -48,11 +50,11 @@ const Aqi_New = ({ show }) => {
     image: null,
   });
 
-  const overlayRef = useRef(null);
+  const overlayRef1 = useRef(null);
+  const overlayRef2 = useRef(null);
 
   const [dataTableData, setDataTableData] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [dateRange, setDateRange] = useState([]);
   const [envirotime, setEnviroTime] = useState([]);
   const [envirodate, setEnviroDate] = useState([]);
   const [enviropm25, setEnviroPM25] = useState([]);
@@ -60,7 +62,6 @@ const Aqi_New = ({ show }) => {
   const [enviroso2, setEnviroSO2] = useState([]);
   const [enviroAQI, setEnviroAQI] = useState([]);
   const [enviroNO2, setEnviroNO2] = useState([]);
-  const [enviroco2, setEnviroco2] = useState([]);
   const [timeArrayData, setTimeArrayData] = useState([]);
   const [dateArrayData, setDateArrayData] = useState([]);
   const [pm25ArrayData, setPM25ArrayData] = useState([]);
@@ -68,14 +69,19 @@ const Aqi_New = ({ show }) => {
   const [SO2ArrayData, setSO2ArrayData] = useState([]);
   const [AQIArrayData, setAQIArrayData] = useState([]);
   const [NO2ArrayData, setNO2ArrayData] = useState([]);
-
+  const currentDate = new Date();
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+  const [liveStartDate, setLiveStartDate] = useState(thirtyDaysAgo);
+  const [liveEndDate, setLiveEndDate] = useState(currentDate);
   const [loading, setLoading] = useState(true);
   const [serverDown, setServerDown] = useState(false);
+  const [compare, setCompare] = useState(false);
   const [ReportVisible, setReportVisible] = useState(false);
   const [uploadDialogVisible, setUploadDialogVisible] = useState(false);
   const [aqiStats, setAqiStats] = useState("");
   const [aqiIDs, setAQIIDs] = useState();
-
+  // Fetching locations from uploaded data.....
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -96,6 +102,10 @@ const Aqi_New = ({ show }) => {
       }
     };
 
+    fetchData();
+  }, []);
+  //  Fetching startDate and endDate from uploaded data
+  useEffect(() => {
     const fetchDateRange = async () => {
       try {
         const dateRangeResponse = await axios.get(
@@ -115,11 +125,10 @@ const Aqi_New = ({ show }) => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData();
     fetchDateRange();
   }, []);
   useEffect(() => {
-    handleSearch();
+    handleCompare();
   }, []);
   function convertDateString(date) {
     // Format the date to 'YYYY-MM-DD'
@@ -168,89 +177,9 @@ const Aqi_New = ({ show }) => {
       const no2Array = [];
       const pm25Array = [];
       const pm10Array = [];
+      const aqiArray = [];
       const aqiArrayAPI = [];
-      // const aqiArray = [];
-      // const Range = (val, pollutant) => {
-      //   if (pollutant === "PM10") {
-      //     if (val >= 0 && val <= 50) {
-      //       return [0, 0, 50, 0, 50];
-      //     } else if (val >= 51 && val <= 100) {
-      //       return [51, 51, 100, 51, 100];
-      //     } else if (val >= 101 && val <= 250) {
-      //       return [101, 101, 250, 101, 200];
-      //     } else if (val >= 251 && val <= 350) {
-      //       return [251, 251, 350, 201, 300];
-      //     } else if (val >= 351 && val <= 430) {
-      //       return [351, 351, 430, 301, 400];
-      //     } else if (val > 430) {
-      //       return [351, 430, 430, 401, 500];
-      //     }
-      //   } else if (pollutant === "PM2.5") {
-      //     if (val >= 0 && val <= 30) {
-      //       return [0, 0, 30, 0, 50];
-      //     } else if (val >= 31 && val <= 60) {
-      //       return [31, 31, 60, 51, 100];
-      //     } else if (val >= 61 && val <= 90) {
-      //       return [61, 61, 90, 101, 200];
-      //     } else if (val >= 91 && val <= 120) {
-      //       return [91, 91, 120, 201, 300];
-      //     } else if (val >= 121 && val <= 250) {
-      //       return [121, 121, 250, 301, 400];
-      //     } else if (val > 250) {
-      //       return [121, 250, 250, 401, 500];
-      //     }
-      //   } else if (pollutant === "NO2") {
-      //     if (val >= 0 && val <= 40) {
-      //       return [0, 0, 40, 0, 50];
-      //     } else if (val >= 41 && val <= 80) {
-      //       return [41, 41, 80, 51, 100];
-      //     } else if (val >= 81 && val <= 180) {
-      //       return [81, 81, 180, 101, 200];
-      //     } else if (val >= 181 && val <= 280) {
-      //       return [181, 181, 280, 201, 300];
-      //     } else if (val >= 281 && val <= 400) {
-      //       return [281, 281, 400, 301, 400];
-      //     } else if (val > 400) {
-      //       return [281, 400, 400, 401, 500];
-      //     }
-      //   } else if (pollutant === "SO2") {
-      //     if (val >= 0 && val <= 40) {
-      //       return [0, 0, 40, 0, 50];
-      //     } else if (val >= 41 && val <= 80) {
-      //       return [41, 41, 80, 51, 100];
-      //     } else if (val >= 81 && val <= 380) {
-      //       return [81, 81, 380, 101, 200];
-      //     } else if (val >= 381 && val <= 800) {
-      //       return [381, 381, 800, 201, 300];
-      //     } else if (val >= 801 && val <= 1600) {
-      //       return [801, 801, 1600, 301, 400];
-      //     } else if (val > 1600) {
-      //       return [801, 1600, 1600, 401, 500];
-      //     }
-      //   }
-      // };
 
-      // const individualAqi = (val, pollutant) => {
-      //   const [ClowD, ClowN, Chigh, Ilow, Ihigh] = Range(val, pollutant);
-      //   const indiAqi = Math.round(
-      //     ((Ihigh - Ilow) / (Chigh - ClowD)) * (val - ClowN) + Ilow
-      //   );
-      //   return indiAqi;
-      // };
-
-      // const calculateAqi = (pm25, pm10, NO2, SO2) => {
-      //   // Round off the values before calling individualAqi
-      //   const roundedPm10 = Math.round(pm10);
-      //   const roundedPm25 = Math.round(pm25);
-      //   const roundedNO2 = Math.round(NO2);
-      //   const roundedSO2 = Math.round(SO2);
-      //   const pm10_aqi = individualAqi(roundedPm10, "PM10");
-      //   const pm25_aqi = individualAqi(roundedPm25, "PM2.5");
-      //   const NO2_aqi = individualAqi(roundedNO2, "NO2");
-      //   const SO2_aqi = individualAqi(roundedSO2, "SO2");
-
-      //   return Math.max(pm10_aqi, pm25_aqi, NO2_aqi, SO2_aqi);
-      // };
       api_response.forEach((item) => {
         const newDate = new Date(item.time * 1000);
         const { date, time } = convertDateString(newDate);
@@ -260,8 +189,9 @@ const Aqi_New = ({ show }) => {
         //   item.parameter_values.no2.avg,
         //   item.parameter_values.so2.avg
         // );
-        // aqiArray.push(aqi);
         aqiArrayAPI.push(item.parameter_values.aqi.value);
+
+        // aqiArray.push(aqi);
         dateArray.push(date);
         timeArray.push(time);
         so2Array.push(item.parameter_values.so2.avg);
@@ -282,20 +212,19 @@ const Aqi_New = ({ show }) => {
       return 0;
     }
   };
+  const fetchAQIData = async () => {
+    if (aqiIDs) {
+      const promises = aqiIDs.map((aqiID) =>
+        getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
+      );
+      // Wait for all promises to resolve
+      await Promise.all(promises);
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchAQIData = async () => {
-      if (aqiIDs) {
-        const promises = aqiIDs.map((aqiID) =>
-          getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
-        );
-        // Wait for all promises to resolve
-        await Promise.all(promises);
-        setLoading(false);
-      }
-    };
-
     fetchAQIData();
-  }, [aqiIDs]);
+  }, []);
 
   const getThingID = (selectedLocation) => {
     if (selectedLocation === "Ayodhya- Civil Lines") {
@@ -331,13 +260,13 @@ const Aqi_New = ({ show }) => {
         if (response.status === 200) {
           setLoading(false);
           // Convert startDate and endDate to Unix timestamps
-          const start = new Date(startDate);
-          const end = new Date(endDate);
+          const start = new Date(liveStartDate);
+          const end = new Date(liveEndDate);
           start.setHours(0, 0, 0, 0);
           end.setHours(23, 59, 59, 59);
 
           const fromTime = Math.floor(start.getTime() / 1000);
-          const uptoTime = Math.floor(end.getTime() / 1000); // End date in seconds
+          const uptoTime = Math.floor(end.getTime() / 1000);
           const [location_name, location_id] = getThingID(selectedLocation);
           let thingsID = [];
 
@@ -358,9 +287,9 @@ const Aqi_New = ({ show }) => {
     };
 
     fetchData();
-  }, [selectedLocation, startDate, endDate]);
+  }, [selectedLocation, liveStartDate, liveEndDate]);
 
-  const handleSearch = async () => {
+  const handleCompare = async () => {
     try {
       setLoading(true);
       const start = new Date(startDate).toDateString("en-CA");
@@ -460,7 +389,6 @@ const Aqi_New = ({ show }) => {
       const so2 = [];
       const AQI = [];
       const NO2 = [];
-      const co2 = [];
 
       filteredData.forEach((item) => {
         const dateObj = new Date(item.Date_time).toLocaleDateString("en-CA");
@@ -470,97 +398,13 @@ const Aqi_New = ({ show }) => {
         });
         formattedTime.push(timeObj);
 
-        const parameterRange = (val, pollutant) => {
-          if (pollutant === "PM10") {
-            if (val >= 0 && val <= 50) {
-              return [0, 0, 50, 0, 50];
-            } else if (val > 50 && val <= 100) {
-              return [50, 50, 100, 50, 100];
-            } else if (val > 100 && val <= 250) {
-              return [100, 100, 250, 100, 200];
-            } else if (val > 250 && val <= 350) {
-              return [250, 250, 350, 200, 300];
-            } else if (val > 350 && val <= 430) {
-              return [350, 350, 430, 300, 400];
-            } else if (val > 430) {
-              return [350, 430, 430, 400, 500];
-            }
-          } else if (pollutant === "PM2.5") {
-            if (val >= 0 && val <= 30) {
-              return [0, 0, 30, 0, 50];
-            } else if (val >= 31 && val <= 60) {
-              return [31, 31, 60, 51, 100];
-            } else if (val >= 61 && val <= 90) {
-              return [61, 61, 90, 101, 200];
-            } else if (val >= 91 && val <= 120) {
-              return [91, 91, 120, 201, 300];
-            } else if (val >= 121 && val <= 250) {
-              return [121, 121, 250, 301, 400];
-            } else if (val > 250) {
-              return [121, 250, 250, 401, 500];
-            }
-          } else if (pollutant === "NO2") {
-            if (val >= 0 && val <= 40) {
-              return [0, 0, 40, 0, 50];
-            } else if (val >= 41 && val <= 80) {
-              return [41, 41, 80, 51, 100];
-            } else if (val >= 81 && val <= 180) {
-              return [81, 81, 180, 101, 200];
-            } else if (val >= 181 && val <= 280) {
-              return [181, 181, 280, 201, 300];
-            } else if (val >= 281 && val <= 400) {
-              return [281, 281, 400, 301, 400];
-            } else if (val > 400) {
-              return [281, 400, 400, 401, 500];
-            }
-          } else if (pollutant === "SO2") {
-            if (val >= 0 && val <= 40) {
-              return [0, 0, 40, 0, 50];
-            } else if (val >= 41 && val <= 80) {
-              return [41, 41, 80, 51, 100];
-            } else if (val >= 81 && val <= 380) {
-              return [81, 81, 380, 101, 200];
-            } else if (val >= 381 && val <= 800) {
-              return [381, 381, 800, 201, 300];
-            } else if (val >= 801 && val <= 1600) {
-              return [801, 801, 1600, 301, 400];
-            } else if (val > 1600) {
-              return [801, 1600, 1600, 401, 500];
-            }
-          }
-        };
-
-        const individualAqi = (val, pollutant) => {
-          const [ClowD, ClowN, Chigh, Ilow, Ihigh] = parameterRange(
-            val,
-            pollutant
-          );
-          const indiAqi = Math.round(
-            ((Ihigh - Ilow) / (Chigh - ClowD)) * (val - ClowN) + Ilow
-          );
-          return indiAqi;
-        };
-
-        const calculateAqi = (pm25, pm10, NO2, SO2) => {
-          // Round off the values before calling individualAqi
-          const roundedPm10 = Math.round(pm10);
-          const roundedPm25 = Math.round(pm25);
-          const roundedNO2 = Math.round(NO2);
-          const roundedSO2 = Math.round(SO2);
-          const pm10_aqi = individualAqi(pm10, "PM10");
-          const pm25_aqi = individualAqi(roundedPm25, "PM2.5");
-          const NO2_aqi = individualAqi(roundedNO2, "NO2");
-          const SO2_aqi = individualAqi(roundedSO2, "SO2");
-
-          return Math.max(pm10_aqi, pm25_aqi, NO2_aqi, SO2_aqi);
-        };
-        AQI.push(calculateAqi(item.pm25, item.pm10, item.NO2, item.SO2));
         pm25.push(item.pm25);
         pm10.push(item.pm10);
         so2.push(item.SO2);
-        // AQI.push(item.CalculatedAqi);
+
+        // AQI.push(item.CalculatedAqi);;
+        AQI.push(calculateAqi(item.pm25, item.pm10, item.NO2, item.SO2));
         NO2.push(item.NO2);
-        co2.push(item.co2);
       });
 
       setEnviroTime(formattedTime);
@@ -570,13 +414,12 @@ const Aqi_New = ({ show }) => {
       setEnviroSO2(so2);
       setEnviroAQI(AQI);
       setEnviroNO2(NO2);
-      setEnviroco2(co2);
 
       if (filteredData.length > 0) {
-        const averageAqi = (
+        const averageAqi = Math.round(
           filteredData.reduce((sum, item) => sum + item.CalculatedAqi, 0) /
-          filteredData.length
-        ).toFixed(2);
+            filteredData.length
+        );
         const averagepm25 = (
           filteredData.reduce((sum, item) => sum + item.pm25, 0) /
           filteredData.length
@@ -648,15 +491,16 @@ const Aqi_New = ({ show }) => {
       ).map(JSON.parse);
       setDataTableData(uniqueDataTableData);
     } catch (error) {
-      console.log("🚀 ~ handleSearch ~ error:", error);
+      console.log("🚀 ~ handleCompare ~ error:", error);
+
       setServerDown(true);
     }
   };
 
   const resetFilters = () => {
     setSelectedLocation(null);
-    setStartDate(null);
-    setEndDate(null);
+    setLiveStartDate(null);
+    setLiveEndDate(null);
   };
 
   function formatTimeToHHMMSS(isoDateString) {
@@ -742,7 +586,7 @@ const Aqi_New = ({ show }) => {
   };
 
   const renderDashboard = () => {
-    return <Aqi_New show={false} />;
+    return <CompareAQI show={false} />;
   };
   const [score, setScore] = useState(null);
   const [scoreColor, setScoreColor] = useState("#000");
@@ -837,45 +681,33 @@ const Aqi_New = ({ show }) => {
               <div className="flex align-items-center justify-content-start gap-1">
                 <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
                 <p className="m-0 p-0 text-primary1 font-medium text-sm">
-                  {startDate ? startDate.toLocaleDateString() : "Start Date"} -{" "}
-                  {endDate ? endDate.toLocaleDateString() : "End Date"}
+                  {liveStartDate
+                    ? liveStartDate.toLocaleDateString()
+                    : "Start Date"}{" "}
+                  -{" "}
+                  {liveEndDate ? liveEndDate.toLocaleDateString() : "End Date"}
                 </p>
               </div>
             </div>
           </div>
           <div className="flex align-ites-center justify-content-end gap-2">
             <Button
-              tooltip="Filters"
-              tooltipOptions={{
-                position: "bottom",
-              }}
-              icon="pi pi-filter"
-              onClick={(e) => overlayRef.current.toggle(e)}
-              className="bg-white text-secondary2"
+              icon={compare ? "pi pi-gauge" : "pi pi-arrow-right-arrow-left"} // Conditional icon
+              label={compare ? "Live" : "Compare"} // Conditionally set the label
+              onClick={(e) => overlayRef2.current.toggle(e)}
+              //   onClick={() => setCompare(!compare)} // Toggle the compare state
+              className="bg-primary1 text-white"
               raised
             />
             <OverlayPanel
-              ref={overlayRef}
+              ref={overlayRef2}
               style={{ width: "20rem" }}
               className="p-overlay-panel"
             >
               <div className="flex flex-column gap-3">
-                <div className="flex flex-column">
-                  <label htmlFor="location" className="font-semibold text">
-                    Location
-                  </label>
-                  <Dropdown
-                    value={selectedLocation}
-                    options={locations}
-                    optionLabel="label"
-                    optionValue="value"
-                    onChange={(e) => setSelectedLocation(e.value)}
-                    placeholder="Select Location"
-                  />
-                </div>
-                <div className="p-field text-sm flex flex-column">
+                <div className="p-field text-sm flex flex-column gap-2">
                   <label htmlFor="dateRange" className="font-semibold text">
-                    Select Date Range
+                    Select Date Range for which you want to compare:
                   </label>
                   <Calendar
                     id="dateRange"
@@ -905,7 +737,75 @@ const Aqi_New = ({ show }) => {
                     className="bg-primary1"
                     label="Apply"
                     // icon="pi pi-search"
-                    onClick={handleSearch}
+                    onClick={fetchAQIData}
+                    raised
+                  />
+                </div>
+              </div>
+            </OverlayPanel>
+
+            <Button
+              tooltip="Filters"
+              tooltipOptions={{
+                position: "bottom",
+              }}
+              icon="pi pi-filter"
+              onClick={(e) => overlayRef1.current.toggle(e)}
+              className="bg-white text-secondary2"
+              raised
+            />
+            <OverlayPanel
+              ref={overlayRef1}
+              style={{ width: "20rem" }}
+              className="p-overlay-panel"
+            >
+              <div className="flex flex-column gap-3">
+                <div className="flex flex-column">
+                  <label htmlFor="location" className="font-semibold text">
+                    Location
+                  </label>
+                  <Dropdown
+                    value={selectedLocation}
+                    options={locations}
+                    optionLabel="label"
+                    optionValue="value"
+                    onChange={(e) => setSelectedLocation(e.value)}
+                    placeholder="Select Location"
+                  />
+                </div>
+                <div className="p-field text-sm flex flex-column">
+                  <label htmlFor="dateRange" className="font-semibold text">
+                    Select Date Range
+                  </label>
+                  <Calendar
+                    id="dateRange"
+                    value={[liveStartDate, liveEndDate]} // Pass selected date range as an array
+                    onChange={(e) => {
+                      const [newStartDate, newEndDate] = e.value; // Destructure range
+                      setLiveStartDate(newStartDate);
+                      setLiveEndDate(newEndDate);
+                    }}
+                    selectionMode="range"
+                    showIcon
+                    dateFormat="dd-mm-yy"
+                    placeholder="Select date range"
+                    showButtonBar
+                    hideOnRangeSelection
+                  />
+                </div>
+                <div className="flex justify-content-between">
+                  <Button
+                    className="bg-white text-secondary2"
+                    label="Reset"
+                    // icon="pi pi-search"
+                    onClick={resetFilters}
+                    raised
+                  />
+                  <Button
+                    className="bg-primary1"
+                    label="Apply"
+                    // icon="pi pi-search"
+                    onClick={handleCompare}
                     raised
                   />
                 </div>
@@ -1137,97 +1037,158 @@ const Aqi_New = ({ show }) => {
       </div>
 
       <div className="flex gap-3 w-full bg-white border-round p-4">
-        <AQIChart
-          enviroDate={envirodate}
-          envirotime={envirotime}
-          enviroPM25={enviropm25}
-          enviroPM10={enviropm10}
-          enviroSO2={enviropm25}
-          enviroNO2={enviroNO2}
-          enviroco2={enviroco2}
-          enviroAQI={enviroAQI}
-          selectedLocation={selectedLocation}
-          startDate={startDate}
-          aqiAPI={AQIArrayData}
-          dateAPI={dateArrayData}
-          timeAPI={timeArrayData}
-        />
+        {!compare ? (
+          <AQIChart
+            enviroDate={dateArrayData}
+            envirotime={timeArrayData}
+            enviroAQI={AQIArrayData}
+            selectedLocation={selectedLocation}
+            startDate={startDate}
+          />
+        ) : (
+          <AQIChartNEW
+            enviroDate={envirodate}
+            envirotime={envirotime}
+            enviroAQI={enviroAQI}
+            selectedLocation={selectedLocation}
+            startDate={startDate}
+            aqiAPI={AQIArrayData}
+            dateAPI={dateArrayData}
+            timeAPI={timeArrayData}
+          />
+        )}
       </div>
-
-      <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
-        <div className="flex gap-3 w-full bg-white border-round p-4">
-          <PollutantChart
-            envirodate={envirodate}
-            envirotime={envirotime}
-            dateAPI={dateArrayData}
-            timeAPI={timeArrayData}
-            pollutantData={enviropm25}
-            pollutantDataAPI={pm25ArrayData}
-            selectedLocation={selectedLocation}
-            pollutantName="PM2.5"
-            baseChartColor="#F7A47A"
-            drilldownChartColor="#FFC107"
-            drilldownChartColorAPI="#F7A47A"
-            baseChartColorAPI="#FFC107"
-            height={200}
-            safeLimit={60}
-          />
+      {!compare ? (
+        <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
+          <div className="flex gap-3 w-full bg-white border-round p-4">
+            <PollutantChart
+              envirodate={dateArrayData}
+              envirotime={timeArrayData}
+              pollutantData={pm25ArrayData}
+              selectedLocation={selectedLocation}
+              pollutantName="PM2.5"
+              baseChartColor="#F7A47A"
+              drilldownChartColor="#FFC107"
+              height={200}
+              safeLimit={60}
+            />
+          </div>
+          <div className="flex gap-3 w-full bg-white border-round p-4">
+            <PollutantChart
+              envirodate={dateArrayData}
+              envirotime={timeArrayData}
+              pollutantData={pm10ArrayData}
+              selectedLocation={selectedLocation}
+              pollutantName="PM10"
+              baseChartColor="#47B881"
+              drilldownChartColor="#80CBC4"
+              height={200}
+              safeLimit={100}
+            />
+          </div>
+          <div className="flex gap-3 w-full bg-white border-round p-4">
+            <PollutantChart
+              envirodate={dateArrayData}
+              envirotime={timeArrayData}
+              pollutantData={NO2ArrayData}
+              selectedLocation={selectedLocation}
+              pollutantName="NO2"
+              baseChartColor="#FFDD82"
+              drilldownChartColor="#E57373"
+              height={200}
+              safeLimit={80}
+            />
+          </div>
+          <div className="flex gap-3 w-full bg-white border-round p-4">
+            <PollutantChart
+              envirodate={dateArrayData}
+              envirotime={timeArrayData}
+              pollutantData={SO2ArrayData}
+              selectedLocation={selectedLocation}
+              pollutantName="SO2"
+              baseChartColor="#C68FE6"
+              drilldownChartColor="#FFF176"
+              height={200}
+              safeLimit={80}
+            />
+          </div>
         </div>
-        <div className="flex gap-3 w-full bg-white border-round p-4">
-          <PollutantChart
-            envirodate={envirodate}
-            envirotime={envirotime}
-            dateAPI={dateArrayData}
-            timeAPI={timeArrayData}
-            pollutantData={enviropm10}
-            pollutantDataAPI={pm10ArrayData}
-            selectedLocation={selectedLocation}
-            pollutantName="PM10"
-            baseChartColor="#47B881"
-            drilldownChartColor="#80CBC4"
-            drilldownChartColorAPI="#47B881"
-            baseChartColorAPI="#80CBC4"
-            height={200}
-            safeLimit={100}
-          />
+      ) : (
+        <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
+          <div className="flex gap-3 w-full bg-white border-round p-4">
+            <PollutantChartNEW
+              envirodate={envirodate}
+              envirotime={envirotime}
+              dateAPI={dateArrayData}
+              timeAPI={timeArrayData}
+              pollutantData={enviropm25}
+              pollutantDataAPI={pm25ArrayData}
+              selectedLocation={selectedLocation}
+              pollutantName="PM2.5"
+              baseChartColor="#F7A47A"
+              drilldownChartColor="#FFC107"
+              drilldownChartColorAPI="#F7A47A"
+              baseChartColorAPI="#FFC107"
+              height={200}
+              safeLimit={60}
+            />
+          </div>
+          <div className="flex gap-3 w-full bg-white border-round p-4">
+            <PollutantChartNEW
+              envirodate={envirodate}
+              envirotime={envirotime}
+              dateAPI={dateArrayData}
+              timeAPI={timeArrayData}
+              pollutantData={enviropm10}
+              pollutantDataAPI={pm10ArrayData}
+              selectedLocation={selectedLocation}
+              pollutantName="PM10"
+              baseChartColor="#47B881"
+              drilldownChartColor="#80CBC4"
+              drilldownChartColorAPI="#47B881"
+              baseChartColorAPI="#80CBC4"
+              height={200}
+              safeLimit={100}
+            />
+          </div>
+          <div className="flex gap-3 w-full bg-white border-round p-4">
+            <PollutantChartNEW
+              envirodate={envirodate}
+              envirotime={envirotime}
+              dateAPI={dateArrayData}
+              timeAPI={timeArrayData}
+              pollutantData={enviroNO2}
+              pollutantDataAPI={NO2ArrayData}
+              selectedLocation={selectedLocation}
+              pollutantName="NO2"
+              baseChartColor="#FFDD82"
+              baseChartColorAPI="#E57373"
+              drilldownChartColor="#E57373"
+              drilldownChartColorAPI="#FFDD82"
+              height={200}
+              safeLimit={80}
+            />
+          </div>
+          <div className="flex gap-3 w-full bg-white border-round p-4">
+            <PollutantChartNEW
+              envirodate={envirodate}
+              envirotime={envirotime}
+              dateAPI={dateArrayData}
+              timeAPI={timeArrayData}
+              pollutantData={enviroso2}
+              pollutantDataAPI={SO2ArrayData}
+              selectedLocation={selectedLocation}
+              pollutantName="SO2"
+              baseChartColor="#C68FE6"
+              drilldownChartColor="#FFF176"
+              drilldownChartColorAPI="#C68FE6"
+              baseChartColorAPI="#FFF176"
+              height={200}
+              safeLimit={80}
+            />
+          </div>
         </div>
-        <div className="flex gap-3 w-full bg-white border-round p-4">
-          <PollutantChart
-            envirodate={envirodate}
-            envirotime={envirotime}
-            dateAPI={dateArrayData}
-            timeAPI={timeArrayData}
-            pollutantData={enviroNO2}
-            pollutantDataAPI={NO2ArrayData}
-            selectedLocation={selectedLocation}
-            pollutantName="NO2"
-            baseChartColor="#FFDD82"
-            baseChartColorAPI="#E57373"
-            drilldownChartColor="#E57373"
-            drilldownChartColorAPI="#FFDD82"
-            height={200}
-            safeLimit={80}
-          />
-        </div>
-        <div className="flex gap-3 w-full bg-white border-round p-4">
-          <PollutantChart
-            envirodate={envirodate}
-            envirotime={envirotime}
-            dateAPI={dateArrayData}
-            timeAPI={timeArrayData}
-            pollutantData={enviroso2}
-            pollutantDataAPI={SO2ArrayData}
-            selectedLocation={selectedLocation}
-            pollutantName="SO2"
-            baseChartColor="#C68FE6"
-            drilldownChartColor="#FFF176"
-            drilldownChartColorAPI="#C68FE6"
-            baseChartColorAPI="#FFF176"
-            height={200}
-            safeLimit={80}
-          />
-        </div>
-      </div>
+      )}
 
       <RecommendationPanel
         show={true}
@@ -1238,4 +1199,4 @@ const Aqi_New = ({ show }) => {
   );
 };
 
-export default Aqi_New;
+export default CompareAQI;
