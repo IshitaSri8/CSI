@@ -29,7 +29,7 @@ import Community from "components/Dashboards/Society/Community/Community";
 import Culture from "components/Dashboards/Society/Culture/Culture";
 import Administration from "pages/Administration";
 import Disaster from "components/Dashboards/Administration/Disaster Management/Disaster";
-import pathConstants from "pathConstants";
+import pathConstants from "components/DashboardUtility/Constants/pathConstants";
 import CityReportCard from "pages/CityReportCard";
 import ScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
 import LiveAQI from "components/Dashboards/Environment/AQI/LiveAQI";

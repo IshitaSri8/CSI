@@ -25,7 +25,7 @@ import { useUser } from "components/context/UserContext";
 import { useEffect } from "react";
 import { useRef } from "react";
 import axios from "axios";
-import score from "score";
+import score from "components/DashboardUtility/Constants/score";
 import { getScoreColor } from "components/DashboardUtility/scoreColor";
 import { Menu } from "primereact/menu";
 import Upload from "components/DashboardUtility/Popups/Upload";

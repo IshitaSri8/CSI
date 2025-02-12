@@ -1,4 +1,4 @@
-import { legendColors } from "colorConstants";
+import { legendColors } from "components/DashboardUtility/Constants/colorConstants";
 import React from "react";
 
 const Legends = () => {

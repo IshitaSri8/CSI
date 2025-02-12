@@ -1,4 +1,4 @@
-import { scoreColors } from "colorConstants";
+import { scoreColors } from "components/DashboardUtility/Constants/colorConstants";
 
 export const getScoreColor = (score) => {
   if (score >= 90 && score <= 100) {

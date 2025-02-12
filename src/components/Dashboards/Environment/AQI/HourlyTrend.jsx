@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { commonChartOptions } from "Layout/chartOptions";
-import { chartColors } from "colorConstants";
+import { chartColors } from "components/DashboardUtility/Constants/colorConstants";
 import { Button } from "primereact/button";
 
 const HourlyTrend = ({
@@ -20,7 +20,7 @@ const HourlyTrend = ({
   const overallOptions = {
     animationEnabled: true,
     title: {
-      text: "Day vs Night AQI Trend",
+      text: "Day vs Night Trend",
       ...commonChartOptions.title,
     },
     axisY: {
@@ -29,7 +29,7 @@ const HourlyTrend = ({
     axisX: {
       ...commonChartOptions.axisX,
     },
-    height: 200,
+    height: 250,
     backgroundColor: "transparent",
     dataPointWidth: 30,
     data: [
@@ -67,7 +67,7 @@ const HourlyTrend = ({
     axisX: {
       ...commonChartOptions.axisX,
     },
-    height: 150,
+    height: 200,
     backgroundColor: "transparent",
     dataPointWidth: 10,
     data: [
@@ -152,7 +152,7 @@ const HourlyTrend = ({
     axisX: {
       ...commonChartOptions.axisX,
     },
-    height: 150,
+    height: 200,
     backgroundColor: "transparent",
     dataPointWidth: 10,
     data: [
@@ -235,23 +235,20 @@ const HourlyTrend = ({
   }
 
   return (
-      <div
-        className="w-full flex flex-column align-items-start bg-white border-round p-4"
-        style={{ flex: "25%" }}
-      >
-        {selectedChart && (
-          <Button
-            onClick={() => setSelectedChart(null)}
-            label="Back"
-            className="bg-primary1 text-white text-xs"
-            raised
-          />
-        )}
-        <CanvasJSChart
-          options={chartOptions}
-          containerProps={{ width: "100%" }}
+    <div className="w-full flex flex-column bg-white border-round p-4">
+      {selectedChart && (
+        <Button
+          onClick={() => setSelectedChart(null)}
+          icon="pi pi-arrow-left"
+          className="bg-primary1  text-white text-xs"
+          raised
         />
-      </div>
+      )}
+      <CanvasJSChart
+        options={chartOptions}
+        containerProps={{ width: "100%" }}
+      />
+    </div>
   );
 };
 

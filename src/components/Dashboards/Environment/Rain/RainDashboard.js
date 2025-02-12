@@ -14,7 +14,7 @@ import RecommendationPanel from "components/DashboardUtility/RecommendationPanel
 import increase from "assets/increase.png";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Upload from "components/DashboardUtility/Popups/Upload";
-import score from "score";
+import score from "components/DashboardUtility/Constants/score";
 import DataNotFound from "pages/error pages/ServerDown";
 
 const RainDashboard = ({ show }) => {

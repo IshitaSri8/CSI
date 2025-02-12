@@ -17,7 +17,7 @@ import good from "assets/dashboard/good-aqi-level.svg";
 import moderate from "assets/dashboard/moderate-aqi-level.svg";
 import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
-import colors from "colorConstants";
+import colors from "components/DashboardUtility/Constants/colorConstants";
 import { Tag } from "primereact/tag";
 import AQIChart from "./AQIChart";
 
@@ -56,6 +56,8 @@ const LiveAQI = ({ show }) => {
 
   const liveHour = currentDate.setMinutes(0, 0, 0);
   const [dateLive, timeLive] = convertDateString(liveHour);
+
+  const minDate = new Date("2023-12-22"); // December 22, 2023
 
   const renderRecommendations = () => {
     return (
@@ -449,6 +451,8 @@ const LiveAQI = ({ show }) => {
                     placeholder="Select date range"
                     showButtonBar
                     hideOnRangeSelection
+                    minDate={minDate}
+                    maxDate={currentDate}
                   />
                 </div>
                 <div className="flex justify-content-between">
@@ -542,16 +546,17 @@ const LiveAQI = ({ show }) => {
           />
         </div>
       </div>
-      <div className="flex gap-3 w-full">
-        {" "}
-        <AQIChart
-          enviroDate={dateArrayData}
-          envirotime={timeArrayData}
-          enviroAQI={AQIArrayData}
-          startDate={selectedValues.liveStartDate}
-          enviroDay={dayArrayData}
-        />
-      </div>
+      <AQIChart
+        enviroDate={dateArrayData}
+        envirotime={timeArrayData}
+        enviroAQI={AQIArrayData}
+        startDate={selectedValues.liveStartDate}
+        enviroDay={dayArrayData}
+        pm25ArrayData={pm25ArrayData}
+        pm10ArrayData={pm10ArrayData}
+        NO2ArrayData={NO2ArrayData}
+        SO2ArrayData={SO2ArrayData}
+      />
     </div>
   );
 };

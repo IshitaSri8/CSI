@@ -8,10 +8,10 @@ import transport from "assets/illustration/Public Transport.svg";
 import employment from "assets/illustration/Employment Opportunity.svg";
 import culture from "assets/illustration/Cultural Sites.svg";
 import community from "assets/illustration/community.svg";
-import pathConstants from "pathConstants";
-import score from "score";
-import Legends from "./components/Legends";
-import ParameterCard from "./components/ParameterCard";
+import pathConstants from "components/DashboardUtility/Constants/pathConstants";
+import score from "components/DashboardUtility/Constants/score";
+import Legends from "../components/DashboardUtility/components/Legends";
+import ParameterCard from "../components/DashboardUtility/components/ParameterCard";
 import { useUser } from "components/context/UserContext";
 
 const Society = () => {

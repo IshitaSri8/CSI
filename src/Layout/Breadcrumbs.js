@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BreadCrumb } from "primereact/breadcrumb";
-import pathConstants from "pathConstants";
+import pathConstants from "components/DashboardUtility/Constants/pathConstants";
 
 const Breadcrumbs = () => {
   const location = useLocation();

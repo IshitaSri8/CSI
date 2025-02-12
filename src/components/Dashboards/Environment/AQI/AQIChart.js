@@ -3,6 +3,8 @@ import "./AqiReport.css";
 import DailyTrend from "./DailyTrend";
 import WeekTrend from "./WeekTrend";
 import HourlyTrend from "./HourlyTrend";
+import { TabPanel, TabView } from "primereact/tabview";
+import PollutantChart from "./PollutantChart";
 
 const AQIChart = ({
   enviroDate,
@@ -10,7 +12,12 @@ const AQIChart = ({
   enviroDay,
   enviroAQI,
   startDate,
+  pm25ArrayData,
+  pm10ArrayData,
+  NO2ArrayData,
+  SO2ArrayData,
 }) => {
+  const [activeTab, setActiveTab] = useState(0);
   const [selectedDate, setSelectedDate] = useState("2024-01-01");
   const [chartData, setChartData] = useState([]);
   const [dailyAverage, setDailyAverage] = useState(null);
@@ -291,17 +298,72 @@ const AQIChart = ({
           fifteenDaysData={fifteenDaysData}
           startDate={startDate}
         />
-        <WeekTrend
-          overallWeekendAverage={overallWeekendAverage}
-          overallWeekdayAverage={overallWeekdayAverage}
-          weekendAverages={weekendAverages}
-          weekdayAverages={weekdayAverages}
-        />
-        <HourlyTrend
-          averageDaytimeAqi={averageDaytimeAqi}
-          averageNighttimeAqi={averageNighttimeAqi}
-          hourlyAverages={hourlyAverages}
-        />
+        <div className="flex gap-3">
+          <WeekTrend
+            overallWeekendAverage={overallWeekendAverage}
+            overallWeekdayAverage={overallWeekdayAverage}
+            weekendAverages={weekendAverages}
+            weekdayAverages={weekdayAverages}
+          />
+          <HourlyTrend
+            averageDaytimeAqi={averageDaytimeAqi}
+            averageNighttimeAqi={averageNighttimeAqi}
+            hourlyAverages={hourlyAverages}
+          />
+          <div className="w-full flex flex-column bg-white border-round p-4">
+            <p className="card-title p-0 m-0">Pollutants Trend</p>
+            <TabView
+              activeIndex={activeTab}
+              onTabChange={(e) => setActiveTab(e.index)}
+            >
+              <TabPanel header="PM2.5">
+                <PollutantChart
+                  envirodate={enviroDate}
+                  envirotime={envirotime}
+                  pollutantData={pm25ArrayData}
+                  pollutantName="PM2.5"
+                  baseChartColor="#F7A47A"
+                  drilldownChartColor="#FFC107"
+                  safeLimit={60}
+                />
+              </TabPanel>
+              <TabPanel header="PM10">
+                <PollutantChart
+                  envirodate={enviroDate}
+                  envirotime={envirotime}
+                  pollutantData={pm10ArrayData}
+                  pollutantName="PM10"
+                  baseChartColor="#47B881"
+                  drilldownChartColor="#80CBC4"
+                  safeLimit={100}
+                />
+              </TabPanel>
+              <TabPanel header="No2">
+                <PollutantChart
+                  envirodate={enviroDate}
+                  envirotime={envirotime}
+                  pollutantData={NO2ArrayData}
+                  pollutantName="NO2"
+                  baseChartColor="#FFDD82"
+                  drilldownChartColor="#E57373"
+                  safeLimit={80}
+                />
+              </TabPanel>
+              <TabPanel header="So2">
+                <PollutantChart
+                  envirodate={enviroDate}
+                  envirotime={envirotime}
+                  pollutantData={SO2ArrayData}
+                  pollutantName="SO2"
+                  baseChartColor="#C68FE6"
+                  drilldownChartColor="#FFF176"
+                  safeLimit={80}
+                />
+              </TabPanel>
+            </TabView>
+            <p className="card-title p-0 m-0">Insights</p>
+          </div>
+        </div>
       </>
     )
   );

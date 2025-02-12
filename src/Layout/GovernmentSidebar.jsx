@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import Arahas from "assets/arahas_logo.png";
 import menuItems from "./menuItems";
-import pathConstants from "pathConstants";
+import pathConstants from "components/DashboardUtility/Constants/pathConstants";
 
 const GovernmentSidebar = () => {
   const location = useLocation();

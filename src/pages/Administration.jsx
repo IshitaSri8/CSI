@@ -5,10 +5,10 @@ import disaster from "assets/illustration/Disaster Management.svg";
 import ethical from "assets/illustration/ethical.svg";
 import accountability from "assets/illustration/Transparency and accountability.svg";
 import { PieChart } from "Layout/GraphVisuals";
-import pathConstants from "pathConstants";
-import score from "score";
-import Legends from "./components/Legends";
-import ParameterCard from "./components/ParameterCard";
+import pathConstants from "components/DashboardUtility/Constants/pathConstants";
+import score from "components/DashboardUtility/Constants/score";
+import Legends from "../components/DashboardUtility/components/Legends";
+import ParameterCard from "../components/DashboardUtility/components/ParameterCard";
 
 const Administration = () => {
   const adminLables = [

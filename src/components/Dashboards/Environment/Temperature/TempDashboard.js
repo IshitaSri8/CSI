@@ -20,7 +20,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useRef } from "react";
 import { Divider } from "primereact/divider";
-import score from "score";
+import score from "components/DashboardUtility/Constants/score";
 import DataNotFound from "pages/error pages/ServerDown";
 
 const TempDashboard = ({ show }) => {

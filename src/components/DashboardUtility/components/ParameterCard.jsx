@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { legendColors } from "colorConstants";
+import { legendColors } from "components/DashboardUtility/Constants/colorConstants";
 
 const ParameterCard = ({ metrics }) => {
   const navigate = useNavigate();
