@@ -150,6 +150,7 @@ const HourlyTrend = ({
             label="Back"
             className="bg-primary1  text-white text-xs"
             raised
+            size="small"
           />
         )}
         <CanvasJSChart
