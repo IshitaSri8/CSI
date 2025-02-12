@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { commonChartOptions } from "Layout/chartOptions";
-import colors from "colorConstants";
+import { chartColors } from "colorConstants";
 import { Button } from "primereact/button";
 
 const WeekTrend = ({
@@ -45,13 +45,13 @@ const WeekTrend = ({
             label: "Weekend",
             y: overallWeekendAverage,
             name: "Weekend",
-            color: colors[0],
+            color: chartColors[3],
           },
           {
             label: "Weekday",
             y: overallWeekdayAverage,
             name: "Weekday",
-            color: colors[1],
+            color: chartColors[4],
           },
         ],
       },
@@ -79,8 +79,8 @@ const WeekTrend = ({
         type: "column",
         name: "WeekendDetail",
         dataPoints: [
-          { label: "Sunday", y: weekendAverages[0], color: colors[0] },
-          { label: "Saturday", y: weekendAverages[1], color: colors[1] },
+          { label: "Sunday", y: weekendAverages[0], color: chartColors[0] },
+          { label: "Saturday", y: weekendAverages[1], color: chartColors[1] },
         ],
       },
     ],
@@ -108,11 +108,11 @@ const WeekTrend = ({
         type: "column",
         name: "WeekdayDetail",
         dataPoints: [
-          { label: "Monday", y: weekdayAverages[0], color: colors[0] },
-          { label: "Tuesday", y: weekdayAverages[1], color: colors[1] },
-          { label: "Wednesday", y: weekdayAverages[2], color: colors[0] },
-          { label: "Thursday", y: weekdayAverages[3], color: colors[1] },
-          { label: "Friday", y: weekdayAverages[4], color: colors[0] },
+          { label: "Monday", y: weekdayAverages[0], color: chartColors[0] },
+          { label: "Tuesday", y: weekdayAverages[1], color: chartColors[1] },
+          { label: "Wednesday", y: weekdayAverages[2], color: chartColors[2] },
+          { label: "Thursday", y: weekdayAverages[3], color: chartColors[3] },
+          { label: "Friday", y: weekdayAverages[4], color: chartColors[4] },
         ],
       },
     ],

@@ -27,8 +27,6 @@ const AQIChart = ({
   const [overallWeekendAverage, setOverallWeekendAverage] = useState(0);
   const [overallWeekdayAverage, setOverallWeekdayAverage] = useState(0);
   const [hourlyAverages, setHourlyAverages] = useState({});
-  const [daytimeAverages, setDaytimeAverages] = useState([]);
-  const [nighttimeAverages, setNighttimeAverages] = useState([]);
   const [averageDaytimeAqi, setAverageDaytimeAqi] = useState(0);
   const [averageNighttimeAqi, setAverageNighttimeAqi] = useState(0);
 

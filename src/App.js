@@ -60,7 +60,7 @@ function App() {
       element: <CompareAQI show={true} />,
     },
     {
-      path: pathConstants.AQI_New,
+      path: pathConstants.AqiNew,
       element: <AqiNEW show={true} />,
     },
     {

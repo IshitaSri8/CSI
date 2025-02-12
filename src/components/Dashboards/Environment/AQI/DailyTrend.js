@@ -8,7 +8,6 @@ import { classNames } from "primereact/utils";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const DailyTrend = ({
-  selectedLocation,
   selectedDate,
   dailyAverage,
   dailyData,
@@ -121,7 +120,7 @@ const DailyTrend = ({
     };
 
     setChartData(newChartData);
-  }, [selectedLocation, dailyAverage]);
+  }, [dailyAverage]);
 
   useEffect(() => {
     const selectedDateData = dailyData
