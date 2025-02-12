@@ -101,7 +101,7 @@ const LiveAQI = ({ show }) => {
         }
       );
       const api_response = response.data.data;
-    //   console.log("🚀 ~ getAQI ~ api_response:", api_response);
+      //   console.log("🚀 ~ getAQI ~ api_response:", api_response);
       const dateArray = [];
       const timeArray = [];
       const dayArray = [];
@@ -333,42 +333,44 @@ const LiveAQI = ({ show }) => {
         <div className="flex align-items-center justify-content-between gap-3">
           <div className="flex align-items-center justify-content-between w-full">
             {/* Title & Score */}
-            <AqiScoreCalculator onAQIScoreCalculated={handleScoreCalculated} />
-            {score !== null && (
+            <div
+              style={{
+                position: "relative",
+                width: "340px",
+                height: "43px",
+                overflow: "hidden", // Hide overflow if needed
+              }}
+            >
               <div
+                className="flex align-items-center justify-content-between p-2"
                 style={{
-                  position: "relative",
-                  width: "340px",
-                  height: "43px",
-                  overflow: "hidden", // Hide overflow if needed
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: scoreColor,
+                  clipPath:
+                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
                 }}
               >
-                <div
-                  className="flex align-items-center justify-content-between p-2"
-                  style={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: scoreColor,
-                    clipPath:
-                      "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
-                  }}
+                <h1
+                  className="m-0 p-0 text-white text-2xl font-semibold"
+                  style={{ zIndex: 1500 }}
                 >
-                  <h1
-                    className="m-0 p-0 text-white text-2xl font-semibold"
-                    style={{ zIndex: 1500 }}
-                  >
-                    Live Air Quality Index
-                  </h1>
+                  Live Air Quality Index
+                </h1>
+                <AqiScoreCalculator
+                  onAQIScoreCalculated={handleScoreCalculated}
+                />
+                {score !== null && (
                   <p
                     className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
                     style={{ zIndex: 1500 }}
                   >
                     {score}
                   </p>
-                </div>
+                )}
               </div>
-            )}
+            </div>
             {/* Selected  location & Date */}
             <div className="flex align-items-start flex-column gap-1">
               {/* location */}
@@ -511,9 +513,9 @@ const LiveAQI = ({ show }) => {
             flex: "20%",
           }}
         >
-          <div className="flex flex-column align-items-center justify-content-between">
-            <h1 className="card-title text-primary1 m-0 p-0">Average AQI</h1>
-            <h1 className="text-3xl font-medium p-0 m-0 text-primary1">
+          <div className="flex flex-column align-items-center justify-content-around">
+            {/* <h1 className="card-title text-primary1 m-0 p-0">AQI</h1> */}
+            <h1 className="text-4xl font-semibold p-0 m-0 text-primary1">
               {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
             </h1>
             <Tag
@@ -526,6 +528,7 @@ const LiveAQI = ({ show }) => {
             </Tag>
             {/* <p>{currentDate.toLocaleDateString()}</p> */}
             <div className="flex gap-2">
+              <p className="card-text">Last updated:</p>
               <p>{selectedLocationId}</p>
               <p>{dateLive}</p>
               <p>{timeLive}</p>

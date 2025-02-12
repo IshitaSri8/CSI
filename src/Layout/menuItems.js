@@ -41,13 +41,8 @@ const menuItems = [
         icon: <Wind size={15} className="text-white mr-2" />,
       },
       {
-        label: "Live Air Quality Index",
+        label: "Air Quality Index- Live",
         path: pathConstants.LiveAQI,
-        icon: <Wind size={15} className="text-white mr-2" />,
-      },
-      {
-        label: "Air Quality Index New",
-        path: pathConstants.AQI_New,
         icon: <Wind size={15} className="text-white mr-2" />,
       },
       {

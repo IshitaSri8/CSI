@@ -22,9 +22,6 @@ const AQIChart = ({
   const [overallWeekendAverage, setOverallWeekendAverage] = useState(0);
   const [overallWeekdayAverage, setOverallWeekdayAverage] = useState(0);
   const [hourlyAverages, setHourlyAverages] = useState({}); // Initialize array of 24 elements with 0
-  const [daytimeAverages, setDaytimeAverages] = useState([]);
-  const [nighttimeAverages, setNighttimeAverages] = useState([]);
-
   const [averageDaytimeAqi, setAverageDaytimeAqi] = useState(0);
   const [averageNighttimeAqi, setAverageNighttimeAqi] = useState(0);
 
@@ -163,10 +160,6 @@ const AQIChart = ({
       const average = sum / hourlyAQI.length;
       hourlyAverages[time] = Math.round(average);
     }
-    console.log(
-      "🚀 ~ calculateHourlyAverages ~ hourlyAverages:",
-      hourlyAverages
-    );
     return hourlyAverages;
   };
 

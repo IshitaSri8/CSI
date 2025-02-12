@@ -1016,8 +1016,8 @@ export const ModifiedLineChart = ({
       labelFontFamily: "Montserrat",
     },
     legend: {
-      horizontalAlign: "left",
-      // verticalAlign: "bottom",
+      horizontalAlign: "right",
+      verticalAlign: "center",
       ...commonChartOptions.legend,
       fontColor: "#737474",
     },

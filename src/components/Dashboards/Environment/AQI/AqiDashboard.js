@@ -50,7 +50,7 @@ const AqiDashboard = ({ show }) => {
 
   const [dataTableData, setDataTableData] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [envirolocation, setEnviroLocation] = useState([]);
+  const [enviroDay, setEnviroDay] = useState([]);
   const [envirotime, setEnviroTime] = useState([]);
   const [envirodate, setEnviroDate] = useState([]);
   const [enviropm25, setEnviroPM25] = useState([]);
@@ -58,7 +58,6 @@ const AqiDashboard = ({ show }) => {
   const [enviroso2, setEnviroSO2] = useState([]);
   const [enviroAQI, setEnviroAQI] = useState([]);
   const [enviroNO2, setEnviroNO2] = useState([]);
-  const [enviroco2, setEnviroco2] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [serverDown, setServerDown] = useState(false);
@@ -104,10 +103,10 @@ const AqiDashboard = ({ show }) => {
       );
       console.log("🚀 ~ handleSearch ~ response:", response);
       const filteredData = response.data.data;
-      // console.log(filteredData);
 
       const formattedDate = [];
       const formattedTime = [];
+      const dayArray = [];
       const pm25 = [];
       const pm10 = [];
       const SO2 = [];
@@ -115,10 +114,25 @@ const AqiDashboard = ({ show }) => {
       const NO2 = [];
 
       filteredData.forEach((item) => {
-        const dateObj = new Date(item.Date_time).toLocaleDateString("en-CA", {
-          timeZone: "Asia/Kolkata",
-        });
-        formattedDate.push(dateObj);
+        const dateObj = new Date(item.Date_time); // No toLocaleDateString here
+
+        // const days = [
+        //   "Sunday",
+        //   "Monday",
+        //   "Tuesday",
+        //   "Wednesday",
+        //   "Thursday",
+        //   "Friday",
+        //   "Saturday",
+        // ];
+        // const dayOfWeek = days[dateObj.getDay()];
+        const dayOfWeekNumber = dateObj.getDay();
+        dayArray.push(dayOfWeekNumber);
+        formattedDate.push(
+          dateObj.toLocaleDateString("en-CA", {
+            timeZone: "Asia/Kolkata",
+          })
+        );
 
         const timeObj = new Date(item.Date_time).toLocaleTimeString("en-IN", {
           hour12: false,
@@ -131,14 +145,14 @@ const AqiDashboard = ({ show }) => {
         AQI.push(item.CalculatedAqi);
         NO2.push(item.NO2);
       });
-
       setEnviroTime(formattedTime);
       setEnviroDate(formattedDate);
+      setEnviroDay(dayArray);
       setEnviroPM25(pm25);
       setEnviroPM10(pm10);
       setEnviroSO2(SO2);
-      setEnviroAQI(AQI);
       setEnviroNO2(NO2);
+      setEnviroAQI(AQI);
 
       if (filteredData.length > 0) {
         const averageAqi = Math.round(
@@ -319,7 +333,7 @@ const AqiDashboard = ({ show }) => {
 
   const handleScoreCalculated = (calculatedScore) => {
     setScore(calculatedScore);
-    console.log("Calculated Score received in Dashboard:", calculatedScore);
+    // console.log("Calculated Score received in Dashboard:", calculatedScore);
     // Update the score color based on the calculated score
     const color = getScoreColor(calculatedScore);
     setScoreColor(color);
@@ -715,27 +729,20 @@ const AqiDashboard = ({ show }) => {
         </div>
       </div>
 
-      <div className="flex gap-3 w-full bg-white border-round p-4">
+      <div className="flex gap-3 w-full">
         {" "}
         <AQIChart
-          envirolocation={envirolocation}
           enviroDate={envirodate}
           envirotime={envirotime}
-          enviroPM25={enviropm25}
-          enviroPM10={enviropm10}
-          enviroSO2={enviropm25}
-          enviroNO2={enviroNO2}
-          enviroco2={enviroco2}
           enviroAQI={enviroAQI}
-          selectedLocation={selectedLocation}
           startDate={startDate}
+          enviroDay={enviroDay}
         />
       </div>
 
       <div className="flex align-items-center justify-content-center flex-wrap md:flex-nowrap w-full gap-3">
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
             pollutantData={enviropm25}
@@ -749,7 +756,6 @@ const AqiDashboard = ({ show }) => {
         </div>
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
             pollutantData={enviropm10}
@@ -763,7 +769,6 @@ const AqiDashboard = ({ show }) => {
         </div>
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
             pollutantData={enviroNO2}
@@ -777,7 +782,6 @@ const AqiDashboard = ({ show }) => {
         </div>
         <div className="flex gap-3 w-full bg-white border-round p-4">
           <PollutantChart
-            envirolocation={envirolocation}
             envirodate={envirodate}
             envirotime={envirotime}
             pollutantData={enviroso2}

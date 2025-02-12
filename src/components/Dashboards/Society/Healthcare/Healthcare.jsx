@@ -7,7 +7,6 @@ import {
   GroupedBarChart,
   ModifiedLineChart,
   PieChartColumn,
-  LineChart,
 } from "Layout/GraphVisuals";
 import { Divider } from "primereact/divider";
 import { PatientsRegisteredChart } from "./PatientsRegisteredChart";
@@ -429,7 +428,7 @@ const Healthcare = ({ show }) => {
               </div>
 
               <div
-                className="flex justify-content-between align-items-center bg-white border-round py-6"
+                className="flex align-items-center bg-white border-round py-6"
                 style={{ flex: "35%" }}
               >
                 <div className="flex flex-column w-full align-items-center justify-content-center gap-1">

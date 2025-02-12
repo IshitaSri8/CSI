@@ -7,6 +7,24 @@ const colors = {
   veryPoor: "#8a1416", // Dark red for very poor
 };
 
+export const chartColors = [
+  "#FFDD82", // Light Yellow
+  "#47B881", // Green
+  "#F7A47A", // Light Orange
+  "#4D7479", //Dusty Teal
+  "#98C6CF", // Light Blue
+  "#1F8297", // Dark Cyan
+  "#0F4B57", // Dark Slate Blue
+  "#166c7d", // Dark Teal
+  "#5B98A4", // Slate Blue
+  "#8AB5BE", // Soft Blue-Green
+  "#B9D2D8", // Pale Cyan
+  "#E9F3F5", // Very Light Cyan
+  "#8AA4A7",
+  "#26575D",
+  "#F64C4C", // Red
+];
+
 export const scoreColors = [
   colors.good,
   colors.moderate,
