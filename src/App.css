@@ -443,3 +443,6 @@ body {
 .custom-carousel .p-carousel .p-carousel-content .p-carousel-next {
   display: none !important;
 } */
+.p-fileupload-choose {
+  background-color: #003940;
+}

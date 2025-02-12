@@ -1,9 +1,12 @@
+
 const pathConstants = {
   KYC: "/csi/government/kyc",
   CRC: "/csi/government/crc",
   NATURE: "/csi/government/nature",
   AQI: "/csi/government/nature/aqi",
-  AQI_New: "/csi/government/nature/aqi_new",
+  LiveAQI: "/csi/government/nature/liveaqi",
+  CompareAQI: "/csi/government/nature/compareAqi",
+  AqiNew: "/csi/government/nature/aqi_new",
   TEMP: "/csi/government/nature/temp",
   RAIN: "/csi/government/nature/rain",
   LAND: "/csi/government/nature/land",
