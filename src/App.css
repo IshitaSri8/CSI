@@ -143,6 +143,10 @@ body {
   background-color: var(--bg-moderate);
 }
 
+.insights {
+  background-color: var(--bg-insights);
+}
+
 .danger {
   background-color: var(--bg-danger);
 }
