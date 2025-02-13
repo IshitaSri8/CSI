@@ -34,12 +34,12 @@ const DailyTrend = ({
 
           let markerColor = null;
           if (peakHours.daytime.includes(dataPoint.label) && isDaytime) {
-            markerColor = "red"; // Highlight day peak hours with red
+            markerColor = "#F7A47A"; // Highlight day peak hours with red
           } else if (
             peakHours.nighttime.includes(dataPoint.label) &&
             !isDaytime
           ) {
-            markerColor = "blue"; // Highlight night peak hours with purple
+            markerColor = "#4D7479"; // Highlight night peak hours with purple
           }
 
           return {
@@ -139,7 +139,7 @@ const DailyTrend = ({
       });
     setDrilldownChartData([
       {
-        color: "#4C9BAC",
+        color: "#98C6CF",
         name: selectedDate,
         type: "area",
         dataPoints: selectedDateData,
@@ -165,7 +165,6 @@ const DailyTrend = ({
 
   const baseChartOptions = {
     animationEnabled: true,
-    theme: "lightblue",
     height: 250,
     legend: {
       ...commonChartOptions.legend,
@@ -195,7 +194,7 @@ const DailyTrend = ({
           thickness: 1,
           color: "rgb(93, 92, 92)",
           lineDashType: "dash",
-          label: "Safe limits (400)",
+          label: "Safe limit (400)",
         },
       ],
     },
@@ -245,7 +244,7 @@ const DailyTrend = ({
         //Main Container
         content += `<div style="font-family: Montserrat, sans-serif; padding: 5px;  display: flex; flex-direction: column; width :"50rem">`; // Increased width and added flex display
 
-        // Header Section: Date and Average AQI (moved to outside the flex container)
+        // Header Section: Date and Average AQI
         content += `<div style="display: block; width:auto;">`;
         content += `<div style="font-size: 0.8rem; font-weight: bold; text-align: center; margin-bottom: 5px; color: #333;">`; // Reduced margin-bottom
         content += `AQI Data for ${selectedDate}`;
@@ -253,7 +252,7 @@ const DailyTrend = ({
         content += `<div style="font-size: 0.8em; text-align: center; margin-bottom: 5px; color: #666;">`; // Reduced margin-bottom
         content += `Average AQI: ${dailyAverage[selectedDate]}`;
         content += "</div>";
-        content += `<div style="margin-bottom: 5px; padding-left: 5px; display:flex; flex-direction:column">`; // Reduced margin-bottom
+        content += `<div style="margin-bottom: 5px; padding-left: 5px; display:flex; flex-direction:row; gap:10px">`; // Reduced margin-bottom
         content += `<div style="font-size: 0.8rem; font-weight: bold; color: #333;">Peak Hours:</div>`;
         content += `<div style="font-size: 0.8rem; color: #666;">Day: ${
           peakHours.daytime || "N/A"
@@ -267,50 +266,74 @@ const DailyTrend = ({
         //Daytime Container
         content += `<div style = "width: 50%; padding-right: 5px; box-sizing: border-box;">`;
         // Daytime Table Section
-        content += `<div style="margin-bottom: 5px;">`; // Reduced margin-bottom
         content += `<div style="font-size: 0.8rem; font-weight: bold; color: #333; margin-bottom: 2px;">Day AQI (6 AM - 6 PM):</div>`; // Reduced margin-bottom
         content += `<table style="width: 100%; border-collapse: collapse; margin-top: 2px;">`; // Reduced margin-top
         content += `<tr style="font-size: 0.8rem; font-weight: bold; background-color: #e0e0e0;">
-                  <th style="padding: 2px; font-size:0.8rem;; text-align: left;">Time</th>
-                  <th style="padding: 2px; font-size:0.8rem;; text-align: left;">AQI</th>
-                  </tr>`;
+              <th style="padding: 2px; font-size:0.8rem;; text-align: left;">Time</th>
+              <th style="padding: 2px; font-size:0.8rem;; text-align: left;">AQI</th>
+              </tr>`;
 
         daytimeData.forEach((entry) => {
           const colorClass = getColorClass(entry.y);
           content += `<tr style="padding: 0px;">
-                      <td style="padding: 2px; font-size:0.7rem;" class="${colorClass}">${entry.label}</td>
-                      <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.y}</td>
-                      </tr>`;
+                  <td style="padding: 2px; font-size:0.7rem;" class="${colorClass}">${entry.label}</td>
+                  <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.y}</td>
+                  </tr>`;
         });
 
         content += `</table>`;
-        content += `</div>`;
         content += `</div>`;
 
         // Nighttime Container
         content += `<div style = "width: 50%; padding-left: 5px; box-sizing: border-box;">`;
         // Nighttime Table Section
-        content += `<div>`;
         content += `<div style="font-size: 0.8em; font-weight: bold; color: #333; margin-bottom: 2px;">Night AQI (6 PM - 6 AM):</div>`; // Reduced margin-bottom
         content += `<table style="width: 100%; border-collapse: collapse; margin-top: 2px;">`; // Reduced margin-top
         content += `<tr style="font-size: 0.8rem; font-weight: bold; background-color: #e0e0e0;">
-                  <th style="padding: 2px;font-size:0.8rem; text-align: left;">Time</th>
-                  <th style="padding: 2px;font-size:0.8rem; text-align: left;">AQI</th>
-                  </tr>`;
+              <th style="padding: 2px;font-size:0.8rem; text-align: left;">Time</th>
+              <th style="padding: 2px;font-size:0.8rem; text-align: left;">AQI</th>
+              </tr>`;
 
         nighttimeData.forEach((entry) => {
           const colorClass = getColorClass(entry.y);
           content += `<tr style="padding: 0px;">
-                      <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.label}</td>
-                      <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.y}</td>
-                      </tr>`;
+                  <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.label}</td>
+                  <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.y}</td>
+                  </tr>`;
         });
 
         content += `</table>`;
         content += `</div>`;
         content += `</div>`;
-        content += `</div>`;
-        content += "</div>"; //Closing Main Container
+
+        //Legend Section
+        content += `<div style="display: flex; flex-direction: row; gap: 5px; justify-content: end; width: 100%;">`;
+        content += `<div style="display: flex; align-items: center; gap: 1px;">
+                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #dbf0fe;"></i>
+                <p style="margin: 0; font-size: 0.8em;">0-50</p>
+              </div>`;
+        content += `<div style="display: flex; align-items: center; gap: 1px;">
+                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #add9f6;"></i>
+                <p style="margin: 0; font-size: 0.8em;">51-100</p>
+              </div>`;
+        content += `<div style="display: flex; align-items: center; gap: 1px;">
+                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #54a8e0;"></i>
+                <p style="margin: 0; font-size: 0.8em;">101-200</p>
+              </div>`;
+        content += `<div style="display: flex; align-items: center; gap: 1px;">
+                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #459bd4;"></i>
+                <p style="margin: 0; font-size: 0.8em;">201-300</p>
+              </div>`;
+        content += `<div style="display: flex; align-items: center; gap: 1px;">
+                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #316e96;"></i>
+                <p style="margin: 0; font-size: 0.8em;">301-400</p>
+              </div>`;
+        content += `<div style="display: flex; align-items: center; gap: 1px;">
+                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #0d456a;"></i>
+                <p style="margin: 0; font-size: 0.8em;">400 and above</p>
+              </div>`;
+        content += `</div>`; // Legend end
+        content += `</div>`; //Closing Main Container
 
         return content;
       },
@@ -341,7 +364,6 @@ const DailyTrend = ({
       ...commonChartOptions.title,
     },
     height: 200,
-    theme: "light2",
     axisX: {
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
@@ -362,7 +384,7 @@ const DailyTrend = ({
           thickness: 1,
           color: "rgb(93, 92, 92)",
           lineDashType: "dash",
-          label: "Safe limits (400)",
+          label: "Safe limit (400)",
         },
       ],
     },
@@ -407,95 +429,19 @@ const DailyTrend = ({
         options={isDrilldown ? drilldownChartOptions : baseChartOptions}
         containerProps={{ width: "100%" }}
       />
-      {!isDrilldown && (
-        <div className="flex w-full flex-row gap-2 justify-content-end w-full">
-          <div className="flex items-center gap-1">
-            <i
-              className="pi pi-circle-fill text-red"
-              style={{ fontSize: "0.8em", color: "#dbf0fe" }}
-            ></i>
-            <p
-              className="card-text p-0 m-0  text-xs"
-              style={{ fontSize: "0.8em", margin: 0 }}
-            >
-              0-50
-            </p>
-          </div>
-          <div className="flex items-center gap-1">
-            <i
-              className="pi pi-circle-fill text-blue"
-              style={{ fontSize: "0.8em", color: "#add9f6" }}
-            ></i>
-            <p
-              className="card-text p-0 m-0  text-xs"
-              style={{ fontSize: "0.8em", margin: 0 }}
-            >
-              51-100
-            </p>
-          </div>
-          <div className="flex items-center gap-1">
-            <i
-              className="pi pi-circle-fill text-blue"
-              style={{ fontSize: "0.8em", color: "#54a8e0" }}
-            ></i>
-            <p
-              className="card-text p-0 m-0  text-xs"
-              style={{ fontSize: "0.8em", margin: 0 }}
-            >
-              101-200
-            </p>
-          </div>
-          <div className="flex items-center gap-1">
-            <i
-              className="pi pi-circle-fill text-blue"
-              style={{ fontSize: "0.8em", color: "#459bd4" }}
-            ></i>
-            <p
-              className="card-text p-0 m-0  text-xs"
-              style={{ fontSize: "0.8em", margin: 0 }}
-            >
-              201-300
-            </p>
-          </div>
-          <div className="flex items-center gap-1">
-            <i
-              className="pi pi-circle-fill text-blue"
-              style={{ fontSize: "0.8em", color: "#316e96" }}
-            ></i>
-            <p
-              className="card-text p-0 m-0  text-xs"
-              style={{ fontSize: "0.8em", margin: 0 }}
-            >
-              301-400
-            </p>
-          </div>
-          <div className="flex items-center gap-1">
-            <i
-              className="pi pi-circle-fill text-blue"
-              style={{ fontSize: "0.8em", color: "#0d456a" }}
-            ></i>
-            <p
-              className="card-text p-0 m-0 text-xs"
-              style={{ fontSize: "0.8em", margin: 0 }}
-            >
-              400 and above
-            </p>
-          </div>
-        </div>
-      )}
       {isDrilldown && (
-        <div className="flex w-full flex-row gap-2">
+        <div className="flex w-full gap-2">
           <div className="flex items-center gap-1">
             <i
-              className="pi pi-circle-fill text-red"
-              style={{ fontSize: "0.8em", color: "red" }}
+              className="pi pi-circle-fill"
+              style={{ fontSize: "0.8em", color: "#F7A47A" }}
             ></i>
             <p style={{ fontSize: "0.8em", margin: 0 }}>Day Peak Hour</p>
           </div>
           <div className="flex items-center gap-1">
             <i
-              className="pi pi-circle-fill text-blue"
-              style={{ fontSize: "0.8em", color: "blue" }}
+              className="pi pi-circle-fill"
+              style={{ fontSize: "0.8em", color: "#4D7479" }}
             ></i>
             <p style={{ fontSize: "0.8em", margin: 0 }}>Night Peak Hour</p>
           </div>
