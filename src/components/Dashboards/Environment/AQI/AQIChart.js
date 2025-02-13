@@ -490,6 +490,9 @@ const AQIChart = ({
                 </DataTable>
               </TabPanel>
             </TabView>
+            <div className="flex insights p-2">
+              <p className="card-title p-0 m-0 text-white">Insights</p>
+            </div>
           </div>
         </div>
         <div className="flex gap-3 w-full">
@@ -555,7 +558,9 @@ const AQIChart = ({
                 />
               </TabPanel>
             </TabView>
-            <p className="card-title p-0 m-0">Insights</p>
+            <div className="flex insights p-2">
+              <p className="card-title p-0 m-0 text-white">Insights</p>
+            </div>
           </div>
         </div>
       </div>

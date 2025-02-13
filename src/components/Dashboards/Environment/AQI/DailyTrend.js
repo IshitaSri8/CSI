@@ -166,12 +166,12 @@ const DailyTrend = ({
   const baseChartOptions = {
     animationEnabled: true,
     theme: "lightblue",
-    height: 200,
+    height: 250,
     legend: {
       ...commonChartOptions.legend,
     },
     title: {
-      text: "AQI Trend",
+      text: "Trend in the selected Date Range",
       ...commonChartOptions.title,
     },
     axisX: {
@@ -403,6 +403,10 @@ const DailyTrend = ({
           size="small"
         />
       </div>
+      <CanvasJSChart
+        options={isDrilldown ? drilldownChartOptions : baseChartOptions}
+        containerProps={{ width: "100%" }}
+      />
       {!isDrilldown && (
         <div className="flex w-full flex-row gap-2 justify-content-end w-full">
           <div className="flex items-center gap-1">
@@ -479,10 +483,6 @@ const DailyTrend = ({
           </div>
         </div>
       )}
-      <CanvasJSChart
-        options={isDrilldown ? drilldownChartOptions : baseChartOptions}
-        containerProps={{ width: "100%" }}
-      />
       {isDrilldown && (
         <div className="flex w-full flex-row gap-2">
           <div className="flex items-center gap-1">

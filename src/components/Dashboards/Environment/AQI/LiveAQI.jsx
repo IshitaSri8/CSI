@@ -21,9 +21,12 @@ import colors from "components/DashboardUtility/Constants/colorConstants";
 import { Tag } from "primereact/tag";
 import AQIChart from "./AQIChart";
 import { Radio } from "lucide-react";
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 
 const LiveAQI = ({ show }) => {
   const overlayRef = useRef(null);
+
   const [timeArrayData, setTimeArrayData] = useState([]);
   const [dateArrayData, setDateArrayData] = useState([]);
   const [dayArrayData, setDayArrayData] = useState([]);
@@ -32,13 +35,18 @@ const LiveAQI = ({ show }) => {
   const [SO2ArrayData, setSO2ArrayData] = useState([]);
   const [NO2ArrayData, setNO2ArrayData] = useState([]);
   const [AQIArrayData, setAQIArrayData] = useState([]);
+
+  const [dataTableData, setDataTableData] = useState([]);
+
   const [aqiIDs, setAQIIDs] = useState();
   const [aqiStatus, setAqiStatus] = useState();
   const [aqiValue, setAqiValue] = useState(null);
+
   const [ReportVisible, setReportVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [selectedLocationId, setSelectedLocationId] = useState();
   const [locations, setLocations] = useState([]);
+
   const currentDate = new Date();
   const thirtyDaysAgo = new Date(new Date().setDate(new Date().getDate() - 30));
   const [selectedValues, setSelectedValues] = useState({
@@ -147,6 +155,35 @@ const LiveAQI = ({ show }) => {
       setNO2ArrayData(no2Array);
       setPM10ArrayData(pm10Array);
       setPM25ArrayData(pm25Array);
+
+      const filteredDataWithDeviation = api_response
+        .filter((item) => item.parameter_values.aqi.value > 400)
+        .map((item) => {
+          // Create Date object from timestamp
+          const newDate = new Date(item.time * 1000);
+
+          // Get the day of the week
+          // const day = newDate.getDay();
+
+          // Get formatted date and time strings
+          const [date, time] = convertDateString(newDate);
+
+          return {
+            date: date, // Use the formatted date
+            time: time, // Use the formatted time
+            aqi: item.parameter_values.aqi.value,
+            deviationPercentage:
+              (((item.parameter_values.aqi.value - 400) / 400) * 100).toFixed(
+                2
+              ) + "%",
+          };
+        });
+
+      const uniqueDataTableData = Array.from(
+        new Set(filteredDataWithDeviation.map(JSON.stringify))
+      ).map(JSON.parse);
+      setDataTableData(uniqueDataTableData);
+
       setLoading(false);
       return 0;
     } catch (error) {
@@ -316,6 +353,10 @@ const LiveAQI = ({ show }) => {
         bg_color: colors.veryPoor,
       };
     }
+  };
+
+  const rowClassName = (data) => {
+    return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
   };
 
   const handleScoreCalculated = (calculatedScore) => {
@@ -561,7 +602,70 @@ const LiveAQI = ({ show }) => {
             className="h-14rem"
           />
         </div>
-        <div className="flex bg-white border-round w-full"></div>
+        <div className="flex bg-white border-round w-full">
+          <DataTable
+            value={dataTableData}
+            rowClassName={rowClassName}
+            className="custom-row"
+            scrollable
+            scrollHeight="15rem"
+            style={{
+              width: "100%",
+              borderRadius: "15px",
+              overflow: "hidden",
+              // scrollbarWidth: "none",
+              padding: 2,
+            }}
+            emptyMessage="No Outlier Days Found."
+          >
+            <Column
+              field="aqi"
+              header="AQI"
+              className="font-semibold text-left text-lg"
+              headerStyle={{
+                fontSize: "0.6rem",
+                backgroundColor: "#166c7d",
+                color: "white",
+                padding: 3,
+              }}
+            ></Column>
+            <Column
+              field="date"
+              header="Date"
+              className="text-left"
+              headerStyle={{
+                fontSize: "0.2rem",
+                backgroundColor: "#166c7d",
+                color: "white",
+                padding: 3,
+              }}
+            ></Column>
+            <Column
+              field="time"
+              header="Time"
+              className="text-left"
+              headerStyle={{
+                fontSize: "0.6rem",
+                backgroundColor: "#166c7d",
+                color: "white",
+                padding: 3,
+              }}
+            />
+
+            <Column
+              field="deviationPercentage"
+              header="Outlier %"
+              className="text-lg font-semibold text-left"
+              style={{ width: "20%" }}
+              headerStyle={{
+                fontSize: "0.6rem",
+                backgroundColor: "#166c7d",
+                color: "white",
+                padding: 3,
+              }}
+            ></Column>
+          </DataTable>
+        </div>
         <div className="flex bg-white border-round w-full"></div>
       </div>
 
