@@ -19,6 +19,83 @@ const DailyTrend = ({
   const [isDrilldown, setIsDrilldown] = useState(false);
   const [showTable, setShowTable] = useState(false);
   const [drilldownChartData, setDrilldownChartData] = useState([]);
+  useEffect(() => {
+    if (
+      drilldownChartData &&
+      drilldownChartData[0] &&
+      drilldownChartData[0].dataPoints
+    ) {
+      const peakHours = calculatePeakHours(drilldownChartData[0].dataPoints);
+
+      const updatedDataPoints = drilldownChartData[0].dataPoints.map(
+        (dataPoint) => {
+          const hour = parseInt(dataPoint.label.split(":")[0]);
+          const isDaytime = hour >= 6 && hour <= 17;
+
+          let markerColor = null;
+          if (peakHours.daytime.includes(dataPoint.label) && isDaytime) {
+            markerColor = "red"; // Highlight day peak hours with red
+          } else if (
+            peakHours.nighttime.includes(dataPoint.label) &&
+            !isDaytime
+          ) {
+            markerColor = "blue"; // Highlight night peak hours with purple
+          }
+
+          return {
+            ...dataPoint,
+            markerColor: markerColor,
+            markerSize: markerColor ? 10 : 8, // Increase marker size for highlighted points
+          };
+        }
+      );
+
+      setDrilldownChartData([
+        {
+          ...drilldownChartData[0],
+          dataPoints: updatedDataPoints,
+        },
+      ]);
+    }
+  }, [drilldownChartData]);
+  // Helper function to determine day or night based on time
+  const isDayTime = (hour) => {
+    return hour >= 6 && hour <= 17;
+  };
+
+  // Function to calculate peak hours for daytime and nighttime
+  const calculatePeakHours = (data) => {
+    const daytimeData = data.filter((item) => {
+      const hour = parseInt(item.label.split(":")[0]);
+      return isDayTime(hour);
+    });
+    const nighttimeData = data.filter((item) => {
+      const hour = parseInt(item.label.split(":")[0]);
+      return !isDayTime(hour);
+    });
+
+    const findPeakHours = (timeData) => {
+      if (timeData.length === 0) return [];
+
+      // Find the maximum AQI value
+      let maxAQI = Math.max(...timeData.map((item) => item.y));
+
+      // Get all hours with the maximum AQI
+      let peakHours = timeData
+        .filter((item) => item.y === maxAQI)
+        .map((item) => item.label);
+
+      return peakHours;
+    };
+
+    const peakDaytimeHours = findPeakHours(daytimeData);
+    const peakNighttimeHours = findPeakHours(nighttimeData);
+
+    return {
+      daytime: peakDaytimeHours,
+      nighttime: peakNighttimeHours,
+    };
+  };
 
   useEffect(() => {
     const dataPoints = Object.entries(dailyAverage).map(([date, value]) => ({
@@ -124,6 +201,7 @@ const DailyTrend = ({
     },
     data: chartData["BaseChart"],
     toolTip: {
+      position: "bottom",
       contentFormatter: function (e) {
         // Set the selectedDate to the hovered date
         setSelectedDate(e.entries[0].dataPoint.label);
@@ -148,47 +226,91 @@ const DailyTrend = ({
             self.findIndex((t) => t.label === entry.label && t.y === entry.y)
         );
 
+        // Calculate peak hours for the selected date
+        const peakHours = calculatePeakHours(uniqueSelectedDateData);
+
+        // Split data into daytime and nighttime
+        const daytimeData = uniqueSelectedDateData.filter((entry) => {
+          const hour = parseInt(entry.label.split(":")[0]);
+          return hour >= 6 && hour < 18; // Assuming daytime is 6 AM to 6 PM
+        });
+
+        const nighttimeData = uniqueSelectedDateData.filter((entry) => {
+          const hour = parseInt(entry.label.split(":")[0]);
+          return hour < 6 || hour >= 18; // Assuming nighttime is 6 PM to 6 AM
+        });
+
         let content = "";
 
-        // Display date and average AQI
-        content += `<div style="font-size: 1vw; font-weight:500; text-align:center; padding:0.5vw">`;
-        content += `Average AQI for ${selectedDate} is ${dailyAverage[selectedDate]}`;
+        //Main Container
+        content += `<div style="font-family: Montserrat, sans-serif; padding: 5px;  display: flex; flex-direction: column; width :"50rem">`; // Increased width and added flex display
+
+        // Header Section: Date and Average AQI (moved to outside the flex container)
+        content += `<div style="display: block; width:auto;">`;
+        content += `<div style="font-size: 0.8rem; font-weight: bold; text-align: center; margin-bottom: 5px; color: #333;">`; // Reduced margin-bottom
+        content += `AQI Data for ${selectedDate}`;
         content += "</div>";
-
-        // Create two tables and wrap them in divs with inline CSS
-        content +=
-          "<div style='display: inline-block;margin-left: 1vw;; padding:0.5vw'>";
-        content += "<table style='font-size: 0.9vw; color: black'>";
-        content +=
-          "<tr><th>&nbsp&nbsp&nbspTime&nbsp&nbsp&nbsp&nbsp&nbsp;</th><th>&nbsp&nbsp&nbsp&nbsp&nbsp;AQI&nbsp&nbsp&nbsp</th></tr>"; // Added &nbsp; for space
-
-        // Iterate over unique selected data and add rows to the table
-        uniqueSelectedDateData
-          .slice(0, Math.ceil(uniqueSelectedDateData.length / 2))
-          .forEach((entry) => {
-            const colorClass = getColorClass(entry.y);
-            content += `<tr><td class="${colorClass}">&nbsp&nbsp&nbsp${entry.label}&nbsp&nbsp&nbsp&nbsp</td><td class="${colorClass}">&nbsp&nbsp&nbsp&nbsp${entry.y}&nbsp&nbsp&nbsp</td></tr>`;
-          });
-
-        content += "</table>";
+        content += `<div style="font-size: 0.8em; text-align: center; margin-bottom: 5px; color: #666;">`; // Reduced margin-bottom
+        content += `Average AQI: ${dailyAverage[selectedDate]}`;
         content += "</div>";
+        content += `<div style="margin-bottom: 5px; padding-left: 5px; display:flex; flex-direction:column">`; // Reduced margin-bottom
+        content += `<div style="font-size: 0.8rem; font-weight: bold; color: #333;">Peak Hours:</div>`;
+        content += `<div style="font-size: 0.8rem; color: #666;">Day: ${
+          peakHours.daytime || "N/A"
+        }</div>`;
+        content += `<div style="font-size: 0.8rem; color: #666;">Night: ${
+          peakHours.nighttime || "N/A"
+        }</div>`;
+        content += `</div>`;
+        content += `</div>`;
+        content += `<div style="font-family: Montserrat, sans-serif; padding: 5px;  display: flex; flex-direction: row;">`; // Reduced padding
+        //Daytime Container
+        content += `<div style = "width: 50%; padding-right: 5px; box-sizing: border-box;">`;
+        // Daytime Table Section
+        content += `<div style="margin-bottom: 5px;">`; // Reduced margin-bottom
+        content += `<div style="font-size: 0.8rem; font-weight: bold; color: #333; margin-bottom: 2px;">Day AQI (6 AM - 6 PM):</div>`; // Reduced margin-bottom
+        content += `<table style="width: 100%; border-collapse: collapse; margin-top: 2px;">`; // Reduced margin-top
+        content += `<tr style="font-size: 0.8rem; font-weight: bold; background-color: #e0e0e0;">
+                  <th style="padding: 2px; font-size:0.8rem;; text-align: left;">Time</th>
+                  <th style="padding: 2px; font-size:0.8rem;; text-align: left;">AQI</th>
+                  </tr>`;
 
-        content +=
-          "<div style='display: inline-block; margin-left: 2vw;margin-right: 1vw;; padding:0.5vw'>";
-        content += "<table style='font-size: 0.9vw;'>";
-        content +=
-          "<tr><th>&nbsp&nbsp&nbspTime&nbsp&nbsp&nbsp&nbsp&nbsp;</th><th>&nbsp&nbsp&nbsp&nbsp&nbsp;AQI&nbsp&nbsp&nbsp</th></tr>"; // Added &nbsp; for space
+        daytimeData.forEach((entry) => {
+          const colorClass = getColorClass(entry.y);
+          content += `<tr style="padding: 0px;">
+                      <td style="padding: 2px; font-size:0.7rem;" class="${colorClass}">${entry.label}</td>
+                      <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.y}</td>
+                      </tr>`;
+        });
 
-        // Iterate over unique selected data and add rows to the table
-        uniqueSelectedDateData
-          .slice(Math.ceil(uniqueSelectedDateData.length / 2))
-          .forEach((entry) => {
-            const colorClass = getColorClass(entry.y);
-            content += `<tr><td class="${colorClass}">&nbsp&nbsp&nbsp${entry.label}&nbsp&nbsp&nbsp&nbsp</td><td class="${colorClass}">&nbsp&nbsp&nbsp&nbsp${entry.y}&nbsp&nbsp&nbsp</td></tr>`;
-          });
+        content += `</table>`;
+        content += `</div>`;
+        content += `</div>`;
 
-        content += "</table>";
-        content += "</div>";
+        // Nighttime Container
+        content += `<div style = "width: 50%; padding-left: 5px; box-sizing: border-box;">`;
+        // Nighttime Table Section
+        content += `<div>`;
+        content += `<div style="font-size: 0.8em; font-weight: bold; color: #333; margin-bottom: 2px;">Night AQI (6 PM - 6 AM):</div>`; // Reduced margin-bottom
+        content += `<table style="width: 100%; border-collapse: collapse; margin-top: 2px;">`; // Reduced margin-top
+        content += `<tr style="font-size: 0.8rem; font-weight: bold; background-color: #e0e0e0;">
+                  <th style="padding: 2px;font-size:0.8rem; text-align: left;">Time</th>
+                  <th style="padding: 2px;font-size:0.8rem; text-align: left;">AQI</th>
+                  </tr>`;
+
+        nighttimeData.forEach((entry) => {
+          const colorClass = getColorClass(entry.y);
+          content += `<tr style="padding: 0px;">
+                      <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.label}</td>
+                      <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.y}</td>
+                      </tr>`;
+        });
+
+        content += `</table>`;
+        content += `</div>`;
+        content += `</div>`;
+        content += `</div>`;
+        content += "</div>"; //Closing Main Container
 
         return content;
       },
@@ -215,10 +337,10 @@ const DailyTrend = ({
   const drilldownChartOptions = {
     animationEnabled: true,
     title: {
-      text: "AQI Level for" + selectedDate,
+      text: "AQI Level for " + selectedDate,
       ...commonChartOptions.title,
     },
-    height: 170,
+    height: 200,
     theme: "light2",
     axisX: {
       labelFontColor: "#717171",
@@ -236,7 +358,7 @@ const DailyTrend = ({
       lineThickness: 1,
       stripLines: [
         {
-          value: 300,
+          value: 400,
           thickness: 1,
           color: "rgb(93, 92, 92)",
           lineDashType: "dash",
@@ -258,9 +380,11 @@ const DailyTrend = ({
       },
     },
   };
-
   return (
-    <div className="flex flex-column bg-white border-round p-4" style={{flex: "50%"}}>
+    <div
+      className="flex flex-column bg-white border-round p-4"
+      style={{ flex: "60%" }}
+    >
       <div className="flex align-items-start justify-content-start gap-2">
         {fifteenDaysData.length > 0 && (
           <Button
@@ -268,20 +392,115 @@ const DailyTrend = ({
             onClick={lastFifteenClickHandler}
             label="View Previous Days Trend"
             raised
+            size="small"
           />
         )}
-
         <Button
           className={`${backButtonClassName} bg-primary1  text-white text-xs`}
           onClick={backButtonClickHandler}
           label="Back"
           raised
+          size="small"
         />
       </div>
+      {!isDrilldown && (
+        <div className="flex w-full flex-row gap-2 justify-content-end w-full">
+          <div className="flex items-center gap-1">
+            <i
+              className="pi pi-circle-fill text-red"
+              style={{ fontSize: "0.8em", color: "#dbf0fe" }}
+            ></i>
+            <p
+              className="card-text p-0 m-0  text-xs"
+              style={{ fontSize: "0.8em", margin: 0 }}
+            >
+              0-50
+            </p>
+          </div>
+          <div className="flex items-center gap-1">
+            <i
+              className="pi pi-circle-fill text-blue"
+              style={{ fontSize: "0.8em", color: "#add9f6" }}
+            ></i>
+            <p
+              className="card-text p-0 m-0  text-xs"
+              style={{ fontSize: "0.8em", margin: 0 }}
+            >
+              51-100
+            </p>
+          </div>
+          <div className="flex items-center gap-1">
+            <i
+              className="pi pi-circle-fill text-blue"
+              style={{ fontSize: "0.8em", color: "#54a8e0" }}
+            ></i>
+            <p
+              className="card-text p-0 m-0  text-xs"
+              style={{ fontSize: "0.8em", margin: 0 }}
+            >
+              101-200
+            </p>
+          </div>
+          <div className="flex items-center gap-1">
+            <i
+              className="pi pi-circle-fill text-blue"
+              style={{ fontSize: "0.8em", color: "#459bd4" }}
+            ></i>
+            <p
+              className="card-text p-0 m-0  text-xs"
+              style={{ fontSize: "0.8em", margin: 0 }}
+            >
+              201-300
+            </p>
+          </div>
+          <div className="flex items-center gap-1">
+            <i
+              className="pi pi-circle-fill text-blue"
+              style={{ fontSize: "0.8em", color: "#316e96" }}
+            ></i>
+            <p
+              className="card-text p-0 m-0  text-xs"
+              style={{ fontSize: "0.8em", margin: 0 }}
+            >
+              301-400
+            </p>
+          </div>
+          <div className="flex items-center gap-1">
+            <i
+              className="pi pi-circle-fill text-blue"
+              style={{ fontSize: "0.8em", color: "#0d456a" }}
+            ></i>
+            <p
+              className="card-text p-0 m-0 text-xs"
+              style={{ fontSize: "0.8em", margin: 0 }}
+            >
+              400 and above
+            </p>
+          </div>
+        </div>
+      )}
       <CanvasJSChart
         options={isDrilldown ? drilldownChartOptions : baseChartOptions}
         containerProps={{ width: "100%" }}
       />
+      {isDrilldown && (
+        <div className="flex w-full flex-row gap-2">
+          <div className="flex items-center gap-1">
+            <i
+              className="pi pi-circle-fill text-red"
+              style={{ fontSize: "0.8em", color: "red" }}
+            ></i>
+            <p style={{ fontSize: "0.8em", margin: 0 }}>Day Peak Hour</p>
+          </div>
+          <div className="flex items-center gap-1">
+            <i
+              className="pi pi-circle-fill text-blue"
+              style={{ fontSize: "0.8em", color: "blue" }}
+            ></i>
+            <p style={{ fontSize: "0.8em", margin: 0 }}>Night Peak Hour</p>
+          </div>
+        </div>
+      )}
       {showTable === true && fifteenDaysData.length > 0 && (
         <HeatMap data={fifteenDaysData} startDate={startDate} />
       )}{" "}

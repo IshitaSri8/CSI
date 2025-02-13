@@ -20,6 +20,7 @@ import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
 import colors from "components/DashboardUtility/Constants/colorConstants";
 import { Tag } from "primereact/tag";
 import AQIChart from "./AQIChart";
+import { Radio } from "lucide-react";
 
 const LiveAQI = ({ show }) => {
   const overlayRef = useRef(null);
@@ -508,28 +509,43 @@ const LiveAQI = ({ show }) => {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap md:flex-nowrap align-items-end w-full gap-4">
+      <div className="flex flex-wrap md:flex-nowrap w-full gap-3">
         <div
-          className="flex border-round-xl p-2 justify-content-between bg-white"
+          className="flex border-round-xl p-2 justify-content-between bg-white w-full"
           style={{
             backgroundColor: aqiStatus?.bg_color,
             border: `1px solid ${aqiStatus?.color}`,
-            flex: "20%",
           }}
         >
-          <div className="flex flex-column align-items-center justify-content-around">
-            {/* <h1 className="card-title text-primary1 m-0 p-0">AQI</h1> */}
-            <h1 className="text-4xl font-semibold p-0 m-0 text-primary1">
-              {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
-            </h1>
-            <Tag
-              className="border-round-3xl"
-              style={{ backgroundColor: aqiStatus?.color, color: "white" }}
-            >
-              <span className="text-xs">
-                {aqiStatus?.status || "No Status"}{" "}
-              </span>
-            </Tag>
+          <div className="flex flex-column align-items-center justify-content-between">
+            <div className="flex align-items-center gap-8">
+              <div className="flex flex-column align-items-center gap-2">
+                <div className="flex align-items-center gap-2">
+                  {/* <i
+                    className="pi pi-spinner pi-spin"
+                    style={{ fontSize: "1rem" }}
+                  /> */}
+                  <Radio size={18} className="danger-text" />
+                  <p className="card-title text-primary1 m-0 p-0">Live AQI</p>
+                </div>
+                <h1 className="text-4xl font-semibold p-0 m-0 text-primary1">
+                  {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
+                </h1>
+              </div>
+              <div className="flex flex-column align-items-center gap-2">
+                <p className="card-title text-primary1 m-0 p-0">
+                  Air Quality is
+                </p>
+                <Tag
+                  className="border-round-3xl"
+                  style={{ backgroundColor: aqiStatus?.color, color: "white" }}
+                >
+                  <span className="text-xs">
+                    {aqiStatus?.status || "No Status"}{" "}
+                  </span>
+                </Tag>
+              </div>
+            </div>
             {/* <p>{currentDate.toLocaleDateString()}</p> */}
             <div className="flex gap-2">
               <p className="card-text">Last updated:</p>
@@ -545,7 +561,10 @@ const LiveAQI = ({ show }) => {
             className="h-14rem"
           />
         </div>
+        <div className="flex bg-white border-round w-full"></div>
+        <div className="flex bg-white border-round w-full"></div>
       </div>
+
       <AQIChart
         enviroDate={dateArrayData}
         envirotime={timeArrayData}

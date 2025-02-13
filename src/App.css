@@ -147,6 +147,10 @@ body {
   background-color: var(--bg-danger);
 }
 
+.danger-text {
+  color: var(--bg-danger);
+}
+
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
   background-color: var(--theme-primary-color);
 }
