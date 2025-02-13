@@ -17,7 +17,7 @@ import {
   Users,
   Wind,
 } from "lucide-react";
-import pathConstants from "pathConstants";
+import pathConstants from "components/DashboardUtility/Constants/pathConstants";
 
 const menuItems = [
   {

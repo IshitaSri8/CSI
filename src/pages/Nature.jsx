@@ -8,12 +8,12 @@ import land from "assets/illustration/land1.svg";
 import waste from "assets/illustration/waste1.svg";
 import Rainfall from "assets/illustration/Rainfall1.svg";
 import Temperature from "assets/illustration/temperature1.svg";
-import pathConstants from "pathConstants";
-import score from "score";
+import pathConstants from "components/DashboardUtility/Constants/pathConstants";
+import score from "components/DashboardUtility/Constants/score";
 import AqiScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCalculator";
 import { useUser } from "components/context/UserContext";
-import Legends from "./components/Legends";
-import ParameterCard from "./components/ParameterCard";
+import Legends from "../components/DashboardUtility/components/Legends";
+import ParameterCard from "../components/DashboardUtility/components/ParameterCard";
 
 const Nature = () => {
   const natureLables = [

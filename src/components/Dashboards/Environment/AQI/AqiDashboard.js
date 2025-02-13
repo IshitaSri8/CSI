@@ -28,7 +28,7 @@ import good from "assets/dashboard/good-aqi-level.svg";
 import moderate from "assets/dashboard/moderate-aqi-level.svg";
 import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
-import colors from "colorConstants";
+import colors from "components/DashboardUtility/Constants/colorConstants";
 
 const AqiDashboard = ({ show }) => {
   const [startDate, setStartDate] = useState(new Date("2024-12-01"));
@@ -746,7 +746,6 @@ const AqiDashboard = ({ show }) => {
             envirodate={envirodate}
             envirotime={envirotime}
             pollutantData={enviropm25}
-            selectedLocation={selectedLocation}
             pollutantName="PM2.5"
             baseChartColor="#F7A47A"
             drilldownChartColor="#FFC107"
@@ -759,7 +758,6 @@ const AqiDashboard = ({ show }) => {
             envirodate={envirodate}
             envirotime={envirotime}
             pollutantData={enviropm10}
-            selectedLocation={selectedLocation}
             pollutantName="PM10"
             baseChartColor="#47B881"
             drilldownChartColor="#80CBC4"
@@ -772,7 +770,6 @@ const AqiDashboard = ({ show }) => {
             envirodate={envirodate}
             envirotime={envirotime}
             pollutantData={enviroNO2}
-            selectedLocation={selectedLocation}
             pollutantName="NO2"
             baseChartColor="#FFDD82"
             drilldownChartColor="#E57373"
@@ -785,7 +782,6 @@ const AqiDashboard = ({ show }) => {
             envirodate={envirodate}
             envirotime={envirotime}
             pollutantData={enviroso2}
-            selectedLocation={selectedLocation}
             pollutantName="SO2"
             baseChartColor="#C68FE6"
             drilldownChartColor="#FFF176"

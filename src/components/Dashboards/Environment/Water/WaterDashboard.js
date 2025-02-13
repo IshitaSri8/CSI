@@ -33,7 +33,7 @@ import RecommendationPanel from "components/DashboardUtility/RecommendationPanel
 import WaterModify from "./WaterModify";
 import DataNotFound from "pages/error pages/ServerDown";
 import { useUser } from "components/context/UserContext";
-import { scoreColors } from "colorConstants";
+import { scoreColors } from "components/DashboardUtility/Constants/colorConstants";
 import { getScoreColor } from "components/DashboardUtility/scoreColor";
 
 const WaterDashboard = ({ show }) => {

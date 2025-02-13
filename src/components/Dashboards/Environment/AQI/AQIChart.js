@@ -3,6 +3,13 @@ import "./AqiReport.css";
 import DailyTrend from "./DailyTrend";
 import WeekTrend from "./WeekTrend";
 import HourlyTrend from "./HourlyTrend";
+import { TabPanel, TabView } from "primereact/tabview";
+import PollutantChart from "./PollutantChart";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 const AQIChart = ({
   enviroDate,
@@ -10,7 +17,13 @@ const AQIChart = ({
   enviroDay,
   enviroAQI,
   startDate,
+  pm25ArrayData,
+  pm10ArrayData,
+  NO2ArrayData,
+  SO2ArrayData,
 }) => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [activeTable, setActiveTable] = useState(0);
   const [selectedDate, setSelectedDate] = useState("2024-01-01");
   const [chartData, setChartData] = useState([]);
   const [dailyAverage, setDailyAverage] = useState(null);
@@ -24,6 +37,12 @@ const AQIChart = ({
   const [hourlyAverages, setHourlyAverages] = useState({}); // Initialize array of 24 elements with 0
   const [averageDaytimeAqi, setAverageDaytimeAqi] = useState(0);
   const [averageNighttimeAqi, setAverageNighttimeAqi] = useState(0);
+  // State to store peak hour frequencies
+  const [daytimePeakHourFrequencies, setDaytimePeakHourFrequencies] = useState(
+    []
+  );
+  const [nighttimePeakHourFrequencies, setNighttimePeakHourFrequencies] =
+    useState([]);
 
   const calculateDailyAverages = () => {
     if (!enviroDate || !enviroAQI) {
@@ -163,6 +182,90 @@ const AQIChart = ({
     return hourlyAverages;
   };
 
+  const calculatePeakHours = () => {
+    if (!enviroDate || !envirotime || !enviroAQI) {
+      return;
+    }
+
+    const daytimePeakHours = {};
+    const nighttimePeakHours = {};
+
+    // 1. Group data by date
+    const groupedData = {};
+
+    enviroDate.forEach((date, index) => {
+      const time = envirotime[index];
+      const aqi = enviroAQI[index];
+
+      if (!groupedData[date]) {
+        groupedData[date] = [];
+      }
+
+      groupedData[date].push({ time: time, aqi: parseFloat(aqi) }); // Ensure AQI is a number
+    });
+
+    // 2. Calculate peak hours for each date
+    Object.entries(groupedData).forEach(([date, data]) => {
+      // Separate daytime and nighttime data for the current date
+      const daytimeData = data.filter((item) => {
+        const hour = parseInt(item.time.split(":")[0]);
+        return hour >= 6 && hour <= 17;
+      });
+
+      const nighttimeData = data.filter((item) => {
+        const hour = parseInt(item.time.split(":")[0]);
+        return hour < 6 || hour >= 18;
+      });
+
+      const findPeakHours = (timeData) => {
+        if (timeData.length === 0) return null;
+
+        // Find the maximum AQI value
+        let maxAQI = Math.max(...timeData.map((item) => item.aqi));
+
+        // Get all hours with the maximum AQI
+        let peakHours = timeData
+          .filter((item) => item.aqi === maxAQI)
+          .map((item) => item.time); // Extract ONLY time
+
+        return peakHours;
+      };
+
+      const daytimePeak = findPeakHours(daytimeData);
+      const nighttimePeak = findPeakHours(nighttimeData);
+
+      // 3. Aggregate frequencies
+      if (daytimePeak) {
+        daytimePeak.forEach((time) => {
+          if (!daytimePeakHours[time]) {
+            daytimePeakHours[time] = 0;
+          }
+          daytimePeakHours[time]++;
+        });
+      }
+      if (nighttimePeak) {
+        nighttimePeak.forEach((time) => {
+          if (!nighttimePeakHours[time]) {
+            nighttimePeakHours[time] = 0;
+          }
+          nighttimePeakHours[time]++;
+        });
+      }
+    });
+
+    // Convert peak hour frequencies to the format expected by DataTable and sort by frequency
+    const daytimeFrequenciesArray = Object.entries(daytimePeakHours)
+      .map(([time, frequency]) => ({ time, frequency }))
+      .sort((a, b) => b.frequency - a.frequency); // Sort in descending order
+
+    const nighttimeFrequenciesArray = Object.entries(nighttimePeakHours)
+      .map(([time, frequency]) => ({ time, frequency }))
+      .sort((a, b) => b.frequency - a.frequency); // Sort in descending order
+
+    setDaytimePeakHourFrequencies(daytimeFrequenciesArray);
+    setNighttimePeakHourFrequencies(nighttimeFrequenciesArray);
+  };
+
   useEffect(() => {
     fetchYearlyData();
     setDailyAverage(calculateDailyAverages());
@@ -242,6 +345,7 @@ const AQIChart = ({
       nighttimeCount > 0 ? nighttimeSum / nighttimeCount : 0;
 
     setAverageNighttimeAqi(Math.round(averageNighttime));
+    calculatePeakHours();
   }, [selectedDate, enviroDate, enviroAQI, enviroDay]);
 
   const fetchYearlyData = () => {
@@ -280,29 +384,181 @@ const AQIChart = ({
     setChartData(newChartData);
   };
 
+  const findMaxFrequency = (data) => {
+    if (!data || data.length === 0) return null;
+    let max = data[0].frequency; // Initialize to the first frequency
+    for (let i = 1; i < data.length; i++) {
+      if (data[i].frequency > max) {
+        max = data[i].frequency;
+      }
+    }
+    return max;
+  };
+
+  const daytimeMaxFrequency = findMaxFrequency(daytimePeakHourFrequencies);
+  const nighttimeMaxFrequency = findMaxFrequency(nighttimePeakHourFrequencies);
+
+  const rowClassNameDay = (data) => {
+    if (daytimeMaxFrequency === null) return ""; // No highlighting if no data
+    return data.frequency === daytimeMaxFrequency ? "red-row" : "";
+  };
+  const rowClassNamenight = (data) => {
+    if (nighttimeMaxFrequency === null) return ""; // No highlighting if no data
+    return data.frequency === nighttimeMaxFrequency ? "red-row" : "";
+  };
+
   return (
     chartData.length > 0 && (
-      <>
-        <DailyTrend
-          selectedDate={selectedDate}
-          dailyAverage={dailyAverage}
-          dailyData={dailyData}
-          setSelectedDate={setSelectedDate}
-          fifteenDaysData={fifteenDaysData}
-          startDate={startDate}
-        />
-        <WeekTrend
-          overallWeekendAverage={overallWeekendAverage}
-          overallWeekdayAverage={overallWeekdayAverage}
-          weekendAverages={weekendAverages}
-          weekdayAverages={weekdayAverages}
-        />
-        <HourlyTrend
-          averageDaytimeAqi={averageDaytimeAqi}
-          averageNighttimeAqi={averageNighttimeAqi}
-          hourlyAverages={hourlyAverages}
-        />
-      </>
+      <div className="flex flex-column gap-3 w-full">
+        <div className="flex gap-3 w-full">
+          <DailyTrend
+            selectedDate={selectedDate}
+            dailyAverage={dailyAverage}
+            dailyData={dailyData}
+            setSelectedDate={setSelectedDate}
+            fifteenDaysData={fifteenDaysData}
+            startDate={startDate}
+          />
+          <div
+            className="flex flex-column bg-white border-round p-4"
+            style={{ flex: "40%" }}
+          >
+            <p className="card-title p-0 m-0">Peak Hours</p>
+            <TabView
+              activeIndex={activeTable}
+              onTabChange={(e) => setActiveTable(e.index)}
+            >
+              <TabPanel header="Day">
+                {/* Daytime Peak Hours Table */}
+
+                <DataTable
+                  value={daytimePeakHourFrequencies}
+                  className="overflow-y-auto h-12rem p-0 text-center "
+                  headerStyle={{ textAlign: "center" }}
+                  rowClassName={rowClassNameDay}
+                >
+                  <Column
+                    field="time"
+                    header="Time"
+                    headerStyle={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#166c7d",
+                      color: "white",
+                      padding: 1,
+                    }}
+                  ></Column>
+                  <Column
+                    field="frequency"
+                    header="Frequency"
+                    headerStyle={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#166c7d",
+                      color: "white",
+                      padding: 3,
+                    }}
+                  ></Column>
+                </DataTable>
+              </TabPanel>
+              <TabPanel header="Night">
+                {/* Nighttime Peak Hours Table */}
+
+                <DataTable
+                  value={nighttimePeakHourFrequencies}
+                  className="overflow-y-auto h-12rem text-center"
+                  rowClassName={rowClassNamenight}
+                >
+                  <Column
+                    field="time"
+                    header="Time"
+                    headerStyle={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#166c7d",
+                      color: "white",
+                      padding: 1,
+                    }}
+                  ></Column>
+                  <Column
+                    field="frequency"
+                    header="Frequency"
+                    headerStyle={{
+                      fontSize: "0.6rem",
+                      backgroundColor: "#166c7d",
+                      color: "white",
+                      padding: 1,
+                    }}
+                  ></Column>
+                </DataTable>
+              </TabPanel>
+            </TabView>
+          </div>
+        </div>
+        <div className="flex gap-3 w-full">
+          <WeekTrend
+            overallWeekendAverage={overallWeekendAverage}
+            overallWeekdayAverage={overallWeekdayAverage}
+            weekendAverages={weekendAverages}
+            weekdayAverages={weekdayAverages}
+          />
+          <HourlyTrend
+            averageDaytimeAqi={averageDaytimeAqi}
+            averageNighttimeAqi={averageNighttimeAqi}
+            hourlyAverages={hourlyAverages}
+          />
+          <div className="w-full flex flex-column bg-white border-round p-4">
+            <p className="card-title p-0 m-0">Pollutants Trend</p>
+            <TabView
+              activeIndex={activeTab}
+              onTabChange={(e) => setActiveTab(e.index)}
+            >
+              <TabPanel header="PM2.5">
+                <PollutantChart
+                  envirodate={enviroDate}
+                  envirotime={envirotime}
+                  pollutantData={pm25ArrayData}
+                  pollutantName="PM2.5"
+                  baseChartColor="#F7A47A"
+                  drilldownChartColor="#FFC107"
+                  safeLimit={60}
+                />
+              </TabPanel>
+              <TabPanel header="PM10">
+                <PollutantChart
+                  envirodate={enviroDate}
+                  envirotime={envirotime}
+                  pollutantData={pm10ArrayData}
+                  pollutantName="PM10"
+                  baseChartColor="#47B881"
+                  drilldownChartColor="#80CBC4"
+                  safeLimit={100}
+                />
+              </TabPanel>
+              <TabPanel header="No2">
+                <PollutantChart
+                  envirodate={enviroDate}
+                  envirotime={envirotime}
+                  pollutantData={NO2ArrayData}
+                  pollutantName="NO2"
+                  baseChartColor="#FFDD82"
+                  drilldownChartColor="#E57373"
+                  safeLimit={80}
+                />
+              </TabPanel>
+              <TabPanel header="So2">
+                <PollutantChart
+                  envirodate={enviroDate}
+                  envirotime={envirotime}
+                  pollutantData={SO2ArrayData}
+                  pollutantName="SO2"
+                  baseChartColor="#C68FE6"
+                  drilldownChartColor="#FFF176"
+                  safeLimit={80}
+                />
+              </TabPanel>
+            </TabView>
+            <p className="card-title p-0 m-0">Insights</p>
+          </div>
+        </div>
+      </div>
     )
   );
 };

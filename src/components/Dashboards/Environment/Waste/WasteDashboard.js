@@ -10,7 +10,7 @@ import { useState } from "react";
 import WasteRecommendations from "./WasteRecommendations";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
-import score from "score";
+import score from "components/DashboardUtility/Constants/score";
 import { useEffect } from "react";
 import axios from "axios";
 import { getScoreColor } from "components/DashboardUtility/scoreColor";

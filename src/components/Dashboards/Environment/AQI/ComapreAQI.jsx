@@ -28,7 +28,7 @@ import good from "assets/dashboard/good-aqi-level.svg";
 import moderate from "assets/dashboard/moderate-aqi-level.svg";
 import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
-import colors from "colorConstants";
+import colors from "components/DashboardUtility/Constants/colorConstants";
 import AQIChart from "./AQIChart";
 import PollutantChart from "./PollutantChart";
 

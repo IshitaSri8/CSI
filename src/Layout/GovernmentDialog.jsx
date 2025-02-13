@@ -4,7 +4,7 @@ import signin_ani from "assets/animations/signin.json";
 import Lottie from "lottie-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
-import pathConstants from "pathConstants"; // Adjust based on your file structure
+import pathConstants from "components/DashboardUtility/Constants/pathConstants"; // Adjust based on your file structure
 import { useUser } from "components/context/UserContext"; // Adjust based on your file structure
 
 const GovernmentDialog = ({ visible, onHide }) => {

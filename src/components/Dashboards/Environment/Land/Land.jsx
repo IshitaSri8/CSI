@@ -9,7 +9,7 @@ import { ModifiedPieChart } from "Layout/GraphVisuals";
 import { Tag } from "primereact/tag";
 import ReportPrint from "components/DashboardUtility/ReportPrint";
 import RecommendationPanel from "components/DashboardUtility/RecommendationPanel";
-import score from "score";
+import score from "components/DashboardUtility/Constants/score";
 
 const Land = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);

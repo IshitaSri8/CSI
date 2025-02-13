@@ -11,8 +11,6 @@ const PollutantChart = ({
   envirotime,
   pollutantData,
   pollutantName,
-  width = "100%", // Default width
-  height, // Default height
   baseChartColor = "lightblue", // Default base chart color
   drilldownChartColor = "lightgreen", // Default drilldown chart color
   safeLimit, // Safe limit value
@@ -78,7 +76,7 @@ const PollutantChart = ({
         animationEnabled: true,
         theme: "light2",
         title: {
-          text: `${pollutantName} Trend`,
+          // text: `${pollutantName} Trend`,
           ...commonChartOptions.title,
         },
         axisX: {
@@ -98,7 +96,7 @@ const PollutantChart = ({
             },
           ],
         },
-
+        backgroundColor: "transparent",
         data: [
           {
             type: "area",
@@ -144,7 +142,7 @@ const PollutantChart = ({
             },
           ],
         },
-
+        backgoundColor: "transparent",
         data: [
           {
             type: "area",
@@ -170,19 +168,17 @@ const PollutantChart = ({
 
   return (
     <div className="flex flex-column w-full">
-      <div>
-        {isDrilldown && (
-          <Button
-            onClick={handleBackButtonClick}
-            className="bg-primary1 text-white p-1 text-lg"
-            icon="pi pi-arrow-left"
-            raised
-          />
-        )}
-      </div>
+      {isDrilldown && (
+        <Button
+          onClick={handleBackButtonClick}
+          icon="pi pi-arrow-left"
+          className="bg-primary1  text-white text-xs"
+          raised
+        />
+      )}
       <CanvasJSChart
         options={chartOptions}
-        containerProps={{ height: height, width: "100%" }}
+        containerProps={{ height: 180, width: "100%" }}
       />
     </div>
   );
