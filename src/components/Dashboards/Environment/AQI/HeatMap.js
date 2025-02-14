@@ -1,7 +1,7 @@
+import colors from "components/DashboardUtility/Constants/colorConstants";
 import React from "react";
 
 const HeatMap = ({ data }) => {
-  console.log(data);
 
   // Extract unique dates
   const dates = [...new Set(data.map((entry) => entry.date))].reverse();
@@ -27,12 +27,12 @@ const HeatMap = ({ data }) => {
   // Function to get color class based on AQI
   const getColorClass = (aqi) => {
     if (aqi === "-") return "";
-    if (aqi >= 0 && aqi <= 50) return "green-bg";
-    if (aqi >= 51 && aqi <= 100) return "yellow-bg";
-    if (aqi >= 101 && aqi <= 200) return "orange-bg";
-    if (aqi >= 201 && aqi <= 300) return "pink-bg";
-    if (aqi >= 301 && aqi <= 400) return "purple-bg";
-    if (aqi >= 401) return "red-bg";
+    if (aqi >= 0 && aqi <= 50) return colors.good;
+    if (aqi >= 51 && aqi <= 100) return colors.moderate;
+    if (aqi >= 101 && aqi <= 200) return colors.yellow;
+    if (aqi >= 201 && aqi <= 300) return colors.warning;
+    if (aqi >= 301 && aqi <= 400) return colors.poor;
+    if (aqi >= 401) return colors.veryPoor;
     return "";
   };
 
@@ -43,23 +43,35 @@ const HeatMap = ({ data }) => {
   };
 
   return (
-    <div className="flex w-full">
+    <div
+      className="flex w-full flex-column p-4 border-round bg-white"
+      style={{ flex: "40%" }}
+    >
+      <p className="card-title">Previous Trend</p>
       {data.length > 0 && (
         <table className="w-full">
           <thead>
             <tr>
-              <th>Date</th>
+              <th className="text-sm card-text">Date</th>
               {timeSlots.map((time, index) => (
-                <th key={index}>{formatTime(time)}</th>
+                <td key={index} className="text-xs card-text">
+                  {formatTime(time)}
+                </td>
               ))}
             </tr>
           </thead>
           <tbody>
             {heatmapData.map((rowData, rowIndex) => (
               <tr key={rowIndex}>
-                <td className="p-1">{dates[rowIndex]}</td>
+                <td className="p-0 text-xs text-center card-text">
+                  {dates[rowIndex]}
+                </td>
                 {rowData.map((entry, colIndex) => (
-                  <td key={colIndex} className={getColorClass(entry.value)}>
+                  <td
+                    key={colIndex}
+                    className={` text-sm text-center p-1 text-white`}
+                    style={{ backgroundColor: getColorClass(entry.value) }}
+                  >
                     {entry.value}
                   </td>
                 ))}

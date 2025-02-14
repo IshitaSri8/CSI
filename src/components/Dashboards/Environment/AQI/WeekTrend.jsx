@@ -32,7 +32,7 @@ const WeekTrend = ({
     axisX: {
       ...commonChartOptions.axisX,
     },
-    height: 250,
+    height: 200,
     backgroundColor: "transparent",
     dataPointWidth: 30,
     data: [

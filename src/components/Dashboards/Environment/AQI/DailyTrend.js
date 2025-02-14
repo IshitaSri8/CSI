@@ -5,6 +5,8 @@ import HeatMap from "./HeatMap";
 import { Button } from "primereact/button";
 import { commonChartOptions } from "Layout/chartOptions";
 import { classNames } from "primereact/utils";
+import colors from "components/DashboardUtility/Constants/colorConstants";
+
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const DailyTrend = ({
@@ -14,6 +16,7 @@ const DailyTrend = ({
   setSelectedDate,
   fifteenDaysData,
   startDate,
+  onShowTableChange,
 }) => {
   const [chartData, setChartData] = useState({});
   const [isDrilldown, setIsDrilldown] = useState(false);
@@ -112,9 +115,8 @@ const DailyTrend = ({
           explodeOnClick: false,
           name: "BaseChart",
           type: "area",
-          indexLabelFontColor: "red",
           dataPoints: dataPoints,
-          color: "#1F8297",
+          color: "#0F4B57",
         },
       ],
     };
@@ -154,9 +156,11 @@ const DailyTrend = ({
 
   const backButtonClickHandler = () => {
     setIsDrilldown(false);
+    onShowTableChange(false);
     setShowTable(false);
   };
   const lastFifteenClickHandler = () => {
+    onShowTableChange(true);
     setShowTable(true);
   };
   const backButtonClassName = classNames({
@@ -165,12 +169,12 @@ const DailyTrend = ({
 
   const baseChartOptions = {
     animationEnabled: true,
-    height: 275,
+    height: 250,
     legend: {
       ...commonChartOptions.legend,
     },
     title: {
-      text: "Trend in the selected Date Range",
+      text: "Daywise Trend",
       ...commonChartOptions.title,
     },
     axisX: {
@@ -276,8 +280,8 @@ const DailyTrend = ({
         daytimeData.forEach((entry) => {
           const colorClass = getColorClass(entry.y);
           content += `<tr style="padding: 0px;">
-                  <td style="padding: 2px; font-size:0.7rem;" class="${colorClass}">${entry.label}</td>
-                  <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.y}</td>
+                  <td style="padding: 2px; font-size:0.7rem;background-color :${colorClass}; color:#FEF9E1; font-weight:600" >${entry.label}</td>
+                  <td style="padding: 2px;font-size:0.7rem;background-color :${colorClass}; color:#FEF9E1; font-weight:600" >${entry.y}</td>
                   </tr>`;
         });
 
@@ -297,8 +301,8 @@ const DailyTrend = ({
         nighttimeData.forEach((entry) => {
           const colorClass = getColorClass(entry.y);
           content += `<tr style="padding: 0px;">
-                  <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.label}</td>
-                  <td style="padding: 2px;font-size:0.7rem;" class="${colorClass}">${entry.y}</td>
+                  <td style="padding: 2px;font-size:0.7rem; background-color :${colorClass}; color:#FEF9E1; font-weight:600" >${entry.label}</td>
+                  <td style="padding: 2px;font-size:0.7rem; background-color :${colorClass}; color:#FEF9E1; font-weight:600" >${entry.y}</td>
                   </tr>`;
         });
 
@@ -309,28 +313,28 @@ const DailyTrend = ({
         //Legend Section
         content += `<div style="display: flex; flex-direction: row; gap: 5px; justify-content: end; width: 100%;">`;
         content += `<div style="display: flex; align-items: center; gap: 1px;">
-                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #dbf0fe;"></i>
-                <p style="margin: 0; font-size: 0.8em;">0-50</p>
+                <i class="pi pi-circle-fill" style="font-size: 0.5rem; color:${colors.good};"></i>
+                <p style="margin: 0; " class="insight-text">0-50</p>
               </div>`;
         content += `<div style="display: flex; align-items: center; gap: 1px;">
-                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #add9f6;"></i>
-                <p style="margin: 0; font-size: 0.8em;">51-100</p>
+                <i class="pi pi-circle-fill" style="font-size: 0.5rem; color:${colors.moderate};"></i>
+                <p style="margin: 0; "  class="insight-text">51-100</p>
               </div>`;
         content += `<div style="display: flex; align-items: center; gap: 1px;">
-                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #54a8e0;"></i>
-                <p style="margin: 0; font-size: 0.8em;">101-200</p>
+                <i class="pi pi-circle-fill" style="font-size: 0.5rem; color:${colors.yellow}"></i>
+                <p style="margin: 0; " class="insight-text">101-200</p>
               </div>`;
         content += `<div style="display: flex; align-items: center; gap: 1px;">
-                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #459bd4;"></i>
-                <p style="margin: 0; font-size: 0.8em;">201-300</p>
+                <i class="pi pi-circle-fill" style="font-size: 0.5rem; color:${colors.warning};"></i>
+                <p style="margin: 0; "  class="insight-text">201-300</p>
               </div>`;
         content += `<div style="display: flex; align-items: center; gap: 1px;">
-                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #316e96;"></i>
-                <p style="margin: 0; font-size: 0.8em;">301-400</p>
+                <i class="pi pi-circle-fill" style="font-size: 0.5rem; color:${colors.poor};"></i>
+                <p style="margin: 0; " class="insight-text">301-400</p>
               </div>`;
         content += `<div style="display: flex; align-items: center; gap: 1px;">
-                <i class="pi pi-circle-fill" style="font-size: 0.8em; color: #0d456a;"></i>
-                <p style="margin: 0; font-size: 0.8em;">400 and above</p>
+                <i class="pi pi-circle-fill" style="font-size: 0.5rem; color:${colors.veryPoor};"></i>
+                <p style="margin: 0; " class="insight-text">400 and above</p>
               </div>`;
         content += `</div>`; // Legend end
         content += `</div>`; //Closing Main Container
@@ -341,17 +345,17 @@ const DailyTrend = ({
   };
   function getColorClass(aqi) {
     if (aqi >= 0 && aqi <= 50) {
-      return "green-bg";
+      return colors.good;
     } else if (aqi >= 51 && aqi <= 100) {
-      return "yellow-bg";
+      return colors.moderate;
     } else if (aqi >= 101 && aqi <= 200) {
-      return "orange-bg";
+      return colors.yellow;
     } else if (aqi >= 201 && aqi <= 300) {
-      return "pink-bg";
+      return colors.warning;
     } else if (aqi >= 301 && aqi <= 400) {
-      return "purple-bg";
+      return colors.poor;
     } else if (aqi >= 401) {
-      return "red-bg";
+      return colors.veryPoor;
     } else {
       return "";
     }
@@ -403,9 +407,16 @@ const DailyTrend = ({
     },
   };
   return (
-    <div className="flex flex-column"  style={{ flex: "75%" }}>
-      <div className="flex flex-column bg-white border-round p-4">
+    <div className="flex flex-column gap-3" style={{ flex: "70%" }}>
+      <div className="flex flex-column bg-white border-round p-4 gap-2">
         <div className="flex align-items-start justify-content-start gap-2">
+          <Button
+            className={`${backButtonClassName} bg-primary1  text-white text-xs`}
+            onClick={backButtonClickHandler}
+            label="Back"
+            raised
+            size="small"
+          />
           {fifteenDaysData.length > 0 && (
             <Button
               className={`${backButtonClassName} bg-primary1  text-white text-xs`}
@@ -415,20 +426,13 @@ const DailyTrend = ({
               size="small"
             />
           )}
-          <Button
-            className={`${backButtonClassName} bg-primary1  text-white text-xs`}
-            onClick={backButtonClickHandler}
-            label="Back"
-            raised
-            size="small"
-          />
         </div>
         <CanvasJSChart
           options={isDrilldown ? drilldownChartOptions : baseChartOptions}
           containerProps={{ width: "100%" }}
         />
         {isDrilldown && (
-          <div className="flex w-full gap-2">
+          <div className="flex w-full gap-2 py-2">
             <div className="flex items-center gap-1">
               <i
                 className="pi pi-circle-fill"
@@ -445,7 +449,11 @@ const DailyTrend = ({
             </div>
           </div>
         )}
+        <div className="flex insights p-2">
+          <p className="card-title p-0 m-0 text-white">Insights</p>
+        </div>
       </div>
+
       {showTable === true && fifteenDaysData.length > 0 && (
         <HeatMap data={fifteenDaysData} startDate={startDate} />
       )}
