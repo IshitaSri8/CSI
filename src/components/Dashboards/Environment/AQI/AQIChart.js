@@ -43,6 +43,11 @@ const AQIChart = ({
   );
   const [nighttimePeakHourFrequencies, setNighttimePeakHourFrequencies] =
     useState([]);
+  const [showTable, setShowTable] = useState(false);
+
+  const handleShowTableChange = (newValue) => {
+    setShowTable(newValue);
+  };
 
   const calculateDailyAverages = () => {
     if (!enviroDate || !enviroAQI) {
@@ -92,42 +97,82 @@ const AQIChart = ({
     return uniqueData.sort((a, b) => a.time.localeCompare(b.time));
   };
 
-  const getFifteenDaysData = () => {
-    if (!enviroDate || !enviroAQI || !envirotime) {
-      return [];
+ const getFifteenDaysData = () => {
+   if (!enviroDate || !enviroAQI || !envirotime) {
+     return [];
+   }
+
+   // Calculate date 15 days ago
+   const fifteenDaysAgo = new Date(selectedDate);
+   fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 14); // Changed from -15 to -14 to include the selected date
+
+   // Filter data for the last 15 days
+   const filteredData = enviroDate.reduce((acc, date, index) => {
+     const dateObj = new Date(date);
+     const selectedDateVal = new Date(selectedDate);
+     if (dateObj >= fifteenDaysAgo && dateObj <= selectedDateVal) {
+       acc.push({
+         date,
+         time: envirotime[index],
+         aqi: enviroAQI[index],
+         day: enviroDay[index], // Add day information
+       });
+     }
+     return acc;
+   }, []);
+
+   // Remove duplicates and sort by date and time
+   const uniqueData = Array.from(
+     new Map(
+       filteredData.map((item) => [`${item.date}_${item.time}`, item])
+     ).values()
+   );
+   uniqueData.sort(
+     (a, b) => new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`)
+   );
+   return uniqueData;
+ };
+const calculateFifteenDaysDayAverages = (fifteenDaysData) => {
+  const dayAqiData = {};
+
+  fifteenDaysData.forEach((item) => {
+    const { day, aqi } = item;
+    if (!dayAqiData[day]) {
+      dayAqiData[day] = [];
     }
+    dayAqiData[day].push(aqi);
+  });
 
-    // Calculate date 15 days ago
-    const fifteenDaysAgo = new Date(selectedDate);
+  const dayAverages = {};
+  for (const day in dayAqiData) {
+    const dayAQI = dayAqiData[day];
+    const sum = dayAQI.reduce((acc, aqi) => acc + aqi, 0);
+    const average = sum / dayAQI.length;
+    dayAverages[day] = Math.round(average);
+  }
+  return dayAverages;
+};
 
-    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
+const calculateFifteenDaysHourlyAverages = (fifteenDaysData) => {
+  const hourlyAveragesData = {};
 
-    // Filter data for the last 15 days
-    const filteredData = enviroDate.reduce((acc, date, index) => {
-      const dateObj = new Date(date);
-      const selectedDateVal = new Date(selectedDate);
-      if (dateObj >= fifteenDaysAgo && dateObj <= selectedDateVal) {
-        acc.push({
-          date,
-          time: envirotime[index],
-          aqi: enviroAQI[index],
-        });
-      }
-      return acc;
-    }, []);
+  fifteenDaysData.forEach((item) => {
+    const { time, aqi } = item;
+    if (!hourlyAveragesData[time]) {
+      hourlyAveragesData[time] = [];
+    }
+    hourlyAveragesData[time].push(aqi);
+  });
 
-    // Remove duplicates and sort by date and time
-    const uniqueData = Array.from(
-      new Map(
-        filteredData.map((item) => [`${item.date}_${item.time}`, item])
-      ).values()
-    );
-    uniqueData.sort(
-      (a, b) =>
-        new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`)
-    );
-    return uniqueData;
-  };
+  const hourlyAverages = {};
+  for (const time in hourlyAveragesData) {
+    const hourlyAQI = hourlyAveragesData[time];
+    const sum = hourlyAQI.reduce((acc, aqi) => acc + aqi, 0);
+    const average = sum / hourlyAQI.length;
+    hourlyAverages[time] = Math.round(average);
+  }
+  return hourlyAverages;
+};
 
   // Function to calculate average AQI for each day of the week
   const calculateDayAverages = () => {
@@ -266,87 +311,136 @@ const AQIChart = ({
     setNighttimePeakHourFrequencies(nighttimeFrequenciesArray);
   };
 
-  useEffect(() => {
-    fetchYearlyData();
-    setDailyAverage(calculateDailyAverages());
-    setDailyData(getDailyData());
-    setFifteenDaysData(getFifteenDaysData());
+    useEffect(() => {
+      fetchYearlyData();
+      setDailyAverage(calculateDailyAverages());
+      setDailyData(getDailyData());
 
-    const averages = calculateDayAverages();
-    setDayAverages(averages);
+      const fifteenDaysDataCalc = getFifteenDaysData();
+      setFifteenDaysData(fifteenDaysDataCalc);
 
-    // Extract weekend averages (0 and 6)
-    const weekend = [averages[0] || 0, averages[6] || 0];
-    setWeekendAverages(weekend);
+      //--- Weekday/Weekend Calculations based on 15 days data ---
+      const calculateFifteenDaysDayAverages = (fifteenDaysData) => {
+        const dayAqiData = {};
 
-    // Calculate overall weekend average
-    const weekendSum = weekend.reduce((acc, val) => acc + val, 0);
-    const weekendCount = weekend.length;
-    const weekendAvg = weekendCount > 0 ? weekendSum / weekendCount : 0;
-    setOverallWeekendAverage(Math.round(weekendAvg));
+        fifteenDaysData.forEach((item) => {
+          const day = new Date(item.date).getDay(); // Get day of week (0-6)
+          const aqi = item.aqi;
+          if (!dayAqiData[day]) {
+            dayAqiData[day] = [];
+          }
+          dayAqiData[day].push(aqi);
+        });
 
-    // Extract weekday averages (1 to 5)
-    const weekday = [
-      averages[1] || 0,
-      averages[2] || 0,
-      averages[3] || 0,
-      averages[4] || 0,
-      averages[5] || 0,
-    ];
-    setWeekdayAverages(weekday);
+        const dayAverages = {};
+        for (const day in dayAqiData) {
+          const dayAQI = dayAqiData[day];
+          const sum = dayAQI.reduce((acc, aqi) => acc + aqi, 0);
+          const average = sum / dayAQI.length;
+          dayAverages[day] = Math.round(average);
+        }
+        return dayAverages;
+      };
 
-    // Calculate overall weekday average
-    const weekdaySum = weekday.reduce((acc, val) => acc + val, 0);
-    const weekdayCount = weekday.length;
-    const weekdayAvg = weekdayCount > 0 ? weekdaySum / weekdayCount : 0;
-    setOverallWeekdayAverage(Math.round(weekdayAvg));
+      const fifteenDaysDayAverages =
+        calculateFifteenDaysDayAverages(fifteenDaysDataCalc);
+      setDayAverages(fifteenDaysDayAverages);
 
-    const hourlyAveragesCalc = calculateHourlyAverages();
-    setHourlyAverages(hourlyAveragesCalc);
+      // Extract weekend averages (0 and 6)
+      const weekend = [
+        fifteenDaysDayAverages[0] || 0,
+        fifteenDaysDayAverages[6] || 0,
+      ];
+      setWeekendAverages(weekend);
 
-    // Calculate average daytime AQI (6:00:00 to 17:00:00)
-    let daytimeSum = 0;
-    let daytimeCount = 0;
-    const dayTimeArrayCalc = [];
-    for (let hour = 6; hour <= 17; hour++) {
-      const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
-      if (hourlyAveragesCalc[time] !== undefined) {
-        dayTimeArrayCalc.push({ time, aqi: hourlyAveragesCalc[time] });
-        daytimeSum += hourlyAveragesCalc[time];
-        daytimeCount++;
+      // Calculate overall weekend average
+      const weekendSum = weekend.reduce((acc, val) => acc + val, 0);
+      const weekendCount = weekend.length;
+      const weekendAvg = weekendCount > 0 ? weekendSum / weekendCount : 0;
+      setOverallWeekendAverage(Math.round(weekendAvg));
+
+      // Extract weekday averages (1 to 5)
+      const weekday = [
+        fifteenDaysDayAverages[1] || 0,
+        fifteenDaysDayAverages[2] || 0,
+        fifteenDaysDayAverages[3] || 0,
+        fifteenDaysDayAverages[4] || 0,
+        fifteenDaysDayAverages[5] || 0,
+      ];
+      setWeekdayAverages(weekday);
+
+      // Calculate overall weekday average
+      const weekdaySum = weekday.reduce((acc, val) => acc + val, 0);
+      const weekdayCount = weekday.length;
+      const weekdayAvg = weekdayCount > 0 ? weekdaySum / weekdayCount : 0;
+      setOverallWeekdayAverage(Math.round(weekdayAvg));
+
+      //--- Hourly/Daytime/Nighttime Calculations based on 15 days data ---
+      const calculateFifteenDaysHourlyAverages = (fifteenDaysData) => {
+        const hourlyAveragesData = {};
+
+        fifteenDaysData.forEach((item) => {
+          const time = item.time;
+          const aqi = item.aqi;
+          if (!hourlyAveragesData[time]) {
+            hourlyAveragesData[time] = [];
+          }
+          hourlyAveragesData[time].push(aqi);
+        });
+
+        const hourlyAverages = {};
+        for (const time in hourlyAveragesData) {
+          const hourlyAQI = hourlyAveragesData[time];
+          const sum = hourlyAQI.reduce((acc, aqi) => acc + aqi, 0);
+          const average = sum / hourlyAQI.length;
+          hourlyAverages[time] = Math.round(average);
+        }
+        return hourlyAverages;
+      };
+
+      const fifteenDaysHourlyAverages =
+        calculateFifteenDaysHourlyAverages(fifteenDaysDataCalc);
+      setHourlyAverages(fifteenDaysHourlyAverages);
+
+      // Calculate average daytime AQI (6:00:00 to 17:00:00)
+      let daytimeSum = 0;
+      let daytimeCount = 0;
+      for (let hour = 6; hour <= 17; hour++) {
+        const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
+        if (fifteenDaysHourlyAverages[time] !== undefined) {
+          daytimeSum += fifteenDaysHourlyAverages[time];
+          daytimeCount++;
+        }
       }
-    }
-    const averageDaytime = daytimeCount > 0 ? daytimeSum / daytimeCount : 0;
-    setAverageDaytimeAqi(Math.round(averageDaytime));
+      const averageDaytime = daytimeCount > 0 ? daytimeSum / daytimeCount : 0;
+      setAverageDaytimeAqi(Math.round(averageDaytime));
 
-    // Calculate average nighttime AQI (18:00:00-23:00:00 and 00:00:00 - 5:00:00)
-    let nighttimeSum = 0;
-    let nighttimeCount = 0;
-    const nightTimeArrayCalc = [];
+      // Calculate average nighttime AQI (18:00:00-23:00:00 and 00:00:00 - 5:00:00)
+      let nighttimeSum = 0;
+      let nighttimeCount = 0;
 
-    for (let hour = 18; hour <= 23; hour++) {
-      const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
-      if (hourlyAveragesCalc[time] !== undefined) {
-        nightTimeArrayCalc.push({ time, aqi: hourlyAveragesCalc[time] });
-        nighttimeSum += hourlyAveragesCalc[time];
-
-        nighttimeCount++;
+      for (let hour = 18; hour <= 23; hour++) {
+        const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
+        if (fifteenDaysHourlyAverages[time] !== undefined) {
+          nighttimeSum += fifteenDaysHourlyAverages[time];
+          nighttimeCount++;
+        }
       }
-    }
-    for (let hour = 0; hour <= 5; hour++) {
-      const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
-      if (hourlyAveragesCalc[time] !== undefined) {
-        nightTimeArrayCalc.push({ time, aqi: hourlyAveragesCalc[time] });
-        nighttimeSum += hourlyAveragesCalc[time];
-        nighttimeCount++;
+      for (let hour = 0; hour <= 5; hour++) {
+        const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
+        if (fifteenDaysHourlyAverages[time] !== undefined) {
+          nighttimeSum += fifteenDaysHourlyAverages[time];
+          nighttimeCount++;
+        }
       }
-    }
-    const averageNighttime =
-      nighttimeCount > 0 ? nighttimeSum / nighttimeCount : 0;
+      const averageNighttime =
+        nighttimeCount > 0 ? nighttimeSum / nighttimeCount : 0;
 
-    setAverageNighttimeAqi(Math.round(averageNighttime));
-    calculatePeakHours();
-  }, [selectedDate, enviroDate, enviroAQI, enviroDay]);
+      setAverageNighttimeAqi(Math.round(averageNighttime));
+
+      calculatePeakHours(fifteenDaysDataCalc);
+    }, [selectedDate, enviroDate, enviroAQI, enviroDay, envirotime]);
+
 
   const fetchYearlyData = () => {
     const yearlyData = {};
@@ -418,95 +512,99 @@ const AQIChart = ({
             setSelectedDate={setSelectedDate}
             fifteenDaysData={fifteenDaysData}
             startDate={startDate}
+            onShowTableChange={handleShowTableChange}
           />
-          <div
-            className="flex flex-column bg-white border-round p-4"
-            style={{ flex: "25%" }}
-          >
-            <p className="card-title p-0 m-0">Peak Hours</p>
-            <TabView
-              activeIndex={activeTable}
-              onTabChange={(e) => setActiveTable(e.index)}
-            >
-              <TabPanel header="Day">
-                {/* Daytime Peak Hours Table */}
+          <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
+            <div className="flex flex-column bg-white border-round p-4">
+              <p className="card-title p-0 m-0">Peak Hours</p>
+              <TabView
+                activeIndex={activeTable}
+                onTabChange={(e) => setActiveTable(e.index)}
+              >
+                <TabPanel header="Day">
+                  {/* Daytime Peak Hours Table */}
 
-                <DataTable
-                  value={daytimePeakHourFrequencies}
-                  className="overflow-y-auto h-12rem p-0 text-center "
-                  headerStyle={{ textAlign: "center" }}
-                  rowClassName={rowClassNameDay}
-                >
-                  <Column
-                    field="time"
-                    header="Time"
-                    headerStyle={{
-                      fontSize: "0.6rem",
-                      backgroundColor: "#166c7d",
-                      color: "white",
-                      padding: 1,
-                    }}
-                  ></Column>
-                  <Column
-                    field="frequency"
-                    header="Frequency"
-                    headerStyle={{
-                      fontSize: "0.6rem",
-                      backgroundColor: "#166c7d",
-                      color: "white",
-                      padding: 3,
-                    }}
-                  ></Column>
-                </DataTable>
-              </TabPanel>
-              <TabPanel header="Night">
-                {/* Nighttime Peak Hours Table */}
+                  <DataTable
+                    value={daytimePeakHourFrequencies}
+                    className="overflow-y-auto h-15rem p-0 text-center "
+                    headerStyle={{ textAlign: "center" }}
+                    rowClassName={rowClassNameDay}
+                  >
+                    <Column
+                      field="time"
+                      header="Time"
+                      headerStyle={{
+                        fontSize: "0.6rem",
+                        backgroundColor: "#166c7d",
+                        color: "white",
+                        padding: 1,
+                      }}
+                    ></Column>
+                    <Column
+                      field="frequency"
+                      header="Frequency"
+                      headerStyle={{
+                        fontSize: "0.6rem",
+                        backgroundColor: "#166c7d",
+                        color: "white",
+                        padding: 3,
+                      }}
+                    ></Column>
+                  </DataTable>
+                </TabPanel>
+                <TabPanel header="Night">
+                  {/* Nighttime Peak Hours Table */}
 
-                <DataTable
-                  value={nighttimePeakHourFrequencies}
-                  className="overflow-y-auto h-12rem text-center"
-                  rowClassName={rowClassNamenight}
-                >
-                  <Column
-                    field="time"
-                    header="Time"
-                    headerStyle={{
-                      fontSize: "0.6rem",
-                      backgroundColor: "#166c7d",
-                      color: "white",
-                      padding: 1,
-                    }}
-                  ></Column>
-                  <Column
-                    field="frequency"
-                    header="Frequency"
-                    headerStyle={{
-                      fontSize: "0.6rem",
-                      backgroundColor: "#166c7d",
-                      color: "white",
-                      padding: 1,
-                    }}
-                  ></Column>
-                </DataTable>
-              </TabPanel>
-            </TabView>
-            <div className="flex insights p-2">
-              <p className="card-title p-0 m-0 text-white">Insights</p>
+                  <DataTable
+                    value={nighttimePeakHourFrequencies}
+                    className="overflow-y-auto h-15rem text-center"
+                    rowClassName={rowClassNamenight}
+                  >
+                    <Column
+                      field="time"
+                      header="Time"
+                      headerStyle={{
+                        fontSize: "0.6rem",
+                        backgroundColor: "#166c7d",
+                        color: "white",
+                        padding: 1,
+                      }}
+                    ></Column>
+                    <Column
+                      field="frequency"
+                      header="Frequency"
+                      headerStyle={{
+                        fontSize: "0.6rem",
+                        backgroundColor: "#166c7d",
+                        color: "white",
+                        padding: 1,
+                      }}
+                    ></Column>
+                  </DataTable>
+                </TabPanel>
+              </TabView>
+              <div className="flex insights p-2">
+                <p className="card-title p-0 m-0 text-white">Insights</p>
+              </div>
             </div>
+            {showTable && (
+              <>
+                <WeekTrend
+                  overallWeekendAverage={overallWeekendAverage}
+                  overallWeekdayAverage={overallWeekdayAverage}
+                  weekendAverages={weekendAverages}
+                  weekdayAverages={weekdayAverages}
+                />
+                <HourlyTrend
+                  averageDaytimeAqi={averageDaytimeAqi}
+                  averageNighttimeAqi={averageNighttimeAqi}
+                  hourlyAverages={hourlyAverages}
+                />
+              </>
+            )}
           </div>
         </div>
         <div className="flex gap-3 w-full">
-          <WeekTrend
-            overallWeekendAverage={overallWeekendAverage}
-            overallWeekdayAverage={overallWeekdayAverage}
-            weekendAverages={weekendAverages}
-            weekdayAverages={weekdayAverages}
-          />
-          <HourlyTrend
-            averageDaytimeAqi={averageDaytimeAqi}
-            averageNighttimeAqi={averageNighttimeAqi}
-            hourlyAverages={hourlyAverages}
-          />
           <div className="w-full flex flex-column bg-white border-round p-4">
             <p className="card-title p-0 m-0">Pollutants Trend</p>
             <TabView

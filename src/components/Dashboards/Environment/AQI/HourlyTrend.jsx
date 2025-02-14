@@ -29,7 +29,7 @@ const HourlyTrend = ({
     axisX: {
       ...commonChartOptions.axisX,
     },
-    height: 250,
+    height: 200,
     backgroundColor: "transparent",
     dataPointWidth: 30,
     data: [
@@ -67,7 +67,7 @@ const HourlyTrend = ({
     axisX: {
       ...commonChartOptions.axisX,
     },
-    height: 200,
+    height: 150,
     backgroundColor: "transparent",
     dataPointWidth: 10,
     data: [
@@ -152,7 +152,7 @@ const HourlyTrend = ({
     axisX: {
       ...commonChartOptions.axisX,
     },
-    height: 200,
+    height: 150,
     backgroundColor: "transparent",
     dataPointWidth: 10,
     data: [
