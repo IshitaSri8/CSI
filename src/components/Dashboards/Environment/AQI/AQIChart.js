@@ -421,7 +421,7 @@ const AQIChart = ({
           />
           <div
             className="flex flex-column bg-white border-round p-4"
-            style={{ flex: "40%" }}
+            style={{ flex: "25%" }}
           >
             <p className="card-title p-0 m-0">Peak Hours</p>
             <TabView

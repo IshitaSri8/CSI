@@ -89,6 +89,7 @@ const LiveAQI = ({ show }) => {
 
     return [formattedDate, formattedTime];
   }
+
   const getAQI = async (locationID, from_time, upto_time) => {
     try {
       setLoading(true);
@@ -192,6 +193,7 @@ const LiveAQI = ({ show }) => {
       return 0;
     }
   };
+  
   const resetFilters = () => {
     setSelectedValues({
       location: "Ayodhya - Civil line,Tiny tots school",

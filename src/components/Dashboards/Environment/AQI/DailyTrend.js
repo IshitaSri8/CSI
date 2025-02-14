@@ -165,7 +165,7 @@ const DailyTrend = ({
 
   const baseChartOptions = {
     animationEnabled: true,
-    height: 250,
+    height: 275,
     legend: {
       ...commonChartOptions.legend,
     },
@@ -363,7 +363,7 @@ const DailyTrend = ({
       text: "AQI Level for " + selectedDate,
       ...commonChartOptions.title,
     },
-    height: 200,
+    height: 250,
     axisX: {
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
@@ -403,53 +403,52 @@ const DailyTrend = ({
     },
   };
   return (
-    <div
-      className="flex flex-column bg-white border-round p-4"
-      style={{ flex: "60%" }}
-    >
-      <div className="flex align-items-start justify-content-start gap-2">
-        {fifteenDaysData.length > 0 && (
+    <div className="flex flex-column"  style={{ flex: "75%" }}>
+      <div className="flex flex-column bg-white border-round p-4">
+        <div className="flex align-items-start justify-content-start gap-2">
+          {fifteenDaysData.length > 0 && (
+            <Button
+              className={`${backButtonClassName} bg-primary1  text-white text-xs`}
+              onClick={lastFifteenClickHandler}
+              label="View Previous Days Trend"
+              raised
+              size="small"
+            />
+          )}
           <Button
             className={`${backButtonClassName} bg-primary1  text-white text-xs`}
-            onClick={lastFifteenClickHandler}
-            label="View Previous Days Trend"
+            onClick={backButtonClickHandler}
+            label="Back"
             raised
             size="small"
           />
-        )}
-        <Button
-          className={`${backButtonClassName} bg-primary1  text-white text-xs`}
-          onClick={backButtonClickHandler}
-          label="Back"
-          raised
-          size="small"
-        />
-      </div>
-      <CanvasJSChart
-        options={isDrilldown ? drilldownChartOptions : baseChartOptions}
-        containerProps={{ width: "100%" }}
-      />
-      {isDrilldown && (
-        <div className="flex w-full gap-2">
-          <div className="flex items-center gap-1">
-            <i
-              className="pi pi-circle-fill"
-              style={{ fontSize: "0.8em", color: "#F7A47A" }}
-            ></i>
-            <p style={{ fontSize: "0.8em", margin: 0 }}>Day Peak Hour</p>
-          </div>
-          <div className="flex items-center gap-1">
-            <i
-              className="pi pi-circle-fill"
-              style={{ fontSize: "0.8em", color: "#4D7479" }}
-            ></i>
-            <p style={{ fontSize: "0.8em", margin: 0 }}>Night Peak Hour</p>
-          </div>
         </div>
-      )}
+        <CanvasJSChart
+          options={isDrilldown ? drilldownChartOptions : baseChartOptions}
+          containerProps={{ width: "100%" }}
+        />
+        {isDrilldown && (
+          <div className="flex w-full gap-2">
+            <div className="flex items-center gap-1">
+              <i
+                className="pi pi-circle-fill"
+                style={{ fontSize: "0.8em", color: "#F7A47A" }}
+              ></i>
+              <p style={{ fontSize: "0.8em", margin: 0 }}>Day Peak Hour</p>
+            </div>
+            <div className="flex items-center gap-1">
+              <i
+                className="pi pi-circle-fill"
+                style={{ fontSize: "0.8em", color: "#4D7479" }}
+              ></i>
+              <p style={{ fontSize: "0.8em", margin: 0 }}>Night Peak Hour</p>
+            </div>
+          </div>
+        )}
+      </div>
       {showTable === true && fifteenDaysData.length > 0 && (
         <HeatMap data={fifteenDaysData} startDate={startDate} />
-      )}{" "}
+      )}
     </div>
   );
 };
