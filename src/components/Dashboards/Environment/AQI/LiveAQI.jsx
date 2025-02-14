@@ -42,8 +42,18 @@ const LiveAQI = ({ show }) => {
   const [aqiStatus, setAqiStatus] = useState();
   const [aqiValue, setAqiValue] = useState(null);
 
+  const [currentPM25, setCurrentPM25] = useState();
+  const [currentPM10, setCurrentPM10] = useState();
+  const [currentNO2, setCurrentNO2] = useState();
+  const [currentSO2, setCurrentSO2] = useState();
+
+  const [maxAqiValue, setMaxAqiValue] = useState();
+  const [maxAqiTime, setMaxAqiTime] = useState();
+  const [minAqiValue, setMinAqiValue] = useState();
+  const [minAqiTime, setMinAqiTime] = useState();
+
   const [ReportVisible, setReportVisible] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [selectedLocationId, setSelectedLocationId] = useState();
   const [locations, setLocations] = useState([]);
 
@@ -67,6 +77,16 @@ const LiveAQI = ({ show }) => {
   const [dateLive, timeLive] = convertDateString(liveHour);
 
   const minDate = new Date("2023-12-22"); // December 22, 2023
+
+  const pollutantData = [
+    { name: "PM2.5", value: currentPM25, unit: "µg/m³" },
+    { name: "PM10", value: currentPM10, unit: "µg/m³" },
+    { name: "NO2", value: currentNO2, unit: "ppb" },
+    { name: "SO2", value: currentSO2, unit: "ppb" },
+  ];
+
+  let highestPollutant = null;
+  let highestValue = -Infinity;
 
   const renderRecommendations = () => {
     return (
@@ -92,7 +112,6 @@ const LiveAQI = ({ show }) => {
 
   const getAQI = async (locationID, from_time, upto_time) => {
     try {
-      setLoading(true);
       const response = await axios.post(
         "https://app.aurassure.com/-/api/iot-platform/v1.1.0/clients/10565/applications/16/things/data",
         {
@@ -113,7 +132,7 @@ const LiveAQI = ({ show }) => {
         }
       );
       const api_response = response.data.data;
-      //   console.log("🚀 ~ getAQI ~ api_response:", api_response);
+      console.log("🚀 ~ getAQI ~ api_response:", api_response);
       const dateArray = [];
       const timeArray = [];
       const dayArray = [];
@@ -122,78 +141,104 @@ const LiveAQI = ({ show }) => {
       const pm25Array = [];
       const pm10Array = [];
       const aqiArrayAPI = [];
+      let maxAqi = -Infinity;
+      let minAqi = Infinity;
+      let maxAqiTime = "";
+      let minAqiTime = "";
       let aqiValueSet = false; // Flag to ensure we only set AQI once
-
-      api_response.forEach((item) => {
-        const newDate = new Date(item.time * 1000);
-        const day = newDate.getDay();
-        const [date, time] = convertDateString(newDate);
-        if (
-          !aqiValueSet &&
-          item.thing_id === getThingID(selectedValues.location) &&
-          date === dateLive &&
-          time === timeLive
-        ) {
-          setSelectedLocationId(item.thing_id);
-          setAqiValue(item.parameter_values.aqi.value);
-          setAqiStatus(getAqiStatus(item.parameter_values.aqi.value));
-          aqiValueSet = true; // Set the flag to true
-        }
-        aqiArrayAPI.push(item.parameter_values.aqi.value);
-        dateArray.push(date);
-        timeArray.push(time);
-        dayArray.push(day);
-        so2Array.push(item.parameter_values.so2.avg);
-        no2Array.push(item.parameter_values.no2.avg);
-        pm25Array.push(item.parameter_values["pm2.5"].avg);
-        pm10Array.push(item.parameter_values.pm10.avg);
-      });
-      setAQIArrayData(aqiArrayAPI);
-      setDateArrayData(dateArray);
-      setTimeArrayData(timeArray);
-      setDayArrayData(dayArray);
-      setSO2ArrayData(so2Array);
-      setNO2ArrayData(no2Array);
-      setPM10ArrayData(pm10Array);
-      setPM25ArrayData(pm25Array);
-
-      const filteredDataWithDeviation = api_response
-        .filter((item) => item.parameter_values.aqi.value > 400)
-        .map((item) => {
-          // Create Date object from timestamp
+      if (api_response) {
+        api_response.forEach((item) => {
           const newDate = new Date(item.time * 1000);
-
-          // Get the day of the week
-          // const day = newDate.getDay();
-
-          // Get formatted date and time strings
+          const day = newDate.getDay();
           const [date, time] = convertDateString(newDate);
+          if (
+            !aqiValueSet &&
+            item.thing_id === getThingID(selectedValues.location) &&
+            date === dateLive &&
+            time === timeLive
+          ) {
+            setSelectedLocationId(item.thing_id);
+            setAqiValue(item.parameter_values.aqi.value);
+            setAqiStatus(getAqiStatus(item.parameter_values.aqi.value));
+            setCurrentPM10(item.parameter_values.pm10.avg);
+            setCurrentPM25(item.parameter_values["pm2.5"].avg);
+            setCurrentNO2(item.parameter_values.no2.avg);
+            setCurrentSO2(item.parameter_values.so2.avg);
+            aqiValueSet = true; // Set the flag to true
+          }
+          if (
+            item.thing_id === getThingID(selectedValues.location) &&
+            date === dateLive
+          ) {
+            const aqi = item.parameter_values.aqi.value;
+            if (aqi >= maxAqi) {
+              maxAqi = aqi;
+              maxAqiTime = time;
+            }
+            if (aqi <= minAqi) {
+              minAqi = aqi;
+              minAqiTime = time;
+            }
+          }
 
-          return {
-            date: date, // Use the formatted date
-            time: time, // Use the formatted time
-            aqi: item.parameter_values.aqi.value,
-            deviationPercentage:
-              (((item.parameter_values.aqi.value - 400) / 400) * 100).toFixed(
-                2
-              ) + "%",
-          };
+          setMaxAqiValue(maxAqi);
+          setMaxAqiTime(maxAqiTime);
+          setMinAqiValue(minAqi);
+          setMinAqiTime(minAqiTime);
+
+          aqiArrayAPI.push(item.parameter_values.aqi.value);
+          dateArray.push(date);
+          timeArray.push(time);
+          dayArray.push(day);
+          so2Array.push(item.parameter_values.so2.avg);
+          no2Array.push(item.parameter_values.no2.avg);
+          pm25Array.push(item.parameter_values["pm2.5"].avg);
+          pm10Array.push(item.parameter_values.pm10.avg);
         });
+        setAQIArrayData(aqiArrayAPI);
+        setDateArrayData(dateArray);
+        setTimeArrayData(timeArray);
+        setDayArrayData(dayArray);
+        setSO2ArrayData(so2Array);
+        setNO2ArrayData(no2Array);
+        setPM10ArrayData(pm10Array);
+        setPM25ArrayData(pm25Array);
 
-      const uniqueDataTableData = Array.from(
-        new Set(filteredDataWithDeviation.map(JSON.stringify))
-      ).map(JSON.parse);
-      setDataTableData(uniqueDataTableData);
+        const filteredDataWithDeviation = api_response
+          .filter((item) => item.parameter_values.aqi.value > 400)
+          .map((item) => {
+            // Create Date object from timestamp
+            const newDate = new Date(item.time * 1000);
 
-      setLoading(false);
+            // Get the day of the week
+            // const day = newDate.getDay();
+
+            // Get formatted date and time strings
+            const [date, time] = convertDateString(newDate);
+
+            return {
+              date: date, // Use the formatted date
+              time: time, // Use the formatted time
+              aqi: item.parameter_values.aqi.value,
+              deviationPercentage:
+                (((item.parameter_values.aqi.value - 400) / 400) * 100).toFixed(
+                  2
+                ) + "%",
+            };
+          });
+
+        const uniqueDataTableData = Array.from(
+          new Set(filteredDataWithDeviation.map(JSON.stringify))
+        ).map(JSON.parse);
+        setDataTableData(uniqueDataTableData);
+      }
       return 0;
     } catch (error) {
       console.error("Error fetching AQI data:", error);
-      setLoading(false);
       return 0;
     }
   };
-  
+
   const resetFilters = () => {
     setSelectedValues({
       location: "Ayodhya - Civil line,Tiny tots school",
@@ -236,13 +281,19 @@ const LiveAQI = ({ show }) => {
 
   useEffect(() => {
     const fetchAQIData = async () => {
+      setLoading(true);
       if (aqiIDs) {
-        const promises = aqiIDs.map((aqiID) =>
-          getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
-        );
+        const promises = aqiIDs.map((aqiID) => {
+          console.log(aqiID, getThingID(selectedValues.location));
+
+          return aqiID.thingID === getThingID(selectedValues.location)
+            ? getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
+            : null;
+        });
         // Wait for all promises to resolve
-        await Promise.all(promises);
+        await Promise.all(promises.filter((promise) => !promise));
       }
+      setLoading(false);
     };
 
     fetchAQIData();
@@ -309,50 +360,50 @@ const LiveAQI = ({ show }) => {
     if (aqi > 0 && aqi <= 50) {
       return {
         status: "GOOD",
-        color: "#086d43",
+        // color: "#086d43",
         textColor: "white",
         image: good,
-        bg_color: colors.good,
+        color: colors.good,
       };
     } else if (aqi > 50 && aqi <= 100) {
       return {
         status: "SATISFACTORY",
-        color: "#669138",
+        // color: "#669138",
         textColor: "black",
         image: moderate,
-        bg_color: colors.moderate,
+        color: colors.moderate,
       };
     } else if (aqi > 100 && aqi <= 200) {
       return {
         status: "MODERATELY POLLUTED",
-        color: "#b27909",
+        // color: "#b27909",
         textColor: "black",
         image: poor,
-        bg_color: colors.yellow,
+        color: colors.yellow,
       };
     } else if (aqi > 200 && aqi <= 300) {
       return {
         status: "POOR",
-        color: "#C7253E",
+        // color: "#C7253E",
         textColor: "white",
         image: unhealthy,
-        bg_color: colors.warning,
+        color: colors.warning,
       };
     } else if (aqi > 300 && aqi <= 400) {
       return {
         status: "VERY POOR",
-        color: "#b81b1d",
+        // color: "#b81b1d",
         textColor: "white",
         image: severe,
-        bg_color: colors.poor,
+        color: colors.poor,
       };
     } else if (aqi > 400) {
       return {
         status: "SEVERE",
-        color: "#600e0f",
+        // color: "#600e0f",
         textColor: "white",
         image: hazardous,
-        bg_color: colors.veryPoor,
+        color: colors.veryPoor,
       };
     }
   };
@@ -361,12 +412,22 @@ const LiveAQI = ({ show }) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
   };
 
+  // Iterate through each pollutant object in the array
+  for (const pollutant of pollutantData) {
+    // Check if the current pollutant's value is greater than the highestValue found so far
+    if (pollutant.value > highestValue) {
+      highestValue = pollutant.value; // Update highestValue
+      highestPollutant = pollutant.name; // Update highestPollutant with the name of the current pollutant
+    }
+  }
+
   const handleScoreCalculated = (calculatedScore) => {
     setScore(calculatedScore);
-
     const color = getScoreColor(calculatedScore);
     setScoreColor(color);
   };
+
+  console.log(loading);
 
   return loading ? (
     <div className="flex align-items-center justify-content-center flex-column">
@@ -393,20 +454,17 @@ const LiveAQI = ({ show }) => {
                   position: "absolute",
                   width: "100%",
                   height: "100%",
-                  backgroundColor: scoreColor,
+                  backgroundColor: "white",
                   clipPath:
                     "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
                 }}
               >
                 <h1
-                  className="m-0 p-0 text-white text-2xl font-semibold"
+                  className="m-0 p-0 text-primary1 text-2xl font-semibold"
                   style={{ zIndex: 1500 }}
                 >
-                  Live Air Quality Index
+                  Air Quality Index
                 </h1>
-                <AqiScoreCalculator
-                  onAQIScoreCalculated={handleScoreCalculated}
-                />
                 {score !== null && (
                   <p
                     className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
@@ -556,53 +614,122 @@ const LiveAQI = ({ show }) => {
         <div
           className="flex border-round-xl p-2 justify-content-between bg-white w-full"
           style={{
-            backgroundColor: aqiStatus?.bg_color,
+            // backgroundColor: aqiStatus?.bg_color,
             border: `1px solid ${aqiStatus?.color}`,
           }}
         >
-          <div className="flex flex-column align-items-center justify-content-between">
-            <div className="flex align-items-center gap-8">
-              <div className="flex flex-column align-items-center gap-2">
-                <div className="flex align-items-center gap-2">
-                  {/* <i
+          <div className="flex flex-column gap-4">
+            <div className="flex flex-column w-full align-items-start">
+              <div className="flex gap-2">
+                {/* <i
                     className="pi pi-spinner pi-spin"
                     style={{ fontSize: "1rem" }}
                   /> */}
-                  <Radio size={18} className="danger-text" />
-                  <p className="card-title text-primary1 m-0 p-0">Live AQI</p>
-                </div>
-                <h1 className="text-4xl font-semibold p-0 m-0 text-primary1">
-                  {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
-                </h1>
+                <Radio size={18} className="danger-text" />
+                <p className="card-title text-primary1 m-0 p-0">Live AQI</p>
               </div>
-              <div className="flex flex-column align-items-center gap-2">
-                <p className="card-title text-primary1 m-0 p-0">
-                  Air Quality is
-                </p>
-                <Tag
-                  className="border-round-3xl"
-                  style={{ backgroundColor: aqiStatus?.color, color: "white" }}
-                >
-                  <span className="text-xs">
-                    {aqiStatus?.status || "No Status"}{" "}
-                  </span>
-                </Tag>
-              </div>
+              <h1 className="text-5xl font-semibold p-0 m-0 text-primary1 text-center w-full">
+                {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
+              </h1>
+              <Tag
+                className="border-round-3xl"
+                style={{ backgroundColor: aqiStatus?.color, color: "white" }}
+              >
+                <span className="text-xs">
+                  {aqiStatus?.status || "No Status"}{" "}
+                </span>
+              </Tag>
             </div>
+            {pollutantData && (
+              <div className="flex gap-2">
+                {pollutantData.map((pollutant) => (
+                  <div className="flex flex-column shadow-1 border-round p-2">
+                    <p
+                      className={`font-semibold p-0 m-0 ${
+                        highestPollutant === pollutant.name
+                          ? "success-text"
+                          : "text-primary1"
+                      }`}
+                    >
+                      {/* Check if pollutant.value is defined and a number */}
+                      {typeof pollutant.value === "number"
+                        ? pollutant.value.toFixed(2)
+                        : "N/A"}
+                      {/* {pollutant.value.toFixed(2)} */}
+                    </p>
+                    <p
+                      key={pollutant.name}
+                      className={`p-0 m-0 text-xs ${
+                        highestPollutant === pollutant.name
+                          ? "success-text font-semibold"
+                          : "card-text font-medium"
+                      }`}
+                    >
+                      {pollutant.name} ({pollutant.unit})
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
             {/* <p>{currentDate.toLocaleDateString()}</p> */}
-            <div className="flex gap-2">
-              <p className="card-text">Last updated:</p>
-              <p>{selectedLocationId}</p>
-              <p>{dateLive}</p>
-              <p>{timeLive}</p>
+            <div className="flex gap-2 w-full align-items-start">
+              <p className="card-text p-0 m-0">Last updated:</p>
+              <p className="p-0 m-0">{selectedLocationId}</p>
+              <p className="p-0 m-0">{dateLive}</p>
+              <p className="p-0 m-0">{timeLive}</p>
             </div>
           </div>
-
           <img
             src={aqiStatus?.image}
             alt={aqiStatus?.text}
             className="h-14rem"
           />
+        </div>
+        <div className="flex w-full gap-3">
+          <div className="flex w-full flex-column gap-3">
+            <div className="flex bg-white border-round p-4 flex-column ">
+              <p className="card-text p-0 m-0 text-lg">
+                Minimun:{" "}
+                <span className="text-white font-semibold success p-2 border-round text-2xl">
+                  {minAqiValue}
+                </span>{" "}
+              </p>
+              <p>
+                at{" "}
+                <span className="text-primary1 text-xl font-semibold">
+                  {minAqiTime}
+                </span>
+              </p>
+            </div>
+            <div className="flex bg-white border-round p-4 flex-column ">
+              <p className="card-text p-0 m-0 text-lg">
+                Maximum:{" "}
+                <span className="text-white font-semibold danger p-2 border-round text-2xl">
+                  {maxAqiValue}
+                </span>{" "}
+              </p>
+              <p>
+                at{" "}
+                <span className="text-primary1 text-xl font-semibold">
+                  {maxAqiTime}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div className="bg-white border-round flex w-full p-4 flex-column">
+            <p>
+              AQI Score(based on previous 3 months):{" "}
+              <span className="text-primary1 font-semibold p-2 text-xl">
+                xxx
+              </span>
+            </p>
+            <p>
+              Predicted Upcoming AQI Score:{" "}
+              <span className="text-primary1 font-semibold p-2 text-xl">
+                xxx
+              </span>
+            </p>
+          </div>
         </div>
         <div className="flex bg-white border-round w-full">
           <DataTable
@@ -668,7 +795,6 @@ const LiveAQI = ({ show }) => {
             ></Column>
           </DataTable>
         </div>
-        <div className="flex bg-white border-round w-full"></div>
       </div>
 
       <AQIChart

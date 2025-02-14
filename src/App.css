@@ -135,8 +135,18 @@ body {
   font-size: 12px !important;
 }
 
+.insight-text {
+  color: var(--text-card-title);
+  font-weight: 450;
+  font-size: 8px !important;
+}
+
 .success {
   background-color: var(--bg-success);
+}
+
+.success-text {
+  color: var(--bg-success);
 }
 
 .moderate {
