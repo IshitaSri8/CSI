@@ -1,4 +1,3 @@
-import { Card } from "primereact/card";
 import React from "react";
 
 const HeatMap = ({ data }) => {
