@@ -180,8 +180,6 @@ const LiveAQI = ({ show }) => {
               minAqiTime = time;
             }
           }
-          console.log("🚀 ~ api_response.forEach ~ maxAqiTime:", maxAqiTime);
-          console.log("🚀 ~ api_response.forEach ~ maxAqi:", maxAqi);
 
           setMaxAqiValue(maxAqi);
           setMaxAqiTime(maxAqiTime);
@@ -233,15 +231,6 @@ const LiveAQI = ({ show }) => {
           new Set(filteredDataWithDeviation.map(JSON.stringify))
         ).map(JSON.parse);
         setDataTableData(uniqueDataTableData);
-
-        // Iterate through each pollutant object in the array
-        for (const pollutant of pollutantData) {
-          // Check if the current pollutant's value is greater than the highestValue found so far
-          if (pollutant.value > highestValue) {
-            highestValue = pollutant.value; // Update highestValue
-            highestPollutant = pollutant.name; // Update highestPollutant with the name of the current pollutant
-          }
-        }
       }
       return 0;
     } catch (error) {
@@ -422,6 +411,15 @@ const LiveAQI = ({ show }) => {
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
   };
+
+  // Iterate through each pollutant object in the array
+  for (const pollutant of pollutantData) {
+    // Check if the current pollutant's value is greater than the highestValue found so far
+    if (pollutant.value > highestValue) {
+      highestValue = pollutant.value; // Update highestValue
+      highestPollutant = pollutant.name; // Update highestPollutant with the name of the current pollutant
+    }
+  }
 
   const handleScoreCalculated = (calculatedScore) => {
     setScore(calculatedScore);
@@ -649,7 +647,7 @@ const LiveAQI = ({ show }) => {
                     <p
                       className={`font-semibold p-0 m-0 ${
                         highestPollutant === pollutant.name
-                          ? "danger-text"
+                          ? "success-text"
                           : "text-primary1"
                       }`}
                     >
@@ -663,7 +661,7 @@ const LiveAQI = ({ show }) => {
                       key={pollutant.name}
                       className={`p-0 m-0 text-xs ${
                         highestPollutant === pollutant.name
-                          ? "danger-text font-semibold"
+                          ? "success-text font-semibold"
                           : "card-text font-medium"
                       }`}
                     >
@@ -689,27 +687,48 @@ const LiveAQI = ({ show }) => {
         </div>
         <div className="flex w-full gap-3">
           <div className="flex w-full flex-column gap-3">
-            <div className="flex moderate border-round p-2">
-              <p>
-                Min aqi of the day:{" "}
-                <span className="text-primary1 font-semibold">
+            <div className="flex bg-white border-round p-4 flex-column ">
+              <p className="card-text p-0 m-0 text-lg">
+                Minimun:{" "}
+                <span className="text-white font-semibold success p-2 border-round text-2xl">
                   {minAqiValue}
                 </span>{" "}
-                at {minAqiTime}
+              </p>
+              <p>
+                at{" "}
+                <span className="text-primary1 text-xl font-semibold">
+                  {minAqiTime}
+                </span>
               </p>
             </div>
-            <div className="flex moderate border-round p-2">
-              <p>
-                Max aqi of the day:{" "}
-                <span className="text-primary1 font-semibold">
+            <div className="flex bg-white border-round p-4 flex-column ">
+              <p className="card-text p-0 m-0 text-lg">
+                Maximum:{" "}
+                <span className="text-white font-semibold danger p-2 border-round text-2xl">
                   {maxAqiValue}
                 </span>{" "}
-                at {maxAqiTime}
+              </p>
+              <p>
+                at{" "}
+                <span className="text-primary1 text-xl font-semibold">
+                  {maxAqiTime}
+                </span>
               </p>
             </div>
           </div>
-          <div className="bg-white border-round flex w-full p-4">
-            <p>Predicted AQI Score</p>
+          <div className="bg-white border-round flex w-full p-4 flex-column">
+            <p>
+              AQI Score(based on previous 3 months):{" "}
+              <span className="text-primary1 font-semibold p-2 text-xl">
+                xxx
+              </span>
+            </p>
+            <p>
+              Predicted Upcoming AQI Score:{" "}
+              <span className="text-primary1 font-semibold p-2 text-xl">
+                xxx
+              </span>
+            </p>
           </div>
         </div>
         <div className="flex bg-white border-round w-full">

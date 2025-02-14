@@ -145,6 +145,10 @@ body {
   background-color: var(--bg-success);
 }
 
+.success-text {
+  color: var(--bg-success);
+}
+
 .moderate {
   background-color: var(--bg-moderate);
 }
