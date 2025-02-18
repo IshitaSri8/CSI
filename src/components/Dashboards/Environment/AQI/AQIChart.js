@@ -104,7 +104,7 @@ const AQIChart = ({
 
     // Calculate date 15 days ago
     const fifteenDaysAgo = new Date(selectedDate);
-    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 14); // Changed from -15 to -14 to include the selected date
+    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 7); 
 
     // Filter data for the last 15 days
     const filteredData = enviroDate.reduce((acc, date, index) => {

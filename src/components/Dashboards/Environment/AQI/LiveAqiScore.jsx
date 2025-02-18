@@ -64,6 +64,7 @@ const LiveAqiScore = ({ onAQIScoreCalculated }) => {
 
       const startDate = new Date(currentYear, currentMonth - 3, 1);
       const endDate = new Date(currentYear, currentMonth, 0);
+      endDate.setHours(23, 0, 0, 0); // Set to 23:00:00
 
       const fromTime = Math.floor(startDate.getTime() / 1000);
       const uptoTime = Math.floor(endDate.getTime() / 1000);
@@ -109,7 +110,7 @@ const LiveAqiScore = ({ onAQIScoreCalculated }) => {
           calculatedScore = null;
         }
 
-        onAQIScoreCalculated(calculatedScore);
+        onAQIScoreCalculated(calculatedScore, startDate, endDate);
         console.log("Calculated Score based on average AQI:", calculatedScore);
       } catch (error) {
         console.error("Failed to fetch all AQI scores:", error);

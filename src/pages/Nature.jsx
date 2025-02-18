@@ -14,6 +14,7 @@ import AqiScoreCalculator from "components/Dashboards/Environment/AQI/AqiScoreCa
 import { useUser } from "components/context/UserContext";
 import Legends from "../components/DashboardUtility/components/Legends";
 import ParameterCard from "../components/DashboardUtility/components/ParameterCard";
+import LiveAqiScore from "components/Dashboards/Environment/AQI/LiveAqiScore";
 
 const Nature = () => {
   const natureLables = [
@@ -39,7 +40,7 @@ const Nature = () => {
       img: aqi,
       title: "Air Quality",
       score: aqiScore,
-      path: pathConstants.AQI,
+      path: pathConstants.LiveAQI,
     },
     {
       img: water,
@@ -155,7 +156,7 @@ const Nature = () => {
           </p>
         </div>
       </div>
-      <AqiScoreCalculator onAQIScoreCalculated={handleScoreCalculated} />
+      <LiveAqiScore onAQIScoreCalculated={handleScoreCalculated} />
       <div className="flex gap-2 justify-content-between w-full sm:flex-wrap">
         <ParameterCard metrics={metrics} />
       </div>
