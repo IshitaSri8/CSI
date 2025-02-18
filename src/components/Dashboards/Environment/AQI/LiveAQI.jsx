@@ -23,6 +23,10 @@ import AQIChart from "./AQIChart";
 import { Radio } from "lucide-react";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
+import airQualityImage from "assets/aqi/air_quality.svg";
+import { GaugeChart } from "Layout/GraphVisuals";
+import { Knob } from "primereact/knob";
+import { Tooltip } from "primereact/tooltip";
 
 const LiveAQI = ({ show }) => {
   const overlayRef = useRef(null);
@@ -30,6 +34,7 @@ const LiveAQI = ({ show }) => {
   const [timeArrayData, setTimeArrayData] = useState([]);
   const [dateArrayData, setDateArrayData] = useState([]);
   const [dayArrayData, setDayArrayData] = useState([]);
+  const [weekArrayData, setWeekArrayData] = useState([]);
   const [pm25ArrayData, setPM25ArrayData] = useState([]);
   const [pm10ArrayData, setPM10ArrayData] = useState([]);
   const [SO2ArrayData, setSO2ArrayData] = useState([]);
@@ -41,7 +46,7 @@ const LiveAQI = ({ show }) => {
   const [aqiIDs, setAQIIDs] = useState();
   const [aqiStatus, setAqiStatus] = useState();
   const [aqiValue, setAqiValue] = useState(null);
-
+  const [yesterdayAQI, setYesterdayAQI] = useState();
   const [currentPM25, setCurrentPM25] = useState();
   const [currentPM10, setCurrentPM10] = useState();
   const [currentNO2, setCurrentNO2] = useState();
@@ -75,6 +80,10 @@ const LiveAQI = ({ show }) => {
 
   const liveHour = currentDate.setMinutes(0, 0, 0);
   const [dateLive, timeLive] = convertDateString(liveHour);
+
+  const yesterday = new Date(currentDate);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const [yesterdayDate, yesterdayTime] = convertDateString(yesterday);
 
   const minDate = new Date("2023-12-22"); // December 22, 2023
 
@@ -132,10 +141,10 @@ const LiveAQI = ({ show }) => {
         }
       );
       const api_response = response.data.data;
-      console.log("🚀 ~ getAQI ~ api_response:", api_response);
       const dateArray = [];
       const timeArray = [];
       const dayArray = [];
+      const weekArray = [];
       const so2Array = [];
       const no2Array = [];
       const pm25Array = [];
@@ -150,6 +159,7 @@ const LiveAQI = ({ show }) => {
         api_response.forEach((item) => {
           const newDate = new Date(item.time * 1000);
           const day = newDate.getDay();
+          const week = getWeek(newDate);
           const [date, time] = convertDateString(newDate);
           if (
             !aqiValueSet &&
@@ -180,7 +190,13 @@ const LiveAQI = ({ show }) => {
               minAqiTime = time;
             }
           }
-
+          if (
+            item.thing_id === getThingID(selectedValues.location) &&
+            date === yesterdayDate &&
+            time === timeLive
+          ) {
+            setYesterdayAQI(item.parameter_values.aqi.value);
+          }
           setMaxAqiValue(maxAqi);
           setMaxAqiTime(maxAqiTime);
           setMinAqiValue(minAqi);
@@ -189,6 +205,7 @@ const LiveAQI = ({ show }) => {
           aqiArrayAPI.push(item.parameter_values.aqi.value);
           dateArray.push(date);
           timeArray.push(time);
+          weekArray.push(week);
           dayArray.push(day);
           so2Array.push(item.parameter_values.so2.avg);
           no2Array.push(item.parameter_values.no2.avg);
@@ -199,6 +216,7 @@ const LiveAQI = ({ show }) => {
         setDateArrayData(dateArray);
         setTimeArrayData(timeArray);
         setDayArrayData(dayArray);
+        setWeekArrayData(weekArray);
         setSO2ArrayData(so2Array);
         setNO2ArrayData(no2Array);
         setPM10ArrayData(pm10Array);
@@ -284,8 +302,6 @@ const LiveAQI = ({ show }) => {
       setLoading(true);
       if (aqiIDs) {
         const promises = aqiIDs.map((aqiID) => {
-          console.log(aqiID, getThingID(selectedValues.location));
-
           return aqiID.thingID === getThingID(selectedValues.location)
             ? getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
             : null;
@@ -407,6 +423,15 @@ const LiveAQI = ({ show }) => {
       };
     }
   };
+  const getWeek = (date) => {
+    const d = new Date(
+      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+    );
+    const dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+  };
 
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
@@ -427,8 +452,6 @@ const LiveAQI = ({ show }) => {
     setScoreColor(color);
   };
 
-  console.log(loading);
-
   return loading ? (
     <div className="flex align-items-center justify-content-center flex-column">
       <ProgressSpinner />
@@ -436,70 +459,67 @@ const LiveAQI = ({ show }) => {
     </div>
   ) : (
     <div className="flex flex-column gap-3 w-full p-4">
-      {show && (
-        <div className="flex align-items-center justify-content-between gap-3">
-          <div className="flex align-items-center justify-content-between w-full">
-            {/* Title & Score */}
-            <div
-              style={{
-                position: "relative",
-                width: "340px",
-                height: "43px",
-                overflow: "hidden", // Hide overflow if needed
-              }}
-            >
-              <div
-                className="flex align-items-center justify-content-between p-2"
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "white",
-                  clipPath:
-                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
-                }}
-              >
-                <h1
-                  className="m-0 p-0 text-primary1 text-2xl font-semibold"
-                  style={{ zIndex: 1500 }}
-                >
-                  Air Quality Index
-                </h1>
-                {score !== null && (
-                  <p
-                    className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
-                    style={{ zIndex: 1500 }}
-                  >
-                    {score}
-                  </p>
-                )}
-              </div>
-            </div>
-            {/* Selected  location & Date */}
-            <div className="flex align-items-start flex-column gap-1">
-              {/* location */}
-              <div className="flex align-items-center gap-1">
-                <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
-                <p className="m-0 p-0 text-primary1 font-medium text-sm">
-                  {selectedValues.location || "Select a location"}
-                </p>
-              </div>
-              <Divider className="m-0 p-0" />
-              {/* Date Range */}
-              <div className="flex align-items-center justify-content-start gap-1">
-                <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
-                <p className="m-0 p-0 text-primary1 font-medium text-sm">
-                  {selectedValues.liveStartDate
-                    ? selectedValues.liveStartDate.toLocaleDateString()
-                    : "Start Date"}{" "}
-                  -{" "}
-                  {selectedValues.liveEndDate
-                    ? selectedValues.liveEndDate.toLocaleDateString()
-                    : "End Date"}
-                </p>
-              </div>
+      <div
+        className="flex align-items-center justify-content-between w-full bg-white border-round p-2"
+        style={{
+          backgroundImage: `url(${airQualityImage})`,
+          backgroundSize: "cover", // or 'contain' based on your preference
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "left",
+        }}
+      >
+        <div
+          className="flex align-items-center justify-content-start flex-column w-full"
+          style={{
+            flex: "85%",
+          }}
+        >
+          <h1 className="m-0 p-0 text-secondary text-5xl font-semibold text-left  w-full ">
+            Air Quality Dashboard
+          </h1>
+        </div>
+        <div
+          className="flex flex-row align-items-center justify-content-between w-full "
+          style={{ flex: "15%" }}
+        >
+          <div className="flex flex-column align-items-center border-3 p-2 border-round border-solid border-red-500 bg-white">
+            <p className="card-text text-sm">Score</p>
+            <Knob value={20} valueColor="red" rangeColor="#BAD8DF" size={40} />
+            <div className="flex align-items-center justify-content-start w-full">
+              <p className="card-text text-xs">
+                November, 2024 - January, 2025
+              </p>
             </div>
           </div>
+        </div>
+      </div>
+      {show && (
+        <div className="flex align-items-center justify-content-end gap-3">
+          {/* Selected  location & Date */}
+          <div className="flex align-items-start flex-column gap-1">
+            {/* location */}
+            <div className="flex align-items-center gap-1">
+              <i className="pi pi-map-marker text-primary1 font-medium text-sm"></i>
+              <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                {selectedValues.location || "Select a location"}
+              </p>
+            </div>
+            <Divider className="m-0 p-0" />
+            {/* Date Range */}
+            <div className="flex align-items-center justify-content-start gap-1">
+              <i className="pi pi-calendar text-primary1 font-medium text-sm"></i>
+              <p className="m-0 p-0 text-primary1 font-medium text-sm">
+                {selectedValues.liveStartDate
+                  ? selectedValues.liveStartDate.toLocaleDateString()
+                  : "Start Date"}{" "}
+                -{" "}
+                {selectedValues.liveEndDate
+                  ? selectedValues.liveEndDate.toLocaleDateString()
+                  : "End Date"}
+              </p>
+            </div>
+          </div>
+
           <div className="flex align-ites-center justify-content-end gap-2">
             <Button
               tooltip="Filters"
@@ -619,26 +639,30 @@ const LiveAQI = ({ show }) => {
           }}
         >
           <div className="flex flex-column gap-4">
-            <div className="flex flex-column w-full align-items-start">
+            <div className="flex flex-column w-full align-items-start gap-2">
               <div className="flex gap-2">
                 {/* <i
                     className="pi pi-spinner pi-spin"
                     style={{ fontSize: "1rem" }}
                   /> */}
                 <Radio size={18} className="danger-text" />
-                <p className="card-title text-primary1 m-0 p-0">Live AQI</p>
+                <p className="card-title text-primary1 m-0 p-0">
+                  Air Quality Index
+                </p>
               </div>
-              <h1 className="text-5xl font-semibold p-0 m-0 text-primary1 text-center w-full">
-                {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
-              </h1>
-              <Tag
-                className="border-round-3xl"
-                style={{ backgroundColor: aqiStatus?.color, color: "white" }}
-              >
-                <span className="text-xs">
-                  {aqiStatus?.status || "No Status"}{" "}
-                </span>
-              </Tag>
+              <div className="flex flex-column align-items-start justify-content-center w-full">
+                <h1 className="text-5xl font-semibold p-0 m-0 text-primary1 text-center">
+                  {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
+                </h1>
+                <Tag
+                  className="border-round-3xl"
+                  style={{ backgroundColor: aqiStatus?.color, color: "white" }}
+                >
+                  <span className="text-xs">
+                    {aqiStatus?.status || "No Status"}{" "}
+                  </span>
+                </Tag>
+              </div>
             </div>
             {pollutantData && (
               <div className="flex gap-2">
@@ -673,6 +697,42 @@ const LiveAQI = ({ show }) => {
             )}
             {/* <p>{currentDate.toLocaleDateString()}</p> */}
             <div className="flex gap-2 w-full align-items-start">
+              {(((aqiValue - yesterdayAQI) / yesterdayAQI) * 100).toFixed(2) >
+                0 && (
+                <>
+                  <i className="pi pi-arrow-up" style={{ color: "green" }}></i>
+                  <p className="card-text p-0 m-0">
+                    <span style={{ color: "green" }}>
+                      {" "}
+                      {(
+                        ((aqiValue - yesterdayAQI) / yesterdayAQI) *
+                        100
+                      ).toFixed(2)}
+                      %
+                    </span>{" "}
+                    from yesterday's AQI at this time.
+                  </p>
+                </>
+              )}
+              {(((aqiValue - yesterdayAQI) / yesterdayAQI) * 100).toFixed(2) <
+                0 && (
+                <>
+                  <i className="pi pi-arrow-down" style={{ color: "red" }}></i>
+                  <p className="card-text p-0 m-0">
+                    <span style={{ color: "red" }}>
+                      {" "}
+                      {(
+                        ((aqiValue - yesterdayAQI) / yesterdayAQI) *
+                        100
+                      ).toFixed(2)}
+                      %
+                    </span>{" "}
+                    from yesterday's AQI at this time.
+                  </p>
+                </>
+              )}
+            </div>
+            <div className="flex gap-2 w-full align-items-start">
               <p className="card-text p-0 m-0">Last updated:</p>
               <p className="p-0 m-0">{selectedLocationId}</p>
               <p className="p-0 m-0">{dateLive}</p>
@@ -686,37 +746,77 @@ const LiveAQI = ({ show }) => {
           />
         </div>
         <div className="flex w-full gap-3">
-          <div className="flex w-full flex-column gap-3">
-            <div className="flex bg-white border-round p-4 flex-column ">
-              <p className="card-text p-0 m-0 text-lg">
-                Minimun:{" "}
-                <span className="text-white font-semibold success p-2 border-round text-2xl">
-                  {minAqiValue}
-                </span>{" "}
-              </p>
-              <p>
-                at{" "}
-                <span className="text-primary1 text-xl font-semibold">
-                  {minAqiTime}
-                </span>
-              </p>
+          <div
+            className="flex w-full flex-column gap-3"
+            style={{ flex: "60%" }}
+          >
+            <div className="flex bg-white border-round p-2  flex-column">
+              <div className="flex align-items-center justify-content-between w-full gap-2">
+                {minAqiValue && (
+                  <p
+                    className="text-white font-semibold  p-2 border-round m-0 text-xl"
+                    style={{
+                      backgroundColor: `${getAqiStatus(minAqiValue).color} `,
+                    }}
+                  >
+                    {minAqiValue}
+                  </p>
+                )}
+
+                <p className="card-text text-lg m-0"> Today's Minimum</p>
+                <i className="pi pi-info-circle minimum"></i>
+                <Tooltip
+                  target=".minimum"
+                  position="right"
+                  style={{ backgroundColor: "white !important" }}
+                  tooltipOptions={{
+                    className: "hoverClass",
+                    showDelay: 500,
+                    hideDelay: 101300,
+                  }}
+                >
+                  <div className="flex">
+                    <li>at {minAqiTime}</li>
+                  </div>
+                </Tooltip>
+              </div>
             </div>
-            <div className="flex bg-white border-round p-4 flex-column ">
-              <p className="card-text p-0 m-0 text-lg">
-                Maximum:{" "}
-                <span className="text-white font-semibold danger p-2 border-round text-2xl">
-                  {maxAqiValue}
-                </span>{" "}
-              </p>
-              <p>
-                at{" "}
-                <span className="text-primary1 text-xl font-semibold">
-                  {maxAqiTime}
-                </span>
-              </p>
+            <div className="flex bg-white border-round p-2  flex-column">
+              <div className="flex align-items-center justify-content-between w-full gap-2">
+                {maxAqiValue && (
+                  <p
+                    className="text-white font-semibold  p-2 border-round m-0 text-xl"
+                    style={{
+                      backgroundColor: `${getAqiStatus(maxAqiValue).color} `,
+                    }}
+                  >
+                    {maxAqiValue}
+                  </p>
+                )}
+
+                <p className="card-text text-lg m-0"> Today's Maximum</p>
+                <i className="pi pi-info-circle maximum"></i>
+                <Tooltip
+                  target=".maximum"
+                  position="right"
+                  style={{ backgroundColor: "white !important" }}
+                  tooltipOptions={{
+                    className: "hoverClass",
+                    showDelay: 500,
+                    hideDelay: 101300,
+                  }}
+                >
+                  <div className="flex">
+                    <li>at {maxAqiTime}</li>
+                  </div>
+                </Tooltip>
+              </div>
             </div>
           </div>
-          <div className="bg-white border-round flex w-full p-4 flex-column">
+          <div
+            className="bg-white border-round flex w-full p-4 flex-column"
+            style={{ flex: "40%" }}
+          >
             <p>
               AQI Score(based on previous 3 months):{" "}
               <span className="text-primary1 font-semibold p-2 text-xl">
@@ -803,6 +903,7 @@ const LiveAQI = ({ show }) => {
         enviroAQI={AQIArrayData}
         startDate={selectedValues.liveStartDate}
         enviroDay={dayArrayData}
+        enviroWeek={weekArrayData}
         pm25ArrayData={pm25ArrayData}
         pm10ArrayData={pm10ArrayData}
         NO2ArrayData={NO2ArrayData}
