@@ -1,34 +1,40 @@
 import React from "react";
-import { getScoreColor } from "./scoreColor"; // Assuming this function returns color based on score
 import { MeterGroup } from "primereact/metergroup";
+import { scoreColors } from "./Constants/colorConstants";
 
-const GroupedMeterBar = ({ score }) => {
+const GroupedMeterBar = () => {
   const scoreRanges = [
-    { label: 'Excellent', min: 90, max: 100 },
-    { label: 'Good', min: 80, max: 89 },
-    { label: 'Average', min: 60, max: 79 },
-    { label: 'Poor', min: 40, max: 59 },
-    { label: 'Very Poor', min: 20, max: 39 },
-    { label: 'Critical', min: 0, max: 19 },
+    { label: "GOOD", value: 50, color: scoreColors[0] },
+    { label: "SATISFACTORY", value: 100, color: scoreColors[1] },
+    { label: "MODERATELY POLLUTED", value: 200, color: scoreColors[2] },
+    { label: "POOR", value: 300, color: scoreColors[3] },
+    { label: "VERY POOR", value: 400, color: scoreColors[4] },
+    { label: "SEVERE", value: 500, color: scoreColors[5] },
   ];
-
-  // Create meterItems based on scoreRanges and getScoreColor
-  const meterItems = scoreRanges.map(range => ({
-    label: range.label,
-    value: (score >= range.min && score <= range.max) ? score : range.max,
-    color1: getScoreColor(range.max), // Use getScoreColor to determine color
-    icon: 'pi pi-check' // You can customize icons as needed
-  }));
+  // Custom label template to hide percentage
+  const labelTemplate = (item) => {
+    return (
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <span style={{ marginRight: "8px" }}>{item.label}</span>
+        <span
+          className="p-mr-2"
+          style={{
+            width: "20px",
+            height: "20px",
+            borderRadius: "50%",
+            backgroundColor: item.color,
+          }}
+        ></span>
+      </div>
+    );
+  };
 
   return (
-    <div style={{ width: '300px', margin: '0 auto' }}>
-      <h2 style={{ textAlign: 'center' }}>Performance Meter</h2>
-      <MeterGroup 
-        value={meterItems} 
-        orientation="vertical" 
-        labelPosition="start" 
-        labelOrientation="vertical" 
-        style={{ height: '300px' }} 
+    <div className="flex align-items-start">
+      <MeterGroup
+        values={scoreRanges}
+        className="text-white"
+        labelTemplate={labelTemplate} // Use custom label template
       />
     </div>
   );

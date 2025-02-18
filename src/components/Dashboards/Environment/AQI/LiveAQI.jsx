@@ -504,7 +504,7 @@ const LiveAQI = ({ show }) => {
             }}
           >
             <div className="flex flex-column">
-              <h1 className="m-0 p-0 text-primary1 text-6xl font-medium text-white">
+              <h1 className="text-primary1 text-6xl font-medium text-white">
                 Air Quality Dashboard
               </h1>
               <p className="text-tertiary text-sm">
@@ -517,7 +517,7 @@ const LiveAQI = ({ show }) => {
                 groups such as children, the elderly, and individuals with
                 pre-existing health conditions.
               </p>
-              {/* <GroupedMeterBar score={score}/> */}
+              <GroupedMeterBar />
             </div>
             <LiveAqiScore onAQIScoreCalculated={handleScoreCalculated} />
             {score && (
