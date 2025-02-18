@@ -79,9 +79,17 @@ const LiveAQI = ({ show }) => {
   const [scoreColor, setScoreColor] = useState("#000");
   const [startMonthYearScore, setStartMonthYearScore] = useState("");
   const [endMonthYearScore, setEndMonthYearScore] = useState("");
+  // Get the current hour
+  let currentHour = currentDate.getHours();
 
-  const liveHour = currentDate.setMinutes(0, 0, 0);
-  const [dateLive, timeLive] = convertDateString(liveHour);
+  // Subtract 1 hour
+  currentHour = (currentHour - 1 + 24) % 24; // Ensure the hour stays within 0-23
+
+  // Create a new date object with the adjusted hour and set minutes, seconds, and milliseconds to 0
+  const adjustedDate = new Date(currentDate);
+  adjustedDate.setHours(currentHour, 0, 0, 0);
+
+  const [dateLive, timeLive] = convertDateString(adjustedDate);
 
   const yesterday = new Date(currentDate);
   yesterday.setDate(yesterday.getDate() - 1);
@@ -517,6 +525,7 @@ const LiveAQI = ({ show }) => {
                 groups such as children, the elderly, and individuals with
                 pre-existing health conditions.
               </p>
+
               {/* <GroupedMeterBar score={score}/> */}
             </div>
             <LiveAqiScore onAQIScoreCalculated={handleScoreCalculated} />
