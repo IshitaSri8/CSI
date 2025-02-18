@@ -1,8 +1,6 @@
 import axios from "axios";
 import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useEffect, useRef, useState } from "react";
-import AqiScoreCalculator from "./AqiScoreCalculator";
-import { getScoreColor } from "components/DashboardUtility/scoreColor";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
@@ -17,12 +15,17 @@ import good from "assets/dashboard/good-aqi-level.svg";
 import moderate from "assets/dashboard/moderate-aqi-level.svg";
 import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
-import colors from "components/DashboardUtility/Constants/colorConstants";
+import colors, {
+  scoreRangeColor,
+} from "components/DashboardUtility/Constants/colorConstants";
 import { Tag } from "primereact/tag";
 import AQIChart from "./AQIChart";
 import { Radio } from "lucide-react";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
+import GaugeChart from "react-gauge-chart";
+import LiveAqiScore from "./LiveAqiScore";
+import { getScoreColor } from "components/DashboardUtility/scoreColor";
 
 const LiveAQI = ({ show }) => {
   const overlayRef = useRef(null);
@@ -132,7 +135,7 @@ const LiveAQI = ({ show }) => {
         }
       );
       const api_response = response.data.data;
-      console.log("🚀 ~ getAQI ~ api_response:", api_response);
+      // console.log("🚀 ~ getAQI ~ api_response:", api_response);
       const dateArray = [];
       const timeArray = [];
       const dayArray = [];
@@ -284,8 +287,6 @@ const LiveAQI = ({ show }) => {
       setLoading(true);
       if (aqiIDs) {
         const promises = aqiIDs.map((aqiID) => {
-          console.log(aqiID, getThingID(selectedValues.location));
-
           return aqiID.thingID === getThingID(selectedValues.location)
             ? getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
             : null;
@@ -423,11 +424,12 @@ const LiveAQI = ({ show }) => {
 
   const handleScoreCalculated = (calculatedScore) => {
     setScore(calculatedScore);
+    console.log("Calculated Score received in Dashboard:", calculatedScore);
+    // Update the score color based on the calculated score
     const color = getScoreColor(calculatedScore);
     setScoreColor(color);
+    // You can also perform additional actions with the score here
   };
-
-  console.log(loading);
 
   return loading ? (
     <div className="flex align-items-center justify-content-center flex-column">
@@ -612,13 +614,14 @@ const LiveAQI = ({ show }) => {
       )}
       <div className="flex flex-wrap md:flex-nowrap w-full gap-3">
         <div
-          className="flex border-round-xl p-2 justify-content-between bg-white w-full"
+          className="flex border-round-xl p-2 justify-content-between bg-white"
           style={{
             // backgroundColor: aqiStatus?.bg_color,
+            flex: "35%",
             border: `1px solid ${aqiStatus?.color}`,
           }}
         >
-          <div className="flex flex-column gap-4">
+          <div className="flex flex-column justify-content-between">
             <div className="flex flex-column w-full align-items-start">
               <div className="flex gap-2">
                 {/* <i
@@ -685,53 +688,37 @@ const LiveAQI = ({ show }) => {
             className="h-14rem"
           />
         </div>
-        <div className="flex w-full gap-3">
-          <div className="flex w-full flex-column gap-3">
-            <div className="flex bg-white border-round p-4 flex-column ">
-              <p className="card-text p-0 m-0 text-lg">
-                Minimun:{" "}
-                <span className="text-white font-semibold success p-2 border-round text-2xl">
-                  {minAqiValue}
-                </span>{" "}
-              </p>
-              <p>
-                at{" "}
-                <span className="text-primary1 text-xl font-semibold">
-                  {minAqiTime}
-                </span>
-              </p>
-            </div>
-            <div className="flex bg-white border-round p-4 flex-column ">
-              <p className="card-text p-0 m-0 text-lg">
-                Maximum:{" "}
-                <span className="text-white font-semibold danger p-2 border-round text-2xl">
-                  {maxAqiValue}
-                </span>{" "}
-              </p>
-              <p>
-                at{" "}
-                <span className="text-primary1 text-xl font-semibold">
-                  {maxAqiTime}
-                </span>
-              </p>
-            </div>
-          </div>
-          <div className="bg-white border-round flex w-full p-4 flex-column">
-            <p>
-              AQI Score(based on previous 3 months):{" "}
-              <span className="text-primary1 font-semibold p-2 text-xl">
-                xxx
-              </span>
+        <div className="flex flex-column gap-3" style={{ flex: "15%" }}>
+          <div className="flex bg-white border-round p-4 flex-column ">
+            <p className="card-text p-0 m-0 text-lg">
+              Minimun:{" "}
+              <span className="text-white font-semibold success p-2 border-round text-2xl">
+                {minAqiValue}
+              </span>{" "}
             </p>
             <p>
-              Predicted Upcoming AQI Score:{" "}
-              <span className="text-primary1 font-semibold p-2 text-xl">
-                xxx
+              at{" "}
+              <span className="text-primary1 text-xl font-semibold">
+                {minAqiTime}
+              </span>
+            </p>
+          </div>
+          <div className="flex bg-white border-round p-4 flex-column ">
+            <p className="card-text p-0 m-0 text-lg">
+              Maximum:{" "}
+              <span className="text-white font-semibold danger p-2 border-round text-2xl">
+                {maxAqiValue}
+              </span>{" "}
+            </p>
+            <p>
+              at{" "}
+              <span className="text-primary1 text-xl font-semibold">
+                {maxAqiTime}
               </span>
             </p>
           </div>
         </div>
-        <div className="flex bg-white border-round w-full">
+        <div className="flex bg-white border-round" style={{ flex: "25%" }}>
           <DataTable
             value={dataTableData}
             rowClassName={rowClassName}
@@ -795,6 +782,29 @@ const LiveAQI = ({ show }) => {
             ></Column>
           </DataTable>
         </div>
+        <LiveAqiScore onAQIScoreCalculated={handleScoreCalculated} />
+        {score && (
+          <div
+            className="bg-white border-round flex p-2 flex-column"
+            style={{ flex: "25%" }}
+          >
+            <p className="p-0 m-0 card-title">
+              Score:{" "}
+              <span className="text-primary1 font-semibold text-2xl">
+                {score}
+              </span>
+            </p>
+            <GaugeChart
+              id="gauge-chart"
+              // nrOfLevels={3}
+              percent={score / 100}
+              colors={scoreRangeColor}
+              hideText={true}
+            />
+            <p className="p-0 m-0 card-text">Based on previous 3 months</p>
+            <p className="p-0 m-0 card-text">Next update: </p>
+          </div>
+        )}
       </div>
 
       <AQIChart

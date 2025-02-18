@@ -133,6 +133,7 @@ const AQIChart = ({
     );
     return uniqueData;
   };
+  
   const calculateFifteenDaysDayAverages = (fifteenDaysData) => {
     const dayAqiData = {};
 
