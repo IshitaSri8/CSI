@@ -36,4 +36,6 @@ export const scoreColors = [
 
 export const legendColors = [colors.good, colors.yellow, colors.poor];
 
+export const scoreRangeColor = [ colors.poor, colors.yellow, colors.good]
+
 export default colors;

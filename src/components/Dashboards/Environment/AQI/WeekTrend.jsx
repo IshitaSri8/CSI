@@ -127,20 +127,20 @@ const WeekTrend = ({
   }
 
   return (
-      <div className="w-full flex flex-column bg-white border-round p-4">
-        {selectedChart && (
-          <Button
-            onClick={() => setSelectedChart(null)}
-            icon="pi pi-arrow-left"
-            className="bg-primary1  text-white text-xs"
-            raised
-          />
-        )}
-        <CanvasJSChart
-          options={chartOptions}
-          containerProps={{ width: "100%" }}
+    <div className="w-full flex flex-column bg-white border-round p-4">
+      {selectedChart && (
+        <Button
+          onClick={() => setSelectedChart(null)}
+          icon="pi pi-arrow-left"
+          className="bg-primary1  text-white text-xs"
+          raised
         />
-      </div>
+      )}
+      <CanvasJSChart
+        options={chartOptions}
+        containerProps={{ width: "100%" }}
+      />
+    </div>
   );
 };
 export default WeekTrend;

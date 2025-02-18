@@ -35,13 +35,13 @@ const menuItems = [
     path: pathConstants.NATURE,
     icon: <Sprout size={20} className="text-white mr-2" />,
     nestedItems: [
+      // {
+      //   label: "Air Quality Index",
+      //   path: pathConstants.AQI,
+      //   icon: <Wind size={15} className="text-white mr-2" />,
+      // },
       {
         label: "Air Quality Index",
-        path: pathConstants.AQI,
-        icon: <Wind size={15} className="text-white mr-2" />,
-      },
-      {
-        label: "Air Quality Index- Live",
         path: pathConstants.LiveAQI,
         icon: <Wind size={15} className="text-white mr-2" />,
       },

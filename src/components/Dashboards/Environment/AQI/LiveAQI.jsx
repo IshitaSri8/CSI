@@ -1,8 +1,6 @@
 import axios from "axios";
 import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useEffect, useRef, useState } from "react";
-import AqiScoreCalculator from "./AqiScoreCalculator";
-import { getScoreColor } from "components/DashboardUtility/scoreColor";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
@@ -17,12 +15,18 @@ import good from "assets/dashboard/good-aqi-level.svg";
 import moderate from "assets/dashboard/moderate-aqi-level.svg";
 import poor from "assets/dashboard/poor-aqi-level.svg";
 import hazardous from "assets/dashboard/hazardous-aqi-level.svg";
-import colors from "components/DashboardUtility/Constants/colorConstants";
+import colors, {
+  scoreRangeColor,
+} from "components/DashboardUtility/Constants/colorConstants";
 import { Tag } from "primereact/tag";
 import AQIChart from "./AQIChart";
 import { Radio } from "lucide-react";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
+import GaugeChart from "react-gauge-chart";
+import LiveAqiScore from "./LiveAqiScore";
+import { getScoreColor } from "components/DashboardUtility/scoreColor";
+import GroupedMeterBar from "components/DashboardUtility/GroupedMeterBar";
 
 const LiveAQI = ({ show }) => {
   const overlayRef = useRef(null);
@@ -30,6 +34,7 @@ const LiveAQI = ({ show }) => {
   const [timeArrayData, setTimeArrayData] = useState([]);
   const [dateArrayData, setDateArrayData] = useState([]);
   const [dayArrayData, setDayArrayData] = useState([]);
+  const [weekArrayData, setWeekArrayData] = useState([]);
   const [pm25ArrayData, setPM25ArrayData] = useState([]);
   const [pm10ArrayData, setPM10ArrayData] = useState([]);
   const [SO2ArrayData, setSO2ArrayData] = useState([]);
@@ -41,7 +46,7 @@ const LiveAQI = ({ show }) => {
   const [aqiIDs, setAQIIDs] = useState();
   const [aqiStatus, setAqiStatus] = useState();
   const [aqiValue, setAqiValue] = useState(null);
-
+  const [yesterdayAQI, setYesterdayAQI] = useState();
   const [currentPM25, setCurrentPM25] = useState();
   const [currentPM10, setCurrentPM10] = useState();
   const [currentNO2, setCurrentNO2] = useState();
@@ -72,17 +77,23 @@ const LiveAQI = ({ show }) => {
 
   const [score, setScore] = useState(null);
   const [scoreColor, setScoreColor] = useState("#000");
+  const [startMonthYearScore, setStartMonthYearScore] = useState("");
+  const [endMonthYearScore, setEndMonthYearScore] = useState("");
 
   const liveHour = currentDate.setMinutes(0, 0, 0);
   const [dateLive, timeLive] = convertDateString(liveHour);
+
+  const yesterday = new Date(currentDate);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const [yesterdayDate, yesterdayTime] = convertDateString(yesterday);
 
   const minDate = new Date("2023-12-22"); // December 22, 2023
 
   const pollutantData = [
     { name: "PM2.5", value: currentPM25, unit: "µg/m³" },
     { name: "PM10", value: currentPM10, unit: "µg/m³" },
-    { name: "NO2", value: currentNO2, unit: "ppb" },
-    { name: "SO2", value: currentSO2, unit: "ppb" },
+    // { name: "NO2", value: currentNO2, unit: "ppb" },
+    // { name: "SO2", value: currentSO2, unit: "ppb" },
   ];
 
   let highestPollutant = null;
@@ -105,6 +116,8 @@ const LiveAQI = ({ show }) => {
     const formattedTime = new Date(date).toLocaleTimeString("en-IN", {
       timeZone: "Asia/Kolkata",
       hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
     });
 
     return [formattedDate, formattedTime];
@@ -132,10 +145,11 @@ const LiveAQI = ({ show }) => {
         }
       );
       const api_response = response.data.data;
-      console.log("🚀 ~ getAQI ~ api_response:", api_response);
+      // console.log("🚀 ~ getAQI ~ api_response:", api_response);
       const dateArray = [];
       const timeArray = [];
       const dayArray = [];
+      const weekArray = [];
       const so2Array = [];
       const no2Array = [];
       const pm25Array = [];
@@ -150,6 +164,7 @@ const LiveAQI = ({ show }) => {
         api_response.forEach((item) => {
           const newDate = new Date(item.time * 1000);
           const day = newDate.getDay();
+          const week = getWeek(newDate);
           const [date, time] = convertDateString(newDate);
           if (
             !aqiValueSet &&
@@ -180,7 +195,13 @@ const LiveAQI = ({ show }) => {
               minAqiTime = time;
             }
           }
-
+          if (
+            item.thing_id === getThingID(selectedValues.location) &&
+            date === yesterdayDate &&
+            time === timeLive
+          ) {
+            setYesterdayAQI(item.parameter_values.aqi.value);
+          }
           setMaxAqiValue(maxAqi);
           setMaxAqiTime(maxAqiTime);
           setMinAqiValue(minAqi);
@@ -189,6 +210,7 @@ const LiveAQI = ({ show }) => {
           aqiArrayAPI.push(item.parameter_values.aqi.value);
           dateArray.push(date);
           timeArray.push(time);
+          weekArray.push(week);
           dayArray.push(day);
           so2Array.push(item.parameter_values.so2.avg);
           no2Array.push(item.parameter_values.no2.avg);
@@ -199,6 +221,7 @@ const LiveAQI = ({ show }) => {
         setDateArrayData(dateArray);
         setTimeArrayData(timeArray);
         setDayArrayData(dayArray);
+        setWeekArrayData(weekArray);
         setSO2ArrayData(so2Array);
         setNO2ArrayData(no2Array);
         setPM10ArrayData(pm10Array);
@@ -284,8 +307,6 @@ const LiveAQI = ({ show }) => {
       setLoading(true);
       if (aqiIDs) {
         const promises = aqiIDs.map((aqiID) => {
-          console.log(aqiID, getThingID(selectedValues.location));
-
           return aqiID.thingID === getThingID(selectedValues.location)
             ? getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
             : null;
@@ -407,6 +428,15 @@ const LiveAQI = ({ show }) => {
       };
     }
   };
+  const getWeek = (date) => {
+    const d = new Date(
+      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+    );
+    const dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+  };
 
   const rowClassName = (data) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
@@ -421,13 +451,42 @@ const LiveAQI = ({ show }) => {
     }
   }
 
-  const handleScoreCalculated = (calculatedScore) => {
+  const handleScoreCalculated = (calculatedScore, startDate, endDate) => {
+    console.log("🚀 ~ handleScoreCalculated ~ endDate:", endDate);
+    console.log("🚀 ~ handleScoreCalculated ~ startDate:", startDate);
+
+    // Convert startDate and endDate to Date objects if they are not already
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Extract month and year
+    const startMonth = start.toLocaleString("default", { month: "long" }); // e.g., "November"
+    const startYear = start.getFullYear(); // e.g., 2024
+
+    const endMonth = end.toLocaleString("default", { month: "long" }); // e.g., "January"
+    const endYear = end.getFullYear(); // e.g., 2025
+
+    console.log(`Start Date: ${startMonth} ${startYear}`); // Logs: Start Date: November 2024
+    console.log(`End Date: ${endMonth} ${endYear}`); // Logs: End Date: January 2025
+
+    // Set state variables to store month and year
+    setStartMonthYearScore(`${startMonth} ${startYear}`);
+    setEndMonthYearScore(`${endMonth} ${endYear}`);
+
     setScore(calculatedScore);
+    console.log("Calculated Score received in Dashboard:", calculatedScore);
+
+    // Update the score color based on the calculated score
     const color = getScoreColor(calculatedScore);
     setScoreColor(color);
+
+    // You can also perform additional actions with the score here
   };
 
-  console.log(loading);
+  // Function to format text value if needed
+  const formatTextValue = (value) => {
+    return `${Math.round(value)}`; // Example formatting
+  };
 
   return loading ? (
     <div className="flex align-items-center justify-content-center flex-column">
@@ -435,46 +494,53 @@ const LiveAQI = ({ show }) => {
       <p className="font-medium text-lg">Please Wait, Fetching Data...</p>
     </div>
   ) : (
-    <div className="flex flex-column gap-3 w-full p-4">
+    <div className="flex flex-column gap-3 w-full p-2">
       {show && (
-        <div className="flex align-items-center justify-content-between gap-3">
-          <div className="flex align-items-center justify-content-between w-full">
-            {/* Title & Score */}
-            <div
-              style={{
-                position: "relative",
-                width: "340px",
-                height: "43px",
-                overflow: "hidden", // Hide overflow if needed
-              }}
-            >
-              <div
-                className="flex align-items-center justify-content-between p-2"
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "white",
-                  clipPath:
-                    "polygon(100% 0%, 87% 51%, 100% 100%, 0 100%, 0% 50%, 0 0)",
-                }}
-              >
-                <h1
-                  className="m-0 p-0 text-primary1 text-2xl font-semibold"
-                  style={{ zIndex: 1500 }}
-                >
-                  Air Quality Index
-                </h1>
-                {score !== null && (
-                  <p
-                    className="m-0 p-2 text-primary1 text-xl font-bold border-circle bg-white mr-7"
-                    style={{ zIndex: 1500 }}
-                  >
-                    {score}
-                  </p>
-                )}
-              </div>
+        <div className="flex flex-column w-full gap-2">
+          <div
+            className="flex justify-content-between align-items-start p-4"
+            style={{
+              background: "linear-gradient(180deg , #166C7D, #003940)",
+            }}
+          >
+            <div className="flex flex-column">
+              <h1 className="text-primary1 text-6xl font-medium text-white">
+                Air Quality Dashboard
+              </h1>
+              <p className="text-tertiary text-sm">
+                The Air Quality Index (AQI) is a measure of how polluted the air
+                is, ranging from 0 to 500+. This dashboard offers a real-time
+                AQI reading specific to your location, allowing you to stay
+                informed about current air quality conditions.
+                <br /> Monitoring the AQI is essential for making informed
+                decisions about outdoor activities, especially for sensitive
+                groups such as children, the elderly, and individuals with
+                pre-existing health conditions.
+              </p>
+              <GroupedMeterBar />
             </div>
+            <LiveAqiScore onAQIScoreCalculated={handleScoreCalculated} />
+            {score && (
+              <div>
+                <GaugeChart
+                  id="gauge-chart"
+                  // nrOfLevels={3}
+                  percent={score / 100}
+                  colors={scoreRangeColor}
+                  formatTextValue={formatTextValue}
+                  // textColor="#000"
+                  // hideText={true}
+                />
+                {/* <p className="text-primary1 font-semibold text-4xl p-0 m-0 text-center text-white">
+                    {score}
+                  </p> */}
+                <p className="p-0 m-0 text-white font-medium p-0 m-0 font-italic text-sm text-right">
+                  *{startMonthYearScore} - {endMonthYearScore}{" "}
+                </p>
+              </div>
+            )}
+          </div>
+          <div className="flex align-items-center justify-content-between gap-3">
             {/* Selected  location & Date */}
             <div className="flex align-items-start flex-column gap-1">
               {/* location */}
@@ -499,136 +565,135 @@ const LiveAQI = ({ show }) => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="flex align-ites-center justify-content-end gap-2">
-            <Button
-              tooltip="Filters"
-              tooltipOptions={{
-                position: "bottom",
-              }}
-              icon="pi pi-filter"
-              onClick={(e) => overlayRef.current.toggle(e)}
-              className="bg-white text-secondary2"
-              raised
-            />
-            <OverlayPanel
-              ref={overlayRef}
-              style={{ width: "20rem" }}
-              className="p-overlay-panel"
-            >
-              <div className="flex flex-column gap-3">
-                <div className="flex flex-column">
-                  <label htmlFor="location" className="font-semibold text">
-                    Location
-                  </label>
-                  <Dropdown
-                    value={tempValues.location}
-                    options={locations}
-                    optionLabel="label"
-                    optionValue="value"
-                    onChange={(e) =>
-                      setTempValues({ ...tempValues, location: e.target.value })
-                    }
-                    placeholder="Select Location"
-                  />
+
+            <div className="flex align-ites-center justify-content-end gap-2">
+              <Button
+                tooltip="Filters"
+                tooltipOptions={{
+                  position: "bottom",
+                }}
+                icon="pi pi-filter"
+                onClick={(e) => overlayRef.current.toggle(e)}
+                className="bg-white text-secondary2"
+                raised
+              />
+              <OverlayPanel
+                ref={overlayRef}
+                style={{ width: "20rem" }}
+                className="p-overlay-panel"
+              >
+                <div className="flex flex-column gap-3">
+                  <div className="flex flex-column">
+                    <label htmlFor="location" className="font-semibold text">
+                      Location
+                    </label>
+                    <Dropdown
+                      value={tempValues.location}
+                      options={locations}
+                      optionLabel="label"
+                      optionValue="value"
+                      onChange={(e) =>
+                        setTempValues({
+                          ...tempValues,
+                          location: e.target.value,
+                        })
+                      }
+                      placeholder="Select Location"
+                    />
+                  </div>
+                  <div className="p-field text-sm flex flex-column">
+                    <label htmlFor="dateRange" className="font-semibold text">
+                      Select Date Range
+                    </label>
+                    <Calendar
+                      id="dateRange"
+                      value={[tempValues.liveStartDate, tempValues.liveEndDate]} // Pass selected date range as an array
+                      onChange={(e) => {
+                        const [newStartDate, newEndDate] = e.value; // Destructure range
+                        setTempValues({
+                          ...tempValues,
+                          liveStartDate: newStartDate,
+                          liveEndDate: newEndDate,
+                        });
+                      }}
+                      selectionMode="range"
+                      showIcon
+                      dateFormat="dd-mm-yy"
+                      placeholder="Select date range"
+                      showButtonBar
+                      hideOnRangeSelection
+                      minDate={minDate}
+                      maxDate={currentDate}
+                    />
+                  </div>
+                  <div className="flex justify-content-between">
+                    <Button
+                      className="bg-white text-secondary2"
+                      label="Reset"
+                      // icon="pi pi-search"
+                      onClick={resetFilters}
+                      raised
+                    />
+                    <Button
+                      className="bg-primary1"
+                      label="Apply"
+                      // icon="pi pi-search"
+                      onClick={handleApply}
+                      raised
+                    />
+                  </div>
                 </div>
-                <div className="p-field text-sm flex flex-column">
-                  <label htmlFor="dateRange" className="font-semibold text">
-                    Select Date Range
-                  </label>
-                  <Calendar
-                    id="dateRange"
-                    value={[tempValues.liveStartDate, tempValues.liveEndDate]} // Pass selected date range as an array
-                    onChange={(e) => {
-                      const [newStartDate, newEndDate] = e.value; // Destructure range
-                      setTempValues({
-                        ...tempValues,
-                        liveStartDate: newStartDate,
-                        liveEndDate: newEndDate,
-                      });
-                    }}
-                    selectionMode="range"
-                    showIcon
-                    dateFormat="dd-mm-yy"
-                    placeholder="Select date range"
-                    showButtonBar
-                    hideOnRangeSelection
-                    minDate={minDate}
-                    maxDate={currentDate}
-                  />
-                </div>
-                <div className="flex justify-content-between">
-                  <Button
-                    className="bg-white text-secondary2"
-                    label="Reset"
-                    // icon="pi pi-search"
-                    onClick={resetFilters}
-                    raised
-                  />
-                  <Button
-                    className="bg-primary1"
-                    label="Apply"
-                    // icon="pi pi-search"
-                    onClick={handleApply}
-                    raised
-                  />
-                </div>
-              </div>
-            </OverlayPanel>
-            <Button
-              tooltip="Generate Report"
-              tooltipOptions={{
-                position: "bottom",
-              }}
-              icon="pi pi-file"
-              onClick={() => setReportVisible(true)}
-              // className="bg-white text-cyan-800 border-1 border-cyan-800"
-              className="bg-primary1 text-white"
-              raised
-            />
-            <Dialog
-              visible={ReportVisible}
-              style={{ width: "100rem" }}
-              onHide={() => {
-                if (!ReportVisible) return;
-                setReportVisible(false);
-              }}
-            >
-              {/* <AQIReportPrint
+              </OverlayPanel>
+              <Button
+                tooltip="Generate Report"
+                tooltipOptions={{
+                  position: "bottom",
+                }}
+                icon="pi pi-file"
+                onClick={() => setReportVisible(true)}
+                // className="bg-white text-cyan-800 border-1 border-cyan-800"
+                className="bg-primary1 text-white"
+                raised
+              />
+              <Dialog
+                visible={ReportVisible}
+                style={{ width: "100rem" }}
+                onHide={() => {
+                  if (!ReportVisible) return;
+                  setReportVisible(false);
+                }}
+              >
+                {/* <AQIReportPrint
           show={false}
           selectedLocation={selectedLocation}
           startDate={startDate}
           endDate={endDate}
         /> */}
-              <ReportPrint
-                renderDashboard={renderDashboard}
-                renderRecommendations={renderRecommendations}
-                parameter={"aqi"}
-                heading={"Air Quality Index"}
-              />
-            </Dialog>
+                <ReportPrint
+                  renderDashboard={renderDashboard}
+                  renderRecommendations={renderRecommendations}
+                  parameter={"aqi"}
+                  heading={"Air Quality Index"}
+                />
+              </Dialog>
+            </div>
           </div>
         </div>
       )}
       <div className="flex flex-wrap md:flex-nowrap w-full gap-3">
         <div
-          className="flex border-round-xl p-2 justify-content-between bg-white w-full"
+          className="flex border-round-xl p-4 bg-white w-full justify-content-between"
           style={{
-            // backgroundColor: aqiStatus?.bg_color,
             border: `1px solid ${aqiStatus?.color}`,
           }}
         >
-          <div className="flex flex-column gap-4">
-            <div className="flex flex-column w-full align-items-start">
-              <div className="flex gap-2">
-                {/* <i
-                    className="pi pi-spinner pi-spin"
-                    style={{ fontSize: "1rem" }}
-                  /> */}
-                <Radio size={18} className="danger-text" />
-                <p className="card-title text-primary1 m-0 p-0">Live AQI</p>
-              </div>
-              <h1 className="text-5xl font-semibold p-0 m-0 text-primary1 text-center w-full">
+          <div className="flex flex-column justify-content-between">
+            <div className="flex gap-2 align-items-center">
+              <Radio size={15} className="danger-text" />
+              <p className="card-text m-0 p-0">Air Quality Index</p>
+            </div>
+            <div className="flex flex-column align-items-center">
+              <h1 className="text-6xl font-semibold p-0 m-0 text-primary1">
                 {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
               </h1>
               <Tag
@@ -636,108 +701,123 @@ const LiveAQI = ({ show }) => {
                 style={{ backgroundColor: aqiStatus?.color, color: "white" }}
               >
                 <span className="text-xs">
-                  {aqiStatus?.status || "No Status"}{" "}
+                  {aqiStatus?.status || "No Status"}
                 </span>
               </Tag>
             </div>
+
             {pollutantData && (
-              <div className="flex gap-2">
+              <div className="flex gap-4 justify-content-center w-full">
                 {pollutantData.map((pollutant) => (
-                  <div className="flex flex-column shadow-1 border-round p-2">
-                    <p
-                      className={`font-semibold p-0 m-0 ${
-                        highestPollutant === pollutant.name
-                          ? "success-text"
-                          : "text-primary1"
-                      }`}
-                    >
-                      {/* Check if pollutant.value is defined and a number */}
+                  <div
+                    key={pollutant.name}
+                    className="flex flex-column shadow-1 border-round p-2"
+                  >
+                    <p className="p-0 m-0 card-text">{pollutant.name}</p>
+                    <p className="font-semibold p-0 m-0 text-primary1">
                       {typeof pollutant.value === "number"
                         ? pollutant.value.toFixed(2)
-                        : "N/A"}
-                      {/* {pollutant.value.toFixed(2)} */}
-                    </p>
-                    <p
-                      key={pollutant.name}
-                      className={`p-0 m-0 text-xs ${
-                        highestPollutant === pollutant.name
-                          ? "success-text font-semibold"
-                          : "card-text font-medium"
-                      }`}
-                    >
-                      {pollutant.name} ({pollutant.unit})
+                        : "N/A"}{" "}
+                      <span className="font-medium text-sm">
+                        {pollutant.unit}
+                      </span>
                     </p>
                   </div>
                 ))}
               </div>
             )}
-            {/* <p>{currentDate.toLocaleDateString()}</p> */}
-            <div className="flex gap-2 w-full align-items-start">
-              <p className="card-text p-0 m-0">Last updated:</p>
-              <p className="p-0 m-0">{selectedLocationId}</p>
-              <p className="p-0 m-0">{dateLive}</p>
-              <p className="p-0 m-0">{timeLive}</p>
+
+            {/* AQI Change Percentage */}
+            <div className="flex gap-2">
+              {(() => {
+                const changePercentage =
+                  ((aqiValue - yesterdayAQI) / yesterdayAQI) * 100;
+                const formattedChange = Math.abs(changePercentage).toFixed(2);
+                const isPositive = changePercentage > 0;
+
+                return (
+                  <>
+                    <i
+                      className={`pi ${
+                        isPositive ? "pi-arrow-up" : "pi-arrow-down"
+                      }`}
+                      style={{ color: isPositive ? "green" : "red" }}
+                    ></i>
+                    <p className="card-text p-0 m-0 text-xs">
+                      <span style={{ color: isPositive ? "green" : "red" }}>
+                        {formattedChange}%
+                      </span>{" "}
+                      from AQI measured at this time yesterday.
+                    </p>
+                  </>
+                );
+              })()}
+            </div>
+
+            {/* Last Updated Information */}
+            <div className="flex gap-2">
+              <p className="p-0 m-0 font-italic text-sm">Last updated:</p>
+              <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
+                {selectedLocationId}
+              </p>
+              <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
+                {dateLive}
+              </p>
+              <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
+                {timeLive}
+              </p>
             </div>
           </div>
+
+          {/* AQI Status Image */}
           <img
             src={aqiStatus?.image}
             alt={aqiStatus?.text}
-            className="h-14rem"
+            className="h-15rem"
           />
-        </div>
-        <div className="flex w-full gap-3">
-          <div className="flex w-full flex-column gap-3">
-            <div className="flex bg-white border-round p-4 flex-column ">
-              <p className="card-text p-0 m-0 text-lg">
-                Minimun:{" "}
-                <span className="text-white font-semibold success p-2 border-round text-2xl">
-                  {minAqiValue}
-                </span>{" "}
-              </p>
-              <p>
-                at{" "}
-                <span className="text-primary1 text-xl font-semibold">
-                  {minAqiTime}
-                </span>
-              </p>
-            </div>
-            <div className="flex bg-white border-round p-4 flex-column ">
-              <p className="card-text p-0 m-0 text-lg">
-                Maximum:{" "}
-                <span className="text-white font-semibold danger p-2 border-round text-2xl">
-                  {maxAqiValue}
-                </span>{" "}
-              </p>
-              <p>
-                at{" "}
-                <span className="text-primary1 text-xl font-semibold">
-                  {maxAqiTime}
-                </span>
-              </p>
-            </div>
-          </div>
-          <div className="bg-white border-round flex w-full p-4 flex-column">
-            <p>
-              AQI Score(based on previous 3 months):{" "}
-              <span className="text-primary1 font-semibold p-2 text-xl">
-                xxx
-              </span>
-            </p>
-            <p>
-              Predicted Upcoming AQI Score:{" "}
-              <span className="text-primary1 font-semibold p-2 text-xl">
-                xxx
-              </span>
-            </p>
+
+          {/* Minimum and Maximum AQI Values */}
+          <div className="flex flex-column gap-4 justify-content-center">
+            {[
+              { label: "Minimum", value: minAqiValue, time: minAqiTime },
+              { label: "Maximum", value: maxAqiValue, time: maxAqiTime },
+            ].map(({ label, value, time }) => (
+              <div
+                key={label}
+                className="flex flex-column shadow-1 border-round p-3 gap-2"
+              >
+                {value && (
+                  <>
+                    <p className="card-text p-0 m-0 text-lg">
+                      {label}:{" "}
+                      <span
+                        className="text-white font-semibold p-2 border-round m-0"
+                        style={{
+                          backgroundColor: `${getAqiStatus(value)?.color}`,
+                          minWidth: "4rem",
+                        }}
+                      >
+                        {value}
+                      </span>
+                    </p>
+                    <p className="card-text p-0 m-0 font-italic">
+                      Recorded at{" "}
+                      <span className="text-primary1 font-medium">{time}</span>
+                    </p>
+                  </>
+                )}
+              </div>
+            ))}
           </div>
         </div>
+
         <div className="flex bg-white border-round w-full">
           <DataTable
             value={dataTableData}
             rowClassName={rowClassName}
             className="custom-row"
             scrollable
-            scrollHeight="15rem"
+            scrollHeight="17rem"
             style={{
               width: "100%",
               borderRadius: "15px",
@@ -803,6 +883,7 @@ const LiveAQI = ({ show }) => {
         enviroAQI={AQIArrayData}
         startDate={selectedValues.liveStartDate}
         enviroDay={dayArrayData}
+        enviroWeek={weekArrayData}
         pm25ArrayData={pm25ArrayData}
         pm10ArrayData={pm10ArrayData}
         NO2ArrayData={NO2ArrayData}

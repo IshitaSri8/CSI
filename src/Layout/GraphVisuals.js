@@ -1315,12 +1315,12 @@ export const ModifiedPieChart = ({ title, categories, series, height }) => {
 };
 
 //used nowhere currently
-export const GaugeChart = ({ title, gaugeValue, maxValue, height }) => {
+export const GaugeChart = ({ title, gaugeValue, maxValue, height ,color}) => {
   const createGaugeOptions = () => {
     // Calculation for the unoccupied (remaining) value
     const unoccupied = {
       y: maxValue - gaugeValue,
-      color: "#fff", // Color for the unoccupied portion
+      color: "#e9f3f5", // Color for the unoccupied portion
       toolTipContent: null, // Disable tooltip for this section
       highlightEnabled: false,
       click: function () {
@@ -1331,7 +1331,7 @@ export const GaugeChart = ({ title, gaugeValue, maxValue, height }) => {
     // The filled portion of the gauge
     const data = {
       y: gaugeValue,
-      color: "#1F8297", // Default color for the gauge
+      color: color, // Default color for the gauge
       click: function () {
         data.exploded = true; // Explode effect on click
       },
@@ -1341,17 +1341,20 @@ export const GaugeChart = ({ title, gaugeValue, maxValue, height }) => {
       animationEnabled: true,
       title: {
         text: title,
-        ...commonChartOptions.title,
+        fontSize: 10,
+        fontFamily: "Montserrat",
+        fontWeight:500,
       },
       backgroundColor: "transparent",
       subtitles: [
         {
-          text: `${gaugeValue}%`, // Display the gauge value in the center
+          text: `${gaugeValue}`, // Display the gauge value in the center
           verticalAlign: "center",
-          fontSize: 14,
+          horizontalAlign: "center",
+          fontSize: 10,
           fontFamily: "Montserrat",
-          fontWeight: 500,
-          fontColor: "#737474",
+          fontWeight: 600,
+          fontColor: "#00403c",
         },
       ],
       data: [
