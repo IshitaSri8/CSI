@@ -1,6 +1,6 @@
 import React from "react";
 import { MeterGroup } from "primereact/metergroup";
-import { scoreColors } from "./Constants/colorConstants";
+import { scoreColors } from "../Constants/colorConstants";
 
 const GroupedMeterBar = () => {
   const scoreRanges = [
@@ -30,13 +30,10 @@ const GroupedMeterBar = () => {
   };
 
   return (
-    <div className="flex align-items-start">
-      <MeterGroup
-        values={scoreRanges}
-        className="text-white"
-        // labelTemplate={labelTemplate} // Use custom label template
-      />
-    </div>
+    <MeterGroup
+      values={scoreRanges}
+      // labelTemplate={labelTemplate} // Use custom label template
+    />
   );
 };
 

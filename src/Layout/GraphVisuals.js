@@ -310,7 +310,7 @@ export const GroupedBarChart = ({
   );
 };
 
-//used nowhere currently
+//waste
 export const StackedBarChart = ({
   title,
   categories,
