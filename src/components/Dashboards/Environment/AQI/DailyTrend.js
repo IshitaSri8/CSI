@@ -169,7 +169,8 @@ const DailyTrend = ({
 
   const baseChartOptions = {
     animationEnabled: true,
-    height: 250,
+    height: 300,
+    backgroundColor:"transparent",
     legend: {
       ...commonChartOptions.legend,
     },
@@ -198,7 +199,7 @@ const DailyTrend = ({
           thickness: 1,
           color: "rgb(93, 92, 92)",
           lineDashType: "dash",
-          label: "Safe limit (400)",
+          label: "Critical Threshold (400)",
         },
       ],
     },
@@ -270,7 +271,7 @@ const DailyTrend = ({
         //Daytime Container
         content += `<div style = "width: 50%; padding-right: 5px; box-sizing: border-box;">`;
         // Daytime Table Section
-        content += `<div style="font-size: 0.8rem; font-weight: bold; color: #333; margin-bottom: 2px;">Day AQI (6 AM - 6 PM):</div>`; // Reduced margin-bottom
+        content += `<div style="font-size: 0.8rem; font-weight: bold; color: #333; margin-bottom: 2px;">Day AQI (06:00 - 18:00):</div>`; // Reduced margin-bottom
         content += `<table style="width: 100%; border-collapse: collapse; margin-top: 2px;">`; // Reduced margin-top
         content += `<tr style="font-size: 0.8rem; font-weight: bold; background-color: #e0e0e0;">
               <th style="padding: 2px; font-size:0.8rem;; text-align: left;">Time</th>
@@ -291,7 +292,7 @@ const DailyTrend = ({
         // Nighttime Container
         content += `<div style = "width: 50%; padding-left: 5px; box-sizing: border-box;">`;
         // Nighttime Table Section
-        content += `<div style="font-size: 0.8em; font-weight: bold; color: #333; margin-bottom: 2px;">Night AQI (6 PM - 6 AM):</div>`; // Reduced margin-bottom
+        content += `<div style="font-size: 0.8em; font-weight: bold; color: #333; margin-bottom: 2px;">Night AQI (18:00 - 06:00):</div>`; // Reduced margin-bottom
         content += `<table style="width: 100%; border-collapse: collapse; margin-top: 2px;">`; // Reduced margin-top
         content += `<tr style="font-size: 0.8rem; font-weight: bold; background-color: #e0e0e0;">
               <th style="padding: 2px;font-size:0.8rem; text-align: left;">Time</th>
@@ -368,6 +369,7 @@ const DailyTrend = ({
       ...commonChartOptions.title,
     },
     height: 250,
+    backgroundColor:"transparent",
     axisX: {
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
@@ -388,7 +390,7 @@ const DailyTrend = ({
           thickness: 1,
           color: "rgb(93, 92, 92)",
           lineDashType: "dash",
-          label: "Safe limit (400)",
+          label: "Critical Threshold (400)",
         },
       ],
     },
@@ -408,7 +410,7 @@ const DailyTrend = ({
   };
   return (
     <div className="flex flex-column gap-3" style={{ flex: "70%" }}>
-      <div className="flex flex-column bg-white border-round p-4 gap-2">
+      <div className="flex flex-column bg-white border-round p-2 gap-2">
         <div className="flex align-items-start justify-content-start gap-2">
           <Button
             className={`${backButtonClassName} bg-primary1  text-white text-xs`}
@@ -432,7 +434,7 @@ const DailyTrend = ({
           containerProps={{ width: "100%" }}
         />
         {isDrilldown && (
-          <div className="flex w-full gap-2 py-2">
+          <div className="flex w-full">
             <div className="flex items-center gap-1">
               <i
                 className="pi pi-circle-fill"
@@ -449,9 +451,6 @@ const DailyTrend = ({
             </div>
           </div>
         )}
-        <div className="flex insights p-2">
-          <p className="card-title p-0 m-0 text-white">Insights</p>
-        </div>
       </div>
 
       {showTable === true && fifteenDaysData.length > 0 && (
