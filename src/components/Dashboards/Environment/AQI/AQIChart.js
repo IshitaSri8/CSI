@@ -527,7 +527,7 @@ const AQIChart = ({
 
                   <DataTable
                     value={daytimePeakHourFrequencies}
-                    className="overflow-y-auto h-15rem p-0 text-center "
+                    className="overflow-y-auto h-14rem p-0 text-center "
                     headerStyle={{ textAlign: "center" }}
                     rowClassName={rowClassNameDay}
                   >
@@ -536,7 +536,7 @@ const AQIChart = ({
                       header="Time"
                       headerStyle={{
                         fontSize: "0.6rem",
-                        backgroundColor: "#166c7d",
+                        backgroundColor: "#003940",
                         color: "white",
                         padding: 1,
                       }}
@@ -546,7 +546,7 @@ const AQIChart = ({
                       header="Frequency"
                       headerStyle={{
                         fontSize: "0.6rem",
-                        backgroundColor: "#166c7d",
+                        backgroundColor: "#003940",
                         color: "white",
                         padding: 3,
                       }}
@@ -566,7 +566,7 @@ const AQIChart = ({
                       header="Time"
                       headerStyle={{
                         fontSize: "0.6rem",
-                        backgroundColor: "#166c7d",
+                        backgroundColor: "#003940",
                         color: "white",
                         padding: 1,
                       }}
@@ -576,7 +576,7 @@ const AQIChart = ({
                       header="Frequency"
                       headerStyle={{
                         fontSize: "0.6rem",
-                        backgroundColor: "#166c7d",
+                        backgroundColor: "#003940",
                         color: "white",
                         padding: 1,
                       }}
@@ -605,7 +605,7 @@ const AQIChart = ({
             )}
           </div>
         </div>
-        <div className="flex gap-3 w-full">
+        {/* <div className="flex gap-3 w-full">
           <div className="w-full flex bg-white border-round p-4">
             <div className="flex flex-column" style={{ flex: "70%" }}>
               <p className="card-title p-0 m-0">Pollutants Trend</p>
@@ -663,7 +663,7 @@ const AQIChart = ({
               <p className="card-title p-0 m-0 text-white">Insights</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     )
   );

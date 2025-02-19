@@ -16,7 +16,7 @@ const ColorScaleBar = () => {
       style={{
         display: "flex",
         width: "100%",
-        height: "30px",
+        height: "15px",
         borderRadius: "5px",
         overflow: "hidden", // Ensure rounded corners work correctly
       }}
