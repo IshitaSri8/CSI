@@ -675,9 +675,9 @@ const LiveAQI = ({ show }) => {
       )}
       <div className="flex flex-wrap md:flex-nowrap w-full gap-3">
         <div
-          className="flex flex-column border-round-xl p-2 bg-white w-full gap-4"
+          className="flex flex-column border-round-xl p-2 bg-white w-full gap-3"
           style={{
-            border: `1px solid ${aqiStatus?.color}`,
+            border: `2px solid ${aqiStatus?.color}`,
           }}
         >
           <div className="flex justify-content-between">
@@ -809,16 +809,16 @@ const LiveAQI = ({ show }) => {
           <ColorScaleBar />
         </div>
 
-        <div className="flex bg-white border-round w-full">
+        <div className="flex flex-column bg-white border-round w-full p-2">
           <DataTable
             value={dataTableData}
             rowClassName={rowClassName}
-            className="custom-row"
+            // className="custom-row"
             scrollable
-            scrollHeight="18rem"
+            scrollHeight="13rem"
             style={{
               width: "100%",
-              borderRadius: "15px",
+              // borderRadius: "15px",
               overflow: "hidden",
               // scrollbarWidth: "none",
               padding: 2,
@@ -833,7 +833,7 @@ const LiveAQI = ({ show }) => {
                 fontSize: "0.6rem",
                 backgroundColor: "#003940",
                 color: "white",
-                padding: 3,
+                padding: 2,
               }}
             ></Column>
             <Column
@@ -844,7 +844,7 @@ const LiveAQI = ({ show }) => {
                 fontSize: "0.2rem",
                 backgroundColor: "#003940",
                 color: "white",
-                padding: 3,
+                padding: 2,
               }}
             ></Column>
             <Column
@@ -855,7 +855,7 @@ const LiveAQI = ({ show }) => {
                 fontSize: "0.6rem",
                 backgroundColor: "#003940",
                 color: "white",
-                padding: 3,
+                padding: 2,
               }}
             />
 
@@ -868,10 +868,18 @@ const LiveAQI = ({ show }) => {
                 fontSize: "0.6rem",
                 backgroundColor: "#003940",
                 color: "white",
-                padding: 3,
+                padding: 2,
               }}
             ></Column>
           </DataTable>
+          <div className="flex flex-column sec-theme p-2 gap-1">
+            <p className="card-title p-0 m-0">Note:</p>
+            <p className="card-text p-0 m-0">
+              This table lists the dates and times within the selected range
+              when the AQI exceeded 400. Rows highlighted in red indicate
+              instances where the outlier percentage exceeds 10%.
+            </p>
+          </div>
         </div>
       </div>
 
