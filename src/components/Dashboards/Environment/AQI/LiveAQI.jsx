@@ -26,7 +26,8 @@ import { DataTable } from "primereact/datatable";
 import GaugeChart from "react-gauge-chart";
 import LiveAqiScore from "./LiveAqiScore";
 import { getScoreColor } from "components/DashboardUtility/scoreColor";
-import GroupedMeterBar from "components/DashboardUtility/GroupedMeterBar";
+import ColorScaleBar from "components/DashboardUtility/Charts/ColorScaleBar";
+import GroupedMeterBar from "components/DashboardUtility/Charts/GroupedMeterBar";
 
 const LiveAQI = ({ show }) => {
   const overlayRef = useRef(null);
@@ -483,11 +484,6 @@ const LiveAQI = ({ show }) => {
     // You can also perform additional actions with the score here
   };
 
-  // Function to format text value if needed
-  const formatTextValue = (value) => {
-    return `${Math.round(value)}`; // Example formatting
-  };
-
   return loading ? (
     <div className="flex align-items-center justify-content-center flex-column">
       <ProgressSpinner />
@@ -503,38 +499,34 @@ const LiveAQI = ({ show }) => {
               background: "linear-gradient(180deg , #166C7D, #003940)",
             }}
           >
-            <div className="flex flex-column">
-              <h1 className="text-primary1 text-6xl font-medium text-white">
-                Air Quality Dashboard
+            <div className="flex flex-column gap-2">
+              <h1 className="text-5xl font-semibold text-white p-0 m-0">
+                Air Quality Report
               </h1>
-              <p className="text-tertiary text-sm">
-                The Air Quality Index (AQI) is a measure of how polluted the air
-                is, ranging from 0 to 500+. This dashboard offers a real-time
-                AQI reading specific to your location, allowing you to stay
-                informed about current air quality conditions.
-                <br /> Monitoring the AQI is essential for making informed
-                decisions about outdoor activities, especially for sensitive
-                groups such as children, the elderly, and individuals with
-                pre-existing health conditions.
+              <p className="text-tertiary p-0 m-0">
+                Fresh air, bright future: Elevating sustainability with every
+                breath
               </p>
-              <GroupedMeterBar />
             </div>
             <LiveAqiScore onAQIScoreCalculated={handleScoreCalculated} />
             {score && (
               <div>
+                <p className="text-primary1 font-medium p-0 m-0 text-white text-center">
+                  Score: <span className="text-xl font-semibold">{score}</span>
+                </p>
                 <GaugeChart
                   id="gauge-chart"
                   // nrOfLevels={3}
                   percent={score / 100}
                   colors={scoreRangeColor}
-                  formatTextValue={formatTextValue}
+                  // formatTextValue={formatTextValue}
+                  style={{ width: 150 }}
+                  needleColor="#fff"
+                  needleBaseColor="#fff"
                   // textColor="#000"
-                  // hideText={true}
+                  hideText={true}
                 />
-                {/* <p className="text-primary1 font-semibold text-4xl p-0 m-0 text-center text-white">
-                    {score}
-                  </p> */}
-                <p className="p-0 m-0 text-white font-medium p-0 m-0 font-italic text-sm text-right">
+                <p className="p-0 m-0 text-white font-medium p-0 m-0 font-italic text-xs text-right">
                   *{startMonthYearScore} - {endMonthYearScore}{" "}
                 </p>
               </div>
@@ -682,133 +674,138 @@ const LiveAQI = ({ show }) => {
       )}
       <div className="flex flex-wrap md:flex-nowrap w-full gap-3">
         <div
-          className="flex border-round-xl p-4 bg-white w-full justify-content-between"
+          className="flex flex-column border-round-xl p-4 bg-white w-full gap-4"
           style={{
             border: `1px solid ${aqiStatus?.color}`,
           }}
         >
-          <div className="flex flex-column justify-content-between">
-            <div className="flex gap-2 align-items-center">
-              <Radio size={15} className="danger-text" />
-              <p className="card-text m-0 p-0">Air Quality Index</p>
-            </div>
-            <div className="flex flex-column align-items-center">
-              <h1 className="text-6xl font-semibold p-0 m-0 text-primary1">
-                {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
-              </h1>
-              <Tag
-                className="border-round-3xl"
-                style={{ backgroundColor: aqiStatus?.color, color: "white" }}
-              >
-                <span className="text-xs">
-                  {aqiStatus?.status || "No Status"}
-                </span>
-              </Tag>
-            </div>
-
-            {pollutantData && (
-              <div className="flex gap-4 justify-content-center w-full">
-                {pollutantData.map((pollutant) => (
-                  <div
-                    key={pollutant.name}
-                    className="flex flex-column shadow-1 border-round p-2"
-                  >
-                    <p className="p-0 m-0 card-text">{pollutant.name}</p>
-                    <p className="font-semibold p-0 m-0 text-primary1">
-                      {typeof pollutant.value === "number"
-                        ? pollutant.value.toFixed(2)
-                        : "N/A"}{" "}
-                      <span className="font-medium text-sm">
-                        {pollutant.unit}
-                      </span>
-                    </p>
-                  </div>
-                ))}
+          <div className="flex justify-content-between">
+            <div className="flex flex-column justify-content-between">
+              <div className="flex gap-2 align-items-center">
+                <Radio size={15} className="danger-text" />
+                <p className="card-text m-0 p-0">Air Quality Index</p>
               </div>
-            )}
+              <div className="flex flex-column align-items-center">
+                <h1 className="text-6xl font-semibold p-0 m-0 text-primary1">
+                  {aqiValue !== null ? `${aqiValue}` : "No Data Found."}
+                </h1>
+                <Tag
+                  className="border-round-3xl"
+                  style={{ backgroundColor: aqiStatus?.color, color: "white" }}
+                >
+                  <span className="text-xs">
+                    {aqiStatus?.status || "No Status"}
+                  </span>
+                </Tag>
+              </div>
 
-            {/* AQI Change Percentage */}
-            <div className="flex gap-2">
-              {(() => {
-                const changePercentage =
-                  ((aqiValue - yesterdayAQI) / yesterdayAQI) * 100;
-                const formattedChange = Math.abs(changePercentage).toFixed(2);
-                const isPositive = changePercentage > 0;
+              {pollutantData && (
+                <div className="flex gap-4 justify-content-center w-full">
+                  {pollutantData.map((pollutant) => (
+                    <div
+                      key={pollutant.name}
+                      className="flex flex-column shadow-1 border-round p-2"
+                    >
+                      <p className="p-0 m-0 card-text">{pollutant.name}</p>
+                      <p className="font-semibold p-0 m-0 text-primary1">
+                        {typeof pollutant.value === "number"
+                          ? pollutant.value.toFixed(2)
+                          : "N/A"}{" "}
+                        <span className="font-medium text-sm">
+                          {pollutant.unit}
+                        </span>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
 
-                return (
-                  <>
-                    <i
-                      className={`pi ${
-                        isPositive ? "pi-arrow-up" : "pi-arrow-down"
-                      }`}
-                      style={{ color: isPositive ? "green" : "red" }}
-                    ></i>
-                    <p className="card-text p-0 m-0 text-xs">
-                      <span style={{ color: isPositive ? "green" : "red" }}>
-                        {formattedChange}%
-                      </span>{" "}
-                      from AQI measured at this time yesterday.
-                    </p>
-                  </>
-                );
-              })()}
+              {/* AQI Change Percentage */}
+              <div className="flex gap-2">
+                {(() => {
+                  const changePercentage =
+                    ((aqiValue - yesterdayAQI) / yesterdayAQI) * 100;
+                  const formattedChange = Math.abs(changePercentage).toFixed(2);
+                  const isPositive = changePercentage > 0;
+
+                  return (
+                    <>
+                      <i
+                        className={`pi ${
+                          isPositive ? "pi-arrow-up" : "pi-arrow-down"
+                        }`}
+                        style={{ color: isPositive ? "red" : "green" }}
+                      ></i>
+                      <p className="card-text p-0 m-0 text-xs">
+                        <span style={{ color: isPositive ? "red" : "green" }}>
+                          {formattedChange}%
+                        </span>{" "}
+                        from AQI measured at this time yesterday.
+                      </p>
+                    </>
+                  );
+                })()}
+              </div>
+
+              {/* Last Updated Information */}
+              <div className="flex gap-2">
+                <p className="p-0 m-0 font-italic text-sm">Last updated:</p>
+                <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
+                  {selectedLocationId}
+                </p>
+                <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
+                  {dateLive}
+                </p>
+                <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
+                  {timeLive}
+                </p>
+              </div>
             </div>
 
-            {/* Last Updated Information */}
-            <div className="flex gap-2">
-              <p className="p-0 m-0 font-italic text-sm">Last updated:</p>
-              <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
-                {selectedLocationId}
-              </p>
-              <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
-                {dateLive}
-              </p>
-              <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
-                {timeLive}
-              </p>
+            {/* AQI Status Image */}
+            <img
+              src={aqiStatus?.image}
+              alt={aqiStatus?.text}
+              className="h-15rem"
+            />
+
+            {/* Minimum and Maximum AQI Values */}
+            <div className="flex flex-column gap-4 justify-content-center">
+              {[
+                { label: "Minimum", value: minAqiValue, time: minAqiTime },
+                { label: "Maximum", value: maxAqiValue, time: maxAqiTime },
+              ].map(({ label, value, time }) => (
+                <div
+                  key={label}
+                  className="flex flex-column shadow-1 border-round p-3 gap-2"
+                >
+                  {value && (
+                    <>
+                      <p className="card-text p-0 m-0 text-lg">
+                        {label}:{" "}
+                        <span
+                          className="text-white font-semibold p-2 border-round m-0"
+                          style={{
+                            backgroundColor: `${getAqiStatus(value)?.color}`,
+                            minWidth: "4rem",
+                          }}
+                        >
+                          {value}
+                        </span>
+                      </p>
+                      <p className="card-text p-0 m-0 font-italic">
+                        Recorded at{" "}
+                        <span className="text-primary1 font-medium">
+                          {time}
+                        </span>
+                      </p>
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-
-          {/* AQI Status Image */}
-          <img
-            src={aqiStatus?.image}
-            alt={aqiStatus?.text}
-            className="h-15rem"
-          />
-
-          {/* Minimum and Maximum AQI Values */}
-          <div className="flex flex-column gap-4 justify-content-center">
-            {[
-              { label: "Minimum", value: minAqiValue, time: minAqiTime },
-              { label: "Maximum", value: maxAqiValue, time: maxAqiTime },
-            ].map(({ label, value, time }) => (
-              <div
-                key={label}
-                className="flex flex-column shadow-1 border-round p-3 gap-2"
-              >
-                {value && (
-                  <>
-                    <p className="card-text p-0 m-0 text-lg">
-                      {label}:{" "}
-                      <span
-                        className="text-white font-semibold p-2 border-round m-0"
-                        style={{
-                          backgroundColor: `${getAqiStatus(value)?.color}`,
-                          minWidth: "4rem",
-                        }}
-                      >
-                        {value}
-                      </span>
-                    </p>
-                    <p className="card-text p-0 m-0 font-italic">
-                      Recorded at{" "}
-                      <span className="text-primary1 font-medium">{time}</span>
-                    </p>
-                  </>
-                )}
-              </div>
-            ))}
-          </div>
+          <ColorScaleBar />
         </div>
 
         <div className="flex bg-white border-round w-full">
