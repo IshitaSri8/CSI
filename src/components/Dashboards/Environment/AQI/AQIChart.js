@@ -104,7 +104,7 @@ const AQIChart = ({
 
     // Calculate date 15 days ago
     const fifteenDaysAgo = new Date(selectedDate);
-    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 7); 
+    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 7);
 
     // Filter data for the last 15 days
     const filteredData = enviroDate.reduce((acc, date, index) => {
@@ -133,7 +133,7 @@ const AQIChart = ({
     );
     return uniqueData;
   };
-  
+
   const calculateFifteenDaysDayAverages = (fifteenDaysData) => {
     const dayAqiData = {};
 
@@ -516,7 +516,7 @@ const AQIChart = ({
             onShowTableChange={handleShowTableChange}
           />
           <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
-            <div className="flex flex-column bg-white border-round p-4">
+            <div className="flex flex-column bg-white border-round p-2">
               <p className="card-title p-0 m-0">Peak Hours</p>
               <TabView
                 activeIndex={activeTable}
@@ -527,7 +527,7 @@ const AQIChart = ({
 
                   <DataTable
                     value={daytimePeakHourFrequencies}
-                    className="overflow-y-auto h-15rem p-0 text-center "
+                    className="overflow-y-auto h-10rem"
                     headerStyle={{ textAlign: "center" }}
                     rowClassName={rowClassNameDay}
                   >
@@ -536,9 +536,9 @@ const AQIChart = ({
                       header="Time"
                       headerStyle={{
                         fontSize: "0.6rem",
-                        backgroundColor: "#166c7d",
+                        backgroundColor: "#003940",
                         color: "white",
-                        padding: 1,
+                        padding: 2,
                       }}
                     ></Column>
                     <Column
@@ -546,9 +546,9 @@ const AQIChart = ({
                       header="Frequency"
                       headerStyle={{
                         fontSize: "0.6rem",
-                        backgroundColor: "#166c7d",
+                        backgroundColor: "#003940",
                         color: "white",
-                        padding: 3,
+                        padding: 2,
                       }}
                     ></Column>
                   </DataTable>
@@ -558,7 +558,7 @@ const AQIChart = ({
 
                   <DataTable
                     value={nighttimePeakHourFrequencies}
-                    className="overflow-y-auto h-15rem text-center"
+                    className="overflow-y-auto h-10rem"
                     rowClassName={rowClassNamenight}
                   >
                     <Column
@@ -566,9 +566,9 @@ const AQIChart = ({
                       header="Time"
                       headerStyle={{
                         fontSize: "0.6rem",
-                        backgroundColor: "#166c7d",
+                        backgroundColor: "#003940",
                         color: "white",
-                        padding: 1,
+                        padding: 2,
                       }}
                     ></Column>
                     <Column
@@ -576,16 +576,22 @@ const AQIChart = ({
                       header="Frequency"
                       headerStyle={{
                         fontSize: "0.6rem",
-                        backgroundColor: "#166c7d",
+                        backgroundColor: "#003940",
                         color: "white",
-                        padding: 1,
+                        padding: 2,
                       }}
                     ></Column>
                   </DataTable>
                 </TabPanel>
               </TabView>
-              <div className="flex insights p-2">
-                <p className="card-title p-0 m-0 text-white">Insights</p>
+              <div className="flex flex-column sec-theme p-2 gap-1">
+                <p className="card-title p-0 m-0">Insights</p>
+                <p className="card-text p-0 m-0">
+                  This card helps you understand when the worst air quality
+                  tends to occur by showing the frequency of peak AQI at
+                  different times of the day and night over the selected date
+                  range.
+                </p>
               </div>
             </div>
             {showTable && (
@@ -605,7 +611,7 @@ const AQIChart = ({
             )}
           </div>
         </div>
-        <div className="flex gap-3 w-full">
+        {/* <div className="flex gap-3 w-full">
           <div className="w-full flex bg-white border-round p-4">
             <div className="flex flex-column" style={{ flex: "70%" }}>
               <p className="card-title p-0 m-0">Pollutants Trend</p>
@@ -663,7 +669,7 @@ const AQIChart = ({
               <p className="card-title p-0 m-0 text-white">Insights</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     )
   );
