@@ -496,11 +496,12 @@ const LiveAQI = ({ show }) => {
           <div
             className="flex justify-content-between align-items-start p-4"
             style={{
-              background: "linear-gradient(180deg , #166C7D, #003940)",
+              backgroundColor: " #003940",
+              // background: "linear-gradient(180deg , #166C7D, #003940)",
             }}
           >
             <div className="flex flex-column gap-2">
-              <h1 className="text-5xl font-semibold text-white p-0 m-0">
+              <h1 className="text-6xl font-semibold text-white p-0 m-0">
                 Air Quality Report
               </h1>
               <p className="text-tertiary p-0 m-0">
@@ -674,7 +675,7 @@ const LiveAQI = ({ show }) => {
       )}
       <div className="flex flex-wrap md:flex-nowrap w-full gap-3">
         <div
-          className="flex flex-column border-round-xl p-4 bg-white w-full gap-4"
+          className="flex flex-column border-round-xl p-2 bg-white w-full gap-4"
           style={{
             border: `1px solid ${aqiStatus?.color}`,
           }}
@@ -814,7 +815,7 @@ const LiveAQI = ({ show }) => {
             rowClassName={rowClassName}
             className="custom-row"
             scrollable
-            scrollHeight="17rem"
+            scrollHeight="18rem"
             style={{
               width: "100%",
               borderRadius: "15px",
@@ -830,7 +831,7 @@ const LiveAQI = ({ show }) => {
               className="font-semibold text-left text-lg"
               headerStyle={{
                 fontSize: "0.6rem",
-                backgroundColor: "#166c7d",
+                backgroundColor: "#003940",
                 color: "white",
                 padding: 3,
               }}
@@ -841,7 +842,7 @@ const LiveAQI = ({ show }) => {
               className="text-left"
               headerStyle={{
                 fontSize: "0.2rem",
-                backgroundColor: "#166c7d",
+                backgroundColor: "#003940",
                 color: "white",
                 padding: 3,
               }}
@@ -852,7 +853,7 @@ const LiveAQI = ({ show }) => {
               className="text-left"
               headerStyle={{
                 fontSize: "0.6rem",
-                backgroundColor: "#166c7d",
+                backgroundColor: "#003940",
                 color: "white",
                 padding: 3,
               }}
@@ -865,7 +866,7 @@ const LiveAQI = ({ show }) => {
               style={{ width: "20%" }}
               headerStyle={{
                 fontSize: "0.6rem",
-                backgroundColor: "#166c7d",
+                backgroundColor: "#003940",
                 color: "white",
                 padding: 3,
               }}
