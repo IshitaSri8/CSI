@@ -34,7 +34,7 @@ const GroupedMeterBar = () => {
       <MeterGroup
         values={scoreRanges}
         className="text-white"
-        labelTemplate={labelTemplate} // Use custom label template
+        // labelTemplate={labelTemplate} // Use custom label template
       />
     </div>
   );

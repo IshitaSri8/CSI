@@ -40,9 +40,7 @@ const LiveAQI = ({ show }) => {
   const [SO2ArrayData, setSO2ArrayData] = useState([]);
   const [NO2ArrayData, setNO2ArrayData] = useState([]);
   const [AQIArrayData, setAQIArrayData] = useState([]);
-
   const [dataTableData, setDataTableData] = useState([]);
-
   const [aqiIDs, setAQIIDs] = useState();
   const [aqiStatus, setAqiStatus] = useState();
   const [aqiValue, setAqiValue] = useState(null);
@@ -65,13 +63,13 @@ const LiveAQI = ({ show }) => {
   const currentDate = new Date();
   const thirtyDaysAgo = new Date(new Date().setDate(new Date().getDate() - 30));
   const [selectedValues, setSelectedValues] = useState({
-    location: "Ayodhya - Civil line,Tiny tots school",
-    liveStartDate: new Date(thirtyDaysAgo),
+    location: "All Locations",
+    liveStartDate: new Date("2024-01-01"),
     liveEndDate: new Date(currentDate),
   });
   const [tempValues, setTempValues] = useState({
-    location: "Ayodhya - Civil line,Tiny tots school",
-    liveStartDate: new Date(thirtyDaysAgo),
+    location: "All Locations",
+    liveStartDate: new Date("2024-01-01"),
     liveEndDate: new Date(currentDate),
   });
 
@@ -269,16 +267,159 @@ const LiveAQI = ({ show }) => {
       return 0;
     }
   };
+const getAllLocationAQIAverage = async (locationIDs, from_time, upto_time) => {
+  try {
+    const response = await axios.post(
+      "https://app.aurassure.com/-/api/iot-platform/v1.1.0/clients/10565/applications/16/things/data",
+      {
+        data_type: "aggregate",
+        aggregation_period: 3600,
+        parameters: ["pm10", "pm2.5", "no2", "so2", "aqi"],
+        parameter_attributes: ["value", "avg", "max", "min"],
+        things: locationIDs,
+        from_time: from_time,
+        upto_time: upto_time,
+      },
+      {
+        headers: {
+          "Access-Id": "WYDAeaT0kA7kKVyg",
+          "Access-Key":
+            "H0RkamVKJ2jiGda9tx2i20kykwCGkRhn2P3bXwDgxP8dAKxLp1CM65DYKg0oYCV2",
+        },
+      }
+    );
+    const api_response = response.data.data;
+    console.log("🚀 ~ getAQI ~ api_response:", api_response);
+    const locationArray = [];
+    const dateArray = [];
+    const timeArray = [];
+    const dayArray = [];
+    const weekArray = [];
+    const so2Array = [];
+    const no2Array = [];
+    const pm25Array = [];
+    const pm10Array = [];
+    const aqiArrayAPI = [];
+    let maxAqi = -Infinity;
+    let minAqi = Infinity;
+    let maxAqiTime = "";
+    let minAqiTime = "";
+    let aqiValueSet = false; // Flag to ensure we only set AQI once
 
+    if (api_response) {
+      let sumAQI = 0;
+      let sumPM25 = 0;
+      let sumPM10 = 0;
+      let sumNO2 = 0;
+      let sumSO2 = 0;
+      let validReadings = 0;
+      api_response.forEach((item) => {
+       
+        const newDate = new Date(item.time * 1000);
+        const day = newDate.getDay();
+        const week = getWeek(newDate);
+        const [date, time] = convertDateString(newDate);
+        if (date === dateLive && time === timeLive) {
+          sumAQI += item.parameter_values.aqi.value;
+          sumPM25 += item.parameter_values["pm2.5"].avg;
+          sumPM10 += item.parameter_values.pm10.avg;
+          sumNO2 += item.parameter_values.no2.avg;
+          sumSO2 += item.parameter_values.so2.avg;
+          validReadings++;
+        }
+        if (date === dateLive) {
+          const aqi = item.parameter_values.aqi.value;
+          if (aqi >= maxAqi) {
+            maxAqi = aqi;
+            maxAqiTime = time;
+          }
+          if (aqi <= minAqi) {
+            minAqi = aqi;
+            minAqiTime = time;
+          }
+        }
+
+        aqiArrayAPI.push(item.parameter_values.aqi.value);
+        locationArray.push(item.thing_id);
+        dateArray.push(date);
+        timeArray.push(time);
+        weekArray.push(week);
+        dayArray.push(day);
+        so2Array.push(item.parameter_values.so2.avg);
+        no2Array.push(item.parameter_values.no2.avg);
+        pm25Array.push(item.parameter_values["pm2.5"].avg);
+        pm10Array.push(item.parameter_values.pm10.avg);
+      });
+      // Calculate Averages
+      const avgAQI = validReadings > 0 ? Math.round(sumAQI / validReadings ): 0;
+      const avgPM25 = validReadings > 0 ? sumPM25 / validReadings : 0;
+      const avgPM10 = validReadings > 0 ? sumPM10 / validReadings : 0;
+      const avgNO2 = validReadings > 0 ? sumNO2 / validReadings : 0;
+      const avgSO2 = validReadings > 0 ? sumSO2 / validReadings : 0;
+
+      setAQIArrayData(aqiArrayAPI);
+      setDateArrayData(dateArray);
+      setTimeArrayData(timeArray);
+      setDayArrayData(dayArray);
+      setWeekArrayData(weekArray);
+      setSO2ArrayData(so2Array);
+      setNO2ArrayData(no2Array);
+      setPM10ArrayData(pm10Array);
+      setPM25ArrayData(pm25Array);
+
+      setAqiValue(avgAQI);
+      setAqiStatus(getAqiStatus(avgAQI));
+      setCurrentPM25(avgPM25);
+      setCurrentPM10(avgPM10);
+      setCurrentNO2(avgNO2);
+      setCurrentSO2(avgSO2);
+      setMaxAqiValue(maxAqi);
+      setMaxAqiTime(maxAqiTime);
+      setMinAqiValue(minAqi);
+      setMinAqiTime(minAqiTime);
+
+      const filteredDataWithDeviation = api_response
+        .filter((item) => item.parameter_values.aqi.value > 400)
+        .map((item) => {
+          // Create Date object from timestamp
+          const newDate = new Date(item.time * 1000);
+
+          // Get the day of the week
+          // const day = newDate.getDay();
+
+          // Get formatted date and time strings
+          const [date, time] = convertDateString(newDate);
+          return {
+            date: date, // Use the formatted date
+            time: time, // Use the formatted time
+            aqi: item.parameter_values.aqi.value,
+            deviationPercentage:
+              (((item.parameter_values.aqi.value - 400) / 400) * 100).toFixed(
+                2
+              ) + "%",
+          };
+        });
+
+      const uniqueDataTableData = Array.from(
+        new Set(filteredDataWithDeviation.map(JSON.stringify))
+      ).map(JSON.parse);
+      setDataTableData(uniqueDataTableData);
+    }
+    return 0;
+  } catch (error) {
+    console.error("Error fetching AQI data:", error);
+    return 0;
+  }
+};
   const resetFilters = () => {
     setSelectedValues({
-      location: "Ayodhya - Civil line,Tiny tots school",
-      liveStartDate: new Date(thirtyDaysAgo),
+      location: "All Locations",
+      liveStartDate: new Date("2024-01-01"),
       liveEndDate: new Date(currentDate),
     });
     setTempValues({
-      location: "Ayodhya - Civil line,Tiny tots school",
-      liveStartDate: new Date(thirtyDaysAgo),
+      location: "All Locations",
+      liveStartDate: new Date("2024-01-01"),
       liveEndDate: new Date(currentDate),
     });
   };
@@ -313,7 +454,24 @@ const LiveAQI = ({ show }) => {
   useEffect(() => {
     const fetchAQIData = async () => {
       setLoading(true);
-      if (aqiIDs) {
+      if (selectedValues.location === "All Locations") {
+        // Fetch data for all locations and calculate the average
+        const locationIDs = locations
+          .map((loc) => getThingID(loc.value))
+          .filter(Boolean); // Filter out any undefined IDs
+
+        if (locationIDs.length > 0) {
+          const start = new Date(selectedValues.liveStartDate);
+          const end = new Date(selectedValues.liveEndDate);
+          start.setHours(0, 0, 0, 0);
+          end.setHours(23, 59, 59, 59);
+
+          const fromTime = Math.floor(start.getTime() / 1000);
+          const uptoTime = Math.floor(end.getTime() / 1000);
+          await getAllLocationAQIAverage(locationIDs, fromTime, uptoTime);
+        }
+      } else if (aqiIDs) {
+        // Fetch data for the selected location
         const promises = aqiIDs.map((aqiID) => {
           return aqiID.thingID === getThingID(selectedValues.location)
             ? getAQI(aqiID.thingID, aqiID.from_time, aqiID.upto_time)
@@ -326,7 +484,7 @@ const LiveAQI = ({ show }) => {
     };
 
     fetchAQIData();
-  }, [aqiIDs]);
+  }, [aqiIDs, selectedValues.location]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -351,7 +509,6 @@ const LiveAQI = ({ show }) => {
 
           const fromTime = Math.floor(start.getTime() / 1000);
           const uptoTime = Math.floor(end.getTime() / 1000);
-          //   const [location_name, location_id] = getThingID(selectedLocation);
           let thingsID = [];
           let uniqueLocations = new Set();
           response.data?.things?.forEach((thing) => {
@@ -363,14 +520,19 @@ const LiveAQI = ({ show }) => {
             });
             uniqueLocations.add(thing.name); // Add the location name to the Set
           });
-          const locationOptions = Array.from(uniqueLocations).map(
-            (location) => ({
-              label: location,
-              value: location,
-            })
-          );
-          setLocations(locationOptions);
-          setAQIIDs(thingsID);
+           const locationOptions = Array.from(uniqueLocations).map(
+             (location) => ({
+               label: location,
+               value: location,
+             })
+           );
+           // Add "All Locations" option
+           locationOptions.unshift({
+             label: "All Locations",
+             value: "All Locations",
+           });
+           setLocations(locationOptions);
+           setAQIIDs(thingsID);
         }
       } catch (error) {
         console.error("Error fetching Aurrasure Data:", error);

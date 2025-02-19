@@ -26,7 +26,6 @@ const LiveAqiScore = ({ onAQIScoreCalculated }) => {
       );
 
       const api_response = response.data.data;
-      console.log(`AQI data for location ${locationID}:`, api_response);
 
       let totalAqi = 0;
       let validDays = 0;
@@ -38,7 +37,6 @@ const LiveAqiScore = ({ onAQIScoreCalculated }) => {
             validDays++;
           }
         });
-        // console.log("🚀 ~ api_response.forEach ~ totalAqi:", totalAqi);
       } else {
         console.warn(
           `No AQI data found for location ${locationID} during the specified period.`
@@ -111,7 +109,6 @@ const LiveAqiScore = ({ onAQIScoreCalculated }) => {
         }
 
         onAQIScoreCalculated(calculatedScore, startDate, endDate);
-        console.log("Calculated Score based on average AQI:", calculatedScore);
       } catch (error) {
         console.error("Failed to fetch all AQI scores:", error);
       }

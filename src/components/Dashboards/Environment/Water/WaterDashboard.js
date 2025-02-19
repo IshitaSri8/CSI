@@ -144,7 +144,6 @@ const WaterDashboard = ({ show }) => {
             item.Month === selectedValues.month
         );
         console.log(filteredData_Year_Month);
-        // Calculate total values if all zones are selected
         const totalValues_Year_Month = filteredData_Year_Month.reduce(
           (acc, curr) => {
             return {
