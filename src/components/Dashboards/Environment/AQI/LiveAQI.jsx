@@ -55,10 +55,11 @@ const LiveAQI = ({ show }) => {
   const [maxAqiTime, setMaxAqiTime] = useState();
   const [minAqiValue, setMinAqiValue] = useState();
   const [minAqiTime, setMinAqiTime] = useState();
-
+  const [maxAqiLocation, setMaxAqiLocation] = useState();
+  const [minAqiLocation, setMinAqiLocation] = useState();
   const [ReportVisible, setReportVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedLocationId, setSelectedLocationId] = useState();
+  const [selectedLocationId, setSelectedLocationId] = useState("");
   const [locations, setLocations] = useState([]);
 
   const currentDate = new Date();
@@ -146,7 +147,7 @@ const LiveAQI = ({ show }) => {
         }
       );
       const api_response = response.data.data;
-      // console.log("🚀 ~ getAQI ~ api_response:", api_response);
+      console.log("🚀 ~ getAQI ~ api_response:", api_response);
       const dateArray = [];
       const timeArray = [];
       const dayArray = [];
@@ -161,27 +162,32 @@ const LiveAQI = ({ show }) => {
       let maxAqiTime = "";
       let minAqiTime = "";
       let aqiValueSet = false; // Flag to ensure we only set AQI once
+
+      let liveDataFound = false; // Flag to track if live data is found
       if (api_response) {
         api_response.forEach((item) => {
           const newDate = new Date(item.time * 1000);
           const day = newDate.getDay();
           const week = getWeek(newDate);
           const [date, time] = convertDateString(newDate);
+
           if (
-            !aqiValueSet &&
             item.thing_id === getThingID(selectedValues.location) &&
             date === dateLive &&
             time === timeLive
           ) {
+            // Live data found
+            liveDataFound = true;
             setSelectedLocationId(item.thing_id);
             setAqiValue(item.parameter_values.aqi.value);
+
             setAqiStatus(getAqiStatus(item.parameter_values.aqi.value));
             setCurrentPM10(item.parameter_values.pm10.avg);
             setCurrentPM25(item.parameter_values["pm2.5"].avg);
             setCurrentNO2(item.parameter_values.no2.avg);
             setCurrentSO2(item.parameter_values.so2.avg);
-            aqiValueSet = true; // Set the flag to true
           }
+
           if (
             item.thing_id === getThingID(selectedValues.location) &&
             date === dateLive
@@ -195,6 +201,10 @@ const LiveAQI = ({ show }) => {
               minAqi = aqi;
               minAqiTime = time;
             }
+            setMaxAqiValue(maxAqi);
+            setMaxAqiTime(maxAqiTime);
+            setMinAqiValue(minAqi);
+            setMinAqiTime(minAqiTime);
           }
           if (
             item.thing_id === getThingID(selectedValues.location) &&
@@ -203,10 +213,6 @@ const LiveAQI = ({ show }) => {
           ) {
             setYesterdayAQI(item.parameter_values.aqi.value);
           }
-          setMaxAqiValue(maxAqi);
-          setMaxAqiTime(maxAqiTime);
-          setMinAqiValue(minAqi);
-          setMinAqiTime(minAqiTime);
 
           aqiArrayAPI.push(item.parameter_values.aqi.value);
           dateArray.push(date);
@@ -218,6 +224,18 @@ const LiveAQI = ({ show }) => {
           pm25Array.push(item.parameter_values["pm2.5"].avg);
           pm10Array.push(item.parameter_values.pm10.avg);
         });
+
+        // After the loop, check if live data was found
+        if (!liveDataFound) {
+          setSelectedLocationId(null);
+          setAqiValue("N/A");
+          setAqiStatus("N/A");
+          setCurrentPM10("N/A");
+          setCurrentPM25("N/A");
+          setCurrentNO2("N/A");
+          setCurrentSO2("N/A");
+        }
+
         setAQIArrayData(aqiArrayAPI);
         setDateArrayData(dateArray);
         setTimeArrayData(timeArray);
@@ -281,23 +299,64 @@ const LiveAQI = ({ show }) => {
         }
       );
       const api_response = response.data.data;
+      // Variables to store sums and counts for live data
+      let liveAqiSum = 0;
+      let livePm10Sum = 0;
+      let livePm25Sum = 0;
+      let liveReadingsCount = 0;
+      let yesterdayAQISum = 0;
+      let yesterdayReadingsCount = 0;
 
       // Array to store the processed data
       const processedData = [];
+      let maxAqi = -Infinity;
+      let minAqi = Infinity;
+      let maxAqiTime = "";
+      let maxAqiLocation = "";
+      let minAqiLocation = "";
+      let minAqiTime = "";
 
       if (api_response) {
         api_response.forEach((item) => {
-          // Extract date and time
           const newDate = new Date(item.time * 1000);
           const [date, time] = convertDateString(newDate);
+          // Condition to check if it's live data
+          if (date === dateLive && time === timeLive) {
+            liveAqiSum += item.parameter_values.aqi.value;
+            livePm10Sum += item.parameter_values.pm10.avg;
+            livePm25Sum += item.parameter_values["pm2.5"].avg;
+            liveReadingsCount++;
+          }
+          if (date === dateLive) {
+            const aqi = item.parameter_values.aqi.value;
+            if (aqi >= maxAqi) {
+              maxAqi = aqi;
+              maxAqiTime = time;
+              maxAqiLocation = getLocationName(item.thing_id);
+            }
+            if (aqi <= minAqi) {
+              minAqi = aqi;
+              minAqiTime = time;
+              minAqiLocation = getLocationName(item.thing_id);
+            }
+            setMaxAqiLocation(maxAqiLocation);
+            setMinAqiLocation(minAqiLocation);
+            setMaxAqiValue(maxAqi);
+            setMaxAqiTime(maxAqiTime);
+            setMinAqiValue(minAqi);
+            setMinAqiTime(minAqiTime);
+          }
 
+          if (date === yesterdayDate && time === timeLive) {
+            yesterdayAQISum += item.parameter_values.aqi.value;
+            yesterdayReadingsCount++;
+          }
           const aqi = item.parameter_values.aqi.value;
           const pm10 = item.parameter_values.pm10.avg;
           const pm25 = item.parameter_values["pm2.5"].avg;
           const no2 = item.parameter_values.no2.avg;
           const so2 = item.parameter_values.so2.avg;
 
-          // Check if any of the values are null or undefined. If they are, skip adding to the sums
           if (
             aqi !== null &&
             aqi !== undefined &&
@@ -325,6 +384,25 @@ const LiveAQI = ({ show }) => {
             processedData.push(dataObject);
           }
         });
+        // Calculate averages for live data
+        const averageLiveAqi =
+          liveReadingsCount > 0 ? liveAqiSum / liveReadingsCount : 0;
+        const averageLivePm10 =
+          liveReadingsCount > 0 ? livePm10Sum / liveReadingsCount : 0;
+        const averageLivePm25 =
+          liveReadingsCount > 0 ? livePm25Sum / liveReadingsCount : 0;
+        const averageYesterdayAqi =
+          yesterdayReadingsCount > 0
+            ? yesterdayAQISum / yesterdayReadingsCount
+            : 0;
+
+        setAqiValue(Math.round(averageLiveAqi));
+        setAqiStatus(getAqiStatus(Math.round(averageLiveAqi)));
+        setCurrentPM10(averageLivePm10);
+        setCurrentPM25(averageLivePm25);
+        setCurrentNO2(api_response[0].parameter_values.no2.avg);
+        setCurrentSO2(api_response[0].parameter_values.so2.avg);
+        setYesterdayAQI(Math.round(averageYesterdayAqi));
 
         // Aggregate data by date and time
         const aggregatedData = {};
@@ -401,7 +479,6 @@ const LiveAQI = ({ show }) => {
         new Set(filteredDataWithDeviation.map(JSON.stringify))
       ).map(JSON.parse);
       setDataTableData(uniqueDataTableData);
-
       return 0;
     } catch (error) {
       console.error("Error fetching AQI data:", error);
@@ -457,17 +534,14 @@ const LiveAQI = ({ show }) => {
           .map((loc) => getThingID(loc.value))
           .filter(Boolean);
 
-        if (locationIDs.length > 0) {
-          const start = new Date(selectedValues.liveStartDate);
-          const end = new Date(selectedValues.liveEndDate);
-          start.setHours(0, 0, 0, 0);
-          end.setHours(23, 59, 59, 59);
-
-          const fromTime = Math.floor(start.getTime() / 1000);
-          const uptoTime = Math.floor(end.getTime() / 1000);
-          await getAllLocationAQIAverage(locationIDs, fromTime, uptoTime);
-        }
-      } else if (aqiIDs) {
+        const start = new Date(selectedValues.liveStartDate);
+        const end = new Date(selectedValues.liveEndDate);
+        start.setHours(0, 0, 0, 0);
+        end.setHours(23, 59, 59, 59);
+        const fromTime = Math.floor(start.getTime() / 1000);
+        const uptoTime = Math.floor(end.getTime() / 1000);
+        await getAllLocationAQIAverage(locationIDs, fromTime, uptoTime);
+      } else {
         // Fetch data for the selected location
         const promises = aqiIDs.map((aqiID) => {
           return aqiID.thingID === getThingID(selectedValues.location)
@@ -481,7 +555,13 @@ const LiveAQI = ({ show }) => {
     };
 
     fetchAQIData();
-  }, [aqiIDs, selectedValues.location]);
+  }, [
+    aqiIDs,
+    locations,
+    selectedValues.liveEndDate,
+    selectedValues.liveStartDate,
+    selectedValues.location,
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -567,8 +647,6 @@ const LiveAQI = ({ show }) => {
     return undefined; // Or any default value you want to return if the ID is not found
   };
 
- 
-
   const getAqiStatus = (aqi) => {
     if (aqi > 0 && aqi <= 50) {
       return {
@@ -644,9 +722,6 @@ const LiveAQI = ({ show }) => {
   }
 
   const handleScoreCalculated = (calculatedScore, startDate, endDate) => {
-    console.log("🚀 ~ handleScoreCalculated ~ endDate:", endDate);
-    console.log("🚀 ~ handleScoreCalculated ~ startDate:", startDate);
-
     // Convert startDate and endDate to Date objects if they are not already
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -658,15 +733,11 @@ const LiveAQI = ({ show }) => {
     const endMonth = end.toLocaleString("default", { month: "long" }); // e.g., "January"
     const endYear = end.getFullYear(); // e.g., 2025
 
-    console.log(`Start Date: ${startMonth} ${startYear}`); // Logs: Start Date: November 2024
-    console.log(`End Date: ${endMonth} ${endYear}`); // Logs: End Date: January 2025
-
     // Set state variables to store month and year
     setStartMonthYearScore(`${startMonth} ${startYear}`);
     setEndMonthYearScore(`${endMonth} ${endYear}`);
 
     setScore(calculatedScore);
-    console.log("Calculated Score received in Dashboard:", calculatedScore);
 
     // Update the score color based on the calculated score
     const color = getScoreColor(calculatedScore);
@@ -943,7 +1014,7 @@ const LiveAQI = ({ show }) => {
               <div className="flex gap-2">
                 <p className="p-0 m-0 font-italic text-sm">Last updated:</p>
                 <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
-                  {selectedLocationId}
+                  {selectedValues.location || "Select a location"}
                 </p>
                 <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
                   {dateLive}
@@ -964,9 +1035,19 @@ const LiveAQI = ({ show }) => {
             {/* Minimum and Maximum AQI Values */}
             <div className="flex flex-column gap-4 justify-content-center">
               {[
-                { label: "Minimum", value: minAqiValue, time: minAqiTime },
-                { label: "Maximum", value: maxAqiValue, time: maxAqiTime },
-              ].map(({ label, value, time }) => (
+                {
+                  label: "Minimum",
+                  value: minAqiValue,
+                  time: minAqiTime,
+                  location: minAqiLocation,
+                },
+                {
+                  label: "Maximum",
+                  value: maxAqiValue,
+                  time: maxAqiTime,
+                  location: maxAqiLocation,
+                },
+              ].map(({ label, value, time, location }) => (
                 <div
                   key={label}
                   className="flex flex-column shadow-1 border-round p-3 gap-2"
@@ -985,11 +1066,20 @@ const LiveAQI = ({ show }) => {
                           {value}
                         </span>
                       </p>
-                      <p className="card-text p-0 m-0 font-italic">
+                      <p className="card-text p-0 m-0 font-italic text-xs">
                         Recorded at{" "}
-                        <span className="text-primary1 font-medium">
-                          {time}
-                        </span>
+                        {selectedValues.location === "All Locations" ? (
+                          <>
+                            <span className="text-primary1 font-medium text-xs">
+                              {time}
+                            </span>{" "}
+                            in <span className="text-xs">{location}</span>
+                          </>
+                        ) : (
+                          <span className="text-primary1 font-medium text-xs">
+                            {time}
+                          </span>
+                        )}
                       </p>
                     </>
                   )}
@@ -1027,17 +1117,19 @@ const LiveAQI = ({ show }) => {
                 padding: 2,
               }}
             ></Column>
-            <Column
-              field="location"
-              header="Location"
-              className="text-left"
-              headerStyle={{
-                fontSize: "0.2rem",
-                backgroundColor: "#003940",
-                color: "white",
-                padding: 2,
-              }}
-            ></Column>
+            {selectedValues.location === "All Locations" && (
+              <Column
+                field="location"
+                header="Location"
+                className="text-left"
+                headerStyle={{
+                  fontSize: "0.2rem",
+                  backgroundColor: "#003940",
+                  color: "white",
+                  padding: 2,
+                }}
+              ></Column>
+            )}
             <Column
               field="date"
               header="Date"
