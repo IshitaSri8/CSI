@@ -410,7 +410,7 @@ const DailyTrend = ({
   };
   return (
     <div className="flex flex-column gap-3 w-full">
-      <div className="flex flex-column">
+      <div className="flex flex-column" style={{ flex: "70%" }}>
         <div className="flex align-items-start justify-content-start gap-2">
           <Button
             className={`${backButtonClassName} bg-primary1  text-white text-xs`}
@@ -434,20 +434,24 @@ const DailyTrend = ({
           containerProps={{ width: "100%" }}
         />
         {isDrilldown && (
-          <div className="flex w-full">
-            <div className="flex items-center gap-1">
+          <div className="flex w-full gap-4">
+            <div className="flex align-items-center gap-1">
               <i
                 className="pi pi-circle-fill"
                 style={{ fontSize: "0.8em", color: "#F7A47A" }}
               ></i>
-              <p style={{ fontSize: "0.8em", margin: 0 }}>Day Peak Hour</p>
+              <p style={{ fontSize: "0.8em", margin: 0 }} className="card-text">
+                Day Peak Hour
+              </p>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex align-items-center gap-1">
               <i
                 className="pi pi-circle-fill"
                 style={{ fontSize: "0.8em", color: "#4D7479" }}
               ></i>
-              <p style={{ fontSize: "0.8em", margin: 0 }}>Night Peak Hour</p>
+              <p style={{ fontSize: "0.8em", margin: 0 }} className="card-text">
+                Night Peak Hour
+              </p>
             </div>
           </div>
         )}

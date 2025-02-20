@@ -11,6 +11,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { Divider } from "primereact/divider";
+import { Tooltip } from "primereact/tooltip";
 
 const AQIChart = ({
   location,
@@ -424,7 +425,23 @@ const AQIChart = ({
         <div className="flex flex-column bg-white border-round p-2 gap-2">
           <div className="flex justify-content-between">
             <p className="p-0 m-0 card-title">AQI Trend</p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 align-items-center">
+              <i className="pi pi-info-circle card-text info" />
+              <Tooltip
+                target=".info"
+                position="bottom"
+                tooltipOptions={{
+                  className: "hoverClass",
+                  showDelay: 500,
+                  hideDelay: 101300,
+                }}
+              >
+                <p className="w-15rem">
+                  This indicates the specific hours, both during the day and
+                  night, that experience the most frequent peaks in air quality
+                  (highest AQI) over the chosen period.
+                </p>
+              </Tooltip>
               <div className="flex border-round p-2 sec-theme">
                 <p className="p-0 m-0 card-text">
                   Day Peak Hour:{" "}
@@ -439,15 +456,20 @@ const AQIChart = ({
               </div>
             </div>
           </div>
-          <DailyTrend
-            selectedDate={selectedDate}
-            dailyAverage={dailyAverage}
-            dailyData={dailyData}
-            setSelectedDate={setSelectedDate}
-            fifteenDaysData={fifteenDaysData}
-            startDate={startDate}
-            onShowTableChange={handleShowTableChange}
-          />
+          <div className="flex">
+            <DailyTrend
+              selectedDate={selectedDate}
+              dailyAverage={dailyAverage}
+              dailyData={dailyData}
+              setSelectedDate={setSelectedDate}
+              fifteenDaysData={fifteenDaysData}
+              startDate={startDate}
+              onShowTableChange={handleShowTableChange}
+            />
+            <div className="flex sec-theme p-2" style={{ flex: "30%" }}>
+              <p className="card-title p-0 m-0">Insights</p>
+            </div>
+          </div>
         </div>
         <div className="flex flex-column gap-3 w-full">
           {showTable && (
@@ -636,7 +658,7 @@ const AQIChart = ({
           </div>
         </div>
         <div className="flex gap-3 w-full">
-          <div className="w-full flex bg-white border-round p-4">
+          <div className="w-full flex bg-white border-round p-2">
             <div className="flex flex-column" style={{ flex: "70%" }}>
               <p className="card-title p-0 m-0">Pollutants Trend</p>
               <TabView
@@ -689,8 +711,8 @@ const AQIChart = ({
                 </TabPanel>
               </TabView>
             </div>
-            <div className="flex insights p-2" style={{ flex: "30%" }}>
-              <p className="card-title p-0 m-0 text-white">Insights</p>
+            <div className="flex sec-theme p-2" style={{ flex: "30%" }}>
+              <p className="card-title p-0 m-0">Insights</p>
             </div>
           </div>
         </div>
