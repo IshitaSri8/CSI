@@ -10,6 +10,7 @@ import { Column } from "primereact/column";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import { Divider } from "primereact/divider";
 
 const AQIChart = ({
   location,
@@ -46,6 +47,10 @@ const AQIChart = ({
   );
   const [nighttimePeakHourFrequencies, setNighttimePeakHourFrequencies] =
     useState([]);
+
+  const [dayPeak, setDayPeak] = useState();
+  const [nightPeak, setNightPeak] = useState();
+
   const [showTable, setShowTable] = useState(false);
 
   const handleShowTableChange = (newValue) => {
@@ -206,6 +211,9 @@ const AQIChart = ({
           nighttimePeakHours[time]++;
         });
       }
+
+      setDayPeak(daytimePeak);
+      setNightPeak(nighttimePeak);
     });
 
     // Convert peak hour frequencies to the format expected by DataTable and sort by frequency
@@ -413,15 +421,34 @@ const AQIChart = ({
   return (
     chartData.length > 0 && (
       <div className="flex flex-column gap-3 w-full">
-        <DailyTrend
-          selectedDate={selectedDate}
-          dailyAverage={dailyAverage}
-          dailyData={dailyData}
-          setSelectedDate={setSelectedDate}
-          fifteenDaysData={fifteenDaysData}
-          startDate={startDate}
-          onShowTableChange={handleShowTableChange}
-        />
+        <div className="flex flex-column bg-white border-round p-2 gap-2">
+          <div className="flex justify-content-between">
+            <p className="p-0 m-0 card-title">AQI Trend</p>
+            <div className="flex gap-2">
+              <div className="flex border-round p-2 sec-theme">
+                <p className="p-0 m-0 card-text">
+                  Day Peak Hour:{" "}
+                  <span className="text-primary1 font-medium">{dayPeak}</span>
+                </p>
+              </div>
+              <div className="flex border-round p-2 sec-theme">
+                <p className="p-0 m-0 card-text">
+                  Night Peak Hour:{" "}
+                  <span className="text-primary1 font-medium">{nightPeak}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <DailyTrend
+            selectedDate={selectedDate}
+            dailyAverage={dailyAverage}
+            dailyData={dailyData}
+            setSelectedDate={setSelectedDate}
+            fifteenDaysData={fifteenDaysData}
+            startDate={startDate}
+            onShowTableChange={handleShowTableChange}
+          />
+        </div>
         <div className="flex flex-column gap-3 w-full">
           {showTable && (
             <div className="flex gap-3">
