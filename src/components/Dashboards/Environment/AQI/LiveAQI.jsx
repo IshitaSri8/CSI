@@ -58,9 +58,7 @@ const LiveAQI = ({ show }) => {
 
   const currentDate = new Date();
   const sevenDaysAgo = new Date(new Date().setDate(new Date().getDate() - 7));
-  const thirtyDaysAgo = new Date(new Date().setDate(new Date().getDate() - 30));
-  const sixMonthsAgo = new Date(new Date().setDate(new Date().getDate() - 180));
-  const oneYearAgo = new Date(new Date().setDate(new Date().getDate() - 365));
+
   const [selectedValues, setSelectedValues] = useState({
     location: "All Locations",
     liveStartDate: sevenDaysAgo,
@@ -587,6 +585,7 @@ const LiveAQI = ({ show }) => {
     selectedValues.liveStartDate,
     selectedValues.liveEndDate,
   ]);
+
   const getLocationName = (thingID) => {
     if (thingID === 12218) {
       return "Ayodhya - Civil line,Tiny tots school";
@@ -662,6 +661,7 @@ const LiveAQI = ({ show }) => {
       };
     }
   };
+
   const getWeek = (date) => {
     const d = new Date(
       Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
@@ -700,6 +700,60 @@ const LiveAQI = ({ show }) => {
 
     // You can also perform additional actions with the score here
   };
+
+  // Date Range Dropdown Options
+  const dateRangeOptions = [
+    { label: "Weekly", value: "weekly" },
+    { label: "Monthly", value: "monthly" },
+    { label: "Half-Yearly", value: "half-yearly" },
+    { label: "Yearly", value: "yearly" },
+  ];
+
+  const [selectedDateRange, setSelectedDateRange] = useState("weekly");
+
+  const calculateDateRange = (range) => {
+    const endDate = new Date(); // Current date as end date
+    let startDate;
+
+    switch (range) {
+      case "weekly":
+        startDate = new Date(new Date().setDate(new Date().getDate() - 7)); // 7 days ago
+        break;
+      case "monthly":
+        startDate = new Date(new Date().setDate(new Date().getDate() - 30)); // 30 days ago
+        break;
+      case "half-yearly":
+        startDate = new Date(new Date().setDate(new Date().getDate() - 180)); // 180 days ago
+        break;
+      case "yearly":
+        startDate = new Date(new Date().setDate(new Date().getDate() - 365)); // 365 days ago
+        break;
+      default:
+        startDate = new Date(new Date().setDate(new Date().getDate() - 7)); // Default to weekly
+        break;
+    }
+
+    return { startDate, endDate };
+  };
+
+  const onDateRangeChange = (e) => {
+    const range = e.value;
+    setSelectedDateRange(range);
+    const { startDate, endDate } = calculateDateRange(range);
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      liveStartDate: startDate,
+      liveEndDate: endDate,
+    }));
+  };
+  useEffect(() => {
+    const { startDate, endDate } = calculateDateRange(selectedDateRange);
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      liveStartDate: startDate,
+      liveEndDate: endDate,
+    }));
+  }, []);
 
   return loading ? (
     <div className="flex align-items-center justify-content-center flex-column">
@@ -906,9 +960,7 @@ const LiveAQI = ({ show }) => {
               {/* Last Updated Information */}
               <div className="flex gap-2">
                 <p className="p-0 m-0 font-italic text-sm">Last updated:</p>
-                <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
-                  {selectedValues.location || "Select a location"}
-                </p>
+
                 <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
                   {dateLive}
                 </p>
@@ -959,7 +1011,7 @@ const LiveAQI = ({ show }) => {
                           {value}
                         </span>
                       </p>
-                      <p className="card-text p-0 m-0 font-italic text-xs">
+                      <p className="card-text p-0 m-0 font-italic text-xs w-10rem ">
                         Recorded at{" "}
                         {selectedValues.location === "All Locations" ? (
                           <>
@@ -986,31 +1038,19 @@ const LiveAQI = ({ show }) => {
       </div>
 
       <div className="flex justify-content-end">
-        <Calendar
+        <Dropdown
           id="dateRange"
-          value={[selectedValues.liveStartDate, selectedValues.liveEndDate]} // Pass selected date range as an array
-          onChange={(e) => {
-            const [newStartDate, newEndDate] = e.value; // Destructure range
-            setSelectedValues({
-              ...selectedValues,
-              liveStartDate: newStartDate,
-              liveEndDate: newEndDate,
-            });
-          }}
-          selectionMode="range"
-          showIcon
-          dateFormat="dd-mm-yy"
-          placeholder="Select date range"
-          showButtonBar
-          hideOnRangeSelection
-          minDate={minDate}
-          maxDate={currentDate}
+          value={selectedDateRange}
+          options={dateRangeOptions}
+          onChange={onDateRangeChange}
+          placeholder="Select a range"
         />
       </div>
 
       <AQIChart
         tableData={dataTableData}
         rowClassName={rowClassName}
+        location={selectedValues.location}
         enviroDate={dateArrayData}
         envirotime={timeArrayData}
         enviroAQI={AQIArrayData}

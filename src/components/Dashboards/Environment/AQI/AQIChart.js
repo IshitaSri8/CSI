@@ -12,6 +12,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
 const AQIChart = ({
+  location,
   tableData,
   rowClassName,
   enviroDate,
@@ -135,7 +136,6 @@ const AQIChart = ({
     );
     return uniqueData;
   };
-
 
   const calculatePeakHours = () => {
     if (!enviroDate || !envirotime || !enviroAQI) {
@@ -316,7 +316,7 @@ const AQIChart = ({
     let daytimeSum = 0;
     let daytimeCount = 0;
     for (let hour = 6; hour <= 17; hour++) {
-      const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
+      const time = `${hour < 10 ? "0" : ""}${hour}:00`;
       if (fifteenDaysHourlyAverages[time] !== undefined) {
         daytimeSum += fifteenDaysHourlyAverages[time];
         daytimeCount++;
@@ -330,14 +330,14 @@ const AQIChart = ({
     let nighttimeCount = 0;
 
     for (let hour = 18; hour <= 23; hour++) {
-      const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
+      const time = `${hour < 10 ? "0" : ""}${hour}:00`;
       if (fifteenDaysHourlyAverages[time] !== undefined) {
         nighttimeSum += fifteenDaysHourlyAverages[time];
         nighttimeCount++;
       }
     }
     for (let hour = 0; hour <= 5; hour++) {
-      const time = `${hour < 10 ? "0" : ""}${hour}:00:00`;
+      const time = `${hour < 10 ? "0" : ""}${hour}:00`;
       if (fifteenDaysHourlyAverages[time] !== undefined) {
         nighttimeSum += fifteenDaysHourlyAverages[time];
         nighttimeCount++;
@@ -466,6 +466,20 @@ const AQIChart = ({
                     padding: 2,
                   }}
                 ></Column>
+                {location === "All Locations" && (
+                  <Column
+                    field="location"
+                    header="Location"
+                    className="text-left"
+                    headerStyle={{
+                      fontSize: "0.2rem",
+                      backgroundColor: "#003940",
+                      color: "white",
+                      padding: 2,
+                    }}
+                  ></Column>
+                )}
+
                 <Column
                   field="date"
                   header="Date"
@@ -512,75 +526,77 @@ const AQIChart = ({
               </div>
             </div>
 
-            <div className="flex flex-column bg-white border-round p-2">
-              <p className="card-title p-0 m-0">Peak Hours</p>
-              <TabView
-                activeIndex={activeTable}
-                onTabChange={(e) => setActiveTable(e.index)}
-              >
-                <TabPanel header="Day">
-                  {/* Daytime Peak Hours Table */}
+            <div className="flex bg-white border-round p-2">
+              <div className="flex flex-column w-full">
+                <p className="card-title p-0 m-0">Peak Hours</p>
+                <TabView
+                  activeIndex={activeTable}
+                  onTabChange={(e) => setActiveTable(e.index)}
+                >
+                  <TabPanel header="Day">
+                    {/* Daytime Peak Hours Table */}
 
-                  <DataTable
-                    value={daytimePeakHourFrequencies}
-                    className="overflow-y-auto h-8rem"
-                    headerStyle={{ textAlign: "center" }}
-                    rowClassName={rowClassNameDay}
-                  >
-                    <Column
-                      field="time"
-                      header="Time"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#003940",
-                        color: "white",
-                        padding: 2,
-                      }}
-                    ></Column>
-                    <Column
-                      field="frequency"
-                      header="Frequency"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#003940",
-                        color: "white",
-                        padding: 2,
-                      }}
-                    ></Column>
-                  </DataTable>
-                </TabPanel>
-                <TabPanel header="Night">
-                  {/* Nighttime Peak Hours Table */}
+                    <DataTable
+                      value={daytimePeakHourFrequencies}
+                      className="overflow-y-auto h-14rem"
+                      headerStyle={{ textAlign: "center" }}
+                      rowClassName={rowClassNameDay}
+                    >
+                      <Column
+                        field="time"
+                        header="Time"
+                        headerStyle={{
+                          fontSize: "0.6rem",
+                          backgroundColor: "#003940",
+                          color: "white",
+                          padding: 2,
+                        }}
+                      ></Column>
+                      <Column
+                        field="frequency"
+                        header="Frequency"
+                        headerStyle={{
+                          fontSize: "0.6rem",
+                          backgroundColor: "#003940",
+                          color: "white",
+                          padding: 2,
+                        }}
+                      ></Column>
+                    </DataTable>
+                  </TabPanel>
+                  <TabPanel header="Night">
+                    {/* Nighttime Peak Hours Table */}
 
-                  <DataTable
-                    value={nighttimePeakHourFrequencies}
-                    className="overflow-y-auto h-8rem"
-                    rowClassName={rowClassNamenight}
-                  >
-                    <Column
-                      field="time"
-                      header="Time"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#003940",
-                        color: "white",
-                        padding: 2,
-                      }}
-                    ></Column>
-                    <Column
-                      field="frequency"
-                      header="Frequency"
-                      headerStyle={{
-                        fontSize: "0.6rem",
-                        backgroundColor: "#003940",
-                        color: "white",
-                        padding: 2,
-                      }}
-                    ></Column>
-                  </DataTable>
-                </TabPanel>
-              </TabView>
-              <div className="flex flex-column sec-theme p-2 gap-1">
+                    <DataTable
+                      value={nighttimePeakHourFrequencies}
+                      className="overflow-y-auto h-14rem"
+                      rowClassName={rowClassNamenight}
+                    >
+                      <Column
+                        field="time"
+                        header="Time"
+                        headerStyle={{
+                          fontSize: "0.6rem",
+                          backgroundColor: "#003940",
+                          color: "white",
+                          padding: 2,
+                        }}
+                      ></Column>
+                      <Column
+                        field="frequency"
+                        header="Frequency"
+                        headerStyle={{
+                          fontSize: "0.6rem",
+                          backgroundColor: "#003940",
+                          color: "white",
+                          padding: 2,
+                        }}
+                      ></Column>
+                    </DataTable>
+                  </TabPanel>
+                </TabView>
+              </div>
+              <div className="flex flex-column sec-theme p-2 gap-1 w-full">
                 <p className="card-title p-0 m-0">Insights</p>
                 <p className="card-text p-0 m-0">
                   This card helps you understand when the worst air quality
