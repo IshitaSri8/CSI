@@ -12,6 +12,8 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
 const AQIChart = ({
+  tableData,
+  rowClassName,
   enviroDate,
   envirotime,
   enviroDay,
@@ -134,100 +136,6 @@ const AQIChart = ({
     return uniqueData;
   };
 
-  const calculateFifteenDaysDayAverages = (fifteenDaysData) => {
-    const dayAqiData = {};
-
-    fifteenDaysData.forEach((item) => {
-      const { day, aqi } = item;
-      if (!dayAqiData[day]) {
-        dayAqiData[day] = [];
-      }
-      dayAqiData[day].push(aqi);
-    });
-
-    const dayAverages = {};
-    for (const day in dayAqiData) {
-      const dayAQI = dayAqiData[day];
-      const sum = dayAQI.reduce((acc, aqi) => acc + aqi, 0);
-      const average = sum / dayAQI.length;
-      dayAverages[day] = Math.round(average);
-    }
-    return dayAverages;
-  };
-
-  const calculateFifteenDaysHourlyAverages = (fifteenDaysData) => {
-    const hourlyAveragesData = {};
-
-    fifteenDaysData.forEach((item) => {
-      const { time, aqi } = item;
-      if (!hourlyAveragesData[time]) {
-        hourlyAveragesData[time] = [];
-      }
-      hourlyAveragesData[time].push(aqi);
-    });
-
-    const hourlyAverages = {};
-    for (const time in hourlyAveragesData) {
-      const hourlyAQI = hourlyAveragesData[time];
-      const sum = hourlyAQI.reduce((acc, aqi) => acc + aqi, 0);
-      const average = sum / hourlyAQI.length;
-      hourlyAverages[time] = Math.round(average);
-    }
-    return hourlyAverages;
-  };
-
-  // Function to calculate average AQI for each day of the week
-  const calculateDayAverages = () => {
-    if (!enviroDay || !enviroAQI) {
-      return {};
-    }
-
-    const dayAqiData = {};
-
-    enviroDay.forEach((day, index) => {
-      const aqi = enviroAQI[index];
-      if (!dayAqiData[day]) {
-        dayAqiData[day] = [];
-      }
-      dayAqiData[day].push(aqi);
-    });
-
-    const dayAverages = {};
-    for (const day in dayAqiData) {
-      const dayAQI = dayAqiData[day];
-      const sum = dayAQI.reduce((acc, aqi) => acc + aqi, 0);
-      const average = sum / dayAQI.length;
-      dayAverages[day] = Math.round(average);
-    }
-    return dayAverages;
-  };
-
-  // Function to calculate average AQI for each hour
-  const calculateHourlyAverages = () => {
-    if (!envirotime || !enviroAQI) {
-      return {};
-    }
-
-    // Initialize an array to store the sums and counts for each hour
-    const hourlyAveragesData = {};
-
-    envirotime.forEach((time, index) => {
-      const aqi = enviroAQI[index];
-      if (!hourlyAveragesData[time]) {
-        hourlyAveragesData[time] = [];
-      }
-      hourlyAveragesData[time].push(aqi);
-    });
-
-    const hourlyAverages = {};
-    for (const time in hourlyAveragesData) {
-      const hourlyAQI = hourlyAveragesData[time];
-      const sum = hourlyAQI.reduce((acc, aqi) => acc + aqi, 0);
-      const average = sum / hourlyAQI.length;
-      hourlyAverages[time] = Math.round(average);
-    }
-    return hourlyAverages;
-  };
 
   const calculatePeakHours = () => {
     if (!enviroDate || !envirotime || !enviroAQI) {
@@ -505,17 +413,105 @@ const AQIChart = ({
   return (
     chartData.length > 0 && (
       <div className="flex flex-column gap-3 w-full">
-        <div className="flex gap-3 w-full">
-          <DailyTrend
-            selectedDate={selectedDate}
-            dailyAverage={dailyAverage}
-            dailyData={dailyData}
-            setSelectedDate={setSelectedDate}
-            fifteenDaysData={fifteenDaysData}
-            startDate={startDate}
-            onShowTableChange={handleShowTableChange}
-          />
-          <div className="flex flex-column gap-3" style={{ flex: "30%" }}>
+        <DailyTrend
+          selectedDate={selectedDate}
+          dailyAverage={dailyAverage}
+          dailyData={dailyData}
+          setSelectedDate={setSelectedDate}
+          fifteenDaysData={fifteenDaysData}
+          startDate={startDate}
+          onShowTableChange={handleShowTableChange}
+        />
+        <div className="flex flex-column gap-3 w-full">
+          {showTable && (
+            <div className="flex gap-3">
+              <WeekTrend
+                overallWeekendAverage={overallWeekendAverage}
+                overallWeekdayAverage={overallWeekdayAverage}
+                weekendAverages={weekendAverages}
+                weekdayAverages={weekdayAverages}
+              />
+              <HourlyTrend
+                averageDaytimeAqi={averageDaytimeAqi}
+                averageNighttimeAqi={averageNighttimeAqi}
+                hourlyAverages={hourlyAverages}
+              />
+            </div>
+          )}
+          <div className="flex gap-3 w-full">
+            <div className="flex flex-column bg-white border-round p-2 w-full">
+              <DataTable
+                value={tableData}
+                rowClassName={rowClassName}
+                // className="custom-row"
+                scrollable
+                scrollHeight="17rem"
+                style={{
+                  width: "100%",
+                  // borderRadius: "15px",
+                  overflow: "hidden",
+                  // scrollbarWidth: "none",
+                  padding: 2,
+                }}
+                emptyMessage="No Outlier Days Found."
+              >
+                <Column
+                  field="aqi"
+                  header="AQI"
+                  className="font-semibold text-left text-lg"
+                  headerStyle={{
+                    fontSize: "0.6rem",
+                    backgroundColor: "#003940",
+                    color: "white",
+                    padding: 2,
+                  }}
+                ></Column>
+                <Column
+                  field="date"
+                  header="Date"
+                  className="text-left"
+                  headerStyle={{
+                    fontSize: "0.2rem",
+                    backgroundColor: "#003940",
+                    color: "white",
+                    padding: 2,
+                  }}
+                ></Column>
+                <Column
+                  field="time"
+                  header="Time"
+                  className="text-left"
+                  headerStyle={{
+                    fontSize: "0.6rem",
+                    backgroundColor: "#003940",
+                    color: "white",
+                    padding: 2,
+                  }}
+                />
+
+                <Column
+                  field="deviationPercentage"
+                  header="Outlier %"
+                  className="text-lg font-semibold text-left"
+                  style={{ width: "20%" }}
+                  headerStyle={{
+                    fontSize: "0.6rem",
+                    backgroundColor: "#003940",
+                    color: "white",
+                    padding: 2,
+                  }}
+                ></Column>
+              </DataTable>
+              <div className="flex flex-column sec-theme p-2 gap-1">
+                <p className="card-title p-0 m-0">Note:</p>
+                <p className="card-text p-0 m-0">
+                  This table lists the dates and times within the selected range
+                  when the AQI exceeded 400. Rows highlighted in red indicate
+                  instances where the outlier percentage exceeds 10%.
+                </p>
+              </div>
+            </div>
+
             <div className="flex flex-column bg-white border-round p-2">
               <p className="card-title p-0 m-0">Peak Hours</p>
               <TabView
@@ -527,7 +523,7 @@ const AQIChart = ({
 
                   <DataTable
                     value={daytimePeakHourFrequencies}
-                    className="overflow-y-auto h-10rem"
+                    className="overflow-y-auto h-8rem"
                     headerStyle={{ textAlign: "center" }}
                     rowClassName={rowClassNameDay}
                   >
@@ -558,7 +554,7 @@ const AQIChart = ({
 
                   <DataTable
                     value={nighttimePeakHourFrequencies}
-                    className="overflow-y-auto h-10rem"
+                    className="overflow-y-auto h-8rem"
                     rowClassName={rowClassNamenight}
                   >
                     <Column
@@ -594,24 +590,9 @@ const AQIChart = ({
                 </p>
               </div>
             </div>
-            {showTable && (
-              <>
-                <WeekTrend
-                  overallWeekendAverage={overallWeekendAverage}
-                  overallWeekdayAverage={overallWeekdayAverage}
-                  weekendAverages={weekendAverages}
-                  weekdayAverages={weekdayAverages}
-                />
-                <HourlyTrend
-                  averageDaytimeAqi={averageDaytimeAqi}
-                  averageNighttimeAqi={averageNighttimeAqi}
-                  hourlyAverages={hourlyAverages}
-                />
-              </>
-            )}
           </div>
         </div>
-        {/* <div className="flex gap-3 w-full">
+        <div className="flex gap-3 w-full">
           <div className="w-full flex bg-white border-round p-4">
             <div className="flex flex-column" style={{ flex: "70%" }}>
               <p className="card-title p-0 m-0">Pollutants Trend</p>
@@ -669,7 +650,7 @@ const AQIChart = ({
               <p className="card-title p-0 m-0 text-white">Insights</p>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     )
   );

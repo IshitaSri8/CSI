@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ProgressSpinner } from "primereact/progressspinner";
-import React, { useEffect, useRef, useState } from "react";
-import { OverlayPanel } from "primereact/overlaypanel";
+import React, { useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import AQIRecommendations from "./AQIRecommendations";
@@ -21,17 +20,12 @@ import colors, {
 import { Tag } from "primereact/tag";
 import AQIChart from "./AQIChart";
 import { Radio } from "lucide-react";
-import { Column } from "primereact/column";
-import { DataTable } from "primereact/datatable";
 import GaugeChart from "react-gauge-chart";
 import LiveAqiScore from "./LiveAqiScore";
 import { getScoreColor } from "components/DashboardUtility/scoreColor";
 import ColorScaleBar from "components/DashboardUtility/Charts/ColorScaleBar";
-import GroupedMeterBar from "components/DashboardUtility/Charts/GroupedMeterBar";
 
 const LiveAQI = ({ show }) => {
-  const overlayRef = useRef(null);
-
   const [timeArrayData, setTimeArrayData] = useState([]);
   const [dateArrayData, setDateArrayData] = useState([]);
   const [dayArrayData, setDayArrayData] = useState([]);
@@ -72,11 +66,6 @@ const LiveAQI = ({ show }) => {
     liveStartDate: sevenDaysAgo,
     liveEndDate: new Date(currentDate),
   });
-  const [tempValues, setTempValues] = useState({
-    location: "All Locations",
-    liveStartDate: sevenDaysAgo,
-    liveEndDate: new Date(currentDate),
-  });
 
   const [score, setScore] = useState(null);
   const [scoreColor, setScoreColor] = useState("#000");
@@ -97,9 +86,6 @@ const LiveAQI = ({ show }) => {
     // { name: "NO2", value: currentNO2, unit: "ppb" },
     // { name: "SO2", value: currentSO2, unit: "ppb" },
   ];
-
-  let highestPollutant = null;
-  let highestValue = -Infinity;
 
   const renderRecommendations = () => {
     return (
@@ -486,28 +472,6 @@ const LiveAQI = ({ show }) => {
     }
   };
 
-  const resetFilters = () => {
-    setSelectedValues({
-      location: "All Locations",
-      liveStartDate: new Date("2024-01-01"),
-      liveEndDate: new Date(currentDate),
-    });
-    setTempValues({
-      location: "All Locations",
-      liveStartDate: new Date("2024-01-01"),
-      liveEndDate: new Date(currentDate),
-    });
-  };
-
-  const handleApply = () => {
-    setSelectedValues({
-      location: tempValues.location,
-      liveStartDate: tempValues.liveStartDate,
-      liveEndDate: tempValues.liveEndDate,
-    });
-    overlayRef.current.hide();
-  };
-
   const getThingID = (selectedLocation) => {
     if (selectedLocation === "Ayodhya - Civil line,Tiny tots school") {
       return 12218;
@@ -712,15 +676,6 @@ const LiveAQI = ({ show }) => {
     return parseFloat(data.deviationPercentage) > 10 ? "red-row" : "";
   };
 
-  // Iterate through each pollutant object in the array
-  for (const pollutant of pollutantData) {
-    // Check if the current pollutant's value is greater than the highestValue found so far
-    if (pollutant.value > highestValue) {
-      highestValue = pollutant.value; // Update highestValue
-      highestPollutant = pollutant.name; // Update highestPollutant with the name of the current pollutant
-    }
-  }
-
   const handleScoreCalculated = (calculatedScore, startDate, endDate) => {
     // Convert startDate and endDate to Date objects if they are not already
     const start = new Date(startDate);
@@ -822,83 +777,20 @@ const LiveAQI = ({ show }) => {
             </div>
 
             <div className="flex align-ites-center justify-content-end gap-2">
-              <Button
-                tooltip="Filters"
-                tooltipOptions={{
-                  position: "bottom",
-                }}
-                icon="pi pi-filter"
-                onClick={(e) => overlayRef.current.toggle(e)}
-                className="bg-white text-secondary2"
-                raised
+              <Dropdown
+                value={selectedValues.location}
+                options={locations}
+                optionLabel="label"
+                optionValue="value"
+                onChange={(e) =>
+                  setSelectedValues({
+                    ...selectedValues,
+                    location: e.target.value,
+                  })
+                }
+                placeholder="Select Location"
               />
-              <OverlayPanel
-                ref={overlayRef}
-                style={{ width: "20rem" }}
-                className="p-overlay-panel"
-              >
-                <div className="flex flex-column gap-3">
-                  <div className="flex flex-column">
-                    <label htmlFor="location" className="font-semibold text">
-                      Location
-                    </label>
-                    <Dropdown
-                      value={tempValues.location}
-                      options={locations}
-                      optionLabel="label"
-                      optionValue="value"
-                      onChange={(e) =>
-                        setTempValues({
-                          ...tempValues,
-                          location: e.target.value,
-                        })
-                      }
-                      placeholder="Select Location"
-                    />
-                  </div>
-                  <div className="p-field text-sm flex flex-column">
-                    <label htmlFor="dateRange" className="font-semibold text">
-                      Select Date Range
-                    </label>
-                    <Calendar
-                      id="dateRange"
-                      value={[tempValues.liveStartDate, tempValues.liveEndDate]} // Pass selected date range as an array
-                      onChange={(e) => {
-                        const [newStartDate, newEndDate] = e.value; // Destructure range
-                        setTempValues({
-                          ...tempValues,
-                          liveStartDate: newStartDate,
-                          liveEndDate: newEndDate,
-                        });
-                      }}
-                      selectionMode="range"
-                      showIcon
-                      dateFormat="dd-mm-yy"
-                      placeholder="Select date range"
-                      showButtonBar
-                      hideOnRangeSelection
-                      minDate={minDate}
-                      maxDate={currentDate}
-                    />
-                  </div>
-                  <div className="flex justify-content-between">
-                    <Button
-                      className="bg-white text-secondary2"
-                      label="Reset"
-                      // icon="pi pi-search"
-                      onClick={resetFilters}
-                      raised
-                    />
-                    <Button
-                      className="bg-primary1"
-                      label="Apply"
-                      // icon="pi pi-search"
-                      onClick={handleApply}
-                      raised
-                    />
-                  </div>
-                </div>
-              </OverlayPanel>
+
               <Button
                 tooltip="Generate Report"
                 tooltipOptions={{
@@ -935,7 +827,8 @@ const LiveAQI = ({ show }) => {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap md:flex-nowrap w-full gap-3">
+
+      <div className="flex w-full gap-3">
         <div
           className="flex flex-column border-round-xl p-2 bg-white w-full gap-3"
           style={{
@@ -1089,95 +982,35 @@ const LiveAQI = ({ show }) => {
           </div>
           <ColorScaleBar />
         </div>
+        <div className="flex w-full bg-white border-round p-2">Map</div>
+      </div>
 
-        <div className="flex flex-column bg-white border-round w-full p-2">
-          <DataTable
-            value={dataTableData}
-            rowClassName={rowClassName}
-            // className="custom-row"
-            scrollable
-            scrollHeight="13rem"
-            style={{
-              width: "100%",
-              // borderRadius: "15px",
-              overflow: "hidden",
-              // scrollbarWidth: "none",
-              padding: 2,
-            }}
-            emptyMessage="No Outlier Days Found."
-          >
-            <Column
-              field="aqi"
-              header="AQI"
-              className="font-semibold text-left text-lg"
-              headerStyle={{
-                fontSize: "0.6rem",
-                backgroundColor: "#003940",
-                color: "white",
-                padding: 2,
-              }}
-            ></Column>
-            {selectedValues.location === "All Locations" && (
-              <Column
-                field="location"
-                header="Location"
-                className="text-left"
-                headerStyle={{
-                  fontSize: "0.2rem",
-                  backgroundColor: "#003940",
-                  color: "white",
-                  padding: 2,
-                }}
-              ></Column>
-            )}
-            <Column
-              field="date"
-              header="Date"
-              className="text-left"
-              headerStyle={{
-                fontSize: "0.2rem",
-                backgroundColor: "#003940",
-                color: "white",
-                padding: 2,
-              }}
-            ></Column>
-            <Column
-              field="time"
-              header="Time"
-              className="text-left"
-              headerStyle={{
-                fontSize: "0.6rem",
-                backgroundColor: "#003940",
-                color: "white",
-                padding: 2,
-              }}
-            />
-
-            <Column
-              field="deviationPercentage"
-              header="Outlier %"
-              className="text-lg font-semibold text-left"
-              style={{ width: "20%" }}
-              headerStyle={{
-                fontSize: "0.6rem",
-                backgroundColor: "#003940",
-                color: "white",
-                padding: 2,
-              }}
-            ></Column>
-          </DataTable>
-          <div className="flex flex-column sec-theme p-2 gap-1">
-            <p className="card-title p-0 m-0">Note:</p>
-            <p className="card-text p-0 m-0">
-              This table lists the dates and times within the selected range
-              when the AQI exceeded 400. Rows highlighted in red indicate
-              instances where the outlier percentage exceeds 10%.
-            </p>
-          </div>
-        </div>
+      <div className="flex justify-content-end">
+        <Calendar
+          id="dateRange"
+          value={[selectedValues.liveStartDate, selectedValues.liveEndDate]} // Pass selected date range as an array
+          onChange={(e) => {
+            const [newStartDate, newEndDate] = e.value; // Destructure range
+            setSelectedValues({
+              ...selectedValues,
+              liveStartDate: newStartDate,
+              liveEndDate: newEndDate,
+            });
+          }}
+          selectionMode="range"
+          showIcon
+          dateFormat="dd-mm-yy"
+          placeholder="Select date range"
+          showButtonBar
+          hideOnRangeSelection
+          minDate={minDate}
+          maxDate={currentDate}
+        />
       </div>
 
       <AQIChart
+        tableData={dataTableData}
+        rowClassName={rowClassName}
         enviroDate={dateArrayData}
         envirotime={timeArrayData}
         enviroAQI={AQIArrayData}
