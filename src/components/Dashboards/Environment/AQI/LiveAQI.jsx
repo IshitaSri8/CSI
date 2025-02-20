@@ -24,6 +24,7 @@ import GaugeChart from "react-gauge-chart";
 import LiveAqiScore from "./LiveAqiScore";
 import { getScoreColor } from "components/DashboardUtility/scoreColor";
 import ColorScaleBar from "components/DashboardUtility/Charts/ColorScaleBar";
+import AqiMap from "./AqiMap";
 
 const LiveAQI = ({ show }) => {
   const [timeArrayData, setTimeArrayData] = useState([]);
@@ -1034,7 +1035,12 @@ const LiveAQI = ({ show }) => {
           </div>
           <ColorScaleBar />
         </div>
-        <div className="flex w-full bg-white border-round p-2">Map</div>
+        <div className="flex w-full bg-white border-round p-2">
+          <AqiMap
+            selectedLocation={selectedValues.location}
+            averageAQI={aqiValue}
+          />
+        </div>
       </div>
 
       <div className="flex justify-content-end">
