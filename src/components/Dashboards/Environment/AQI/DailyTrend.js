@@ -170,14 +170,14 @@ const DailyTrend = ({
   const baseChartOptions = {
     animationEnabled: true,
     height: 300,
-    backgroundColor:"transparent",
+    backgroundColor: "transparent",
     legend: {
       ...commonChartOptions.legend,
     },
-    title: {
-      text: "Daywise Trend",
-      ...commonChartOptions.title,
-    },
+    // title: {
+    //   text: "Daywise Trend",
+    //   ...commonChartOptions.title,
+    // },
     axisX: {
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
@@ -369,7 +369,7 @@ const DailyTrend = ({
       ...commonChartOptions.title,
     },
     height: 250,
-    backgroundColor:"transparent",
+    backgroundColor: "transparent",
     axisX: {
       labelFontColor: "#717171",
       lineColor: "#a2a2a2",
@@ -409,8 +409,8 @@ const DailyTrend = ({
     },
   };
   return (
-    <div className="flex flex-column gap-3" style={{ flex: "70%" }}>
-      <div className="flex flex-column bg-white border-round p-2 gap-2">
+    <div className="flex flex-column gap-3 w-full">
+      <div className="flex flex-column">
         <div className="flex align-items-start justify-content-start gap-2">
           <Button
             className={`${backButtonClassName} bg-primary1  text-white text-xs`}
