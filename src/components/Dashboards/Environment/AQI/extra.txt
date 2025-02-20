@@ -1,0 +1,216 @@
+     const [tempValues, setTempValues] = useState({
+    location: "Ayodhya - Civil line,Tiny tots school",
+    liveStartDate: new Date(thirtyDaysAgo),
+    liveEndDate: new Date(currentDate),
+  });
+   
+    const overlayRef = useRef(null);
+
+  let highestPollutant = null;
+  let highestValue = -Infinity;
+
+    // Iterate through each pollutant object in the array
+  for (const pollutant of pollutantData) {
+    // Check if the current pollutant's value is greater than the highestValue found so far
+    if (pollutant.value > highestValue) {
+      highestValue = pollutant.value; // Update highestValue
+      highestPollutant = pollutant.name; // Update highestPollutant with the name of the current pollutant
+    }
+  }
+  
+  const resetFilters = () => {
+    setSelectedValues({
+      location: "Ayodhya - Civil line,Tiny tots school",
+      liveStartDate: new Date(thirtyDaysAgo),
+      liveEndDate: new Date(currentDate),
+    });
+    setTempValues({
+      location: "Ayodhya - Civil line,Tiny tots school",
+      liveStartDate: new Date(thirtyDaysAgo),
+      liveEndDate: new Date(currentDate),
+    });
+  };
+
+  const handleApply = () => {
+    setSelectedValues({
+      location: tempValues.location,
+      liveStartDate: tempValues.liveStartDate,
+      liveEndDate: tempValues.liveEndDate,
+    });
+    overlayRef.current.hide();
+  }; 
+ 
+ <Button
+                tooltip="Filters"
+                tooltipOptions={{
+                  position: "bottom",
+                }}
+                icon="pi pi-filter"
+                onClick={(e) => overlayRef.current.toggle(e)}
+                className="bg-white text-secondary2"
+                raised
+              />
+              <OverlayPanel
+                ref={overlayRef}
+                style={{ width: "20rem" }}
+                className="p-overlay-panel"
+              >
+                <div className="flex flex-column gap-3">
+                  <div className="flex flex-column">
+                    <label htmlFor="location" className="font-semibold text">
+                      Location
+                    </label>
+                    <Dropdown
+                      value={tempValues.location}
+                      options={locations}
+                      optionLabel="label"
+                      optionValue="value"
+                      onChange={(e) =>
+                        setTempValues({
+                          ...tempValues,
+                          location: e.target.value,
+                        })
+                      }
+                      placeholder="Select Location"
+                    />
+                  </div>
+                  <div className="p-field text-sm flex flex-column">
+                    <label htmlFor="dateRange" className="font-semibold text">
+                      Select Date Range
+                    </label>
+                    <Calendar
+                      id="dateRange"
+                      value={[tempValues.liveStartDate, tempValues.liveEndDate]} // Pass selected date range as an array
+                      onChange={(e) => {
+                        const [newStartDate, newEndDate] = e.value; // Destructure range
+                        setTempValues({
+                          ...tempValues,
+                          liveStartDate: newStartDate,
+                          liveEndDate: newEndDate,
+                        });
+                      }}
+                      selectionMode="range"
+                      showIcon
+                      dateFormat="dd-mm-yy"
+                      placeholder="Select date range"
+                      showButtonBar
+                      hideOnRangeSelection
+                      minDate={minDate}
+                      maxDate={currentDate}
+                    />
+                  </div>
+                  <div className="flex justify-content-between">
+                    <Button
+                      className="bg-white text-secondary2"
+                      label="Reset"
+                      // icon="pi pi-search"
+                      onClick={resetFilters}
+                      raised
+                    />
+                    <Button
+                      className="bg-primary1"
+                      label="Apply"
+                      // icon="pi pi-search"
+                      onClick={handleApply}
+                      raised
+                    />
+                  </div>
+                </div>
+              </OverlayPanel>
+
+
+
+                const calculateFifteenDaysDayAverages = (fifteenDaysData) => {
+    const dayAqiData = {};
+
+    fifteenDaysData.forEach((item) => {
+      const { day, aqi } = item;
+      if (!dayAqiData[day]) {
+        dayAqiData[day] = [];
+      }
+      dayAqiData[day].push(aqi);
+    });
+
+    const dayAverages = {};
+    for (const day in dayAqiData) {
+      const dayAQI = dayAqiData[day];
+      const sum = dayAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / dayAQI.length;
+      dayAverages[day] = Math.round(average);
+    }
+    return dayAverages;
+  };
+
+  const calculateFifteenDaysHourlyAverages = (fifteenDaysData) => {
+    const hourlyAveragesData = {};
+
+    fifteenDaysData.forEach((item) => {
+      const { time, aqi } = item;
+      if (!hourlyAveragesData[time]) {
+        hourlyAveragesData[time] = [];
+      }
+      hourlyAveragesData[time].push(aqi);
+    });
+
+    const hourlyAverages = {};
+    for (const time in hourlyAveragesData) {
+      const hourlyAQI = hourlyAveragesData[time];
+      const sum = hourlyAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / hourlyAQI.length;
+      hourlyAverages[time] = Math.round(average);
+    }
+    return hourlyAverages;
+  };
+
+  // Function to calculate average AQI for each day of the week
+  const calculateDayAverages = () => {
+    if (!enviroDay || !enviroAQI) {
+      return {};
+    }
+
+    const dayAqiData = {};
+
+    enviroDay.forEach((day, index) => {
+      const aqi = enviroAQI[index];
+      if (!dayAqiData[day]) {
+        dayAqiData[day] = [];
+      }
+      dayAqiData[day].push(aqi);
+    });
+
+    const dayAverages = {};
+    for (const day in dayAqiData) {
+      const dayAQI = dayAqiData[day];
+      const sum = dayAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / dayAQI.length;
+      dayAverages[day] = Math.round(average);
+    }
+    return dayAverages;
+  };
+
+  // Function to calculate average AQI for each hour
+  const calculateHourlyAverages = () => {
+    if (!envirotime || !enviroAQI) {
+      return {};
+    }
+
+    // Initialize an array to store the sums and counts for each hour
+    const hourlyAveragesData = {};
+
+    envirotime.forEach((time, index) => {
+      const aqi = enviroAQI[index];
+      if (!hourlyAveragesData[time]) {
+        hourlyAveragesData[time] = [];
+      }
+      hourlyAveragesData[time].push(aqi);
+    });
+
+    const hourlyAverages = {};
+    for (const time in hourlyAveragesData) {
+      const hourlyAQI = hourlyAveragesData[time];
+      const sum = hourlyAQI.reduce((acc, aqi) => acc + aqi, 0);
+      const average = sum / hourlyAQI.length;
+      hourlyAverages[time] = Math.round(average);
+    }
+    return hourlyAverages;
+  };
