@@ -6,6 +6,11 @@
    
     const overlayRef = useRef(null);
 
+    const [scoreColor, setScoreColor] = useState("#000");
+        // Update the score color based on the calculated score
+     const color = getScoreColor(calculatedScore);
+     setScoreColor(color);
+
   let highestPollutant = null;
   let highestValue = -Infinity;
 

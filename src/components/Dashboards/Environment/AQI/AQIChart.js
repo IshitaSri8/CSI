@@ -49,9 +49,6 @@ const AQIChart = ({
   const [nighttimePeakHourFrequencies, setNighttimePeakHourFrequencies] =
     useState([]);
 
-  const [dayPeak, setDayPeak] = useState();
-  const [nightPeak, setNightPeak] = useState();
-
   const [showTable, setShowTable] = useState(false);
 
   const handleShowTableChange = (newValue) => {
@@ -212,9 +209,6 @@ const AQIChart = ({
           nighttimePeakHours[time]++;
         });
       }
-
-      setDayPeak(daytimePeak);
-      setNightPeak(nighttimePeak);
     });
 
     // Convert peak hour frequencies to the format expected by DataTable and sort by frequency
@@ -398,25 +392,34 @@ const AQIChart = ({
 
   const findMaxFrequency = (data) => {
     if (!data || data.length === 0) return null;
-    let max = data[0].frequency; // Initialize to the first frequency
+    let maxFrequency = data[0].frequency; // Initialize to the first frequency
+    let maxFrequencyTime = data[0].time;
     for (let i = 1; i < data.length; i++) {
-      if (data[i].frequency > max) {
-        max = data[i].frequency;
+      if (data[i].frequency > maxFrequency) {
+        maxFrequency = data[i].frequency;
+        maxFrequencyTime = data[i].time;
       }
     }
-    return max;
+    return { time: maxFrequencyTime, frequency: maxFrequency };
   };
 
-  const daytimeMaxFrequency = findMaxFrequency(daytimePeakHourFrequencies);
-  const nighttimeMaxFrequency = findMaxFrequency(nighttimePeakHourFrequencies);
+  const daytimeMaxFrequencyData = findMaxFrequency(daytimePeakHourFrequencies);
+const nighttimeMaxFrequencyData = findMaxFrequency(nighttimePeakHourFrequencies);
+
+// Extracting time and frequency from the returned objects
+const daytimeMaxFrequencyTime = daytimeMaxFrequencyData ? daytimeMaxFrequencyData.time : null;
+const daytimeMaxFrequencyValue = daytimeMaxFrequencyData ? daytimeMaxFrequencyData.frequency : null;
+
+const nighttimeMaxFrequencyTime = nighttimeMaxFrequencyData ? nighttimeMaxFrequencyData.time : null;
+const nighttimeMaxFrequencyValue = nighttimeMaxFrequencyData ? nighttimeMaxFrequencyData.frequency : null;
 
   const rowClassNameDay = (data) => {
-    if (daytimeMaxFrequency === null) return ""; // No highlighting if no data
-    return data.frequency === daytimeMaxFrequency ? "red-row" : "";
+    if (daytimeMaxFrequencyValue === null) return ""; // No highlighting if no data
+    return data.frequency === daytimeMaxFrequencyValue ? "red-row" : "";
   };
   const rowClassNamenight = (data) => {
-    if (nighttimeMaxFrequency === null) return ""; // No highlighting if no data
-    return data.frequency === nighttimeMaxFrequency ? "red-row" : "";
+    if (nighttimeMaxFrequencyValue === null) return ""; // No highlighting if no data
+    return data.frequency === nighttimeMaxFrequencyValue ? "red-row" : "";
   };
 
   return (
@@ -445,13 +448,13 @@ const AQIChart = ({
               <div className="flex border-round p-2 sec-theme">
                 <p className="p-0 m-0 card-text">
                   Day Peak Hour:{" "}
-                  <span className="text-primary1 font-medium">{dayPeak}</span>
+                  <span className="text-primary1 font-medium">{daytimeMaxFrequencyTime}</span>
                 </p>
               </div>
               <div className="flex border-round p-2 sec-theme">
                 <p className="p-0 m-0 card-text">
                   Night Peak Hour:{" "}
-                  <span className="text-primary1 font-medium">{nightPeak}</span>
+                  <span className="text-primary1 font-medium">{nighttimeMaxFrequencyTime}</span>
                 </p>
               </div>
             </div>
