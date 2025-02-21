@@ -56,6 +56,7 @@ const LiveAQI = ({ show }) => {
   const [loading, setLoading] = useState(false);
   const [selectedLocationId, setSelectedLocationId] = useState("");
   const [locations, setLocations] = useState([]);
+  const [locationWiseAQI, setLocationWiseAQI] = useState([]);
 
   const currentDate = new Date();
   const sevenDaysAgo = new Date(new Date().setDate(new Date().getDate() - 7));
@@ -67,7 +68,7 @@ const LiveAQI = ({ show }) => {
   });
 
   const [score, setScore] = useState(null);
-  const [scoreColor, setScoreColor] = useState("#000");
+
   const [startMonthYearScore, setStartMonthYearScore] = useState("");
   const [endMonthYearScore, setEndMonthYearScore] = useState("");
   let currentHour = currentDate.getHours();
@@ -284,6 +285,10 @@ const LiveAQI = ({ show }) => {
         }
       );
       const api_response = response.data.data;
+
+      // Initialize an object to store AQI values for each location
+      const locationWiseAQIValues = {};
+
       // Variables to store sums and counts for live data
       let liveAqiSum = 0;
       let livePm10Sum = 0;
@@ -305,13 +310,25 @@ const LiveAQI = ({ show }) => {
         api_response.forEach((item) => {
           const newDate = new Date(item.time * 1000);
           const [date, time] = convertDateString(newDate);
+          const locationId = item.thing_id; // Get the location ID
           // Condition to check if it's live data
           if (date === dateLive && time === timeLive) {
+            // Check if the AQI value exists; if not, assign "N/A"
+            const aqiValue =
+              item.parameter_values.aqi.value !== null &&
+              item.parameter_values.aqi.value !== undefined
+                ? item.parameter_values.aqi.value
+                : "N/A";
+
+            locationWiseAQIValues[locationId] = aqiValue; // Store the AQI value or "N/A"
             liveAqiSum += item.parameter_values.aqi.value;
             livePm10Sum += item.parameter_values.pm10.avg;
             livePm25Sum += item.parameter_values["pm2.5"].avg;
             liveReadingsCount++;
           }
+
+          setLocationWiseAQI(locationWiseAQIValues);
+
           if (date === dateLive) {
             const aqi = item.parameter_values.aqi.value;
             if (aqi >= maxAqi) {
@@ -692,14 +709,7 @@ const LiveAQI = ({ show }) => {
     // Set state variables to store month and year
     setStartMonthYearScore(`${startMonth} ${startYear}`);
     setEndMonthYearScore(`${endMonth} ${endYear}`);
-
     setScore(calculatedScore);
-
-    // Update the score color based on the calculated score
-    const color = getScoreColor(calculatedScore);
-    setScoreColor(color);
-
-    // You can also perform additional actions with the score here
   };
 
   // Date Range Dropdown Options
@@ -931,6 +941,18 @@ const LiveAQI = ({ show }) => {
                 </div>
               )}
 
+              {/* Last Updated Information */}
+              <div className="flex gap-2">
+                <p className="p-0 m-0 font-italic text-sm">Last updated:</p>
+
+                <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
+                  {dateLive}
+                </p>
+                <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
+                  {timeLive}
+                </p>
+              </div>
+
               {/* AQI Change Percentage */}
               <div className="flex gap-2">
                 {(() => {
@@ -956,18 +978,6 @@ const LiveAQI = ({ show }) => {
                     </>
                   );
                 })()}
-              </div>
-
-              {/* Last Updated Information */}
-              <div className="flex gap-2">
-                <p className="p-0 m-0 font-italic text-sm">Last updated:</p>
-
-                <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
-                  {dateLive}
-                </p>
-                <p className="text-secondary2 font-medium p-0 m-0 font-italic text-sm">
-                  {timeLive}
-                </p>
               </div>
             </div>
 
@@ -1039,6 +1049,7 @@ const LiveAQI = ({ show }) => {
           <AqiMap
             selectedLocation={selectedValues.location}
             averageAQI={aqiValue}
+            locationWiseAQI={locationWiseAQI}
           />
         </div>
       </div>
