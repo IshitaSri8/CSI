@@ -3,7 +3,6 @@ import "./App.css";
 import "primereact/resources/themes/lara-light-teal/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Route, Routes } from "react-router-dom";
 import LandingScreen from "./pages/LandingScreen";
 import Citizen from "./pages/Citizen";

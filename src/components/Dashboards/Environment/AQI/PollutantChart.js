@@ -108,7 +108,9 @@ const PollutantChart = ({
                 click: handleDrilldown,
                 toolTipContent: `<table>
                                   <tr><th>Date</th><td>${date}</td></tr>
-                                  <tr><th>Average ${pollutantName}</th><td>${value}</td></tr>
+                                  <tr><th>Average ${pollutantName}</th><td>${value.toFixed(
+                  2
+                )}</td></tr>
                                 </table>`,
               })
             ),
@@ -153,7 +155,9 @@ const PollutantChart = ({
                 y: parseFloat(value),
                 toolTipContent: `<table>
                                   <tr><th>Time</th><td>${time}</td></tr>
-                                  <tr><th>${pollutantName}</th><td>${value}</td></tr>
+                                  <tr><th>${pollutantName}</th><td>${value.toFixed(
+                  2
+                )}</td></tr>
                                 </table>`,
               })) || [],
           },
