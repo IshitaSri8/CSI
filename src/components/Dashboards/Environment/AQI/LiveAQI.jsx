@@ -2,7 +2,6 @@ import axios from "axios";
 import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useEffect, useState } from "react";
 import { Button } from "primereact/button";
-import { Calendar } from "primereact/calendar";
 import AQIRecommendations from "./AQIRecommendations";
 import { Divider } from "primereact/divider";
 import { Dropdown } from "primereact/dropdown";
@@ -22,9 +21,9 @@ import AQIChart from "./AQIChart";
 import { Radio } from "lucide-react";
 import GaugeChart from "react-gauge-chart";
 import LiveAqiScore from "./LiveAqiScore";
-import { getScoreColor } from "components/DashboardUtility/scoreColor";
 import ColorScaleBar from "components/DashboardUtility/Charts/ColorScaleBar";
 import AqiMap from "./AqiMap";
+import TimeBasedAQITrend from "./TimeBasedAQITrend";
 
 const LiveAQI = ({ show }) => {
   const [timeArrayData, setTimeArrayData] = useState([]);
@@ -1063,6 +1062,14 @@ const LiveAQI = ({ show }) => {
           placeholder="Select a range"
         />
       </div>
+
+      <TimeBasedAQITrend
+        enviroDate={dateArrayData}
+        envirotime={timeArrayData}
+        enviroAQI={AQIArrayData}
+        timePeriod={selectedDateRange}
+        location={selectedValues.location}
+      />
 
       <AQIChart
         tableData={dataTableData}
