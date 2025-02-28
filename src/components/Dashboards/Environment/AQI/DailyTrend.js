@@ -114,7 +114,7 @@ const DailyTrend = ({
           cursor: "pointer",
           explodeOnClick: false,
           name: "BaseChart",
-          type: "area",
+          type: "column",
           dataPoints: dataPoints,
           color: "#0F4B57",
         },
