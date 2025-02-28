@@ -26,6 +26,7 @@ const AQIChart = ({
   pm10ArrayData,
   NO2ArrayData,
   SO2ArrayData,
+  aqiStats,
 }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [activeTable, setActiveTable] = useState(0);
@@ -404,14 +405,24 @@ const AQIChart = ({
   };
 
   const daytimeMaxFrequencyData = findMaxFrequency(daytimePeakHourFrequencies);
-const nighttimeMaxFrequencyData = findMaxFrequency(nighttimePeakHourFrequencies);
+  const nighttimeMaxFrequencyData = findMaxFrequency(
+    nighttimePeakHourFrequencies
+  );
 
-// Extracting time and frequency from the returned objects
-const daytimeMaxFrequencyTime = daytimeMaxFrequencyData ? daytimeMaxFrequencyData.time : null;
-const daytimeMaxFrequencyValue = daytimeMaxFrequencyData ? daytimeMaxFrequencyData.frequency : null;
+  // Extracting time and frequency from the returned objects
+  const daytimeMaxFrequencyTime = daytimeMaxFrequencyData
+    ? daytimeMaxFrequencyData.time
+    : null;
+  const daytimeMaxFrequencyValue = daytimeMaxFrequencyData
+    ? daytimeMaxFrequencyData.frequency
+    : null;
 
-const nighttimeMaxFrequencyTime = nighttimeMaxFrequencyData ? nighttimeMaxFrequencyData.time : null;
-const nighttimeMaxFrequencyValue = nighttimeMaxFrequencyData ? nighttimeMaxFrequencyData.frequency : null;
+  const nighttimeMaxFrequencyTime = nighttimeMaxFrequencyData
+    ? nighttimeMaxFrequencyData.time
+    : null;
+  const nighttimeMaxFrequencyValue = nighttimeMaxFrequencyData
+    ? nighttimeMaxFrequencyData.frequency
+    : null;
 
   const rowClassNameDay = (data) => {
     if (daytimeMaxFrequencyValue === null) return ""; // No highlighting if no data
@@ -448,13 +459,17 @@ const nighttimeMaxFrequencyValue = nighttimeMaxFrequencyData ? nighttimeMaxFrequ
               <div className="flex border-round p-2 sec-theme">
                 <p className="p-0 m-0 card-text">
                   Day Peak Hour:{" "}
-                  <span className="text-primary1 font-medium">{daytimeMaxFrequencyTime}</span>
+                  <span className="text-primary1 font-medium">
+                    {daytimeMaxFrequencyTime}
+                  </span>
                 </p>
               </div>
               <div className="flex border-round p-2 sec-theme">
                 <p className="p-0 m-0 card-text">
                   Night Peak Hour:{" "}
-                  <span className="text-primary1 font-medium">{nighttimeMaxFrequencyTime}</span>
+                  <span className="text-primary1 font-medium">
+                    {nighttimeMaxFrequencyTime}
+                  </span>
                 </p>
               </div>
             </div>
@@ -469,9 +484,77 @@ const nighttimeMaxFrequencyValue = nighttimeMaxFrequencyData ? nighttimeMaxFrequ
               startDate={startDate}
               onShowTableChange={handleShowTableChange}
             />
-            <div className="flex sec-theme p-2" style={{ flex: "30%" }}>
-              <p className="card-title p-0 m-0">Insights</p>
-            </div>
+            {aqiStats && (
+              <div
+                className="flex sec-theme p-2 flex-column"
+                style={{ flex: "30%" }}
+              >
+                <p className="card-title p-0 m-0">Insights</p>
+                <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                  A total of{" "}
+                  <span className="m-0 p-0 font-bold text-red-500">
+                    {tableData.length}
+                  </span>{" "}
+                  outlier readings have been recorded, indicating how many times
+                  AQI exceeded the critical threshold of 400.
+                </li>
+                <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                  During the selected period, the highest recorded AQI was{" "}
+                  <span className="m-0 p-0 font-bold text-red-500">
+                    {aqiStats.max.value}
+                  </span>{" "}
+                  on{" "}
+                  <span className="m-0 p-0 font-semibold text-sm ">
+                    {aqiStats.max.dateTime}
+                  </span>
+                  {location === "All Locations" && (
+                    <span className="font-italic text-sm card-text">
+                      {" "}
+                      at {aqiStats.max.location}
+                    </span>
+                  )}
+                  . This spike in AQI was primarily driven by elevated levels of
+                  PM2.5, which measured{" "}
+                  <span className="m-0 p-0 font-bold">
+                    {Math.round(aqiStats.max.pm25)}
+                  </span>{" "}
+                  µg/m³, and PM10 at{" "}
+                  <span className="m-0 p-0 font-bold">
+                    {Math.round(aqiStats.max.pm10)}
+                  </span>{" "}
+                  µg/m³. These high concentrations of particulate matter
+                  significantly contributed to the poor air quality observed.
+                </li>
+
+                <li className="p-0 m-0 text-primary1 font-medium text-sm">
+                  Conversely, the lowest AQI recorded was{" "}
+                  <span className="m-0 p-0 font-bold text-green-500">
+                    {aqiStats.min.value}
+                  </span>{" "}
+                  on{" "}
+                  <span className="m-0 p-0 font-semibold text-sm">
+                    {aqiStats.min.dateTime}
+                  </span>
+                  {location === "All Locations" && (
+                    <span className="font-italic text-sm card-text">
+                      {" "}
+                      at {aqiStats.min.location}
+                    </span>
+                  )}
+                  . During this time, both PM2.5 and PM10 levels were notably
+                  lower, with PM2.5 at{" "}
+                  <span className="m-0 p-0 font-bold">
+                    {Math.round(aqiStats.min.pm25)}
+                  </span>{" "}
+                  µg/m³ and PM10 at{" "}
+                  <span className="m-0 p-0 font-bold">
+                    {Math.round(aqiStats.min.pm10)}
+                  </span>{" "}
+                  µg/m³. The reduced presence of these pollutants resulted in a
+                  significant improvement in air quality.
+                </li>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-column gap-3 w-full">
@@ -577,92 +660,7 @@ const nighttimeMaxFrequencyValue = nighttimeMaxFrequencyData ? nighttimeMaxFrequ
                 </p>
               </div>
             </div>
-
-            <div className="flex bg-white border-round p-2">
-              <div className="flex flex-column w-full">
-                <p className="card-title p-0 m-0">Peak Hours</p>
-                <TabView
-                  activeIndex={activeTable}
-                  onTabChange={(e) => setActiveTable(e.index)}
-                >
-                  <TabPanel header="Day">
-                    {/* Daytime Peak Hours Table */}
-
-                    <DataTable
-                      value={daytimePeakHourFrequencies}
-                      className="overflow-y-auto h-14rem"
-                      headerStyle={{ textAlign: "center" }}
-                      rowClassName={rowClassNameDay}
-                    >
-                      <Column
-                        field="time"
-                        header="Time"
-                        headerStyle={{
-                          fontSize: "0.6rem",
-                          backgroundColor: "#003940",
-                          color: "white",
-                          padding: 2,
-                        }}
-                      ></Column>
-                      <Column
-                        field="frequency"
-                        header="Frequency"
-                        headerStyle={{
-                          fontSize: "0.6rem",
-                          backgroundColor: "#003940",
-                          color: "white",
-                          padding: 2,
-                        }}
-                      ></Column>
-                    </DataTable>
-                  </TabPanel>
-                  <TabPanel header="Night">
-                    {/* Nighttime Peak Hours Table */}
-
-                    <DataTable
-                      value={nighttimePeakHourFrequencies}
-                      className="overflow-y-auto h-14rem"
-                      rowClassName={rowClassNamenight}
-                    >
-                      <Column
-                        field="time"
-                        header="Time"
-                        headerStyle={{
-                          fontSize: "0.6rem",
-                          backgroundColor: "#003940",
-                          color: "white",
-                          padding: 2,
-                        }}
-                      ></Column>
-                      <Column
-                        field="frequency"
-                        header="Frequency"
-                        headerStyle={{
-                          fontSize: "0.6rem",
-                          backgroundColor: "#003940",
-                          color: "white",
-                          padding: 2,
-                        }}
-                      ></Column>
-                    </DataTable>
-                  </TabPanel>
-                </TabView>
-              </div>
-              <div className="flex flex-column sec-theme p-2 gap-1 w-full">
-                <p className="card-title p-0 m-0">Insights</p>
-                <p className="card-text p-0 m-0">
-                  This card helps you understand when the worst air quality
-                  tends to occur by showing the frequency of peak AQI at
-                  different times of the day and night over the selected date
-                  range.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex gap-3 w-full">
-          <div className="w-full flex bg-white border-round p-2">
-            <div className="flex flex-column" style={{ flex: "70%" }}>
+            <div className="w-full flex flex-column bg-white border-round p-2">
               <p className="card-title p-0 m-0">Pollutants Trend</p>
               <TabView
                 activeIndex={activeTab}
@@ -713,9 +711,6 @@ const nighttimeMaxFrequencyValue = nighttimeMaxFrequencyData ? nighttimeMaxFrequ
                   />
                 </TabPanel>
               </TabView>
-            </div>
-            <div className="flex sec-theme p-2" style={{ flex: "30%" }}>
-              <p className="card-title p-0 m-0">Insights</p>
             </div>
           </div>
         </div>

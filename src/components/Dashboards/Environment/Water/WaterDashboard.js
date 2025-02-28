@@ -595,7 +595,7 @@ const WaterDashboard = ({ show }) => {
                     <Upload
                       visible={uploadDialogVisible}
                       onHide={hideUploadDialog}
-                      parameter={"water"}
+                      parameter={"waterNew"}
                     />
                     <WaterModify
                       waterData={data}

@@ -2,7 +2,6 @@ import axios from "axios";
 import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useEffect, useState } from "react";
 import { Button } from "primereact/button";
-import { Calendar } from "primereact/calendar";
 import AQIRecommendations from "./AQIRecommendations";
 import { Divider } from "primereact/divider";
 import { Dropdown } from "primereact/dropdown";
@@ -22,9 +21,9 @@ import AQIChart from "./AQIChart";
 import { Radio } from "lucide-react";
 import GaugeChart from "react-gauge-chart";
 import LiveAqiScore from "./LiveAqiScore";
-import { getScoreColor } from "components/DashboardUtility/scoreColor";
 import ColorScaleBar from "components/DashboardUtility/Charts/ColorScaleBar";
 import AqiMap from "./AqiMap";
+import TimeBasedAQITrend from "./TimeBasedAQITrend";
 
 const LiveAQI = ({ show }) => {
   const [timeArrayData, setTimeArrayData] = useState([]);
@@ -68,6 +67,7 @@ const LiveAQI = ({ show }) => {
   });
 
   const [score, setScore] = useState(null);
+  const [aqiStats, setAqiStats] = useState("");
 
   const [startMonthYearScore, setStartMonthYearScore] = useState("");
   const [endMonthYearScore, setEndMonthYearScore] = useState("");
@@ -148,6 +148,49 @@ const LiveAQI = ({ show }) => {
       let maxAqiTime = "";
       let minAqiTime = "";
       let aqiValueSet = false; // Flag to ensure we only set AQI once
+
+      const calculateAqiStats = (api_response) => {
+        if (api_response.length === 0) return {};
+
+        const aqiValues = api_response.map(
+          (item) => item.parameter_values.aqi.value
+        );
+        const pm25Values = api_response.map(
+          (item) => item.parameter_values["pm2.5"].avg
+        );
+        const pm10Values = api_response.map(
+          (item) => item.parameter_values.pm10.avg
+        );
+        const dateTimeValues = api_response.map(
+          (item) => new Date(item.time * 1000)
+        );
+
+        const maxAqi = Math.max(...aqiValues);
+        const minAqi = Math.min(...aqiValues);
+
+        const maxAqiIndex = aqiValues.indexOf(maxAqi);
+        const minAqiIndex = aqiValues.indexOf(minAqi);
+
+        return {
+          max: {
+            value: maxAqi,
+            dateTime: dateTimeValues[maxAqiIndex].toLocaleString("en-IN", {
+              timeZone: "Asia/Kolkata",
+            }),
+            pm25: pm25Values[maxAqiIndex],
+            pm10: pm10Values[maxAqiIndex],
+          },
+          min: {
+            value: minAqi,
+            dateTime: dateTimeValues[minAqiIndex].toLocaleString("en-IN", {
+              timeZone: "Asia/Kolkata",
+            }),
+            pm25: pm25Values[minAqiIndex],
+            pm10: pm10Values[minAqiIndex],
+          },
+        };
+      };
+      setAqiStats(calculateAqiStats(api_response));
 
       let liveDataFound = false; // Flag to track if live data is found
       if (api_response) {
@@ -460,6 +503,56 @@ const LiveAQI = ({ show }) => {
         setSO2ArrayData(so2Array);
         setNO2ArrayData(no2Array);
       }
+
+      const calculateAqiStats = (api_response) => {
+        if (api_response.length === 0) return {};
+
+        const aqiValues = api_response.map(
+          (item) => item.parameter_values.aqi.value
+        );
+        const pm25Values = api_response.map(
+          (item) => item.parameter_values["pm2.5"].avg
+        );
+        const pm10Values = api_response.map(
+          (item) => item.parameter_values.pm10.avg
+        );
+        const dateTimeValues = api_response.map(
+          (item) => new Date(item.time * 1000)
+        );
+        const locationValues = api_response.map((item) =>
+          getLocationName(item.thing_id)
+        );
+
+        const maxAqi = Math.max(...aqiValues);
+        const minAqi = Math.min(...aqiValues);
+
+        const maxAqiIndex = aqiValues.indexOf(maxAqi);
+        const minAqiIndex = aqiValues.indexOf(minAqi);
+
+        return {
+          max: {
+            value: maxAqi,
+            dateTime: dateTimeValues[maxAqiIndex].toLocaleString("en-IN", {
+              timeZone: "Asia/Kolkata",
+            }),
+            pm25: pm25Values[maxAqiIndex],
+            pm10: pm10Values[maxAqiIndex],
+            location: locationValues[maxAqiIndex], // Added location for max AQI
+          },
+          min: {
+            value: minAqi,
+            dateTime: dateTimeValues[minAqiIndex].toLocaleString("en-IN", {
+              timeZone: "Asia/Kolkata",
+            }),
+            pm25: pm25Values[minAqiIndex],
+            pm10: pm10Values[minAqiIndex],
+            location: locationValues[minAqiIndex], // Added location for min AQI
+          },
+        };
+      };
+
+      setAqiStats(calculateAqiStats(api_response));
+
       const filteredDataWithDeviation = api_response
         .filter((item) => item.parameter_values.aqi.value > 400)
         .map((item) => {
@@ -717,7 +810,7 @@ const LiveAQI = ({ show }) => {
     { label: "Weekly", value: "weekly" },
     { label: "Monthly", value: "monthly" },
     { label: "Half-Yearly", value: "half-yearly" },
-    { label: "Yearly", value: "yearly" },
+    // { label: "Yearly", value: "yearly" },
   ];
 
   const [selectedDateRange, setSelectedDateRange] = useState("weekly");
@@ -1078,6 +1171,7 @@ const LiveAQI = ({ show }) => {
         pm10ArrayData={pm10ArrayData}
         NO2ArrayData={NO2ArrayData}
         SO2ArrayData={SO2ArrayData}
+        aqiStats={aqiStats}
       />
     </div>
   );
