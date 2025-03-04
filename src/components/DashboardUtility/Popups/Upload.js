@@ -70,6 +70,9 @@ const Upload = ({ visible, onHide, parameter }) => {
     if (parameter === "transport") {
       url = `${process.env.PUBLIC_URL}/Transport.xlsx`;
     }
+    if (parameter === "healthcare") {
+      url = `${process.env.PUBLIC_URL}/Healthcare.xlsx`;
+    }
 
     const link = document.createElement("a");
     link.href = url;
