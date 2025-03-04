@@ -24,8 +24,8 @@ const Upload = ({ visible, onHide, parameter }) => {
       formData.append("file", file);
 
       const response = await axios.post(
-        // `https://api-csi.arahas.com/upload/${parameter}`,
-        `http://localhost:8010/upload/${parameter}`,
+        `https://api-csi.arahas.com/upload/${parameter}`,
+        // `http://localhost:8010/upload/${parameter}`,
         formData
       );
 
@@ -61,8 +61,8 @@ const Upload = ({ visible, onHide, parameter }) => {
   const handleDownloadTemplate = () => {
     // URL of the Excel template file in the public directory
     var url = "";
-    if (parameter === "water") {
-      url = `${process.env.PUBLIC_URL}/Water_Template.xlsx`;
+    if (parameter === "waterNew") {
+      url = `${process.env.PUBLIC_URL}/Water_New_Template.xlsx`;
     }
     if (parameter === "aqinew") {
       url = `${process.env.PUBLIC_URL}/AQI_Template.xlsx`;

@@ -1,15 +1,11 @@
 import React from "react";
 import { scoreColors } from "../Constants/colorConstants";
 
-const ColorScaleBar = () => {
-  const segments = [
-    { label: "50", color: scoreColors[0] }, // Yellow
-    { label: "100", color: scoreColors[1] }, // Orange
-    { label: "200", color: scoreColors[2] }, // Pink
-    { label: "300", color: scoreColors[3] }, // Purple
-    { label: "400", color: scoreColors[4] }, // MediumVioletRed
-    { label: "400+", color: scoreColors[5] }, // Crimson
-  ];
+const ColorScaleBar = ({ labels }) => {
+  const segments = labels.map((label, index) => ({
+    label,
+    color: scoreColors[index % scoreColors.length], // Ensure color index stays within bounds
+  }));
 
   return (
     <div

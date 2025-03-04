@@ -49,7 +49,7 @@ const WaterModify = ({ waterData, waterSetData, isOpen, onClose }) => {
   const handleSave = async () => {
     try {
       const response = await axios.put(
-        `https://api-csi.arahas.com/data/water/${selectedData._id}`,
+        `https://api-csi.arahas.com/data/waterNew/${selectedData._id}`,
         selectedData,
         { headers: { "Content-Type": "application/json" } } // Specify content type if necessary
       );
@@ -236,14 +236,14 @@ const WaterModify = ({ waterData, waterSetData, isOpen, onClose }) => {
                 "Total_Households",
                 "No_of_Households_with_Connections",
                 "No_of_Households_with_Meters",
-                "Households_Bill_Payment",
+                "Households_with_Payments",
               ].map((field, index) => {
                 const customLabels = {
                   Total_Households: "Total Households",
                   No_of_Households_with_Connections:
                     "Households with Connections",
                   No_of_Households_with_Meters: "Households with Water Meters",
-                  Households_Bill_Payment:
+                  Households_with_Payments:
                     "Households Participating in Bill Payments",
                 };
 
@@ -281,9 +281,6 @@ const WaterModify = ({ waterData, waterSetData, isOpen, onClose }) => {
                   Sites_with_Rainwater_Harvesting_System:
                     "Sites with Rain Water Harvesting System",
                   Total_Volume_Harvested: "Harvested Water (m³)",
-                  No_of_Households_with_Meters: "Households with Water Meters",
-                  Households_Bill_Payment:
-                    "Households Participating in Bill Payments",
                 };
 
                 return (
@@ -312,9 +309,9 @@ const WaterModify = ({ waterData, waterSetData, isOpen, onClose }) => {
           <div className="w-full flex flex-column">
             <h3>Awareness Programs</h3>
             <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
-              {["Awarness_Campaigns_Programs"].map((field, index) => {
+              {["Awarness_Campaigns/Programs"].map((field, index) => {
                 const customLabels = {
-                  Awarness_Campaigns_Programs: "Awareness Campaigns Launched",
+                  "Awarness_Campaigns/Programs": "Awareness Campaigns Launched",
                 };
                 return (
                   <div key={index} className="flex flex-column gap-2">
@@ -339,7 +336,7 @@ const WaterModify = ({ waterData, waterSetData, isOpen, onClose }) => {
             </div>
           </div>
           {/* 6: Infrastructure Data */}
-          <div className="w-full flex flex-column">
+          {/* <div className="w-full flex flex-column">
             <h3>Infrastructure Data</h3>
             <div className="flex align-items-center justify-content-start gap-4 flex-wrap">
               {[
@@ -386,7 +383,7 @@ const WaterModify = ({ waterData, waterSetData, isOpen, onClose }) => {
                 );
               })}
             </div>
-          </div>
+          </div> */}
           <div className="flex align-items-center justify-content-end  w-full">
             <Button
               label="Update"
