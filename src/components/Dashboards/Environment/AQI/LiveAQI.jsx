@@ -805,6 +805,8 @@ const LiveAQI = ({ show }) => {
     setScore(calculatedScore);
   };
 
+  const labels = ["50", "100", "200", "300", "400", "400+"];
+
   // Date Range Dropdown Options
   const dateRangeOptions = [
     { label: "Weekly", value: "weekly" },
@@ -1136,7 +1138,7 @@ const LiveAQI = ({ show }) => {
               ))}
             </div>
           </div>
-          <ColorScaleBar />
+          <ColorScaleBar labels={labels}/>
         </div>
         <div className="flex w-full bg-white border-round p-2">
           <AqiMap

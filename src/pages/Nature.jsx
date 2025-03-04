@@ -15,6 +15,8 @@ import { useUser } from "components/context/UserContext";
 import Legends from "../components/DashboardUtility/components/Legends";
 import ParameterCard from "../components/DashboardUtility/components/ParameterCard";
 import LiveAqiScore from "components/Dashboards/Environment/AQI/LiveAqiScore";
+import { useEffect } from "react";
+import { fetchScore } from "components/Dashboards/Environment/Water/FetchWQIandScore";
 
 const Nature = () => {
   const natureLables = [
@@ -34,6 +36,11 @@ const Nature = () => {
     // You can also perform additional actions with the score here
   };
   const { waterScore } = useUser();
+  const [scoreData, setScoreData] = useState(0);
+
+  useEffect(() => {
+    fetchScore().then((score) => setScoreData(score));
+  }, []);
 
   const metrics = [
     {
@@ -45,7 +52,7 @@ const Nature = () => {
     {
       img: water,
       title: "Water Management",
-      score: waterScore,
+      score: scoreData,
       path: pathConstants.WATER,
     },
     {
