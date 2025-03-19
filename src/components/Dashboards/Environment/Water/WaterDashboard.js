@@ -635,8 +635,8 @@ const WaterDashboard = ({ show }) => {
                             (
                               (displayValues.Population * 135) /
                               1000000
-                            ).toFixed(2)
-                        ).toFixed(2)}{" "}
+                            )
+                        ).toFixed(2)*100}{" "}
                         %
                       </span>
                     </p>
@@ -681,15 +681,28 @@ const WaterDashboard = ({ show }) => {
                   )}
                   <div className="flex gap-2 align-items-start">
                     <li className="p-0 m-0 text-primary1 font-medium text-sm">
-                      There is already a deficit of{" "}
-                      <span className="p-0 m-0 text-red-500 font-semibold text-sm">
-                        {(
+                      {displayValues.Current_Supply_MLD >=
+                      (displayValues.Population * 135) / 1000000
+                        ? "There is a surplus of "
+                        : "There is a deficit of "}
+                      <span
+                        className={
+                          displayValues.Current_Supply_MLD >=
+                          (displayValues.Population * 135) / 1000000
+                            ? "text-green-500 font-semibold"
+                            : "text-red-500 font-semibold"
+                        }
+                      >
+                        {Math.abs(
                           (displayValues.Population * 135) / 1000000 -
-                          displayValues.Current_Supply_MLD
+                            displayValues.Current_Supply_MLD
                         ).toFixed(2)}{" "}
                         MLD
                       </span>{" "}
-                      in water supply, which will worsen with population growth.
+                      {displayValues.Current_Supply_MLD >=
+                      (displayValues.Population * 135) / 1000000
+                        ? "which will improve with population growth."
+                        : "which will worsen with population growth."}
                     </li>
                   </div>
                   {selectedValues.zone === "All Zones" && (
