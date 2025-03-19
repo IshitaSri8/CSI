@@ -29,6 +29,7 @@ import score from "components/DashboardUtility/Constants/score";
 import { getScoreColor } from "components/DashboardUtility/scoreColor";
 import { Menu } from "primereact/menu";
 import Upload from "components/DashboardUtility/Popups/Upload";
+import HealthcareModify from "./HealthcareModify";
 
 const Healthcare = ({ show }) => {
   const [ReportVisible, setReportVisible] = useState(false);
@@ -360,12 +361,12 @@ const Healthcare = ({ show }) => {
                   onHide={hideUploadDialog}
                   parameter={"healthcare"}
                 />
-                {/* <HealthcareModify
-                      healthData={data}
-                      healthSetData={setData}
-                      isOpen={modifyDialogVisible}
-                      onClose={handleCloseModifyDialog}
-                    /> */}
+                <HealthcareModify
+                  healthData={data}
+                  healthSetData={setData}
+                  isOpen={modifyDialogVisible}
+                  onClose={handleCloseModifyDialog}
+                />
               </>
             )}
             <Button
